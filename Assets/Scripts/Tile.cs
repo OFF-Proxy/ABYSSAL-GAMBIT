@@ -8,10 +8,84 @@ public class Tile : MonoBehaviour
     public Color validColor;
     public Color wrongColor;
 
+    private SpriteRenderer tileRenderer;
+    private Sprite baseSprite;
+    private Color baseColor = Color.white;
+    private Sprite hoverSprite;
+    private bool initialized;
+
+    private void Awake()
+    {
+        Initialize();
+    }
+
+    public void Configure(Sprite hoverSprite, Color baseColor, Color validColor, Color wrongColor)
+    {
+        Initialize();
+        this.hoverSprite = hoverSprite;
+        this.baseColor = baseColor;
+        this.validColor = validColor;
+        this.wrongColor = wrongColor;
+        ResetHighlight();
+    }
+
     public void SetHighlight(bool active, bool valid)
     {
-        highlightSprite.gameObject.SetActive(active);
+        Initialize();
 
-        highlightSprite.color = valid ? validColor : wrongColor;
+        SpriteRenderer targetRenderer = GetHighlightRenderer();
+        if (targetRenderer == null)
+            return;
+
+        if (!active)
+        {
+            ResetHighlight();
+            return;
+        }
+
+        if (targetRenderer != tileRenderer)
+            targetRenderer.gameObject.SetActive(true);
+
+        targetRenderer.sprite = hoverSprite != null ? hoverSprite : baseSprite;
+        targetRenderer.color = valid ? validColor : wrongColor;
+    }
+
+    private void Initialize()
+    {
+        if (initialized)
+            return;
+
+        tileRenderer = GetComponent<SpriteRenderer>();
+        if (tileRenderer != null)
+        {
+            baseSprite = tileRenderer.sprite;
+            baseColor = tileRenderer.color;
+        }
+
+        initialized = true;
+    }
+
+    private SpriteRenderer GetHighlightRenderer()
+    {
+        if (highlightSprite != null && highlightSprite.gameObject != gameObject)
+            return highlightSprite;
+
+        return tileRenderer;
+    }
+
+    private void ResetHighlight()
+    {
+        SpriteRenderer targetRenderer = GetHighlightRenderer();
+        if (targetRenderer == null)
+            return;
+
+        if (tileRenderer != null)
+        {
+            tileRenderer.sprite = baseSprite;
+            tileRenderer.color = baseColor;
+        }
+
+        if (targetRenderer != tileRenderer)
+            targetRenderer.gameObject.SetActive(false);
     }
 }

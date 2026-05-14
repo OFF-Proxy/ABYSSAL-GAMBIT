@@ -6,17 +6,21 @@ public class RangedEntity : BaseEntity
 {
     protected override void OnRoundStart()
     {
-        FindTarget();
+        if (CanAct)
+            FindTarget();
     }
 
     public void Update()
     {
-        if (!HasEnemy)
-        {
-            FindTarget();
-        }
+        if (!CanAct)
+            return;
 
-        if (IsInRange && !moving)
+        RefreshTargetForCombat();
+
+        if (!HasEnemy)
+            return;
+
+        if (IsInRange)
         {
             //In range for attack!
             if (canAttack)

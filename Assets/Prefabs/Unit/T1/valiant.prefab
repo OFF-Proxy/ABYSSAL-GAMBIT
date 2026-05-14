@@ -15,7 +15,7 @@ GameObject:
   - component: {fileID: -5466775923503783622}
   - component: {fileID: -2211097045354361776}
   - component: {fileID: -6429099661173045421}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: valiant
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,7 +32,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.18, y: 1.18, z: 1.18}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -57,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b662b45ed820d034aa12e574720f9748, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -1996146190, guid: 9795f7747ddca44478b9694cdf8caf78, type: 3}
+  m_Sprite: {fileID: 63032477, guid: f4d1b511932a192408b81c595217aefb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -125,6 +125,8 @@ MonoBehaviour:
   barPrefab: {fileID: 8180099699047442472, guid: 184c919c608b8754991c05ea50ceee9e, type: 3}
   spriteRender: {fileID: 2177345008964177239}
   animator: {fileID: 4856813160529179336}
+  team1OutlineMaterial: {fileID: 2100000, guid: b662b45ed820d034aa12e574720f9748, type: 2}
+  team2OutlineMaterial: {fileID: 2100000, guid: 5b82f9fdffb732b4abd2ef040b1a5bfa, type: 2}
   baseDamage: 1
   baseHealth: 3
   range: 1
@@ -173,7 +175,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.8, y: 0.8}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &-2211097045354361776
 MonoBehaviour:

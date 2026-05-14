@@ -3,14 +3,34 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+#if UNITY_EDITOR
+using UnityEditor;
+using UnityEditor.SceneManagement;
+#endif
 
 public class GridManager : Manager<GridManager>
 {  
     public GameObject terrainGrid; // ゲーム内のタイルマップを参照
+    public UnityEngine.Tilemaps.Tile hoverTile;
+    public int boardColumns = 10;
+    public int playerDeploymentColumns = 5;
+    public int benchRows = 8;
+    public float benchLeftX = -6.5f;
+    public float benchRightX = 6.5f;
+    public float benchBottomY = -3.5f;
+    public float benchSpacing = 1f;
+    public Color playerTileColor = Color.white;
+    public Color blockedPlacementTileColor = new Color(1f, 0.72f, 0.72f, 1f);
+    public Color validHoverColor = new Color(0.75f, 1f, 0.9f, 1f);
+    public Color invalidHoverColor = new Color(1f, 0.35f, 0.35f, 1f);
+    public float tilePickRadius = 0.72f;
     protected Graph graph; // グリッドのノードとエッジを管理するグラフ
     protected Dictionary<Team, int> startPositionPerTeam; // 各チームの初期配置位置を保持する辞書
 
     List<Tile> allTiles = new List<Tile>();
+    Dictionary<Tile, Node> nodeByTile = new Dictionary<Tile, Node>();
+    Dictionary<Node, int> columnByNode = new Dictionary<Node, int>();
+    HashSet<Tile> configuredBenchTiles = new HashSet<Tile>();
 
         /// 初期化時に呼び出され、グラフを生成し、各チームの開始位置を設定する
     protected void Awake()
@@ -19,6 +39,9 @@ public class GridManager : Manager<GridManager>
         allTiles = terrainGrid.GetComponentsInChildren<Tile>().ToList();
         
         InitializeGraph();
+        InitializeTileLookup();
+        InitializeNodeColumns();
+        ConfigureTiles();
         startPositionPerTeam = new Dictionary<Team, int>();
         startPositionPerTeam.Add(Team.Team1, 0);
         startPositionPerTeam.Add(Team.Team2, graph.Nodes.Count -1);
@@ -26,26 +49,34 @@ public class GridManager : Manager<GridManager>
 
     public Node GetFreeNode(Team forTeam)
     {
-        int startIndex = startPositionPerTeam[forTeam]; // チームの開始位置を取得
-        int currentIndex = startIndex;
+        IEnumerable<Node> candidates = graph.Nodes.Where(node => IsDeploymentNode(forTeam, node) && !node.IsOccupied);
 
-        // ノードがすでに占有されている場合、次の空いているノードを探す
-        while(graph.Nodes[currentIndex].IsOccupied)
-        {
-            if(startIndex == 0)
-            {
-                currentIndex++;
-                if(currentIndex == graph.Nodes.Count) // すべてのノードが占有されている場合
-                    return null;
-            }
-            else
-            {
-                currentIndex--;
-                if(currentIndex == -1) // すべてのノードが占有されている場合
-                    return null;
-            }
-        }
-        return graph.Nodes[currentIndex];
+        if (forTeam == Team.Team1)
+            candidates = candidates.OrderBy(node => GetColumnIndex(node)).ThenBy(node => node.worldPosition.y);
+        else
+            candidates = candidates.OrderByDescending(node => GetColumnIndex(node)).ThenBy(node => node.worldPosition.y);
+
+        return candidates.FirstOrDefault();
+    }
+
+    public bool CanManuallyPlace(Team team, Node node)
+    {
+        return team == Team.Team1 && IsDeploymentNode(team, node);
+    }
+
+    public bool IsDeploymentNode(Team team, Node node)
+    {
+        if (node == null || boardColumns <= 0)
+            return false;
+
+        int column = GetColumnIndex(node);
+        if (column < 0)
+            return false;
+
+        if (team == Team.Team1)
+            return column < playerDeploymentColumns;
+
+        return column >= boardColumns - playerDeploymentColumns;
     }
 
     public List<Node> GetPath(Node from, Node to)
@@ -58,20 +89,120 @@ public class GridManager : Manager<GridManager>
         return graph.Neighbors(to);
     }
 
+    public List<Node> GetNodesInRange(Node center, float rangeInTiles)
+    {
+        if (center == null || graph == null)
+            return new List<Node>();
+
+        float range = Mathf.Max(0f, rangeInTiles) + 0.05f;
+        return graph.Nodes
+            .Where(node => node != null && Vector3.Distance(node.worldPosition, center.worldPosition) <= range)
+            .ToList();
+    }
+
     public Node GetNodeForTile(Tile t)
     {
-        var allNodes = graph.Nodes;
-
-        for (int i = 0; i < allNodes.Count; i++)
-        {
-            if (t.transform.GetSiblingIndex() == allNodes[i].index)
-            {
-                return allNodes[i];
-            }
-        }
+        if (t != null && nodeByTile.TryGetValue(t, out Node node))
+            return node;
 
         return null;
     }
+
+    public Tile GetTileAtWorldPosition(Vector3 worldPosition)
+    {
+        Tile closestTile = null;
+        float closestDistance = tilePickRadius * tilePickRadius;
+
+        for (int i = 0; i < allTiles.Count; i++)
+        {
+            Vector3 tilePosition = allTiles[i].transform.position;
+            float distance = (tilePosition - worldPosition).sqrMagnitude;
+            if (distance <= closestDistance)
+            {
+                closestDistance = distance;
+                closestTile = allTiles[i];
+            }
+        }
+
+        return closestTile;
+    }
+
+    public void ConfigureBenchTile(Tile tile)
+    {
+        if (tile == null || configuredBenchTiles.Contains(tile))
+            return;
+
+        tile.Configure(GetHoverSprite(), playerTileColor, validHoverColor, invalidHoverColor);
+        configuredBenchTiles.Add(tile);
+    }
+
+#if UNITY_EDITOR
+    [ContextMenu("Build Bench Tiles")]
+    public void BuildBenchTiles()
+    {
+        Transform gridParent = terrainGrid != null && terrainGrid.transform.parent != null
+            ? terrainGrid.transform.parent
+            : transform;
+
+        GameObject tilePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Tiles/SingleTile.prefab");
+        if (tilePrefab == null)
+        {
+            Debug.LogError("Bench build failed: Assets/Prefabs/Tiles/SingleTile.prefab was not found.");
+            return;
+        }
+
+        Transform leftBench = RebuildBenchParent(gridParent, "BenchLeft");
+        Transform rightBench = RebuildBenchParent(gridParent, "BenchRight");
+
+        for (int i = 0; i < benchRows; i++)
+        {
+            float y = benchBottomY + i * benchSpacing;
+            CreateBenchTile(tilePrefab, leftBench, $"BenchTile_L_{i}", new Vector3(benchLeftX, y, 0f));
+            CreateBenchTile(tilePrefab, rightBench, $"BenchTile_R_{i}", new Vector3(benchRightX, y, 0f));
+        }
+
+        GameManager gameManager = FindObjectOfType<GameManager>();
+        if (gameManager != null)
+        {
+            gameManager.team1BenchTilesParent = leftBench;
+            gameManager.team2BenchTilesParent = rightBench;
+            gameManager.benchSlotCount = benchRows;
+            EditorUtility.SetDirty(gameManager);
+        }
+
+        EditorUtility.SetDirty(this);
+        EditorSceneManager.MarkSceneDirty(gameObject.scene);
+    }
+
+    private Transform RebuildBenchParent(Transform gridParent, string benchName)
+    {
+        Transform existing = gridParent.Find(benchName);
+        if (existing != null)
+            DestroyImmediate(existing.gameObject);
+
+        GameObject bench = new GameObject(benchName);
+        Undo.RegisterCreatedObjectUndo(bench, $"Create {benchName}");
+        bench.transform.SetParent(gridParent);
+        bench.transform.localPosition = Vector3.zero;
+        bench.transform.localRotation = Quaternion.identity;
+        bench.transform.localScale = Vector3.one;
+        return bench.transform;
+    }
+
+    private void CreateBenchTile(GameObject tilePrefab, Transform parent, string tileName, Vector3 localPosition)
+    {
+        GameObject tileObject = (GameObject)PrefabUtility.InstantiatePrefab(tilePrefab, parent);
+        tileObject.name = tileName;
+        tileObject.transform.localPosition = localPosition;
+        tileObject.transform.localRotation = Quaternion.identity;
+        tileObject.transform.localScale = Vector3.one;
+
+        if (tileObject.GetComponent<Tile>() == null)
+            tileObject.AddComponent<Tile>();
+
+        Undo.RegisterCreatedObjectUndo(tileObject, $"Create {tileName}");
+    }
+#endif
     
     /// グラフを初期化し、タイルマップに基づいてノードとエッジを作成する
     private void InitializeGraph()
@@ -97,6 +228,87 @@ public class GridManager : Manager<GridManager>
                 }
             }
         }
+    }
+
+    private void InitializeTileLookup()
+    {
+        nodeByTile.Clear();
+
+        int count = Mathf.Min(allTiles.Count, graph.Nodes.Count);
+        for (int i = 0; i < count; i++)
+        {
+            Tile tile = allTiles[i];
+            Node node = graph.Nodes[i];
+            nodeByTile[tile] = node;
+        }
+    }
+
+    private void InitializeNodeColumns()
+    {
+        columnByNode.Clear();
+
+        List<float> columns = new List<float>();
+        foreach (Node node in graph.Nodes.OrderBy(node => node.worldPosition.x))
+        {
+            if (!columns.Any(x => Mathf.Abs(x - node.worldPosition.x) <= 0.05f))
+                columns.Add(node.worldPosition.x);
+        }
+
+        for (int i = 0; i < graph.Nodes.Count; i++)
+            columnByNode[graph.Nodes[i]] = GetClosestColumn(columns, graph.Nodes[i].worldPosition.x);
+    }
+
+    private void ConfigureTiles()
+    {
+        Sprite hoverSprite = GetHoverSprite();
+
+        for (int i = 0; i < allTiles.Count; i++)
+        {
+            Node node = GetNodeForTile(allTiles[i]);
+            bool canPlaceTeam1 = IsDeploymentNode(Team.Team1, node);
+            Color baseColor = canPlaceTeam1 ? playerTileColor : blockedPlacementTileColor;
+            allTiles[i].Configure(hoverSprite, baseColor, validHoverColor, invalidHoverColor);
+        }
+    }
+
+    private Sprite GetHoverSprite()
+    {
+        if (hoverTile != null)
+            return hoverTile.sprite;
+
+#if UNITY_EDITOR
+        hoverTile = AssetDatabase.LoadAssetAtPath<UnityEngine.Tilemaps.Tile>("Assets/Prefabs/Tiles/tile_hover.asset");
+        if (hoverTile != null)
+            return hoverTile.sprite;
+#endif
+
+        return null;
+    }
+
+    private int GetColumnIndex(Node node)
+    {
+        if (node != null && columnByNode.TryGetValue(node, out int column))
+            return column;
+
+        return -1;
+    }
+
+    private int GetClosestColumn(List<float> columns, float xPosition)
+    {
+        int closestIndex = -1;
+        float closestDistance = Mathf.Infinity;
+
+        for (int i = 0; i < columns.Count; i++)
+        {
+            float distance = Mathf.Abs(columns[i] - xPosition);
+            if (distance < closestDistance)
+            {
+                closestDistance = distance;
+                closestIndex = i;
+            }
+        }
+
+        return closestIndex;
     }
 
     public int fromIndex = 0;

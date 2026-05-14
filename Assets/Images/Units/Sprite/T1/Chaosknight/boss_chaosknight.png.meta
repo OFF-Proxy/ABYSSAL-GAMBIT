@@ -1,0 +1,2050 @@
+fileFormatVersion: 2
+guid: cc245685f7536b1418234d705cf025cd
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Chaosknight_Default_000
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55a382a6370617d44a255d9889d2942c
+      internalID: -876603473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Default_001
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa09219a1f4ad4c409438b2d73406ed6
+      internalID: -329572167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Default_002
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9cde78119efd4b4482cfecae0a49414
+      internalID: 643916518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Default_003
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 771ba811281a1ed46ad679c7f348439c
+      internalID: -96119924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Default_004
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a07425c191a7cba478a2bf9a982d95b8
+      internalID: 154733534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Default_005
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3a059115aa369b41aaa9c60b1682543
+      internalID: -1581617808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Default_006
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe2b92f57a175d54a8b948a17d696498
+      internalID: -1062320878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Default_007
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ae95cd7a409b02419d2817f9c704b90
+      internalID: -1265879448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Default_008
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf26c260315b9904d97c8355b6ab1c68
+      internalID: -1968050730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Default_009
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2c0cd1d9a186374ea7ca9beacbf9d0d
+      internalID: 895235622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Default_010
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26b221396142de742a40753d84aa328c
+      internalID: 952946486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Default_011
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9e484496bccd3b4494c74dcf5b253e2
+      internalID: 368415330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Default_012
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f308c830f961f44ea380ea3d7faeb60
+      internalID: -2038501710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Default_013
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 982f91d851dfc504d978573452a5f096
+      internalID: -339825335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Move_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa4d1f5fa0676eb4db294e85f6994695
+      internalID: -800066366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Move_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6598966c1d6aad42b7dcfdded23607f
+      internalID: 361858041
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Move_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b51dc53d34937be4288ffd8596bac6c1
+      internalID: -1320142035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Move_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12ca47564cfb94244843b2e30fe76103
+      internalID: -267096999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2829e9476c55fab4788f07dede414be8
+      internalID: 445586468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4825a9a9f6a2582419d2d30fc64c2385
+      internalID: -2021257742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Move_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edb6bd72b1194424d893ec8b2b069c00
+      internalID: 2045172747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Move_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 487d38094bd32814b913bfff5e7c8678
+      internalID: 1813905507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Move_008
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a88f261aa9f6394cbb63c202ed6b97f
+      internalID: 70307324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Move_009
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a4ca8dbbe61fa94f9de5194d04132d1
+      internalID: -1709106592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6cb2b72c74bc524abf11a6ae5124045
+      internalID: 722053689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b5fb2493a6d46145b1fb0badd693d92
+      internalID: 2139579897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb0893c987b27ce4f9f0dea72e6e7c84
+      internalID: -2080183166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d601fa09431d3b841b239f5db168a12a
+      internalID: 1769738603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4124bd2a5edad2247821f0a0d8089a95
+      internalID: 1080184906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 569373ee04f479a49bc60f0faec846a8
+      internalID: 429140882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77982b2befdd82d408f78240f6c4c3e9
+      internalID: 1558513051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c8bf6c8c0c1287479ffbacad637ea9d
+      internalID: -1781411891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 337d009622bc4a345989a30382ea03e6
+      internalID: -718170598
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93c2ffa0e2b9dc34494f1253456ce881
+      internalID: -602624668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23b9dc4a3b6792f4fb820a3671d82f44
+      internalID: -1866277790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8e8e0258fc9830409bf9a4cec74a8cc
+      internalID: 1538018357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb8d198c31bad354182a52ba2f273aab
+      internalID: -706891528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36c6ab47df24f76479bf67cd07757028
+      internalID: -642728077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2d23924ff7caf74aa3f9f23f8c60e16
+      internalID: -321614078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8463e50676291174abca5cf01b9ef866
+      internalID: 171553894
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e58ae5987172208469aa67036b5be04a
+      internalID: -1896989362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7061b4188599f694c94a48e0dc82e5bf
+      internalID: 1134723146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c1463a76a540ec479d55fa42ba9d89f
+      internalID: 248022362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6e22f451901feb4086344cd92139ebc
+      internalID: 423887936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c271b1b85e256fe4e8abd3a9ef1d0832
+      internalID: -1589483368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ac8fedcc5c01c849a115034443a90bd
+      internalID: 1831798018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 291c484313d20d24bae47cf24ccab058
+      internalID: 1448503802
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_023
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6276000c4cf6cc94987d940ce79544f2
+      internalID: 1251388849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_024
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e64352271d54994cbdf530e5744ab11
+      internalID: -556862271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_025
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f092ba30dd7b87d4c827c6061e9898b7
+      internalID: -124371357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_026
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd5acf6d87b48a549b06d0e82f81fc56
+      internalID: 1185050913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_027
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6304687d92bd45f4a934ab8fd85a4a53
+      internalID: -155418089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_028
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47f4569bd1a0efa4baea9c82b6c58ceb
+      internalID: -1286441114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_029
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7319b05df730a1541ad15ac33bd942a1
+      internalID: -1945309516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_030
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06bbbdb2c06da5040b276e4366bd1d09
+      internalID: -494342987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_031
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5636065c09ba1a042bea35957196853b
+      internalID: 1303118192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_032
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c07ad8bdca6bc34a80e963efe8f71af
+      internalID: -493892735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_033
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 398844f17a470324cbcd2ef8d1a724f1
+      internalID: -800090634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_034
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d34d17ae9a98254abef3a29d7f6f464
+      internalID: 160306869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_035
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 755697370eb195c418bf6f72d6a0568d
+      internalID: -706927560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_036
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7d91fabb9973554c8a2d56ac4aa71eb
+      internalID: -685885158
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_037
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4385ae63a24dd9d4b8e495ea8dde3711
+      internalID: 2059798724
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Attack_038
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7410bbf3396e844c9ab705f26acc848
+      internalID: 1816092335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a10bac20ba999c44782a1bf0f297fba1
+      internalID: -1638882333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3155ea8eebd62d948b4624608c868052
+      internalID: 1592386341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99506118d6429ea4dae3801449e2f911
+      internalID: -1810524078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6bf217425e81984395ca057ab8c609c
+      internalID: 1505659860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef113d5753fb3c24e8de9255e7fa6d64
+      internalID: -18789745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14f2fbb934d9b9e46aef6e456bc4561a
+      internalID: 1530603867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd9272a6d35022543a49d1629363caf9
+      internalID: -1061760505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55d08fbcd96cec240ae59246cd35e047
+      internalID: 2028060495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a03278ccf621d9142918ec5d2acdd118
+      internalID: 1685719709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2fd36f333c5fdc42a19931f50117ed2
+      internalID: -1556622795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee780b42aba36a247bf90d48190752de
+      internalID: -1100925774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79e12927a2d8fb3459dbdcf6b12ad978
+      internalID: -712870967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5faed151f53c65445b8b87f8fc2def7e
+      internalID: 1198994862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37109861e5dd2e04bb28b4cd0290d41c
+      internalID: 1134101349
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3962acc84312c84ab4229e51b858801
+      internalID: 1117600033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_015
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a9f608c0110c024bb0e9c5ea16203e5
+      internalID: 1044515208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_016
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c84b92c4bf2f88343aa77f006d242705
+      internalID: 1049441171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_017
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4c71ead1f37fef4e925d55d1bb545ba
+      internalID: 895377722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_018
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97c05436cfd9c76479e6263474f8e916
+      internalID: 269244692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_019
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cea06ad3af9e1904d957d0575db173c5
+      internalID: -590303136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_020
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2efbc2ab72b67814da84e3633fe4feea
+      internalID: -1484161309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_021
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61bf72c6e97b9824b8a299e37a1dcd7f
+      internalID: -2085592469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_022
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d54dede54bc5c746a2cc1386ed196bd
+      internalID: 1380237072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_023
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59c4f56a9219b054bbdf5f1f322036e5
+      internalID: 1976097369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Chaosknight_Dead_024
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fad166ab03ba8e349816181f61cab287
+      internalID: 1107440114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Chaosknight_Attack_000: 722053689
+      Chaosknight_Attack_001: 2139579897
+      Chaosknight_Attack_002: -2080183166
+      Chaosknight_Attack_003: 1769738603
+      Chaosknight_Attack_004: 1080184906
+      Chaosknight_Attack_005: 429140882
+      Chaosknight_Attack_006: 1558513051
+      Chaosknight_Attack_007: -1781411891
+      Chaosknight_Attack_008: -718170598
+      Chaosknight_Attack_009: -602624668
+      Chaosknight_Attack_010: -1866277790
+      Chaosknight_Attack_011: 1538018357
+      Chaosknight_Attack_012: -706891528
+      Chaosknight_Attack_013: -642728077
+      Chaosknight_Attack_014: -321614078
+      Chaosknight_Attack_015: 171553894
+      Chaosknight_Attack_016: -1896989362
+      Chaosknight_Attack_017: 1134723146
+      Chaosknight_Attack_018: 248022362
+      Chaosknight_Attack_019: 423887936
+      Chaosknight_Attack_020: -1589483368
+      Chaosknight_Attack_021: 1831798018
+      Chaosknight_Attack_022: 1448503802
+      Chaosknight_Attack_023: 1251388849
+      Chaosknight_Attack_024: -556862271
+      Chaosknight_Attack_025: -124371357
+      Chaosknight_Attack_026: 1185050913
+      Chaosknight_Attack_027: -155418089
+      Chaosknight_Attack_028: -1286441114
+      Chaosknight_Attack_029: -1945309516
+      Chaosknight_Attack_030: -494342987
+      Chaosknight_Attack_031: 1303118192
+      Chaosknight_Attack_032: -493892735
+      Chaosknight_Attack_033: -800090634
+      Chaosknight_Attack_034: 160306869
+      Chaosknight_Attack_035: -706927560
+      Chaosknight_Attack_036: -685885158
+      Chaosknight_Attack_037: 2059798724
+      Chaosknight_Attack_038: 1816092335
+      Chaosknight_Dead_000: -1638882333
+      Chaosknight_Dead_001: 1592386341
+      Chaosknight_Dead_002: -1810524078
+      Chaosknight_Dead_003: 1505659860
+      Chaosknight_Dead_004: -18789745
+      Chaosknight_Dead_005: 1530603867
+      Chaosknight_Dead_006: -1061760505
+      Chaosknight_Dead_007: 2028060495
+      Chaosknight_Dead_008: 1685719709
+      Chaosknight_Dead_009: -1556622795
+      Chaosknight_Dead_010: -1100925774
+      Chaosknight_Dead_011: -712870967
+      Chaosknight_Dead_012: 1198994862
+      Chaosknight_Dead_013: 1134101349
+      Chaosknight_Dead_014: 1117600033
+      Chaosknight_Dead_015: 1044515208
+      Chaosknight_Dead_016: 1049441171
+      Chaosknight_Dead_017: 895377722
+      Chaosknight_Dead_018: 269244692
+      Chaosknight_Dead_019: -590303136
+      Chaosknight_Dead_020: -1484161309
+      Chaosknight_Dead_021: -2085592469
+      Chaosknight_Dead_022: 1380237072
+      Chaosknight_Dead_023: 1976097369
+      Chaosknight_Dead_024: 1107440114
+      Chaosknight_Default_000: -876603473
+      Chaosknight_Default_001: -329572167
+      Chaosknight_Default_002: 643916518
+      Chaosknight_Default_003: -96119924
+      Chaosknight_Default_004: 154733534
+      Chaosknight_Default_005: -1581617808
+      Chaosknight_Default_006: -1062320878
+      Chaosknight_Default_007: -1265879448
+      Chaosknight_Default_008: -1968050730
+      Chaosknight_Default_009: 895235622
+      Chaosknight_Default_010: 952946486
+      Chaosknight_Default_011: 368415330
+      Chaosknight_Default_012: -2038501710
+      Chaosknight_Default_013: -339825335
+      Chaosknight_Move_000: -800066366
+      Chaosknight_Move_001: 361858041
+      Chaosknight_Move_002: -1320142035
+      Chaosknight_Move_003: -267096999
+      Chaosknight_Move_004: 445586468
+      Chaosknight_Move_005: -2021257742
+      Chaosknight_Move_006: 2045172747
+      Chaosknight_Move_007: 1813905507
+      Chaosknight_Move_008: 70307324
+      Chaosknight_Move_009: -1709106592
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

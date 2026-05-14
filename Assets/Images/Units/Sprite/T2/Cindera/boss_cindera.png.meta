@@ -1,0 +1,2050 @@
+fileFormatVersion: 2
+guid: 121eac40f817e4642a90e310b3241bdc
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Cindera_Default_000
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 919ad7128a888a3419cd05b95cbce9de
+      internalID: 1630608509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Default_001
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8870307844ed90e4d83edde73ace9f46
+      internalID: 1561659742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Default_002
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3201769753e72b849ae6b8fcac82bcbb
+      internalID: 809643853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Default_003
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba6091848821ca04f9788042a23593ea
+      internalID: 1530207294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Default_004
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83afbd83bbd49954b9bb8bff5fcbb679
+      internalID: 1354753177
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Default_005
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a77b3c080519f134685cfed2a265c5a5
+      internalID: -1259973786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Default_006
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef957e4f840c1094aaa76ec845b467bf
+      internalID: -219861480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Default_007
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cd580fe8e1672347a886c96ed0b8a4e
+      internalID: -1731759599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Default_008
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d34cac23d94d814ba711235c5d41de9
+      internalID: -1736889878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Default_009
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba0569fb7c0d6874eb69f6e7d1a8d493
+      internalID: 1505899235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Default_010
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d885f4311ffa1d40bd5541fba8088c0
+      internalID: -1845390926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Default_011
+      rect:
+        serializedVersion: 2
+        x: 1834
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 644fa1d8eee29824083bd9ace5699878
+      internalID: -1495277634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Default_012
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f19c16756f5a024cbb975e6b7c2a763
+      internalID: 771075929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Default_013
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 159f41ec00a64e14d869d8287f812e57
+      internalID: -2020983917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Move_000
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c08de19f5a1dda54ebfd4e5432a4ac84
+      internalID: 1606947260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Move_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46e0fef887b16544ca5ed57379475436
+      internalID: -1284756985
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Move_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2503d37d4748832448ddd42d2269ee0d
+      internalID: -652867208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Move_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 677518c9e5c67e849b3b3567546be7ee
+      internalID: -957308672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f41f70f03edc244bb68c0487caeb4b8
+      internalID: -871176526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 110c4c1c574a6d14fa5b6e6df7927b62
+      internalID: -1387759996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Move_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e29ffb94635fabf488a25349ea3cd296
+      internalID: -1625834522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Move_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 590c806afdd3a28478a8437e0f8ed933
+      internalID: 1486896205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90380ca92dd6995478a60242723506d0
+      internalID: -286759189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 1834
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34cf69ca8d42f104dbc84537fa312add
+      internalID: -75332071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 1834
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: caae9b60891a0374c8c52a305b33d568
+      internalID: -1809487923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 1834
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20b8875cce6bc9a45b0644c75ca73b64
+      internalID: 111299850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 1703
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f83e5105a1ee4574f8d16380b846e274
+      internalID: 1643279881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 1703
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccfb2e4008c174842ac80fb91739e13f
+      internalID: 518254407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 1703
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2706a835615a58c4b91354527622c338
+      internalID: 336118956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 1703
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6370d78cb9ed5ca4781d619837bc6fc8
+      internalID: 1780447197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 1703
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fff641a765cf244284d074fb6bcbb65
+      internalID: -88968799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 1703
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d7ea514ae954c2428920ea9a06f328d
+      internalID: 1851464359
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 1703
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a61760975fca9b8418b1bd58aebae0eb
+      internalID: 28640328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 1572
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc70a43831225fb49a8461ff0bf9ccc9
+      internalID: 1920359791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 1572
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26f2bdce058fb354791cadf281f5f1eb
+      internalID: -886346455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 1572
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcf4b69c2f7bef74f8afb7279262ca7e
+      internalID: 1230787127
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 1572
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3ed9c49d27d02d488506c2e6add402a
+      internalID: 69153863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 1572
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6caac4a746fdd8e49999147692aedf48
+      internalID: -830451178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 1572
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bb465e48632cd84b929caefad81f444
+      internalID: -36529573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 1572
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3790cdfdd08155d469d17f4d3814b5e1
+      internalID: -388789065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be4c2e992dfeb724abd0b948d5ab83a1
+      internalID: -194140262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5b12d59526078f4c92f49363eb1dbc5
+      internalID: -977306186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f449324b3949750408270ad1ee9384f1
+      internalID: 1245437438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8442f91b77333ca4eb25d337489b62bd
+      internalID: 361329037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 875e6e1201793e04d8b0c1d66def2440
+      internalID: 1634374903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_023
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82ab2b03babd6374184a004accaef9ee
+      internalID: -1191508670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_024
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94eb81183fac8d74a847d6119b929171
+      internalID: 1118219533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_025
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b197fa9bdcd1ab644b9cf26052f8ade3
+      internalID: 1456373731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_026
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cf2e3bb90055cb4c9e1cc86ab6c945d
+      internalID: 1807609182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_027
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9e9a8d8fb024ea4e8c0d2bc47cb39f5
+      internalID: 1093152529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_028
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68b858aa1f7f6234797e44ff60c35b1f
+      internalID: -242276142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_029
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc7606b59ae79fc4098b42d8fab26763
+      internalID: 889494591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_030
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eebf3f6e7a2d8f64bacc140ed9b68d54
+      internalID: 527589443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_031
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b4fc08773012b64084718b43c15866c
+      internalID: 1552187654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_032
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 248705ebf0622e8439da36e0fe444c3e
+      internalID: -1399291723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_033
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d864de144d6015d40ac6d9e1fcd353fb
+      internalID: -1628567702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_034
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 657d48aeafd5290489010715ce2276f9
+      internalID: -1224014416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_035
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54fc53f2ee0092340a92922b0d2cd4df
+      internalID: -941558921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_036
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3d2bf0a3342e8e479e9ea7b0175e262
+      internalID: 1301452065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_037
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11d918312d112484b83c5a00f6d88922
+      internalID: -289661241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_038
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3618b3010ac2a04aa0c6cbe8cb9b9d1
+      internalID: -947677804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Attack_039
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef7c08eb9c2974f4884b7ab776b43f1c
+      internalID: 1024287880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0bd071951043764a98413aad29cf45b
+      internalID: -1985449136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ae3dadf9cc945446ab724f503249d8f
+      internalID: 1303958285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a97be1d44795c74cbce6810a9eec49f
+      internalID: 1913463432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8209276cd7cdc104fa26988e2fced8b7
+      internalID: 1334222260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f5ba660e59cf1e4ab8799c53bf490a4
+      internalID: 1907403690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cb8d69ebbf5e9640acf9ae054acbeb7
+      internalID: -1955272424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d4742f253c063444a17e55469901b42
+      internalID: 1373850333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65edb29369a42de438c4a71bae40a4fc
+      internalID: 280119493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ac7a245db453334d83a0797d61ce188
+      internalID: 1845861129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2938fa3d8a214354d933dd65588901d3
+      internalID: 181591710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d964a0dd91812de42b12c0c8159c4d40
+      internalID: -2141725061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1d0c3d7676a4214384f2ba430fc04ac
+      internalID: -709404268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aad33931c4456fd428243155dce46063
+      internalID: 466968137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59ffbd09f3ce97a4e93f0d364557c01e
+      internalID: -953138820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 241b80df13ab99a4ea6824c673ce8300
+      internalID: 2000899322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_015
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ce7cde4d36ad8a4896276f88943ab29
+      internalID: -1533342625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_016
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00c500d20e830e644868e8f191b4df2b
+      internalID: 103296397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_017
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3886441b384aa24d8d87899c39d669c
+      internalID: 1371847128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_018
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d1c744c51052a144a1d063f21f47d38
+      internalID: 1574886530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_019
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d356bd05e1ce454c8832740e4ea1bf7
+      internalID: 1920980786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_020
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64577825d23896e4e8047f5c98730900
+      internalID: -786809668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_021
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31d58b36a8f8ae6469da23c5ab73ab24
+      internalID: 235230905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_022
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0427cc037d2b5494997ab3fac988e110
+      internalID: 800698006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_023
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 895823d1352bfac47899e72739d1b4b3
+      internalID: -1197159589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_024
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cb38d4306607ed408a5e8ea0071c1fc
+      internalID: -920435148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cindera_Dead_025
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4990f8d679aa31e4997ce07f17f0c14a
+      internalID: -1969619865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Cindera_Attack_000: -286759189
+      Cindera_Attack_001: -75332071
+      Cindera_Attack_002: -1809487923
+      Cindera_Attack_003: 111299850
+      Cindera_Attack_004: 1643279881
+      Cindera_Attack_005: 518254407
+      Cindera_Attack_006: 336118956
+      Cindera_Attack_007: 1780447197
+      Cindera_Attack_008: -88968799
+      Cindera_Attack_009: 1851464359
+      Cindera_Attack_010: 28640328
+      Cindera_Attack_011: 1920359791
+      Cindera_Attack_012: -886346455
+      Cindera_Attack_013: 1230787127
+      Cindera_Attack_014: 69153863
+      Cindera_Attack_015: -830451178
+      Cindera_Attack_016: -36529573
+      Cindera_Attack_017: -388789065
+      Cindera_Attack_018: -194140262
+      Cindera_Attack_019: -977306186
+      Cindera_Attack_020: 1245437438
+      Cindera_Attack_021: 361329037
+      Cindera_Attack_022: 1634374903
+      Cindera_Attack_023: -1191508670
+      Cindera_Attack_024: 1118219533
+      Cindera_Attack_025: 1456373731
+      Cindera_Attack_026: 1807609182
+      Cindera_Attack_027: 1093152529
+      Cindera_Attack_028: -242276142
+      Cindera_Attack_029: 889494591
+      Cindera_Attack_030: 527589443
+      Cindera_Attack_031: 1552187654
+      Cindera_Attack_032: -1399291723
+      Cindera_Attack_033: -1628567702
+      Cindera_Attack_034: -1224014416
+      Cindera_Attack_035: -941558921
+      Cindera_Attack_036: 1301452065
+      Cindera_Attack_037: -289661241
+      Cindera_Attack_038: -947677804
+      Cindera_Attack_039: 1024287880
+      Cindera_Dead_000: -1985449136
+      Cindera_Dead_001: 1303958285
+      Cindera_Dead_002: 1913463432
+      Cindera_Dead_003: 1334222260
+      Cindera_Dead_004: 1907403690
+      Cindera_Dead_005: -1955272424
+      Cindera_Dead_006: 1373850333
+      Cindera_Dead_007: 280119493
+      Cindera_Dead_008: 1845861129
+      Cindera_Dead_009: 181591710
+      Cindera_Dead_010: -2141725061
+      Cindera_Dead_011: -709404268
+      Cindera_Dead_012: 466968137
+      Cindera_Dead_013: -953138820
+      Cindera_Dead_014: 2000899322
+      Cindera_Dead_015: -1533342625
+      Cindera_Dead_016: 103296397
+      Cindera_Dead_017: 1371847128
+      Cindera_Dead_018: 1574886530
+      Cindera_Dead_019: 1920980786
+      Cindera_Dead_020: -786809668
+      Cindera_Dead_021: 235230905
+      Cindera_Dead_022: 800698006
+      Cindera_Dead_023: -1197159589
+      Cindera_Dead_024: -920435148
+      Cindera_Dead_025: -1969619865
+      Cindera_Default_000: 1630608509
+      Cindera_Default_001: 1561659742
+      Cindera_Default_002: 809643853
+      Cindera_Default_003: 1530207294
+      Cindera_Default_004: 1354753177
+      Cindera_Default_005: -1259973786
+      Cindera_Default_006: -219861480
+      Cindera_Default_007: -1731759599
+      Cindera_Default_008: -1736889878
+      Cindera_Default_009: 1505899235
+      Cindera_Default_010: -1845390926
+      Cindera_Default_011: -1495277634
+      Cindera_Default_012: 771075929
+      Cindera_Default_013: -2020983917
+      Cindera_Move_000: 1606947260
+      Cindera_Move_001: -1284756985
+      Cindera_Move_002: -652867208
+      Cindera_Move_003: -957308672
+      Cindera_Move_004: -871176526
+      Cindera_Move_005: -1387759996
+      Cindera_Move_006: -1625834522
+      Cindera_Move_007: 1486896205
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

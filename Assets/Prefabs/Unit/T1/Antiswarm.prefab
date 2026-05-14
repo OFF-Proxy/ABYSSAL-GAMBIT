@@ -57,7 +57,7 @@ SpriteRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: b662b45ed820d034aa12e574720f9748, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -78,12 +78,12 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: 909334076, guid: 00891a1cbd094324ab3af43813fab026, type: 3}
+  m_Sprite: {fileID: 1727546131, guid: f0cf5f7f4fdf993478e829b141a358d8, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 1.3, y: 1.3}
+  m_Size: {x: 1, y: 1}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
@@ -104,9 +104,11 @@ MonoBehaviour:
   barPrefab: {fileID: 8180099699047442472, guid: 184c919c608b8754991c05ea50ceee9e, type: 3}
   spriteRender: {fileID: 2783015775534243432}
   animator: {fileID: 1318681800815309246}
+  team1OutlineMaterial: {fileID: 2100000, guid: b662b45ed820d034aa12e574720f9748, type: 2}
+  team2OutlineMaterial: {fileID: 2100000, guid: 5b82f9fdffb732b4abd2ef040b1a5bfa, type: 2}
   baseDamage: 20
   baseHealth: 80
-  range: 2
+  range: 4
   attackSpeed: 1
   movementSpeed: 1
 --- !u!95 &1318681800815309246
@@ -184,13 +186,13 @@ BoxCollider2D:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
     oldSize: {x: 1.3, y: 1.3}
-    newSize: {x: 1.3, y: 1.3}
+    newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1.3, y: 1.3}
+  m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
 --- !u!114 &2919726420849060870
 MonoBehaviour:
