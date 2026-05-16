@@ -81,8 +81,8 @@ public class UICard : MonoBehaviour
         if (upgradeBadge != null)
         {
             upgradeBadge.gameObject.SetActive(ready);
-            upgradeBadge.text = starLevel >= 3 ? "★3 合成" : "★2 合成";
-            upgradeBadge.color = starLevel >= 3 ? upgradeReadyStar3Color : upgradeReadyTextColor;
+            upgradeBadge.text = starLevel >= 3 ? "STAR 3" : "STAR 2";
+            upgradeBadge.color = Color.white;
         }
     }
 
@@ -178,6 +178,8 @@ public class UICard : MonoBehaviour
             upgradeBadge.enableWordWrapping = false;
             upgradeBadge.overflowMode = TextOverflowModes.Overflow;
             upgradeBadge.fontStyle = FontStyles.Bold;
+            upgradeBadge.outlineWidth = 0.22f;
+            upgradeBadge.outlineColor = Color.black;
             upgradeBadge.raycastTarget = false;
             upgradeBadge.gameObject.SetActive(false);
         }

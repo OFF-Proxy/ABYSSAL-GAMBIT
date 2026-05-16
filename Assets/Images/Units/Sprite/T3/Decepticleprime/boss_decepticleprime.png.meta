@@ -1,0 +1,1632 @@
+fileFormatVersion: 2
+guid: 9f29befaa7c603546bd530eefee63efa
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Decepticleprime_Default_000
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97a324bd1a9cd044982051328e047c1f
+      internalID: 468721137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Default_001
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f505a5e3c3cfcc418cc870e8a4a50a7
+      internalID: 803989964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Default_002
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5216aa5769cd6642a6eb41959414cee
+      internalID: 780545238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Default_003
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78aab6510080bcb47babd095f23f9306
+      internalID: 78999975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Default_004
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d90c63ec1e747e48bc13bf0c89a81df
+      internalID: -1003484633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Default_005
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfa3ee9651a364f46a820e9ad7e899cc
+      internalID: 1248484922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Default_006
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4289ad91f80d86c418034a48105f5b85
+      internalID: -1330884601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Default_007
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfef4cb6281226b4785d3044154dc5de
+      internalID: -940275860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Default_008
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e142f1615edbad844a069195cdfa2388
+      internalID: -1992008293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Default_009
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa254c3de7f696c43a1d90935e8732e4
+      internalID: -1808018825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Default_010
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c614ed04ea3110e4e870cd0ec6f19fd5
+      internalID: 426184120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Default_011
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a31ff81ed59e0064f869e5fa797463e7
+      internalID: 229979755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Default_012
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9b2976314fb252418a07c283b59997b
+      internalID: 1057369628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Default_013
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5046e7e2bb5c5494cb2423f4314fb099
+      internalID: -1194107611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Move_000
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddb082ca9a99f4e40a8742217dfc71dd
+      internalID: 1868453479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Move_001
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f60554ac516c3fd419bd87fb78203bfd
+      internalID: 546442340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Move_002
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63c88e2576a921044b40e2519fb1c7de
+      internalID: -215918844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Move_003
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5383bdc9a4e5c0e478e8bdd503dbfab6
+      internalID: 2062692328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Move_004
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b1ccd871bdc0774d87ec51525832325
+      internalID: -1765287193
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Move_005
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 780c51b96f7343942af605f3df95afa5
+      internalID: -104291182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb98d2aa48eb80b43aca222bc397aa55
+      internalID: 752971380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf1e10321688c9c45b97e4d184b1a55e
+      internalID: 1987952415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 928e008559697e642874d3264d696219
+      internalID: 1574112590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd90d5272faa4544db19b6eb6571f152
+      internalID: -1339410830
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 803089beef40cbf438ae0017ea87f4c7
+      internalID: 1320765783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34c6ea8bc7145094786f692bb07b995f
+      internalID: -211169805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fe1955603ffa334b9952f422c13fa90
+      internalID: 698681672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c29e2843f9b33f48aeb843847d55632
+      internalID: -247731421
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec3cfc0449d6a4847bab27d689c8ef94
+      internalID: -1037573007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7144f0784935fc94aae733b1d7b4ac5b
+      internalID: 1396481720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ead0eceac6f1b304da53a2066e1adfcf
+      internalID: 1071937589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18b53dd46d9911943a3c04af61721508
+      internalID: 115320858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbc8ea094641b4b4ea90448e706e1df0
+      internalID: 1300789178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a97d7158d2b637848881c0fb5152ace5
+      internalID: 1854180138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b32e757507c297c4eb5c613493652697
+      internalID: 91618144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3dce0f61def1f7d469bf7023ec06d8e7
+      internalID: 543026554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d66e9a132b4b0ae40b9f9eed49f22e74
+      internalID: -118179817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d88381a6cc47be45ac20d760541df08
+      internalID: -1709361910
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4ffce1f7f257bb46a172cc0ea9d3a5b
+      internalID: 1312669573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13c99a91e2a796d488b657c9b3e9ce89
+      internalID: 218061064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71d4d8772d69c6f43a3ef396bbe0565a
+      internalID: -268037643
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea98c60d619104b4ea1b2da064bbb5c9
+      internalID: -1776372528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9398f30466be5a24ab35ec434515d421
+      internalID: 1755744429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_023
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cffed7575894b6c4aaf2804dc168dc70
+      internalID: 882825871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_024
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbb4f2a8f1e8a9b4e92d12bb93c04318
+      internalID: -93483809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_025
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8dce4f43ddfdfb4ca0f8db857388491
+      internalID: -2092777450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_026
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c8e75ee8e6006e42bcb8b257f2367a8
+      internalID: -950833600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_027
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d513cc0b739b89a409b0b7313d83120c
+      internalID: -768443331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_028
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 231443691f1971945b238e3410fe10d0
+      internalID: 1812131203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Attack_029
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f73f8a58ff732cc4386f6c0730dab730
+      internalID: 291087632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c47ac7839663334ab8162cbf28c4bae
+      internalID: -1466952129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fb96658766fc9c4ab70c795c045fa27
+      internalID: -260427570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a689b810c5977984e924f67bd2b82c0a
+      internalID: -1399009419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a6b92002019e7644867130381d131dc
+      internalID: 1898917951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3858b42f025e9ff4fa85b2a8a5e1436a
+      internalID: 1895469246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e86066d48fee0a458443d75148e9d91
+      internalID: 1290043263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 1572
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e87d4dede34cca4aaffe8008dda303d
+      internalID: 37502780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92a6ccf202bdd0c4cb381d573e713dcf
+      internalID: -1993941302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c6ff606038055245b2c022e38756597
+      internalID: -1762105814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af6e95f10971d644ca1fa4964fd7f387
+      internalID: -2121194262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 156deec9024e65244926965387cb6b04
+      internalID: -1508347695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f8b5084e2066c447abad5bd15024ff3
+      internalID: -619854138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08091ee8733a24245a0c50b6d860f1c3
+      internalID: -1668857829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d1f50f826bbdc84890bdedebd2e5d89
+      internalID: 546738484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 030b1c2352ccbd74c802fdb42da12421
+      internalID: 575776747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Dead_015
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ecd0eb3d90318343a1d2d61d9a89b05
+      internalID: 2004518231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Dead_016
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68ac6f6e3d908f742a97fbcdc07d3faa
+      internalID: 583815443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Dead_017
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c1fce7fd499be64f9f5be8dc5df52f3
+      internalID: 2016850030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Decepticleprime_Dead_018
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5228cc326cd5e98409156d4b58b065cd
+      internalID: -1905036950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Decepticleprime_Attack_000: 752971380
+      Decepticleprime_Attack_001: 1987952415
+      Decepticleprime_Attack_002: 1574112590
+      Decepticleprime_Attack_003: -1339410830
+      Decepticleprime_Attack_004: 1320765783
+      Decepticleprime_Attack_005: -211169805
+      Decepticleprime_Attack_006: 698681672
+      Decepticleprime_Attack_007: -247731421
+      Decepticleprime_Attack_008: -1037573007
+      Decepticleprime_Attack_009: 1396481720
+      Decepticleprime_Attack_010: 1071937589
+      Decepticleprime_Attack_011: 115320858
+      Decepticleprime_Attack_012: 1300789178
+      Decepticleprime_Attack_013: 1854180138
+      Decepticleprime_Attack_014: 91618144
+      Decepticleprime_Attack_015: 543026554
+      Decepticleprime_Attack_016: -118179817
+      Decepticleprime_Attack_017: -1709361910
+      Decepticleprime_Attack_018: 1312669573
+      Decepticleprime_Attack_019: 218061064
+      Decepticleprime_Attack_020: -268037643
+      Decepticleprime_Attack_021: -1776372528
+      Decepticleprime_Attack_022: 1755744429
+      Decepticleprime_Attack_023: 882825871
+      Decepticleprime_Attack_024: -93483809
+      Decepticleprime_Attack_025: -2092777450
+      Decepticleprime_Attack_026: -950833600
+      Decepticleprime_Attack_027: -768443331
+      Decepticleprime_Attack_028: 1812131203
+      Decepticleprime_Attack_029: 291087632
+      Decepticleprime_Dead_000: -1466952129
+      Decepticleprime_Dead_001: -260427570
+      Decepticleprime_Dead_002: -1399009419
+      Decepticleprime_Dead_003: 1898917951
+      Decepticleprime_Dead_004: 1895469246
+      Decepticleprime_Dead_005: 1290043263
+      Decepticleprime_Dead_006: 37502780
+      Decepticleprime_Dead_007: -1993941302
+      Decepticleprime_Dead_008: -1762105814
+      Decepticleprime_Dead_009: -2121194262
+      Decepticleprime_Dead_010: -1508347695
+      Decepticleprime_Dead_011: -619854138
+      Decepticleprime_Dead_012: -1668857829
+      Decepticleprime_Dead_013: 546738484
+      Decepticleprime_Dead_014: 575776747
+      Decepticleprime_Dead_015: 2004518231
+      Decepticleprime_Dead_016: 583815443
+      Decepticleprime_Dead_017: 2016850030
+      Decepticleprime_Dead_018: -1905036950
+      Decepticleprime_Default_000: 468721137
+      Decepticleprime_Default_001: 803989964
+      Decepticleprime_Default_002: 780545238
+      Decepticleprime_Default_003: 78999975
+      Decepticleprime_Default_004: -1003484633
+      Decepticleprime_Default_005: 1248484922
+      Decepticleprime_Default_006: -1330884601
+      Decepticleprime_Default_007: -940275860
+      Decepticleprime_Default_008: -1992008293
+      Decepticleprime_Default_009: -1808018825
+      Decepticleprime_Default_010: 426184120
+      Decepticleprime_Default_011: 229979755
+      Decepticleprime_Default_012: 1057369628
+      Decepticleprime_Default_013: -1194107611
+      Decepticleprime_Move_000: 1868453479
+      Decepticleprime_Move_001: 546442340
+      Decepticleprime_Move_002: -215918844
+      Decepticleprime_Move_003: 2062692328
+      Decepticleprime_Move_004: -1765287193
+      Decepticleprime_Move_005: -104291182
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

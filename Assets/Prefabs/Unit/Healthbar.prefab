@@ -47,7 +47,43 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bar: {fileID: 4853897980356439551}
+  shieldBar: {fileID: 0}
+  manaBar: {fileID: 0}
   offset: {x: 0, y: 0, z: 0}
+  frameRenderer: {fileID: 9093347095404971532}
+  fillRenderer: {fileID: 4568555210928230155}
+  fillMaskRenderer: {fileID: 0}
+  shieldRenderer: {fileID: 0}
+  shieldMaskRenderer: {fileID: 0}
+  manaRenderer: {fileID: 0}
+  manaMaskRenderer: {fileID: 0}
+  worldScale: {x: 0.2, y: 0.4, z: 1}
+  verticalPadding: 0.04
+  frameScale: {x: 1.32, y: 2.35, z: 1}
+  fillHeightScale: 0.58
+  separatorHealthStep: 500
+  separatorColor: {r: 0.02, g: 0.02, b: 0.02, a: 0.9}
+  separatorScale: {x: 0.025, y: 0.82, z: 1}
+  fillMaskColor: {r: 0.02, g: 0.025, b: 0.04, a: 1}
+  shieldFillColor: {r: 1, g: 1, b: 1, a: 0.95}
+  shieldMaskColor: {r: 0.015, g: 0.04, b: 0.06, a: 1}
+  manaFillColor: {r: 0.05, g: 0.58, b: 1, a: 1}
+  manaMaskColor: {r: 0.015, g: 0.02, b: 0.05, a: 1}
+  star1FrameColor: {r: 0.92, g: 0.96, b: 1, a: 1}
+  star2FrameColor: {r: 0.1, g: 0.65, b: 1, a: 1}
+  star3FrameColor: {r: 1, g: 0.76, b: 0, a: 1}
+  star1FrameSprite: {fileID: 21300000, guid: c544195cc7633f141b90063aacf3c919, type: 3}
+  star2FrameSprite: {fileID: 21300000, guid: 10ffe96d71e3f294ab5022d6f8c2dde5, type: 3}
+  star3FrameSprite: {fileID: 21300000, guid: dd2775b81d613c2439e7ca00ff46b1b6, type: 3}
+  frameTargetSize: {x: 7.28, y: 0.78}
+  fillAreaPadding: {x: -0.02, y: -0.015}
+  fillMaskOverlap: {x: 0.05, y: 0.03}
+  star1FillRectNormalized: {x: 0.198, y: 0.445, z: 0.948, w: 0.725}
+  star2FillRectNormalized: {x: 0.198, y: 0.445, z: 0.951, w: 0.725}
+  star3FillRectNormalized: {x: 0.236, y: 0.445, z: 0.943, w: 0.725}
+  star1ManaRectNormalized: {x: 0.213, y: 0.105, z: 0.955, w: 0.285}
+  star2ManaRectNormalized: {x: 0.216, y: 0.105, z: 0.953, w: 0.285}
+  star3ManaRectNormalized: {x: 0.242, y: 0.195, z: 0.943, w: 0.305}
 --- !u!1 &3823187921959705287
 GameObject:
   m_ObjectHideFlags: 0
@@ -120,7 +156,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 2
+  m_SortingOrder: 20
   m_Sprite: {fileID: 21300000, guid: 347a397fc5074df47a867c5cdfb2d9b0, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -159,7 +195,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1.025, y: 1.15, z: 1}
+  m_LocalScale: {x: 0.4076, y: 0.4076, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 6580672667590585827}
@@ -204,8 +240,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: e4570d6af5cedd4499cc378a1b9cb9f0, type: 3}
+  m_SortingOrder: 22
+  m_Sprite: {fileID: 21300000, guid: c544195cc7633f141b90063aacf3c919, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

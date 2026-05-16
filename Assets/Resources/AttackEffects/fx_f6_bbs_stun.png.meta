@@ -1,0 +1,1192 @@
+fileFormatVersion: 2
+guid: cd5f085ab51ad964199d5d1b9e5bb744
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_000
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 447a42a6338f3f9488e5d2d76a655fc3
+      internalID: 1786986833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_001
+      rect:
+        serializedVersion: 2
+        x: 1629
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 718a0b888ef558e4ba25f9eb2bbb0e20
+      internalID: -1122696850
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_002
+      rect:
+        serializedVersion: 2
+        x: 1629
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a178f748227310a468b364b534f6837e
+      internalID: -1534502147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_003
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61bdfa1a52953af408a6350319a9109c
+      internalID: -1374508318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_004
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7ecaaaf4c78e4642a0fd176bdc78c5c
+      internalID: -137662174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_005
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8efd84c15d0d3ca4487e302d5d984a42
+      internalID: -673800436
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_006
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6440221a02891524f90e9312b9cb6fc8
+      internalID: 96964270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_007
+      rect:
+        serializedVersion: 2
+        x: 1448
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3603c7b1c8d6ab3499adc30fb6394728
+      internalID: -1502557963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_008
+      rect:
+        serializedVersion: 2
+        x: 1267
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aaa9a58e3bf10f24a9f43800cdf6ed6e
+      internalID: 162103367
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_009
+      rect:
+        serializedVersion: 2
+        x: 1267
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3e12f4499808d04aa099b5dcd8f4583
+      internalID: -1539879372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_010
+      rect:
+        serializedVersion: 2
+        x: 1267
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7243073b4b9c38e4ead23b5b5bede126
+      internalID: 257201660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_011
+      rect:
+        serializedVersion: 2
+        x: 1267
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bb2b3e7e32b76949ab534a807395d29
+      internalID: -726408369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_012
+      rect:
+        serializedVersion: 2
+        x: 1267
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fa97097b2a5ed447b6453621dc17670
+      internalID: 213767423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_013
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec5929773d462eb4394fbf9b5a871c95
+      internalID: -1237785745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_014
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78705caaaef14c74aa8b7933ba5b328c
+      internalID: 311631808
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_015
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6b76030bceb5e3419acda683caccb0d
+      internalID: -1786972297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_016
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e4bda07029bc7d449c4a8e158c5dfa6
+      internalID: 2048698532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_017
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53c25dbbe2dd3074e92483301413bd55
+      internalID: 1916111592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_018
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a43e859579708749b4fe24fcf46a638
+      internalID: 664033785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_019
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 103d4248ff89b1c48a2c0b9c94e0a30b
+      internalID: 872320947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_020
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f7ed82c8911fe34d8a769499efe0605
+      internalID: 952006696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_021
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e5372bd923a4734bb0af66af34ab229
+      internalID: 997273861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_022
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8f7236d237b2af42a7c55f5eba513da
+      internalID: 454335962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_023
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34640ebf71ff1a9439399739ad5be35c
+      internalID: 692267037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_024
+      rect:
+        serializedVersion: 2
+        x: 1629
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 806834d4cee1aec4da10b81f006d2975
+      internalID: -91970107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_025
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 950a1ceb4f9ac6140a3e7323ad9c8fc2
+      internalID: 1824478755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_026
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2510945f45dc59444bbe2a7ef7c43ed1
+      internalID: 1201260757
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_027
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 034aef91458bf7447aa85e2f1a28250a
+      internalID: 1330747382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_028
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73fd65173e00db3409944adf2ce55af4
+      internalID: 538605818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_029
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67ddd75cb35ea444a8f3e14d79518b14
+      internalID: -1006258024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_030
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b34984e47beb0b478fbe7e9c6000d0b
+      internalID: 1835379323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_031
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4097bb90c47b85c4194a0558a20ff7b0
+      internalID: 490184287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_032
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93fb528402762de4fbd3d50a3032a2c5
+      internalID: 2033621925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_033
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bcb3379035ab4e4792cef43e13c5a95
+      internalID: 1872524560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_034
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25c40e3f22c91364790bcebc778824bb
+      internalID: -267469308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_035
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec4f893619b092c4599e07545a810be6
+      internalID: -566824845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_036
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c564e6293c448e488fe597bbe7f2e48
+      internalID: -63167337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_037
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0647f0f45f6ba9e49b7f1ceeba25ef05
+      internalID: 100006307
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_038
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fb005bd96f9f89409bc41b13f46d10e
+      internalID: 1757085773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_039
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 883f759ac5fc8f24c9f26539d66d9f65
+      internalID: -475551435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_040
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c9596ffe21e51d4bb35aaf48f6a1fdb
+      internalID: 1327514880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_041
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6738776e94fed1d4893ec6a0677d6ecf
+      internalID: -1630742079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_042
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e17218a04e58894987d745bd42d2486
+      internalID: -1425023010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_043
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d7fc43f799e34946aded3d464068739
+      internalID: 1706809892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_044
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0678cdec041cd694f8bed92ce0fbe9d8
+      internalID: -1973465235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_045
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7c487b78e1779e4ab668fd3e73d2808
+      internalID: -1245344408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_046
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67291133d472a2944831bda4de9d5f3d
+      internalID: 1668021658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_047
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3f7638db96220b48b80d219ca01107b
+      internalID: 1135629147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f6_bbs_stun_048
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e8edc8a59de318478815fbd6f0b74ff
+      internalID: 998516017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      fx_f6_bbs_stun_000: 1786986833
+      fx_f6_bbs_stun_001: -1122696850
+      fx_f6_bbs_stun_002: -1534502147
+      fx_f6_bbs_stun_003: -1374508318
+      fx_f6_bbs_stun_004: -137662174
+      fx_f6_bbs_stun_005: -673800436
+      fx_f6_bbs_stun_006: 96964270
+      fx_f6_bbs_stun_007: -1502557963
+      fx_f6_bbs_stun_008: 162103367
+      fx_f6_bbs_stun_009: -1539879372
+      fx_f6_bbs_stun_010: 257201660
+      fx_f6_bbs_stun_011: -726408369
+      fx_f6_bbs_stun_012: 213767423
+      fx_f6_bbs_stun_013: -1237785745
+      fx_f6_bbs_stun_014: 311631808
+      fx_f6_bbs_stun_015: -1786972297
+      fx_f6_bbs_stun_016: 2048698532
+      fx_f6_bbs_stun_017: 1916111592
+      fx_f6_bbs_stun_018: 664033785
+      fx_f6_bbs_stun_019: 872320947
+      fx_f6_bbs_stun_020: 952006696
+      fx_f6_bbs_stun_021: 997273861
+      fx_f6_bbs_stun_022: 454335962
+      fx_f6_bbs_stun_023: 692267037
+      fx_f6_bbs_stun_024: -91970107
+      fx_f6_bbs_stun_025: 1824478755
+      fx_f6_bbs_stun_026: 1201260757
+      fx_f6_bbs_stun_027: 1330747382
+      fx_f6_bbs_stun_028: 538605818
+      fx_f6_bbs_stun_029: -1006258024
+      fx_f6_bbs_stun_030: 1835379323
+      fx_f6_bbs_stun_031: 490184287
+      fx_f6_bbs_stun_032: 2033621925
+      fx_f6_bbs_stun_033: 1872524560
+      fx_f6_bbs_stun_034: -267469308
+      fx_f6_bbs_stun_035: -566824845
+      fx_f6_bbs_stun_036: -63167337
+      fx_f6_bbs_stun_037: 100006307
+      fx_f6_bbs_stun_038: 1757085773
+      fx_f6_bbs_stun_039: -475551435
+      fx_f6_bbs_stun_040: 1327514880
+      fx_f6_bbs_stun_041: -1630742079
+      fx_f6_bbs_stun_042: -1425023010
+      fx_f6_bbs_stun_043: 1706809892
+      fx_f6_bbs_stun_044: -1973465235
+      fx_f6_bbs_stun_045: -1245344408
+      fx_f6_bbs_stun_046: 1668021658
+      fx_f6_bbs_stun_047: 1135629147
+      fx_f6_bbs_stun_048: 998516017
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -25,8 +25,7 @@ public class RangedEntity : BaseEntity
             //In range for attack!
             if (canAttack)
             {
-                Attack();
-                currentTarget.TakeDamage(baseDamage);
+                TryAttackCurrentTarget();
             }
         }
         else

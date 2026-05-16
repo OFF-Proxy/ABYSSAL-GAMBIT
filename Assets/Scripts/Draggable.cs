@@ -288,8 +288,15 @@ public class Draggable : MonoBehaviour
         if (cam == null)
             cam = Camera.main;
 
-        if (spriteRenderer == null)
-            spriteRenderer = GetComponent<SpriteRenderer>();
+        if (spriteRenderer == null || !spriteRenderer.enabled)
+        {
+            BaseEntity entity = GetComponent<BaseEntity>();
+            if (entity != null)
+                spriteRenderer = entity.spriteRender;
+
+            if (spriteRenderer == null)
+                spriteRenderer = GetComponentInChildren<SpriteRenderer>();
+        }
     }
 
     private Vector3 GetPointerWorldPosition()

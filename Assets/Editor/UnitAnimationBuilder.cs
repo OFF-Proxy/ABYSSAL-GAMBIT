@@ -27,6 +27,7 @@ public static class UnitAnimationBuilder
         { "Default", "breathing" },
         { "Move", "run" },
         { "Attack", "attack" },
+        { "Ability", "cast" },
         { "Dead", "death" }
     };
 
@@ -43,11 +44,17 @@ public static class UnitAnimationBuilder
         new PlistAtlasAnimationSpec("Christmas", "boss_christmas", baseScale: 1.18f),
         new PlistAtlasAnimationSpec("vampire", "boss_vampire"),
         new PlistAtlasAnimationSpec("valiant", "boss_valiant", baseScale: 1.18f),
-        new PlistAtlasAnimationSpec("Candypanda", "boss_candypanda", "T2", 2, 1, "Assets/Prefabs/Unit/T1/Borealjuggernaut.prefab", 28, 180, 0.95f, 0.95f, 1.05f),
+        new PlistAtlasAnimationSpec("Candypanda", "boss_candypanda", "T2", 2, 1, "Assets/Prefabs/Unit/T1/Borealjuggernaut.prefab", 28, 180, 0.95f, 0.95f, 1.25f),
         new PlistAtlasAnimationSpec("City", "boss_city", "T2", 2, 1, "Assets/Prefabs/Unit/T1/Borealjuggernaut.prefab", 24, 210, 0.9f, 0.85f, 1.18f),
         new PlistAtlasAnimationSpec("Crystal", "boss_crystal", "T2", 2, 4, "Assets/Prefabs/Unit/T1/Andromeda.prefab", 26, 120, 1.05f, 1f, 1.18f),
         new PlistAtlasAnimationSpec("Cindera", "boss_cindera", "T2", 2, 4, "Assets/Prefabs/Unit/T1/Andromeda.prefab", 32, 110, 0.9f, 1f),
-        new PlistAtlasAnimationSpec("Decepticle", "boss_decepticle", "T2", 2, 1, "Assets/Prefabs/Unit/T1/Chaosknight.prefab", 38, 130, 1.15f, 1.1f, 1.08f)
+        new PlistAtlasAnimationSpec("Decepticle", "boss_decepticle", "T2", 2, 1, "Assets/Prefabs/Unit/T1/Chaosknight.prefab", 38, 130, 1.15f, 1.1f, 1.25f),
+        new PlistAtlasAnimationSpec("Umbra", "boss_umbra", "T2", 2, 1, "Assets/Prefabs/Unit/T1/Borealjuggernaut.prefab", 30, 185, 0.95f, 1.05f, 1.2f),
+        new PlistAtlasAnimationSpec("Spelleater", "boss_spelleater", "T2", 2, 4, "Assets/Prefabs/Unit/T1/Andromeda.prefab", 34, 115, 0.9f, 1f, 1.06f),
+        new PlistAtlasAnimationSpec("Serpenti", "boss_serpenti", "T2", 2, 1, "Assets/Prefabs/Unit/T1/Chaosknight.prefab", 36, 150, 1.1f, 1.15f, 1.02f),
+        new PlistAtlasAnimationSpec("Skindogehai", "f2_general_skindogehai", "T3", 3, 1, "Assets/Prefabs/Unit/T2/Serpenti.prefab", 220, 1800, 1f, 1f, 1.14f),
+        new PlistAtlasAnimationSpec("Decepticleprime", "boss_decepticleprime", "T3", 3, 4, "Assets/Prefabs/Unit/T2/Crystal.prefab", 270, 1450, 1.12f, 0.95f, 1.18f),
+        new PlistAtlasAnimationSpec("Decepticlechassis", "boss_decepticlechassis", "T3", 3, 1, "Assets/Prefabs/Unit/T2/Decepticle.prefab", 230, 1900, 0.95f, 0.95f, 1.3f)
     };
 
     [MenuItem("Tools/AutoChess/Build Listed Unit Animations")]
@@ -172,24 +179,28 @@ public static class UnitAnimationBuilder
 
         Sprite[] moveSprites = SliceAndLoadSprites(spec, "Move", defaultGrid, true, out FrameGrid moveGrid);
         Sprite[] attackSprites = SliceAndLoadSprites(spec, "Attack", defaultGrid, true, out FrameGrid attackGrid);
+        Sprite[] abilitySprites = SliceAndLoadSprites(spec, "Ability", defaultGrid, true, out FrameGrid abilityGrid);
         Sprite[] deadSprites = SliceAndLoadSprites(spec, "Dead", defaultGrid, true, out FrameGrid deadGrid);
 
         if (moveSprites.Length == 0)
             moveSprites = idleSprites;
         if (attackSprites.Length == 0)
             attackSprites = idleSprites;
+        if (abilitySprites.Length == 0)
+            abilitySprites = attackSprites;
         if (deadSprites.Length == 0)
             deadSprites = idleSprites;
 
         AnimationClip idleClip = CreateSpriteClip(spec.GetClipPath("Default"), idleSprites, true);
         AnimationClip moveClip = CreateSpriteClip(spec.GetClipPath("Move"), moveSprites, true);
-        AnimationClip attackClip = CreateSpriteClip(spec.GetClipPath("Attack"), attackSprites, true);
+        AnimationClip attackClip = CreateSpriteClip(spec.GetClipPath("Attack"), attackSprites, false);
+        AnimationClip abilityClip = CreateSpriteClip(spec.GetClipPath("Ability"), abilitySprites, false);
         AnimationClip deadClip = CreateSpriteClip(spec.GetClipPath("Dead"), deadSprites, false);
-        AnimatorController controller = CreateController(spec.ControllerPath, idleClip, moveClip, attackClip, deadClip);
+        AnimatorController controller = CreateController(spec.ControllerPath, idleClip, moveClip, attackClip, abilityClip, deadClip);
 
         ApplyToPrefab(spec.PrefabPath, spec.UnitName, idleSprites[0], controller);
 
-        Debug.Log($"{spec.UnitName}: idle {idleSprites.Length} ({defaultGrid}), move {moveSprites.Length} ({moveGrid}), attack {attackSprites.Length} ({attackGrid}), dead {deadSprites.Length} ({deadGrid}) frames.");
+        Debug.Log($"{spec.UnitName}: idle {idleSprites.Length} ({defaultGrid}), move {moveSprites.Length} ({moveGrid}), attack {attackSprites.Length} ({attackGrid}), ability {abilitySprites.Length} ({abilityGrid}), dead {deadSprites.Length} ({deadGrid}) frames.");
         return true;
     }
 
@@ -212,24 +223,28 @@ public static class UnitAnimationBuilder
 
         Sprite[] moveSprites = GetAnimationSprites(spritesByAnimation, "Move");
         Sprite[] attackSprites = GetAnimationSprites(spritesByAnimation, "Attack");
+        Sprite[] abilitySprites = GetAnimationSprites(spritesByAnimation, "Ability");
         Sprite[] deadSprites = GetAnimationSprites(spritesByAnimation, "Dead");
 
         if (moveSprites.Length == 0)
             moveSprites = idleSprites;
         if (attackSprites.Length == 0)
             attackSprites = idleSprites;
+        if (abilitySprites.Length == 0)
+            abilitySprites = attackSprites;
         if (deadSprites.Length == 0)
             deadSprites = idleSprites;
 
         AnimationClip idleClip = CreateSpriteClip(spec.GetClipPath("Default"), idleSprites, true);
         AnimationClip moveClip = CreateSpriteClip(spec.GetClipPath("Move"), moveSprites, true);
-        AnimationClip attackClip = CreateSpriteClip(spec.GetClipPath("Attack"), attackSprites, true);
+        AnimationClip attackClip = CreateSpriteClip(spec.GetClipPath("Attack"), attackSprites, false);
+        AnimationClip abilityClip = CreateSpriteClip(spec.GetClipPath("Ability"), abilitySprites, false);
         AnimationClip deadClip = CreateSpriteClip(spec.GetClipPath("Dead"), deadSprites, false);
-        AnimatorController controller = CreateController(spec.ControllerPath, idleClip, moveClip, attackClip, deadClip);
+        AnimatorController controller = CreateController(spec.ControllerPath, idleClip, moveClip, attackClip, abilityClip, deadClip);
 
         ApplyToPrefab(spec.PrefabPath, spec.UnitName, idleSprites[0], controller, atlasSpec);
 
-        Debug.Log($"{spec.UnitName}: atlas idle {idleSprites.Length}, move {moveSprites.Length}, attack {attackSprites.Length}, dead {deadSprites.Length} frames.");
+        Debug.Log($"{spec.UnitName}: atlas idle {idleSprites.Length}, move {moveSprites.Length}, attack {attackSprites.Length}, ability {abilitySprites.Length}, dead {deadSprites.Length} frames.");
         return true;
     }
 
@@ -257,18 +272,21 @@ public static class UnitAnimationBuilder
         if (importer == null)
             return result;
 
+        Dictionary<string, GUID> existingSpriteIds = GetExistingSpriteIds(importer);
         List<SpriteRect> spriteRects = new List<SpriteRect>();
         Dictionary<string, List<string>> namesByAnimation = spec.AnimationPrefixes.Keys.ToDictionary(name => name, _ => new List<string>());
 
         foreach (KeyValuePair<string, string> animation in spec.AnimationPrefixes)
         {
-            if (!framesByPrefix.TryGetValue(animation.Value, out List<PlistFrame> frames))
+            List<PlistFrame> frames = GetPlistFramesForAnimation(framesByPrefix, spec, animation.Key);
+            if (frames.Count == 0)
             {
-                Debug.LogWarning($"{spec.UnitName} atlas prefix not found in plist: {animation.Value}");
+                Debug.LogWarning($"{spec.UnitName} atlas prefix not found in plist: {string.Join(", ", GetPlistPrefixesForAnimation(spec, animation.Key))}");
                 continue;
             }
 
-            foreach (PlistFrame frame in frames.OrderBy(frame => frame.Index))
+            int spriteIndex = 0;
+            foreach (PlistFrame frame in frames)
             {
                 if (!TryCreateSpriteRectFromPlistFrame(texture, frame, out Rect spriteRect))
                     continue;
@@ -280,17 +298,18 @@ public static class UnitAnimationBuilder
                 if (!HasVisiblePixels(texture, x, y, width, height))
                     continue;
 
-                string spriteName = $"{spec.UnitName}_{animation.Key}_{frame.Index:D3}";
+                string spriteName = $"{spec.UnitName}_{animation.Key}_{spriteIndex:D3}";
                 spriteRects.Add(new SpriteRect
                 {
                     name = spriteName,
-                    spriteID = GUID.Generate(),
+                    spriteID = GetSpriteId(existingSpriteIds, spriteName),
                     rect = spriteRect,
                     alignment = SpriteAlignment.Center,
                     pivot = new Vector2(0.5f, 0.5f)
                 });
 
                 namesByAnimation[animation.Key].Add(spriteName);
+                spriteIndex++;
             }
         }
 
@@ -376,6 +395,7 @@ public static class UnitAnimationBuilder
             return framesByPrefix;
         }
 
+        HashSet<string> knownPrefixes = GetKnownPlistPrefixes(spec);
         string frameNamePattern = $"^{Regex.Escape(spec.SourcePrefix)}_(?<prefix>[a-z]+)_(?<index>\\d+)\\.png$";
         List<XElement> frameEntries = framesDictionary.Elements().ToList();
         for (int i = 0; i < frameEntries.Count - 1; i += 2)
@@ -391,7 +411,7 @@ public static class UnitAnimationBuilder
                 continue;
 
             string prefix = nameMatch.Groups["prefix"].Value.ToLowerInvariant();
-            if (!spec.AnimationPrefixes.ContainsValue(prefix))
+            if (!knownPrefixes.Contains(prefix))
                 continue;
 
             string frameValue = GetPlistStringValue(dictionaryElement, "frame");
@@ -414,6 +434,47 @@ public static class UnitAnimationBuilder
         }
 
         return framesByPrefix;
+    }
+
+    private static List<PlistFrame> GetPlistFramesForAnimation(Dictionary<string, List<PlistFrame>> framesByPrefix, PlistAtlasAnimationSpec spec, string animationName)
+    {
+        List<PlistFrame> frames = new List<PlistFrame>();
+        foreach (string prefix in GetPlistPrefixesForAnimation(spec, animationName))
+        {
+            if (!framesByPrefix.TryGetValue(prefix, out List<PlistFrame> prefixFrames))
+                continue;
+
+            frames.AddRange(prefixFrames.OrderBy(frame => frame.Index));
+        }
+
+        return frames;
+    }
+
+    private static IEnumerable<string> GetPlistPrefixesForAnimation(PlistAtlasAnimationSpec spec, string animationName)
+    {
+        if (string.Equals(animationName, "Ability", StringComparison.OrdinalIgnoreCase))
+        {
+            yield return "caststart";
+            yield return "cast";
+            yield return "castloop";
+            yield return "castend";
+            yield break;
+        }
+
+        if (spec.AnimationPrefixes.TryGetValue(animationName, out string prefix))
+            yield return prefix;
+    }
+
+    private static HashSet<string> GetKnownPlistPrefixes(PlistAtlasAnimationSpec spec)
+    {
+        HashSet<string> prefixes = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        foreach (string animationName in spec.AnimationPrefixes.Keys)
+        {
+            foreach (string prefix in GetPlistPrefixesForAnimation(spec, animationName))
+                prefixes.Add(prefix);
+        }
+
+        return prefixes;
     }
 
     private static XElement GetPlistDictionaryValue(XElement dictionaryElement, string key)
@@ -521,6 +582,7 @@ public static class UnitAnimationBuilder
         FrameGrid frameGrid = DetectFrameGrid(texture, fallbackGrid);
         detectedGrid = frameGrid;
 
+        Dictionary<string, GUID> existingSpriteIds = GetExistingSpriteIds(importer);
         List<SpriteRect> sprites = new List<SpriteRect>();
         int rows = texture.height / frameGrid.FrameHeight;
         int columns = texture.width / frameGrid.FrameWidth;
@@ -538,7 +600,7 @@ public static class UnitAnimationBuilder
                 sprites.Add(new SpriteRect
                 {
                     name = $"{spec.UnitName}_{animationName}_{index}",
-                    spriteID = GUID.Generate(),
+                    spriteID = GetSpriteId(existingSpriteIds, $"{spec.UnitName}_{animationName}_{index}"),
                     rect = new Rect(x, y, frameGrid.FrameWidth, frameGrid.FrameHeight),
                     alignment = SpriteAlignment.Center,
                     pivot = new Vector2(0.5f, 0.5f)
@@ -585,6 +647,36 @@ public static class UnitAnimationBuilder
             .OrderBy(sprite => ExtractTrailingNumber(sprite.name))
             .ThenBy(sprite => sprite.name)
             .ToArray();
+    }
+
+    private static Dictionary<string, GUID> GetExistingSpriteIds(TextureImporter importer)
+    {
+        Dictionary<string, GUID> spriteIds = new Dictionary<string, GUID>();
+        if (importer == null)
+            return spriteIds;
+
+        SpriteDataProviderFactories factory = new SpriteDataProviderFactories();
+        factory.Init();
+        ISpriteEditorDataProvider dataProvider = factory.GetSpriteEditorDataProviderFromObject(importer);
+        if (dataProvider == null)
+            return spriteIds;
+
+        dataProvider.InitSpriteEditorDataProvider();
+        foreach (SpriteRect spriteRect in dataProvider.GetSpriteRects())
+        {
+            if (!string.IsNullOrEmpty(spriteRect.name) && !spriteIds.ContainsKey(spriteRect.name))
+                spriteIds.Add(spriteRect.name, spriteRect.spriteID);
+        }
+
+        return spriteIds;
+    }
+
+    private static GUID GetSpriteId(Dictionary<string, GUID> existingSpriteIds, string spriteName)
+    {
+        if (existingSpriteIds != null && existingSpriteIds.TryGetValue(spriteName, out GUID spriteId))
+            return spriteId;
+
+        return GUID.Generate();
     }
 
     private static FrameGrid DetectFrameGrid(Texture2D texture, FrameGrid fallbackGrid)
@@ -833,7 +925,7 @@ public static class UnitAnimationBuilder
         return clip;
     }
 
-    private static AnimatorController CreateController(string controllerPath, AnimationClip idleClip, AnimationClip moveClip, AnimationClip attackClip, AnimationClip deadClip)
+    private static AnimatorController CreateController(string controllerPath, AnimationClip idleClip, AnimationClip moveClip, AnimationClip attackClip, AnimationClip abilityClip, AnimationClip deadClip)
     {
         if (File.Exists(controllerPath))
             AssetDatabase.DeleteAsset(controllerPath);
@@ -841,18 +933,22 @@ public static class UnitAnimationBuilder
         AnimatorController controller = AnimatorController.CreateAnimatorControllerAtPath(controllerPath);
         controller.AddParameter("walking", AnimatorControllerParameterType.Bool);
         controller.AddParameter("attacking", AnimatorControllerParameterType.Bool);
+        controller.AddParameter("abilitying", AnimatorControllerParameterType.Bool);
         controller.AddParameter("attack", AnimatorControllerParameterType.Trigger);
+        controller.AddParameter("ability", AnimatorControllerParameterType.Trigger);
         controller.AddParameter("dead", AnimatorControllerParameterType.Trigger);
 
         AnimatorStateMachine stateMachine = controller.layers[0].stateMachine;
         AnimatorState idle = stateMachine.AddState("Idle", new Vector3(250f, 120f, 0f));
         AnimatorState move = stateMachine.AddState("Move", new Vector3(500f, 120f, 0f));
         AnimatorState attack = stateMachine.AddState("Attack", new Vector3(500f, 250f, 0f));
+        AnimatorState ability = stateMachine.AddState("Ability", new Vector3(740f, 250f, 0f));
         AnimatorState dead = stateMachine.AddState("Dead", new Vector3(250f, 330f, 0f));
 
         idle.motion = idleClip;
         move.motion = moveClip;
         attack.motion = attackClip;
+        ability.motion = abilityClip;
         dead.motion = deadClip;
         stateMachine.defaultState = idle;
 
@@ -883,6 +979,26 @@ public static class UnitAnimationBuilder
         ConfigureInstantTransition(attackToIdle);
         attackToIdle.AddCondition(AnimatorConditionMode.IfNot, 0f, "attacking");
         attackToIdle.AddCondition(AnimatorConditionMode.IfNot, 0f, "walking");
+
+        AnimatorStateTransition anyToAbilityByTrigger = stateMachine.AddAnyStateTransition(ability);
+        ConfigureInstantTransition(anyToAbilityByTrigger);
+        anyToAbilityByTrigger.canTransitionToSelf = false;
+        anyToAbilityByTrigger.AddCondition(AnimatorConditionMode.If, 0f, "ability");
+
+        AnimatorStateTransition anyToAbilityByBool = stateMachine.AddAnyStateTransition(ability);
+        ConfigureInstantTransition(anyToAbilityByBool);
+        anyToAbilityByBool.canTransitionToSelf = false;
+        anyToAbilityByBool.AddCondition(AnimatorConditionMode.If, 0f, "abilitying");
+
+        AnimatorStateTransition abilityToMove = ability.AddTransition(move);
+        ConfigureInstantTransition(abilityToMove);
+        abilityToMove.AddCondition(AnimatorConditionMode.IfNot, 0f, "abilitying");
+        abilityToMove.AddCondition(AnimatorConditionMode.If, 0f, "walking");
+
+        AnimatorStateTransition abilityToIdle = ability.AddTransition(idle);
+        ConfigureInstantTransition(abilityToIdle);
+        abilityToIdle.AddCondition(AnimatorConditionMode.IfNot, 0f, "abilitying");
+        abilityToIdle.AddCondition(AnimatorConditionMode.IfNot, 0f, "walking");
 
         AnimatorStateTransition anyToDead = stateMachine.AddAnyStateTransition(dead);
         ConfigureInstantTransition(anyToDead);
@@ -1037,21 +1153,24 @@ public static class UnitAnimationBuilder
 
     private static Sprite LoadIconForSpec(PlistAtlasAnimationSpec spec)
     {
-        Sprite icon = LoadSingleSpriteAsset($"Assets/Images/Units/Icon/{spec.TierFolder}/{spec.UnitName}.png");
-        if (icon != null)
-            return icon;
+        foreach (string iconName in GetIconCandidateNames(spec.UnitName))
+        {
+            Sprite icon = LoadSingleSpriteAsset($"Assets/Images/Units/Icon/{spec.TierFolder}/{iconName}.png");
+            if (icon != null)
+                return icon;
 
-        icon = LoadSingleSpriteAsset($"Assets/Images/Units/Icon/{spec.TierFolder}/{spec.UnitName}.jpg");
-        if (icon != null)
-            return icon;
+            icon = LoadSingleSpriteAsset($"Assets/Images/Units/Icon/{spec.TierFolder}/{iconName}.jpg");
+            if (icon != null)
+                return icon;
 
-        icon = LoadSingleSpriteAsset($"Assets/Images/Units/Icon/{spec.UnitName}.png");
-        if (icon != null)
-            return icon;
+            icon = LoadSingleSpriteAsset($"Assets/Images/Units/Icon/{iconName}.png");
+            if (icon != null)
+                return icon;
 
-        icon = LoadSingleSpriteAsset($"Assets/Images/Units/Icon/{spec.UnitName}.jpg");
-        if (icon != null)
-            return icon;
+            icon = LoadSingleSpriteAsset($"Assets/Images/Units/Icon/{iconName}.jpg");
+            if (icon != null)
+                return icon;
+        }
 
         Sprite[] atlasSprites = AssetDatabase.LoadAllAssetsAtPath(spec.AtlasPath)
             .OfType<Sprite>()
@@ -1061,6 +1180,14 @@ public static class UnitAnimationBuilder
             .ToArray();
 
         return atlasSprites.FirstOrDefault();
+    }
+
+    private static IEnumerable<string> GetIconCandidateNames(string unitName)
+    {
+        yield return unitName;
+
+        if (string.Equals(unitName, "Borealjuggernaut", StringComparison.OrdinalIgnoreCase))
+            yield return "Borealjuggernau";
     }
 
     private static Sprite LoadFrameForSpec(PlistAtlasAnimationSpec spec)
@@ -1146,7 +1273,9 @@ public static class UnitAnimationBuilder
             string.Equals(unitName, "Antiswarm", StringComparison.OrdinalIgnoreCase) ||
             string.Equals(unitName, "vampire", StringComparison.OrdinalIgnoreCase) ||
             string.Equals(unitName, "Crystal", StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(unitName, "Cindera", StringComparison.OrdinalIgnoreCase))
+            string.Equals(unitName, "Cindera", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(unitName, "Spelleater", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(unitName, "Decepticleprime", StringComparison.OrdinalIgnoreCase))
         {
             return 4;
         }

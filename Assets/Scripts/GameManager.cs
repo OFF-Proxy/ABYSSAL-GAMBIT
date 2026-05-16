@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using System;
 using System.Linq;
+using UnityEngine.EventSystems;
 
 /// ゲーム全体の管理を行うクラス。
 /// ユニットの生成やチームごとの管理を担当する。
@@ -19,6 +20,13 @@ public class GameManager : Manager<GameManager>
     public Vector3 benchStartPosition = new Vector3(-6.5f, -3.5f, 0f);
     public float benchSlotSpacing = 1f;
     public float benchPickRadius = 0.9f;
+    public Camera boardCamera;
+    public bool enableMouseWheelZoom = true;
+    public float mouseWheelZoomSpeed = 8f;
+    public float minCameraFieldOfView = 28f;
+    public float maxCameraFieldOfView = 60f;
+    public float minOrthographicSize = 3.5f;
+    public float maxOrthographicSize = 8f;
 
     public Action OnRoundStart;
     public Action OnRoundEnd;
@@ -35,6 +43,11 @@ public class GameManager : Manager<GameManager>
     public bool HasBenchSpace => benchEntities.Count < benchSlotCount;
     public int PlacedTeam1Count => team1Entities.Count;
     public int PlacementLimit => PlayerData.Instance != null ? PlayerData.Instance.Level : 1;
+
+    private void Update()
+    {
+        HandleMouseWheelZoom();
+    }
 
     public bool CanBuyEntity(EntitiesDatabaseSO.EntityData entityData)
     {
@@ -352,7 +365,7 @@ public class GameManager : Manager<GameManager>
             tile = benchTilesParent.GetChild(slotIndex).gameObject.AddComponent<Tile>();
 
         if (tile != null && GridManager.Instance != null)
-            GridManager.Instance.ConfigureBenchTile(tile);
+            GridManager.Instance.ConfigureBenchTile(tile, team);
 
         return tile;
     }
@@ -469,6 +482,37 @@ public class GameManager : Manager<GameManager>
         }
 
         return null;
+    }
+
+    private void HandleMouseWheelZoom()
+    {
+        if (!enableMouseWheelZoom)
+            return;
+
+        float scroll = Input.mouseScrollDelta.y;
+        if (Mathf.Abs(scroll) <= 0.01f)
+            return;
+
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return;
+
+        Camera targetCamera = boardCamera != null ? boardCamera : Camera.main;
+        if (targetCamera == null)
+            return;
+
+        if (targetCamera.orthographic)
+        {
+            targetCamera.orthographicSize = Mathf.Clamp(
+                targetCamera.orthographicSize - scroll * mouseWheelZoomSpeed * 0.1f,
+                minOrthographicSize,
+                maxOrthographicSize);
+            return;
+        }
+
+        targetCamera.fieldOfView = Mathf.Clamp(
+            targetCamera.fieldOfView - scroll * mouseWheelZoomSpeed,
+            minCameraFieldOfView,
+            maxCameraFieldOfView);
     }
 
     private BaseEntity GetTeam1EntityAtNode(Node node)

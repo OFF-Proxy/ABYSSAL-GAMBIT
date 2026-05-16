@@ -21,6 +21,8 @@ public class GridManager : Manager<GridManager>
     public float benchSpacing = 1f;
     public Color playerTileColor = Color.white;
     public Color blockedPlacementTileColor = new Color(1f, 0.72f, 0.72f, 1f);
+    public Color playerBenchTileColor = Color.white;
+    public Color enemyBenchTileColor = new Color(1f, 0.62f, 0.62f, 1f);
     public Color validHoverColor = new Color(0.75f, 1f, 0.9f, 1f);
     public Color invalidHoverColor = new Color(1f, 0.35f, 0.35f, 1f);
     public float tilePickRadius = 0.72f;
@@ -42,6 +44,7 @@ public class GridManager : Manager<GridManager>
         InitializeTileLookup();
         InitializeNodeColumns();
         ConfigureTiles();
+        ConfigureBenchTilesInScene();
         startPositionPerTeam = new Dictionary<Team, int>();
         startPositionPerTeam.Add(Team.Team1, 0);
         startPositionPerTeam.Add(Team.Team2, graph.Nodes.Count -1);
@@ -129,10 +132,16 @@ public class GridManager : Manager<GridManager>
 
     public void ConfigureBenchTile(Tile tile)
     {
+        ConfigureBenchTile(tile, Team.Team1);
+    }
+
+    public void ConfigureBenchTile(Tile tile, Team team)
+    {
         if (tile == null || configuredBenchTiles.Contains(tile))
             return;
 
-        tile.Configure(GetHoverSprite(), playerTileColor, validHoverColor, invalidHoverColor);
+        Color benchColor = team == Team.Team2 ? enemyBenchTileColor : playerBenchTileColor;
+        tile.Configure(GetHoverSprite(), benchColor, validHoverColor, invalidHoverColor);
         configuredBenchTiles.Add(tile);
     }
 
@@ -269,6 +278,22 @@ public class GridManager : Manager<GridManager>
             Color baseColor = canPlaceTeam1 ? playerTileColor : blockedPlacementTileColor;
             allTiles[i].Configure(hoverSprite, baseColor, validHoverColor, invalidHoverColor);
         }
+    }
+
+    private void ConfigureBenchTilesInScene()
+    {
+        ConfigureBenchTileParent(GameObject.Find("Grid/BenchLeft"), Team.Team1);
+        ConfigureBenchTileParent(GameObject.Find("Grid/BenchRight"), Team.Team2);
+    }
+
+    private void ConfigureBenchTileParent(GameObject benchParent, Team team)
+    {
+        if (benchParent == null)
+            return;
+
+        Tile[] benchTiles = benchParent.GetComponentsInChildren<Tile>(true);
+        for (int i = 0; i < benchTiles.Length; i++)
+            ConfigureBenchTile(benchTiles[i], team);
     }
 
     private Sprite GetHoverSprite()

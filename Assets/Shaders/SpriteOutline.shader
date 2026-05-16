@@ -7,6 +7,7 @@ Shader "AutoChess/SpriteOutline"
         _OutlineColor ("Outline Color", Color) = (0,1,0,1)
         _OutlineSize ("Outline Size", Range(0,4)) = 1.5
         _AlphaThreshold ("Alpha Threshold", Range(0,1)) = 0.05
+        _SpriteUVMinMax ("Sprite UV Min Max", Vector) = (0,0,1,1)
     }
 
     SubShader
@@ -40,6 +41,7 @@ Shader "AutoChess/SpriteOutline"
             fixed4 _OutlineColor;
             float _OutlineSize;
             float _AlphaThreshold;
+            float4 _SpriteUVMinMax;
 
             struct appdata_t
             {
@@ -64,6 +66,17 @@ Shader "AutoChess/SpriteOutline"
                 return output;
             }
 
+            float SampleSpriteAlpha(float2 uv)
+            {
+                if (uv.x < _SpriteUVMinMax.x || uv.x > _SpriteUVMinMax.z ||
+                    uv.y < _SpriteUVMinMax.y || uv.y > _SpriteUVMinMax.w)
+                {
+                    return 0.0;
+                }
+
+                return tex2D(_MainTex, uv).a;
+            }
+
             fixed4 frag(v2f input) : SV_Target
             {
                 fixed4 spriteColor = tex2D(_MainTex, input.texcoord) * input.color;
@@ -72,14 +85,14 @@ Shader "AutoChess/SpriteOutline"
 
                 float2 step = _MainTex_TexelSize.xy * _OutlineSize;
                 float neighborAlpha = 0.0;
-                neighborAlpha = max(neighborAlpha, tex2D(_MainTex, input.texcoord + float2(-step.x, -step.y)).a);
-                neighborAlpha = max(neighborAlpha, tex2D(_MainTex, input.texcoord + float2(0.0, -step.y)).a);
-                neighborAlpha = max(neighborAlpha, tex2D(_MainTex, input.texcoord + float2(step.x, -step.y)).a);
-                neighborAlpha = max(neighborAlpha, tex2D(_MainTex, input.texcoord + float2(-step.x, 0.0)).a);
-                neighborAlpha = max(neighborAlpha, tex2D(_MainTex, input.texcoord + float2(step.x, 0.0)).a);
-                neighborAlpha = max(neighborAlpha, tex2D(_MainTex, input.texcoord + float2(-step.x, step.y)).a);
-                neighborAlpha = max(neighborAlpha, tex2D(_MainTex, input.texcoord + float2(0.0, step.y)).a);
-                neighborAlpha = max(neighborAlpha, tex2D(_MainTex, input.texcoord + float2(step.x, step.y)).a);
+                neighborAlpha = max(neighborAlpha, SampleSpriteAlpha(input.texcoord + float2(-step.x, -step.y)));
+                neighborAlpha = max(neighborAlpha, SampleSpriteAlpha(input.texcoord + float2(0.0, -step.y)));
+                neighborAlpha = max(neighborAlpha, SampleSpriteAlpha(input.texcoord + float2(step.x, -step.y)));
+                neighborAlpha = max(neighborAlpha, SampleSpriteAlpha(input.texcoord + float2(-step.x, 0.0)));
+                neighborAlpha = max(neighborAlpha, SampleSpriteAlpha(input.texcoord + float2(step.x, 0.0)));
+                neighborAlpha = max(neighborAlpha, SampleSpriteAlpha(input.texcoord + float2(-step.x, step.y)));
+                neighborAlpha = max(neighborAlpha, SampleSpriteAlpha(input.texcoord + float2(0.0, step.y)));
+                neighborAlpha = max(neighborAlpha, SampleSpriteAlpha(input.texcoord + float2(step.x, step.y)));
 
                 if (neighborAlpha <= _AlphaThreshold)
                     return fixed4(0, 0, 0, 0);

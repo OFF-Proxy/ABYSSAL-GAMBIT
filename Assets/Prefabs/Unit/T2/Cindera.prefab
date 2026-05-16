@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 3
-  m_Sprite: {fileID: -925515918, guid: cc765c32e575e9c49aa8e255867e0b60, type: 3}
+  m_Sprite: {fileID: 1630608509, guid: 121eac40f817e4642a90e310b3241bdc, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -111,6 +111,17 @@ MonoBehaviour:
   range: 4
   attackSpeed: 0.9
   movementSpeed: 1
+  maxMana: 100
+  manaOnAttack: 25
+  manaOnDamageTaken: 15
+  skillDamageMultiplier: 1.8
+  autoConfigureSkillType: 1
+  skillType: 0
+  skillHealPercent: 0.25
+  skillFlatHeal: 0
+  skillShieldPercent: 0.35
+  skillFlatShield: 0
+  skillShieldDuration: 4
 --- !u!95 &6167090234760718286
 Animator:
   serializedVersion: 5
@@ -185,7 +196,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 1.3, y: 1.3}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0

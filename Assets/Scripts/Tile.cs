@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    private const int TileSortingOrder = 100;
+    private const int TileHighlightSortingOrder = 150;
+
     public SpriteRenderer highlightSprite;
     public Color validColor;
     public Color wrongColor;
@@ -60,6 +63,15 @@ public class Tile : MonoBehaviour
         {
             baseSprite = tileRenderer.sprite;
             baseColor = tileRenderer.color;
+            tileRenderer.sortingOrder = TileSortingOrder;
+        }
+
+        if (highlightSprite != null)
+        {
+            if (tileRenderer != null)
+                highlightSprite.sortingLayerID = tileRenderer.sortingLayerID;
+
+            highlightSprite.sortingOrder = TileHighlightSortingOrder;
         }
 
         initialized = true;

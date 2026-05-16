@@ -131,6 +131,17 @@ MonoBehaviour:
   range: 4
   attackSpeed: 1
   movementSpeed: 1
+  maxMana: 100
+  manaOnAttack: 25
+  manaOnDamageTaken: 15
+  skillDamageMultiplier: 1.8
+  autoConfigureSkillType: 1
+  skillType: 0
+  skillHealPercent: 0.25
+  skillFlatHeal: 0
+  skillShieldPercent: 0.35
+  skillFlatShield: 0
+  skillShieldDuration: 4
 --- !u!114 &9101000000000000002
 MonoBehaviour:
   m_ObjectHideFlags: 0
