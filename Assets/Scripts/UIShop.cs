@@ -5,23 +5,35 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+// 画面下のショップUI全体を管理するクラスです。
+// カード生成、購入、リロール、EXP購入、売却プレビュー、スターアップ予告を担当します。
 public class UIShop : MonoBehaviour
 {
+    // 他のスクリプトからショップにアクセスしやすくするための簡易Singletonです。
     public static UIShop Instance { get; private set; }
 
+    // Inspectorから紐づけるカード一覧と、所持金・レベル・EXP表示です。
     public List<UICard> allCards;
     public TextMeshProUGUI money;
     public TextMeshProUGUI levelText;
     public TextMeshProUGUI expText;
     public Button expButton;
+
+    // ユニットをショップへドラッグした時に表示する「売却額」用UIです。
     public TextMeshProUGUI sellPreviewText;
     public Color sellPreviewColor = new Color(1f, 0.9f, 0.2f, 1f);
 
+    // ショップで使うユニットデータベースと、各操作のコストです。
     private EntitiesDatabaseSO cachedDb;
     private int refreshCost = 2;
     private int expCost = 4;
     private int expAmount = 4;
+
+    // ショップに出る可能性がある最大コストです。後でコスト5まで増やす想定です。
     private const int MaxShopCost = 5;
+
+    // レベルごとのショップ排出率です。
+    // 行がプレイヤーレベル、列がユニットコスト1から5を表します。
     private static readonly int[,] ShopOddsByLevel =
     {
         { 100, 0, 0, 0, 0 },
@@ -36,31 +48,46 @@ public class UIShop : MonoBehaviour
         { 5, 10, 20, 40, 25 }
     };
 
+    // 売却判定で「マウスがショップ上にあるか」を見るためのRectTransformです。
     private RectTransform rectTransform;
+
+    // 売却モード中に一時的に隠すUIと、その元の表示状態を覚えておく入れ物です。
     private List<GameObject> sellModeHiddenObjects = new List<GameObject>();
     private Dictionary<GameObject, bool> previousActiveStates = new Dictionary<GameObject, bool>();
     private bool sellModeActive;
 
+    // ショップ生成直後に、Singleton登録と必要UIの補完を行います。
     private void Awake()
     {
+        // ショップはシーンに1つだけある想定なので、Instanceに自分を登録します。
         Instance = this;
         rectTransform = GetComponent<RectTransform>();
+
+        // Inspectorで参照が抜けていても動くよう、必要なUIを探して補完します。
         EnsureExpControls();
         EnsureSellPreviewText();
         CacheSellModeHiddenObjects();
     }
 
+    // GameManagerやPlayerDataが準備された後、カード生成とイベント登録を行います。
     private void Start()
     {
+        // GameManagerが持っているユニットデータベースをショップ側で使いやすいように保存します。
         cachedDb = GameManager.Instance.entitiesDatabase;
+
+        // ゲーム開始時に最初のショップカードを並べます。
         GenerateCard();
+
+        // 所持ユニットやプレイヤー情報が変わった時に、表示を自動更新します。
         GameManager.Instance.OnRosterChanged += UpdateUpgradeHighlights;
         PlayerData.Instance.OnUpdate += Refresh;
         Refresh();
     }
 
+    // ショップ破棄時にイベント購読を解除します。
     private void OnDestroy()
     {
+        // シーン終了やオブジェクト破棄時に、古い参照やイベント登録を残さないようにします。
         if (Instance == this)
             Instance = null;
 
@@ -71,31 +98,43 @@ public class UIShop : MonoBehaviour
             PlayerData.Instance.OnUpdate -= Refresh;
     }
 
+    // ショップカードを全て引き直します。リロール時やゲーム開始時に使います。
     public void GenerateCard()
     {
+        // データベースが空ならカードを作れないので、ここで処理を止めます。
         if (cachedDb == null || cachedDb.allEntities == null || cachedDb.allEntities.Count == 0)
             return;
 
         for(int i = 0; i < allCards.Count; i++)
         {
+            // 前回購入で非表示になったカードも、リロール時には再表示します。
             if (!allCards[i].gameObject.activeSelf)
                 allCards[i].gameObject.SetActive(true);
 
+            // 現在レベルの排出率に従って、カードにユニットを設定します。
             allCards[i].Setup(GetRandomEntityForCurrentLevel(), this);
         }
 
+        // 引き直したカードの中にスターアップ可能なユニットがあれば光らせます。
         UpdateUpgradeHighlights();
     }
 
+    // 現在レベルの排出率に従って、ショップに出すユニットを1体選びます。
     private EntitiesDatabaseSO.EntityData GetRandomEntityForCurrentLevel()
     {
         int targetCost = RollShopCostForCurrentLevel();
         List<EntitiesDatabaseSO.EntityData> candidates = GetEntitiesByCost(targetCost);
+
+        // まだ該当コストのユニットが未実装なら、近いコストのユニットで代用します。
         if (candidates.Count == 0)
             candidates = GetFallbackEntitiesForCost(targetCost);
 
+        // Prefabが入っているユニットを優先し、それもなければ全データから選びます。
         if (candidates.Count == 0)
-            candidates = cachedDb.allEntities.Where(entity => entity.prefab != null).ToList();
+            candidates = cachedDb.allEntities.Where(entity => entity.prefab != null && IsShopEntityUnlocked(entity)).ToList();
+
+        if (candidates.Count == 0)
+            candidates = cachedDb.allEntities.Where(IsShopEntityUnlocked).ToList();
 
         if (candidates.Count == 0)
             candidates = cachedDb.allEntities;
@@ -103,18 +142,21 @@ public class UIShop : MonoBehaviour
         return candidates[Random.Range(0, candidates.Count)];
     }
 
+    // プレイヤーレベルに応じた確率表から、今回出すユニットのコストを抽選します。
     private int RollShopCostForCurrentLevel()
     {
         int level = PlayerData.Instance != null ? PlayerData.Instance.Level : 1;
         int row = Mathf.Clamp(level, 1, ShopOddsByLevel.GetLength(0)) - 1;
         int totalWeight = 0;
 
+        // 対象レベルの全コスト確率を合計して、抽選の母数にします。
         for (int costIndex = 0; costIndex < MaxShopCost; costIndex++)
             totalWeight += ShopOddsByLevel[row, costIndex];
 
         if (totalWeight <= 0)
             return 1;
 
+        // 0から合計値までの乱数を取り、どのコスト範囲に入ったかで決めます。
         int roll = Random.Range(0, totalWeight);
         int cumulative = 0;
         for (int costIndex = 0; costIndex < MaxShopCost; costIndex++)
@@ -127,22 +169,25 @@ public class UIShop : MonoBehaviour
         return 1;
     }
 
+    // 指定コストかつPrefab設定済みのユニットだけを取り出します。
     private List<EntitiesDatabaseSO.EntityData> GetEntitiesByCost(int cost)
     {
         return cachedDb.allEntities
-            .Where(entity => entity.prefab != null && entity.cost == cost)
+            .Where(entity => entity.prefab != null && entity.cost == cost && IsShopEntityUnlocked(entity))
             .ToList();
     }
 
+    // 指定コストのユニットがまだ無い時に、実装済みの近いコストから代替候補を探します。
     private List<EntitiesDatabaseSO.EntityData> GetFallbackEntitiesForCost(int targetCost)
     {
         List<EntitiesDatabaseSO.EntityData> availableEntities = cachedDb.allEntities
-            .Where(entity => entity.prefab != null)
+            .Where(entity => entity.prefab != null && IsShopEntityUnlocked(entity))
             .ToList();
 
         if (availableEntities.Count == 0)
             return new List<EntitiesDatabaseSO.EntityData>();
 
+        // 目標コスト以下で最も高いコストを優先し、なければ最小コストを使います。
         int fallbackCost = availableEntities
             .Select(entity => entity.cost)
             .Where(cost => cost <= targetCost)
@@ -154,24 +199,36 @@ public class UIShop : MonoBehaviour
             .ToList();
     }
 
+    // ボス報酬ユニットなど、まだ解放されていないユニットをショップ抽選から外します。
+    private bool IsShopEntityUnlocked(EntitiesDatabaseSO.EntityData entity)
+    {
+        return GameManager.Instance == null || GameManager.Instance.IsEntityUnlockedForShop(entity);
+    }
+
+    // ショップカードをクリックした時の購入処理です。
     public void OnCardClick(UICard card, EntitiesDatabaseSO.EntityData cardData)
     {
+        // 売却プレビュー中は、誤クリックで購入やリロールが起きないようにします。
         if (sellModeActive)
             return;
 
+        // ベンチが満杯など、ゲーム側の購入条件を満たさない場合は購入できません。
         if (!GameManager.Instance.CanBuyEntity(cardData))
             return;
 
         //We should check if we have the money!
         if(PlayerData.Instance.CanAfford(cardData.cost))
         {
+            // お金を払ってカードを消し、GameManagerに購入ユニット生成を任せます。
             PlayerData.Instance.SpendMoney(cardData.cost);
             card.gameObject.SetActive(false);
             GameManager.Instance.OnEntityBought(cardData);
+            AttackEffectPlayer.PlayUiSfx("unit_buy");
             UpdateUpgradeHighlights();
         }
     }
 
+    // リロールボタンを押した時の処理です。
     public void OnRefreshClick()
     {
         if (sellModeActive)
@@ -180,19 +237,25 @@ public class UIShop : MonoBehaviour
         //Decrease money 
         if(PlayerData.Instance.CanAfford(refreshCost))
         {
+            // リロール代を払い、ショップカードを引き直します。
             PlayerData.Instance.SpendMoney(refreshCost);
             GenerateCard();
+            AttackEffectPlayer.PlayUiSfx("shop_reroll");
         }
     }
 
+    // EXP購入ボタンを押した時の処理です。
     public void OnExpClick()
     {
         if (sellModeActive || PlayerData.Instance == null)
             return;
 
-        PlayerData.Instance.TryBuyExp(expAmount, expCost);
+        // PlayerData側で所持金と最大レベルを確認し、成功したらSEを鳴らします。
+        if (PlayerData.Instance.TryBuyExp(expAmount, expCost))
+            AttackEffectPlayer.PlayUiSfx("exp_buy");
     }
 
+    // 所持金、レベル、EXP、ボタン押下可否を現在のPlayerDataに合わせて更新します。
     void Refresh()
     {
         money.text = PlayerData.Instance.Money.ToString();
@@ -206,6 +269,7 @@ public class UIShop : MonoBehaviour
 
         if (expText != null)
         {
+            // 最大レベルなら次の必要EXPを出さず、MAX表示にします。
             if (PlayerData.Instance.Level >= PlayerData.Instance.MaxLevel)
                 expText.text = "MAX";
             else
@@ -216,6 +280,7 @@ public class UIShop : MonoBehaviour
             expButton.interactable = PlayerData.Instance.CanBuyExp(expCost);
     }
 
+    // 現在ショップに表示されているカードが、買うとスターアップできるかを調べて強調します。
     private void UpdateUpgradeHighlights()
     {
         for (int i = 0; i < allCards.Count; i++)
@@ -228,6 +293,7 @@ public class UIShop : MonoBehaviour
         }
     }
 
+    // ユニットをショップへドラッグしている間、売却額表示に切り替えます。
     public void ShowSellPreview(BaseEntity entity)
     {
         if (entity == null || GameManager.Instance == null)
@@ -239,6 +305,8 @@ public class UIShop : MonoBehaviour
         if (!sellModeActive)
         {
             previousActiveStates.Clear();
+
+            // ショップカード、EXP、リロールなどを一時的に隠し、元の表示状態を覚えておきます。
             for (int i = 0; i < sellModeHiddenObjects.Count; i++)
             {
                 GameObject target = sellModeHiddenObjects[i];
@@ -252,6 +320,7 @@ public class UIShop : MonoBehaviour
             sellModeActive = true;
         }
 
+        // 今ドラッグしているユニットを売った時の金額を大きく表示します。
         if (sellPreviewText != null)
         {
             sellPreviewText.gameObject.SetActive(true);
@@ -259,6 +328,7 @@ public class UIShop : MonoBehaviour
         }
     }
 
+    // 売却プレビューを終え、隠していたショップUIを元に戻します。
     public void HideSellPreview()
     {
         if (!sellModeActive)
@@ -279,6 +349,8 @@ public class UIShop : MonoBehaviour
         UpdateUpgradeHighlights();
     }
 
+    // マウス位置がショップ範囲内かを調べます。
+    // ユニットをショップへドロップして売却できるかの判定に使います。
     public bool IsPointerOverShop(Vector2 screenPosition)
     {
         if (rectTransform == null)
@@ -289,6 +361,7 @@ public class UIShop : MonoBehaviour
         if (rectTransform != null && RectTransformUtility.RectangleContainsScreenPoint(rectTransform, screenPosition, uiCamera))
             return true;
 
+        // 売却モード中に隠しているUIの範囲も、ショップ範囲として扱います。
         for (int i = 0; i < sellModeHiddenObjects.Count; i++)
         {
             RectTransform targetRect = sellModeHiddenObjects[i] != null ? sellModeHiddenObjects[i].GetComponent<RectTransform>() : null;
@@ -299,6 +372,7 @@ public class UIShop : MonoBehaviour
         return false;
     }
 
+    // 売却額テキストがInspectorで未設定でも動くよう、実行時に作ります。
     private void EnsureSellPreviewText()
     {
         if (sellPreviewText != null)
@@ -323,6 +397,7 @@ public class UIShop : MonoBehaviour
         sellPreviewText.gameObject.SetActive(false);
     }
 
+    // EXPボタンやレベル/EXP表示の参照を探し、ボタンイベントを登録します。
     private void EnsureExpControls()
     {
         if (expButton == null)
@@ -334,6 +409,7 @@ public class UIShop : MonoBehaviour
 
         if (expButton != null)
         {
+            // 二重登録を避けるため、先に同じイベントを外してから登録します。
             expButton.onClick.RemoveListener(OnExpClick);
             expButton.onClick.AddListener(OnExpClick);
         }
@@ -351,11 +427,13 @@ public class UIShop : MonoBehaviour
             if (levelObject != null)
                 levelText = levelObject.GetComponent<TextMeshProUGUI>();
 
+            // 名前が変わっていても、よくありそうな名前や表示文字から探します。
             if (levelText == null)
                 levelText = FindTextMeshProByNameOrText("PlayerLevel", "Lv", "LV", "Level");
         }
     }
 
+    // Canvas内から、名前または現在の文字列が一致するTextMeshProUGUIを探します。
     private TextMeshProUGUI FindTextMeshProByNameOrText(params string[] namesOrTexts)
     {
         Canvas canvas = GetComponentInParent<Canvas>();
@@ -380,10 +458,12 @@ public class UIShop : MonoBehaviour
         return null;
     }
 
+    // 売却プレビュー中に隠すUIを一覧化します。
     private void CacheSellModeHiddenObjects()
     {
         sellModeHiddenObjects.Clear();
 
+        // ショップカードはカードの親オブジェクトごと隠す想定です。
         if (allCards != null && allCards.Count > 0 && allCards[0] != null && allCards[0].transform.parent != null)
             AddSellModeHiddenObject(allCards[0].transform.parent.gameObject);
 
@@ -392,6 +472,7 @@ public class UIShop : MonoBehaviour
         AddSellModeHiddenObject(GameObject.Find("RerollButton"));
     }
 
+    // nullや重複を避けながら、売却モードで隠す候補へ追加します。
     private void AddSellModeHiddenObject(GameObject target)
     {
         if (target != null && !sellModeHiddenObjects.Contains(target))

@@ -143,6 +143,18 @@ MonoBehaviour:
   skillShieldPercent: 0.35
   skillFlatShield: 0
   skillShieldDuration: 4
+  skillAllyHealPercent: 0.2
+  skillFlatAllyHeal: 0
+  skillAttackSpeedBoostMultiplier: 1.45
+  skillDamageBoostMultiplier: 1.55
+  skillBuffDuration: 4
+  skillStunDuration: 1.25
+  skillSlowMultiplier: 0.55
+  skillSlowDuration: 4
+  skillAreaRadius: 1.65
+  skillAreaDamageMultiplier: 1.35
+  attackImpactNormalizedTime: 0.55
+  skillImpactNormalizedTime: 0.55
 --- !u!61 &-1529090891584025850
 BoxCollider2D:
   m_ObjectHideFlags: 0

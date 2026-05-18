@@ -4,9 +4,14 @@ using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
 
+// 攻撃・スキル・死亡・UI操作の見た目と音を再生する共通プレイヤーです。
+// シーンに置かれていなくても、必要になったら自動でGameObjectを作って動きます。
 public class AttackEffectPlayer : MonoBehaviour
 {
+    // スプライトエフェクトを何fpsで再生するかです。
     private const float FrameRate = 18f;
+
+    // Resources配下に置かれている各エフェクト画像のパスです。
     private const string ProjectileResourcePath = "AttackEffects/fx_f1_casterprojectile";
     private const string ImpactResourcePath = "AttackEffects/fx_explosionblueelectrical";
     private const string MeleeResourcePath = "AttackEffects/fx_crossslash";
@@ -19,6 +24,7 @@ public class AttackEffectPlayer : MonoBehaviour
     private const string AreaResourcePath = "AttackEffects/fx_whiteexplosion";
     private const string DamageBoostResourcePath = "AttackEffects/fx_ringswirl";
 
+    // BGM候補です。上から順にResources.Loadで探し、最初に見つかったものを使います。
     private static readonly string[] BgmCandidates =
     {
         "music/music_battlemap01",
@@ -27,9 +33,14 @@ public class AttackEffectPlayer : MonoBehaviour
         "music/music_playmode"
     };
 
+    // 音声を何度もResources.Loadしないようキャッシュします。
     private static readonly Dictionary<string, AudioClip> generatedAudioClips = new Dictionary<string, AudioClip>();
     private static readonly Dictionary<string, AudioClip> loadedAudioClips = new Dictionary<string, AudioClip>();
+
+    // このクラスの実体です。staticメソッドからでも音やエフェクトを鳴らすために使います。
     private static AttackEffectPlayer instance;
+
+    // 各エフェクトのスプライト配列です。初回再生時にまとめて読み込みます。
     private static Sprite[] projectileSprites;
     private static Sprite[] impactSprites;
     private static Sprite[] meleeSprites;
@@ -42,9 +53,11 @@ public class AttackEffectPlayer : MonoBehaviour
     private static Sprite[] areaSprites;
     private static Sprite[] damageBoostSprites;
 
+    // SE用とBGM用のAudioSourceです。BGMはループ再生します。
     private AudioSource sfxSource;
     private AudioSource bgmSource;
 
+    // シーン読み込み後、自動でこのクラスを用意しBGMを鳴らします。
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void BootstrapAudio()
     {
@@ -52,6 +65,7 @@ public class AttackEffectPlayer : MonoBehaviour
         instance.PlayBgmIfNeeded();
     }
 
+    // 通常攻撃のエフェクトとSEを再生します。
     public static void PlayAttack(BaseEntity attacker, BaseEntity target, bool rangedAttack)
     {
         if (attacker == null || target == null)
@@ -60,6 +74,7 @@ public class AttackEffectPlayer : MonoBehaviour
         EnsureInstance();
         EnsureSpritesLoaded();
 
+        // 発射位置と着弾位置を、ユニット中心より少し上にずらします。
         Vector3 source = attacker.transform.position + new Vector3(0f, 0.12f, 0f);
         Vector3 destination = target.transform.position + new Vector3(0f, 0.18f, 0f);
         Color teamColor = GetTeamEffectColor(attacker);
@@ -71,6 +86,7 @@ public class AttackEffectPlayer : MonoBehaviour
             instance.StartCoroutine(instance.PlayMeleeAttack(source, destination, teamColor));
     }
 
+    // スキルの種類に合ったエフェクトとSEを再生します。
     public static void PlaySkill(BaseEntity caster, BaseEntity target, UnitSkillType skillType)
     {
         if (caster == null)
@@ -79,6 +95,7 @@ public class AttackEffectPlayer : MonoBehaviour
         EnsureInstance();
         EnsureSpritesLoaded();
 
+        // 自己強化系は自分、攻撃系は対象の位置にエフェクトを出します。
         BaseEntity effectTarget = GetSkillEffectTarget(caster, target, skillType);
         Vector3 position = effectTarget.transform.position + new Vector3(0f, 0.2f, 0f);
         Color color = GetSkillEffectColor(caster, skillType);
@@ -90,6 +107,7 @@ public class AttackEffectPlayer : MonoBehaviour
         instance.StartCoroutine(instance.PlayAnimatedSprite(resourcePath, sprites, position, scale, color, 0f, GetEffectSortingOrder(position, 70)));
     }
 
+    // 死亡時のSEを鳴らします。
     public static void PlayDeath(BaseEntity entity)
     {
         if (entity == null)
@@ -99,6 +117,17 @@ public class AttackEffectPlayer : MonoBehaviour
         instance.PlaySfx("death", 0.58f);
     }
 
+    // ショップやドラッグなど、UI操作SEを鳴らすための入口です。
+    public static void PlayUiSfx(string cueName)
+    {
+        if (string.IsNullOrEmpty(cueName))
+            return;
+
+        EnsureInstance();
+        instance.PlaySfx(cueName, GetUiSfxVolume(cueName));
+    }
+
+    // スキルエフェクトを誰の位置に出すか決めます。
     private static BaseEntity GetSkillEffectTarget(BaseEntity caster, BaseEntity target, UnitSkillType skillType)
     {
         switch (skillType)
@@ -113,6 +142,7 @@ public class AttackEffectPlayer : MonoBehaviour
         }
     }
 
+    // AttackEffectPlayerの実体が無ければ作ります。
     private static void EnsureInstance()
     {
         if (instance != null)
@@ -124,6 +154,7 @@ public class AttackEffectPlayer : MonoBehaviour
         instance.EnsureAudioSources();
     }
 
+    // Resourcesから各エフェクトのスプライトを読み込みます。
     private static void EnsureSpritesLoaded()
     {
         projectileSprites ??= LoadSprites(ProjectileResourcePath)
@@ -141,6 +172,7 @@ public class AttackEffectPlayer : MonoBehaviour
         damageBoostSprites ??= LoadSprites(DamageBoostResourcePath);
     }
 
+    // 指定Resourcesパスの全Spriteを読み、名前末尾の番号順に並べます。
     private static Sprite[] LoadSprites(string resourcePath)
     {
         return Resources.LoadAll<Sprite>(resourcePath)
@@ -150,12 +182,14 @@ public class AttackEffectPlayer : MonoBehaviour
             .ToArray();
     }
 
+    // "name_001" のような名前から末尾番号を取り出します。
     private static int ExtractTrailingNumber(string value)
     {
         Match match = Regex.Match(value ?? string.Empty, @"_(\d+)$");
         return match.Success ? int.Parse(match.Groups[1].Value) : 0;
     }
 
+    // 通常攻撃エフェクトの色をチームで変えます。
     private static Color GetTeamEffectColor(BaseEntity attacker)
     {
         return attacker.Team == Team.Team2
@@ -163,6 +197,7 @@ public class AttackEffectPlayer : MonoBehaviour
             : new Color(0.2f, 0.9f, 1f, 1f);
     }
 
+    // スキル種類ごとのエフェクト色を返します。
     private static Color GetSkillEffectColor(BaseEntity caster, UnitSkillType skillType)
     {
         switch (skillType)
@@ -186,6 +221,7 @@ public class AttackEffectPlayer : MonoBehaviour
         }
     }
 
+    // スキル種類に合ったSprite配列を返します。
     private static Sprite[] GetSkillSprites(UnitSkillType skillType)
     {
         switch (skillType)
@@ -210,6 +246,7 @@ public class AttackEffectPlayer : MonoBehaviour
         }
     }
 
+    // スキル種類に合ったResourcesパスを返します。
     private static string GetSkillResourcePath(UnitSkillType skillType)
     {
         switch (skillType)
@@ -234,6 +271,7 @@ public class AttackEffectPlayer : MonoBehaviour
         }
     }
 
+    // スキル種類ごとのエフェクトサイズです。
     private static float GetSkillEffectScale(UnitSkillType skillType)
     {
         switch (skillType)
@@ -250,6 +288,7 @@ public class AttackEffectPlayer : MonoBehaviour
         }
     }
 
+    // スキル種類から再生したいSE名を決めます。
     private static string GetSkillSfxName(UnitSkillType skillType)
     {
         switch (skillType)
@@ -272,16 +311,19 @@ public class AttackEffectPlayer : MonoBehaviour
         }
     }
 
+    // スキルSEの音量です。範囲攻撃だけ少し大きめにしています。
     private static float GetSkillSfxVolume(UnitSkillType skillType)
     {
         return skillType == UnitSkillType.AreaDamage ? 0.56f : 0.48f;
     }
 
+    // エフェクトの描画順をユニットと同じ基準で計算します。
     private static int GetEffectSortingOrder(Vector3 position, int offset)
     {
         return BaseEntity.CalculateSortingOrder(position, offset);
     }
 
+    // 遠距離攻撃の弾と軌跡を再生します。
     private IEnumerator PlayRangedAttack(Vector3 source, Vector3 destination, Color teamColor)
     {
         GameObject projectileObject = new GameObject("RangedAttackProjectile");
@@ -293,6 +335,7 @@ public class AttackEffectPlayer : MonoBehaviour
         if (projectileSprites.Length > 0)
             projectileRenderer.sprite = projectileSprites[0];
 
+        // 弾の向きを、攻撃元から攻撃先へ向けます。
         Vector3 direction = destination - source;
         float distance = direction.magnitude;
         if (distance > 0.01f)
@@ -301,6 +344,7 @@ public class AttackEffectPlayer : MonoBehaviour
         float duration = Mathf.Clamp(distance / 7f, 0.16f, 0.48f);
         LineRenderer trail = CreateTrail(projectileObject, teamColor, GetEffectSortingOrder(source, 44));
 
+        // 弾を目的地まで補間移動させ、少し弧を描かせます。
         float elapsed = 0f;
         while (elapsed < duration)
         {
@@ -325,6 +369,7 @@ public class AttackEffectPlayer : MonoBehaviour
         StartCoroutine(PlayAnimatedSprite(ImpactResourcePath, impactSprites, destination, 0.9f, teamColor, 0f, GetEffectSortingOrder(destination, 55)));
     }
 
+    // 近接攻撃の斬撃エフェクトと着弾エフェクトを再生します。
     private IEnumerator PlayMeleeAttack(Vector3 source, Vector3 destination, Color teamColor)
     {
         Vector3 direction = destination - source;
@@ -337,6 +382,7 @@ public class AttackEffectPlayer : MonoBehaviour
         StartCoroutine(PlayAnimatedSprite(ImpactResourcePath, impactSprites, destination, 0.62f, teamColor, 0f, sortingOrder + 1));
     }
 
+    // 遠距離攻撃の軌跡をLineRendererで作ります。
     private LineRenderer CreateTrail(GameObject parent, Color teamColor, int sortingOrder)
     {
         LineRenderer line = parent.AddComponent<LineRenderer>();
@@ -355,6 +401,7 @@ public class AttackEffectPlayer : MonoBehaviour
         return line;
     }
 
+    // 遠距離攻撃の軌跡を、弾の現在位置に合わせて更新します。
     private void UpdateTrail(LineRenderer trail, Vector3 source, Vector3 head, Color teamColor, float progress)
     {
         if (trail == null)
@@ -369,6 +416,7 @@ public class AttackEffectPlayer : MonoBehaviour
         trail.endColor = new Color(teamColor.r, teamColor.g, teamColor.b, 0.75f * alpha);
     }
 
+    // Sprite配列を順番に表示して、短いアニメーションエフェクトとして再生します。
     private IEnumerator PlayAnimatedSprite(string name, Sprite[] sprites, Vector3 position, float scale, Color teamColor, float angle, int sortingOrder)
     {
         if (sprites == null || sprites.Length == 0)
@@ -393,6 +441,7 @@ public class AttackEffectPlayer : MonoBehaviour
         Destroy(effectObject);
     }
 
+    // SE用とBGM用のAudioSourceを作ります。
     private void EnsureAudioSources()
     {
         if (sfxSource == null)
@@ -413,6 +462,7 @@ public class AttackEffectPlayer : MonoBehaviour
         }
     }
 
+    // BGM候補から見つかったものを再生します。見つからなければ簡易生成BGMを使います。
     private void PlayBgmIfNeeded()
     {
         EnsureAudioSources();
@@ -433,6 +483,7 @@ public class AttackEffectPlayer : MonoBehaviour
             bgmSource.Play();
     }
 
+    // 指定名のSEを再生します。Resourcesに無ければ簡易生成音を使います。
     private void PlaySfx(string clipName, float volume)
     {
         EnsureAudioSources();
@@ -444,10 +495,66 @@ public class AttackEffectPlayer : MonoBehaviour
             sfxSource.PlayOneShot(clip, volume);
     }
 
+    // SE名ごとに、Resources内で探す候補パスを返します。
     private static string[] GetSfxCandidates(string clipName)
     {
         switch (clipName)
         {
+            case "shop_reroll":
+                return new[]
+                {
+                    "sfx/sfx_ui_nextpage",
+                    "sfx/sfx_ui_booster_packexplode",
+                    "sfx/sfx_ui_select"
+                };
+            case "exp_buy":
+                return new[]
+                {
+                    "sfx/sfx_tile_mana",
+                    "sfx/sfx_gold_reward_1",
+                    "sfx/pointdrop"
+                };
+            case "unit_buy":
+                return new[]
+                {
+                    "sfx/sfx_unit_deploy",
+                    "sfx/sfx_unit_deploy_1",
+                    "sfx/sfx_ui_select"
+                };
+            case "unit_sell":
+                return new[]
+                {
+                    "sfx/sfx_gold_reward_1",
+                    "sfx/sfx_ui_cardburn",
+                    "sfx/sfx_ui_select"
+                };
+            case "star_up":
+                return new[]
+                {
+                    "sfx/sfx_summonlegendary",
+                    "sfx/sfx_victory_reward",
+                    "sfx/sfx_spell_starsfury"
+                };
+            case "drag_start":
+                return new[]
+                {
+                    "sfx/sfx_unit_onclick",
+                    "sfx/sfx_ui_in_game_hover"
+                };
+            case "drag_drop":
+                return new[]
+                {
+                    "sfx/sfx_unit_deploy_1",
+                    "sfx/sfx_unit_deploy",
+                    "sfx/sfx_ui_select"
+                };
+            case "fight_start":
+                return new[]
+                {
+                    "sfx/sfx_ui_yourturn",
+                    "sfx/sfx_announcer_versus",
+                    "sfx/sfx_ui_panel_swoosh_enter"
+                };
             case "normal_attack":
                 return new[]
                 {
@@ -503,6 +610,30 @@ public class AttackEffectPlayer : MonoBehaviour
         }
     }
 
+    // UI操作SEの音量を、操作の重要度ごとに調整します。
+    private static float GetUiSfxVolume(string cueName)
+    {
+        switch (cueName)
+        {
+            case "fight_start":
+            case "star_up":
+                return 0.68f;
+            case "unit_sell":
+            case "unit_buy":
+                return 0.56f;
+            case "shop_reroll":
+            case "exp_buy":
+                return 0.5f;
+            case "drag_start":
+                return 0.34f;
+            case "drag_drop":
+                return 0.42f;
+            default:
+                return 0.45f;
+        }
+    }
+
+    // 候補パスを上から順にResources.Loadし、最初に見つかったAudioClipを返します。
     private static AudioClip LoadFirstAudioClip(params string[] resourcePaths)
     {
         if (resourcePaths == null)
@@ -528,6 +659,7 @@ public class AttackEffectPlayer : MonoBehaviour
         return null;
     }
 
+    // SE素材が見つからない時の保険として、短い電子音を生成します。
     private static AudioClip GetGeneratedSfxClip(string clipName)
     {
         if (generatedAudioClips.TryGetValue(clipName, out AudioClip clip))
@@ -562,6 +694,7 @@ public class AttackEffectPlayer : MonoBehaviour
         return clip;
     }
 
+    // BGM素材が見つからない時の保険として、短いループ音を生成します。
     private static AudioClip GetGeneratedBgmClip()
     {
         const string key = "bgm_battle_generated";
@@ -592,6 +725,7 @@ public class AttackEffectPlayer : MonoBehaviour
         return clip;
     }
 
+    // 周波数を変化させながら、簡単な効果音AudioClipを作ります。
     private static AudioClip CreateToneClip(string clipName, float startFrequency, float endFrequency, float duration, float volume, float noiseAmount)
     {
         const int sampleRate = 44100;

@@ -8,52 +8,82 @@ using UnityEditor;
 using UnityEditor.SceneManagement;
 #endif
 
+// 盤面タイルとベンチタイルを管理するクラスです。
+// タイルをGraphのNodeへ変換し、移動経路・配置可能範囲・ホバー表示を扱います。
 public class GridManager : Manager<GridManager>
-{  
-    public GameObject terrainGrid; // ゲーム内のタイルマップを参照
+{
+    // 盤面タイルが子として入っている親オブジェクトです。
+    public GameObject terrainGrid;
+
+    // ドラッグ中に置き先候補として表示するホバー用タイル画像です。
     public UnityEngine.Tilemaps.Tile hoverTile;
+
+    // 盤面の横幅と、プレイヤーが手動配置できる左側列数です。
     public int boardColumns = 10;
     public int playerDeploymentColumns = 5;
+
+    // ベンチタイルをEditorメニューから自動生成する時の設定です。
     public int benchRows = 8;
     public float benchLeftX = -6.5f;
     public float benchRightX = 6.5f;
     public float benchBottomY = -3.5f;
     public float benchSpacing = 1f;
+
+    // 盤面・ベンチ・ホバー表示の色設定です。
     public Color playerTileColor = Color.white;
     public Color blockedPlacementTileColor = new Color(1f, 0.72f, 0.72f, 1f);
     public Color playerBenchTileColor = Color.white;
     public Color enemyBenchTileColor = new Color(1f, 0.62f, 0.62f, 1f);
     public Color validHoverColor = new Color(0.75f, 1f, 0.9f, 1f);
     public Color invalidHoverColor = new Color(1f, 0.35f, 0.35f, 1f);
-    public float tilePickRadius = 0.72f;
-    protected Graph graph; // グリッドのノードとエッジを管理するグラフ
-    protected Dictionary<Team, int> startPositionPerTeam; // 各チームの初期配置位置を保持する辞書
 
+    // マウス位置からタイルを拾う時、この距離以内なら同じタイル上とみなします。
+    public float tilePickRadius = 0.72f;
+
+    // 盤面上のノードとエッジをまとめたグラフです。
+    protected Graph graph;
+
+    // 各チームの初期配置位置の目安です。古い処理との互換用に残しています。
+    protected Dictionary<Team, int> startPositionPerTeam;
+
+    // シーン上の全盤面タイルと、タイルからNodeを引くための対応表です。
     List<Tile> allTiles = new List<Tile>();
     Dictionary<Tile, Node> nodeByTile = new Dictionary<Tile, Node>();
+
+    // Nodeが盤面の何列目かをキャッシュします。手動配置できる列の判定に使います。
     Dictionary<Node, int> columnByNode = new Dictionary<Node, int>();
+
+    // すでに色設定を済ませたベンチタイルを覚えて、同じ処理を何度も走らせないようにします。
     HashSet<Tile> configuredBenchTiles = new HashSet<Tile>();
 
-        /// 初期化時に呼び出され、グラフを生成し、各チームの開始位置を設定する
+    // シーン開始時に、タイルからGraphと配置判定用データを作ります。
     protected void Awake()
     {
-        base.Awake(); // 親クラスの Awake() を呼び出す
+        // Manager<T>のSingleton登録を先に済ませます。
+        base.Awake();
+
+        // terrainGrid配下のTileコンポーネントを盤面として扱います。
         allTiles = terrainGrid.GetComponentsInChildren<Tile>().ToList();
-        
+
+        // 盤面タイルから移動用グラフと検索用キャッシュを作ります。
         InitializeGraph();
         InitializeTileLookup();
         InitializeNodeColumns();
         ConfigureTiles();
         ConfigureBenchTilesInScene();
+
+        // チーム1は左端、チーム2は右端を初期位置として扱うためのデータです。
         startPositionPerTeam = new Dictionary<Team, int>();
         startPositionPerTeam.Add(Team.Team1, 0);
         startPositionPerTeam.Add(Team.Team2, graph.Nodes.Count -1);
     }
 
+    // 指定チームが使える、まだ誰もいないNodeを1つ返します。
     public Node GetFreeNode(Team forTeam)
     {
         IEnumerable<Node> candidates = graph.Nodes.Where(node => IsDeploymentNode(forTeam, node) && !node.IsOccupied);
 
+        // 味方は左から、敵は右から順に空きマスを探します。
         if (forTeam == Team.Team1)
             candidates = candidates.OrderBy(node => GetColumnIndex(node)).ThenBy(node => node.worldPosition.y);
         else
@@ -62,11 +92,36 @@ public class GridManager : Manager<GridManager>
         return candidates.FirstOrDefault();
     }
 
+    // 盤面の列・行番号からNodeを取得します。
+    // columnNumberは左から1始まり、rowNumberは下から1始まりとして扱います。
+    public Node GetNodeAtBoardCoordinate(int columnNumber, int rowNumber)
+    {
+        if (graph == null || graph.Nodes == null || boardColumns <= 0)
+            return null;
+
+        if (columnNumber < 1 || columnNumber > boardColumns || rowNumber < 1)
+            return null;
+
+        int columnIndex = columnNumber - 1;
+        List<Node> columnNodes = graph.Nodes
+            .Where(node => GetColumnIndex(node) == columnIndex)
+            .OrderBy(node => node.worldPosition.y)
+            .ToList();
+
+        if (rowNumber > columnNodes.Count)
+            return null;
+
+        return columnNodes[rowNumber - 1];
+    }
+
+    // 手動配置できるNodeかどうかを判定します。
     public bool CanManuallyPlace(Team team, Node node)
     {
+        // 今はプレイヤー側だけが手動配置できる仕様です。
         return team == Team.Team1 && IsDeploymentNode(team, node);
     }
 
+    // 指定チームの初期配置エリアに含まれるNodeかどうかを判定します。
     public bool IsDeploymentNode(Team team, Node node)
     {
         if (node == null || boardColumns <= 0)
@@ -82,27 +137,32 @@ public class GridManager : Manager<GridManager>
         return column >= boardColumns - playerDeploymentColumns;
     }
 
+    // Graphに経路探索を依頼します。
     public List<Node> GetPath(Node from, Node to)
     {
         return graph.GetPath(from, to);
     }
 
+    // 指定Nodeの周囲にあるNodeを返します。
     public List<Node> GetNodesCloseTo(Node to)
     {
         return graph.Neighbors(to);
     }
 
+    // 指定Nodeを中心に、rangeInTilesマス分の円形範囲内にあるNodeを返します。
     public List<Node> GetNodesInRange(Node center, float rangeInTiles)
     {
         if (center == null || graph == null)
             return new List<Node>();
 
+        // 少し余裕を足して、ちょうど境界線上のマスが取りこぼされにくいようにします。
         float range = Mathf.Max(0f, rangeInTiles) + 0.05f;
         return graph.Nodes
             .Where(node => node != null && Vector3.Distance(node.worldPosition, center.worldPosition) <= range)
             .ToList();
     }
 
+    // Tileから対応するNodeを取得します。
     public Node GetNodeForTile(Tile t)
     {
         if (t != null && nodeByTile.TryGetValue(t, out Node node))
@@ -111,6 +171,7 @@ public class GridManager : Manager<GridManager>
         return null;
     }
 
+    // ワールド座標に最も近いタイルを返します。
     public Tile GetTileAtWorldPosition(Vector3 worldPosition)
     {
         Tile closestTile = null;
@@ -130,11 +191,13 @@ public class GridManager : Manager<GridManager>
         return closestTile;
     }
 
+    // 互換用です。チーム指定なしならプレイヤーベンチとして設定します。
     public void ConfigureBenchTile(Tile tile)
     {
         ConfigureBenchTile(tile, Team.Team1);
     }
 
+    // ベンチタイルに色とホバー用スプライトを設定します。
     public void ConfigureBenchTile(Tile tile, Team team)
     {
         if (tile == null || configuredBenchTiles.Contains(tile))
@@ -146,6 +209,7 @@ public class GridManager : Manager<GridManager>
     }
 
 #if UNITY_EDITOR
+    // Inspectorの右クリックメニューからベンチタイルを作り直すためのEditor専用処理です。
     [ContextMenu("Build Bench Tiles")]
     public void BuildBenchTiles()
     {
@@ -153,6 +217,7 @@ public class GridManager : Manager<GridManager>
             ? terrainGrid.transform.parent
             : transform;
 
+        // 盤面と同じタイルPrefabを使って、左右にベンチを作ります。
         GameObject tilePrefab = AssetDatabase.LoadAssetAtPath<GameObject>("Assets/Prefabs/Tiles/SingleTile.prefab");
         if (tilePrefab == null)
         {
@@ -170,6 +235,7 @@ public class GridManager : Manager<GridManager>
             CreateBenchTile(tilePrefab, rightBench, $"BenchTile_R_{i}", new Vector3(benchRightX, y, 0f));
         }
 
+        // GameManagerにも新しく作ったベンチ親を渡し、シーンに保存対象として印を付けます。
         GameManager gameManager = FindObjectOfType<GameManager>();
         if (gameManager != null)
         {
@@ -183,6 +249,7 @@ public class GridManager : Manager<GridManager>
         EditorSceneManager.MarkSceneDirty(gameObject.scene);
     }
 
+    // 既存ベンチ親があれば削除し、空の親オブジェクトを作り直します。
     private Transform RebuildBenchParent(Transform gridParent, string benchName)
     {
         Transform existing = gridParent.Find(benchName);
@@ -198,6 +265,7 @@ public class GridManager : Manager<GridManager>
         return bench.transform;
     }
 
+    // ベンチ用タイルPrefabを1枚生成し、位置と名前を設定します。
     private void CreateBenchTile(GameObject tilePrefab, Transform parent, string tileName, Vector3 localPosition)
     {
         GameObject tileObject = (GameObject)PrefabUtility.InstantiatePrefab(tilePrefab, parent);
@@ -212,21 +280,22 @@ public class GridManager : Manager<GridManager>
         Undo.RegisterCreatedObjectUndo(tileObject, $"Create {tileName}");
     }
 #endif
-    
-    /// グラフを初期化し、タイルマップに基づいてノードとエッジを作成する
+
+    // 盤面タイルの位置からGraphを作り、近いタイル同士を移動可能な隣接Nodeとしてつなぎます。
     private void InitializeGraph()
     {
-        graph = new Graph(); // グラフを新規作成
+        graph = new Graph();
 
+        // 各タイルの位置にNodeを1つずつ作ります。
         for (int i = 0; i < allTiles.Count; i++)
         {
             Vector3 place = allTiles[i].transform.position;
             graph.AddNode(place);
         }
 
-        var allNodes = graph.Nodes; // 全ノードを取得
+        var allNodes = graph.Nodes;
 
-        // すべてのノードをループし、隣接ノードとのエッジを作成
+        // すべてのNode同士を確認し、縦横斜め1マス以内ならEdgeでつなぎます。
         foreach (Node from in allNodes)
         {
             foreach (Node to in allNodes)
@@ -239,6 +308,7 @@ public class GridManager : Manager<GridManager>
         }
     }
 
+    // TileとNodeの対応表を作ります。
     private void InitializeTileLookup()
     {
         nodeByTile.Clear();
@@ -252,10 +322,12 @@ public class GridManager : Manager<GridManager>
         }
     }
 
+    // Nodeが盤面の何列目にあるかを計算してキャッシュします。
     private void InitializeNodeColumns()
     {
         columnByNode.Clear();
 
+        // x座標が近いNodeを同じ列としてまとめます。
         List<float> columns = new List<float>();
         foreach (Node node in graph.Nodes.OrderBy(node => node.worldPosition.x))
         {
@@ -267,6 +339,7 @@ public class GridManager : Manager<GridManager>
             columnByNode[graph.Nodes[i]] = GetClosestColumn(columns, graph.Nodes[i].worldPosition.x);
     }
 
+    // 盤面タイルに通常色、配置不可色、ホバー色を設定します。
     private void ConfigureTiles()
     {
         Sprite hoverSprite = GetHoverSprite();
@@ -280,12 +353,14 @@ public class GridManager : Manager<GridManager>
         }
     }
 
+    // シーン内に置かれている左右ベンチタイルの色設定を行います。
     private void ConfigureBenchTilesInScene()
     {
         ConfigureBenchTileParent(GameObject.Find("Grid/BenchLeft"), Team.Team1);
         ConfigureBenchTileParent(GameObject.Find("Grid/BenchRight"), Team.Team2);
     }
 
+    // 指定ベンチ親の子Tileをまとめて設定します。
     private void ConfigureBenchTileParent(GameObject benchParent, Team team)
     {
         if (benchParent == null)
@@ -296,6 +371,7 @@ public class GridManager : Manager<GridManager>
             ConfigureBenchTile(benchTiles[i], team);
     }
 
+    // ホバー用スプライトを取得します。未設定ならEditor上でassetから探します。
     private Sprite GetHoverSprite()
     {
         if (hoverTile != null)
@@ -310,6 +386,7 @@ public class GridManager : Manager<GridManager>
         return null;
     }
 
+    // Nodeに対応する列番号を返します。
     private int GetColumnIndex(Node node)
     {
         if (node != null && columnByNode.TryGetValue(node, out int column))
@@ -318,6 +395,7 @@ public class GridManager : Manager<GridManager>
         return -1;
     }
 
+    // x座標に最も近い列番号を探します。
     private int GetClosestColumn(List<float> columns, float xPosition)
     {
         int closestIndex = -1;
@@ -336,36 +414,38 @@ public class GridManager : Manager<GridManager>
         return closestIndex;
     }
 
+    // Sceneビューで経路確認をする時の開始・終了Node番号です。
     public int fromIndex = 0;
     public int toIndex = 0;
 
-
-    /// Unity のエディタ上でグラフを可視化するために Gizmos を描画する
+    // UnityのSceneビュー上に、Node・Edge・確認用経路を描画します。
     private void OnDrawGizmos()
     {
-        if (graph == null) // グラフが存在しない場合は何もしない
+        if (graph == null)
             return;
 
+        // Node同士のつながりを線で表示します。
         var allEdges = graph.Edges;
         if (allEdges != null && allEdges.Count > 0)
         {
             foreach(Edge e in allEdges)
             {
-                Gizmos.DrawLine(e.from.worldPosition, e.to.worldPosition); // ノード間のエッジを線で描画
+                Gizmos.DrawLine(e.from.worldPosition, e.to.worldPosition);
             }
         }
 
+        // 空きNodeは緑、占有済みNodeは赤で表示します。
         var allNodes = graph.Nodes;
         if (allNodes != null)
         {
             foreach (Node n in allNodes)
             {
-                Gizmos.color = n.IsOccupied ? Color.red : Color.green; // 占有されているノードは赤、それ以外は緑
-                Gizmos.DrawSphere(n.worldPosition, 0.1f); // ノードの位置に小さな球を描画
+                Gizmos.color = n.IsOccupied ? Color.red : Color.green;
+                Gizmos.DrawSphere(n.worldPosition, 0.1f);
             }
         }
 
-
+        // fromIndexからtoIndexへの経路を赤線で表示します。
         if(fromIndex < allNodes.Count && toIndex < allNodes.Count)
         {
             List<Node> path = graph.GetPath(allNodes[fromIndex], allNodes[toIndex]);

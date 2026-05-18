@@ -3,44 +3,41 @@ using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
 
+// 盤面のマス同士のつながりを表す簡単なグラフです。
+// Nodeが1マス、Edgeが「このマスからこのマスへ移動できる」という接続を表します。
 public class Graph
 {
+    // Graphが持っている全Nodeと全Edgeです。
     private List<Node> nodes;
     private List<Edge> edges;
+
+    // 外部から読み取り専用でNode/Edge一覧を使えるようにしています。
     public List<Node> Nodes => nodes;
     public List<Edge> Edges => edges;
 
+    // Graphを作る時に、NodeとEdgeの空リストを用意します。
     public Graph()
     {
-        nodes = new List<Node>(); // ノードのリストを初期化
-        edges = new List<Edge>(); // エッジのリストを初期化
+        // グラフ作成時に、NodeとEdgeを入れる空のリストを用意します。
+        nodes = new List<Node>();
+        edges = new List<Edge>();
     }
 
-    /// <summary>
-    /// グラフに新しいノード（タイル）を追加する
-    /// </summary>
-    /// <param name="worldPosition">ノードのワールド座標</param>
+    // グラフに新しいNodeを追加します。
+    // worldPositionは、実際にユニットが立つワールド座標です。
     public void AddNode(Vector3 worldPosition)
     {
-        nodes.Add(new Node(nodes.Count, worldPosition)); // ノードを追加
+        nodes.Add(new Node(nodes.Count, worldPosition));
     }
 
-    /// <summary>
-    /// 2つのノードの間にエッジ（接続）を追加する
-    /// </summary>
-    /// <param name="from">接続元のノード</param>
-    /// <param name="to">接続先のノード</param>
+    // 2つのNodeの間にEdgeを追加します。
+    // weightは移動コストで、今は全て1マス移動として扱っています。
     public void AddEdge(Node from, Node to)
     {
-        edges.Add(new Edge(from, to, 1)); // 重み1のエッジを追加
+        edges.Add(new Edge(from, to, 1));
     }
 
-    /// <summary>
-    /// 2つのノードが接続されているか（隣接しているか）を判定する
-    /// </summary>
-    /// <param name="from">チェックするノード1</param>
-    /// <param name="to">チェックするノード2</param>
-    /// <returns>接続されていれば true、そうでなければ false</returns>
+    // fromからtoへ直接移動できるEdgeがあるか確認します。
     public bool Adjacent(Node from, Node to)
     {
         foreach (Edge e in edges)
@@ -53,11 +50,7 @@ public class Graph
         return false;
     }
 
-    /// <summary>
-    /// 指定したノードの隣接ノード（接続されているノード）を取得する
-    /// </summary>
-    /// <param name="of">対象のノード</param>
-    /// <returns>隣接するノードのリスト</returns>
+    // 指定Nodeから直接移動できる隣接Nodeを一覧で返します。
     public List<Node> Neighbors(Node of)
     {
         List<Node> result = new List<Node>();
@@ -73,12 +66,8 @@ public class Graph
         return result;
     }
 
-    /// <summary>
-    /// 2つのノード間の移動コスト（距離）を取得する
-    /// </summary>
-    /// <param name="from">開始ノード</param>
-    /// <param name="to">目的ノード</param>
-    /// <returns>移動コスト（エッジの重み）。移動できない場合は無限大</returns>
+    // fromからtoへ移動するコストを返します。
+    // つながっていない、または移動先が塞がっている場合はInfinityになります。
     public float Distance(Node from, Node to)
     {
         foreach (Edge e in edges)
@@ -89,9 +78,11 @@ public class Graph
             }
         }
 
-        return Mathf.Infinity; // 接続がない場合は無限大のコストを返す
+        return Mathf.Infinity;
     }
 
+    // startからendまでの移動経路を返します。
+    // ダイクストラ法に近い考え方で、現在分かっている最短距離を更新しながら道を探します。
     public List<Node> GetPath(Node start, Node end)
     {
         List<Node> path = new List<Node>();
@@ -99,19 +90,22 @@ public class Graph
         if(start == null || end == null)
         {
             Debug.LogError("Start or end node is null in GetPath method.");
-            return path; // スタートまたはエンドがnullの場合は空のリストを返す
+            return path;
         }
 
+        // 同じNodeを指定された場合は、移動不要なのでそのNodeだけ返します。
         if(start == end)
         {
             path.Add(start);
             return path;
         }
 
+        // openListはこれから調べるNode一覧、previousは最短経路を復元するための親Node記録です。
         List<Node> openList = new List<Node>();
         Dictionary<Node, Node> previous = new Dictionary<Node, Node>();
         Dictionary<Node, float> distances = new Dictionary<Node, float>();
 
+        // 最初は全Nodeの距離を無限大にして、開始Nodeだけ0にします。
         for(int i = 0; i < nodes.Count; i++)
         {
             openList.Add(nodes[i]);
@@ -122,10 +116,12 @@ public class Graph
 
         while(openList.Count > 0)
         {
+            // まだ調べていないNodeの中で、開始地点から一番近いものを取り出します。
             openList = openList.OrderBy(x => distances[x]).ToList();
             Node current = openList[0];
             openList.Remove(current);
 
+            // 目的地に着いたら、previousを逆にたどって経路を作ります。
             if(current == end)
             {
                 while(previous.ContainsKey(current))
@@ -138,6 +134,7 @@ public class Graph
                 break;
             }
 
+            // 隣接Nodeへ進んだ場合の距離を計算し、より短ければ更新します。
             foreach(Node neighbor in Neighbors(current))
             {
                 if(neighbor == null) continue;
@@ -149,13 +146,13 @@ public class Graph
                 if(candidateNewDistance < distances[neighbor])
                 {
                     distances[neighbor] = candidateNewDistance;
-                    if (!previous.ContainsKey(neighbor)) // 既に存在する場合は上書きしない
+                    if (!previous.ContainsKey(neighbor))
                     {
                         previous[neighbor] = current;
                     }
                     else
                     {
-                        previous[neighbor] = current; // またはここで更新するか、必要に応じてロジックを追加
+                        previous[neighbor] = current;
                     }
                 }
             }
@@ -165,55 +162,43 @@ public class Graph
     }
 }
 
-/// <summary>
-/// グラフのノード（1つのタイル）を表すクラス
-/// </summary>
+// 盤面上の1マスを表すクラスです。
 public class Node
 {
-    public int index; // ノードの一意なインデックス（ID）
-    public Vector3 worldPosition; // ノードのワールド座標
+    // Nodeの通し番号と、Unityシーン上の位置です。
+    public int index;
+    public Vector3 worldPosition;
 
-    private bool occupied = false; // このノードが現在占有されているかどうか（初期状態は false）
-    public bool IsOccupied => occupied; // 外部から占有状態を取得するプロパティ
+    // このNodeにユニットが立っているかどうかです。
+    private bool occupied = false;
+    public bool IsOccupied => occupied;
 
-    /// <summary>
-    /// ノードのコンストラクタ
-    /// </summary>
-    /// <param name="index">ノードのID</param>
-    /// <param name="worldPosition">ノードのワールド座標</param>
+    // Nodeを作る時に、番号とワールド座標を保存します。
     public Node(int index, Vector3 worldPosition)
     {
         this.index = index;
         this.worldPosition = worldPosition;
-        occupied = false; // 初期状態は空いている
+        occupied = false;
     }
 
-    /// <summary>
-    /// ノードの占有状態を変更する
-    /// </summary>
-    /// <param name="val">true: 占有 / false: 空き</param>
+    // ユニットが乗った/離れた時に占有状態を変更します。
     public void SetOccupied(bool val)
     {
         occupied = val;
     }
 }
 
-/// <summary>
-/// グラフのエッジ（2つのノードをつなぐ経路）を表すクラス
-/// </summary>
+// Node同士のつながりを表すクラスです。
 public class Edge
 {
-    public Node from; // エッジの開始ノード
-    public Node to;   // エッジの終了ノード
+    // fromからtoへ向かう一方向の接続です。
+    public Node from;
+    public Node to;
 
-    private float weight; // エッジの重み（移動コスト）
+    // 移動コストです。今は基本的に1です。
+    private float weight;
 
-    /// <summary>
-    /// エッジのコンストラクタ
-    /// </summary>
-    /// <param name="from">接続元のノード</param>
-    /// <param name="to">接続先のノード</param>
-    /// <param name="weight">移動コスト（重み）</param>
+    // Edgeを作る時に、始点・終点・移動コストを保存します。
     public Edge(Node from, Node to, float weight)
     {
         this.from = from;
@@ -221,15 +206,13 @@ public class Edge
         this.weight = weight;
     }
 
-    /// <summary>
-    /// エッジの移動コストを取得する
-    /// </summary>
-    /// <returns>移動コスト。もし接続先のノードが占有されていた場合は無限大を返す</returns>
+    // このEdgeを通る時のコストを返します。
+    // 移動先が占有されている場合は、移動できないようにInfinityを返します。
     public float GetWeight()
     {
         if (to.IsOccupied)
         {
-            return Mathf.Infinity; // 移動先が占有されている場合、移動不可とする
+            return Mathf.Infinity;
         }
 
         return weight;

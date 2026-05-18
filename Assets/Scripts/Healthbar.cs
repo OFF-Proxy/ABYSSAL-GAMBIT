@@ -4,12 +4,19 @@ using UnityEngine;
 using UnityEditor;
 #endif
 
+// ユニット頭上のHPバー、シールドバー、MPバーを管理するクラスです。
+// フレーム画像の内側にゲージを収め、ユニットの位置と描画順に追従させます。
 public class HealthBar : MonoBehaviour
 {
+    // HP、シールド、MPのゲージ部分です。Transformの横スケールを変えて残量を表します。
     public Transform bar;
     public Transform shieldBar;
     public Transform manaBar;
+
+    // ユニットから見たバー位置の追加オフセットです。
     public Vector3 offset;
+
+    // フレーム、ゲージ、隙間を隠すマスクの描画コンポーネントです。
     public SpriteRenderer frameRenderer;
     public SpriteRenderer fillRenderer;
     public SpriteRenderer fillMaskRenderer;
@@ -17,49 +24,73 @@ public class HealthBar : MonoBehaviour
     public SpriteRenderer shieldMaskRenderer;
     public SpriteRenderer manaRenderer;
     public SpriteRenderer manaMaskRenderer;
+
+    // バー全体のワールド上の大きさと、ユニット上部からの距離です。
     public Vector3 worldScale = new Vector3(0.2f, 0.4f, 1f);
     public float verticalPadding = 0.04f;
+
+    // フレーム画像が無い場合に使う予備スケールや、ゲージの高さ設定です。
     public Vector3 frameScale = new Vector3(1.32f, 2.35f, 1f);
     public float fillHeightScale = 0.58f;
+
+    // HP何ごとに区切り線を入れるか、その色と大きさです。
     public int separatorHealthStep = 500;
     public Color separatorColor = new Color(0.02f, 0.02f, 0.02f, 0.9f);
     public Vector3 separatorScale = new Vector3(0.025f, 0.82f, 1f);
+
+    // ゲージの隙間を隠すためのマスク色と、各ゲージの色です。
     public Color fillMaskColor = new Color(0.02f, 0.025f, 0.04f, 1f);
     public Color shieldFillColor = new Color(1f, 1f, 1f, 0.95f);
     public Color shieldMaskColor = new Color(0.015f, 0.04f, 0.06f, 1f);
     public Color manaFillColor = new Color(0.05f, 0.58f, 1f, 1f);
     public Color manaMaskColor = new Color(0.015f, 0.02f, 0.05f, 1f);
+
+    // フレーム画像が見つからない場合に色だけでスターを表すための予備色です。
     public Color star1FrameColor = new Color(0.92f, 0.96f, 1f, 1f);
     public Color star2FrameColor = new Color(0.1f, 0.65f, 1f, 1f);
     public Color star3FrameColor = new Color(1f, 0.76f, 0f, 1f);
+
+    // ★1、★2、★3それぞれのHP/MPフレーム画像です。
     public Sprite star1FrameSprite;
     public Sprite star2FrameSprite;
     public Sprite star3FrameSprite;
+
+    // フレームの横幅目標と、フレーム内のゲージ調整値です。
     public Vector2 frameTargetSize = new Vector2(7.28f, 0.78f);
     public Vector2 fillAreaPadding = new Vector2(-0.02f, -0.015f);
     public Vector2 fillMaskOverlap = new Vector2(0.05f, 0.03f);
+
+    // フレーム画像の中で、HPゲージを入れる範囲です。x,y,z,w = 左,下,右,上 の比率です。
     public Vector4 star1FillRectNormalized = new Vector4(0.198f, 0.445f, 0.948f, 0.725f);
     public Vector4 star2FillRectNormalized = new Vector4(0.198f, 0.445f, 0.951f, 0.725f);
     public Vector4 star3FillRectNormalized = new Vector4(0.236f, 0.445f, 0.943f, 0.725f);
+
+    // フレーム画像の中で、MPゲージを入れる範囲です。
     public Vector4 star1ManaRectNormalized = new Vector4(0.213f, 0.105f, 0.955f, 0.285f);
     public Vector4 star2ManaRectNormalized = new Vector4(0.216f, 0.105f, 0.953f, 0.285f);
     public Vector4 star3ManaRectNormalized = new Vector4(0.242f, 0.195f, 0.943f, 0.305f);
 
+    // 現在の最大HP、最大MP、追従対象です。
     private float maxHealth;
     private int maxMana;
     private Transform target;
     private BaseEntity ownerEntity;
     private SpriteRenderer targetRenderer;
+
+    // HP区切り線と、各ゲージの配置情報です。
     private readonly List<SpriteRenderer> separators = new List<SpriteRenderer>();
     private FillLayout healthLayout;
     private FillLayout shieldLayout;
     private FillLayout manaLayout;
+
+    // 描画順制御用の値です。ユニットの足元位置に合わせて毎フレーム更新します。
     private int sortingBaseOrder = 1000;
     private static Sprite solidSprite;
     private const int SortingBaseOrder = 1000;
     private const int SortingDepthScale = 20;
     private const int SortingStride = 12;
 
+    // ゲージをフレーム内に配置するために必要な情報をまとめた構造体です。
     private struct FillLayout
     {
         public bool valid;
@@ -70,16 +101,19 @@ public class HealthBar : MonoBehaviour
         public Bounds spriteBounds;
     }
 
+    // 古い呼び出し用です。★1、MPなしとしてセットアップします。
     public void Setup(Transform target, float maxHealth)
     {
         Setup(target, maxHealth, 1, null, null);
     }
 
+    // BaseEntity参照なしでセットアップする入口です。
     public void Setup(Transform target, float maxHealth, int starLevel, SpriteRenderer targetRenderer)
     {
         Setup(target, maxHealth, starLevel, targetRenderer, null);
     }
 
+    // HPバーを対象ユニットに紐づけ、スターに合ったフレームとゲージ位置を作ります。
     public void Setup(Transform target, float maxHealth, int starLevel, SpriteRenderer targetRenderer, BaseEntity ownerEntity)
     {
         this.maxHealth = maxHealth;
@@ -88,6 +122,7 @@ public class HealthBar : MonoBehaviour
         this.ownerEntity = ownerEntity;
         maxMana = ownerEntity != null ? ownerEntity.MaxMana : 0;
 
+        // ユニットの拡大縮小にバーが引っ張られないよう、親から外します。
         if (transform.parent != null)
             transform.SetParent(null, true);
 
@@ -101,12 +136,14 @@ public class HealthBar : MonoBehaviour
         UpdateManaBar(ownerEntity != null ? ownerEntity.CurrentMana : 0, maxMana);
     }
 
+    // HPゲージの残量を更新します。
     public void UpdateBar(float newValue)
     {
         float fraction = maxHealth <= 0f ? 0f : Mathf.Clamp01(newValue / maxHealth);
         UpdateFill(bar, healthLayout, fraction);
     }
 
+    // MPゲージの残量を更新します。
     public void UpdateManaBar(int currentMana, int maxMana)
     {
         this.maxMana = maxMana;
@@ -114,12 +151,14 @@ public class HealthBar : MonoBehaviour
         UpdateFill(manaBar, manaLayout, fraction);
     }
 
+    // シールドゲージの残量を更新します。HPを基準に長さを決めます。
     public void UpdateShieldBar(int currentShield, int referenceHealth)
     {
         float fraction = referenceHealth <= 0 ? 0f : Mathf.Clamp01((float)currentShield / referenceHealth);
         UpdateFill(shieldBar, shieldLayout, fraction);
     }
 
+    // スターに合わせてフレーム画像、ゲージ位置、描画順を設定します。
     public void SetStarLevel(int starLevel)
     {
         EnsureRenderers();
@@ -147,6 +186,7 @@ public class HealthBar : MonoBehaviour
         ConfigureRendererSorting(manaRenderer, 20);
         ConfigureRendererSorting(manaMaskRenderer, 19);
 
+        // フレーム画像がある場合は、画像内の空欄位置に合わせてゲージを配置します。
         if (frameRenderer != null && frameRenderer.sprite != null)
         {
             FitFillToFrameSlot(starLevel, false);
@@ -155,6 +195,7 @@ public class HealthBar : MonoBehaviour
         }
         else if (fillRenderer != null)
         {
+            // フレーム画像がない場合の簡易表示です。
             healthLayout = new FillLayout
             {
                 valid = true,
@@ -179,11 +220,13 @@ public class HealthBar : MonoBehaviour
         UpdateSeparatorSorting();
     }
 
+    // 毎フレーム、バーを対象ユニットの頭上へ追従させます。
     private void Update()
     {
         if(target == null)
             return;
 
+        // 対象ユニットの上部にバーを追従させます。
         Vector3 position = target.position + offset;
         if (targetRenderer != null && targetRenderer.sprite != null)
         {
@@ -196,10 +239,12 @@ public class HealthBar : MonoBehaviour
         transform.position = position;
         UpdateSortingOrder();
 
+        // MPは攻撃や被ダメージで変わるので、所有者がいる時は毎フレーム反映します。
         if (ownerEntity != null)
             UpdateManaBar(ownerEntity.CurrentMana, ownerEntity.MaxMana);
     }
 
+    // 必要なSpriteRendererを探すか、なければ作成します。
     private void EnsureRenderers()
     {
         if (fillRenderer == null && bar != null)
@@ -219,6 +264,7 @@ public class HealthBar : MonoBehaviour
         EnsureManaRenderer();
         EnsureChildRenderer(ref manaMaskRenderer, "manabarMask", false);
 
+        // HPマスクはHPゲージと同じSpriteを使うことで、隙間を自然に隠します。
         if (fillMaskRenderer != null && fillRenderer != null)
             fillMaskRenderer.sprite = fillRenderer.sprite;
 
@@ -247,6 +293,7 @@ public class HealthBar : MonoBehaviour
         }
     }
 
+    // シールド用のゲージRendererを用意します。
     private void EnsureShieldRenderer()
     {
         if (shieldBar == null)
@@ -270,6 +317,7 @@ public class HealthBar : MonoBehaviour
             shieldRenderer = shieldBar.gameObject.AddComponent<SpriteRenderer>();
     }
 
+    // MP用のゲージRendererを用意します。
     private void EnsureManaRenderer()
     {
         if (manaBar == null)
@@ -293,6 +341,7 @@ public class HealthBar : MonoBehaviour
             manaRenderer = manaBar.gameObject.AddComponent<SpriteRenderer>();
     }
 
+    // 子オブジェクトのSpriteRendererを取得し、なければ新しく作ります。
     private void EnsureChildRenderer(ref SpriteRenderer renderer, string objectName, bool useFillSprite)
     {
         if (renderer == null)
@@ -313,6 +362,7 @@ public class HealthBar : MonoBehaviour
             renderer.sprite = fillRenderer.sprite;
     }
 
+    // 最大HPに応じて、HPゲージ上の区切り線を作り直します。
     private void RebuildSeparators()
     {
         for (int i = 0; i < separators.Count; i++)
@@ -353,6 +403,7 @@ public class HealthBar : MonoBehaviour
         }
     }
 
+    // 区切り線の描画順を、現在のバー描画順に合わせます。
     private void UpdateSeparatorSorting()
     {
         if (fillRenderer == null)
@@ -368,6 +419,7 @@ public class HealthBar : MonoBehaviour
         }
     }
 
+    // ユニットの位置に合わせて、バー全体の描画順を更新します。
     private void UpdateSortingOrder()
     {
         if (target != null)
@@ -391,6 +443,7 @@ public class HealthBar : MonoBehaviour
         UpdateSeparatorSorting();
     }
 
+    // フレーム画像がない場合のスター色を返します。
     private Color GetFrameColor(int starLevel)
     {
         if (starLevel >= 3)
@@ -402,6 +455,7 @@ public class HealthBar : MonoBehaviour
         return star1FrameColor;
     }
 
+    // スターに対応するフレームSpriteを返します。
     private Sprite GetFrameSprite(int starLevel)
     {
         ResolveMissingFrameSprites();
@@ -415,6 +469,7 @@ public class HealthBar : MonoBehaviour
         return star1FrameSprite;
     }
 
+    // Editor上では、Inspector未設定でもAssets内のフレーム画像を自動で探します。
     private void ResolveMissingFrameSprites()
     {
 #if UNITY_EDITOR
@@ -429,6 +484,7 @@ public class HealthBar : MonoBehaviour
 #endif
     }
 
+    // スターに対応するHPゲージ枠範囲を返します。
     private Vector4 GetFillRectNormalized(int starLevel)
     {
         if (starLevel >= 3)
@@ -440,6 +496,7 @@ public class HealthBar : MonoBehaviour
         return star1FillRectNormalized;
     }
 
+    // スターに対応するMPゲージ枠範囲を返します。
     private Vector4 GetManaRectNormalized(int starLevel)
     {
         if (starLevel >= 3)
@@ -451,6 +508,7 @@ public class HealthBar : MonoBehaviour
         return star1ManaRectNormalized;
     }
 
+    // フレーム画像の比率を保ったまま、指定横幅に合わせます。
     private void FitRendererToTargetWidth(SpriteRenderer renderer, float targetWidth)
     {
         if (renderer == null || renderer.sprite == null)
@@ -465,6 +523,7 @@ public class HealthBar : MonoBehaviour
         renderer.transform.localScale = new Vector3(scaleX, scaleY, 1f);
     }
 
+    // 親の縦横スケール差で画像が潰れないよう補正します。
     private float GetParentScaleCompensation(Transform rendererTransform)
     {
         Transform parent = rendererTransform.parent;
@@ -474,6 +533,7 @@ public class HealthBar : MonoBehaviour
         return Mathf.Abs(parent.lossyScale.x / parent.lossyScale.y);
     }
 
+    // SpriteRendererのローカル上の表示サイズを返します。
     private Vector2 GetRendererLocalSize(SpriteRenderer renderer)
     {
         if (renderer == null || renderer.sprite == null)
@@ -485,6 +545,7 @@ public class HealthBar : MonoBehaviour
             spriteBounds.size.y * renderer.transform.localScale.y);
     }
 
+    // HPまたはMPゲージを、フレーム画像内の指定空欄にぴったり合わせます。
     private void FitFillToFrameSlot(int starLevel, bool mana)
     {
         Transform fillTransform = mana ? manaBar : bar;
@@ -527,6 +588,7 @@ public class HealthBar : MonoBehaviour
         FitFillMask(maskRenderer, renderer.sprite, layout, targetWidth, targetHeight, mana ? manaMaskColor : fillMaskColor);
     }
 
+    // シールドゲージをHPゲージと同じ枠内に合わせます。
     private void FitShieldToFrameSlot(int starLevel)
     {
         if (shieldBar == null || shieldRenderer == null || shieldRenderer.sprite == null)
@@ -560,6 +622,7 @@ public class HealthBar : MonoBehaviour
         FitFillMask(shieldMaskRenderer, shieldRenderer.sprite, shieldLayout, targetWidth, targetHeight, shieldMaskColor);
     }
 
+    // 残量fractionに合わせて、ゲージの横幅と左端位置を更新します。
     private void UpdateFill(Transform fillTransform, FillLayout layout, float fraction)
     {
         if (!layout.valid || fillTransform == null)
@@ -573,6 +636,7 @@ public class HealthBar : MonoBehaviour
             fillTransform.localPosition.z);
     }
 
+    // ゲージの隙間から背景が見えないよう、空欄部分の裏にマスクを敷きます。
     private void FitFillMask(SpriteRenderer maskRenderer, Sprite sprite, FillLayout layout, float targetWidth, float targetHeight, Color color)
     {
         if (maskRenderer == null || sprite == null || !layout.valid)
@@ -593,6 +657,7 @@ public class HealthBar : MonoBehaviour
             -0.01f);
     }
 
+    // 指定Rendererの描画順を、バー全体の基準値からの相対値で設定します。
     private void ConfigureRendererSorting(SpriteRenderer renderer, int sortingOrder)
     {
         if (renderer == null)
@@ -604,6 +669,7 @@ public class HealthBar : MonoBehaviour
         renderer.sortingOrder = sortingBaseOrder + sortingOrder;
     }
 
+    // 単色ゲージやマスクに使う白1枚のSpriteを作ります。
     private static Sprite GetSolidSprite()
     {
         if (solidSprite == null)

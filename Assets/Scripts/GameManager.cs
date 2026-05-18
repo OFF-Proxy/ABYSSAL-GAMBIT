@@ -5,55 +5,138 @@ using System;
 using System.Linq;
 using UnityEngine.EventSystems;
 
-/// ゲーム全体の管理を行うクラス。
-/// ユニットの生成やチームごとの管理を担当する。
+// ゲーム全体の進行を管理する中心クラスです。
+// 購入ユニットの生成、ベンチ管理、盤面配置、入れ替え、売却、スターアップ、戦闘開始/終了を担当します。
 public class GameManager : Manager<GameManager>
 {
+    // ショップや敵生成で使うユニット一覧データです。
     public EntitiesDatabaseSO entitiesDatabase;
 
+    // 味方、敵、ベンチ上ユニットをHierarchy上で整理するための親Transformです。
     public Transform team1Parent;
     public Transform team2Parent;
     public Transform benchParent;
+
+    // 左右のベンチタイルをまとめた親Transformです。
     public Transform team1BenchTilesParent;
     public Transform team2BenchTilesParent;
+
+    // ベンチのスロット数、位置計算、ドラッグ判定用の設定です。
     public int benchSlotCount = 8;
     public Vector3 benchStartPosition = new Vector3(-6.5f, -3.5f, 0f);
     public float benchSlotSpacing = 1f;
     public float benchPickRadius = 0.9f;
+
+    // マウスホイールで盤面を見る時のカメラ設定です。
     public Camera boardCamera;
     public bool enableMouseWheelZoom = true;
-    public float mouseWheelZoomSpeed = 8f;
+    public float mouseWheelZoomSpeed = 4f;
     public float minCameraFieldOfView = 28f;
     public float maxCameraFieldOfView = 60f;
     public float minOrthographicSize = 3.5f;
     public float maxOrthographicSize = 8f;
+    public float cameraZoomSmoothSpeed = 12f;
+    public bool clampCameraToBackground = true;
+    public Renderer cameraBoundsRenderer;
+    public string cameraBoundsObjectName = "battlemap1_middleground";
+    public Vector2 cameraBoundsPadding = new Vector2(0.05f, 0.05f);
+    public bool enableMiddleMousePan = true;
+    public float middleMousePanSpeed = 1f;
 
+    // 他のクラスがゲーム状態の変化を受け取るためのイベントです。
     public Action OnRoundStart;
     public Action OnRoundEnd;
     public Action<BaseEntity> OnUnitDied;
     public Action OnRosterChanged;
 
+    // 現在存在している味方、敵、ベンチ上ユニットのリストです。
     List<BaseEntity> team1Entities = new List<BaseEntity>();
     List<BaseEntity> team2Entities = new List<BaseEntity>();
     List<BaseEntity> benchEntities = new List<BaseEntity>();
+
+    // どのベンチユニットが何番スロットにいるかを記録します。
     Dictionary<BaseEntity, int> benchSlotByEntity = new Dictionary<BaseEntity, int>();
 
-    int unitsPerTeam = 6;
+    // ウェーブ開始時点で盤面にいた味方と、その初期Nodeを記録します。
+    readonly List<BaseEntity> roundPlayerUnits = new List<BaseEntity>();
+    readonly Dictionary<BaseEntity, Node> roundStartNodeByPlayerUnit = new Dictionary<BaseEntity, Node>();
+
+    // ウェーブ定義と、次に開始するウェーブ番号です。
+    readonly List<WaveDefinition> waveDefinitions = new List<WaveDefinition>();
+    readonly string[] bossRewardUnitIds =
+    {
+        "Snowchasermk",
+        "Solfist",
+        "Maehvmk"
+    };
+    readonly HashSet<string> unlockedBossRewardUnitIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+    int currentWaveIndex;
+    bool gameOver;
+    bool bossRewardSelectionPending;
+
+    // 現在戦闘中かどうか、ベンチ空き、盤面配置数、配置上限を外部から確認できます。
     public bool IsRoundInProgress { get; private set; }
     public bool HasBenchSpace => benchEntities.Count < benchSlotCount;
     public int PlacedTeam1Count => team1Entities.Count;
     public int PlacementLimit => PlayerData.Instance != null ? PlayerData.Instance.Level : 1;
 
-    private void Update()
+    // ホイール押し込みドラッグ中かどうかと、前フレームのマウス位置です。
+    bool isMiddleMousePanning;
+    Vector3 lastMiddleMousePosition;
+    float targetCameraFieldOfView;
+    float targetOrthographicSize;
+    bool hasCameraZoomTarget;
+
+    // シーン開始時に、カメラの現在倍率をズーム目標値として保存します。
+    private void Start()
     {
-        HandleMouseWheelZoom();
+        InitializeWaveDefinitions();
+        UpdateRoundProgressUi();
+
+        Camera targetCamera = GetBoardCamera();
+        EnsureCameraZoomTarget(targetCamera);
+        EnsureCameraBoundsRenderer();
+        ClampCameraInsideBackground(targetCamera);
     }
 
+    // 毎フレーム、ゲーム全体で必要な入力処理を確認します。
+    private void Update()
+    {
+        Camera targetCamera = GetBoardCamera();
+
+        // 毎フレーム、マウスホイールによる盤面ズームを確認します。
+        HandleMouseWheelZoom(targetCamera);
+
+        // 急に倍率を変えず、目標倍率へ滑らかに近づけます。
+        ApplySmoothCameraZoom(targetCamera);
+
+        // 毎フレーム、ホイール押し込みドラッグによる盤面カメラ移動を確認します。
+        HandleMiddleMousePan(targetCamera);
+
+        // ズームや移動後に、背景の外側が見えない位置へカメラを収めます。
+        ClampCameraInsideBackground(targetCamera);
+    }
+
+    // ショップでこのユニットを買えるか確認します。
     public bool CanBuyEntity(EntitiesDatabaseSO.EntityData entityData)
     {
+        // ベンチに空きがある、または購入直後にスターアップして枠が空くなら購入可能です。
         return HasBenchSpace || CanCompleteUpgradeWithPurchase(entityData.name);
     }
 
+    // ショップ抽選にこのユニットを出してよいか返します。未選択のボス報酬ユニットは隠します。
+    public bool IsEntityUnlockedForShop(EntitiesDatabaseSO.EntityData entityData)
+    {
+        if (string.IsNullOrEmpty(entityData.name))
+            return true;
+
+        if (!bossRewardUnitIds.Contains(entityData.name, StringComparer.OrdinalIgnoreCase))
+            return true;
+
+        return unlockedBossRewardUnitIds.Contains(entityData.name);
+    }
+
+    // ショップ購入後に呼ばれ、ユニットをベンチへ生成します。
     public void OnEntityBought(EntitiesDatabaseSO.EntityData entityData)
     {
         if (!CanBuyEntity(entityData))
@@ -62,22 +145,40 @@ public class GameManager : Manager<GameManager>
             return;
         }
 
+        BaseEntity newEntity = CreateBenchEntity(entityData, 1);
+        if (newEntity == null)
+            return;
+
+        // 購入によって3体揃った場合はスターアップします。
+        // 戦闘中は盤面のユニットを巻き込まず、ベンチ内だけで揃った時だけ合成します。
+        ResolveUpgradesFor(newEntity, GetImmediateUpgradeScope());
+        OnRosterChanged?.Invoke();
+    }
+
+    // 指定ユニットを味方ベンチへ生成します。購入とボス報酬の両方で使います。
+    private BaseEntity CreateBenchEntity(EntitiesDatabaseSO.EntityData entityData, int starLevel)
+    {
+        if (entityData.prefab == null)
+            return null;
+
         EnsureBenchParent();
 
         int slotIndex = GetFreeBenchSlot();
 
+        // 購入・報酬ユニットは盤面ではなく、まずベンチ親の下に生成します。
         BaseEntity newEntity = Instantiate(entityData.prefab, benchParent);
-        newEntity.InitializeIdentity(entityData.name, entityData.cost);
+        newEntity.InitializeIdentity(entityData.name, entityData.cost, starLevel);
 
         benchEntities.Add(newEntity);
         if (slotIndex != -1)
             benchSlotByEntity[newEntity] = slotIndex;
 
+        // ベンチ上ではNodeを占有せず、ベンチ座標だけを持たせます。
         newEntity.SetupOnBench(Team.Team1, slotIndex != -1 ? GetBenchPosition(slotIndex) : GetBenchPosition(0));
-        ResolveUpgradesFor(newEntity);
-        OnRosterChanged?.Invoke();
+        return newEntity;
     }
 
+    // 指定チームから見た敵ユニットリストを返します。
     public List<BaseEntity> GetEntitiesAgainst(Team against)
     {
         if (against == Team.Team1)
@@ -86,60 +187,74 @@ public class GameManager : Manager<GameManager>
             return team1Entities;
     }
 
+    // このユニットをドラッグ可能か判定します。
     public bool CanDragEntity(BaseEntity entity)
     {
         if (entity == null || entity.Team != Team.Team1)
             return false;
 
+        // 戦闘前なら味方ユニットを自由に動かせます。
         if (!IsRoundInProgress)
             return true;
 
+        // 戦闘中はベンチ上のユニットだけ動かせます。
         return IsEntityOnBench(entity);
     }
 
+    // ユニットがベンチ上にいるか確認します。
     public bool IsEntityOnBench(BaseEntity entity)
     {
         return entity != null && benchSlotByEntity.ContainsKey(entity);
     }
 
+    // 手動で盤面Nodeへ置けるかを判定します。
     public bool CanPlaceEntityManually(BaseEntity entity, Node node)
     {
         if (entity == null || node == null)
             return false;
 
+        // 戦闘中は盤面への投入や盤面移動は禁止です。
         if (IsRoundInProgress)
             return false;
 
         if (entity.Team != Team.Team1)
             return false;
 
+        // GridManager側で、味方陣地内かどうかを確認します。
         if (!GridManager.Instance.CanManuallyPlace(entity.Team, node))
             return false;
 
+        // 置き先に味方がいる場合、ベンチと盤面、または盤面同士なら入れ替え可能です。
         BaseEntity nodeOccupant = GetTeam1EntityAtNode(node);
         if (nodeOccupant != null && nodeOccupant != entity)
             return IsEntityOnBench(entity) || entity.IsOnBoard;
 
+        // Nodeが他の何かに占有されていて、自分の現在Nodeでもない場合は置けません。
         if (node.IsOccupied && entity.CurrentNode != node)
             return false;
 
+        // ベンチから盤面へ出す場合、レベルによる配置上限を確認します。
         if (!entity.IsOnBoard && PlacedTeam1Count >= PlacementLimit)
             return false;
 
         return true;
     }
 
+    // 実際にユニットを盤面Nodeへ配置します。成功したらtrueです。
     public bool TryPlaceEntityManually(BaseEntity entity, Node node)
     {
         if (!CanPlaceEntityManually(entity, node))
             return false;
 
+        // 置き先に味方がいる場合は入れ替え処理で完了します。
         if (TrySwapEntityWithBoardEntity(entity, node))
             return true;
 
+        // 盤面上で別Nodeへ移動する時、元Nodeの占有を解除します。
         if (entity.CurrentNode != null && entity.CurrentNode != node)
             entity.CurrentNode.SetOccupied(false);
 
+        // ベンチから出す場合はベンチ管理リストから外し、盤面親へ移します。
         if (benchEntities.Remove(entity))
         {
             benchSlotByEntity.Remove(entity);
@@ -149,11 +264,13 @@ public class GameManager : Manager<GameManager>
         if (!team1Entities.Contains(entity))
             team1Entities.Add(entity);
 
+        // BaseEntity側で位置、Node占有、HPバーなどを整えます。
         entity.Setup(entity.Team, node);
         OnRosterChanged?.Invoke();
         return true;
     }
 
+    // 盤面Nodeにいる味方と、ドラッグ中ユニットを入れ替えられるか試します。
     private bool TrySwapEntityWithBoardEntity(BaseEntity movingEntity, Node boardNode)
     {
         if (movingEntity == null || boardNode == null)
@@ -163,12 +280,15 @@ public class GameManager : Manager<GameManager>
         if (boardEntity == null || boardEntity == movingEntity)
             return false;
 
+        // ドラッグ元がベンチなら「ベンチと盤面」の入れ替えです。
         if (benchSlotByEntity.TryGetValue(movingEntity, out int originalBenchSlot))
             return SwapBenchEntityWithBoardEntity(movingEntity, boardEntity, originalBenchSlot, boardNode);
 
+        // ドラッグ元も盤面なら「盤面同士」の入れ替えです。
         return SwapBoardEntityWithBoardEntity(movingEntity, boardEntity, boardNode);
     }
 
+    // ベンチのユニットと盤面のユニットを入れ替えます。
     private bool SwapBenchEntityWithBoardEntity(BaseEntity benchEntity, BaseEntity boardEntity, int originalBenchSlot, Node boardNode)
     {
         if (benchEntity == null || boardEntity == null || boardNode == null)
@@ -176,6 +296,7 @@ public class GameManager : Manager<GameManager>
 
         EnsureBenchParent();
 
+        // 盤面側ユニットをベンチへ戻すため、現在Nodeの占有を解除します。
         if (boardEntity.CurrentNode != null)
             boardEntity.CurrentNode.SetOccupied(false);
 
@@ -187,6 +308,7 @@ public class GameManager : Manager<GameManager>
         boardEntity.transform.SetParent(benchParent, true);
         boardEntity.SetupOnBench(boardEntity.Team, GetBenchPosition(originalBenchSlot));
 
+        // ベンチ側ユニットを盤面へ移動します。
         benchEntities.Remove(benchEntity);
         benchSlotByEntity.Remove(benchEntity);
         benchEntity.transform.SetParent(team1Parent, true);
@@ -198,6 +320,7 @@ public class GameManager : Manager<GameManager>
         return true;
     }
 
+    // 盤面上の味方ユニット同士の位置を入れ替えます。
     private bool SwapBoardEntityWithBoardEntity(BaseEntity movingEntity, BaseEntity targetEntity, Node targetNode)
     {
         if (movingEntity == null || targetEntity == null || targetNode == null)
@@ -207,6 +330,7 @@ public class GameManager : Manager<GameManager>
         if (originalNode == null)
             return false;
 
+        // 一度両方のNodeを空にしてから、それぞれを逆のNodeへSetupします。
         originalNode.SetOccupied(false);
         targetNode.SetOccupied(false);
 
@@ -217,6 +341,7 @@ public class GameManager : Manager<GameManager>
         return true;
     }
 
+    // 指定ベンチスロットにユニットを置けるか判定します。
     public bool CanPlaceEntityOnBench(BaseEntity entity, int slotIndex)
     {
         if (entity == null || entity.Team != Team.Team1)
@@ -225,6 +350,7 @@ public class GameManager : Manager<GameManager>
         if (slotIndex < 0 || slotIndex >= benchSlotCount)
             return false;
 
+        // 戦闘中は盤面ユニットをベンチへ戻せません。ベンチ内移動だけ許可します。
         if (IsRoundInProgress && !IsEntityOnBench(entity))
             return false;
 
@@ -232,9 +358,11 @@ public class GameManager : Manager<GameManager>
         if (occupant == null || occupant == entity)
             return true;
 
+        // 置き先に誰かいる場合も、ベンチ同士または盤面とベンチなら入れ替え可能です。
         return IsEntityOnBench(entity) || entity.IsOnBoard;
     }
 
+    // 実際にベンチへ配置します。空きなら移動、埋まっていれば入れ替えます。
     public bool TryPlaceEntityOnBench(BaseEntity entity, int slotIndex)
     {
         if (!CanPlaceEntityOnBench(entity, slotIndex))
@@ -247,6 +375,7 @@ public class GameManager : Manager<GameManager>
         if (occupant != null && occupant != entity && TrySwapEntityWithBenchEntity(entity, occupant, slotIndex))
             return true;
 
+        // 盤面からベンチへ戻す場合、Node占有と盤面リストから外します。
         if (entity.CurrentNode != null)
         {
             entity.CurrentNode.SetOccupied(false);
@@ -263,6 +392,7 @@ public class GameManager : Manager<GameManager>
         return true;
     }
 
+    // ベンチ上のユニットと、ドラッグ中ユニットを入れ替えられるか試します。
     private bool TrySwapEntityWithBenchEntity(BaseEntity movingEntity, BaseEntity targetBenchEntity, int targetSlot)
     {
         if (movingEntity == null || targetBenchEntity == null || movingEntity == targetBenchEntity)
@@ -271,12 +401,14 @@ public class GameManager : Manager<GameManager>
         EnsureBenchParent();
         EnsureBenchTileParents();
 
+        // ドラッグ元がベンチならベンチ同士、盤面なら盤面とベンチの入れ替えです。
         if (benchSlotByEntity.TryGetValue(movingEntity, out int originalBenchSlot))
             return SwapBenchEntityWithBenchEntity(movingEntity, targetBenchEntity, originalBenchSlot, targetSlot);
 
         return SwapBoardEntityWithBenchEntity(movingEntity, targetBenchEntity, targetSlot);
     }
 
+    // ベンチ上のユニット同士を入れ替えます。
     private bool SwapBenchEntityWithBenchEntity(BaseEntity movingEntity, BaseEntity targetEntity, int originalSlot, int targetSlot)
     {
         if (!benchSlotByEntity.ContainsKey(targetEntity))
@@ -292,6 +424,7 @@ public class GameManager : Manager<GameManager>
         return true;
     }
 
+    // 盤面ユニットとベンチユニットを入れ替えます。
     private bool SwapBoardEntityWithBenchEntity(BaseEntity movingEntity, BaseEntity targetBenchEntity, int targetSlot)
     {
         Node originalNode = movingEntity.CurrentNode;
@@ -300,6 +433,7 @@ public class GameManager : Manager<GameManager>
 
         originalNode.SetOccupied(false);
 
+        // 盤面側ユニットをベンチへ移します。
         team1Entities.Remove(movingEntity);
         if (!benchEntities.Contains(movingEntity))
             benchEntities.Add(movingEntity);
@@ -308,6 +442,7 @@ public class GameManager : Manager<GameManager>
         movingEntity.transform.SetParent(benchParent, true);
         movingEntity.SetupOnBench(movingEntity.Team, GetBenchPosition(targetSlot));
 
+        // ベンチ側ユニットを元の盤面Nodeへ出します。
         benchEntities.Remove(targetBenchEntity);
         benchSlotByEntity.Remove(targetBenchEntity);
         targetBenchEntity.transform.SetParent(team1Parent, true);
@@ -320,6 +455,7 @@ public class GameManager : Manager<GameManager>
         return true;
     }
 
+    // ワールド座標から、指定チームのベンチスロット番号を取得します。
     public int GetBenchSlotAtWorldPosition(Team team, Vector3 worldPosition)
     {
         EnsureBenchTileParents();
@@ -343,12 +479,14 @@ public class GameManager : Manager<GameManager>
         return closestSlot;
     }
 
+    // ワールド座標からベンチタイル自体を取得します。
     public Tile GetBenchTileAtWorldPosition(Team team, Vector3 worldPosition)
     {
         int slotIndex = GetBenchSlotAtWorldPosition(team, worldPosition);
         return GetBenchTileAtSlot(team, slotIndex);
     }
 
+    // ベンチスロット番号からTileを取得します。Tileが無ければ追加します。
     public Tile GetBenchTileAtSlot(Team team, int slotIndex)
     {
         if (slotIndex < 0 || slotIndex >= benchSlotCount)
@@ -364,32 +502,61 @@ public class GameManager : Manager<GameManager>
         if (tile == null)
             tile = benchTilesParent.GetChild(slotIndex).gameObject.AddComponent<Tile>();
 
+        // GridManager側で、ベンチ用の色とホバー画像を設定します。
         if (tile != null && GridManager.Instance != null)
             GridManager.Instance.ConfigureBenchTile(tile, team);
 
         return tile;
     }
 
+    // ユニットが死亡した時にBaseEntityから呼ばれます。
     public void UnitDead(BaseEntity entity)
     {
         if (entity == null)
             return;
+
+        bool playerUnitDiedDuringWave = IsRoundInProgress && entity.Team == Team.Team1;
 
         team1Entities.Remove(entity);
         team2Entities.Remove(entity);
 
         OnUnitDied?.Invoke(entity);
 
-        entity.DestroyAfterDeathAnimation();
+        // 敵は破棄します。味方は次ウェーブで復活させるため、一時退場に留めます。
+        if (playerUnitDiedDuringWave)
+            entity.WaitForWaveReviveAfterDeathAnimation();
+        else
+            entity.DestroyAfterDeathAnimation();
+
         TryEndRound();
         OnRosterChanged?.Invoke();
     }
 
-
+    // FIGHTボタンから呼ばれ、次のウェーブを固定配置で生成して戦闘を始めます。
     public void DebugFight()
     {
         if (IsRoundInProgress)
             return;
+
+        if (bossRewardSelectionPending)
+        {
+            Debug.LogWarning("Choose a boss reward before starting the next fight.");
+            return;
+        }
+
+        if (gameOver)
+        {
+            Debug.LogWarning("Game over. Restart the scene to try again.");
+            return;
+        }
+
+        InitializeWaveDefinitions();
+        if (currentWaveIndex >= waveDefinitions.Count)
+        {
+            Debug.Log("All waves are already cleared.");
+            UpdateRoundProgressUi();
+            return;
+        }
 
         if (team1Entities.Count == 0)
         {
@@ -397,33 +564,338 @@ public class GameManager : Manager<GameManager>
             return;
         }
 
-        for (int i = 0; i < unitsPerTeam; i++)
-        {
-            int randomIndex = UnityEngine.Random.Range(0, entitiesDatabase.allEntities.Count);
-            EntitiesDatabaseSO.EntityData entityData = entitiesDatabase.allEntities[randomIndex];
-            BaseEntity newEntity = Instantiate(entityData.prefab, team2Parent);
-            newEntity.InitializeIdentity(entityData.name, entityData.cost);
-
-            team2Entities.Add(newEntity);
-
-            Node freeNode = GridManager.Instance.GetFreeNode(Team.Team2);
-            if (freeNode == null)
-            {
-                team2Entities.Remove(newEntity);
-                Destroy(newEntity.gameObject);
-                continue;
-            }
-
-            newEntity.Setup(Team.Team2, freeNode);
-        }
+        ClearEnemyUnits();
+        SnapshotPlayerBoardUnits();
+        SpawnWaveEnemies(waveDefinitions[currentWaveIndex]);
 
         if (team2Entities.Count == 0)
+        {
+            Debug.LogWarning($"Wave {currentWaveIndex + 1} could not spawn any enemies.");
             return;
+        }
 
         IsRoundInProgress = true;
+        AttackEffectPlayer.PlayUiSfx("fight_start");
+        UpdateRoundProgressUi();
         OnRoundStart?.Invoke();
     }
 
+    // 最初の6ウェーブを作ります。列は左から、行は下から数えます。
+    private void InitializeWaveDefinitions()
+    {
+        if (waveDefinitions.Count > 0)
+            return;
+
+        waveDefinitions.Add(new WaveDefinition(
+            new WaveEnemyPlacement(WaveEnemyKind.Cost1Melee, 1, 6, 5)));
+
+        waveDefinitions.Add(new WaveDefinition(
+            new WaveEnemyPlacement(WaveEnemyKind.Cost1Melee, 2, 6, 4),
+            new WaveEnemyPlacement(WaveEnemyKind.Cost1Melee, 2, 6, 6)));
+
+        waveDefinitions.Add(new WaveDefinition(
+            new WaveEnemyPlacement(WaveEnemyKind.Cost1Melee, 3, 6, 5),
+            new WaveEnemyPlacement(WaveEnemyKind.Cost1Ranged, 1, 10, 5)));
+
+        waveDefinitions.Add(new WaveDefinition(true,
+            new WaveEnemyPlacement("Snowchasermk", 2, 7, 6),
+            new WaveEnemyPlacement("Solfist", 2, 7, 4),
+            new WaveEnemyPlacement("Maehvmk", 2, 9, 5)));
+
+        waveDefinitions.Add(new WaveDefinition(
+            new WaveEnemyPlacement(WaveEnemyKind.Cost2Melee, 2, 6, 4, 0),
+            new WaveEnemyPlacement(WaveEnemyKind.Cost2Melee, 2, 6, 6, 1),
+            new WaveEnemyPlacement(WaveEnemyKind.Cost1Ranged, 1, 8, 3, 0),
+            new WaveEnemyPlacement(WaveEnemyKind.Cost1Ranged, 1, 8, 5, 1),
+            new WaveEnemyPlacement(WaveEnemyKind.Cost1Ranged, 1, 8, 7, 2),
+            new WaveEnemyPlacement(WaveEnemyKind.Cost2Ranged, 1, 10, 3, 0),
+            new WaveEnemyPlacement(WaveEnemyKind.Cost2Ranged, 1, 10, 5, 1),
+            new WaveEnemyPlacement(WaveEnemyKind.Cost2Ranged, 1, 10, 7, 2)));
+
+        waveDefinitions.Add(new WaveDefinition(
+            new WaveEnemyPlacement(WaveEnemyKind.Cost2Melee, 3, 6, 3, 0),
+            new WaveEnemyPlacement(WaveEnemyKind.Cost2Melee, 3, 6, 5, 1),
+            new WaveEnemyPlacement(WaveEnemyKind.Cost2Melee, 3, 6, 7, 2)));
+    }
+
+    // 戦闘開始前の味方盤面配置を保存します。
+    private void SnapshotPlayerBoardUnits()
+    {
+        roundPlayerUnits.Clear();
+        roundStartNodeByPlayerUnit.Clear();
+
+        for (int i = 0; i < team1Entities.Count; i++)
+        {
+            BaseEntity entity = team1Entities[i];
+            if (entity == null || entity.CurrentNode == null)
+                continue;
+
+            roundPlayerUnits.Add(entity);
+            roundStartNodeByPlayerUnit[entity] = entity.CurrentNode;
+        }
+    }
+
+    // ウェーブ定義に沿って敵を生成します。
+    private void SpawnWaveEnemies(WaveDefinition waveDefinition)
+    {
+        if (waveDefinition == null)
+            return;
+
+        for (int i = 0; i < waveDefinition.Enemies.Count; i++)
+            SpawnWaveEnemy(waveDefinition.Enemies[i]);
+    }
+
+    // 1体分の敵を、指定された盤面座標に生成します。
+    private void SpawnWaveEnemy(WaveEnemyPlacement placement)
+    {
+        if (GridManager.Instance == null)
+            return;
+
+        Node spawnNode = GridManager.Instance.GetNodeAtBoardCoordinate(placement.Column, placement.Row);
+        if (spawnNode == null)
+        {
+            Debug.LogWarning($"Wave enemy spawn node not found. Column:{placement.Column} Row:{placement.Row}");
+            return;
+        }
+
+        if (spawnNode.IsOccupied)
+        {
+            Debug.LogWarning($"Wave enemy spawn node is already occupied. Column:{placement.Column} Row:{placement.Row}");
+            return;
+        }
+
+        if (!TryGetWaveEnemyData(placement, out EntitiesDatabaseSO.EntityData entityData))
+            return;
+
+        BaseEntity newEntity = Instantiate(entityData.prefab, team2Parent);
+        newEntity.InitializeIdentity(entityData.name, entityData.cost, placement.StarLevel);
+        team2Entities.Add(newEntity);
+        newEntity.Setup(Team.Team2, spawnNode);
+    }
+
+    // ウェーブ指定に合うユニットを選びます。固定名、候補番号、ランダム指定の順で処理します。
+    private bool TryGetWaveEnemyData(WaveEnemyPlacement placement, out EntitiesDatabaseSO.EntityData entityData)
+    {
+        entityData = default(EntitiesDatabaseSO.EntityData);
+        if (entitiesDatabase == null || entitiesDatabase.allEntities == null)
+            return false;
+
+        if (!string.IsNullOrEmpty(placement.UnitId))
+        {
+            List<EntitiesDatabaseSO.EntityData> fixedCandidates = entitiesDatabase.allEntities
+                .Where(data => data.prefab != null && string.Equals(data.name, placement.UnitId, StringComparison.OrdinalIgnoreCase))
+                .ToList();
+
+            if (fixedCandidates.Count > 0)
+            {
+                entityData = fixedCandidates[0];
+                return true;
+            }
+
+            Debug.LogWarning($"No fixed wave enemy found for {placement.UnitId}.");
+            return false;
+        }
+
+        List<EntitiesDatabaseSO.EntityData> candidates = GetWaveEnemyCandidates(placement.Kind);
+
+        if (candidates.Count == 0)
+        {
+            Debug.LogWarning($"No wave enemy candidates found for {placement.Kind}.");
+            return false;
+        }
+
+        if (placement.CandidateIndex >= 0)
+        {
+            if (placement.CandidateIndex >= candidates.Count)
+            {
+                Debug.LogWarning($"Wave enemy candidate index {placement.CandidateIndex} was out of range for {placement.Kind}.");
+                return false;
+            }
+
+            entityData = candidates[placement.CandidateIndex];
+            return true;
+        }
+
+        entityData = candidates[UnityEngine.Random.Range(0, candidates.Count)];
+        return true;
+    }
+
+    // ウェーブ種別に合う候補を、固定配置しやすいよう名前順で返します。
+    private List<EntitiesDatabaseSO.EntityData> GetWaveEnemyCandidates(WaveEnemyKind kind)
+    {
+        int cost = GetWaveEnemyCost(kind);
+
+        return entitiesDatabase.allEntities
+            .Where(data => data.cost == cost && data.prefab != null && MatchesWaveEnemyKind(data, kind))
+            .OrderBy(data => data.name, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+    }
+
+    // ウェーブ種別から必要コストを返します。
+    private int GetWaveEnemyCost(WaveEnemyKind kind)
+    {
+        if (kind == WaveEnemyKind.Cost2Melee || kind == WaveEnemyKind.Cost2Ranged)
+            return 2;
+
+        return 1;
+    }
+
+    // 射程から近接/遠距離を判定します。射程4以上を遠距離、それ未満を近接として扱います。
+    private bool MatchesWaveEnemyKind(EntitiesDatabaseSO.EntityData entityData, WaveEnemyKind kind)
+    {
+        bool ranged = entityData.prefab != null && entityData.prefab.range >= 4;
+        if (kind == WaveEnemyKind.Cost1Ranged || kind == WaveEnemyKind.Cost2Ranged)
+            return ranged;
+
+        if (kind == WaveEnemyKind.Cost1Melee || kind == WaveEnemyKind.Cost2Melee)
+            return !ranged;
+
+        return true;
+    }
+
+    // シーン上に残っている敵ユニットを全て片付けます。
+    private void ClearEnemyUnits()
+    {
+        for (int i = team2Entities.Count - 1; i >= 0; i--)
+        {
+            BaseEntity enemy = team2Entities[i];
+            if (enemy == null)
+                continue;
+
+            if (enemy.CurrentNode != null)
+                enemy.CurrentNode.SetOccupied(false);
+
+            Destroy(enemy.gameObject);
+        }
+
+        team2Entities.Clear();
+    }
+
+    // ウェーブクリア時、味方を戦闘前配置へ戻して全回復させます。
+    private void CompleteCurrentWave()
+    {
+        bool clearedBossWave = currentWaveIndex >= 0
+            && currentWaveIndex < waveDefinitions.Count
+            && waveDefinitions[currentWaveIndex].IsBossWave;
+
+        IsRoundInProgress = false;
+        OnRoundEnd?.Invoke();
+
+        ClearEnemyUnits();
+        RestorePlayerUnitsAfterWave();
+        ResolveAllAvailableUpgrades(UpgradeScope.AllOwned);
+
+        currentWaveIndex++;
+        Debug.Log($"Wave {currentWaveIndex} cleared.");
+        UpdateRoundProgressUi();
+        OnRosterChanged?.Invoke();
+
+        if (clearedBossWave)
+            ShowBossRewardSelection();
+    }
+
+    // ボスウェーブクリア後、3体の中からショップ解放する仲間を選ばせます。
+    private void ShowBossRewardSelection()
+    {
+        List<EntitiesDatabaseSO.EntityData> rewardOptions = GetBossRewardOptions();
+        if (rewardOptions.Count == 0)
+        {
+            Debug.LogWarning("Boss reward options were not found in the entity database.");
+            return;
+        }
+
+        bossRewardSelectionPending = true;
+        BossRewardSelectionUI.EnsureExists().Show(rewardOptions, SelectBossReward);
+    }
+
+    // ボス報酬で選んだユニットをショップに解放し、可能なら★1としてベンチにも加入させます。
+    private void SelectBossReward(EntitiesDatabaseSO.EntityData selectedData)
+    {
+        if (string.IsNullOrEmpty(selectedData.name))
+            return;
+
+        unlockedBossRewardUnitIds.Add(selectedData.name);
+        bossRewardSelectionPending = false;
+
+        if (HasBenchSpace || CanCompleteUpgradeWithPurchase(selectedData.name))
+        {
+            BaseEntity rewardEntity = CreateBenchEntity(selectedData, 1);
+            if (rewardEntity != null)
+                ResolveUpgradesFor(rewardEntity, UpgradeScope.AllOwned);
+        }
+        else
+        {
+            Debug.LogWarning($"{selectedData.name} was unlocked for the shop, but the bench is full so no free copy was added.");
+        }
+
+        AttackEffectPlayer.PlayUiSfx("unit_buy");
+        OnRosterChanged?.Invoke();
+
+        if (UIShop.Instance != null)
+            UIShop.Instance.GenerateCard();
+    }
+
+    // ボス報酬候補として使う3体のEntityDataをデータベースから集めます。
+    private List<EntitiesDatabaseSO.EntityData> GetBossRewardOptions()
+    {
+        if (entitiesDatabase == null || entitiesDatabase.allEntities == null)
+            return new List<EntitiesDatabaseSO.EntityData>();
+
+        return bossRewardUnitIds
+            .Select(unitId => entitiesDatabase.allEntities.FirstOrDefault(data =>
+                data.prefab != null && string.Equals(data.name, unitId, StringComparison.OrdinalIgnoreCase)))
+            .Where(data => data.prefab != null)
+            .ToList();
+    }
+
+    // 全味方ユニットが倒された時のゲームオーバー処理です。
+    private void TriggerGameOver()
+    {
+        IsRoundInProgress = false;
+        gameOver = true;
+        OnRoundEnd?.Invoke();
+        ClearEnemyUnits();
+        Debug.LogWarning("Game Over. All player units were defeated.");
+        UpdateRoundProgressUi();
+    }
+
+    // ウェーブ開始時に保存したNodeへ味方を戻し、倒されたユニットも復活させます。
+    private void RestorePlayerUnitsAfterWave()
+    {
+        for (int i = 0; i < roundPlayerUnits.Count; i++)
+        {
+            BaseEntity entity = roundPlayerUnits[i];
+            if (entity != null && entity.CurrentNode != null)
+                entity.CurrentNode.SetOccupied(false);
+        }
+
+        for (int i = 0; i < roundPlayerUnits.Count; i++)
+        {
+            BaseEntity entity = roundPlayerUnits[i];
+            if (entity == null || !roundStartNodeByPlayerUnit.TryGetValue(entity, out Node restoreNode))
+                continue;
+
+            entity.RestoreForNextWave(Team.Team1, restoreNode);
+            if (!team1Entities.Contains(entity))
+                team1Entities.Add(entity);
+        }
+    }
+
+    // ウェーブ進行UIに、次に挑むウェーブ位置を反映します。
+    private void UpdateRoundProgressUi()
+    {
+        InitializeWaveDefinitions();
+        bool allClear = waveDefinitions.Count > 0 && currentWaveIndex >= waveDefinitions.Count && !gameOver;
+        RoundProgressUI.EnsureExists().SetProgress(currentWaveIndex, waveDefinitions.Count, gameOver, allClear, GetBossWaveFlags());
+    }
+
+    // ラウンドUIがボスウェーブだけ違うアイコンにできるよう、各ウェーブの種類を渡します。
+    private List<bool> GetBossWaveFlags()
+    {
+        return waveDefinitions.Select(waveDefinition => waveDefinition != null && waveDefinition.IsBossWave).ToList();
+    }
+
+    // ベンチユニットをまとめる親が未設定なら作ります。
     private void EnsureBenchParent()
     {
         if (benchParent != null)
@@ -435,16 +907,20 @@ public class GameManager : Manager<GameManager>
         benchParent = bench.transform;
     }
 
+    // ベンチスロット番号から実際のワールド座標を取得します。
     private Vector3 GetBenchPosition(int slotIndex)
     {
         EnsureBenchTileParents();
 
+        // シーン上にベンチタイルがある場合は、その位置を正とします。
         if (team1BenchTilesParent != null && slotIndex < team1BenchTilesParent.childCount)
             return team1BenchTilesParent.GetChild(slotIndex).position;
 
+        // ベンチタイルが無い場合の予備計算です。
         return benchStartPosition + new Vector3(0f, slotIndex * benchSlotSpacing, 0f);
     }
 
+    // 左右ベンチタイル親の参照を、シーン名から補完します。
     private void EnsureBenchTileParents()
     {
         if (team1BenchTilesParent == null)
@@ -462,6 +938,7 @@ public class GameManager : Manager<GameManager>
         }
     }
 
+    // 空いているベンチスロット番号を返します。空きがなければ-1です。
     private int GetFreeBenchSlot()
     {
         for (int i = 0; i < benchSlotCount; i++)
@@ -473,6 +950,7 @@ public class GameManager : Manager<GameManager>
         return -1;
     }
 
+    // 指定スロットにいるベンチユニットを返します。
     private BaseEntity GetBenchEntityAtSlot(int slotIndex)
     {
         foreach (KeyValuePair<BaseEntity, int> pair in benchSlotByEntity)
@@ -484,7 +962,25 @@ public class GameManager : Manager<GameManager>
         return null;
     }
 
-    private void HandleMouseWheelZoom()
+    // 盤面操作に使うカメラを返します。未設定ならMain Cameraを使います。
+    private Camera GetBoardCamera()
+    {
+        return boardCamera != null ? boardCamera : Camera.main;
+    }
+
+    // カメラの現在倍率を、滑らかズーム用の目標値として初期化します。
+    private void EnsureCameraZoomTarget(Camera targetCamera)
+    {
+        if (targetCamera == null || hasCameraZoomTarget)
+            return;
+
+        targetCameraFieldOfView = targetCamera.fieldOfView;
+        targetOrthographicSize = targetCamera.orthographicSize;
+        hasCameraZoomTarget = true;
+    }
+
+    // マウスホイールの入力から、盤面カメラの目標倍率を更新します。
+    private void HandleMouseWheelZoom(Camera targetCamera)
     {
         if (!enableMouseWheelZoom)
             return;
@@ -493,28 +989,251 @@ public class GameManager : Manager<GameManager>
         if (Mathf.Abs(scroll) <= 0.01f)
             return;
 
+        // UI上でホイールした時はショップ操作の邪魔をしないようにします。
         if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
             return;
 
-        Camera targetCamera = boardCamera != null ? boardCamera : Camera.main;
         if (targetCamera == null)
             return;
 
+        EnsureCameraZoomTarget(targetCamera);
+
         if (targetCamera.orthographic)
         {
-            targetCamera.orthographicSize = Mathf.Clamp(
-                targetCamera.orthographicSize - scroll * mouseWheelZoomSpeed * 0.1f,
+            targetOrthographicSize = Mathf.Clamp(
+                targetOrthographicSize - scroll * mouseWheelZoomSpeed * 0.1f,
                 minOrthographicSize,
                 maxOrthographicSize);
             return;
         }
 
-        targetCamera.fieldOfView = Mathf.Clamp(
-            targetCamera.fieldOfView - scroll * mouseWheelZoomSpeed,
+        targetCameraFieldOfView = Mathf.Clamp(
+            targetCameraFieldOfView - scroll * mouseWheelZoomSpeed,
             minCameraFieldOfView,
             maxCameraFieldOfView);
     }
 
+    // 現在倍率を目標倍率へ少しずつ近づけ、ズームの見た目を滑らかにします。
+    private void ApplySmoothCameraZoom(Camera targetCamera)
+    {
+        if (targetCamera == null)
+            return;
+
+        EnsureCameraZoomTarget(targetCamera);
+
+        // Time.deltaTimeに左右されすぎない補間率にして、低FPSでも自然に追従させます。
+        float interpolation = 1f - Mathf.Exp(-cameraZoomSmoothSpeed * Time.deltaTime);
+
+        if (targetCamera.orthographic)
+        {
+            targetCamera.orthographicSize = Mathf.Lerp(targetCamera.orthographicSize, targetOrthographicSize, interpolation);
+            return;
+        }
+
+        targetCamera.fieldOfView = Mathf.Lerp(targetCamera.fieldOfView, targetCameraFieldOfView, interpolation);
+    }
+
+    // ホイールクリックを押しながらドラッグした量に合わせて盤面カメラを移動します。
+    private void HandleMiddleMousePan(Camera targetCamera)
+    {
+        if (!enableMiddleMousePan)
+            return;
+
+        if (targetCamera == null)
+            return;
+
+        // ホイールクリックを押した瞬間に、ドラッグ移動を開始します。
+        if (Input.GetMouseButtonDown(2))
+        {
+            // UI上で押し始めた場合は、ショップなどの操作を邪魔しないようにします。
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            {
+                isMiddleMousePanning = false;
+                return;
+            }
+
+            isMiddleMousePanning = true;
+            lastMiddleMousePosition = Input.mousePosition;
+            return;
+        }
+
+        // ホイールクリックを離したら、ドラッグ移動を終了します。
+        if (Input.GetMouseButtonUp(2))
+        {
+            isMiddleMousePanning = false;
+            return;
+        }
+
+        if (!isMiddleMousePanning || !Input.GetMouseButton(2))
+            return;
+
+        Vector3 currentMousePosition = Input.mousePosition;
+        Vector3 worldDelta = GetCameraPanWorldDelta(targetCamera, lastMiddleMousePosition, currentMousePosition);
+
+        // マウスでつかんだ盤面がそのまま動く感覚になるよう、カメラはドラッグ方向と逆へ動かします。
+        Vector3 cameraMove = -worldDelta * middleMousePanSpeed;
+        cameraMove.z = 0f;
+        targetCamera.transform.position += cameraMove;
+
+        lastMiddleMousePosition = currentMousePosition;
+    }
+
+    // 背景範囲に使うRendererが未設定なら、名前から自動で探します。
+    private void EnsureCameraBoundsRenderer()
+    {
+        if (cameraBoundsRenderer != null)
+            return;
+
+        if (string.IsNullOrEmpty(cameraBoundsObjectName))
+            return;
+
+        GameObject boundsObject = GameObject.Find(cameraBoundsObjectName);
+        if (boundsObject == null)
+            return;
+
+        cameraBoundsRenderer = boundsObject.GetComponent<Renderer>();
+    }
+
+    // カメラの画面端が背景外へ出ないよう、カメラ位置を補正します。
+    private void ClampCameraInsideBackground(Camera targetCamera)
+    {
+        if (!clampCameraToBackground || targetCamera == null)
+            return;
+
+        EnsureCameraBoundsRenderer();
+        if (cameraBoundsRenderer == null)
+            return;
+
+        Vector2 correction = GetCameraBoundsCorrection(targetCamera, cameraBoundsRenderer.bounds);
+        if (correction.sqrMagnitude <= 0.000001f)
+            return;
+
+        targetCamera.transform.position += new Vector3(correction.x, correction.y, 0f);
+    }
+
+    // 現在のカメラ表示範囲が背景からはみ出している分だけ、戻す移動量を計算します。
+    private Vector2 GetCameraBoundsCorrection(Camera targetCamera, Bounds backgroundBounds)
+    {
+        Vector2 viewMin;
+        Vector2 viewMax;
+        if (!TryGetCameraViewBoundsOnBoardPlane(targetCamera, out viewMin, out viewMax))
+            return Vector2.zero;
+
+        float allowedMinX = backgroundBounds.min.x + cameraBoundsPadding.x;
+        float allowedMaxX = backgroundBounds.max.x - cameraBoundsPadding.x;
+        float allowedMinY = backgroundBounds.min.y + cameraBoundsPadding.y;
+        float allowedMaxY = backgroundBounds.max.y - cameraBoundsPadding.y;
+
+        float correctionX = GetAxisBoundsCorrection(viewMin.x, viewMax.x, allowedMinX, allowedMaxX);
+        float correctionY = GetAxisBoundsCorrection(viewMin.y, viewMax.y, allowedMinY, allowedMaxY);
+        return new Vector2(correctionX, correctionY);
+    }
+
+    // 1軸分の表示範囲を、許可範囲内へ戻すための移動量を返します。
+    private float GetAxisBoundsCorrection(float viewMin, float viewMax, float allowedMin, float allowedMax)
+    {
+        float viewSize = viewMax - viewMin;
+        float allowedSize = allowedMax - allowedMin;
+
+        // ズームアウトしすぎて表示範囲の方が広い場合は、中心だけ合わせます。
+        if (viewSize >= allowedSize)
+            return ((allowedMin + allowedMax) * 0.5f) - ((viewMin + viewMax) * 0.5f);
+
+        if (viewMin < allowedMin)
+            return allowedMin - viewMin;
+
+        if (viewMax > allowedMax)
+            return allowedMax - viewMax;
+
+        return 0f;
+    }
+
+    // カメラの四隅が盤面平面上でどこに見えているかを調べます。
+    private bool TryGetCameraViewBoundsOnBoardPlane(Camera targetCamera, out Vector2 viewMin, out Vector2 viewMax)
+    {
+        viewMin = Vector2.zero;
+        viewMax = Vector2.zero;
+
+        Vector3 bottomLeft;
+        Vector3 topLeft;
+        Vector3 bottomRight;
+        Vector3 topRight;
+
+        if (!TryViewportPointToBoardPlane(targetCamera, new Vector3(0f, 0f, 0f), out bottomLeft)
+            || !TryViewportPointToBoardPlane(targetCamera, new Vector3(0f, 1f, 0f), out topLeft)
+            || !TryViewportPointToBoardPlane(targetCamera, new Vector3(1f, 0f, 0f), out bottomRight)
+            || !TryViewportPointToBoardPlane(targetCamera, new Vector3(1f, 1f, 0f), out topRight))
+        {
+            return false;
+        }
+
+        viewMin = new Vector2(
+            Mathf.Min(bottomLeft.x, topLeft.x, bottomRight.x, topRight.x),
+            Mathf.Min(bottomLeft.y, topLeft.y, bottomRight.y, topRight.y));
+
+        viewMax = new Vector2(
+            Mathf.Max(bottomLeft.x, topLeft.x, bottomRight.x, topRight.x),
+            Mathf.Max(bottomLeft.y, topLeft.y, bottomRight.y, topRight.y));
+
+        return true;
+    }
+
+    // 画面上のマウス移動量を、盤面上のワールド座標移動量へ変換します。
+    private Vector3 GetCameraPanWorldDelta(Camera targetCamera, Vector3 previousScreenPosition, Vector3 currentScreenPosition)
+    {
+        Vector3 previousWorldPosition;
+        Vector3 currentWorldPosition;
+
+        if (TryScreenPointToBoardPlane(targetCamera, previousScreenPosition, out previousWorldPosition)
+            && TryScreenPointToBoardPlane(targetCamera, currentScreenPosition, out currentWorldPosition))
+        {
+            return currentWorldPosition - previousWorldPosition;
+        }
+
+        // 万が一盤面平面にRayが当たらない場合も、2Dカメラとして最低限動くようにします。
+        float distanceFromBoard = Mathf.Abs(targetCamera.transform.position.z);
+        previousScreenPosition.z = distanceFromBoard;
+        currentScreenPosition.z = distanceFromBoard;
+        previousWorldPosition = targetCamera.ScreenToWorldPoint(previousScreenPosition);
+        currentWorldPosition = targetCamera.ScreenToWorldPoint(currentScreenPosition);
+        return currentWorldPosition - previousWorldPosition;
+    }
+
+    // マウス位置から盤面のあるZ=0平面上の座標を取得します。
+    private bool TryScreenPointToBoardPlane(Camera targetCamera, Vector3 screenPosition, out Vector3 worldPosition)
+    {
+        Plane boardPlane = new Plane(Vector3.forward, Vector3.zero);
+        Ray ray = targetCamera.ScreenPointToRay(screenPosition);
+
+        float distance;
+        if (boardPlane.Raycast(ray, out distance))
+        {
+            worldPosition = ray.GetPoint(distance);
+            return true;
+        }
+
+        worldPosition = Vector3.zero;
+        return false;
+    }
+
+    // Viewport座標から盤面のあるZ=0平面上の座標を取得します。
+    private bool TryViewportPointToBoardPlane(Camera targetCamera, Vector3 viewportPosition, out Vector3 worldPosition)
+    {
+        Plane boardPlane = new Plane(Vector3.forward, Vector3.zero);
+        Ray ray = targetCamera.ViewportPointToRay(viewportPosition);
+
+        float distance;
+        if (boardPlane.Raycast(ray, out distance))
+        {
+            worldPosition = ray.GetPoint(distance);
+            return true;
+        }
+
+        worldPosition = Vector3.zero;
+        return false;
+    }
+
+    // 指定Nodeにいる味方ユニットを探します。
     private BaseEntity GetTeam1EntityAtNode(Node node)
     {
         if (node == null)
@@ -530,20 +1249,26 @@ public class GameManager : Manager<GameManager>
         return null;
     }
 
+    // このユニットを今買うとスターアップが完成するかを返します。
     public bool CanCompleteUpgradeWithPurchase(string unitId)
     {
         return GetUpgradePreviewStarWithPurchase(unitId) > 0;
     }
 
+    // このユニットを1体買った後、★2または★3が作れるかを予測します。
     public int GetUpgradePreviewStarWithPurchase(string unitId)
     {
         if (string.IsNullOrEmpty(unitId))
             return 0;
 
-        int star1Count = CountOwnedUnits(unitId, 1) + 1;
-        int star2Count = CountOwnedUnits(unitId, 2);
+        UpgradeScope scope = GetImmediateUpgradeScope();
+
+        // 購入予定の★1を1体足して計算します。
+        int star1Count = CountOwnedUnits(unitId, 1, scope) + 1;
+        int star2Count = CountOwnedUnits(unitId, 2, scope);
         int previewStarLevel = 0;
 
+        // ★1が3体揃うなら★2が1体増える扱いにします。
         if (star1Count >= 3)
         {
             star1Count -= 3;
@@ -551,12 +1276,14 @@ public class GameManager : Manager<GameManager>
             previewStarLevel = 2;
         }
 
+        // ★2が3体揃うなら★3予告です。
         if (star2Count >= 3)
             previewStarLevel = 3;
 
         return previewStarLevel;
     }
 
+    // ユニットを売った時に戻るお金を計算します。
     public int GetSellValue(BaseEntity entity)
     {
         if (entity == null)
@@ -571,6 +1298,7 @@ public class GameManager : Manager<GameManager>
         return Mathf.Max(1, entity.BaseCost) * starMultiplier;
     }
 
+    // ユニットを売却し、お金を増やします。
     public bool TrySellEntity(BaseEntity entity)
     {
         if (entity == null || entity.Team != Team.Team1 || PlayerData.Instance == null)
@@ -583,7 +1311,8 @@ public class GameManager : Manager<GameManager>
         return true;
     }
 
-    private void ResolveUpgradesFor(BaseEntity preferredEntity)
+    // 指定ユニットを起点に、同名・同スターが3体揃っていればスターアップします。
+    private void ResolveUpgradesFor(BaseEntity preferredEntity, UpgradeScope scope)
     {
         if (preferredEntity == null || preferredEntity.Team != Team.Team1)
             return;
@@ -592,38 +1321,94 @@ public class GameManager : Manager<GameManager>
         bool upgraded;
         do
         {
-            upgraded = TryUpgradeOneGroup(current.UnitId, current.StarLevel, current, out current);
+            upgraded = TryUpgradeOneGroup(current.UnitId, current.StarLevel, current, scope, out current);
         }
         while (upgraded && current != null && current.StarLevel < 3);
     }
 
-    private bool TryUpgradeOneGroup(string unitId, int starLevel, BaseEntity preferredEntity, out BaseEntity upgradedEntity)
+    // 現在すでに成立しているスターアップを、可能な限りまとめて処理します。
+    private void ResolveAllAvailableUpgrades(UpgradeScope scope)
+    {
+        bool upgraded;
+        int safetyCounter = 0;
+
+        do
+        {
+            upgraded = false;
+            List<BaseEntity> upgradeCandidates = GetUpgradeCandidateUnits(scope);
+
+            var readyGroup = upgradeCandidates
+                .Where(entity => entity != null && entity.StarLevel < 3)
+                .GroupBy(entity => new UpgradeGroupKey(entity.UnitId, entity.StarLevel))
+                .FirstOrDefault(group => group.Count() >= 3);
+
+            if (readyGroup == null)
+                break;
+
+            BaseEntity preferredEntity = ChooseUpgradeTarget(readyGroup.ToList(), null, scope);
+            if (TryUpgradeOneGroup(readyGroup.Key.UnitId, readyGroup.Key.StarLevel, preferredEntity, scope, out BaseEntity upgradedEntity))
+                upgraded = upgradedEntity != null;
+
+            safetyCounter++;
+        }
+        while (upgraded && safetyCounter < 100);
+    }
+
+    // 1段階分のスターアップを試します。成功すると2体を消費し、1体を強化します。
+    private bool TryUpgradeOneGroup(string unitId, int starLevel, BaseEntity preferredEntity, UpgradeScope scope, out BaseEntity upgradedEntity)
     {
         upgradedEntity = preferredEntity;
 
         if (starLevel >= 3)
             return false;
 
-        List<BaseEntity> matches = GetOwnedUnits(unitId, starLevel);
+        List<BaseEntity> matches = GetOwnedUnits(unitId, starLevel, scope);
         if (matches.Count < 3)
             return false;
 
-        BaseEntity target = ChooseUpgradeTarget(matches, preferredEntity);
+        // 戦闘中の購入では盤面ユニットを巻き込まないよう、もう一度ベンチ実体だけに絞ります。
+        if (scope == UpgradeScope.BenchOnly)
+            matches = matches.Where(IsBenchUpgradeCandidate).ToList();
+
+        if (matches.Count < 3)
+            return false;
+
+        BaseEntity target = ChooseUpgradeTarget(matches, preferredEntity, scope);
+        if (target == null)
+            return false;
+
+        // 念のため、戦闘中に盤面ユニットを残すスターアップは絶対に通さないようにします。
+        if (scope == UpgradeScope.BenchOnly && target.IsOnBoard)
+        {
+            Debug.LogWarning($"Skipped in-combat upgrade for {unitId}: board unit was selected as target.");
+            return false;
+        }
+
         List<BaseEntity> consumed = matches.Where(entity => entity != target).Take(2).ToList();
 
+        // 残す1体以外の2体を削除します。
         for (int i = 0; i < consumed.Count; i++)
             RemoveOwnedEntity(consumed[i]);
 
+        // 残したユニットの星とステータスをBaseEntity側で更新します。
         target.ApplyStarLevel(starLevel + 1);
         upgradedEntity = target;
         return true;
     }
 
-    private BaseEntity ChooseUpgradeTarget(List<BaseEntity> matches, BaseEntity preferredEntity)
+    // スターアップ後に残すユニットを選びます。
+    private BaseEntity ChooseUpgradeTarget(List<BaseEntity> matches, BaseEntity preferredEntity, UpgradeScope scope)
     {
-        BaseEntity boardEntity = matches.FirstOrDefault(entity => entity.IsOnBoard);
-        if (boardEntity != null)
-            return boardEntity;
+        if (matches == null || matches.Count == 0)
+            return null;
+
+        // 戦闘後など盤面も合成対象にしてよい時だけ、盤面ユニットを残す候補にします。
+        if (scope == UpgradeScope.AllOwned)
+        {
+            BaseEntity boardEntity = matches.FirstOrDefault(entity => entity.IsOnBoard);
+            if (boardEntity != null)
+                return boardEntity;
+        }
 
         BaseEntity slottedBenchEntity = matches.FirstOrDefault(entity => entity != preferredEntity && benchSlotByEntity.ContainsKey(entity));
         if (slottedBenchEntity != null)
@@ -635,20 +1420,53 @@ public class GameManager : Manager<GameManager>
         return matches[0];
     }
 
-    private List<BaseEntity> GetOwnedUnits(string unitId, int starLevel)
+    // 味方の盤面とベンチから、指定ID・指定スターのユニットを集めます。
+    private List<BaseEntity> GetOwnedUnits(string unitId, int starLevel, UpgradeScope scope)
     {
-        return team1Entities
-            .Concat(benchEntities)
+        return GetUpgradeCandidateUnits(scope)
             .Where(entity => entity != null && entity.Team == Team.Team1 && entity.UnitId == unitId && entity.StarLevel == starLevel)
             .Distinct()
             .ToList();
     }
 
-    private int CountOwnedUnits(string unitId, int starLevel)
+    // 指定ID・指定スターの所有数を数えます。
+    private int CountOwnedUnits(string unitId, int starLevel, UpgradeScope scope)
     {
-        return GetOwnedUnits(unitId, starLevel).Count;
+        return GetOwnedUnits(unitId, starLevel, scope).Count;
     }
 
+    // 今すぐ実行できるスターアップの対象範囲を返します。
+    private UpgradeScope GetImmediateUpgradeScope()
+    {
+        return IsRoundInProgress ? UpgradeScope.BenchOnly : UpgradeScope.AllOwned;
+    }
+
+    // スターアップ候補として数えるユニット一覧を返します。
+    private List<BaseEntity> GetUpgradeCandidateUnits(UpgradeScope scope)
+    {
+        if (scope == UpgradeScope.BenchOnly)
+            return benchEntities.Where(IsBenchUpgradeCandidate).Distinct().ToList();
+
+        return team1Entities
+            .Concat(benchEntities)
+            .Where(entity => entity != null && entity.Team == Team.Team1)
+            .Distinct()
+            .ToList();
+    }
+
+    // 戦闘中に即時スターアップへ使ってよい、実際にベンチ側にいる味方ユニットだけを判定します。
+    private bool IsBenchUpgradeCandidate(BaseEntity entity)
+    {
+        bool isAssignedToBenchSlot = entity != null && benchSlotByEntity.ContainsKey(entity);
+        bool isUnderBenchParent = entity != null && benchParent != null && entity.transform.IsChildOf(benchParent);
+
+        return entity != null
+            && entity.Team == Team.Team1
+            && !entity.IsOnBoard
+            && (isAssignedToBenchSlot || isUnderBenchParent);
+    }
+
+    // 所有ユニットをリスト、Node、ベンチ辞書から外して破棄します。
     private void RemoveOwnedEntity(BaseEntity entity)
     {
         if (entity == null)
@@ -663,6 +1481,7 @@ public class GameManager : Manager<GameManager>
         Destroy(entity.gameObject);
     }
 
+    // どちらかのチームが全滅したら戦闘終了イベントを出します。
     private void TryEndRound()
     {
         if (!IsRoundInProgress)
@@ -671,11 +1490,98 @@ public class GameManager : Manager<GameManager>
         if (team1Entities.Count > 0 && team2Entities.Count > 0)
             return;
 
-        IsRoundInProgress = false;
-        OnRoundEnd?.Invoke();
+        if (team1Entities.Count == 0)
+        {
+            TriggerGameOver();
+            return;
+        }
+
+        if (team2Entities.Count == 0)
+            CompleteCurrentWave();
+    }
+
+    // スターアップ判定で、盤面を含めるかベンチだけを見るかを表します。
+    private enum UpgradeScope
+    {
+        AllOwned,
+        BenchOnly
+    }
+
+    // 同名・同スターのグループを作るためのキーです。
+    private struct UpgradeGroupKey
+    {
+        public readonly string UnitId;
+        public readonly int StarLevel;
+
+        public UpgradeGroupKey(string unitId, int starLevel)
+        {
+            UnitId = unitId;
+            StarLevel = starLevel;
+        }
+    }
+
+    // ウェーブで使う敵の大まかな種類です。
+    private enum WaveEnemyKind
+    {
+        Cost1Melee,
+        Cost1Ranged,
+        Cost2Melee,
+        Cost2Ranged,
+        FixedUnit
+    }
+
+    // ウェーブ内の敵1体分の配置データです。
+    // CandidateIndexが0以上なら、条件に合う候補を名前順に並べた時の指定番号を使います。
+    private struct WaveEnemyPlacement
+    {
+        public readonly WaveEnemyKind Kind;
+        public readonly string UnitId;
+        public readonly int StarLevel;
+        public readonly int Column;
+        public readonly int Row;
+        public readonly int CandidateIndex;
+
+        public WaveEnemyPlacement(WaveEnemyKind kind, int starLevel, int column, int row, int candidateIndex = -1)
+        {
+            Kind = kind;
+            UnitId = string.Empty;
+            StarLevel = starLevel;
+            Column = column;
+            Row = row;
+            CandidateIndex = candidateIndex;
+        }
+
+        public WaveEnemyPlacement(string unitId, int starLevel, int column, int row)
+        {
+            Kind = WaveEnemyKind.FixedUnit;
+            UnitId = unitId;
+            StarLevel = starLevel;
+            Column = column;
+            Row = row;
+            CandidateIndex = -1;
+        }
+    }
+
+    // 1ウェーブ分の敵配置一覧です。
+    private class WaveDefinition
+    {
+        public readonly List<WaveEnemyPlacement> Enemies = new List<WaveEnemyPlacement>();
+        public readonly bool IsBossWave;
+
+        public WaveDefinition(params WaveEnemyPlacement[] enemies)
+        {
+            Enemies.AddRange(enemies);
+        }
+
+        public WaveDefinition(bool isBossWave, params WaveEnemyPlacement[] enemies)
+        {
+            IsBossWave = isBossWave;
+            Enemies.AddRange(enemies);
+        }
     }
 }
 
+// ユニットがどちらの陣営に属しているかを表す列挙型です。
 public enum Team
 {
     Team1,

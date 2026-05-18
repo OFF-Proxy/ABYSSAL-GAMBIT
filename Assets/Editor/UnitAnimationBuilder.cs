@@ -54,7 +54,10 @@ public static class UnitAnimationBuilder
         new PlistAtlasAnimationSpec("Serpenti", "boss_serpenti", "T2", 2, 1, "Assets/Prefabs/Unit/T1/Chaosknight.prefab", 36, 150, 1.1f, 1.15f, 1.02f),
         new PlistAtlasAnimationSpec("Skindogehai", "f2_general_skindogehai", "T3", 3, 1, "Assets/Prefabs/Unit/T2/Serpenti.prefab", 220, 1800, 1f, 1f, 1.14f),
         new PlistAtlasAnimationSpec("Decepticleprime", "boss_decepticleprime", "T3", 3, 4, "Assets/Prefabs/Unit/T2/Crystal.prefab", 270, 1450, 1.12f, 0.95f, 1.18f),
-        new PlistAtlasAnimationSpec("Decepticlechassis", "boss_decepticlechassis", "T3", 3, 1, "Assets/Prefabs/Unit/T2/Decepticle.prefab", 230, 1900, 0.95f, 0.95f, 1.3f)
+        new PlistAtlasAnimationSpec("Decepticlechassis", "boss_decepticlechassis", "T3", 3, 1, "Assets/Prefabs/Unit/T2/Decepticle.prefab", 230, 1900, 0.95f, 0.95f, 1.3f),
+        new PlistAtlasAnimationSpec("Snowchasermk", "f6_snowchasermk2", "T4", 4, 4, "Assets/Prefabs/Unit/T3/Decepticleprime.prefab", 360, 2200, 1.02f, 1.05f, 1.3f),
+        new PlistAtlasAnimationSpec("Solfist", "boss_solfist", "T4", 4, 1, "Assets/Prefabs/Unit/T3/Skindogehai.prefab", 320, 2850, 0.9f, 0.9f, 1.18f),
+        new PlistAtlasAnimationSpec("Maehvmk", "f4_maehvmk2", "T4", 4, 4, "Assets/Prefabs/Unit/T3/Decepticleprime.prefab", 390, 2100, 1f, 1f, 1.15f)
     };
 
     [MenuItem("Tools/AutoChess/Build Listed Unit Animations")]
@@ -1430,4 +1433,32 @@ public static class UnitAnimationBuilder
         public float Center => (Start + End) * 0.5f;
     }
 
+}
+
+[InitializeOnLoad]
+public static class UnitAnimationBuilderAutoRunner
+{
+    private const string SessionKey = "AutoChessBossRush.UnitAnimationBuilderAutoRunner.CheckedT4Bosses";
+
+    static UnitAnimationBuilderAutoRunner()
+    {
+        EditorApplication.delayCall += BuildMissingT4BossUnitsOnce;
+    }
+
+    private static void BuildMissingT4BossUnitsOnce()
+    {
+        if (SessionState.GetBool(SessionKey, false))
+            return;
+
+        SessionState.SetBool(SessionKey, true);
+
+        if (File.Exists("Assets/Prefabs/Unit/T4/Snowchasermk.prefab")
+            && File.Exists("Assets/Prefabs/Unit/T4/Solfist.prefab")
+            && File.Exists("Assets/Prefabs/Unit/T4/Maehvmk.prefab"))
+        {
+            return;
+        }
+
+        UnitAnimationBuilder.BuildListedUnitAnimations();
+    }
 }
