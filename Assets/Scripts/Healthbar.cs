@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -70,6 +71,13 @@ public class HealthBar : MonoBehaviour
     public Vector4 star2ManaRectNormalized = new Vector4(0.216f, 0.105f, 0.953f, 0.285f);
     public Vector4 star3ManaRectNormalized = new Vector4(0.242f, 0.195f, 0.943f, 0.305f);
 
+    // 装備アイテムのアイコンをHPバー上部に並べるための設定です。
+    public float itemIconLocalWidth = 1.16f;
+    public float itemIconSpacing = 1.75f;
+    public float itemIconWorldGap = 0.03f;
+    public Vector3 itemIconLocalOffset = new Vector3(0f, 0.7f, -0.04f);
+    public Color itemIconBackgroundColor = new Color(0.02f, 0.03f, 0.05f, 0.9f);
+
     // 現在の最大HP、最大MP、追従対象です。
     private float maxHealth;
     private int maxMana;
@@ -79,6 +87,8 @@ public class HealthBar : MonoBehaviour
 
     // HP区切り線と、各ゲージの配置情報です。
     private readonly List<SpriteRenderer> separators = new List<SpriteRenderer>();
+    private readonly List<SpriteRenderer> itemIconBackgrounds = new List<SpriteRenderer>();
+    private readonly List<SpriteRenderer> itemIconRenderers = new List<SpriteRenderer>();
     private FillLayout healthLayout;
     private FillLayout shieldLayout;
     private FillLayout manaLayout;
@@ -156,6 +166,36 @@ public class HealthBar : MonoBehaviour
     {
         float fraction = referenceHealth <= 0 ? 0f : Mathf.Clamp01((float)currentShield / referenceHealth);
         UpdateFill(shieldBar, shieldLayout, fraction);
+    }
+
+    // 装備中アイテムのアイコンを、HPバーの上に最大3つ表示します。
+    public void UpdateItemIcons(IReadOnlyList<ItemData> equippedItems)
+    {
+        NormalizeItemIconSettings();
+        EnsureItemIconRenderers();
+
+        int iconCount = equippedItems != null ? Mathf.Min(3, equippedItems.Count) : 0;
+        for (int i = 0; i < itemIconRenderers.Count; i++)
+        {
+            ItemData itemData = i < iconCount ? equippedItems[i] : null;
+            Sprite icon = itemData != null ? itemData.Icon : null;
+            bool visible = icon != null;
+            if (itemIconRenderers[i] != null)
+            {
+                itemIconRenderers[i].gameObject.SetActive(visible);
+                itemIconRenderers[i].sprite = visible ? icon : null;
+                if (visible)
+                    FitItemIcon(itemIconRenderers[i]);
+
+                UpdateItemIconClickTarget(itemIconRenderers[i], visible ? itemData : null);
+            }
+
+            if (itemIconBackgrounds[i] != null)
+                itemIconBackgrounds[i].gameObject.SetActive(false);
+        }
+
+        UpdateItemIconPositions();
+        UpdateItemIconSorting();
     }
 
     // スターに合わせてフレーム画像、ゲージ位置、描画順を設定します。
@@ -419,6 +459,151 @@ public class HealthBar : MonoBehaviour
         }
     }
 
+    // アイテムアイコン表示用の背景とSpriteRendererを3枠分用意します。
+    private void EnsureItemIconRenderers()
+    {
+        NormalizeItemIconSettings();
+        while (itemIconRenderers.Count < 3)
+        {
+            int index = itemIconRenderers.Count;
+
+            GameObject backgroundObject = new GameObject($"ItemIconBackground_{index + 1}");
+            backgroundObject.transform.SetParent(transform, false);
+            SpriteRenderer backgroundRenderer = backgroundObject.AddComponent<SpriteRenderer>();
+            backgroundRenderer.sprite = GetSolidSprite();
+            backgroundRenderer.color = itemIconBackgroundColor;
+            FitItemIconBackground(backgroundRenderer);
+            backgroundRenderer.gameObject.SetActive(false);
+            itemIconBackgrounds.Add(backgroundRenderer);
+
+            GameObject iconObject = new GameObject($"ItemIcon_{index + 1}");
+            iconObject.transform.SetParent(transform, false);
+            SpriteRenderer iconRenderer = iconObject.AddComponent<SpriteRenderer>();
+            iconRenderer.color = Color.white;
+            itemIconRenderers.Add(iconRenderer);
+        }
+
+        for (int i = 0; i < itemIconBackgrounds.Count; i++)
+        {
+            if (itemIconBackgrounds[i] != null)
+                FitItemIconBackground(itemIconBackgrounds[i]);
+        }
+    }
+
+    // 既存Prefabに古い値が保存されていても、スクショで指定された配置へ補正します。
+    private void NormalizeItemIconSettings()
+    {
+        itemIconLocalWidth = 1.16f;
+        itemIconSpacing = 1.75f;
+        itemIconLocalOffset = new Vector3(0f, 0.7f, -0.04f);
+    }
+
+    // 3つのアイコンをバー中央上に並べます。
+    private void UpdateItemIconPositions()
+    {
+        for (int i = 0; i < itemIconRenderers.Count; i++)
+        {
+            float x = (i - 1) * itemIconSpacing + itemIconLocalOffset.x;
+            Vector3 position = new Vector3(x, itemIconLocalOffset.y, itemIconLocalOffset.z);
+
+            if (itemIconBackgrounds[i] != null)
+                itemIconBackgrounds[i].transform.localPosition = position + new Vector3(0f, 0f, 0.01f);
+
+            if (itemIconRenderers[i] != null)
+                itemIconRenderers[i].transform.localPosition = position + new Vector3(0f, 0f, -0.01f);
+        }
+    }
+
+    // アイコンSpriteの比率を保ったまま、指定幅に合わせます。
+    private void FitItemIcon(SpriteRenderer iconRenderer)
+    {
+        if (iconRenderer == null || iconRenderer.sprite == null)
+            return;
+
+        Bounds bounds = iconRenderer.sprite.bounds;
+        if (bounds.size.x <= 0f || bounds.size.y <= 0f)
+            return;
+
+        float desiredWorldSize = GetItemIconWorldSize();
+        float scale = desiredWorldSize / Mathf.Max(bounds.size.x, bounds.size.y);
+        iconRenderer.transform.localScale = GetItemIconLocalScale(scale, scale);
+    }
+
+    // アイコン背景も、親の非等倍スケールで潰れない正方形にします。
+    private void FitItemIconBackground(SpriteRenderer backgroundRenderer)
+    {
+        if (backgroundRenderer == null || backgroundRenderer.sprite == null)
+            return;
+
+        Bounds bounds = backgroundRenderer.sprite.bounds;
+        if (bounds.size.x <= 0f || bounds.size.y <= 0f)
+            return;
+
+        float scale = GetItemIconWorldSize() / Mathf.Max(bounds.size.x, bounds.size.y);
+        backgroundRenderer.transform.localScale = GetItemIconLocalScale(scale, scale);
+    }
+
+    // 頭上の装備アイコンをクリックした時に、ベンチアイテムと同じ説明パネルを出せるようにします。
+    private void UpdateItemIconClickTarget(SpriteRenderer iconRenderer, ItemData itemData)
+    {
+        if (iconRenderer == null)
+            return;
+
+        EquippedItemIconClickTarget clickTarget = iconRenderer.GetComponent<EquippedItemIconClickTarget>();
+        if (clickTarget == null)
+            clickTarget = iconRenderer.gameObject.AddComponent<EquippedItemIconClickTarget>();
+
+        clickTarget.Setup(itemData, iconRenderer);
+    }
+
+    // HPバー本体は横と縦でスケールが違うため、子アイコンの縦横比が潰れないよう親スケールを打ち消します。
+    private Vector3 GetItemIconLocalScale(float scalePerSpriteUnitX, float scalePerSpriteUnitY)
+    {
+        Vector3 parentScale = transform.lossyScale;
+        float parentScaleX = Mathf.Max(0.0001f, Mathf.Abs(parentScale.x));
+        float parentScaleY = Mathf.Max(0.0001f, Mathf.Abs(parentScale.y));
+        return new Vector3(scalePerSpriteUnitX / parentScaleX, scalePerSpriteUnitY / parentScaleY, 1f);
+    }
+
+    // これまでの見た目の高さを基準に、正方形アイコンとして使うワールドサイズを返します。
+    private float GetItemIconWorldSize()
+    {
+        Vector3 parentScale = transform.lossyScale;
+        float largestParentAxis = Mathf.Max(Mathf.Max(Mathf.Abs(parentScale.x), Mathf.Abs(parentScale.y)), 0.0001f);
+        return itemIconLocalWidth * largestParentAxis;
+    }
+
+    // 親の横方向スケールを考慮し、画面上でアイコン同士が少し離れる横間隔を返します。
+    private float GetItemIconStepLocal()
+    {
+        Vector3 parentScale = transform.lossyScale;
+        float parentScaleX = Mathf.Max(0.0001f, Mathf.Abs(parentScale.x));
+        return (GetItemIconWorldSize() + itemIconWorldGap) / parentScaleX;
+    }
+
+    // アイコンがバーと一緒に前後関係を保つように描画順を更新します。
+    private void UpdateItemIconSorting()
+    {
+        for (int i = 0; i < itemIconBackgrounds.Count; i++)
+        {
+            if (itemIconBackgrounds[i] != null)
+            {
+                if (fillRenderer != null)
+                    itemIconBackgrounds[i].sortingLayerID = fillRenderer.sortingLayerID;
+
+                itemIconBackgrounds[i].sortingOrder = sortingBaseOrder + 9;
+            }
+
+            if (itemIconRenderers[i] != null)
+            {
+                if (fillRenderer != null)
+                    itemIconRenderers[i].sortingLayerID = fillRenderer.sortingLayerID;
+
+                itemIconRenderers[i].sortingOrder = sortingBaseOrder + 10;
+            }
+        }
+    }
+
     // ユニットの位置に合わせて、バー全体の描画順を更新します。
     private void UpdateSortingOrder()
     {
@@ -441,6 +626,7 @@ public class HealthBar : MonoBehaviour
         }
 
         UpdateSeparatorSorting();
+        UpdateItemIconSorting();
     }
 
     // フレーム画像がない場合のスター色を返します。
@@ -683,5 +869,62 @@ public class HealthBar : MonoBehaviour
         }
 
         return solidSprite;
+    }
+}
+
+// ユニット頭上に表示されている装備済みアイテムアイコンのクリックを受け取るクラスです。
+// ベンチ上のアイテムと同じItemTooltipUIを使い、効果説明を表示します。
+public class EquippedItemIconClickTarget : MonoBehaviour
+{
+    private ItemData itemData;
+    private SpriteRenderer iconRenderer;
+    private BoxCollider2D clickCollider;
+
+    // HealthBarから現在表示しているアイテム情報とRendererを受け取ります。
+    public void Setup(ItemData itemData, SpriteRenderer iconRenderer)
+    {
+        this.itemData = itemData;
+        this.iconRenderer = iconRenderer;
+
+        EnsureCollider();
+        RefreshCollider();
+
+        if (clickCollider != null)
+            clickCollider.enabled = itemData != null && iconRenderer != null && iconRenderer.sprite != null;
+    }
+
+    // クリックできるよう、アイコンの見た目に合わせた2D当たり判定を用意します。
+    private void EnsureCollider()
+    {
+        if (clickCollider == null)
+            clickCollider = GetComponent<BoxCollider2D>();
+
+        if (clickCollider == null)
+            clickCollider = gameObject.AddComponent<BoxCollider2D>();
+
+        clickCollider.isTrigger = true;
+    }
+
+    // Spriteの実サイズに合わせてクリック範囲を更新します。
+    private void RefreshCollider()
+    {
+        if (clickCollider == null || iconRenderer == null || iconRenderer.sprite == null)
+            return;
+
+        Bounds bounds = iconRenderer.sprite.bounds;
+        clickCollider.size = bounds.size;
+        clickCollider.offset = bounds.center;
+    }
+
+    // マウスボタンを離した時、装備アイテムの説明パネルを表示します。
+    private void OnMouseUpAsButton()
+    {
+        if (itemData == null)
+            return;
+
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return;
+
+        ItemTooltipUI.Show(itemData, Input.mousePosition);
     }
 }

@@ -105,6 +105,8 @@ public class BaseEntity : MonoBehaviour
     public int CurrentHealth => baseHealth;
     public bool IsDead => dead;
     public float HealthRatio => MaxHealth <= 0 ? 0f : Mathf.Clamp01((float)baseHealth / MaxHealth);
+    public IReadOnlyList<ItemData> EquippedItems => equippedItems;
+    public bool HasItemSpace => equippedItems.Count < MaxEquippedItems;
     protected bool CanAct => IsOnBoard && GameManager.Instance != null && GameManager.Instance.IsRoundInProgress && !dead && !stunned;
 
     // 内部管理用の状態です。元ステータス、現在マナ、シールド、各種Coroutineなどを保持します。
@@ -118,7 +120,11 @@ public class BaseEntity : MonoBehaviour
     private int originalRange;
     private float originalAttackSpeed;
     private float originalMovementSpeed;
+    private int originalMaxMana;
+    private int originalManaOnAttack;
+    private int originalManaOnDamageTaken;
     private Vector3 originalScale;
+    private readonly List<ItemData> equippedItems = new List<ItemData>();
     private Coroutine attackCoroutine;
     private Coroutine shieldCoroutine;
     private Coroutine attackSpeedBoostCoroutine;
@@ -142,6 +148,7 @@ public class BaseEntity : MonoBehaviour
     // 全体バランス調整用の倍率です。ここを下げると全ユニットの火力や攻撃速度が落ちます。
     private const float GlobalDamageMultiplier = 0.88f;
     private const float GlobalAttackSpeedMultiplier = 0.76f;
+    private const int MaxEquippedItems = 3;
 
     // Y座標とX座標から描画順を決めるための基準値です。
     private const int VisualSortingBaseOrder = 10000;
@@ -181,26 +188,44 @@ public class BaseEntity : MonoBehaviour
         // 前のスターを覚えておき、上がった時だけ演出を出します。
         int previousStarLevel = StarLevel;
         StarLevel = Mathf.Clamp(starLevel, 1, 3);
-        float damageHealthMultiplier = GetStarDamageHealthMultiplier(StarLevel);
-
-        baseDamage = Mathf.Max(1, Mathf.RoundToInt(originalBaseDamage * damageHealthMultiplier));
-        maxHealth = Mathf.Max(1, Mathf.RoundToInt(originalBaseHealth * damageHealthMultiplier));
-        baseHealth = maxHealth;
-        range = Mathf.Max(1, originalRange);
-        attackSpeed = originalAttackSpeed * GetStarAttackSpeedMultiplier(StarLevel);
-        movementSpeed = originalMovementSpeed * GetStarMovementSpeedMultiplier(StarLevel);
+        ApplyCurrentStats(true);
         transform.localScale = originalScale;
         ApplyStarVisualScale();
         gameObject.name = $"{UnitId} Star{StarLevel}";
 
         if (healthbar != null)
+        {
             healthbar.Setup(transform, MaxHealth, StarLevel, spriteRender, this);
+            UpdateHealthBarItemIcons();
+        }
 
         if (StarLevel > previousStarLevel && StarLevel > 1)
         {
             AttackEffectPlayer.PlayUiSfx("star_up");
             ShowStarUpgradePopup(StarLevel);
         }
+    }
+
+    // アイテムを装備します。3枠を超える場合は失敗します。
+    public bool TryEquipItem(ItemData itemData)
+    {
+        if (itemData == null || equippedItems.Count >= MaxEquippedItems)
+            return false;
+
+        equippedItems.Add(itemData);
+        ApplyCurrentStats(false);
+        UpdateHealthBarItemIcons();
+        return true;
+    }
+
+    // 装備中のアイテムをすべて外し、外した一覧を返します。
+    public List<ItemData> RemoveAllItems()
+    {
+        List<ItemData> removedItems = new List<ItemData>(equippedItems);
+        equippedItems.Clear();
+        ApplyCurrentStats(false);
+        UpdateHealthBarItemIcons();
+        return removedItems;
     }
 
     // 盤面に配置された時のセットアップです。
@@ -230,6 +255,7 @@ public class BaseEntity : MonoBehaviour
         {
             healthbar.gameObject.SetActive(true);
             healthbar.Setup(transform, MaxHealth, StarLevel, spriteRender, this);
+            UpdateHealthBarItemIcons();
         }
         ApplyStarVisualScale();
     }
@@ -440,6 +466,9 @@ public class BaseEntity : MonoBehaviour
                 healthbar.UpdateShieldBar(shieldHealth, MaxHealth);
         }
 
+        if (remainingDamage > 0)
+            remainingDamage = Mathf.Max(1, Mathf.RoundToInt(remainingDamage * (1f - GetItemDamageReduction())));
+
         baseHealth -= remainingDamage;
         GainMana(manaOnDamageTaken);
         if (healthbar != null)
@@ -541,6 +570,7 @@ public class BaseEntity : MonoBehaviour
             healthbar.Setup(transform, MaxHealth, StarLevel, spriteRender, this);
             healthbar.UpdateBar(baseHealth);
             healthbar.UpdateManaBar(currentMana, maxMana);
+            UpdateHealthBarItemIcons();
         }
 
         ApplyStarVisualScale();
@@ -685,29 +715,29 @@ public class BaseEntity : MonoBehaviour
                 break;
             case UnitSkillType.Shield:
                 AttackEffectPlayer.PlaySkill(this, this, skillType);
-                ApplyShield(GetSkillShieldAmount(), skillShieldDuration);
+                ApplyShield(GetSkillShieldAmount(), GetSkillDuration(skillShieldDuration, true));
                 break;
             case UnitSkillType.AttackSpeedBoost:
                 AttackEffectPlayer.PlaySkill(this, this, skillType);
-                ApplyAttackSpeedBoost(skillAttackSpeedBoostMultiplier, skillBuffDuration);
+                ApplyAttackSpeedBoost(1f + GetSkillBoostAmount(skillAttackSpeedBoostMultiplier), GetSkillDuration(skillBuffDuration, true));
                 break;
             case UnitSkillType.Stun:
                 if (targetAtCast != null && !targetAtCast.dead)
                 {
                     AttackEffectPlayer.PlaySkill(this, targetAtCast, skillType);
-                    targetAtCast.ApplyStun(skillStunDuration);
+                    targetAtCast.ApplyStun(GetSkillDuration(skillStunDuration, false));
                 }
                 break;
             case UnitSkillType.Slow:
                 if (targetAtCast != null && !targetAtCast.dead)
                 {
                     AttackEffectPlayer.PlaySkill(this, targetAtCast, skillType);
-                    targetAtCast.ApplyAttackSpeedSlow(skillSlowMultiplier, skillSlowDuration);
+                    targetAtCast.ApplyAttackSpeedSlow(GetSkillSlowMultiplier(), GetSkillDuration(skillSlowDuration, true));
                 }
                 break;
             case UnitSkillType.DamageBoost:
                 AttackEffectPlayer.PlaySkill(this, this, skillType);
-                ApplyDamageBoost(skillDamageBoostMultiplier, skillBuffDuration);
+                ApplyDamageBoost(1f + GetSkillBoostAmount(skillDamageBoostMultiplier), GetSkillDuration(skillBuffDuration, true));
                 break;
             case UnitSkillType.AreaDamage:
                 ApplyAreaDamage(targetAtCast);
@@ -715,7 +745,7 @@ public class BaseEntity : MonoBehaviour
             default:
                 if (targetAtCast != null && !targetAtCast.dead)
                 {
-                    int skillDamage = Mathf.Max(1, Mathf.RoundToInt(GetCurrentDamage() * skillDamageMultiplier));
+                    int skillDamage = Mathf.Max(1, Mathf.RoundToInt(GetCurrentDamage() * skillDamageMultiplier * GetSkillEffectMultiplier(true)));
                     AttackEffectPlayer.PlaySkill(this, targetAtCast, skillType);
                     targetAtCast.TakeDamage(skillDamage);
                 }
@@ -996,19 +1026,19 @@ public class BaseEntity : MonoBehaviour
     // 自己回復スキルの回復量を計算します。
     private int GetSkillHealAmount()
     {
-        return Mathf.Max(1, skillFlatHeal + Mathf.RoundToInt(MaxHealth * Mathf.Max(0f, skillHealPercent)));
+        return Mathf.Max(1, Mathf.RoundToInt((skillFlatHeal + MaxHealth * Mathf.Max(0f, skillHealPercent)) * GetSkillEffectMultiplier(true)));
     }
 
     // 味方回復スキルの回復量を計算します。
     private int GetSkillAllyHealAmount()
     {
-        return Mathf.Max(1, skillFlatAllyHeal + Mathf.RoundToInt(MaxHealth * Mathf.Max(0f, skillAllyHealPercent)));
+        return Mathf.Max(1, Mathf.RoundToInt((skillFlatAllyHeal + MaxHealth * Mathf.Max(0f, skillAllyHealPercent)) * GetSkillEffectMultiplier(true)));
     }
 
     // シールドスキルで付与するシールド量を計算します。
     private int GetSkillShieldAmount()
     {
-        return Mathf.Max(1, skillFlatShield + Mathf.RoundToInt(MaxHealth * Mathf.Max(0f, skillShieldPercent)));
+        return Mathf.Max(1, Mathf.RoundToInt((skillFlatShield + MaxHealth * Mathf.Max(0f, skillShieldPercent)) * GetSkillEffectMultiplier(true)));
     }
 
     // 自分のHPを回復します。最大HPは超えません。
@@ -1175,7 +1205,7 @@ public class BaseEntity : MonoBehaviour
         // エフェクトは中心になる対象位置へ出し、範囲内の敵全員にダメージを入れます。
         AttackEffectPlayer.PlaySkill(this, targetAtCast, skillType);
         List<BaseEntity> enemies = GameManager.Instance.GetEntitiesAgainst(myTeam);
-        int areaDamage = Mathf.Max(1, Mathf.RoundToInt(GetCurrentDamage() * skillAreaDamageMultiplier));
+        int areaDamage = Mathf.Max(1, Mathf.RoundToInt(GetCurrentDamage() * skillAreaDamageMultiplier * GetSkillEffectMultiplier(true)));
 
         for (int i = 0; i < enemies.Count; i++)
         {
@@ -1358,6 +1388,7 @@ public class BaseEntity : MonoBehaviour
 
         healthbar = Instantiate(barPrefab);
         healthbar.Setup(this.transform, MaxHealth, StarLevel, spriteRender, this);
+        UpdateHealthBarItemIcons();
     }
 
     // Prefabに設定されていた元ステータスを保存します。スターアップ計算の基準になります。
@@ -1371,8 +1402,103 @@ public class BaseEntity : MonoBehaviour
         originalRange = range;
         originalAttackSpeed = attackSpeed;
         originalMovementSpeed = movementSpeed;
+        originalMaxMana = maxMana;
+        originalManaOnAttack = manaOnAttack;
+        originalManaOnDamageTaken = manaOnDamageTaken;
         originalScale = transform.localScale;
         baseStatsCaptured = true;
+    }
+
+    // スターと装備アイテムを合わせた現在ステータスを作り直します。
+    private void ApplyCurrentStats(bool refillHealth)
+    {
+        float previousHealthRatio = MaxHealth <= 0 ? 1f : Mathf.Clamp01((float)baseHealth / MaxHealth);
+        float starDamageHealthMultiplier = GetStarDamageHealthMultiplier(StarLevel);
+
+        int itemHealthFlat = equippedItems.Sum(item => item != null ? item.healthFlat : 0);
+        float itemHealthMultiplier = 1f + equippedItems.Sum(item => item != null ? item.healthPercent : 0f);
+        int itemDamageFlat = equippedItems.Sum(item => item != null ? item.damageFlat : 0);
+        float itemDamageMultiplier = 1f + equippedItems.Sum(item => item != null ? item.damagePercent : 0f);
+        float itemAttackSpeedMultiplier = 1f + equippedItems.Sum(item => item != null ? item.attackSpeedPercent : 0f);
+        int manaAttackBonus = equippedItems.Sum(item => item != null ? item.manaOnAttackBonus : 0);
+        int manaDamageBonus = equippedItems.Sum(item => item != null ? item.manaOnDamageTakenBonus : 0);
+        int maxManaReduction = equippedItems.Sum(item => item != null ? item.maxManaReduction : 0);
+
+        baseDamage = Mathf.Max(1, Mathf.RoundToInt((originalBaseDamage * starDamageHealthMultiplier + itemDamageFlat) * itemDamageMultiplier));
+        maxHealth = Mathf.Max(1, Mathf.RoundToInt((originalBaseHealth * starDamageHealthMultiplier + itemHealthFlat) * itemHealthMultiplier));
+        range = Mathf.Max(1, originalRange);
+        attackSpeed = originalAttackSpeed * GetStarAttackSpeedMultiplier(StarLevel) * itemAttackSpeedMultiplier;
+        movementSpeed = originalMovementSpeed * GetStarMovementSpeedMultiplier(StarLevel);
+        manaOnAttack = Mathf.Max(0, originalManaOnAttack + manaAttackBonus);
+        manaOnDamageTaken = Mathf.Max(0, originalManaOnDamageTaken + manaDamageBonus);
+        maxMana = Mathf.Max(20, originalMaxMana - maxManaReduction);
+        currentMana = Mathf.Clamp(currentMana, 0, maxMana);
+
+        baseHealth = refillHealth
+            ? maxHealth
+            : Mathf.Clamp(Mathf.RoundToInt(maxHealth * previousHealthRatio), 1, maxHealth);
+
+        if (healthbar != null)
+        {
+            healthbar.Setup(transform, MaxHealth, StarLevel, spriteRender, this);
+            healthbar.UpdateBar(baseHealth);
+            healthbar.UpdateManaBar(currentMana, maxMana);
+        }
+    }
+
+    // 装備アイテムによる被ダメージ軽減率を返します。
+    private float GetItemDamageReduction()
+    {
+        float reduction = equippedItems.Sum(item => item != null ? item.damageReductionPercent : 0f);
+        return Mathf.Clamp(reduction, 0f, 0.7f);
+    }
+
+    // 装備アイテムによる秘力倍率を返します。秘力はスキル量や一部効果時間を伸ばします。
+    private float GetItemFocusMultiplier()
+    {
+        float skillPower = equippedItems.Sum(item => item != null ? item.skillPowerPercent : 0f);
+        return Mathf.Max(0.1f, 1f + skillPower);
+    }
+
+    // ★によるスキル全体強化を返します。スタンのように秘力で伸びない効果も、スターアップでは強くなります。
+    private float GetStarSkillEffectMultiplier()
+    {
+        return StarLevel >= 3 ? 1.6f : StarLevel >= 2 ? 1.25f : 1f;
+    }
+
+    // スキル効果倍率を返します。includeFocus=falseなら秘力を無視し、スター倍率だけを使います。
+    private float GetSkillEffectMultiplier(bool includeFocus)
+    {
+        return GetStarSkillEffectMultiplier() * (includeFocus ? GetItemFocusMultiplier() : 1f);
+    }
+
+    // 効果時間は伸びすぎると戦闘が止まりやすいので、倍率の一部だけを時間へ反映します。
+    private float GetSkillDuration(float baseDuration, bool includeFocus)
+    {
+        float multiplier = GetSkillEffectMultiplier(includeFocus);
+        return Mathf.Max(0.1f, baseDuration * (1f + (multiplier - 1f) * 0.65f));
+    }
+
+    // 攻撃速度上昇や通常攻撃強化の「増加量」だけを強化します。
+    private float GetSkillBoostAmount(float baseMultiplier)
+    {
+        return Mathf.Max(0f, baseMultiplier - 1f) * GetSkillEffectMultiplier(true);
+    }
+
+    // スロウは強くなりすぎると敵がほぼ止まるので、弱体量に上限を置きます。
+    private float GetSkillSlowMultiplier()
+    {
+        float slowAmount = Mathf.Clamp((1f - skillSlowMultiplier) * GetSkillEffectMultiplier(true), 0f, 0.85f);
+        return 1f - slowAmount;
+    }
+
+    // HPバーの上へ、装備中アイテムのアイコンを表示します。
+    private void UpdateHealthBarItemIcons()
+    {
+        if (healthbar == null)
+            return;
+
+        healthbar.UpdateItemIcons(equippedItems);
     }
 
     // ユニット名から、デフォルトのスキル種類を自動設定します。
@@ -1682,7 +1808,8 @@ public class BaseEntity : MonoBehaviour
         starPopupObject.transform.localScale = Vector3.one * 0.18f;
 
         TextMeshPro popupText = starPopupObject.AddComponent<TextMeshPro>();
-        popupText.text = $"STAR {starLevel}";
+        LocalizationManager.ApplyFont(popupText);
+        popupText.text = LocalizationManager.FormatUpgradeLabel(starLevel);
         popupText.alignment = TextAlignmentOptions.Center;
         popupText.enableWordWrapping = false;
         popupText.fontSize = 9.5f;

@@ -32,6 +32,11 @@ namespace SynapticPro
         private static float lastReconnectTime = 0;
         private static float lastReconnectAttempt = 0f;
         private const float MIN_RECONNECT_INTERVAL = 10f; // Hard minimum between reconnect attempts
+
+        // スレッドセーフな時刻取得用 (Time.realtimeSinceStartup はメインスレッドからしか呼べないため、
+        // OnConnectionLost等の非同期コンテキストからはこちらを使う)
+        private static readonly System.Diagnostics.Stopwatch _threadSafeClock = System.Diagnostics.Stopwatch.StartNew();
+        private static float ThreadSafeTime() => (float)_threadSafeClock.Elapsed.TotalSeconds;
         private const int CONNECT_TIMEOUT_SECONDS = 5;
         private static float lastConnectionCheckTime = 0;
         private static bool isReconnecting = false;
@@ -1962,7 +1967,8 @@ If you have issues, try 'AI Reconnect'.";
         private static void OnConnectionLost()
         {
             isConnected = false;
-            lastConnectionCheckTime = Time.realtimeSinceStartup;
+            // スレッドセーフな時刻取得（非同期コンテキストから呼ばれるため Time.realtimeSinceStartup は使えない）
+            lastConnectionCheckTime = ThreadSafeTime();
             reconnectPhase = 0;
         }
         

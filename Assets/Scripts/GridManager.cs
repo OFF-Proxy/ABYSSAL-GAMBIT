@@ -34,6 +34,7 @@ public class GridManager : Manager<GridManager>
     public Color blockedPlacementTileColor = new Color(1f, 0.72f, 0.72f, 1f);
     public Color playerBenchTileColor = Color.white;
     public Color enemyBenchTileColor = new Color(1f, 0.62f, 0.62f, 1f);
+    public Color itemBenchTileColor = new Color(0.78f, 0.86f, 1f, 1f);
     public Color validHoverColor = new Color(0.75f, 1f, 0.9f, 1f);
     public Color invalidHoverColor = new Color(1f, 0.35f, 0.35f, 1f);
 
@@ -205,6 +206,16 @@ public class GridManager : Manager<GridManager>
 
         Color benchColor = team == Team.Team2 ? enemyBenchTileColor : playerBenchTileColor;
         tile.Configure(GetHoverSprite(), benchColor, validHoverColor, invalidHoverColor);
+        configuredBenchTiles.Add(tile);
+    }
+
+    // アイテムベンチ用の色とホバー表示を設定します。
+    public void ConfigureItemBenchTile(Tile tile)
+    {
+        if (tile == null)
+            return;
+
+        tile.Configure(GetHoverSprite(), itemBenchTileColor, validHoverColor, invalidHoverColor);
         configuredBenchTiles.Add(tile);
     }
 

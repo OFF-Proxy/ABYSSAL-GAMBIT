@@ -548,6 +548,13 @@ public class AttackEffectPlayer : MonoBehaviour
                     "sfx/sfx_unit_deploy",
                     "sfx/sfx_ui_select"
                 };
+            case "item_equip":
+                return new[]
+                {
+                    "sfx/sfx_artifact_equip",
+                    "sfx/sfx_ui_artifact",
+                    "sfx/sfx_ui_select"
+                };
             case "fight_start":
                 return new[]
                 {

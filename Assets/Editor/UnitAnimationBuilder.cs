@@ -55,6 +55,9 @@ public static class UnitAnimationBuilder
         new PlistAtlasAnimationSpec("Skindogehai", "f2_general_skindogehai", "T3", 3, 1, "Assets/Prefabs/Unit/T2/Serpenti.prefab", 220, 1800, 1f, 1f, 1.14f),
         new PlistAtlasAnimationSpec("Decepticleprime", "boss_decepticleprime", "T3", 3, 4, "Assets/Prefabs/Unit/T2/Crystal.prefab", 270, 1450, 1.12f, 0.95f, 1.18f),
         new PlistAtlasAnimationSpec("Decepticlechassis", "boss_decepticlechassis", "T3", 3, 1, "Assets/Prefabs/Unit/T2/Decepticle.prefab", 230, 1900, 0.95f, 0.95f, 1.3f),
+        new PlistAtlasAnimationSpec("Wolfpunch", "boss_wolfpunch", "T3", 3, 1, "Assets/Prefabs/Unit/T2/City.prefab", 245, 2100, 0.92f, 0.95f, 1.24f),
+        new PlistAtlasAnimationSpec("Shadowlord", "boss_shadowlord", "T3", 3, 1, "Assets/Prefabs/Unit/T2/Serpenti.prefab", 275, 1650, 1.02f, 1.15f, 1.18f),
+        new PlistAtlasAnimationSpec("Tier2general", "f6_tier2general", "T3", 3, 4, "Assets/Prefabs/Unit/T2/Crystal.prefab", 290, 1400, 1f, 1f, 1.12f),
         new PlistAtlasAnimationSpec("Snowchasermk", "f6_snowchasermk2", "T4", 4, 4, "Assets/Prefabs/Unit/T3/Decepticleprime.prefab", 360, 2200, 1.02f, 1.05f, 1.3f),
         new PlistAtlasAnimationSpec("Solfist", "boss_solfist", "T4", 4, 1, "Assets/Prefabs/Unit/T3/Skindogehai.prefab", 320, 2850, 0.9f, 0.9f, 1.18f),
         new PlistAtlasAnimationSpec("Maehvmk", "f4_maehvmk2", "T4", 4, 4, "Assets/Prefabs/Unit/T3/Decepticleprime.prefab", 390, 2100, 1f, 1f, 1.15f)
@@ -1278,7 +1281,8 @@ public static class UnitAnimationBuilder
             string.Equals(unitName, "Crystal", StringComparison.OrdinalIgnoreCase) ||
             string.Equals(unitName, "Cindera", StringComparison.OrdinalIgnoreCase) ||
             string.Equals(unitName, "Spelleater", StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(unitName, "Decepticleprime", StringComparison.OrdinalIgnoreCase))
+            string.Equals(unitName, "Decepticleprime", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(unitName, "Tier2general", StringComparison.OrdinalIgnoreCase))
         {
             return 4;
         }
@@ -1438,7 +1442,16 @@ public static class UnitAnimationBuilder
 [InitializeOnLoad]
 public static class UnitAnimationBuilderAutoRunner
 {
-    private const string SessionKey = "AutoChessBossRush.UnitAnimationBuilderAutoRunner.CheckedT4Bosses";
+    private const string SessionKey = "AutoChessBossRush.UnitAnimationBuilderAutoRunner.CheckedGeneratedUnits";
+    private static readonly string[] RequiredGeneratedPrefabs =
+    {
+        "Assets/Prefabs/Unit/T3/Wolfpunch.prefab",
+        "Assets/Prefabs/Unit/T3/Shadowlord.prefab",
+        "Assets/Prefabs/Unit/T3/Tier2general.prefab",
+        "Assets/Prefabs/Unit/T4/Snowchasermk.prefab",
+        "Assets/Prefabs/Unit/T4/Solfist.prefab",
+        "Assets/Prefabs/Unit/T4/Maehvmk.prefab"
+    };
 
     static UnitAnimationBuilderAutoRunner()
     {
@@ -1452,9 +1465,7 @@ public static class UnitAnimationBuilderAutoRunner
 
         SessionState.SetBool(SessionKey, true);
 
-        if (File.Exists("Assets/Prefabs/Unit/T4/Snowchasermk.prefab")
-            && File.Exists("Assets/Prefabs/Unit/T4/Solfist.prefab")
-            && File.Exists("Assets/Prefabs/Unit/T4/Maehvmk.prefab"))
+        if (RequiredGeneratedPrefabs.All(File.Exists))
         {
             return;
         }

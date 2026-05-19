@@ -1,0 +1,2204 @@
+fileFormatVersion: 2
+guid: 54cb9cf1884ce8f4596153afd55dd2a9
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Tier2general_Default_000
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f27dddceb918e54ab28c296aedf1279
+      internalID: 238493971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Default_001
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17afbeed42f72fb4f98ca7b346787154
+      internalID: 553588982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Default_002
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4b9e48cc13c7f84c88efc5521c4ec57
+      internalID: 513658318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Default_003
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bebf205e3e65ece438873eb106c364d6
+      internalID: 1786348787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Default_004
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2850fc7d5374c6f4a819e089f9af22f3
+      internalID: 227394762
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Default_005
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e478489a25bc62e45a5c3c74b1a40e46
+      internalID: -550500698
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Default_006
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6791a78f5a52294458428b142c523a6e
+      internalID: 815619088
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Default_007
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 961b4b7d1465bb54b8a93d9c6b7c6131
+      internalID: -169258763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Default_008
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 069b7339e2aed714f9ba3039de8fe253
+      internalID: -1362814280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Default_009
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 847c16953f24ac6418531d20088748ef
+      internalID: -514749050
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Default_010
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e4c6a2c72296bd4b992e1fff9ebeaad
+      internalID: 481216480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Default_011
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e697a4799ccacc4ab1b60541f062e82
+      internalID: 453293663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Move_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0e2cd34e80e00c4f8359e19260b6203
+      internalID: -1233474283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Move_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: faf2251d3dfdcb44a86895e3adbc3c2e
+      internalID: 380099560
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Move_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 124f46600fcba3d48aa9538f0cb3c0ee
+      internalID: -1658612067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Move_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a2b2e32d75eeee4e877ec41e57caa57
+      internalID: 458422957
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cb247e0a1511e740ad767896a6f9705
+      internalID: 1205304257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd7d95937aabd4340a4b81955e63a048
+      internalID: -1757641583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Move_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a78472f53911de489568278bd262c09
+      internalID: 1229431876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Move_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 588dcfed3b347144fae52a7c678414bd
+      internalID: 945445207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 837f85f9eb3ae9f4992f6b3f1316ddbc
+      internalID: 1411808506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 300c30462e94a154ba541a06f11d5100
+      internalID: -232819267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e00c5c20632b084f925f08776a9a6b5
+      internalID: -1386320242
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73ca1085b80965d47ba906ad0400fbdd
+      internalID: -320768821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78175f1b2c730a6479628db0e36836cd
+      internalID: -809980012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46291d0d5d4276a4a90d592b784ee2e6
+      internalID: 1344852460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 206f4d5ab2823f54b97da6489544b7c8
+      internalID: 758459767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbf8550e363ee8d4dbf200b979c569cd
+      internalID: 1141946452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db1d29d2a8b5ca04da6a9a002835e956
+      internalID: -95481328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b10d02b02f7d7c843a004cbfd965a076
+      internalID: 1633490431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20ff727e1a418814ba9595f5d103ac64
+      internalID: 516877401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9439f0e2c28a57f4e8e425527a7e2950
+      internalID: -285008920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cb503f83aa7ca04cb2b6b664ae3e202
+      internalID: -1372281878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc1220d1ec522474c968b29894583109
+      internalID: 665767991
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba8f4c0b726e2d942bbc307798dfd3cb
+      internalID: 233616283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea486bc5e2870e74a85cd8097da56645
+      internalID: -1988861635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3f2576bf8012b1439854720b5d62e63
+      internalID: -865372472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0758e6948eaa5834585f51bf60c41a8d
+      internalID: -497602209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96119d281fc2727489873a1cacb759b3
+      internalID: -256120810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d7a2949d281410488debe0ec05900c9
+      internalID: -1488166219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb7aff219f5f0f843bb49d082886d93c
+      internalID: -2038009381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b06729987fe4bce4ca22f7fb95f52501
+      internalID: 61156605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb14d4943ef28bf438fb7b70d46f336d
+      internalID: 1877026775
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_023
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99e8f8d506682974f9dcf7d3dbc45154
+      internalID: 1093318747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_024
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2790a50bad672a34a881c32a5d414ae5
+      internalID: -1469816249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_025
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c20e602e1afbec44a44b157d7f37912
+      internalID: 1073356018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_026
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 418c0b4fc16626f45b3a94d0ce747029
+      internalID: 1267454021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_027
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa4eea91a3a4b644e847db090ace4fa1
+      internalID: 1417144879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_028
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5544896cb0c2c74438d2e47cecf18edc
+      internalID: -1839918317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_029
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e58da6156e3d1dc4da89da860859e52a
+      internalID: -658135383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_030
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16b09e32709aa2c40a5e3559b47a645a
+      internalID: 1305193105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_031
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2948c6899f608804483aa0f30514255f
+      internalID: -519486713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_032
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89361a24be0391b4d8c8bfb19abc266e
+      internalID: 361921627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_033
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c250f20a17783e245b28be3cd9776575
+      internalID: 440155057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_034
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bcc4af9dcd6a28408c08c8992f888a3
+      internalID: 563030722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_035
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd3c813c0fe822549a38e258a5a2b19e
+      internalID: 140716726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_036
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ff208c924f1c6345b9603b827dbc2e3
+      internalID: -1612215428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_037
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eb4dcb04a1b40bb4eb909e3b85999a0c
+      internalID: 162745298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_038
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 753136800d706e9439ac25f6dbbd439d
+      internalID: 1667683137
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Attack_039
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85e662fed96d32b4bb22bdf94e9365d5
+      internalID: -1484309962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_000
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 901979815110f0a4f96d51f63b7a1afa
+      internalID: 32592064
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_001
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d390316a5057cda4abaa38f5bbbfade5
+      internalID: 1237716453
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_002
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34c7b9d8efc49314a8f7b1c290944737
+      internalID: -685022838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_003
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e633cd4e2532afb41b92ce16032111d1
+      internalID: -598214351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_004
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a7d6d5a1131667428458871f85a0006
+      internalID: -1287445080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_005
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fd29e78a3c272a4e869f7cfbbf8777a
+      internalID: 325064351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_006
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89a5a10bc2df6394e96e6d8387829e79
+      internalID: -1271306454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_007
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6282c29904f9e264faa6ec6d35cdc13e
+      internalID: 2009115638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_008
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fabeec7fc326b4e4699ee146a51f0e11
+      internalID: -1467171109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_009
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9cfaaa4175f1404fbf686a0303362f9
+      internalID: -1457663146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_010
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64091a6915fb58544b989ea9c11c5922
+      internalID: -366291545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_011
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1218ffdf34a6a3d40a08c00a945f270c
+      internalID: 35838711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_012
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd1ac4cd9078ed646b1499d73335a1e1
+      internalID: 2130181821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_013
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1b826b46bd4fa9468e2fb36ada90470
+      internalID: -1152532383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_014
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6df37df22620d944b801f050113b516a
+      internalID: -1487483190
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_015
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 504f783e47868224c83571308589cc13
+      internalID: 930071233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_016
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 451834528b6d66640a20c459597d269b
+      internalID: 269732841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_017
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed1549d7b476df349978c223c6fc4618
+      internalID: -1639122276
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_018
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e8364764bf313f4896aa4c1f62f7ec2
+      internalID: -535159014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_019
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea0e0d4504d39c1478e3c7825b9d4b42
+      internalID: 961867120
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_020
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 475fd1ba259047044b0bc6397a06beb3
+      internalID: -47354459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_021
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0069abd160e68bc4fb5d9946e55167c9
+      internalID: -1567857437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_022
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4c43633bd7dd0a4689d0c7138a390cc
+      internalID: 197413732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_023
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a81745e17b8055409632d45e253b5b2
+      internalID: 1561548782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Ability_024
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14bd392790b3bd945a8e8c6cd58ad3a7
+      internalID: -1620145984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffee486f6bc7ff94dbbcf69d14456656
+      internalID: -2119377331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b0af1c0a42eb2b46a52a97958e0eb1a
+      internalID: -617814719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 912c2b64f93f02f4fa348c7faa0c67f3
+      internalID: 1935231795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb46e395ecade434684ad2245fc6698f
+      internalID: -76166951
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccd184d84c5a18c4b836a9fb5a4deec0
+      internalID: 1858802610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f97404d9f46f422448a354ab23ed537a
+      internalID: -1918207814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b6c4e19391d1cb46bc4de135c4fda89
+      internalID: -1236521160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58f5083d36e3bb4498050eab1e06d5dd
+      internalID: -332948746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1aa703e0a88630a43b5191b0d748070a
+      internalID: -466849707
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Tier2general_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 242d6e99ccc6b34479343d7cea9d11fb
+      internalID: -881704613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Tier2general_Ability_000: 32592064
+      Tier2general_Ability_001: 1237716453
+      Tier2general_Ability_002: -685022838
+      Tier2general_Ability_003: -598214351
+      Tier2general_Ability_004: -1287445080
+      Tier2general_Ability_005: 325064351
+      Tier2general_Ability_006: -1271306454
+      Tier2general_Ability_007: 2009115638
+      Tier2general_Ability_008: -1467171109
+      Tier2general_Ability_009: -1457663146
+      Tier2general_Ability_010: -366291545
+      Tier2general_Ability_011: 35838711
+      Tier2general_Ability_012: 2130181821
+      Tier2general_Ability_013: -1152532383
+      Tier2general_Ability_014: -1487483190
+      Tier2general_Ability_015: 930071233
+      Tier2general_Ability_016: 269732841
+      Tier2general_Ability_017: -1639122276
+      Tier2general_Ability_018: -535159014
+      Tier2general_Ability_019: 961867120
+      Tier2general_Ability_020: -47354459
+      Tier2general_Ability_021: -1567857437
+      Tier2general_Ability_022: 197413732
+      Tier2general_Ability_023: 1561548782
+      Tier2general_Ability_024: -1620145984
+      Tier2general_Attack_000: 1411808506
+      Tier2general_Attack_001: -232819267
+      Tier2general_Attack_002: -1386320242
+      Tier2general_Attack_003: -320768821
+      Tier2general_Attack_004: -809980012
+      Tier2general_Attack_005: 1344852460
+      Tier2general_Attack_006: 758459767
+      Tier2general_Attack_007: 1141946452
+      Tier2general_Attack_008: -95481328
+      Tier2general_Attack_009: 1633490431
+      Tier2general_Attack_010: 516877401
+      Tier2general_Attack_011: -285008920
+      Tier2general_Attack_012: -1372281878
+      Tier2general_Attack_013: 665767991
+      Tier2general_Attack_014: 233616283
+      Tier2general_Attack_015: -1988861635
+      Tier2general_Attack_016: -865372472
+      Tier2general_Attack_017: -497602209
+      Tier2general_Attack_018: -256120810
+      Tier2general_Attack_019: -1488166219
+      Tier2general_Attack_020: -2038009381
+      Tier2general_Attack_021: 61156605
+      Tier2general_Attack_022: 1877026775
+      Tier2general_Attack_023: 1093318747
+      Tier2general_Attack_024: -1469816249
+      Tier2general_Attack_025: 1073356018
+      Tier2general_Attack_026: 1267454021
+      Tier2general_Attack_027: 1417144879
+      Tier2general_Attack_028: -1839918317
+      Tier2general_Attack_029: -658135383
+      Tier2general_Attack_030: 1305193105
+      Tier2general_Attack_031: -519486713
+      Tier2general_Attack_032: 361921627
+      Tier2general_Attack_033: 440155057
+      Tier2general_Attack_034: 563030722
+      Tier2general_Attack_035: 140716726
+      Tier2general_Attack_036: -1612215428
+      Tier2general_Attack_037: 162745298
+      Tier2general_Attack_038: 1667683137
+      Tier2general_Attack_039: -1484309962
+      Tier2general_Dead_000: -2119377331
+      Tier2general_Dead_001: -617814719
+      Tier2general_Dead_002: 1935231795
+      Tier2general_Dead_003: -76166951
+      Tier2general_Dead_004: 1858802610
+      Tier2general_Dead_005: -1918207814
+      Tier2general_Dead_006: -1236521160
+      Tier2general_Dead_007: -332948746
+      Tier2general_Dead_008: -466849707
+      Tier2general_Dead_009: -881704613
+      Tier2general_Default_000: 238493971
+      Tier2general_Default_001: 553588982
+      Tier2general_Default_002: 513658318
+      Tier2general_Default_003: 1786348787
+      Tier2general_Default_004: 227394762
+      Tier2general_Default_005: -550500698
+      Tier2general_Default_006: 815619088
+      Tier2general_Default_007: -169258763
+      Tier2general_Default_008: -1362814280
+      Tier2general_Default_009: -514749050
+      Tier2general_Default_010: 481216480
+      Tier2general_Default_011: 453293663
+      Tier2general_Move_000: -1233474283
+      Tier2general_Move_001: 380099560
+      Tier2general_Move_002: -1658612067
+      Tier2general_Move_003: 458422957
+      Tier2general_Move_004: 1205304257
+      Tier2general_Move_005: -1757641583
+      Tier2general_Move_006: 1229431876
+      Tier2general_Move_007: 945445207
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -5,6 +5,25 @@ All notable changes to Synaptic AI Pro for Unity will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.20] - 2026-05-10
+
+### Fixed
+- **Async Thread Crash on Disconnect (ESC-0025)**: `OnConnectionLost()` accessed `Time.realtimeSinceStartup` from non-main threads, throwing `get_realtimeSinceStartup_Injected can only be called from the main thread` and killing `ListenForMessages`. After this exception, all subsequent tool executions failed silently until Unity restart.
+  - Added `ThreadSafeTime()` helper using `System.Diagnostics.Stopwatch` for thread-agnostic timing
+  - `OnConnectionLost()` now uses `ThreadSafeTime()` when called from async/WebSocket contexts
+  - Reported repeatedly on Windows v1.2.19; should now self-recover instead of requiring restart
+
+- **Main Window Repaint Recursion**: `ThrottledRepaint()` was calling itself instead of `Repaint()`, causing infinite recursion when triggered. Fixed to call `Repaint()` properly.
+
+### Changed
+- **Editor Log Volume**: Introduced `SynLog` wrapper allowing internal Info/Warning logs to be toggled via Setup Window → HTTP Server tab → "Verbose Logs". Errors are always logged.
+- **Setup Window Min Size**: Reduced from 800×800 to 480×480 so the window fits on smaller laptop screens and can be docked alongside other panels.
+
+### Safeguards
+- **Auto-Update Path Validation**: Backup/replace of `Synaptic AI Pro/` is now gated by file-size (≥100KB) and marker-file checks before deleting the existing installation. Failed downloads or partial archives no longer wipe the working folder.
+
+---
+
 ## [1.2.19] - 2026-04-23
 
 ### Fixed
@@ -29,6 +48,62 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Changed
 - **Assembly Definition**: Fixed VFX Graph versionDefines expression
+
+---
+
+## [1.2.18] - 2026-04-15
+
+### Added
+- **Auto-Update System**: One-click update check on startup (once per day)
+  - BOOTH/site version: auto-download and replace
+  - Asset Store version: browser redirect
+- **WebSocket Heartbeat**: ping/pong keepalive for connection stability
+
+---
+
+## [1.2.17] - 2026-04-14
+
+### Fixed
+- **HTTP Server Tab Performance**: Reduced UI overhead
+
+---
+
+## [1.2.16] - 2026-04-13
+
+### Fixed
+- **Unity 6 GUILayout**: Layout compatibility fix
+- **Auto-Start**: Domain reload behavior corrected
+
+---
+
+## [1.2.15] - 2026-04-12
+
+### Fixed
+- **Setup Window Freeze**: Fixed freeze on large projects
+
+---
+
+## [1.2.14] - 2026-04-11
+
+### Fixed
+- **"Hold on" Dialog**: Fixed blocking dialog issue
+- **Windows Command Path**: Enhanced Node.js detection
+- **Node.js Process Cleanup**: Improved cleanup on exit
+- **MCP Port Conflict**: Fixed with multiple Claude Code sessions
+
+---
+
+## [1.2.13] - 2026-04-10
+
+### Fixed
+- **Setup Window Repaint Loop**: Fixed continuous repaint
+
+---
+
+## [1.2.12] - 2026-04-09
+
+### Fixed
+- **Windows Path with Spaces**: HTTP server startup fix
 
 ---
 

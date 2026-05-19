@@ -23,7 +23,8 @@ namespace SynapticPro
         public static void ShowWindow()
         {
             var window = GetWindow<NexusMCPSetupWindow>("Synaptic Pro Setup");
-            window.minSize = new Vector2(800, 800);
+            // 小さい画面でも使えるようminSizeを緩和（旧: 800x800で固定気味）
+            window.minSize = new Vector2(480, 480);
             window.Show();
         }
 
@@ -1040,6 +1041,28 @@ namespace SynapticPro
                 Debug.Log("[Synaptic] AI Prompt copied to clipboard!");
                 EditorUtility.DisplayDialog("Copied!", "AI Control Prompt has been copied to clipboard.\n\nPaste it to your AI assistant to enable HTTP control.", "OK");
             }
+
+            EditorGUILayout.EndVertical();
+
+            // ========== ログ出力設定 ==========
+            EditorGUILayout.Space(15);
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+            GUILayout.Label("Log Output", EditorStyles.boldLabel);
+            EditorGUILayout.Space(5);
+
+            bool currentVerbose = SynapticAIPro.SynLog.VerboseEnabled;
+            bool newVerbose = EditorGUILayout.ToggleLeft(
+                "Verbose Logs (Info / Warning)",
+                currentVerbose
+            );
+            if (newVerbose != currentVerbose)
+            {
+                SynapticAIPro.SynLog.VerboseEnabled = newVerbose;
+            }
+            EditorGUILayout.LabelField(
+                "オフにすると Synaptic AI Pro 関連の Info/Warning ログをコンソールに出力しません（Errorは常に表示）",
+                EditorStyles.wordWrappedMiniLabel
+            );
 
             EditorGUILayout.EndVertical();
 
@@ -4212,10 +4235,46 @@ fi
                     var packagePath = packages[0];
                     Debug.Log($"[Synaptic] Importing update package: {packagePath}");
 
-                    // 現在のフォルダを削除してからインポート
                     var synapticPath = Path.Combine(Application.dataPath, "Synaptic AI Pro");
+
+                    // ===== セーフガード =====
+                    // 1. unitypackageファイルサイズ妥当性チェック
+                    var pkgInfo = new FileInfo(packagePath);
+                    if (pkgInfo.Length < 100_000) // < 100KB
+                    {
+                        EditorUtility.DisplayDialog("Update Failed",
+                            "ダウンロードしたファイルが破損している可能性があります。手動で再ダウンロードしてください。",
+                            "OK");
+                        return;
+                    }
+
+                    // 2. パス妥当性チェック - 正確に "Synaptic AI Pro" フォルダのみ操作
+                    var fullPath = Path.GetFullPath(synapticPath);
+                    var assetsFullPath = Path.GetFullPath(Application.dataPath);
+
+                    // パスが Assets/Synaptic AI Pro として整合してるか厳密確認
+                    if (!fullPath.StartsWith(assetsFullPath, System.StringComparison.OrdinalIgnoreCase) ||
+                        !fullPath.EndsWith("Synaptic AI Pro", System.StringComparison.OrdinalIgnoreCase) ||
+                        fullPath.Equals(assetsFullPath, System.StringComparison.OrdinalIgnoreCase))
+                    {
+                        EditorUtility.DisplayDialog("Update Failed",
+                            "アップデート対象フォルダの検証に失敗しました。\n手動で再インストールしてください。",
+                            "OK");
+                        return;
+                    }
+
+                    // 3. 既存フォルダが Synaptic AI Pro として整合してるか確認 (Editor配下に既知ファイルがある)
                     if (Directory.Exists(synapticPath))
                     {
+                        var marker = Path.Combine(synapticPath, "Editor", "NexusSetupWindow.cs");
+                        if (!File.Exists(marker))
+                        {
+                            EditorUtility.DisplayDialog("Update Failed",
+                                "アップデート対象フォルダが Synaptic AI Pro のインストール先として認識できません。\n別のフォルダにインストールされている可能性があります。手動で再インストールしてください。",
+                                "OK");
+                            return;
+                        }
+
                         Directory.Delete(synapticPath, true);
                         // .metaも削除
                         var metaPath = synapticPath + ".meta";

@@ -29,6 +29,12 @@ public class Draggable : MonoBehaviour
     // 売却成功などで専用SEを鳴らした後、通常のドロップSEを重ねないためのフラグです。
     private bool releasePlayedSound;
 
+    // クリックとドラッグを分けるための状態です。少し動かした時だけドラッグとして扱います。
+    private bool pointerDown;
+    private bool pointerMovedBeyondClick;
+    private Vector3 mouseDownScreenPosition;
+    private const float ClickDragThreshold = 8f;
+
     // 他のスクリプトから、今このユニットがドラッグ中かを確認できます。
     public bool IsDragging = false;
 
@@ -75,6 +81,8 @@ public class Draggable : MonoBehaviour
         spriteRenderer.sortingOrder = 20;
         IsDragging = true;
         releasePlayedSound = false;
+        ItemTooltipUI.Hide();
+        UnitStatusPanelUI.Hide();
         AttackEffectPlayer.PlayUiSfx("drag_start");
 
         // ショップ側に売却額プレビューを出します。
@@ -160,24 +168,53 @@ public class Draggable : MonoBehaviour
             UIShop.Instance.HideSellPreview();
 
         IsDragging = false;
+        pointerDown = false;
     }
 
-    // UnityのOnMouseイベントからドラッグ開始を呼びます。
+    // UnityのOnMouseイベントから、クリック候補として押下位置を記録します。
     private void OnMouseDown()
     {
-        OnStartDrag();
+        if (!Input.GetMouseButtonDown(0))
+            return;
+
+        pointerDown = true;
+        pointerMovedBeyondClick = false;
+        mouseDownScreenPosition = Input.mousePosition;
     }
 
-    // UnityのOnMouseイベントからドラッグ中処理を呼びます。
+    // UnityのOnMouseイベントから、一定距離以上動いた場合だけドラッグへ移行します。
     private void OnMouseDrag()
     {
+        if (!IsDragging && pointerDown)
+        {
+            float movedPixels = Vector3.Distance(Input.mousePosition, mouseDownScreenPosition);
+            if (movedPixels >= ClickDragThreshold)
+            {
+                pointerMovedBeyondClick = true;
+                OnStartDrag();
+            }
+        }
+
         OnDragging();
     }
 
-    // UnityのOnMouseイベントからドラッグ終了を呼びます。
+    // UnityのOnMouseイベントから、ドラッグ終了またはユニット選択クリックを処理します。
     private void OnMouseUp()
     {
-        OnEndDrag();
+        if (IsDragging)
+        {
+            OnEndDrag();
+            return;
+        }
+
+        if (pointerDown && !pointerMovedBeyondClick)
+        {
+            BaseEntity entity = GetComponent<BaseEntity>();
+            if (entity != null)
+                UnitStatusPanelUI.Show(entity);
+        }
+
+        pointerDown = false;
     }
 
     // ドロップ先を順番に試し、成功したらtrueを返します。

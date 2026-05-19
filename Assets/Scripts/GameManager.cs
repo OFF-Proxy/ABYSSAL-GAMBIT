@@ -20,12 +20,25 @@ public class GameManager : Manager<GameManager>
     // 左右のベンチタイルをまとめた親Transformです。
     public Transform team1BenchTilesParent;
     public Transform team2BenchTilesParent;
+    public Transform itemBenchTilesParent;
+    public Transform itemBenchParent;
 
     // ベンチのスロット数、位置計算、ドラッグ判定用の設定です。
     public int benchSlotCount = 8;
     public Vector3 benchStartPosition = new Vector3(-6.5f, -3.5f, 0f);
     public float benchSlotSpacing = 1f;
     public float benchPickRadius = 0.9f;
+
+    // アイテムベンチは自分ベンチのさらに左側へ、2列 x 8枠で作ります。
+    public int itemBenchColumns = 2;
+    public int itemBenchRows = 8;
+    public float itemBenchColumnSpacing = 0.96f;
+    public float itemBenchRowSpacing = 0.96f;
+    public float itemBenchGapFromUnitBench = 1.12f;
+    public float itemBenchLeftEdgeMargin = 1.35f;
+    public float itemBenchPickRadius = 0.68f;
+    public Vector3 itemIconScale = new Vector3(1.25f, 1.25f, 1f);
+    public bool spawnDebugItemsOnStart = true;
 
     // マウスホイールで盤面を見る時のカメラ設定です。
     public Camera boardCamera;
@@ -53,9 +66,11 @@ public class GameManager : Manager<GameManager>
     List<BaseEntity> team1Entities = new List<BaseEntity>();
     List<BaseEntity> team2Entities = new List<BaseEntity>();
     List<BaseEntity> benchEntities = new List<BaseEntity>();
+    List<ItemInstance> itemBenchItems = new List<ItemInstance>();
 
     // どのベンチユニットが何番スロットにいるかを記録します。
     Dictionary<BaseEntity, int> benchSlotByEntity = new Dictionary<BaseEntity, int>();
+    Dictionary<ItemInstance, int> itemBenchSlotByItem = new Dictionary<ItemInstance, int>();
 
     // ウェーブ開始時点で盤面にいた味方と、その初期Nodeを記録します。
     readonly List<BaseEntity> roundPlayerUnits = new List<BaseEntity>();
@@ -92,6 +107,9 @@ public class GameManager : Manager<GameManager>
     {
         InitializeWaveDefinitions();
         UpdateRoundProgressUi();
+        EnsureItemBenchParents();
+        SpawnDebugItemsIfNeeded();
+        RepositionItemBenchItems();
 
         Camera targetCamera = GetBoardCamera();
         EnsureCameraZoomTarget(targetCamera);
@@ -507,6 +525,126 @@ public class GameManager : Manager<GameManager>
             GridManager.Instance.ConfigureBenchTile(tile, team);
 
         return tile;
+    }
+
+    // アイテムを指定ユニットへ装備します。成功したらアイテムベンチ上のGameObjectは消します。
+    public bool TryEquipItemToEntity(ItemInstance itemInstance, BaseEntity targetEntity)
+    {
+        if (itemInstance == null || itemInstance.Data == null || targetEntity == null)
+            return false;
+
+        if (targetEntity.Team != Team.Team1 || !targetEntity.HasItemSpace)
+            return false;
+
+        if (!targetEntity.TryEquipItem(itemInstance.Data))
+            return false;
+
+        itemBenchItems.Remove(itemInstance);
+        itemBenchSlotByItem.Remove(itemInstance);
+        Destroy(itemInstance.gameObject);
+        AttackEffectPlayer.PlayUiSfx("item_equip");
+        OnRosterChanged?.Invoke();
+        return true;
+    }
+
+    // アイテムベンチ上の指定スロットへアイテムを置けるか確認します。
+    public bool CanPlaceItemOnBench(ItemInstance itemInstance, int slotIndex)
+    {
+        if (itemInstance == null)
+            return false;
+
+        if (slotIndex < 0 || slotIndex >= ItemBenchSlotCount)
+            return false;
+
+        ItemInstance occupant = GetItemBenchItemAtSlot(slotIndex);
+        return occupant == null || occupant == itemInstance;
+    }
+
+    // アイテムベンチ上の指定スロットへアイテムを移動します。
+    public bool TryPlaceItemOnBench(ItemInstance itemInstance, int slotIndex)
+    {
+        if (!CanPlaceItemOnBench(itemInstance, slotIndex))
+            return false;
+
+        EnsureItemBenchParents();
+        if (!itemBenchItems.Contains(itemInstance))
+            itemBenchItems.Add(itemInstance);
+
+        itemBenchSlotByItem[itemInstance] = slotIndex;
+        itemInstance.transform.SetParent(itemBenchParent, true);
+        itemInstance.transform.position = GetItemBenchPosition(slotIndex);
+        itemInstance.transform.localScale = itemIconScale;
+        itemInstance.SetSlotIndex(slotIndex);
+        return true;
+    }
+
+    // ワールド座標からアイテムベンチのスロット番号を取得します。
+    public int GetItemBenchSlotAtWorldPosition(Vector3 worldPosition)
+    {
+        EnsureItemBenchParents();
+        if (itemBenchTilesParent == null)
+            return -1;
+
+        int closestSlot = -1;
+        float closestDistance = itemBenchPickRadius * itemBenchPickRadius;
+        for (int i = 0; i < Mathf.Min(ItemBenchSlotCount, itemBenchTilesParent.childCount); i++)
+        {
+            float distance = (itemBenchTilesParent.GetChild(i).position - worldPosition).sqrMagnitude;
+            if (distance <= closestDistance)
+            {
+                closestDistance = distance;
+                closestSlot = i;
+            }
+        }
+
+        return closestSlot;
+    }
+
+    // アイテムベンチのスロット番号からTileを返します。
+    public Tile GetItemBenchTileAtSlot(int slotIndex)
+    {
+        if (slotIndex < 0 || slotIndex >= ItemBenchSlotCount)
+            return null;
+
+        EnsureItemBenchParents();
+        if (itemBenchTilesParent == null || slotIndex >= itemBenchTilesParent.childCount)
+            return null;
+
+        Tile tile = itemBenchTilesParent.GetChild(slotIndex).GetComponent<Tile>();
+        if (tile == null)
+            tile = itemBenchTilesParent.GetChild(slotIndex).gameObject.AddComponent<Tile>();
+
+        if (GridManager.Instance != null)
+            GridManager.Instance.ConfigureItemBenchTile(tile);
+
+        return tile;
+    }
+
+    // 外れたアイテムをベンチの空き枠へ戻します。空きがなければ近くに置きます。
+    public ItemInstance ReturnItemToBench(ItemData itemData)
+    {
+        if (itemData == null)
+            return null;
+
+        EnsureItemBenchParents();
+        int slotIndex = GetFreeItemBenchSlot();
+        ItemInstance itemInstance = CreateItemInstance(itemData, slotIndex);
+        if (slotIndex >= 0)
+            TryPlaceItemOnBench(itemInstance, slotIndex);
+        else
+            itemInstance.transform.position = GetItemBenchOverflowPosition();
+
+        return itemInstance;
+    }
+
+    // 複数アイテムをまとめてアイテムベンチへ戻します。
+    private void ReturnItemsToBench(IEnumerable<ItemData> items)
+    {
+        if (items == null)
+            return;
+
+        foreach (ItemData item in items)
+            ReturnItemToBench(item);
     }
 
     // ユニットが死亡した時にBaseEntityから呼ばれます。
@@ -938,6 +1076,286 @@ public class GameManager : Manager<GameManager>
         }
     }
 
+    // アイテムベンチの総スロット数です。
+    private int ItemBenchSlotCount => Mathf.Max(1, itemBenchColumns) * Mathf.Max(1, itemBenchRows);
+
+    // アイテムベンチの親、タイル、アイテム親を用意します。
+    private void EnsureItemBenchParents()
+    {
+        EnsureBenchTileParents();
+        NormalizeItemBenchVisualSettings();
+
+        if (itemBenchParent == null)
+        {
+            GameObject itemBenchUnits = GameObject.Find("ItemBenchItems");
+            if (itemBenchUnits == null)
+                itemBenchUnits = new GameObject("ItemBenchItems");
+
+            itemBenchUnits.transform.SetParent(team1Parent != null ? team1Parent : transform);
+            itemBenchUnits.transform.position = Vector3.zero;
+            itemBenchParent = itemBenchUnits.transform;
+        }
+
+        if (itemBenchTilesParent == null)
+        {
+            GameObject existing = GameObject.Find("Grid/ItemBench");
+            if (existing != null)
+                itemBenchTilesParent = existing.transform;
+        }
+
+        if (itemBenchTilesParent == null)
+        {
+            Transform gridParent = GetGridRootTransform();
+            GameObject itemBenchTiles = new GameObject("ItemBench");
+            itemBenchTiles.transform.SetParent(gridParent);
+            itemBenchTiles.transform.localPosition = Vector3.zero;
+            itemBenchTiles.transform.localRotation = Quaternion.identity;
+            itemBenchTiles.transform.localScale = Vector3.one;
+            itemBenchTilesParent = itemBenchTiles.transform;
+        }
+
+        EnsureItemBenchTiles();
+    }
+
+    // Gridオブジェクトがあればその下に、なければGameManagerの下にアイテムベンチを作ります。
+    private Transform GetGridRootTransform()
+    {
+        GameObject gridObject = GameObject.Find("Grid");
+        if (gridObject != null)
+            return gridObject.transform;
+
+        if (GridManager.Instance != null && GridManager.Instance.terrainGrid != null && GridManager.Instance.terrainGrid.transform.parent != null)
+            return GridManager.Instance.terrainGrid.transform.parent;
+
+        return transform;
+    }
+
+    // 自分ベンチと同じ見た目のタイルを複製して、アイテムベンチを作ります。
+    private void EnsureItemBenchTiles()
+    {
+        if (itemBenchTilesParent == null)
+            return;
+
+        itemBenchTilesParent.localRotation = Quaternion.identity;
+        itemBenchTilesParent.localScale = Vector3.one;
+
+        GameObject tileTemplate = GetBenchTileTemplate();
+        int slotCount = ItemBenchSlotCount;
+
+        for (int i = itemBenchTilesParent.childCount; i < slotCount; i++)
+        {
+            GameObject tileObject = tileTemplate != null
+                ? Instantiate(tileTemplate, itemBenchTilesParent)
+                : new GameObject($"ItemBenchTile_{i}");
+
+            tileObject.name = $"ItemBenchTile_{i}";
+            tileObject.transform.SetParent(itemBenchTilesParent);
+            tileObject.transform.localRotation = Quaternion.identity;
+            tileObject.transform.localScale = Vector3.one;
+
+            if (tileObject.GetComponent<Tile>() == null)
+                tileObject.AddComponent<Tile>();
+        }
+
+        for (int i = 0; i < Mathf.Min(slotCount, itemBenchTilesParent.childCount); i++)
+        {
+            Transform tileTransform = itemBenchTilesParent.GetChild(i);
+            tileTransform.position = GetItemBenchPosition(i);
+            tileTransform.rotation = Quaternion.identity;
+            tileTransform.localScale = Vector3.one;
+
+            Tile tile = tileTransform.GetComponent<Tile>();
+            if (tile != null && GridManager.Instance != null)
+                GridManager.Instance.ConfigureItemBenchTile(tile);
+        }
+    }
+
+    // 複製元になる自分ベンチタイルを探します。
+    private GameObject GetBenchTileTemplate()
+    {
+        EnsureBenchTileParents();
+
+        if (team1BenchTilesParent != null && team1BenchTilesParent.childCount > 0)
+            return team1BenchTilesParent.GetChild(0).gameObject;
+
+        GameObject fallback = GameObject.Find("Grid/BenchLeft/BenchTile_L_0");
+        return fallback;
+    }
+
+    // アイテムベンチのスロット番号からワールド座標を計算します。
+    private Vector3 GetItemBenchPosition(int slotIndex)
+    {
+        EnsureBenchTileParents();
+
+        Vector3 benchAnchor = GetTeam1BenchBottomAnchor();
+        float rowSpacing = GetEffectiveItemBenchRowSpacing();
+        float columnSpacing = GetEffectiveItemBenchColumnSpacing(rowSpacing);
+
+        int row = slotIndex % Mathf.Max(1, itemBenchRows);
+        int column = slotIndex / Mathf.Max(1, itemBenchRows);
+        float leftMostColumnX = GetItemBenchLeftEdgeX(benchAnchor, columnSpacing);
+        float x = leftMostColumnX + column * columnSpacing;
+        float y = benchAnchor.y + row * rowSpacing;
+        return new Vector3(x, y, 0f);
+    }
+
+    // アイテムベンチを画面/背景の左端寄りに置くためのX座標を決めます。
+    private float GetItemBenchLeftEdgeX(Vector3 benchAnchor, float columnSpacing)
+    {
+        float fallbackX = benchAnchor.x - Mathf.Max(itemBenchGapFromUnitBench, columnSpacing * Mathf.Max(1, itemBenchColumns));
+        float leftEdgeX = fallbackX;
+
+        EnsureCameraBoundsRenderer();
+        if (cameraBoundsRenderer != null)
+            leftEdgeX = cameraBoundsRenderer.bounds.min.x + itemBenchLeftEdgeMargin;
+
+        Camera targetCamera = GetBoardCamera();
+        if (targetCamera == null)
+            return leftEdgeX;
+
+        float distanceToBoard = Mathf.Abs(targetCamera.transform.position.z);
+        Vector3 cameraLeftEdge = targetCamera.ViewportToWorldPoint(new Vector3(0f, 0.5f, distanceToBoard));
+
+        // 背景の左端だけで決めると、カメラ表示外に半分はみ出すことがあるため、
+        // 現在の画面左端からも十分な余白を取ります。
+        return Mathf.Max(leftEdgeX, cameraLeftEdge.x + itemBenchLeftEdgeMargin);
+    }
+
+    // アイテムベンチが満杯の時に、一時的に置く座標です。
+    private Vector3 GetItemBenchOverflowPosition()
+    {
+        return GetItemBenchPosition(ItemBenchSlotCount - 1) + new Vector3(0f, GetEffectiveItemBenchRowSpacing(), 0f);
+    }
+
+    // 古いシーンに保存されている小さすぎる値を、見やすい現在値へ補正します。
+    private void NormalizeItemBenchVisualSettings()
+    {
+        itemBenchColumnSpacing = Mathf.Max(itemBenchColumnSpacing, 0.96f);
+        itemBenchRowSpacing = Mathf.Max(itemBenchRowSpacing, 0.96f);
+        itemBenchGapFromUnitBench = Mathf.Max(itemBenchGapFromUnitBench, 1.12f);
+        itemBenchLeftEdgeMargin = Mathf.Max(itemBenchLeftEdgeMargin, 1.35f);
+        itemBenchPickRadius = Mathf.Max(itemBenchPickRadius, 0.68f);
+
+        if (itemIconScale.x < 1f || itemIconScale.y < 1f)
+            itemIconScale = new Vector3(1.25f, 1.25f, 1f);
+    }
+
+    // アイテムベンチ上に既にあるアイテムも、補正後の位置とサイズへ揃え直します。
+    private void RepositionItemBenchItems()
+    {
+        foreach (KeyValuePair<ItemInstance, int> pair in itemBenchSlotByItem.ToList())
+        {
+            ItemInstance item = pair.Key;
+            if (item == null)
+                continue;
+
+            item.transform.position = GetItemBenchPosition(pair.Value);
+            item.transform.localScale = itemIconScale;
+            item.SetSlotIndex(pair.Value);
+        }
+    }
+
+    // 自分ベンチタイルの一番下の中心位置を、アイテムベンチの基準にします。
+    private Vector3 GetTeam1BenchBottomAnchor()
+    {
+        if (team1BenchTilesParent == null || team1BenchTilesParent.childCount == 0)
+            return benchStartPosition;
+
+        Vector3 anchor = team1BenchTilesParent.GetChild(0).position;
+        for (int i = 1; i < team1BenchTilesParent.childCount; i++)
+        {
+            Vector3 position = team1BenchTilesParent.GetChild(i).position;
+            if (position.y < anchor.y)
+                anchor = position;
+        }
+
+        return anchor;
+    }
+
+    // 既存ベンチタイルの間隔を読める場合はそれを使い、読めない場合は設定値を使います。
+    private float GetEffectiveItemBenchRowSpacing()
+    {
+        if (team1BenchTilesParent == null || team1BenchTilesParent.childCount < 2)
+            return itemBenchRowSpacing;
+
+        List<float> yPositions = new List<float>();
+        for (int i = 0; i < team1BenchTilesParent.childCount; i++)
+            yPositions.Add(team1BenchTilesParent.GetChild(i).position.y);
+
+        yPositions.Sort();
+        float totalSpacing = 0f;
+        int spacingCount = 0;
+        for (int i = 1; i < yPositions.Count; i++)
+        {
+            float spacing = Mathf.Abs(yPositions[i] - yPositions[i - 1]);
+            if (spacing <= 0.05f)
+                continue;
+
+            totalSpacing += spacing;
+            spacingCount++;
+        }
+
+        if (spacingCount == 0)
+            return itemBenchRowSpacing;
+
+        return Mathf.Max(itemBenchRowSpacing, totalSpacing / spacingCount);
+    }
+
+    // 横列も縦列と同じくらいの間隔にして、斜めに見えない格子へ揃えます。
+    private float GetEffectiveItemBenchColumnSpacing(float rowSpacing)
+    {
+        return Mathf.Max(itemBenchColumnSpacing, rowSpacing);
+    }
+
+    // 空いているアイテムベンチスロットを探します。
+    private int GetFreeItemBenchSlot()
+    {
+        for (int i = 0; i < ItemBenchSlotCount; i++)
+        {
+            if (!itemBenchSlotByItem.ContainsValue(i))
+                return i;
+        }
+
+        return -1;
+    }
+
+    // 指定スロットにいるアイテムを返します。
+    private ItemInstance GetItemBenchItemAtSlot(int slotIndex)
+    {
+        foreach (KeyValuePair<ItemInstance, int> pair in itemBenchSlotByItem)
+        {
+            if (pair.Key != null && pair.Value == slotIndex)
+                return pair.Key;
+        }
+
+        return null;
+    }
+
+    // ItemDataから、ドラッグ可能なアイテムGameObjectを作ります。
+    private ItemInstance CreateItemInstance(ItemData itemData, int slotIndex)
+    {
+        GameObject itemObject = new GameObject(itemData != null ? $"Item_{itemData.displayName}" : "Item");
+        itemObject.transform.SetParent(itemBenchParent != null ? itemBenchParent : transform);
+        itemObject.transform.localScale = itemIconScale;
+
+        ItemInstance itemInstance = itemObject.AddComponent<ItemInstance>();
+        itemObject.AddComponent<DraggableItem>();
+        itemInstance.Setup(itemData, slotIndex);
+        return itemInstance;
+    }
+
+    // 開発中にすぐ確認できるよう、初回だけ全アイテムをベンチへ並べます。
+    private void SpawnDebugItemsIfNeeded()
+    {
+        if (!spawnDebugItemsOnStart || itemBenchItems.Count > 0)
+            return;
+
+        IReadOnlyList<ItemData> items = ItemCatalog.AllItems;
+        int count = Mathf.Min(items.Count, ItemBenchSlotCount);
+        for (int i = 0; i < count; i++)
+            ReturnItemToBench(items[i]);
+    }
+
     // 空いているベンチスロット番号を返します。空きがなければ-1です。
     private int GetFreeBenchSlot()
     {
@@ -1305,7 +1723,8 @@ public class GameManager : Manager<GameManager>
             return false;
 
         int sellValue = GetSellValue(entity);
-        RemoveOwnedEntity(entity);
+        ReturnItemsToBench(entity.RemoveAllItems());
+        RemoveOwnedEntity(entity, false);
         PlayerData.Instance.AddMoney(sellValue);
         OnRosterChanged?.Invoke();
         return true;
@@ -1386,9 +1805,12 @@ public class GameManager : Manager<GameManager>
 
         List<BaseEntity> consumed = matches.Where(entity => entity != target).Take(2).ToList();
 
-        // 残す1体以外の2体を削除します。
+        // 残す1体以外の2体を削除します。消える側のアイテムは、残るユニットへ移せるだけ移します。
         for (int i = 0; i < consumed.Count; i++)
-            RemoveOwnedEntity(consumed[i]);
+        {
+            MoveOrReturnItems(consumed[i], target);
+            RemoveOwnedEntity(consumed[i], false);
+        }
 
         // 残したユニットの星とステータスをBaseEntity側で更新します。
         target.ApplyStarLevel(starLevel + 1);
@@ -1467,10 +1889,13 @@ public class GameManager : Manager<GameManager>
     }
 
     // 所有ユニットをリスト、Node、ベンチ辞書から外して破棄します。
-    private void RemoveOwnedEntity(BaseEntity entity)
+    private void RemoveOwnedEntity(BaseEntity entity, bool returnItems = true)
     {
         if (entity == null)
             return;
+
+        if (returnItems)
+            ReturnItemsToBench(entity.RemoveAllItems());
 
         if (entity.CurrentNode != null)
             entity.CurrentNode.SetOccupied(false);
@@ -1479,6 +1904,23 @@ public class GameManager : Manager<GameManager>
         benchEntities.Remove(entity);
         benchSlotByEntity.Remove(entity);
         Destroy(entity.gameObject);
+    }
+
+    // スターアップで消費されるユニットの装備を、残るユニットへ移し、入らない分はベンチへ戻します。
+    private void MoveOrReturnItems(BaseEntity source, BaseEntity target)
+    {
+        if (source == null)
+            return;
+
+        List<ItemData> removedItems = source.RemoveAllItems();
+        for (int i = 0; i < removedItems.Count; i++)
+        {
+            ItemData item = removedItems[i];
+            if (target != null && target.HasItemSpace && target.TryEquipItem(item))
+                continue;
+
+            ReturnItemToBench(item);
+        }
     }
 
     // どちらかのチームが全滅したら戦闘終了イベントを出します。

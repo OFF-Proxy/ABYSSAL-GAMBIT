@@ -43,7 +43,23 @@ public class UICard : MonoBehaviour
     private void Awake()
     {
         // シーン上でframe参照が入っていない場合でも動くように、起動時に探しておきます。
+        LocalizationManager.EnsureExists();
         EnsureFrameReference();
+        LocalizationManager.ApplyFont(name);
+        LocalizationManager.ApplyFont(cost);
+        ConfigureCardText(name);
+        ConfigureCardText(cost);
+    }
+
+    private void OnEnable()
+    {
+        LocalizationManager.OnLanguageChanged += RefreshLocalizedText;
+        RefreshLocalizedText();
+    }
+
+    private void OnDisable()
+    {
+        LocalizationManager.OnLanguageChanged -= RefreshLocalizedText;
     }
 
     // ショップがカードを生成・更新する時に呼びます。
@@ -56,7 +72,9 @@ public class UICard : MonoBehaviour
         icon.sprite = myData.icon;
         if (frame != null)
             frame.sprite = myData.frame;
-        name.text = myData.name;
+        ConfigureCardText(name);
+        ConfigureCardText(cost);
+        name.text = LocalizationManager.UnitName(myData.name);
         cost.text = myData.cost.ToString();
 
         this.myData = myData;
@@ -110,8 +128,29 @@ public class UICard : MonoBehaviour
         if (upgradeBadge != null)
         {
             upgradeBadge.gameObject.SetActive(ready);
-            upgradeBadge.text = starLevel >= 3 ? "STAR 3" : "STAR 2";
+            upgradeBadge.text = LocalizationManager.FormatUpgradeLabel(starLevel);
             upgradeBadge.color = Color.white;
+            LocalizationManager.ApplyFont(upgradeBadge);
+        }
+    }
+
+    // 言語が切り替わった時、カード名とスターアップ予告を現在言語へ更新します。
+    private void RefreshLocalizedText()
+    {
+        if (name != null && HasData)
+        {
+            LocalizationManager.ApplyFont(name);
+            ConfigureCardText(name);
+            name.text = LocalizationManager.UnitName(myData.name);
+        }
+
+        LocalizationManager.ApplyFont(cost);
+        ConfigureCardText(cost);
+
+        if (upgradeBadge != null && upgradePreviewStarLevel > 0)
+        {
+            LocalizationManager.ApplyFont(upgradeBadge);
+            upgradeBadge.text = LocalizationManager.FormatUpgradeLabel(upgradePreviewStarLevel);
         }
     }
 
@@ -144,6 +183,19 @@ public class UICard : MonoBehaviour
     private Color GetUpgradeColor(int starLevel)
     {
         return starLevel >= 3 ? upgradeReadyStar3Color : upgradeReadyFrameColor;
+    }
+
+    // 日本語名が長いユニットでもショップ枠を崩さないよう、折り返しを止めて自動縮小します。
+    private void ConfigureCardText(TextMeshProUGUI text)
+    {
+        if (text == null)
+            return;
+
+        text.enableWordWrapping = false;
+        text.overflowMode = TextOverflowModes.Ellipsis;
+        text.enableAutoSizing = true;
+        text.fontSizeMin = text == cost ? 10f : 8f;
+        text.fontSizeMax = text == cost ? 14f : 13f;
     }
 
     // frame参照と初期状態を安全に取得します。
@@ -213,6 +265,7 @@ public class UICard : MonoBehaviour
             badgeRect.offsetMax = new Vector2(-4f, -4f);
 
             upgradeBadge = badgeObject.AddComponent<TextMeshProUGUI>();
+            LocalizationManager.ApplyFont(upgradeBadge);
             upgradeBadge.alignment = TextAlignmentOptions.Center;
             upgradeBadge.enableAutoSizing = true;
             upgradeBadge.fontSizeMin = 16f;

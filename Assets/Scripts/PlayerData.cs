@@ -22,7 +22,7 @@ public class PlayerData : Manager<PlayerData>
     // ゲーム開始時の初期値を設定します。
     private void Start()
     {
-        Money = 250;
+        Money = 999;
         Level = 1;
         Exp = 0;
         OnUpdate?.Invoke();

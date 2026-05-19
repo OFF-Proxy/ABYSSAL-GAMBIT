@@ -162,6 +162,37 @@ namespace SynapticPro
                 richText = true
             };
 
+            // v1.2.20
+            GUILayout.Label(L("v1.2.20 - Async Crash Fix & Log Cleanup", "v1.2.20 - 非同期クラッシュ修正 & ログ整理"), sectionStyle);
+            GUILayout.Space(5);
+
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+
+            GUILayout.Label(L("<b>★ Fix: Async Thread Crash on Disconnect (ESC-0025)</b>", "<b>★ 修正: 切断時の非同期スレッドクラッシュ (ESC-0025)</b>"), itemStyle);
+            GUILayout.Label(L("• OnConnectionLost no longer crashes when called from non-main threads", "• OnConnectionLost がメインスレッド外から呼ばれてもクラッシュしない"), itemStyle);
+            GUILayout.Label(L("• Introduced ThreadSafeTime() using Stopwatch for async-safe timing", "• Stopwatch ベースの ThreadSafeTime() を導入し非同期安全な時刻取得に"), itemStyle);
+            GUILayout.Label(L("• Tool execution self-recovers without Unity restart", "• Unity を再起動せずにツール実行が自己復旧"), itemStyle);
+
+            GUILayout.Space(5);
+            GUILayout.Label(L("<b>★ Change: Verbose Log Toggle</b>", "<b>★ 変更: 詳細ログのトグル</b>"), itemStyle);
+            GUILayout.Label(L("• Setup Window > HTTP Server > 'Verbose Logs' toggle", "• Setup Window > HTTP Server > 'Verbose Logs' で切り替え"), itemStyle);
+            GUILayout.Label(L("• Errors are always logged regardless of toggle", "• Error は常に表示される"), itemStyle);
+
+            GUILayout.Space(5);
+            GUILayout.Label(L("<b>★ Change: Smaller Setup Window Min Size</b>", "<b>★ 変更: Setup Window の最小サイズ縮小</b>"), itemStyle);
+            GUILayout.Label(L("• 800x800 → 480x480, fits on small laptops and dockable", "• 800x800 → 480x480、小型ラップトップやドッキングに対応"), itemStyle);
+
+            GUILayout.Space(5);
+            GUILayout.Label(L("<b>★ Safeguard: Auto-Update Validation</b>", "<b>★ セーフガード: 自動アップデート検証</b>"), itemStyle);
+            GUILayout.Label(L("• File size and marker checks prevent partial-archive overwrites", "• ファイルサイズとマーカー検証で破損アーカイブによる上書きを防止"), itemStyle);
+
+            GUILayout.Space(5);
+            GUILayout.Label(L("<b>★ Fix: Main Window Repaint Recursion</b>", "<b>★ 修正: メインウィンドウ再描画の無限再帰</b>"), itemStyle);
+            GUILayout.Label(L("• ThrottledRepaint() no longer recurses into itself", "• ThrottledRepaint() が自分自身を呼び続ける問題を修正"), itemStyle);
+
+            EditorGUILayout.EndVertical();
+            GUILayout.Space(15);
+
             // v1.2.19
             GUILayout.Label(L("v1.2.19 - Windows Stability (Community Contribution)", "v1.2.19 - Windows安定性 (コミュニティ貢献)"), sectionStyle);
             GUILayout.Space(5);

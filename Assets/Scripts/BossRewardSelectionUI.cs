@@ -19,13 +19,24 @@ public class BossRewardSelectionUI : MonoBehaviour
     private TextMeshProUGUI titleText;
     private Transform optionParent;
     private readonly List<GameObject> optionObjects = new List<GameObject>();
+    private readonly List<EntitiesDatabaseSO.EntityData> currentOptions = new List<EntitiesDatabaseSO.EntityData>();
 
     // Unityが生成直後に呼ぶ初期化処理です。
     private void Awake()
     {
+        LocalizationManager.EnsureExists();
         Instance = this;
         EnsureUiParts();
         gameObject.SetActive(false);
+        LocalizationManager.OnLanguageChanged += RefreshLanguage;
+    }
+
+    private void OnDestroy()
+    {
+        if (Instance == this)
+            Instance = null;
+
+        LocalizationManager.OnLanguageChanged -= RefreshLanguage;
     }
 
     // UIが存在しなければCanvas上へ作り、報酬UIを返します。
@@ -74,12 +85,16 @@ public class BossRewardSelectionUI : MonoBehaviour
     {
         EnsureUiParts();
         ClearOptions();
+        currentOptions.Clear();
         onSelected = selectedCallback;
 
         if (options != null)
         {
             for (int i = 0; i < options.Count; i++)
+            {
+                currentOptions.Add(options[i]);
                 CreateOption(options[i]);
+            }
         }
 
         gameObject.SetActive(true);
@@ -166,8 +181,11 @@ public class BossRewardSelectionUI : MonoBehaviour
         nameRect.offsetMax = Vector2.zero;
 
         TextMeshProUGUI nameText = nameObject.GetComponent<TextMeshProUGUI>();
-        nameText.text = $"{entityData.name}\nUNLOCK SHOP";
+        nameText.text = LocalizationManager.IsJapanese
+            ? $"{LocalizationManager.UnitName(entityData.name)}\nショップに解放"
+            : $"{entityData.name}\nUNLOCK SHOP";
         nameText.alignment = TextAlignmentOptions.Center;
+        LocalizationManager.ApplyFont(nameText);
         nameText.enableAutoSizing = true;
         nameText.fontSizeMin = 16f;
         nameText.fontSizeMax = 28f;
@@ -209,8 +227,9 @@ public class BossRewardSelectionUI : MonoBehaviour
         titleRect.sizeDelta = new Vector2(0f, 62f);
 
         titleText = titleObject.GetComponent<TextMeshProUGUI>();
-        titleText.text = "CHOOSE A BOSS";
+        titleText.text = LocalizationManager.IsJapanese ? "仲間にするボスを選択" : "CHOOSE A BOSS";
         titleText.alignment = TextAlignmentOptions.Center;
+        LocalizationManager.ApplyFont(titleText);
         titleText.fontSize = 36f;
         titleText.fontStyle = FontStyles.Bold;
         titleText.color = new Color(1f, 0.86f, 0.35f, 1f);
@@ -236,5 +255,22 @@ public class BossRewardSelectionUI : MonoBehaviour
         layoutGroup.childForceExpandHeight = false;
 
         optionParent = optionsObject.transform;
+    }
+
+    // 言語切替時に、表示中の報酬候補を現在言語へ書き直します。
+    private void RefreshLanguage()
+    {
+        if (titleText != null)
+        {
+            LocalizationManager.ApplyFont(titleText);
+            titleText.text = LocalizationManager.IsJapanese ? "仲間にするボスを選択" : "CHOOSE A BOSS";
+        }
+
+        if (!gameObject.activeSelf || currentOptions.Count == 0)
+            return;
+
+        ClearOptions();
+        for (int i = 0; i < currentOptions.Count; i++)
+            CreateOption(currentOptions[i]);
     }
 }

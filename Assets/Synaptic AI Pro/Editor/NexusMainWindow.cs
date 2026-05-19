@@ -40,7 +40,7 @@ namespace SynapticPro
             double now = EditorApplication.timeSinceStartup;
             if (now - lastRepaintTime < RepaintThrottleSeconds) return;
             lastRepaintTime = now;
-            ThrottledRepaint();
+            Repaint();
         }
         
         // Tabs

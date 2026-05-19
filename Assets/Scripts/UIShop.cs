@@ -60,11 +60,13 @@ public class UIShop : MonoBehaviour
     private void Awake()
     {
         // ショップはシーンに1つだけある想定なので、Instanceに自分を登録します。
+        LocalizationManager.EnsureExists();
         Instance = this;
         rectTransform = GetComponent<RectTransform>();
 
         // Inspectorで参照が抜けていても動くよう、必要なUIを探して補完します。
         EnsureExpControls();
+        NormalizeShopTextLayout();
         EnsureSellPreviewText();
         CacheSellModeHiddenObjects();
     }
@@ -81,7 +83,10 @@ public class UIShop : MonoBehaviour
         // 所持ユニットやプレイヤー情報が変わった時に、表示を自動更新します。
         GameManager.Instance.OnRosterChanged += UpdateUpgradeHighlights;
         PlayerData.Instance.OnUpdate += Refresh;
+        LocalizationManager.OnLanguageChanged += OnLanguageChanged;
         Refresh();
+        LocalizationManager.ApplyStaticTextTranslations();
+        NormalizeShopTextLayout();
     }
 
     // ショップ破棄時にイベント購読を解除します。
@@ -96,6 +101,8 @@ public class UIShop : MonoBehaviour
 
         if (PlayerData.Instance != null)
             PlayerData.Instance.OnUpdate -= Refresh;
+
+        LocalizationManager.OnLanguageChanged -= OnLanguageChanged;
     }
 
     // ショップカードを全て引き直します。リロール時やゲーム開始時に使います。
@@ -258,26 +265,40 @@ public class UIShop : MonoBehaviour
     // 所持金、レベル、EXP、ボタン押下可否を現在のPlayerDataに合わせて更新します。
     void Refresh()
     {
+        LocalizationManager.ApplyFont(money);
+        LocalizationManager.ApplyFont(expText);
         money.text = PlayerData.Instance.Money.ToString();
 
         if (levelText != null)
         {
             levelText.enableWordWrapping = false;
             levelText.overflowMode = TextOverflowModes.Overflow;
-            levelText.text = $"Lv {PlayerData.Instance.Level}";
+            levelText.enableAutoSizing = true;
+            levelText.fontSizeMin = 25f;
+            levelText.fontSizeMax = 30f;
+            LocalizationManager.ApplyFont(levelText);
+            levelText.text = LocalizationManager.FormatLevel(PlayerData.Instance.Level);
         }
 
         if (expText != null)
         {
+            expText.enableWordWrapping = false;
+            expText.overflowMode = TextOverflowModes.Overflow;
+            expText.enableAutoSizing = true;
+            expText.fontSizeMin = 12f;
+            expText.fontSizeMax = 18f;
+
             // 最大レベルなら次の必要EXPを出さず、MAX表示にします。
             if (PlayerData.Instance.Level >= PlayerData.Instance.MaxLevel)
-                expText.text = "MAX";
+                expText.text = LocalizationManager.IsJapanese ? " 最大" : " MAX";
             else
-                expText.text = $"{PlayerData.Instance.Exp}/{PlayerData.Instance.NextLevelExp}";
+                expText.text = $" {PlayerData.Instance.Exp}/{PlayerData.Instance.NextLevelExp}";
         }
 
         if (expButton != null)
             expButton.interactable = PlayerData.Instance.CanBuyExp(expCost);
+
+        NormalizeShopTextLayout();
     }
 
     // 現在ショップに表示されているカードが、買うとスターアップできるかを調べて強調します。
@@ -324,7 +345,8 @@ public class UIShop : MonoBehaviour
         if (sellPreviewText != null)
         {
             sellPreviewText.gameObject.SetActive(true);
-            sellPreviewText.text = $"SELL +{GameManager.Instance.GetSellValue(entity)}";
+            LocalizationManager.ApplyFont(sellPreviewText);
+            sellPreviewText.text = LocalizationManager.FormatSellValue(GameManager.Instance.GetSellValue(entity));
         }
     }
 
@@ -393,8 +415,18 @@ public class UIShop : MonoBehaviour
         sellPreviewText.fontStyle = FontStyles.Bold;
         sellPreviewText.color = sellPreviewColor;
         sellPreviewText.raycastTarget = false;
-        sellPreviewText.text = "SELL +0";
+        LocalizationManager.ApplyFont(sellPreviewText);
+        sellPreviewText.text = LocalizationManager.FormatSellValue(0);
         sellPreviewText.gameObject.SetActive(false);
+    }
+
+    // 言語切替時に、ショップ内の動的テキストをすぐ更新します。
+    private void OnLanguageChanged()
+    {
+        Refresh();
+        UpdateUpgradeHighlights();
+        LocalizationManager.ApplyStaticTextTranslations();
+        NormalizeShopTextLayout();
     }
 
     // EXPボタンやレベル/EXP表示の参照を探し、ボタンイベントを登録します。
@@ -431,6 +463,118 @@ public class UIShop : MonoBehaviour
             if (levelText == null)
                 levelText = FindTextMeshProByNameOrText("PlayerLevel", "Lv", "LV", "Level");
         }
+    }
+
+    // ショップ左側のレベル/EXP/リロール周りは画像に対して文字枠がタイトなので、
+    // 実行時に折り返し禁止・自動縮小・位置補正をまとめてかけます。
+    private void NormalizeShopTextLayout()
+    {
+        ConfigureHeaderText(levelText, true);
+        ConfigureHeaderText(expText, false);
+        ConfigureShopButtonText(GameObject.Find("LevelUpButton"), true);
+        ConfigureShopButtonText(GameObject.Find("RerollButton"), false);
+    }
+
+    // 上段の「レベル」と「現在EXP」を、横一列で崩れない表示にします。
+    private void ConfigureHeaderText(TextMeshProUGUI text, bool isLevelText)
+    {
+        if (text == null)
+            return;
+
+        LocalizationManager.ApplyFont(text);
+        text.enableWordWrapping = false;
+        text.overflowMode = TextOverflowModes.Overflow;
+        text.enableAutoSizing = true;
+        text.fontSizeMin = isLevelText ? 10f : 11f;
+        text.fontSizeMax = 18f;
+        text.alignment = isLevelText ? TextAlignmentOptions.Left : TextAlignmentOptions.Left;
+
+        RectTransform rect = text.rectTransform;
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.zero;
+        rect.pivot = new Vector2(0.5f, 0.5f);
+
+        // 既存ShopBoardの左上メーター内で、レベル表記とEXP/最大表記が重ならない固定枠にします。
+        if (isLevelText)
+        {
+            rect.anchoredPosition = new Vector2(315f, 208.5f);
+            rect.sizeDelta = new Vector2(122f, 25f);
+        }
+        else
+        {
+            rect.anchoredPosition = new Vector2(426f, 208.5f);
+            rect.sizeDelta = new Vector2(78f, 25f);
+        }
+    }
+
+    // EXP購入/リロールボタン内の文字を、アイコンやコスト表示に被らない範囲へ収めます。
+    private void ConfigureShopButtonText(GameObject buttonObject, bool expButtonText)
+    {
+        if (buttonObject == null)
+            return;
+
+        TextMeshProUGUI[] texts = buttonObject.GetComponentsInChildren<TextMeshProUGUI>(true);
+        for (int i = 0; i < texts.Length; i++)
+        {
+            TextMeshProUGUI text = texts[i];
+            if (text == null)
+                continue;
+
+            LocalizationManager.ApplyFont(text);
+            text.enableWordWrapping = false;
+            text.overflowMode = TextOverflowModes.Overflow;
+            text.enableAutoSizing = true;
+            text.alignment = TextAlignmentOptions.Center;
+
+            string value = (text.text ?? string.Empty).Trim();
+            bool isCostText = int.TryParse(value, out _);
+            if (isCostText)
+            {
+                ConfigureButtonCostText(text);
+                continue;
+            }
+
+            ConfigureButtonLabelText(text, expButtonText);
+        }
+    }
+
+    // ボタン中央の主ラベルです。リロールは日本語時に必ず「リロール」と表示します。
+    private void ConfigureButtonLabelText(TextMeshProUGUI text, bool expButtonText)
+    {
+        if (text == null)
+            return;
+
+        text.text = expButtonText
+            ? "Exp+4"
+            : (LocalizationManager.IsJapanese ? "リロール" : "Reroll");
+        text.fontSizeMin = expButtonText ? 18f : 16f;
+        text.fontSizeMax = expButtonText ? 28f : 26f;
+
+        RectTransform rect = text.rectTransform;
+        rect.anchorMin = new Vector2(0f, 0f);
+        rect.anchorMax = new Vector2(1f, 1f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.offsetMin = new Vector2(36f, 6f);
+        rect.offsetMax = new Vector2(-105f, -5f);
+        rect.anchoredPosition = new Vector2(rect.anchoredPosition.x, 0f);
+    }
+
+    // ボタン右側のコスト数字です。コイン付近で縦に落ちないよう専用枠へ寄せます。
+    private void ConfigureButtonCostText(TextMeshProUGUI text)
+    {
+        if (text == null)
+            return;
+
+        text.fontSizeMin = 14f;
+        text.fontSizeMax = 22f;
+        text.alignment = TextAlignmentOptions.Center;
+
+        RectTransform rect = text.rectTransform;
+        rect.anchorMin = new Vector2(1f, 0.5f);
+        rect.anchorMax = new Vector2(1f, 0.5f);
+        rect.pivot = new Vector2(0.5f, 0.5f);
+        rect.sizeDelta = new Vector2(42f, 30f);
+        rect.anchoredPosition = new Vector2(-62f, 0f);
     }
 
     // Canvas内から、名前または現在の文字列が一致するTextMeshProUGUIを探します。
