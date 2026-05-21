@@ -34,8 +34,8 @@ public class GameManager : Manager<GameManager>
     public int itemBenchRows = 8;
     public float itemBenchColumnSpacing = 0.96f;
     public float itemBenchRowSpacing = 0.96f;
-    public float itemBenchGapFromUnitBench = 1.12f;
-    public float itemBenchLeftEdgeMargin = 1.35f;
+    public float itemBenchGapFromUnitBench = 1.45f;
+    public float itemBenchLeftEdgeMargin = 0.75f;
     public float itemBenchPickRadius = 0.68f;
     public Vector3 itemIconScale = new Vector3(1.25f, 1.25f, 1f);
     public bool spawnDebugItemsOnStart = true;
@@ -1202,23 +1202,19 @@ public class GameManager : Manager<GameManager>
     // アイテムベンチを画面/背景の左端寄りに置くためのX座標を決めます。
     private float GetItemBenchLeftEdgeX(Vector3 benchAnchor, float columnSpacing)
     {
-        float fallbackX = benchAnchor.x - Mathf.Max(itemBenchGapFromUnitBench, columnSpacing * Mathf.Max(1, itemBenchColumns));
+        int columnCount = Mathf.Max(1, itemBenchColumns);
+        float rightMostColumnX = benchAnchor.x - Mathf.Max(itemBenchGapFromUnitBench, columnSpacing);
+        float fallbackX = rightMostColumnX - (columnCount - 1) * columnSpacing;
         float leftEdgeX = fallbackX;
 
         EnsureCameraBoundsRenderer();
         if (cameraBoundsRenderer != null)
-            leftEdgeX = cameraBoundsRenderer.bounds.min.x + itemBenchLeftEdgeMargin;
+            leftEdgeX = Mathf.Max(leftEdgeX, cameraBoundsRenderer.bounds.min.x + itemBenchLeftEdgeMargin);
 
-        Camera targetCamera = GetBoardCamera();
-        if (targetCamera == null)
-            return leftEdgeX;
-
-        float distanceToBoard = Mathf.Abs(targetCamera.transform.position.z);
-        Vector3 cameraLeftEdge = targetCamera.ViewportToWorldPoint(new Vector3(0f, 0.5f, distanceToBoard));
-
-        // 背景の左端だけで決めると、カメラ表示外に半分はみ出すことがあるため、
-        // 現在の画面左端からも十分な余白を取ります。
-        return Mathf.Max(leftEdgeX, cameraLeftEdge.x + itemBenchLeftEdgeMargin);
+        // アイテムベンチは盤面上に置かれたワールドオブジェクトなので、
+        // 現在のカメラ表示範囲で位置を変えると、ズーム/パン後に触れた瞬間マスが動いてしまいます。
+        // 背景左端は「これ以上左へ行かない」ための下限としてだけ使い、ユニットベンチに被らない位置へ固定します。
+        return leftEdgeX;
     }
 
     // アイテムベンチが満杯の時に、一時的に置く座標です。
@@ -1232,8 +1228,8 @@ public class GameManager : Manager<GameManager>
     {
         itemBenchColumnSpacing = Mathf.Max(itemBenchColumnSpacing, 0.96f);
         itemBenchRowSpacing = Mathf.Max(itemBenchRowSpacing, 0.96f);
-        itemBenchGapFromUnitBench = Mathf.Max(itemBenchGapFromUnitBench, 1.12f);
-        itemBenchLeftEdgeMargin = Mathf.Max(itemBenchLeftEdgeMargin, 1.35f);
+        itemBenchGapFromUnitBench = Mathf.Max(itemBenchGapFromUnitBench, 1.45f);
+        itemBenchLeftEdgeMargin = Mathf.Clamp(itemBenchLeftEdgeMargin, 0.55f, 0.75f);
         itemBenchPickRadius = Mathf.Max(itemBenchPickRadius, 0.68f);
 
         if (itemIconScale.x < 1f || itemIconScale.y < 1f)

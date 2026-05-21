@@ -294,10 +294,10 @@ async function setupMCPServer() {
         description: 'Update properties of an existing GameObject',
         inputSchema: z.object({
             name: z.string().describe('Name of the GameObject'),
-            newName: z.string().optional(),
-            active: z.boolean().optional(),
-            tag: z.string().optional(),
-            layer: z.number().optional()
+            newName: z.string().describe('New name to rename the GameObject to').optional(),
+            active: z.boolean().describe('Whether the GameObject is active in the scene').optional(),
+            tag: z.string().describe('Tag name to assign (e.g., "Player", "Enemy", "Untagged")').optional(),
+            layer: z.number().describe('Layer index (0-31) to assign to the GameObject').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('update_gameobject', params);
@@ -442,9 +442,9 @@ async function setupMCPServer() {
         title: 'Create UI Element',
         description: 'Create UI elements in Unity',
         inputSchema: z.object({
-            type: z.enum(['Canvas', 'Button', 'Text', 'Image', 'Slider', 'Toggle', 'InputField', 'Panel']),
-            name: z.string(),
-            parent: z.string().optional(),
+            type: z.enum(['Canvas', 'Button', 'Text', 'Image', 'Slider', 'Toggle', 'InputField', 'Panel']).describe('Type of UI element to create'),
+            name: z.string().describe('Name for the new UI element'),
+            parent: z.string().describe('Parent GameObject name (typically a Canvas)').optional(),
             position: z.object({
                 x: z.number(),
                 y: z.number()
@@ -465,11 +465,11 @@ async function setupMCPServer() {
         title: 'Create Terrain',
         description: 'Create a terrain in Unity',
         inputSchema: z.object({
-            name: z.string(),
-            width: z.number().optional().default(500),
-            height: z.number().optional().default(600),
-            length: z.number().optional().default(500),
-            heightmapResolution: z.number().optional().default(513)
+            name: z.string().describe('Name for the new terrain GameObject'),
+            width: z.number().describe('Terrain width in world units (default 500)').default(500).optional(),
+            height: z.number().describe('Maximum terrain height in world units (default 600)').default(600).optional(),
+            length: z.number().describe('Terrain length in world units (default 500)').default(500).optional(),
+            heightmapResolution: z.number().describe('Heightmap resolution in pixels (default 513, must be 2^n + 1)').default(513).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_terrain', params);
@@ -485,15 +485,15 @@ async function setupMCPServer() {
         title: 'Modify Terrain',
         description: 'Modify terrain height or textures',
         inputSchema: z.object({
-            name: z.string(),
-            operation: z.enum(['raise', 'lower', 'flatten', 'smooth']),
+            name: z.string().describe('Name of the terrain GameObject to modify'),
+            operation: z.enum(['raise', 'lower', 'flatten', 'smooth']).describe('Modification operation: raise heights, lower heights, flatten to a level, or smooth roughness'),
             position: z.object({
                 x: z.number(),
                 y: z.number(),
                 z: z.number()
             }),
-            radius: z.number().optional().default(10),
-            strength: z.number().optional().default(0.5)
+            radius: z.number().describe('Brush radius in world units (default 10)').default(10).optional(),
+            strength: z.number().describe('Brush strength from 0 to 1 (default 0.5)').default(0.5).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('modify_terrain', params);
@@ -510,7 +510,7 @@ async function setupMCPServer() {
         title: 'Setup Camera',
         description: 'Setup camera in the scene',
         inputSchema: z.object({
-            name: z.string().optional().default('Main Camera'),
+            name: z.string().describe('Camera GameObject name (default "Main Camera")').default('Main Camera').optional(),
             position: z.object({
                 x: z.number(),
                 y: z.number(),
@@ -521,8 +521,8 @@ async function setupMCPServer() {
                 y: z.number(),
                 z: z.number()
             }).optional(),
-            fieldOfView: z.number().optional().default(60),
-            cameraType: z.enum(['Perspective', 'Orthographic']).optional().default('Perspective')
+            fieldOfView: z.number().describe('Vertical field of view in degrees (default 60)').default(60).optional(),
+            cameraType: z.enum(['Perspective', 'Orthographic']).describe('Projection mode: Perspective for 3D depth, Orthographic for 2D/isometric (default Perspective)').default('Perspective').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_camera', params);
@@ -982,21 +982,21 @@ async function setupMCPServer() {
         title: 'Setup Lighting',
         description: 'Setup lighting in the scene with extended options and presets',
         inputSchema: z.object({
-            preset: z.enum(['studio', 'sunset', 'night', 'overcast', 'desert', 'forest', 'underwater', 'space', 'neon']).optional(),
-            ambientMode: z.enum(['skybox', 'trilight', 'flat', 'custom']).optional(),
-            ambientIntensity: z.number().min(0).max(2).optional(),
-            ambientSkyColor: z.string().optional(),
-            ambientEquatorColor: z.string().optional(),
-            ambientGroundColor: z.string().optional(),
-            fogEnabled: z.boolean().optional(),
-            fogMode: z.enum(['linear', 'exponential', 'exponentialsquared']).optional(),
-            fogColor: z.string().optional(),
-            fogDensity: z.number().min(0).max(1).optional(),
-            fogStartDistance: z.number().min(0).max(1000).optional(),
-            fogEndDistance: z.number().min(0).max(1000).optional(),
-            directionalLightIntensity: z.number().min(0).max(8).optional(),
-            directionalLightColor: z.string().optional(),
-            directionalLightShadows: z.enum(['none', 'hard', 'soft']).optional()
+            preset: z.enum(['studio', 'sunset', 'night', 'overcast', 'desert', 'forest', 'underwater', 'space', 'neon']).describe('Predefined lighting preset that configures ambient, fog, and directional light to match a scene mood').optional(),
+            ambientMode: z.enum(['skybox', 'trilight', 'flat', 'custom']).describe('Ambient light source mode').optional(),
+            ambientIntensity: z.number().min(0).max(2).describe('Ambient light intensity (0-2)').optional(),
+            ambientSkyColor: z.string().describe('Ambient sky color as hex').optional(),
+            ambientEquatorColor: z.string().describe('Ambient equator color as hex').optional(),
+            ambientGroundColor: z.string().describe('Ambient ground color as hex (trilight)').optional(),
+            fogEnabled: z.boolean().describe('Enable scene fog rendering').optional(),
+            fogMode: z.enum(['linear', 'exponential', 'exponentialsquared']).describe('Fog falloff mode').optional(),
+            fogColor: z.string().describe('Fog color as hex').optional(),
+            fogDensity: z.number().min(0).max(1).describe('Fog density for exponential modes (0-1)').optional(),
+            fogStartDistance: z.number().min(0).max(1000).describe('Linear fog start distance').optional(),
+            fogEndDistance: z.number().min(0).max(1000).describe('Linear fog end distance').optional(),
+            directionalLightIntensity: z.number().min(0).max(8).describe('Sun/directional light intensity (0-8)').optional(),
+            directionalLightColor: z.string().describe('Directional light color as hex').optional(),
+            directionalLightShadows: z.enum(['none', 'hard', 'soft']).describe('Shadow type: none, hard, or soft').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_lighting', params);
@@ -1013,16 +1013,16 @@ async function setupMCPServer() {
         title: 'Create Material',
         description: 'Create a new material',
         inputSchema: z.object({
-            name: z.string(),
-            shader: z.string().optional().default('Standard'),
+            name: z.string().describe('Name for the new material asset'),
+            shader: z.string().describe('Shader name (default "Standard")').default('Standard').optional(),
             color: z.object({
                 r: z.number().min(0).max(1),
                 g: z.number().min(0).max(1),
                 b: z.number().min(0).max(1),
                 a: z.number().min(0).max(1).optional().default(1)
             }).optional(),
-            metallic: z.number().min(0).max(1).optional(),
-            smoothness: z.number().min(0).max(1).optional()
+            metallic: z.number().min(0).max(1).describe('Metallic value (0 dielectric to 1 metal)').optional(),
+            smoothness: z.number().min(0).max(1).describe('Surface smoothness (0 rough to 1 mirror)').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_material', params);
@@ -1073,7 +1073,7 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         inputSchema: z.object({
             name: z.string().describe('Script name without .cs extension'),
             path: z.string().optional().describe('Folder path (e.g., "Assets/Scripts/Player/"). Defaults to "Assets/Synaptic_Generated/"'),
-            template: z.enum(['MonoBehaviour', 'ScriptableObject', 'Empty']).optional().default('MonoBehaviour'),
+            template: z.enum(['MonoBehaviour', 'ScriptableObject', 'Empty']).describe('Script template: MonoBehaviour for components, ScriptableObject for assets, Empty for plain C# (default MonoBehaviour)').default('MonoBehaviour').optional(),
             content: z.string().optional().describe('Full script content. If not provided, generates template based on template type')
         })
     }, async (params) => {
@@ -1091,8 +1091,8 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Manage Scene',
         description: 'Scene management operations',
         inputSchema: z.object({
-            operation: z.enum(['save', 'load', 'new']),
-            path: z.string().optional()
+            operation: z.enum(['save', 'load', 'new']).describe('Scene operation: save current scene, load from path, or create new empty scene'),
+            path: z.string().describe('Scene file path (e.g., "Assets/Scenes/Main.unity"), required for save/load').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('MANAGE_SCENE', params);
@@ -1199,10 +1199,10 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Animation',
         description: 'Create animation for GameObject',
         inputSchema: z.object({
-            gameObject: z.string(),
-            animationName: z.string(),
-            duration: z.number().optional().default(1),
-            loop: z.boolean().optional().default(false)
+            gameObject: z.string().describe('Target GameObject name to attach the Animator/Animation to'),
+            animationName: z.string().describe('Name for the new animation clip'),
+            duration: z.number().describe('Animation duration in seconds (default 1)').default(1).optional(),
+            loop: z.boolean().describe('Whether the animation loops (default false)').default(false).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_animation', params);
@@ -1232,7 +1232,7 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
                 })
             ]).describe('Use gravity (bool), JSON string, or global gravity vector').optional(),
             collider: z.string().describe('Type of collider to add: box, sphere, capsule, mesh').optional(),
-            defaultMaterial: z.string().optional()
+            defaultMaterial: z.string().describe('Default physics material path (e.g., "Assets/Materials/Ice.physicMaterial")').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_physics', params);
@@ -1249,15 +1249,15 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Particle System',
         description: 'Create a particle system with extended presets and customization options',
         inputSchema: z.object({
-            name: z.string(),
-            preset: z.enum(['fire', 'smoke', 'sparkle', 'rain', 'explosion', 'snow', 'magic', 'lightning', 'tornado', 'galaxy']).optional(),
-            lifetime: z.number().min(0.1).max(10).optional(),
-            startSpeed: z.number().min(0).max(100).optional(),
-            startSize: z.number().min(0.01).max(10).optional(),
-            emission: z.number().min(1).max(1000).optional(),
-            gravity: z.number().min(-10).max(10).optional(),
-            shape: z.enum(['cone', 'sphere', 'box', 'circle', 'edge', 'mesh']).optional(),
-            usePhysics: z.boolean().optional()
+            name: z.string().describe('Name for the new particle system GameObject'),
+            preset: z.enum(['fire', 'smoke', 'sparkle', 'rain', 'explosion', 'snow', 'magic', 'lightning', 'tornado', 'galaxy']).describe('Predefined effect preset that auto-configures appearance and behavior').optional(),
+            lifetime: z.number().min(0.1).max(10).describe('Particle lifetime in seconds (0.1-10)').optional(),
+            startSpeed: z.number().min(0).max(100).describe('Initial particle speed (0-100)').optional(),
+            startSize: z.number().min(0.01).max(10).describe('Initial particle size (0.01-10)').optional(),
+            emission: z.number().min(1).max(1000).describe('Particles emitted per second (1-1000)').optional(),
+            gravity: z.number().min(-10).max(10).describe('Gravity modifier (-10 to 10, 0 = no gravity)').optional(),
+            shape: z.enum(['cone', 'sphere', 'box', 'circle', 'edge', 'mesh']).describe('Emitter shape that determines particle spawn pattern').optional(),
+            usePhysics: z.boolean().describe('Enable particle collision with scene physics').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_particle_system', params);
@@ -1274,17 +1274,17 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Setup Material',
         description: 'Create or modify materials with PBR properties and shaders',
         inputSchema: z.object({
-            targetObject: z.string(),
-            materialName: z.string().optional(),
-            shader: z.enum(['Standard', 'Unlit', 'Toon', 'Water', 'Glass', 'Hologram']).optional(),
-            color: z.string().optional(),
-            metallic: z.number().min(0).max(1).optional(),
-            smoothness: z.number().min(0).max(1).optional(),
-            emission: z.boolean().optional(),
-            emissionColor: z.string().optional(),
-            transparency: z.number().min(0).max(1).optional(),
-            normalMap: z.boolean().optional(),
-            texture: z.string().optional()
+            targetObject: z.string().describe('GameObject to apply the material to'),
+            materialName: z.string().describe('Name for the material asset').optional(),
+            shader: z.enum(['Standard', 'Unlit', 'Toon', 'Water', 'Glass', 'Hologram']).describe('Shader preset').optional(),
+            color: z.string().describe('Base color as hex').optional(),
+            metallic: z.number().min(0).max(1).describe('Metallic value (0 to 1)').optional(),
+            smoothness: z.number().min(0).max(1).describe('Smoothness (0 to 1)').optional(),
+            emission: z.boolean().describe('Enable emissive glow').optional(),
+            emissionColor: z.string().describe('Emission color as hex').optional(),
+            transparency: z.number().min(0).max(1).describe('Alpha (0 to 1)').optional(),
+            normalMap: z.boolean().describe('Enable normal map slot').optional(),
+            texture: z.string().describe('Albedo texture asset path').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_material', params);
@@ -1301,10 +1301,10 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Setup NavMesh',
         description: 'Setup navigation mesh',
         inputSchema: z.object({
-            agentRadius: z.number().optional().default(0.5),
-            agentHeight: z.number().optional().default(2.0),
-            maxSlope: z.number().optional().default(45),
-            stepHeight: z.number().optional().default(0.4)
+            agentRadius: z.number().describe('NavMesh agent radius in meters (default 0.5)').default(0.5).optional(),
+            agentHeight: z.number().describe('NavMesh agent height in meters (default 2.0)').default(2.0).optional(),
+            maxSlope: z.number().describe('Maximum walkable slope in degrees (default 45)').default(45).optional(),
+            stepHeight: z.number().describe('Maximum step height the agent can climb (default 0.4)').default(0.4).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_navmesh', params);
@@ -1321,8 +1321,8 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Audio Mixer',
         description: 'Create an audio mixer',
         inputSchema: z.object({
-            name: z.string(),
-            groups: z.array(z.string()).optional()
+            name: z.string().describe('Name for the new AudioMixer asset'),
+            groups: z.array(z.string()).describe('Mixer group names to create (e.g., ["Master", "Music", "SFX"])').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_audio_mixer', params);
@@ -1338,15 +1338,15 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Audio Source',
         description: 'Create and configure an AudioSource component on a GameObject',
         inputSchema: z.object({
-            gameObject: z.string(),
-            audioClip: z.string().optional(),
-            playOnAwake: z.boolean().optional().default(true),
-            loop: z.boolean().optional().default(false),
-            volume: z.number().min(0).max(1).optional().default(1),
-            pitch: z.number().min(-3).max(3).optional().default(1),
-            spatialMode: z.enum(['2D', '3D']).optional().default('3D'),
-            minDistance: z.number().optional().default(1),
-            maxDistance: z.number().optional().default(500)
+            gameObject: z.string().describe('GameObject to attach the AudioSource to'),
+            audioClip: z.string().describe('Audio clip asset path').optional(),
+            playOnAwake: z.boolean().describe('Play on scene start (default true)').default(true).optional(),
+            loop: z.boolean().describe('Loop the audio clip (default false)').default(false).optional(),
+            volume: z.number().min(0).max(1).describe('Volume level (0-1, default 1)').default(1).optional(),
+            pitch: z.number().min(-3).max(3).describe('Pitch multiplier (-3 to 3, default 1)').default(1).optional(),
+            spatialMode: z.enum(['2D', '3D']).describe('2D non-positional or 3D spatial (default 3D)').default('3D').optional(),
+            minDistance: z.number().describe('Distance below which audio is full volume (default 1)').default(1).optional(),
+            maxDistance: z.number().describe('Distance beyond which audio is silent (default 500)').default(500).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_audio_source', params);
@@ -1362,13 +1362,13 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Setup 3D Audio',
         description: 'Configure 3D spatial audio settings for an AudioSource',
         inputSchema: z.object({
-            audioSource: z.string(),
-            dopplerLevel: z.number().min(0).max(5).optional().default(1),
-            spread: z.number().min(0).max(360).optional().default(0),
-            volumeRolloff: z.enum(['Logarithmic', 'Linear', 'Custom']).optional().default('Logarithmic'),
-            minDistance: z.number().optional().default(1),
-            maxDistance: z.number().optional().default(500),
-            customCurve: z.boolean().optional().default(false)
+            audioSource: z.string().describe('GameObject with the AudioSource to configure'),
+            dopplerLevel: z.number().min(0).max(5).describe('Doppler effect strength (0-5)').default(1).optional(),
+            spread: z.number().min(0).max(360).describe('Stereo spread in degrees (0-360)').default(0).optional(),
+            volumeRolloff: z.enum(['Logarithmic', 'Linear', 'Custom']).describe('Distance attenuation curve').default('Logarithmic').optional(),
+            minDistance: z.number().describe('Full volume distance').default(1).optional(),
+            maxDistance: z.number().describe('Silence distance').default(500).optional(),
+            customCurve: z.boolean().describe('Use custom rolloff curve').default(false).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_3d_audio', params);
@@ -1384,13 +1384,13 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create/Import Audio Clip',
         description: 'Import audio file or create procedural audio clip',
         inputSchema: z.object({
-            name: z.string(),
-            path: z.string().optional(),
-            loadType: z.enum(['DecompressOnLoad', 'CompressedInMemory', 'Streaming']).optional().default('DecompressOnLoad'),
-            compressionFormat: z.enum(['PCM', 'Vorbis', 'ADPCM']).optional().default('Vorbis'),
-            quality: z.number().min(0).max(1).optional().default(0.7),
-            sampleRate: z.number().optional().default(44100),
-            forceToMono: z.boolean().optional().default(false)
+            name: z.string().describe('Name of the audio clip asset to create or import'),
+            path: z.string().describe('Optional source file path to import the audio from').optional(),
+            loadType: z.enum(['DecompressOnLoad', 'CompressedInMemory', 'Streaming']).describe('How the audio clip is loaded into memory at runtime').describe('How the audio clip is loaded into memory at runtime').optional().default('DecompressOnLoad'),
+            compressionFormat: z.enum(['PCM', 'Vorbis', 'ADPCM']).describe('Compression codec used for the imported audio data').describe('Compression codec used for the imported audio data').optional().default('Vorbis'),
+            quality: z.number().min(0).max(1).describe('Compression quality from 0 (lowest) to 1 (highest)').optional().default(0.7),
+            sampleRate: z.number().describe('Target sample rate in Hz for the audio clip').optional().default(44100),
+            forceToMono: z.boolean().describe('Whether to mix all channels down to a single mono channel').optional().default(false)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_audio_clip', params);
@@ -1406,7 +1406,7 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Setup Audio Effects',
         description: 'Add and configure audio effects (filters, reverb, echo, etc.)',
         inputSchema: z.object({
-            audioSource: z.string(),
+            audioSource: z.string().describe('Name or path of the target AudioSource GameObject to attach effects to'),
             effects: z.array(z.object({
                 type: z.enum(['LowPass', 'HighPass', 'Echo', 'Distortion', 'Reverb', 'Chorus']),
                 enabled: z.boolean().optional().default(true),
@@ -1427,11 +1427,11 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Reverb Zones',
         description: 'Create audio reverb zones for environmental effects',
         inputSchema: z.object({
-            name: z.string(),
-            position: z.object({ x: z.number(), y: z.number(), z: z.number() }),
-            minDistance: z.number().optional().default(10),
-            maxDistance: z.number().optional().default(30),
-            reverbPreset: z.enum(['Off', 'Generic', 'Room', 'Bathroom', 'Cave', 'Hallway', 'Arena', 'Forest', 'Mountains', 'Underwater']).optional().default('Room'),
+            name: z.string().describe('Name of the AudioReverbZone GameObject to create'),
+            position: z.object({ x: z.number(), y: z.number(), z: z.number() }).describe('World-space position of the reverb zone center').describe('World-space position of the reverb zone center'),
+            minDistance: z.number().describe('Inner radius in world units where full reverb is applied').optional().default(10),
+            maxDistance: z.number().describe('Outer radius in world units where reverb fades to zero').optional().default(30),
+            reverbPreset: z.enum(['Off', 'Generic', 'Room', 'Bathroom', 'Cave', 'Hallway', 'Arena', 'Forest', 'Mountains', 'Underwater']).describe('Unity AudioReverbPreset defining environmental reverb characteristics').optional().default('Room'),
             customParameters: z.object({
                 dryLevel: z.number().optional(),
                 room: z.number().optional(),
@@ -1455,11 +1455,11 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Setup Audio Occlusion',
         description: 'Configure audio occlusion for realistic sound blocking',
         inputSchema: z.object({
-            audioSource: z.string(),
-            enableOcclusion: z.boolean().optional().default(true),
-            occlusionLayers: z.array(z.string()).optional(),
-            maxOcclusionDistance: z.number().optional().default(50),
-            occlusionDamping: z.number().min(0).max(1).optional().default(0.5)
+            audioSource: z.string().describe('Name of the AudioSource GameObject to apply occlusion to'),
+            enableOcclusion: z.boolean().describe('Whether occlusion calculations are active at runtime').optional().default(true),
+            occlusionLayers: z.array(z.string()).describe('Physics layer names that block or attenuate sound').optional(),
+            maxOcclusionDistance: z.number().describe('Maximum raycast distance in world units used to detect occluders').optional().default(50),
+            occlusionDamping: z.number().min(0).max(1).describe('Volume attenuation factor applied per occluder from 0 to 1').optional().default(0.5)
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_audio_occlusion', params);
@@ -1475,7 +1475,7 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Adaptive Music System',
         description: 'Create intro+loop music system with dynamic transitions',
         inputSchema: z.object({
-            name: z.string(),
+            name: z.string().describe('Name of the adaptive music system GameObject to create'),
             segments: z.array(z.object({
                 name: z.string(),
                 audioClip: z.string(),
@@ -1491,8 +1491,8 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
                     duration: z.number().optional().default(1)
                 })).optional()
             })),
-            bpm: z.number().optional().default(120),
-            beatsPerBar: z.number().optional().default(4)
+            bpm: z.number().describe('Tempo of the music in beats per minute used for synced transitions').optional().default(120),
+            beatsPerBar: z.number().describe('Number of beats per musical bar for bar-aligned transitions').optional().default(4)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_adaptive_music', params);
@@ -1508,9 +1508,9 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Setup Audio Triggers',
         description: 'Configure event-based audio triggers',
         inputSchema: z.object({
-            triggerName: z.string(),
-            triggerType: z.enum(['OnEnter', 'OnExit', 'OnStay', 'OnCollision', 'OnAnimationEvent', 'OnCustomEvent']),
-            targetGameObject: z.string(),
+            triggerName: z.string().describe('Identifier for this audio trigger configuration'),
+            triggerType: z.enum(['OnEnter', 'OnExit', 'OnStay', 'OnCollision', 'OnAnimationEvent', 'OnCustomEvent']).describe('Type of Unity event that fires this trigger'),
+            targetGameObject: z.string().describe('GameObject in the scene that hosts the trigger collider or event'),
             audioActions: z.array(z.object({
                 action: z.enum(['Play', 'Stop', 'Pause', 'FadeIn', 'FadeOut', 'CrossFade']),
                 audioSource: z.string().optional(),
@@ -1533,13 +1533,13 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Sound Pools',
         description: 'Create sound variation pools for dynamic audio',
         inputSchema: z.object({
-            poolName: z.string(),
-            audioClips: z.array(z.string()),
-            playbackMode: z.enum(['Random', 'Sequential', 'RandomNoRepeat', 'Weighted']).optional().default('RandomNoRepeat'),
-            weights: z.array(z.number()).optional(),
-            pitchVariation: z.number().optional().default(0),
-            volumeVariation: z.number().optional().default(0),
-            cooldownTime: z.number().optional().default(0)
+            poolName: z.string().describe('Identifier for the sound pool asset'),
+            audioClips: z.array(z.string()).describe('List of AudioClip asset names or paths to include in the pool'),
+            playbackMode: z.enum(['Random', 'Sequential', 'RandomNoRepeat', 'Weighted']).describe('Selection strategy used when picking the next clip to play').optional().default('RandomNoRepeat'),
+            weights: z.array(z.number()).describe('Per-clip probability weights when playbackMode is Weighted').optional(),
+            pitchVariation: z.number().describe('Random pitch variation amount applied per playback').optional().default(0),
+            volumeVariation: z.number().describe('Random volume variation amount applied per playback').optional().default(0),
+            cooldownTime: z.number().describe('Minimum seconds between successive plays from this pool').optional().default(0)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_sound_pools', params);
@@ -1555,7 +1555,7 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Dynamic Audio Mixing',
         description: 'Setup real-time audio mixing and ducking systems',
         inputSchema: z.object({
-            mixerName: z.string(),
+            mixerName: z.string().describe('Name of the AudioMixer asset to create'),
             mixerGroups: z.array(z.object({
                 name: z.string(),
                 volume: z.number().optional().default(0),
@@ -1584,9 +1584,9 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Setup Spatial Audio',
         description: 'Configure advanced spatial audio for VR/AR',
         inputSchema: z.object({
-            audioSource: z.string(),
-            spatializerPlugin: z.enum(['Unity', 'Oculus', 'SteamAudio', 'Resonance']).optional().default('Unity'),
-            enableBinaural: z.boolean().optional().default(true),
+            audioSource: z.string().describe('Name of the AudioSource GameObject to spatialize'),
+            spatializerPlugin: z.enum(['Unity', 'Oculus', 'SteamAudio', 'Resonance']).describe('Spatializer plugin used to render 3D audio').optional().default('Unity'),
+            enableBinaural: z.boolean().describe('Whether to enable binaural HRTF rendering for headphones').optional().default(true),
             roomProperties: z.object({
                 size: z.object({ x: z.number(), y: z.number(), z: z.number() }).optional(),
                 materials: z.object({
@@ -1598,7 +1598,7 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
                     floor: z.string().optional()
                 }).optional()
             }).optional(),
-            enableHeadTracking: z.boolean().optional().default(true)
+            enableHeadTracking: z.boolean().describe('Whether to use head tracking data for VR/AR spatialization').optional().default(true)
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_spatial_audio', params);
@@ -1614,14 +1614,14 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Audio Visualization',
         description: 'Create visual effects that react to audio',
         inputSchema: z.object({
-            visualizerName: z.string(),
-            audioSource: z.string(),
-            visualizationType: z.enum(['Spectrum', 'Waveform', 'BeatDetection', 'VUMeter']),
-            targetObjects: z.array(z.string()).optional(),
-            frequencyBands: z.number().optional().default(64),
-            sensitivity: z.number().optional().default(100),
-            responseProperty: z.enum(['Scale', 'Position', 'Rotation', 'Color', 'Emission']).optional().default('Scale'),
-            smoothing: z.number().optional().default(0.5)
+            visualizerName: z.string().describe('Name of the audio visualizer GameObject to create'),
+            audioSource: z.string().describe('AudioSource GameObject whose output drives the visualization'),
+            visualizationType: z.enum(['Spectrum', 'Waveform', 'BeatDetection', 'VUMeter']).describe('Audio analysis method used to drive the visuals'),
+            targetObjects: z.array(z.string()).describe('GameObjects whose properties are animated by the audio').optional(),
+            frequencyBands: z.number().describe('Number of frequency bands sampled from the spectrum').optional().default(64),
+            sensitivity: z.number().describe('Multiplier applied to the analyzed audio amplitude').optional().default(100),
+            responseProperty: z.enum(['Scale', 'Position', 'Rotation', 'Color', 'Emission']).describe('Transform or material property animated in response to audio').optional().default('Scale'),
+            smoothing: z.number().describe('Temporal smoothing factor between 0 (none) and 1 (max)').optional().default(0.5)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_audio_visualization', params);
@@ -1638,16 +1638,16 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Setup Custom Input',
         description: 'Configure custom input actions and bindings',
         inputSchema: z.object({
-            actionName: z.string(),
-            bindingType: z.enum(['Button', 'Axis', 'Vector2', 'Vector3']).default('Button'),
+            actionName: z.string().describe('Name of the InputAction to register'),
+            bindingType: z.enum(['Button', 'Axis', 'Vector2', 'Vector3']).describe('Value type produced by the action').default('Button'),
             bindings: z.array(z.object({
                 path: z.string(),
                 modifiers: z.array(z.string()).optional(),
                 interactions: z.array(z.string()).optional(),
                 processors: z.array(z.string()).optional()
             })),
-            actionMap: z.string().optional().default('Player'),
-            initialValue: z.string().optional()
+            actionMap: z.string().describe('InputActionMap that owns this action').optional().default('Player'),
+            initialValue: z.string().describe('Optional initial value applied to the action on enable').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_custom_input', params);
@@ -1663,15 +1663,15 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Gesture Recognition',
         description: 'Setup gesture recognition for touch or motion input',
         inputSchema: z.object({
-            gestureName: z.string(),
-            gestureType: z.enum(['Swipe', 'Circle', 'Tap', 'DoubleTap', 'LongPress', 'Pinch', 'Rotate', 'Custom']),
+            gestureName: z.string().describe('Identifier for the gesture recognizer'),
+            gestureType: z.enum(['Swipe', 'Circle', 'Tap', 'DoubleTap', 'LongPress', 'Pinch', 'Rotate', 'Custom']).describe('Predefined gesture template to recognize'),
             recognitionParameters: z.object({
                 minDistance: z.number().optional().default(50),
                 maxTime: z.number().optional().default(1),
                 tolerance: z.number().optional().default(0.2),
                 requiresDirection: z.boolean().optional().default(true)
             }).optional(),
-            callbackEvent: z.string().optional()
+            callbackEvent: z.string().describe('Name of the UnityEvent to invoke when the gesture is detected').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_gesture_recognition', params);
@@ -1687,12 +1687,12 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Setup Haptic Feedback',
         description: 'Configure haptic/vibration feedback for mobile and controllers',
         inputSchema: z.object({
-            feedbackName: z.string(),
-            platform: z.enum(['Mobile', 'Controller', 'Both']).default('Both'),
-            feedbackType: z.enum(['Light', 'Medium', 'Heavy', 'Success', 'Warning', 'Error', 'Custom']),
-            duration: z.number().optional().default(0.1),
-            intensity: z.number().optional().default(1),
-            pattern: z.array(z.number()).optional()
+            feedbackName: z.string().describe('Identifier for this haptic feedback preset'),
+            platform: z.enum(['Mobile', 'Controller', 'Both']).describe('Target platform that receives the haptic signal').default('Both'),
+            feedbackType: z.enum(['Light', 'Medium', 'Heavy', 'Success', 'Warning', 'Error', 'Custom']).describe('Predefined haptic intensity profile'),
+            duration: z.number().describe('Duration of the haptic pulse in seconds').optional().default(0.1),
+            intensity: z.number().describe('Strength of the haptic pulse from 0 to 1').optional().default(1),
+            pattern: z.array(z.number()).describe('Custom pattern of on/off pulses in milliseconds').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_haptic_feedback', params);
@@ -1708,13 +1708,13 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Input Validation',
         description: 'Create input validation system for text fields and forms',
         inputSchema: z.object({
-            validatorName: z.string(),
-            validationType: z.enum(['Email', 'Phone', 'Number', 'AlphaNumeric', 'Custom', 'CreditCard', 'URL']),
-            customPattern: z.string().optional(),
-            minLength: z.number().optional(),
-            maxLength: z.number().optional(),
-            errorMessage: z.string().optional(),
-            realTimeValidation: z.boolean().optional().default(true)
+            validatorName: z.string().describe('Identifier for the input validator component'),
+            validationType: z.enum(['Email', 'Phone', 'Number', 'AlphaNumeric', 'Custom', 'CreditCard', 'URL']).describe('Built-in validation rule applied to the field'),
+            customPattern: z.string().describe('Custom regex pattern used when validationType is Custom').optional(),
+            minLength: z.number().describe('Minimum allowed input length in characters').optional(),
+            maxLength: z.number().describe('Maximum allowed input length in characters').optional(),
+            errorMessage: z.string().describe('Message shown to the user when validation fails').optional(),
+            realTimeValidation: z.boolean().describe('Whether to validate as the user types').optional().default(true)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_input_validation', params);
@@ -1730,14 +1730,14 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Setup Accessibility Input',
         description: 'Configure accessibility features for input (screen readers, large buttons, etc)',
         inputSchema: z.object({
-            accessibilityName: z.string(),
-            features: z.array(z.enum(['ScreenReader', 'LargeButtons', 'HighContrast', 'VoiceControl', 'StickyKeys', 'FilterKeys', 'MouseKeys'])),
+            accessibilityName: z.string().describe('Identifier for this accessibility configuration'),
+            features: z.array(z.enum(['ScreenReader', 'LargeButtons', 'HighContrast', 'VoiceControl', 'StickyKeys', 'FilterKeys', 'MouseKeys'])).describe('List of accessibility features to enable'),
             voiceCommands: z.array(z.object({
                 command: z.string(),
                 action: z.string()
             })).optional(),
-            buttonScaling: z.number().optional().default(1.5),
-            contrastLevel: z.enum(['Normal', 'High', 'VeryHigh']).optional().default('High')
+            buttonScaling: z.number().describe('Scale multiplier applied to interactive UI elements').optional().default(1.5),
+            contrastLevel: z.enum(['Normal', 'High', 'VeryHigh']).describe('High-contrast color profile to apply to UI').optional().default('High')
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_accessibility_input', params);
@@ -1753,12 +1753,12 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Input Recording',
         description: 'Setup input recording and playback system for testing or replay',
         inputSchema: z.object({
-            recorderName: z.string(),
-            recordingMode: z.enum(['All', 'Keyboard', 'Mouse', 'Touch', 'Controller', 'Custom']),
-            includeTimestamps: z.boolean().optional().default(true),
-            compression: z.boolean().optional().default(false),
-            maxRecordingTime: z.number().optional().default(300),
-            autoSave: z.boolean().optional().default(true)
+            recorderName: z.string().describe('Identifier for the input recorder asset'),
+            recordingMode: z.enum(['All', 'Keyboard', 'Mouse', 'Touch', 'Controller', 'Custom']).describe('Which input devices to capture'),
+            includeTimestamps: z.boolean().describe('Whether to record per-event timestamps').optional().default(true),
+            compression: z.boolean().describe('Whether to compress the recorded data').optional().default(false),
+            maxRecordingTime: z.number().describe('Maximum recording duration in seconds').optional().default(300),
+            autoSave: z.boolean().describe('Whether the recording is saved automatically when stopped').optional().default(true)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_input_recording', params);
@@ -1775,12 +1775,12 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Setup Multitouch',
         description: 'Configure multitouch input handling',
         inputSchema: z.object({
-            maxTouches: z.number().optional().default(10),
-            touchSensitivity: z.number().optional().default(1),
-            enableGestures: z.boolean().optional().default(true),
-            touchVisualization: z.boolean().optional().default(false),
-            preventAccidentalTouches: z.boolean().optional().default(true),
-            touchAreaPadding: z.number().optional().default(10)
+            maxTouches: z.number().describe('Maximum number of simultaneous touches to track').optional().default(10),
+            touchSensitivity: z.number().describe('Multiplier applied to raw touch delta values').optional().default(1),
+            enableGestures: z.boolean().describe('Whether built-in gesture recognition is enabled').optional().default(true),
+            touchVisualization: z.boolean().describe('Whether to draw on-screen touch indicators').optional().default(false),
+            preventAccidentalTouches: z.boolean().describe('Whether to filter out small or stray touches').optional().default(true),
+            touchAreaPadding: z.number().describe('Extra pixel padding added around interactive areas').optional().default(10)
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_multitouch', params);
@@ -1796,13 +1796,13 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Pinch Zoom',
         description: 'Setup pinch-to-zoom functionality',
         inputSchema: z.object({
-            targetObject: z.string(),
-            zoomType: z.enum(['Camera', 'Object', 'UI']).default('Camera'),
-            minZoom: z.number().optional().default(0.5),
-            maxZoom: z.number().optional().default(3),
-            zoomSpeed: z.number().optional().default(1),
-            smoothing: z.boolean().optional().default(true),
-            centerOnPinch: z.boolean().optional().default(true)
+            targetObject: z.string().describe('Name of the GameObject, camera, or UI element to zoom'),
+            zoomType: z.enum(['Camera', 'Object', 'UI']).describe('What is zoomed by the pinch gesture').default('Camera'),
+            minZoom: z.number().describe('Lower bound for the zoom factor').optional().default(0.5),
+            maxZoom: z.number().describe('Upper bound for the zoom factor').optional().default(3),
+            zoomSpeed: z.number().describe('Multiplier applied to pinch delta when changing zoom').optional().default(1),
+            smoothing: z.boolean().describe('Whether to interpolate zoom changes for smoother motion').optional().default(true),
+            centerOnPinch: z.boolean().describe('Whether to recenter the view on the pinch midpoint').optional().default(true)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_pinch_zoom', params);
@@ -1818,11 +1818,11 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Setup Swipe Detection',
         description: 'Configure swipe gesture detection',
         inputSchema: z.object({
-            swipeDirections: z.array(z.enum(['Up', 'Down', 'Left', 'Right', 'All'])).default(['All']),
-            minSwipeDistance: z.number().optional().default(50),
-            maxSwipeTime: z.number().optional().default(0.5),
-            detectDiagonals: z.boolean().optional().default(false),
-            continuousDetection: z.boolean().optional().default(false),
+            swipeDirections: z.array(z.enum(['Up', 'Down', 'Left', 'Right', 'All'])).describe('Allowed swipe directions to detect').default(['All']),
+            minSwipeDistance: z.number().describe('Minimum pixel distance required to register a swipe').optional().default(50),
+            maxSwipeTime: z.number().describe('Maximum seconds allowed between touch start and end').optional().default(0.5),
+            detectDiagonals: z.boolean().describe('Whether diagonal swipes are detected').optional().default(false),
+            continuousDetection: z.boolean().describe('Whether swipes can fire repeatedly during a drag').optional().default(false),
             swipeActions: z.array(z.object({
                 direction: z.string(),
                 action: z.string()
@@ -1842,14 +1842,14 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Drag & Drop',
         description: 'Setup drag and drop functionality',
         inputSchema: z.object({
-            draggableObject: z.string(),
-            dropZones: z.array(z.string()).optional(),
-            snapToGrid: z.boolean().optional().default(false),
-            gridSize: z.number().optional().default(1),
-            showGhost: z.boolean().optional().default(true),
-            returnOnInvalidDrop: z.boolean().optional().default(true),
-            dragThreshold: z.number().optional().default(5),
-            allowRotation: z.boolean().optional().default(false)
+            draggableObject: z.string().describe('Name of the GameObject that can be dragged'),
+            dropZones: z.array(z.string()).describe('Names of GameObjects that accept the dragged object').optional(),
+            snapToGrid: z.boolean().describe('Whether dropped objects snap to a grid').optional().default(false),
+            gridSize: z.number().describe('Grid cell size in world units when snapToGrid is true').optional().default(1),
+            showGhost: z.boolean().describe('Whether to show a ghost preview while dragging').optional().default(true),
+            returnOnInvalidDrop: z.boolean().describe('Whether the object returns to its origin on invalid drop').optional().default(true),
+            dragThreshold: z.number().describe('Pixel distance required before drag begins').optional().default(5),
+            allowRotation: z.boolean().describe('Whether the dragged object can be rotated').optional().default(false)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_drag_drop', params);
@@ -1865,13 +1865,13 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Setup Touch Effects',
         description: 'Configure visual effects for touch interactions',
         inputSchema: z.object({
-            effectType: z.enum(['Ripple', 'Glow', 'Particle', 'Custom']).default('Ripple'),
-            effectPrefab: z.string().optional(),
-            color: z.string().optional().default('#FFFFFF'),
-            size: z.number().optional().default(1),
-            duration: z.number().optional().default(0.5),
-            fadeOut: z.boolean().optional().default(true),
-            followFinger: z.boolean().optional().default(false)
+            effectType: z.enum(['Ripple', 'Glow', 'Particle', 'Custom']).describe('Visual style of the touch effect').default('Ripple'),
+            effectPrefab: z.string().describe('Optional prefab used when effectType is Custom').optional(),
+            color: z.string().describe('Hex color string applied to the effect').optional().default('#FFFFFF'),
+            size: z.number().describe('Scale multiplier applied to the effect').optional().default(1),
+            duration: z.number().describe('Effect lifetime in seconds').optional().default(0.5),
+            fadeOut: z.boolean().describe('Whether the effect fades out before disappearing').optional().default(true),
+            followFinger: z.boolean().describe('Whether the effect follows the finger while touching').optional().default(false)
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_touch_effects', params);
@@ -1888,8 +1888,8 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Particle Preset',
         description: 'Create advanced particle effects with presets',
         inputSchema: z.object({
-            effectName: z.string(),
-            preset: z.enum(['Fire', 'Smoke', 'Explosion', 'Rain', 'Snow', 'Sparkles', 'Magic', 'Lightning', 'Tornado', 'Galaxy', 'Custom']).default('Fire'),
+            effectName: z.string().describe('Name of the particle effect GameObject to create in the Unity scene'),
+            preset: z.enum(['Fire', 'Smoke', 'Explosion', 'Rain', 'Snow', 'Sparkles', 'Magic', 'Lightning', 'Tornado', 'Galaxy', 'Custom']).describe('Predefined Unity ParticleSystem preset configuring shape, emission, and color over lifetime').default('Fire'),
             customSettings: z.object({
                 lifetime: z.number().optional().default(5),
                 startSpeed: z.number().optional().default(5),
@@ -1898,8 +1898,8 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
                 gravity: z.number().optional().default(0),
                 shape: z.enum(['Sphere', 'Cone', 'Box', 'Circle', 'Edge', 'Mesh']).optional().default('Cone')
             }).optional(),
-            colors: z.array(z.string()).optional(),
-            usePhysics: z.boolean().optional().default(false)
+            colors: z.array(z.string()).describe('Array of hex color strings used for color over lifetime gradient').optional(),
+            usePhysics: z.boolean().describe('When true adds a ParticleSystem collision module for world physics interaction').optional().default(false)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_particle_preset', params);
@@ -1915,8 +1915,8 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Advanced Material',
         description: 'Create materials with advanced settings and textures',
         inputSchema: z.object({
-            materialName: z.string(),
-            shader: z.enum(['Standard', 'UniversalRP/Lit', 'HDRP/Lit', 'Unlit', 'Toon', 'Water', 'Glass', 'Hologram', 'Custom']).default('Standard'),
+            materialName: z.string().describe('Name of the Unity Material asset to create under Assets/Materials'),
+            shader: z.enum(['Standard', 'UniversalRP/Lit', 'HDRP/Lit', 'Unlit', 'Toon', 'Water', 'Glass', 'Hologram', 'Custom']).describe('Shader pipeline; Standard for Built-in, UniversalRP/Lit for URP, HDRP/Lit for HDRP').default('Standard'),
             properties: z.object({
                 color: z.string().optional().default('#FFFFFF'),
                 metallic: z.number().optional().default(0),
@@ -1949,17 +1949,17 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Setup Lighting Preset',
         description: 'Apply professional lighting presets to the scene',
         inputSchema: z.object({
-            preset: z.enum(['Studio', 'Sunset', 'Night', 'Overcast', 'Desert', 'Forest', 'Underwater', 'Space', 'Neon', 'Custom']).default('Studio'),
-            intensity: z.number().optional().default(1),
-            ambientMode: z.enum(['Skybox', 'Gradient', 'Color']).optional().default('Skybox'),
-            fog: z.boolean().optional().default(false),
+            preset: z.enum(['Studio', 'Sunset', 'Night', 'Overcast', 'Desert', 'Forest', 'Underwater', 'Space', 'Neon', 'Custom']).describe('Lighting environment preset that configures directional light, skybox, and ambient color').default('Studio'),
+            intensity: z.number().describe('Multiplier applied to directional light intensity (1 = preset default)').optional().default(1),
+            ambientMode: z.enum(['Skybox', 'Gradient', 'Color']).describe('RenderSettings.ambientMode source: Skybox samples skybox, Gradient blends sky/equator/ground, Color uses flat color').optional().default('Skybox'),
+            fog: z.boolean().describe('Enable RenderSettings.fog for distance-based atmospheric falloff').optional().default(false),
             fogSettings: z.object({
                 color: z.string().optional().default('#CCCCCC'),
                 density: z.number().optional().default(0.01),
                 start: z.number().optional().default(0),
                 end: z.number().optional().default(300)
             }).optional(),
-            shadows: z.enum(['None', 'Hard', 'Soft']).optional().default('Soft')
+            shadows: z.enum(['None', 'Hard', 'Soft']).describe('Shadow quality: None disables shadows, Hard for hard-edged, Soft for filtered PCF shadows').optional().default('Soft')
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_lighting_preset', params);
@@ -1975,12 +1975,12 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Visual Effect',
         description: 'Create complex visual effects combining particles, lights, and more',
         inputSchema: z.object({
-            effectName: z.string(),
-            effectType: z.enum(['Aura', 'Trail', 'Distortion', 'Glow', 'Shield', 'Portal', 'Dissolve', 'Hologram']).default('Aura'),
-            target: z.string().optional(),
-            duration: z.number().optional().default(0),
-            loop: z.boolean().optional().default(true),
-            intensity: z.number().optional().default(1)
+            effectName: z.string().describe('Name of the visual effect GameObject'),
+            effectType: z.enum(['Aura', 'Trail', 'Distortion', 'Glow', 'Shield', 'Portal', 'Dissolve', 'Hologram']).describe('Visual effect type').default('Aura'),
+            target: z.string().describe('Name of the GameObject to attach the effect to (parents the effect under it)').optional(),
+            duration: z.number().describe('Effect lifetime in seconds; 0 means infinite when loop is true').optional().default(0),
+            loop: z.boolean().describe('Loop the effect continuously while the GameObject is active').optional().default(true),
+            intensity: z.number().describe('Overall intensity multiplier applied to emission rate, light, and alpha').optional().default(1)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_visual_effect', params);
@@ -1996,12 +1996,12 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Setup Reflection Probe',
         description: 'Setup reflection probes for realistic reflections',
         inputSchema: z.object({
-            probeName: z.string().optional().default('ReflectionProbe'),
-            position: z.object({ x: z.number(), y: z.number(), z: z.number() }).optional(),
-            size: z.object({ x: z.number(), y: z.number(), z: z.number() }).optional().default({ x: 10, y: 10, z: 10 }),
-            resolution: z.enum(['16', '32', '64', '128', '256', '512', '1024', '2048']).optional().default('128'),
-            updateMode: z.enum(['OnAwake', 'EveryFrame', 'ViaScripting']).optional().default('OnAwake'),
-            importance: z.number().optional().default(1)
+            probeName: z.string().describe('Name of the ReflectionProbe GameObject to create in the scene').optional().default('ReflectionProbe'),
+            position: z.object({ x: z.number(), y: z.number(), z: z.number() }).describe('World-space position of the probe origin in Unity units').optional(),
+            size: z.object({ x: z.number(), y: z.number(), z: z.number() }).describe('Bounding box size in Unity units of the volume the probe influences').optional().default({ x: 10, y: 10, z: 10 }),
+            resolution: z.enum(['16', '32', '64', '128', '256', '512', '1024', '2048']).describe('Cubemap face resolution in pixels; higher values produce sharper reflections at memory cost').optional().default('128'),
+            updateMode: z.enum(['OnAwake', 'EveryFrame', 'ViaScripting']).describe('ReflectionProbe refreshMode: OnAwake bakes on enable, EveryFrame realtime, ViaScripting manual').optional().default('OnAwake'),
+            importance: z.number().describe('Probe importance used to resolve overlap order; higher values override lower ones').optional().default(1)
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_reflection_probe', params);
@@ -2017,10 +2017,10 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Light Probe Group',
         description: 'Create light probe groups for dynamic GI',
         inputSchema: z.object({
-            groupName: z.string().optional().default('LightProbeGroup'),
-            gridSize: z.object({ x: z.number(), y: z.number(), z: z.number() }).optional().default({ x: 5, y: 3, z: 5 }),
-            spacing: z.number().optional().default(2),
-            center: z.object({ x: z.number(), y: z.number(), z: z.number() }).optional()
+            groupName: z.string().describe('Name of the LightProbeGroup GameObject to create').optional().default('LightProbeGroup'),
+            gridSize: z.object({ x: z.number(), y: z.number(), z: z.number() }).describe('Number of probes along each axis forming the probe lattice').optional().default({ x: 5, y: 3, z: 5 }),
+            spacing: z.number().describe('Distance in Unity units between adjacent probes on each axis').optional().default(2),
+            center: z.object({ x: z.number(), y: z.number(), z: z.number() }).describe('World-space center position of the probe grid').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_light_probe_group', params);
@@ -2036,15 +2036,15 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Setup Volumetric Fog',
         description: 'Create atmospheric volumetric fog effects',
         inputSchema: z.object({
-            fogName: z.string().optional().default('VolumetricFog'),
-            density: z.number().optional().default(0.05),
-            color: z.string().optional().default('#FFFFFF'),
-            anisotropy: z.number().optional().default(0.5),
-            lightPenetration: z.number().optional().default(0.5),
-            noiseScale: z.number().optional().default(1),
-            noiseIntensity: z.number().optional().default(0.5),
-            windSpeed: z.number().optional().default(1),
-            height: z.number().optional().default(100)
+            fogName: z.string().describe('Name of the volumetric fog GameObject (LocalVolumetricFog in HDRP) to create').optional().default('VolumetricFog'),
+            density: z.number().describe('Fog density per Unity unit; higher values produce thicker fog').optional().default(0.05),
+            color: z.string().describe('Fog tint as hex color (e.g., #FFFFFF for neutral white)').optional().default('#FFFFFF'),
+            anisotropy: z.number().describe('Henyey-Greenstein scattering anisotropy in -1..1; positive forward-scatters light').optional().default(0.5),
+            lightPenetration: z.number().describe('How far light penetrates the fog volume in 0..1 range').optional().default(0.5),
+            noiseScale: z.number().describe('World-space scale of the 3D noise modulating fog density').optional().default(1),
+            noiseIntensity: z.number().describe('Strength of noise modulation applied to fog density (0..1)').optional().default(0.5),
+            windSpeed: z.number().describe('Animation speed of the noise field simulating wind drift').optional().default(1),
+            height: z.number().describe('Vertical extent in Unity units of the fog volume from the ground').optional().default(100)
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_volumetric_fog', params);
@@ -2060,12 +2060,12 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Decal',
         description: 'Create decal projections for details like dirt, damage, etc',
         inputSchema: z.object({
-            decalName: z.string(),
-            texture: z.string().optional(),
-            size: z.object({ x: z.number(), y: z.number(), z: z.number() }).optional().default({ x: 1, y: 1, z: 1 }),
-            opacity: z.number().optional().default(1),
-            normalBlend: z.number().optional().default(1),
-            maskClipping: z.boolean().optional().default(true)
+            decalName: z.string().describe('Name of the DecalProjector GameObject to create in the scene'),
+            texture: z.string().describe('Asset path of the base color texture used by the decal').optional(),
+            size: z.object({ x: z.number(), y: z.number(), z: z.number() }).describe('Projection box size in Unity units (x,y are footprint, z is depth)').optional().default({ x: 1, y: 1, z: 1 }),
+            opacity: z.number().describe('Decal blend opacity from 0 (invisible) to 1 (fully opaque)').optional().default(1),
+            normalBlend: z.number().describe('Strength of normal map blending against underlying surfaces (0..1)').optional().default(1),
+            maskClipping: z.boolean().describe('When true clips the decal against surfaces facing away beyond a normal threshold').optional().default(true)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_decal', params);
@@ -2081,12 +2081,12 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Setup Color Grading',
         description: 'Apply color grading for cinematic look',
         inputSchema: z.object({
-            preset: z.enum(['Cinematic', 'Vintage', 'BlackWhite', 'Sepia', 'Cold', 'Warm', 'Horror', 'Cyberpunk']).default('Cinematic'),
-            temperature: z.number().optional().default(0),
-            tint: z.number().optional().default(0),
-            contrast: z.number().optional().default(0),
-            brightness: z.number().optional().default(0),
-            saturation: z.number().optional().default(0),
+            preset: z.enum(['Cinematic', 'Vintage', 'BlackWhite', 'Sepia', 'Cold', 'Warm', 'Horror', 'Cyberpunk']).describe('Color grading preset applied via PostProcess ColorAdjustments and Tonemapping').default('Cinematic'),
+            temperature: z.number().describe('White balance temperature offset in -100..100; positive warms, negative cools').optional().default(0),
+            tint: z.number().describe('White balance tint offset in -100..100; positive magenta, negative green').optional().default(0),
+            contrast: z.number().describe('Contrast adjustment in -100..100 applied to the final image').optional().default(0),
+            brightness: z.number().describe('Post-exposure brightness offset in stops (EV)').optional().default(0),
+            saturation: z.number().describe('Color saturation adjustment in -100..100; -100 desaturates fully').optional().default(0),
             gamma: z.object({
                 r: z.number().optional().default(1),
                 g: z.number().optional().default(1),
@@ -2107,10 +2107,10 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Lens Flare',
         description: 'Create realistic lens flare effects',
         inputSchema: z.object({
-            flareName: z.string(),
-            intensity: z.number().optional().default(1),
-            fadeSpeed: z.number().optional().default(3),
-            color: z.string().optional().default('#FFFFFF'),
+            flareName: z.string().describe('Name of the LensFlare GameObject to create in the scene'),
+            intensity: z.number().describe('Brightness multiplier for the lens flare elements').optional().default(1),
+            fadeSpeed: z.number().describe('Speed in seconds at which the flare fades when occluded by geometry').optional().default(3),
+            color: z.string().describe('Hex color tint applied to all flare elements (e.g., #FFFFFF)').optional().default('#FFFFFF'),
             elements: z.array(z.object({
                 size: z.number(),
                 position: z.number(),
@@ -2132,11 +2132,11 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Screen Shake',
         description: 'Apply screen shake effect for dramatic impact',
         inputSchema: z.object({
-            duration: z.number().optional().default(0.5),
-            intensity: z.number().optional().default(1),
-            frequency: z.number().optional().default(10),
-            damping: z.number().optional().default(1),
-            camera: z.string().optional().default('Main Camera')
+            duration: z.number().describe('Total shake duration in seconds before the camera returns to rest').optional().default(0.5),
+            intensity: z.number().describe('Peak displacement amplitude in Unity units applied to the camera').optional().default(1),
+            frequency: z.number().describe('Oscillation frequency in Hz controlling how rapidly the camera vibrates').optional().default(10),
+            damping: z.number().describe('Decay factor reducing intensity over duration; 1 = linear falloff to zero').optional().default(1),
+            camera: z.string().describe('Name of the Camera GameObject to apply the shake effect to').optional().default('Main Camera')
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_screen_shake', params);
@@ -2152,11 +2152,11 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Screen Fade',
         description: 'Create fade in/out transitions',
         inputSchema: z.object({
-            fadeType: z.enum(['FadeIn', 'FadeOut']).default('FadeIn'),
-            duration: z.number().optional().default(1),
-            color: z.string().optional().default('#000000'),
-            delay: z.number().optional().default(0),
-            curve: z.enum(['Linear', 'EaseIn', 'EaseOut', 'EaseInOut']).optional().default('Linear')
+            fadeType: z.enum(['FadeIn', 'FadeOut']).describe('FadeIn reveals the scene from the color, FadeOut covers the scene to the color').default('FadeIn'),
+            duration: z.number().describe('Fade animation duration in seconds').optional().default(1),
+            color: z.string().describe('Hex color of the fullscreen overlay used for the fade (e.g., #000000)').optional().default('#000000'),
+            delay: z.number().describe('Delay in seconds before the fade animation starts').optional().default(0),
+            curve: z.enum(['Linear', 'EaseIn', 'EaseOut', 'EaseInOut']).describe('Animation easing curve applied to the alpha interpolation').optional().default('Linear')
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_screen_fade', params);
@@ -2172,10 +2172,10 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Vignette Effect',
         description: 'Add cinematic vignette framing to scene',
         inputSchema: z.object({
-            intensity: z.number().optional().default(0.5),
-            smoothness: z.number().optional().default(0.5),
-            color: z.string().optional().default('#000000'),
-            rounded: z.boolean().optional().default(true)
+            intensity: z.number().describe('Vignette darkening strength from 0 (off) to 1 (fully dark edges)').optional().default(0.5),
+            smoothness: z.number().describe('Edge smoothness of the vignette falloff in 0..1; higher is softer').optional().default(0.5),
+            color: z.string().describe('Hex color of the vignette overlay (typically #000000 for darkening)').optional().default('#000000'),
+            rounded: z.boolean().describe('When true forces a circular vignette regardless of aspect ratio').optional().default(true)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_vignette_effect', params);
@@ -2191,8 +2191,8 @@ If path is not specified, defaults to 'Assets/Synaptic_Generated/'`,
         title: 'Create Chromatic Aberration',
         description: 'Add lens distortion and color separation effect',
         inputSchema: z.object({
-            intensity: z.number().optional().default(0.1),
-            camera: z.string().optional().default('Main Camera')
+            intensity: z.number().describe('Chromatic aberration strength in 0..1 controlling RGB channel separation').optional().default(0.1),
+            camera: z.string().describe('Name of the Camera GameObject the post-process volume targets').optional().default('Main Camera')
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_chromatic_aberration', params);
@@ -2477,14 +2477,14 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Create Shader Property Animator',
         description: 'Animate shader properties like color, float, or vector values',
         inputSchema: z.object({
-            targetObject: z.string(),
-            propertyName: z.string().default('_Color'),
-            propertyType: z.enum(['Color', 'Float', 'Vector']).default('Color'),
-            startValue: z.string(),
-            endValue: z.string(),
-            duration: z.number().optional().default(1),
-            loop: z.boolean().optional().default(false),
-            curve: z.enum(['Linear', 'EaseIn', 'EaseOut', 'EaseInOut', 'Bounce']).optional().default('Linear')
+            targetObject: z.string().describe('Name of the GameObject whose Renderer material property will be animated'),
+            propertyName: z.string().describe('Shader property name to animate (e.g., _Color, _EmissionColor, _MainTex_ST)').default('_Color'),
+            propertyType: z.enum(['Color', 'Float', 'Vector']).describe('Shader property data type: Color for RGBA, Float for scalar, Vector for Vector4').default('Color'),
+            startValue: z.string().describe('Starting value as string (e.g., "1,0,0,1" for red color or "0" for float)'),
+            endValue: z.string().describe('Ending value as string in the same format as startValue'),
+            duration: z.number().describe('Animation duration in seconds for one start-to-end cycle').optional().default(1),
+            loop: z.boolean().describe('When true the animation loops continuously between start and end values').optional().default(false),
+            curve: z.enum(['Linear', 'EaseIn', 'EaseOut', 'EaseInOut', 'Bounce']).describe('Easing applied to the interpolation between start and end').optional().default('Linear')
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_shader_property_animator', params);
@@ -2500,10 +2500,10 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Create Material Property Block',
         description: 'Modify material properties without creating material instances',
         inputSchema: z.object({
-            targetObject: z.string(),
-            blockName: z.string().optional().default('CustomPropertyBlock'),
-            preserveSharedMaterial: z.boolean().optional().default(true),
-            properties: z.record(z.any()).optional()
+            targetObject: z.string().describe('Name of the GameObject whose Renderer receives the MaterialPropertyBlock'),
+            blockName: z.string().describe('Identifier used internally to track the MaterialPropertyBlock instance').optional().default('CustomPropertyBlock'),
+            preserveSharedMaterial: z.boolean().describe('When true keeps sharedMaterial intact and applies overrides per-renderer only').optional().default(true),
+            properties: z.record(z.any()).describe('Dictionary mapping shader property names to override values (color, float, texture, vector)').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_material_property_block', params);
@@ -2519,14 +2519,14 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Animate Shader Texture',
         description: 'Create scrolling, flipbook, or rotating texture animations',
         inputSchema: z.object({
-            targetObject: z.string(),
-            propertyName: z.string().optional().default('_MainTex'),
-            animationType: z.enum(['Scroll', 'Flipbook', 'Rotate']).default('Scroll'),
-            speed: z.string().optional().default('1,0'),
-            scale: z.string().optional().default('1,1'),
-            columns: z.number().optional().default(4),
-            rows: z.number().optional().default(4),
-            fps: z.number().optional().default(30)
+            targetObject: z.string().describe('Name or path of the target GameObject whose material will be animated'),
+            propertyName: z.string().describe('Shader texture property to animate (defaults to main texture _MainTex)').optional().default('_MainTex'),
+            animationType: z.enum(['Scroll', 'Flipbook', 'Rotate']).describe('Animation mode: Scroll offsets UV, Flipbook plays sprite sheet, Rotate spins UVs').default('Scroll'),
+            speed: z.string().describe('Scroll/rotation speed as comma-separated "x,y" UV units per second').optional().default('1,0'),
+            scale: z.string().describe('Texture tiling scale as comma-separated "x,y"').optional().default('1,1'),
+            columns: z.number().describe('Number of flipbook columns in the sprite sheet').optional().default(4),
+            rows: z.number().describe('Number of flipbook rows in the sprite sheet').optional().default(4),
+            fps: z.number().describe('Flipbook playback speed in frames per second').optional().default(30)
         })
     }, async (params) => {
         const result = await sendUnityCommand('animate_shader_texture', params);
@@ -2542,12 +2542,12 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Create Shader Gradient',
         description: 'Apply gradient effects to materials',
         inputSchema: z.object({
-            targetObject: z.string(),
-            gradientType: z.enum(['Linear', 'Radial']).default('Linear'),
-            startColor: z.string().optional().default('#FFFFFF'),
-            endColor: z.string().optional().default('#000000'),
-            direction: z.enum(['Horizontal', 'Vertical', 'Diagonal']).optional().default('Vertical'),
-            blendMode: z.enum(['Normal', 'Additive', 'Multiply']).optional().default('Normal')
+            targetObject: z.string().describe('Name or path of the GameObject to receive the gradient material'),
+            gradientType: z.enum(['Linear', 'Radial']).describe('Gradient shape: Linear interpolates along an axis, Radial radiates from center').default('Linear'),
+            startColor: z.string().describe('Starting color of the gradient as hex (e.g. #FFFFFF)').optional().default('#FFFFFF'),
+            endColor: z.string().describe('Ending color of the gradient as hex (e.g. #000000)').optional().default('#000000'),
+            direction: z.enum(['Horizontal', 'Vertical', 'Diagonal']).describe('Linear gradient axis direction in UV space').optional().default('Vertical'),
+            blendMode: z.enum(['Normal', 'Additive', 'Multiply']).describe('How the gradient blends with the base material color').optional().default('Normal')
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_shader_gradient', params);
@@ -2664,13 +2664,13 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Setup URP Settings',
         description: '🖼️ Configure Universal Render Pipeline settings with natural language - Optimize for any platform!',
         inputSchema: z.object({
-            platform: z.enum(['mobile', 'android', 'ios', 'console', 'playstation', 'xbox', 'pc', 'desktop']).optional().default('pc'),
-            quality: z.enum(['low', 'medium', 'high', 'ultra']).optional().default('medium'),
-            shadows: z.enum(['off', 'disabled', 'low', 'medium', 'high', 'ultra']).optional().default('medium'),
-            antialiasing: z.enum(['none', 'fxaa', 'taa', 'smaa']).optional().default('fxaa'),
+            platform: z.enum(['mobile', 'android', 'ios', 'console', 'playstation', 'xbox', 'pc', 'desktop']).describe('Target platform preset that biases URP settings for performance vs. fidelity').optional().default('pc'),
+            quality: z.enum(['low', 'medium', 'high', 'ultra']).describe('Overall URP quality tier controlling render features and resolutions').optional().default('medium'),
+            shadows: z.enum(['off', 'disabled', 'low', 'medium', 'high', 'ultra']).describe('Shadow quality level and atlas resolution').optional().default('medium'),
+            antialiasing: z.enum(['none', 'fxaa', 'taa', 'smaa']).describe('Post-process anti-aliasing technique applied to the camera').optional().default('fxaa'),
             renderscale: z.number().optional().default(1.0).describe('Render scale multiplier (0.5-2.0)'),
             hdr: z.boolean().optional().default(true).describe('Enable HDR rendering'),
-            msaa: z.enum(['off', '2x', '4x', '8x']).optional().default('4x')
+            msaa: z.enum(['off', '2x', '4x', '8x']).describe('Hardware MSAA sample count for forward rendering').optional().default('4x')
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_urp_settings', params);
@@ -2686,11 +2686,11 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Setup HDRP Settings',
         description: '🌟 Configure High Definition Render Pipeline settings - For photorealistic visuals!',
         inputSchema: z.object({
-            platform: z.enum(['pc', 'console', 'playstation', 'xbox']).optional().default('pc'),
-            quality: z.enum(['medium', 'high', 'ultra']).optional().default('high'),
+            platform: z.enum(['pc', 'console', 'playstation', 'xbox']).describe('Target platform preset that scales HDRP feature set').optional().default('pc'),
+            quality: z.enum(['medium', 'high', 'ultra']).describe('HDRP quality tier for shadows, reflections, and post effects').optional().default('high'),
             raytracing: z.boolean().optional().default(false).describe('Enable ray tracing features'),
             volumetrics: z.boolean().optional().default(true).describe('Enable volumetric lighting'),
-            reflections: z.enum(['screenspace', 'raytraced', 'hybrid']).optional().default('screenspace')
+            reflections: z.enum(['screenspace', 'raytraced', 'hybrid']).describe('Reflection technique: screen-space, ray-traced, or hybrid combination').optional().default('screenspace')
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_hdrp_settings', params);
@@ -2706,12 +2706,12 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Setup Post Processing',
         description: '🎨 Configure post-processing effects stack - Professional color grading and effects!',
         inputSchema: z.object({
-            profile: z.enum(['cinematic', 'realistic', 'stylized', 'mobile', 'custom']).optional().default('cinematic'),
-            bloom: z.boolean().optional().default(true),
-            colorgrading: z.boolean().optional().default(true),
-            vignette: z.boolean().optional().default(true),
-            filmgrain: z.boolean().optional().default(false),
-            motionblur: z.boolean().optional().default(false)
+            profile: z.enum(['cinematic', 'realistic', 'stylized', 'mobile', 'custom']).describe('Visual style preset that selects the base Volume Profile').optional().default('cinematic'),
+            bloom: z.boolean().describe('Enable Bloom effect for glowing bright highlights').optional().default(true),
+            colorgrading: z.boolean().describe('Enable Color Adjustments / Tonemapping for color grading').optional().default(true),
+            vignette: z.boolean().describe('Enable Vignette darkening at screen edges').optional().default(true),
+            filmgrain: z.boolean().describe('Enable Film Grain texture overlay for cinematic feel').optional().default(false),
+            motionblur: z.boolean().describe('Enable Motion Blur for camera and object movement').optional().default(false)
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_post_processing', params);
@@ -2763,9 +2763,9 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Create Shader Graph',
         description: '🎭 Create Shader Graph with natural language - Custom materials made easy!',
         inputSchema: z.object({
-            shaderType: z.enum(['surface', 'unlit', 'lit', 'water', 'glass', 'metal', 'fabric', 'custom']).optional().default('surface'),
-            pipeline: z.enum(['urp', 'hdrp', 'builtin']).optional().default('urp'),
-            features: z.array(z.enum(['normal_map', 'emission', 'transparency', 'metallic', 'roughness', 'subsurface'])).optional().default(['normal_map']),
+            shaderType: z.enum(['surface', 'unlit', 'lit', 'water', 'glass', 'metal', 'fabric', 'custom']).describe('Shader Graph master node preset that defines lighting model and base inputs').optional().default('surface'),
+            pipeline: z.enum(['urp', 'hdrp', 'builtin']).describe('Render pipeline target that determines generated subgraph compatibility').optional().default('urp'),
+            features: z.array(z.enum(['normal_map', 'emission', 'transparency', 'metallic', 'roughness', 'subsurface'])).describe('Additional shader features to wire into the graph (normal map, emission, etc.)').optional().default(['normal_map']),
             animated: z.boolean().optional().default(false).describe('Include time-based animation')
         })
     }, async (params) => {
@@ -3081,7 +3081,7 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Setup Lighting Scenarios',
         description: '💡 Create lighting scenarios for different moods - From dawn to midnight!',
         inputSchema: z.object({
-            scenario: z.enum(['dawn', 'morning', 'noon', 'afternoon', 'sunset', 'dusk', 'night', 'midnight', 'studio', 'dramatic']).optional().default('noon'),
+            scenario: z.enum(['dawn', 'morning', 'noon', 'afternoon', 'sunset', 'dusk', 'night', 'midnight', 'studio', 'dramatic']).describe('Time-of-day or studio lighting preset that drives directional light color, intensity, and ambient').optional().default('noon'),
             ambientIntensity: z.number().optional().default(1.0).describe('Ambient light intensity'),
             shadowStrength: z.number().optional().default(1.0).describe('Shadow strength (0-1)'),
             colorTemperature: z.number().optional().default(6500).describe('Light color temperature in Kelvin'),
@@ -3104,7 +3104,7 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Create Weather System',
         description: '🌦️ Create complete weather system with cinematic presets - One command for movie-quality weather!',
         inputSchema: z.object({
-            preset: z.enum(['sunny', 'rainy', 'snowy', 'stormy', 'foggy', 'custom']).optional().default('sunny'),
+            preset: z.enum(['sunny', 'rainy', 'snowy', 'stormy', 'foggy', 'custom']).describe('Cinematic weather preset that configures particles, lighting, fog, and skybox').optional().default('sunny'),
             intensity: z.number().optional().default(0.5).describe('Overall weather intensity (0-1)'),
             transitionTime: z.number().optional().default(5).describe('Time to transition between weather states')
         })
@@ -3122,7 +3122,7 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Set Weather Preset',
         description: 'Smoothly transition to a different weather preset',
         inputSchema: z.object({
-            preset: z.enum(['sunny', 'rainy', 'snowy', 'stormy', 'foggy']),
+            preset: z.enum(['sunny', 'rainy', 'snowy', 'stormy', 'foggy']).describe('Target weather preset to smoothly transition the existing weather system to'),
             transitionTime: z.number().optional().default(5).describe('Transition duration in seconds')
         })
     }, async (params) => {
@@ -3139,12 +3139,12 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Create Rain Effect',
         description: 'Create realistic rain effect with particle system',
         inputSchema: z.object({
-            intensity: z.number().optional().default(0.5),
-            dropSize: z.number().optional().default(0.02),
-            dropSpeed: z.number().optional().default(10),
-            windStrength: z.number().optional().default(0),
-            rainArea: z.string().optional().default('50,30,50'),
-            useSplash: z.boolean().optional().default(true)
+            intensity: z.number().describe('Overall rain density and emission rate (0-1)').optional().default(0.5),
+            dropSize: z.number().describe('Size of each rain drop particle in world units').optional().default(0.02),
+            dropSpeed: z.number().describe('Vertical fall speed of rain drops in units per second').optional().default(10),
+            windStrength: z.number().describe('Horizontal wind force applied to falling drops').optional().default(0),
+            rainArea: z.string().describe('Box volume size for rain emitter as comma-separated "x,y,z"').optional().default('50,30,50'),
+            useSplash: z.boolean().describe('Spawn splash particles where drops hit the ground').optional().default(true)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_rain_effect', params);
@@ -3160,12 +3160,12 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Create Snow Effect',
         description: 'Create snow effect with falling snowflakes',
         inputSchema: z.object({
-            intensity: z.number().optional().default(0.3),
-            flakeSize: z.string().optional().default('0.1,0.3'),
-            fallSpeed: z.number().optional().default(1),
-            turbulence: z.number().optional().default(0.5),
-            snowArea: z.string().optional().default('50,20,50'),
-            accumulation: z.boolean().optional().default(false)
+            intensity: z.number().describe('Overall snowfall density and emission rate (0-1)').optional().default(0.3),
+            flakeSize: z.string().describe('Min/max snowflake size as comma-separated "min,max" world units').optional().default('0.1,0.3'),
+            fallSpeed: z.number().describe('Vertical fall speed of snowflakes in units per second').optional().default(1),
+            turbulence: z.number().describe('Random horizontal sway applied to snowflakes (0-1)').optional().default(0.5),
+            snowArea: z.string().describe('Box volume size for snow emitter as comma-separated "x,y,z"').optional().default('50,20,50'),
+            accumulation: z.boolean().describe('Build up snow layer on ground meshes over time').optional().default(false)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_snow_effect', params);
@@ -3181,12 +3181,12 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Create Wind Effect',
         description: 'Create wind effect affecting objects and particles',
         inputSchema: z.object({
-            strength: z.number().optional().default(5),
-            direction: z.string().optional().default('1,0,0'),
-            turbulence: z.number().optional().default(0.5),
-            gustFrequency: z.number().optional().default(0.2),
-            affectTrees: z.boolean().optional().default(true),
-            affectParticles: z.boolean().optional().default(true)
+            strength: z.number().describe('Base wind force magnitude applied to affected objects').optional().default(5),
+            direction: z.string().describe('Wind direction as comma-separated normalized vector "x,y,z"').optional().default('1,0,0'),
+            turbulence: z.number().describe('Random variation added on top of the base wind direction (0-1)').optional().default(0.5),
+            gustFrequency: z.number().describe('How often gusts occur, in Hz (gusts per second)').optional().default(0.2),
+            affectTrees: z.boolean().describe('Apply wind to Unity Terrain trees via WindZone').optional().default(true),
+            affectParticles: z.boolean().describe('Apply wind force to particle systems in the scene').optional().default(true)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_wind_effect', params);
@@ -3202,13 +3202,13 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Create Lightning Effect',
         description: 'Create lightning strikes with flash effects',
         inputSchema: z.object({
-            frequency: z.number().optional().default(0.1),
-            intensity: z.number().optional().default(5),
-            duration: z.number().optional().default(0.2),
-            color: z.string().optional().default('#E0E0FF'),
-            minDelay: z.number().optional().default(2),
-            maxDelay: z.number().optional().default(10),
-            affectSkybox: z.boolean().optional().default(true)
+            frequency: z.number().describe('Lightning strike frequency in strikes per second').optional().default(0.1),
+            intensity: z.number().describe('Brightness multiplier of the lightning flash light').optional().default(5),
+            duration: z.number().describe('Duration of each lightning flash in seconds').optional().default(0.2),
+            color: z.string().describe('Hex color of the lightning flash (e.g., "#E0E0FF")').optional().default('#E0E0FF'),
+            minDelay: z.number().describe('Minimum delay between strikes in seconds').optional().default(2),
+            maxDelay: z.number().describe('Maximum delay between strikes in seconds').optional().default(10),
+            affectSkybox: z.boolean().describe('Whether the lightning flash also brightens the skybox').optional().default(true)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_lightning_effect', params);
@@ -3224,10 +3224,10 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Create Thunderstorm',
         description: 'Create complete thunderstorm with rain, wind, lightning and fog',
         inputSchema: z.object({
-            intensity: z.number().optional().default(0.8),
-            windStrength: z.number().optional().default(10),
-            lightningFrequency: z.number().optional().default(0.2),
-            fogDensity: z.number().optional().default(0.02),
+            intensity: z.number().describe('Overall thunderstorm intensity from 0 (light) to 1 (heavy)').optional().default(0.8),
+            windStrength: z.number().describe('Wind strength affecting rain direction and particle motion').optional().default(10),
+            lightningFrequency: z.number().describe('Lightning strikes per second during the storm').optional().default(0.2),
+            fogDensity: z.number().describe('Density of atmospheric fog applied to the scene').optional().default(0.02),
             duration: z.number().optional().default(0).describe('Duration in seconds (0 = continuous)')
         })
     }, async (params) => {
@@ -3246,12 +3246,12 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Create Time of Day System',
         description: 'Create dynamic day-night cycle with sun and moon movement',
         inputSchema: z.object({
-            startTime: z.number().optional().default(12),
+            startTime: z.number().describe('Initial time of day in hours (0-24)').optional().default(12),
             dayDuration: z.number().optional().default(60).describe('Duration of full day cycle in seconds'),
-            latitude: z.number().optional().default(35),
-            longitude: z.number().optional().default(0),
-            enableClouds: z.boolean().optional().default(true),
-            enableStars: z.boolean().optional().default(true)
+            latitude: z.number().describe('Latitude in degrees for sun positioning').optional().default(35),
+            longitude: z.number().describe('Longitude in degrees for sun positioning').optional().default(0),
+            enableClouds: z.boolean().describe('Enable procedural cloud rendering in the sky').optional().default(true),
+            enableStars: z.boolean().describe('Enable star rendering during night time').optional().default(true)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_time_of_day', params);
@@ -3268,8 +3268,8 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         description: 'Set specific time in the day-night cycle',
         inputSchema: z.object({
             time: z.number().min(0).max(24).describe('Target time (0-24 hours)'),
-            instant: z.boolean().optional().default(false),
-            transitionDuration: z.number().optional().default(5)
+            instant: z.boolean().describe('If true, jump to target time instantly without transition').optional().default(false),
+            transitionDuration: z.number().describe('Duration in seconds for the smooth time transition').optional().default(5)
         })
     }, async (params) => {
         const result = await sendUnityCommand('set_time_of_day', params);
@@ -3285,13 +3285,13 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Create Day Night Preset',
         description: 'Apply preset lighting conditions for different environments',
         inputSchema: z.object({
-            preset: z.enum(['Default', 'Tropical', 'Desert', 'Arctic', 'Urban']).optional().default('Default'),
-            sunriseTime: z.number().optional().default(6),
-            sunsetTime: z.number().optional().default(18),
-            sunriseColor: z.string().optional().default('#FF8C42'),
-            noonColor: z.string().optional().default('#FFFFFF'),
-            sunsetColor: z.string().optional().default('#FF6B35'),
-            nightColor: z.string().optional().default('#1E3A8A')
+            preset: z.enum(['Default', 'Tropical', 'Desert', 'Arctic', 'Urban']).describe('Environment preset that defines lighting and sky behavior').optional().default('Default'),
+            sunriseTime: z.number().describe('Sunrise time in hours (0-24)').optional().default(6),
+            sunsetTime: z.number().describe('Sunset time in hours (0-24)').optional().default(18),
+            sunriseColor: z.string().describe('Hex color of the directional light at sunrise').optional().default('#FF8C42'),
+            noonColor: z.string().describe('Hex color of the directional light at noon').optional().default('#FFFFFF'),
+            sunsetColor: z.string().describe('Hex color of the directional light at sunset').optional().default('#FF6B35'),
+            nightColor: z.string().describe('Hex color of ambient lighting during night time').optional().default('#1E3A8A')
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_day_night_preset', params);
@@ -3307,11 +3307,11 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Create Skybox Blend',
         description: 'Blend between day and night skyboxes',
         inputSchema: z.object({
-            daySkybox: z.string().optional().default('Default-Skybox'),
-            nightSkybox: z.string().optional().default(''),
-            blendCurve: z.enum(['Linear', 'Smooth', 'Sharp']).optional().default('Smooth'),
-            cloudSpeed: z.number().optional().default(0.1),
-            cloudOpacity: z.number().optional().default(0.5)
+            daySkybox: z.string().describe('Name of the daytime skybox material to use').optional().default('Default-Skybox'),
+            nightSkybox: z.string().describe('Name of the nighttime skybox material to use').optional().default(''),
+            blendCurve: z.enum(['Linear', 'Smooth', 'Sharp']).describe('Curve type for blending between day and night skyboxes').optional().default('Smooth'),
+            cloudSpeed: z.number().describe('Movement speed of clouds across the skybox').optional().default(0.1),
+            cloudOpacity: z.number().describe('Opacity of clouds in the skybox (0-1)').optional().default(0.5)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_skybox_blend', params);
@@ -3359,9 +3359,9 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Create Time Event',
         description: 'Create events triggered at specific times',
         inputSchema: z.object({
-            eventName: z.string(),
+            eventName: z.string().describe('Unique name identifier for the time event'),
             triggerTime: z.number().min(0).max(24).describe('Time to trigger event (0-24)'),
-            eventType: z.enum(['Once', 'Daily']).optional().default('Once'),
+            eventType: z.enum(['Once', 'Daily']).describe('Event trigger type: Once fires single time, Daily fires every day').optional().default('Once'),
             action: z.string().describe('Action to perform (activate, deactivate, toggle)'),
             targetObject: z.string().optional().describe('GameObject to affect')
         })
@@ -3380,9 +3380,9 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Search Objects',
         description: 'Search for objects in the scene',
         inputSchema: z.object({
-            searchType: z.enum(['name', 'tag', 'layer', 'component']),
-            query: z.string(),
-            includeInactive: z.boolean().optional().default(false)
+            searchType: z.enum(['name', 'tag', 'layer', 'component']).describe('Type of search criterion to match GameObjects against'),
+            query: z.string().describe('Search query string matched against the selected searchType'),
+            includeInactive: z.boolean().describe('Include inactive GameObjects in the search results').optional().default(false)
         })
     }, async (params) => {
         const result = await sendUnityCommand('UNITY_SEARCH', params);
@@ -3696,9 +3696,9 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Console Operations',
         description: 'Unity console log count and basic info retrieval',
         inputSchema: z.object({
-            operation: z.enum(['read', 'clear']).default('read'),
-            logType: z.enum(['all', 'info', 'warning', 'error']).optional().default('all'),
-            limit: z.number().optional().default(50)
+            operation: z.enum(['read', 'clear']).describe('Console operation to perform: read logs or clear them').default('read'),
+            logType: z.enum(['all', 'info', 'warning', 'error']).describe('Filter logs by type or return all').optional().default('all'),
+            limit: z.number().describe('Maximum number of log entries to return').optional().default(50)
         })
     }, async (params) => {
         const result = await sendUnityCommand('console_operation', params);
@@ -3714,10 +3714,10 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Analyze Console Logs',
         description: 'Detailed analysis of Unity console logs with file paths, line numbers and stack traces. CRITICAL: Always use this BEFORE unity_force_refresh_assets when you edit .cs files - check for syntax/compile errors with logType:"error". This prevents compilation failures and ensures clean workflows. Returns detailed error info including file paths and line numbers for easy fixing.',
         inputSchema: z.object({
-            logType: z.enum(['all', 'error', 'warning', 'log']).optional().default('error'),
-            limit: z.number().optional().default(10),
-            includeStackTrace: z.boolean().optional().default(true),
-            operation: z.enum(['analyze']).optional().default('analyze')
+            logType: z.enum(['all', 'error', 'warning', 'log']).describe('Filter Unity console logs by severity level').optional().default('error'),
+            limit: z.number().describe('Maximum number of log entries to analyze and return').optional().default(10),
+            includeStackTrace: z.boolean().describe('Include full stack trace information in the analysis output').optional().default(true),
+            operation: z.enum(['analyze']).describe('Operation mode for console log analysis').optional().default('analyze')
         })
     }, async (params) => {
         const result = await sendUnityCommand('analyze_console_logs', params);
@@ -3734,7 +3734,7 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'List Packages',
         description: 'List all installed Unity packages',
         inputSchema: z.object({
-            filter: z.enum(['all', 'offline']).optional().default('all')
+            filter: z.enum(['all', 'offline']).describe('Package list filter: all packages or only offline cached').default('all').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('list_packages', params);
@@ -3799,10 +3799,10 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Place Objects',
         description: 'Place multiple objects with pattern',
         inputSchema: z.object({
-            prefab: z.string(),
-            pattern: z.enum(['grid', 'circle', 'line', 'random']),
-            count: z.number(),
-            spacing: z.number().optional().default(1),
+            prefab: z.string().describe('Prefab asset path or name to instantiate (e.g., Assets/Prefabs/Tree.prefab)'),
+            pattern: z.enum(['grid', 'circle', 'line', 'random']).describe('Placement pattern: grid layout, circle ring, straight line, or random scatter'),
+            count: z.number().describe('Total number of prefab instances to place in the scene'),
+            spacing: z.number().describe('Distance in Unity world units between placed objects').default(1).optional(),
             center: z.object({
                 x: z.number(),
                 y: z.number(),
@@ -3824,7 +3824,7 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Get Operation History',
         description: 'Get history of Unity operations',
         inputSchema: z.object({
-            count: z.number().optional().default(10)
+            count: z.number().describe('Maximum number of recent operation history entries to return').default(10).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('get_operation_history', params);
@@ -3868,7 +3868,7 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Create Checkpoint',
         description: 'Create a checkpoint to restore later',
         inputSchema: z.object({
-            name: z.string()
+            name: z.string().describe('Unique checkpoint name used later to restore the saved Unity scene state')
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_checkpoint', params);
@@ -3884,7 +3884,7 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Restore Checkpoint',
         description: 'Restore a previously created checkpoint',
         inputSchema: z.object({
-            name: z.string()
+            name: z.string().describe('Name of a previously created checkpoint to roll the scene back to')
         })
     }, async (params) => {
         const result = await sendUnityCommand('restore_checkpoint', params);
@@ -3901,7 +3901,7 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Monitor Play State',
         description: 'Monitor Unity play mode state changes',
         inputSchema: z.object({
-            enable: z.boolean()
+            enable: z.boolean().describe('Enable or disable monitoring of Unity Editor play mode state transitions')
         })
     }, async (params) => {
         const result = await sendUnityCommand('monitor_play_state', params);
@@ -3917,8 +3917,8 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Monitor File Changes',
         description: 'Monitor file changes in the project',
         inputSchema: z.object({
-            enable: z.boolean(),
-            folders: z.array(z.string()).optional()
+            enable: z.boolean().describe('Enable or disable file change monitoring for the Unity project asset folders'),
+            folders: z.array(z.string()).describe('List of folder paths under Assets to watch; defaults to entire Assets folder').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('monitor_file_changes', params);
@@ -3934,7 +3934,7 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Monitor Compilation',
         description: 'Monitor script compilation events',
         inputSchema: z.object({
-            enable: z.boolean()
+            enable: z.boolean().describe('Enable or disable monitoring of Unity script compilation start and finish events')
         })
     }, async (params) => {
         const result = await sendUnityCommand('monitor_compile', params);
@@ -3950,7 +3950,7 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Subscribe to Events',
         description: 'Subscribe to Unity events',
         inputSchema: z.object({
-            events: z.array(z.string())
+            events: z.array(z.string()).describe('List of Unity event names to subscribe to (e.g., playModeStateChanged, hierarchyChanged)')
         })
     }, async (params) => {
         const result = await sendUnityCommand('subscribe_events', params);
@@ -3966,7 +3966,7 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Get Events',
         description: 'Get recent Unity events',
         inputSchema: z.object({
-            count: z.number().optional().default(10)
+            count: z.number().describe('Maximum number of most recent Unity events to retrieve').default(10).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('get_events', params);
@@ -4082,9 +4082,9 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'List Assets',
         description: 'List assets in the project',
         inputSchema: z.object({
-            path: z.string().optional().default('Assets'),
-            type: z.string().optional(),
-            recursive: z.boolean().optional().default(true)
+            path: z.string().describe('Project-relative folder path to list assets from (e.g., Assets/Prefabs)').default('Assets').optional(),
+            type: z.string().describe('Optional Unity asset type filter such as Prefab, Material, Texture2D, or Script').optional(),
+            recursive: z.boolean().describe('Recursively include assets in all subfolders under the given path').default(true).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('list_assets', params);
@@ -4198,7 +4198,7 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Check Folder',
         description: 'Check if folder exists',
         inputSchema: z.object({
-            path: z.string()
+            path: z.string().describe('Project-relative folder path to check for existence (e.g., Assets/Prefabs)')
         })
     }, async (params) => {
         const result = await sendUnityCommand('check_folder', params);
@@ -4214,7 +4214,7 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Create Folder',
         description: 'Create a new folder',
         inputSchema: z.object({
-            path: z.string()
+            path: z.string().describe('Project-relative path of the new folder to create (e.g., Assets/MyNewFolder)')
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_folder', params);
@@ -4230,7 +4230,7 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'List Folders',
         description: 'List folders in a path',
         inputSchema: z.object({
-            path: z.string().optional().default('Assets')
+            path: z.string().describe('Project-relative path to enumerate child folders under (defaults to project root Assets)').default('Assets').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('list_folders', params);
@@ -4247,8 +4247,8 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Duplicate GameObject',
         description: 'Duplicate an existing GameObject',
         inputSchema: z.object({
-            gameObject: z.string(),
-            newName: z.string().optional(),
+            gameObject: z.string().describe('Name or hierarchy path of the source GameObject in the active scene to duplicate'),
+            newName: z.string().describe('Optional name for the duplicated GameObject; defaults to source name with (Clone) suffix').optional(),
             position: z.object({
                 x: z.number(),
                 y: z.number(),
@@ -4269,8 +4269,8 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Find GameObjects by Component',
         description: 'Find all GameObjects with specific component',
         inputSchema: z.object({
-            componentType: z.string(),
-            includeInactive: z.boolean().optional().default(false)
+            componentType: z.string().describe('Unity component type name to search for (e.g., Rigidbody, AudioSource, MeshRenderer)'),
+            includeInactive: z.boolean().describe('Whether to include inactive GameObjects in the scene search results').default(false).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('find_by_component', params);
@@ -4286,7 +4286,7 @@ Main properties: duration, loop, startLifetime, startSpeed, startSize, startColo
         title: 'Cleanup Empty Objects',
         description: 'Remove empty GameObjects from scene',
         inputSchema: z.object({
-            dryRun: z.boolean().optional().default(true)
+            dryRun: z.boolean().describe('When true, only report empty GameObjects that would be removed without modifying the scene').default(true).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('cleanup_empty_objects', params);
@@ -4450,8 +4450,8 @@ EXAMPLE: Optimize all textures in Assets/Textures to max 1024px with high compre
         title: 'Create Project Snapshot',
         description: 'Create a snapshot of the current project state',
         inputSchema: z.object({
-            name: z.string(),
-            description: z.string().optional()
+            name: z.string().describe('Unique name for the project snapshot capturing the current Unity project state'),
+            description: z.string().describe('Optional human-readable description explaining the purpose of this snapshot').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_project_snapshot', params);
@@ -4486,8 +4486,8 @@ EXAMPLE: Optimize all textures in Assets/Textures to max 1024px with high compre
         title: 'Export Project Structure',
         description: 'Export project folder structure',
         inputSchema: z.object({
-            format: z.enum(['json', 'tree', 'csv']).optional().default('tree'),
-            includeFileSize: z.boolean().optional().default(true)
+            format: z.enum(['json', 'tree', 'csv']).describe('Output format for the exported project folder structure: json data, ASCII tree, or csv table').default('tree').optional(),
+            includeFileSize: z.boolean().describe('Whether to include file size information for each asset in the exported structure').default(true).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('export_project_structure', params);
@@ -4577,7 +4577,7 @@ TIP: Use dryRun=true first to preview changes before applying`,
             scope: z.enum(['selected', 'folder', 'project']).default('folder').describe('Where to search: selected assets, specific folder, or entire project'),
             folderPath: z.string().optional().describe('Folder path (required if scope is "folder")'),
             useRegex: z.boolean().optional().default(false).describe('Treat searchPattern as regex'),
-            caseSensitive: z.boolean().optional().default(true),
+            caseSensitive: z.boolean().describe('Whether the search pattern matching should be case sensitive when locating asset names').default(true).optional(),
             dryRun: z.boolean().optional().default(true).describe('Preview changes without applying (recommended first)')
         })
     }, async (params) => {
@@ -4730,9 +4730,9 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         title: 'Find Unused Assets',
         description: 'Find assets that are not referenced in the project',
         inputSchema: z.object({
-            assetTypes: z.array(z.enum(['texture', 'material', 'prefab', 'script', 'audio', 'model'])).optional(),
+            assetTypes: z.array(z.enum(['texture', 'material', 'prefab', 'script', 'audio', 'model'])).describe('Asset types to scan for unused references').optional(),
             excludeFolders: z.array(z.string()).optional().describe('Folders to exclude from search'),
-            includePackages: z.boolean().optional().default(false)
+            includePackages: z.boolean().describe('Whether to also scan assets inside the Packages folder').default(false).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('find_unused_assets', params);
@@ -4748,9 +4748,9 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         title: 'Estimate Build Size',
         description: 'Estimate build size for different platforms',
         inputSchema: z.object({
-            platforms: z.array(z.enum(['Windows', 'Mac', 'Linux', 'Android', 'iOS', 'WebGL'])).optional(),
-            includeStreamingAssets: z.boolean().optional().default(true),
-            compressionLevel: z.enum(['none', 'fastest', 'normal', 'best']).optional().default('normal')
+            platforms: z.array(z.enum(['Windows', 'Mac', 'Linux', 'Android', 'iOS', 'WebGL'])).describe('Target build platforms to estimate size for').optional(),
+            includeStreamingAssets: z.boolean().describe('Include StreamingAssets folder contents in size estimation').default(true).optional(),
+            compressionLevel: z.enum(['none', 'fastest', 'normal', 'best']).describe('Asset compression level used for the estimation').default('normal').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('estimate_build_size', params);
@@ -4766,12 +4766,12 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         title: 'Generate Performance Report',
         description: 'Generate comprehensive performance analysis report',
         inputSchema: z.object({
-            includeRendering: z.boolean().optional().default(true),
-            includeTextures: z.boolean().optional().default(true),
-            includeMeshes: z.boolean().optional().default(true),
-            includeScripts: z.boolean().optional().default(true),
-            includeAudio: z.boolean().optional().default(true),
-            targetPlatform: z.enum(['Mobile', 'Desktop', 'Console', 'VR']).optional()
+            includeRendering: z.boolean().describe('Include rendering metrics such as draw calls and batches').default(true).optional(),
+            includeTextures: z.boolean().describe('Include texture memory and import setting analysis').default(true).optional(),
+            includeMeshes: z.boolean().describe('Include mesh vertex and triangle count analysis').default(true).optional(),
+            includeScripts: z.boolean().describe('Include script CPU cost analysis in the report').default(true).optional(),
+            includeAudio: z.boolean().describe('Include audio clip memory and compression analysis').default(true).optional(),
+            targetPlatform: z.enum(['Mobile', 'Desktop', 'Console', 'VR']).describe('Target platform used to apply performance budgets').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('performance_report', params);
@@ -4788,10 +4788,10 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         title: 'Auto Organize Project Folders',
         description: 'Automatically organize assets into appropriate folders',
         inputSchema: z.object({
-            rootFolder: z.string().optional().default('Assets'),
-            createStandardFolders: z.boolean().optional().default(true),
-            moveAssets: z.boolean().optional().default(false),
-            dryRun: z.boolean().optional().default(true)
+            rootFolder: z.string().describe('Root project folder to organize, typically Assets').default('Assets').optional(),
+            createStandardFolders: z.boolean().describe('Create standard Unity subfolders such as Scripts, Prefabs, Materials').default(true).optional(),
+            moveAssets: z.boolean().describe('Actually move existing assets into the proper folders').default(false).optional(),
+            dryRun: z.boolean().describe('Preview the changes without modifying any assets on disk').default(true).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('auto_organize_folders', params);
@@ -4808,9 +4808,9 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         description: 'Automatically generate LOD groups for meshes',
         inputSchema: z.object({
             targetObject: z.string().describe('GameObject or folder to process'),
-            lodLevels: z.number().min(2).max(4).optional().default(3),
+            lodLevels: z.number().min(2).max(4).describe('Number of LOD levels to generate, between 2 and 4').default(3).optional(),
             lodDistances: z.array(z.number()).optional().describe('Custom LOD distances'),
-            generateSimplifiedMeshes: z.boolean().optional().default(false)
+            generateSimplifiedMeshes: z.boolean().describe('Auto-generate decimated meshes for each LOD level').default(false).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('generate_lod', params);
@@ -4828,9 +4828,9 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         inputSchema: z.object({
             sourceFolder: z.string().describe('Folder containing textures'),
             atlasName: z.string().describe('Name for the atlas'),
-            maxAtlasSize: z.number().optional().default(2048),
-            padding: z.number().optional().default(2),
-            includeInBuild: z.boolean().optional().default(true)
+            maxAtlasSize: z.number().describe('Maximum atlas texture size in pixels, e.g. 2048').default(2048).optional(),
+            padding: z.number().describe('Padding in pixels between sprites in the atlas').default(2).optional(),
+            includeInBuild: z.boolean().describe('Include the generated atlas in the built player').default(true).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('auto_atlas_textures', params);
@@ -4847,11 +4847,11 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         title: 'Create Game Controller',
         description: 'Create player controller for different game types (FirstPerson, ThirdPerson, TopDown, Platformer2D)',
         inputSchema: z.object({
-            type: z.enum(['FirstPerson', 'ThirdPerson', 'TopDown', 'Platformer2D']).default('FirstPerson'),
-            playerName: z.string().optional().default('Player'),
-            includeCamera: z.boolean().optional().default(true),
-            movementSpeed: z.number().optional().default(5),
-            jumpHeight: z.number().optional().default(3)
+            type: z.enum(['FirstPerson', 'ThirdPerson', 'TopDown', 'Platformer2D']).describe('Player controller archetype to generate').default('FirstPerson'),
+            playerName: z.string().describe('Name of the generated player GameObject').default('Player').optional(),
+            includeCamera: z.boolean().describe('Also create and attach a camera rig for the player').default(true).optional(),
+            movementSpeed: z.number().describe('Player movement speed in Unity units per second').default(5).optional(),
+            jumpHeight: z.number().describe('Player jump height in Unity world units').default(3).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_game_controller', params);
@@ -4867,8 +4867,8 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         title: 'Setup Input System',
         description: 'Setup Unity Input System with predefined templates',
         inputSchema: z.object({
-            template: z.enum(['Standard', 'Mobile', 'VR']).default('Standard'),
-            createAsset: z.boolean().optional().default(true)
+            template: z.enum(['Standard', 'Mobile', 'VR']).describe('Predefined input bindings template to apply').default('Standard'),
+            createAsset: z.boolean().describe('Create a saved InputActionAsset in the project').default(true).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_input_system', params);
@@ -4884,8 +4884,8 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         title: 'Create State Machine',
         description: 'Create a state machine for character or game states',
         inputSchema: z.object({
-            targetObject: z.string().optional(),
-            type: z.string().optional().default('Character'),
+            targetObject: z.string().describe('GameObject name to attach the state machine to').optional(),
+            type: z.string().describe('State machine category, for example Character, Enemy, or Game').default('Character').optional(),
             states: z.string().optional().default('Idle,Walk,Run,Jump,Attack').describe('Comma-separated state names')
         })
     }, async (params) => {
@@ -4902,9 +4902,9 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         title: 'Setup Inventory System',
         description: 'Create an inventory system with UI',
         inputSchema: z.object({
-            size: z.number().optional().default(20),
-            hasUI: z.boolean().optional().default(true),
-            stackable: z.boolean().optional().default(true)
+            size: z.number().describe('Number of inventory slots to create').default(20).optional(),
+            hasUI: z.boolean().describe('Also generate a Canvas-based inventory UI').default(true).optional(),
+            stackable: z.boolean().describe('Allow stacking of identical items in one slot').default(true).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_inventory_system', params);
@@ -4921,10 +4921,10 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         title: 'Create Game Template',
         description: 'Create complete game templates for different genres',
         inputSchema: z.object({
-            genre: z.enum(['FPS', 'Platformer', 'RPG', 'Puzzle', 'Racing', 'Strategy']).default('FPS'),
-            name: z.string().optional(),
-            includeUI: z.boolean().optional().default(true),
-            includeAudio: z.boolean().optional().default(true)
+            genre: z.enum(['FPS', 'Platformer', 'RPG', 'Puzzle', 'Racing', 'Strategy']).describe('Game genre template to scaffold').default('FPS'),
+            name: z.string().describe('Name used for the generated game template scene and assets').optional(),
+            includeUI: z.boolean().describe('Generate default UI Canvas with HUD elements').default(true).optional(),
+            includeAudio: z.boolean().describe('Add AudioSources and basic music/SFX setup').default(true).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_game_template', params);
@@ -4940,9 +4940,9 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         title: 'Quick Prototype',
         description: 'Create a quick playable prototype with specified elements',
         inputSchema: z.object({
-            elements: z.string().optional().default('player,enemies,collectibles,obstacles'),
-            worldSize: z.number().optional().default(20),
-            playerType: z.enum(['Capsule', 'Cube', 'Sphere']).optional().default('Capsule')
+            elements: z.string().describe('Comma-separated prototype elements to include, e.g. player,enemies,collectibles').default('player,enemies,collectibles,obstacles').optional(),
+            worldSize: z.number().describe('Size in Unity units of the generated square world').default(20).optional(),
+            playerType: z.enum(['Capsule', 'Cube', 'Sphere']).describe('Primitive shape used as the placeholder player mesh').default('Capsule').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('quick_prototype', params);
@@ -4959,10 +4959,10 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         title: 'Setup ML Agent',
         description: 'Setup a Machine Learning Agent for reinforcement learning',
         inputSchema: z.object({
-            agentName: z.string().default('MLAgent'),
-            agentType: z.enum(['Basic', 'Advanced', 'Reward-based']).default('Basic'),
-            vectorObservationSize: z.number().default(8),
-            useVisualObservation: z.boolean().default(false)
+            agentName: z.string().describe('Name of the generated ML-Agents agent GameObject').default('MLAgent'),
+            agentType: z.enum(['Basic', 'Advanced', 'Reward-based']).describe('Complexity preset for the agent behavior script').default('Basic'),
+            vectorObservationSize: z.number().describe('Length of the vector observation array fed to the policy').default(8),
+            useVisualObservation: z.boolean().describe('Attach a camera sensor for visual observations').default(false)
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_ml_agent', params);
@@ -4978,11 +4978,11 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         title: 'Create Neural Network',
         description: 'Create a neural network system for AI decision making',
         inputSchema: z.object({
-            networkName: z.string().default('NeuralNetwork'),
-            networkType: z.enum(['Feedforward', 'Recurrent', 'Convolutional']).default('Feedforward'),
-            inputSize: z.number().default(4),
-            hiddenSize: z.number().default(8),
-            outputSize: z.number().default(2)
+            networkName: z.string().describe('Name of the generated neural network script and asset').default('NeuralNetwork'),
+            networkType: z.enum(['Feedforward', 'Recurrent', 'Convolutional']).describe('Neural network architecture style to generate').default('Feedforward'),
+            inputSize: z.number().describe('Number of neurons in the input layer').default(4),
+            hiddenSize: z.number().describe('Number of neurons in each hidden layer').default(8),
+            outputSize: z.number().describe('Number of neurons in the output layer').default(2)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_neural_network', params);
@@ -4998,11 +4998,11 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         title: 'Setup Behavior Tree',
         description: 'Setup a behavior tree AI system for complex AI behaviors',
         inputSchema: z.object({
-            treeName: z.string().default('BehaviorTree'),
-            aiType: z.enum(['Enemy', 'NPC', 'Companion', 'Guard']).default('Enemy'),
-            includePatrol: z.boolean().default(true),
-            includeChase: z.boolean().default(true),
-            includeAttack: z.boolean().default(true)
+            treeName: z.string().describe('Name of the generated behavior tree asset and script').default('BehaviorTree'),
+            aiType: z.enum(['Enemy', 'NPC', 'Companion', 'Guard']).describe('AI archetype to seed the behavior tree with').default('Enemy'),
+            includePatrol: z.boolean().describe('Include a patrol sequence in the generated tree').default(true),
+            includeChase: z.boolean().describe('Include a chase branch when the player is detected').default(true),
+            includeAttack: z.boolean().describe('Include an attack branch when target is in range').default(true)
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_behavior_tree', params);
@@ -5018,11 +5018,11 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         title: 'Create AI Pathfinding',
         description: 'Create an AI pathfinding system with A* algorithm',
         inputSchema: z.object({
-            systemName: z.string().default('PathfindingAI'),
-            algorithm: z.enum(['AStar', 'Dijkstra', 'BFS']).default('AStar'),
-            gridWidth: z.number().default(20),
-            gridHeight: z.number().default(20),
-            use3D: z.boolean().default(false)
+            systemName: z.string().describe('Name of the generated pathfinding manager GameObject').default('PathfindingAI'),
+            algorithm: z.enum(['AStar', 'Dijkstra', 'BFS']).describe('Pathfinding algorithm used by the generated system').default('AStar'),
+            gridWidth: z.number().describe('Width of the pathfinding grid in cells').default(20),
+            gridHeight: z.number().describe('Height of the pathfinding grid in cells').default(20),
+            use3D: z.boolean().describe('Use a 3D voxel grid instead of a 2D grid').default(false)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_ai_pathfinding', params);
@@ -5040,10 +5040,10 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         title: 'Control Game Speed',
         description: 'Control Unity game speed (time scale) for debugging',
         inputSchema: z.object({
-            operation: z.enum(['set', 'pause', 'step', 'get']).default('set'),
-            speed: z.number().optional(),
-            preset: z.enum(['pause', 'slowest', 'slow', 'normal', 'fast', 'fastest']).optional(),
-            pauseMode: z.enum(['toggle', 'on', 'off']).default('toggle')
+            operation: z.enum(['set', 'pause', 'step', 'get']).describe('Time scale operation to perform').default('set'),
+            speed: z.number().describe('Time scale multiplier when operation is set, e.g. 0.5 for half speed').optional(),
+            preset: z.enum(['pause', 'slowest', 'slow', 'normal', 'fast', 'fastest']).describe('Named speed preset applied to Time.timeScale').optional(),
+            pauseMode: z.enum(['toggle', 'on', 'off']).describe('How to apply the pause when operation is pause').default('toggle')
         })
     }, async (params) => {
         const result = await sendUnityCommand('control_game_speed', params);
@@ -5059,9 +5059,9 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         title: 'Profile Performance',
         description: 'Get Unity performance profiling data',
         inputSchema: z.object({
-            category: z.enum(['general', 'all', 'memory', 'gpu', 'cpu']).default('general'),
-            duration: z.number().default(0),
-            detailed: z.boolean().default(false)
+            category: z.enum(['general', 'all', 'memory', 'gpu', 'cpu']).describe('Profiler category to sample').default('general'),
+            duration: z.number().describe('Sampling duration in seconds, 0 means a single snapshot').default(0),
+            detailed: z.boolean().describe('Include detailed per-marker breakdown in the result').default(false)
         })
     }, async (params) => {
         const result = await sendUnityCommand('profile_performance', params);
@@ -5077,9 +5077,9 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         title: 'Debug Draw',
         description: 'Draw debug shapes in Unity scene',
         inputSchema: z.object({
-            type: z.enum(['line', 'ray', 'box', 'sphere', 'path', 'clear']).default('line'),
-            duration: z.number().default(5),
-            color: z.enum(['red', 'green', 'blue', 'yellow', 'white', 'black', 'cyan', 'magenta']).default('red'),
+            type: z.enum(['line', 'ray', 'box', 'sphere', 'path', 'clear']).describe('Debug shape type to draw, or clear to remove existing shapes').default('line'),
+            duration: z.number().describe('How long the debug shape stays visible in seconds').default(5),
+            color: z.enum(['red', 'green', 'blue', 'yellow', 'white', 'black', 'cyan', 'magenta']).describe('Color used to draw the debug shape').default('red'),
             // Line parameters
             start: z.string().optional().describe('Start position for line (e.g., "0,0,0")'),
             end: z.string().optional().describe('End position for line (e.g., "1,1,1")'),
@@ -5191,9 +5191,9 @@ TIP: Use namingPattern to customize prefab names. {name} = original object name`
         title: 'Manage Breakpoints',
         description: 'Manage debugging breakpoints in Unity',
         inputSchema: z.object({
-            operation: z.enum(['pause', 'conditional', 'log', 'assert']).default('pause'),
+            operation: z.enum(['pause', 'conditional', 'log', 'assert']).describe('Breakpoint behavior to register on hit').default('pause'),
             condition: z.string().optional().describe('Condition for breakpoint (e.g., "frame > 100", "time > 5")'),
-            message: z.string().default('Breakpoint hit')
+            message: z.string().describe('Message logged when the breakpoint triggers').default('Breakpoint hit')
         })
     }, async (params) => {
         const result = await sendUnityCommand('manage_breakpoints', params);
@@ -5302,7 +5302,7 @@ CONDITIONAL: Use "when X, do Y" or "if X then Y" or "Xの時、Y" patterns.`,
             agentName: z.string().describe('Name of the GOAP agent'),
             behavior: z.string().describe('Natural language behavior description. Examples: "Patrol and attack enemies on sight, retreat when health low" or "巡回して敵を攻撃、体力低下時は撤退"'),
             gameContext: z.string().optional().describe('Game context (FPS, RTS, RPG, Stealth, Survival, Horror) - adds context-specific actions'),
-            difficulty: z.enum(['easy', 'normal', 'hard', 'adaptive']).default('normal')
+            difficulty: z.enum(['easy', 'normal', 'hard', 'adaptive']).describe('AI difficulty level affecting reaction speed, accuracy, and decision quality').default('normal')
         })
     }, async (params) => {
         const result = await sendUnityCommand('define_behavior_language', params);
@@ -5367,8 +5367,8 @@ TEMPLATES:
 
 Each template includes pre-configured goals, actions, sensors, and world state.`,
         inputSchema: z.object({
-            templateType: z.enum(['fps_enemy', 'fps_soldier', 'fps_sniper', 'rts_unit', 'rts_worker', 'rts_combat_unit', 'rpg_npc', 'rpg_merchant', 'rpg_quest_giver', 'rpg_enemy', 'rpg_monster', 'stealth_guard', 'survival_creature', 'horror_enemy', 'horror_monster', 'platformer_enemy']),
-            difficulty: z.enum(['easy', 'normal', 'hard']).default('normal'),
+            templateType: z.enum(['fps_enemy', 'fps_soldier', 'fps_sniper', 'rts_unit', 'rts_worker', 'rts_combat_unit', 'rpg_npc', 'rpg_merchant', 'rpg_quest_giver', 'rpg_enemy', 'rpg_monster', 'stealth_guard', 'survival_creature', 'horror_enemy', 'horror_monster', 'platformer_enemy']).describe('Pre-built GOAP template type for common game AI archetypes'),
+            difficulty: z.enum(['easy', 'normal', 'hard']).describe('Difficulty preset that scales agent stats and reaction times').default('normal'),
             behaviors: z.array(z.string()).optional().describe('Additional natural language behaviors to include'),
             customizations: z.record(z.any()).optional().describe('Template-specific customizations')
         })
@@ -5495,7 +5495,7 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         inputSchema: z.object({
             agentName: z.string().describe('Name of the agent to create BT for'),
             description: z.string().describe('Natural language description of the behavior'),
-            gameContext: z.enum(['Generic', 'FPS', 'RPG', 'RTS', 'Stealth', 'Survival']).default('Generic')
+            gameContext: z.enum(['Generic', 'FPS', 'RPG', 'RTS', 'Stealth', 'Survival']).describe('Game genre context to tune behavior tree generation (Generic, FPS, RPG, RTS, Stealth, Survival)').default('Generic')
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_bt_from_description', params);
@@ -5561,10 +5561,10 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         title: 'Create Animator Controller',
         description: 'Create a new Animator Controller with default states and parameters',
         inputSchema: z.object({
-            name: z.string().default('NewAnimatorController'),
-            path: z.string().default('Assets/Animations/Controllers/'),
+            name: z.string().describe('Name of the new Animator Controller asset').default('NewAnimatorController'),
+            path: z.string().describe('Asset folder path where the Animator Controller will be saved').default('Assets/Animations/Controllers/'),
             targetObject: z.string().optional().describe('GameObject to apply the controller to'),
-            applyToObject: z.boolean().default(true)
+            applyToObject: z.boolean().describe('If true, assign the created controller to the targetObject Animator component').default(true)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_animator_controller', params);
@@ -5581,10 +5581,10 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         description: 'Add a new state to an Animator Controller',
         inputSchema: z.object({
             controllerPath: z.string().describe('Path to the Animator Controller asset'),
-            stateName: z.string().default('NewState'),
+            stateName: z.string().describe('Name of the animation state to add').default('NewState'),
             animationClipPath: z.string().optional().describe('Path to animation clip'),
-            layerIndex: z.number().default(0),
-            isDefault: z.boolean().default(false)
+            layerIndex: z.number().describe('Index of the Animator layer to add the state into').default(0),
+            isDefault: z.boolean().describe('If true, set this state as the layer default entry state').default(false)
         })
     }, async (params) => {
         const result = await sendUnityCommand('add_animation_state', params);
@@ -5600,12 +5600,12 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         title: 'Create Animation Clip',
         description: 'Create a new animation clip with sample curves',
         inputSchema: z.object({
-            name: z.string().default('NewAnimation'),
-            path: z.string().default('Assets/Animations/Clips/'),
-            duration: z.number().default(1),
-            frameRate: z.number().default(30),
-            targetObject: z.string().optional(),
-            animationType: z.enum(['position', 'rotation', 'scale', 'color']).default('position')
+            name: z.string().describe('Name of the new animation clip asset').default('NewAnimation'),
+            path: z.string().describe('Asset folder path where the animation clip will be saved').default('Assets/Animations/Clips/'),
+            duration: z.number().describe('Duration of the animation clip in seconds').default(1),
+            frameRate: z.number().describe('Sampling frame rate of the clip in frames per second').default(30),
+            targetObject: z.string().optional().describe('GameObject the sample curves target (used for binding paths)'),
+            animationType: z.enum(['position', 'rotation', 'scale', 'color']).describe('Type of sample curve generated for the clip').default('position')
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_animation_clip', params);
@@ -5622,10 +5622,10 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         description: 'Create a blend tree for smooth animation transitions',
         inputSchema: z.object({
             controllerPath: z.string().describe('Path to the Animator Controller'),
-            stateName: z.string().default('Movement'),
-            blendType: z.enum(['1D', '2D']).default('1D'),
-            parameterName: z.string().default('Speed'),
-            layerIndex: z.number().default(0)
+            stateName: z.string().describe('Name of the state that hosts the blend tree').default('Movement'),
+            blendType: z.enum(['1D', '2D']).describe('Blend tree dimension: 1D uses one parameter, 2D uses two').default('1D'),
+            parameterName: z.string().describe('Animator parameter that drives blending between motions').default('Speed'),
+            layerIndex: z.number().describe('Index of the Animator layer containing the blend tree state').default(0)
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_blend_tree', params);
@@ -5646,9 +5646,9 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
             toState: z.string().describe('Destination state name'),
             condition: z.string().optional().describe('Parameter name for condition'),
             conditionValue: z.string().optional().describe('Value for condition'),
-            hasExitTime: z.boolean().default(true),
-            transitionDuration: z.number().default(0.25),
-            layerIndex: z.number().default(0)
+            hasExitTime: z.boolean().describe('If true, the transition waits for the source state exit time before triggering').default(true),
+            transitionDuration: z.number().describe('Blend duration of the transition in seconds').default(0.25),
+            layerIndex: z.number().describe('Index of the Animator layer containing the source state').default(0)
         })
     }, async (params) => {
         const result = await sendUnityCommand('add_animation_transition', params);
@@ -5665,10 +5665,10 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         description: 'Add and configure an animation layer',
         inputSchema: z.object({
             controllerPath: z.string().describe('Path to the Animator Controller'),
-            layerName: z.string().default('NewLayer'),
-            weight: z.number().default(1),
-            blendMode: z.enum(['override', 'additive']).default('override'),
-            avatarMaskPath: z.string().optional()
+            layerName: z.string().describe('Display name of the new Animator layer').default('NewLayer'),
+            weight: z.number().describe('Initial layer weight controlling how strongly it contributes to the final pose').default(1),
+            blendMode: z.enum(['override', 'additive']).describe('Layer blending mode: override replaces, additive adds onto lower layers').default('override'),
+            avatarMaskPath: z.string().optional().describe('Path to an Avatar Mask asset that restricts which bones the layer affects')
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_animation_layer', params);
@@ -5686,10 +5686,10 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         inputSchema: z.object({
             clipPath: z.string().describe('Path to the animation clip'),
             time: z.number().default(0.5).describe('Time in seconds'),
-            functionName: z.string().default('OnAnimationEvent'),
-            stringParameter: z.string().optional(),
-            floatParameter: z.number().optional(),
-            intParameter: z.number().optional()
+            functionName: z.string().describe('Name of the MonoBehaviour method invoked when the event fires').default('OnAnimationEvent'),
+            stringParameter: z.string().optional().describe('Optional string argument passed to the event handler'),
+            floatParameter: z.number().optional().describe('Optional float argument passed to the event handler'),
+            intParameter: z.number().optional().describe('Optional int argument passed to the event handler')
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_animation_event', params);
@@ -5706,9 +5706,9 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         description: 'Configure avatar for a 3D model',
         inputSchema: z.object({
             modelPath: z.string().describe('Path to the 3D model'),
-            avatarName: z.string().default('NewAvatar'),
-            isHumanoid: z.boolean().default(true),
-            rootBone: z.string().optional()
+            avatarName: z.string().describe('Name of the generated Avatar asset').default('NewAvatar'),
+            isHumanoid: z.boolean().describe('If true, configure as a Humanoid avatar; otherwise Generic').default(true),
+            rootBone: z.string().optional().describe('Name of the root bone transform for Generic avatars')
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_avatar', params);
@@ -5724,11 +5724,11 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         title: 'Create Timeline',
         description: 'Create a Unity Timeline for cinematic sequences',
         inputSchema: z.object({
-            name: z.string().default('NewTimeline'),
-            path: z.string().default('Assets/Timelines/'),
-            duration: z.number().default(10),
-            frameRate: z.number().default(30),
-            targetObject: z.string().optional()
+            name: z.string().describe('Name of the new Timeline asset').default('NewTimeline'),
+            path: z.string().describe('Asset folder path where the Timeline asset will be saved').default('Assets/Timelines/'),
+            duration: z.number().describe('Total duration of the Timeline in seconds').default(10),
+            frameRate: z.number().describe('Timeline frame rate in frames per second').default(30),
+            targetObject: z.string().optional().describe('GameObject that will receive the PlayableDirector bound to this Timeline')
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_timeline', params);
@@ -5745,11 +5745,11 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         description: 'Bake runtime animation into an animation clip',
         inputSchema: z.object({
             sourceObject: z.string().describe('GameObject with animation to bake'),
-            animationName: z.string().default('BakedAnimation'),
-            startFrame: z.number().default(0),
-            endFrame: z.number().default(60),
-            frameRate: z.number().default(30),
-            path: z.string().default('Assets/Animations/Baked/')
+            animationName: z.string().describe('Name of the baked animation clip asset to create').default('BakedAnimation'),
+            startFrame: z.number().describe('First frame of the recording range to bake').default(0),
+            endFrame: z.number().describe('Last frame of the recording range to bake').default(60),
+            frameRate: z.number().describe('Sampling frame rate of the baked clip in frames per second').default(30),
+            path: z.string().describe('Asset folder path where the baked animation clip will be saved').default('Assets/Animations/Baked/')
         })
     }, async (params) => {
         const result = await sendUnityCommand('bake_animation', params);
@@ -6327,17 +6327,17 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
             targetObject: z.string().describe('Target GameObject name'),
             anchorPreset: z.enum([
                 'top-left', 'top-center', 'top-right',
-                'middle-left', 'center', 'middle-right', 
+                'middle-left', 'center', 'middle-right',
                 'bottom-left', 'bottom-center', 'bottom-right',
                 'stretch-horizontal', 'stretch-vertical', 'stretch-all'
-            ]).default('center'),
+            ]).describe('RectTransform anchor preset for UI alignment').default('center'),
             pivotPreset: z.enum([
                 'top-left', 'top-center', 'top-right',
                 'middle-left', 'center', 'middle-right',
                 'bottom-left', 'bottom-center', 'bottom-right'
-            ]).default('center'),
-            margin: z.number().default(10),
-            recursive: z.boolean().default(false)
+            ]).describe('Pivot point preset for the RectTransform').default('center'),
+            margin: z.number().describe('Margin in pixels from the anchored edges').default(10),
+            recursive: z.boolean().describe('Apply anchor settings recursively to child UI elements').default(false)
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_ui_anchors', params);
@@ -6353,16 +6353,16 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         title: 'Create Responsive UI',
         description: 'Create responsive UI container with layout groups',
         inputSchema: z.object({
-            containerName: z.string().default('ResponsiveContainer'),
-            layoutType: z.enum(['horizontal', 'vertical']).default('horizontal'),
-            spacing: z.number().default(10),
-            padding: z.number().default(20),
+            containerName: z.string().describe('Name of the responsive layout container GameObject').default('ResponsiveContainer'),
+            layoutType: z.enum(['horizontal', 'vertical']).describe('LayoutGroup orientation for arranging children').default('horizontal'),
+            spacing: z.number().describe('Spacing in pixels between child elements').default(10),
+            padding: z.number().describe('Inner padding in pixels around the layout').default(20),
             childAlignment: z.enum([
                 'upper-left', 'upper-center', 'upper-right',
                 'middle-left', 'middle-center', 'middle-right',
                 'lower-left', 'lower-center', 'lower-right'
-            ]).default('middle-center'),
-            useContentSizeFitter: z.boolean().default(true)
+            ]).describe('Child alignment within the LayoutGroup').default('middle-center'),
+            useContentSizeFitter: z.boolean().describe('Attach a ContentSizeFitter to auto-fit the container size').default(true)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_responsive_ui', params);
@@ -6379,11 +6379,11 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         description: 'Setup UI animations for elements (fade, scale, slide)',
         inputSchema: z.object({
             targetObject: z.string().describe('Target GameObject name'),
-            animationType: z.enum(['fade', 'scale', 'slide-left', 'slide-up', 'scale-fade']).default('fade'),
-            duration: z.number().default(0.5),
-            delay: z.number().default(0),
-            easing: z.string().default('ease'),
-            autoPlay: z.boolean().default(false)
+            animationType: z.enum(['fade', 'scale', 'slide-left', 'slide-up', 'scale-fade']).describe('Type of tween animation to play on the UI element').default('fade'),
+            duration: z.number().describe('Animation duration in seconds').default(0.5),
+            delay: z.number().describe('Delay in seconds before the animation starts').default(0),
+            easing: z.string().describe('Easing curve name applied to the animation (e.g., ease, linear)').default('ease'),
+            autoPlay: z.boolean().describe('Play the animation automatically on enable').default(false)
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_ui_animation', params);
@@ -6399,13 +6399,13 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         title: 'Create UI Grid',
         description: 'Create UI grid layout with customizable elements',
         inputSchema: z.object({
-            gridName: z.string().default('UIGrid'),
-            columns: z.number().default(3),
-            rows: z.number().default(3),
+            gridName: z.string().describe('Name of the GridLayoutGroup root GameObject').default('UIGrid'),
+            columns: z.number().describe('Number of grid columns').default(3),
+            rows: z.number().describe('Number of grid rows').default(3),
             cellSize: z.string().default('100,100').describe('Cell size as "width,height"'),
             spacing: z.string().default('10,10').describe('Spacing as "x,y"'),
             padding: z.string().default('10,10,10,10').describe('Padding as "left,right,top,bottom"'),
-            fillType: z.enum(['button', 'image', 'text', 'toggle']).default('button')
+            fillType: z.enum(['button', 'image', 'text', 'toggle']).describe('Type of UI element placed in each grid cell').default('button')
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_ui_grid', params);
@@ -6421,13 +6421,13 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         title: 'Setup Scroll View',
         description: 'Create complete scroll view with content and scrollbars',
         inputSchema: z.object({
-            scrollViewName: z.string().default('ScrollView'),
-            scrollDirection: z.enum(['vertical', 'horizontal']).default('vertical'),
-            contentType: z.enum(['text', 'button', 'image']).default('text'),
-            itemCount: z.number().default(10),
+            scrollViewName: z.string().describe('Name of the ScrollRect root GameObject').default('ScrollView'),
+            scrollDirection: z.enum(['vertical', 'horizontal']).describe('Axis the ScrollRect can scroll along').default('vertical'),
+            contentType: z.enum(['text', 'button', 'image']).describe('Type of UI prefab used for each scroll item').default('text'),
+            itemCount: z.number().describe('Number of items to populate the content with').default(10),
             itemSize: z.string().default('200,50').describe('Item size as "width,height"'),
-            useScrollbar: z.boolean().default(true),
-            elasticity: z.number().default(0.1)
+            useScrollbar: z.boolean().describe('Add a Scrollbar component along the scroll axis').default(true),
+            elasticity: z.number().describe('ScrollRect elasticity when scrolling past the bounds').default(0.1)
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_scroll_view', params);
@@ -6443,12 +6443,12 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         title: 'Create UI Notification',
         description: 'Create notification system with different types and positions',
         inputSchema: z.object({
-            notificationName: z.string().default('NotificationSystem'),
-            notificationType: z.enum(['toast', 'success', 'warning', 'error']).default('toast'),
-            position: z.enum(['top-left', 'top-center', 'top-right', 'center', 'bottom-center']).default('top-right'),
-            animationType: z.enum(['slide', 'fade', 'scale', 'none']).default('slide'),
-            autoHide: z.boolean().default(true),
-            hideDelay: z.number().default(3)
+            notificationName: z.string().describe('Name of the notification manager GameObject').default('NotificationSystem'),
+            notificationType: z.enum(['toast', 'success', 'warning', 'error']).describe('Visual style applied to the notification').default('toast'),
+            position: z.enum(['top-left', 'top-center', 'top-right', 'center', 'bottom-center']).describe('Anchor position of the notification on screen').default('top-right'),
+            animationType: z.enum(['slide', 'fade', 'scale', 'none']).describe('Show/hide animation for the notification').default('slide'),
+            autoHide: z.boolean().describe('Automatically dismiss the notification after the delay').default(true),
+            hideDelay: z.number().describe('Seconds before the notification auto-hides').default(3)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_ui_notification', params);
@@ -6464,11 +6464,11 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         title: 'Setup UI Navigation',
         description: 'Create UI navigation system (tabs, buttons, toggles)',
         inputSchema: z.object({
-            navigationName: z.string().default('UINavigation'),
-            navigationType: z.enum(['tab', 'button', 'toggle']).default('tab'),
-            itemCount: z.number().default(3),
-            orientation: z.enum(['horizontal', 'vertical']).default('horizontal'),
-            selectedIndex: z.number().default(0)
+            navigationName: z.string().describe('Name for the navigation root GameObject').default('UINavigation'),
+            navigationType: z.enum(['tab', 'button', 'toggle']).describe('Navigation control style to generate').default('tab'),
+            itemCount: z.number().describe('Number of navigation items to create').default(3),
+            orientation: z.enum(['horizontal', 'vertical']).describe('Layout direction for the navigation items').default('horizontal'),
+            selectedIndex: z.number().describe('Index of the item initially selected').default(0)
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_ui_navigation', params);
@@ -6484,12 +6484,12 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         title: 'Create UI Dialog',
         description: 'Create modal dialogs (confirmation, alert, input)',
         inputSchema: z.object({
-            dialogName: z.string().default('Dialog'),
-            dialogType: z.enum(['confirmation', 'alert', 'input']).default('confirmation'),
-            title: z.string().default('Dialog Title'),
-            message: z.string().default('Dialog message content'),
-            hasOverlay: z.boolean().default(true),
-            isModal: z.boolean().default(true)
+            dialogName: z.string().describe('Name for the dialog root GameObject').default('Dialog'),
+            dialogType: z.enum(['confirmation', 'alert', 'input']).describe('Dialog template to instantiate (confirmation, alert, or input)').default('confirmation'),
+            title: z.string().describe('Title bar text displayed at the top of the dialog').default('Dialog Title'),
+            message: z.string().describe('Body message shown inside the dialog').default('Dialog message content'),
+            hasOverlay: z.boolean().describe('Add a dimmed full-screen overlay behind the dialog').default(true),
+            isModal: z.boolean().describe('Block input to underlying UI while the dialog is open').default(true)
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_ui_dialog', params);
@@ -6506,9 +6506,9 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         description: 'Optimize Canvas for performance, quality, or mobile',
         inputSchema: z.object({
             canvasName: z.string().optional().describe('Specific canvas name (leave empty for first found)'),
-            optimizationType: z.enum(['performance', 'quality', 'mobile']).default('performance'),
-            targetFrameRate: z.number().default(60),
-            enablePixelPerfect: z.boolean().default(false)
+            optimizationType: z.enum(['performance', 'quality', 'mobile']).describe('Canvas optimization profile to apply').default('performance'),
+            targetFrameRate: z.number().describe('Target frame rate (FPS) used to tune Canvas update settings').default(60),
+            enablePixelPerfect: z.boolean().describe('Enable Canvas pixel perfect rendering for sharper UI').default(false)
         })
     }, async (params) => {
         const result = await sendUnityCommand('optimize_ui_canvas', params);
@@ -6524,10 +6524,10 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         title: 'Setup Safe Area',
         description: 'Setup Safe Area for mobile devices with notch support',
         inputSchema: z.object({
-            safeAreaName: z.string().default('SafeAreaContainer'),
+            safeAreaName: z.string().describe('Name for the created Safe Area container GameObject').default('SafeAreaContainer'),
             targetObject: z.string().optional().describe('Target object (leave empty to create new)'),
-            applyToCanvas: z.boolean().default(false),
-            includeNotch: z.boolean().default(true)
+            applyToCanvas: z.boolean().describe('Apply Safe Area adjustments to the parent Canvas').default(false),
+            includeNotch: z.boolean().describe('Account for device notch cutouts when computing the safe area').default(true)
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_safe_area', params);
@@ -6560,11 +6560,11 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         description: 'Set colors for UI elements',
         inputSchema: z.object({
             targetObject: z.string().describe('Target UI element'),
-            normalColor: z.string().optional(),
-            highlightedColor: z.string().optional(),
-            pressedColor: z.string().optional(),
-            selectedColor: z.string().optional(),
-            disabledColor: z.string().optional()
+            normalColor: z.string().describe('Default Selectable color in hex (e.g., #FFFFFF)').optional(),
+            highlightedColor: z.string().describe('Hover/highlighted state color in hex').optional(),
+            pressedColor: z.string().describe('Pressed state color in hex').optional(),
+            selectedColor: z.string().describe('Selected state color in hex').optional(),
+            disabledColor: z.string().describe('Disabled state color in hex').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('set_ui_colors', params);
@@ -6575,12 +6575,12 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         title: 'Style UI Elements',
         description: 'Apply styling to UI elements',
         inputSchema: z.object({
-            targetObject: z.string(),
-            borderRadius: z.number().optional(),
-            borderWidth: z.number().optional(),
-            borderColor: z.string().optional(),
-            shadowOffset: z.string().optional(),
-            shadowColor: z.string().optional()
+            targetObject: z.string().describe('Target UI GameObject name to style'),
+            borderRadius: z.number().describe('Corner radius in pixels for rounded UI borders').optional(),
+            borderWidth: z.number().describe('Border outline width in pixels').optional(),
+            borderColor: z.string().describe('Border color as hex code (e.g., #FFFFFF)').optional(),
+            shadowOffset: z.string().describe('Shadow offset as "x,y" pixels from the element').optional(),
+            shadowColor: z.string().describe('Drop shadow color as hex or rgba string').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('style_ui_elements', params);
@@ -6591,10 +6591,10 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         title: 'Add UI Effects',
         description: 'Add visual effects to UI elements',
         inputSchema: z.object({
-            targetObject: z.string(),
-            effectType: z.enum(['Shadow', 'Outline', 'Gradient', 'Glow', 'Blur']).default('Shadow'),
-            color: z.string().optional(),
-            intensity: z.number().optional().default(1)
+            targetObject: z.string().describe('Target UI GameObject to apply the effect to'),
+            effectType: z.enum(['Shadow', 'Outline', 'Gradient', 'Glow', 'Blur']).describe('Visual effect component to add to the UI element').default('Shadow'),
+            color: z.string().describe('Effect color in hex (e.g., #000000) or rgba string').optional(),
+            intensity: z.number().describe('Effect strength multiplier controlling distance or alpha').optional().default(1)
         })
     }, async (params) => {
         const result = await sendUnityCommand('add_ui_effects', params);
@@ -6605,12 +6605,12 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         title: 'Set Typography',
         description: 'Configure text styling and fonts',
         inputSchema: z.object({
-            targetObject: z.string(),
-            fontAsset: z.string().optional(),
-            fontSize: z.number().optional(),
-            fontStyle: z.enum(['Normal', 'Bold', 'Italic', 'BoldItalic']).optional(),
-            lineSpacing: z.number().optional(),
-            characterSpacing: z.number().optional()
+            targetObject: z.string().describe('Target UI Text or TextMeshPro GameObject name'),
+            fontAsset: z.string().describe('Path to font asset (TTF, OTF, or TMP_FontAsset)').optional(),
+            fontSize: z.number().describe('Font size in points').optional(),
+            fontStyle: z.enum(['Normal', 'Bold', 'Italic', 'BoldItalic']).describe('Font style applied to the text component').optional(),
+            lineSpacing: z.number().describe('Line spacing multiplier between text lines').optional(),
+            characterSpacing: z.number().describe('Spacing between individual characters in the text').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('set_typography', params);
@@ -6689,8 +6689,8 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         description: 'Find where an asset is used in the project',
         inputSchema: z.object({
             path: z.string().describe('Path to asset'),
-            searchScenes: z.boolean().optional().default(true),
-            searchPrefabs: z.boolean().optional().default(true)
+            searchScenes: z.boolean().describe('Include scene files when scanning for asset references').optional().default(true),
+            searchPrefabs: z.boolean().describe('Include prefab assets when scanning for asset references').optional().default(true)
         })
     }, async (params) => {
         const result = await sendUnityCommand('analyze_asset_usage', params);
@@ -6770,7 +6770,7 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         title: 'Get Terrain Info',
         description: 'Get information about terrain in the scene',
         inputSchema: z.object({
-            terrainName: z.string().optional()
+            terrainName: z.string().describe('Specific terrain GameObject name to query (omit to list all terrains)').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('get_terrain_info', params);
@@ -6801,7 +6801,7 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         title: 'Get UI Info',
         description: 'Get information about UI elements in scene',
         inputSchema: z.object({
-            canvasName: z.string().optional()
+            canvasName: z.string().describe('Specific Canvas GameObject name to inspect (omit for all canvases)').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('get_ui_info', params);
@@ -6824,7 +6824,7 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         inputSchema: z.object({
             fbxPath: z.string().describe('Path to Mixamo FBX file'),
             targetRig: z.string().optional().describe('Target character rig'),
-            loopAnimation: z.boolean().optional().default(false)
+            loopAnimation: z.boolean().describe('Enable loop wrap mode on the imported AnimationClip').optional().default(false)
         })
     }, async (params) => {
         const result = await sendUnityCommand('import_mixamo_animation', params);
@@ -6837,7 +6837,7 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         inputSchema: z.object({
             sourcePath: z.string().describe('Source folder path'),
             targetPath: z.string().optional().describe('Target folder path'),
-            groupBy: z.enum(['character', 'type', 'action']).optional().default('character')
+            groupBy: z.enum(['character', 'type', 'action']).describe('Grouping strategy for organizing animation files into subfolders').optional().default('character')
         })
     }, async (params) => {
         const result = await sendUnityCommand('organize_animation_assets', params);
@@ -6849,8 +6849,8 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         description: 'Setup Inverse Kinematics for a character',
         inputSchema: z.object({
             targetObject: z.string().describe('Character object name'),
-            ikType: z.enum(['FullBody', 'FootIK', 'HandIK', 'LookAt']).default('FullBody'),
-            weight: z.number().optional().default(1)
+            ikType: z.enum(['FullBody', 'FootIK', 'HandIK', 'LookAt']).describe('Inverse Kinematics setup type to configure on the Animator').default('FullBody'),
+            weight: z.number().describe('IK influence weight from 0 (off) to 1 (full)').optional().default(1)
         })
     }, async (params) => {
         const result = await sendUnityCommand('setup_character_ik', params);
@@ -6863,7 +6863,7 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         inputSchema: z.object({
             maskName: z.string().describe('Name for the mask'),
             bodyParts: z.array(z.string()).describe('Body parts to include'),
-            savePath: z.string().optional()
+            savePath: z.string().describe('Asset path where the AvatarMask asset will be saved').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_animation_layer_mask', params);
@@ -6876,7 +6876,7 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         inputSchema: z.object({
             controllerPath: z.string().describe('Path to animator controller'),
             blendTreeName: z.string().describe('Name for blend tree'),
-            blendType: z.enum(['1D', '2D_SimpleDirectional', '2D_FreeformDirectional', '2D_FreeformCartesian', 'Direct']).default('2D_FreeformDirectional'),
+            blendType: z.enum(['1D', '2D_SimpleDirectional', '2D_FreeformDirectional', '2D_FreeformCartesian', 'Direct']).describe('Blend tree dimension and interpolation algorithm used by the Animator').default('2D_FreeformDirectional'),
             animations: z.array(z.object({
                 clip: z.string(),
                 threshold: z.number().optional(),
@@ -6894,7 +6894,7 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         inputSchema: z.object({
             sourceClip: z.string().describe('Source animation clip path'),
             targetAvatar: z.string().describe('Target avatar/rig path'),
-            outputPath: z.string().optional()
+            outputPath: z.string().describe('Asset path to save the retargeted AnimationClip').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('retarget_animation', params);
@@ -6905,11 +6905,11 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         title: 'Create Transition Preset',
         description: 'Create reusable animation transition preset',
         inputSchema: z.object({
-            presetName: z.string(),
-            duration: z.number().optional().default(0.25),
-            exitTime: z.number().optional().default(0.75),
-            hasFixedDuration: z.boolean().optional().default(true),
-            interruptionSource: z.enum(['None', 'Source', 'Destination', 'SourceThenDestination', 'DestinationThenSource']).optional()
+            presetName: z.string().describe('Identifier for the saved transition preset'),
+            duration: z.number().describe('Transition duration in seconds or normalized time').default(0.25).optional(),
+            exitTime: z.number().describe('Normalized time at which the source state can exit').default(0.75).optional(),
+            hasFixedDuration: z.boolean().describe('If true, duration is in seconds rather than normalized time').default(true).optional(),
+            interruptionSource: z.enum(['None', 'Source', 'Destination', 'SourceThenDestination', 'DestinationThenSource']).describe('Which state can interrupt this transition').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_transition_preset', params);
@@ -6921,7 +6921,7 @@ Recognized patterns: patrol, attack, flee, chase, idle, guard, collect`,
         description: 'Analyze and optimize animation performance',
         inputSchema: z.object({
             targetObject: z.string().optional().describe('Specific object or all animated objects'),
-            includeBlendShapes: z.boolean().optional().default(true)
+            includeBlendShapes: z.boolean().describe('Include SkinnedMeshRenderer blend shape costs in analysis').default(true).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('analyze_animation_performance', params);
@@ -7037,7 +7037,7 @@ NOTE: Use STRING values for all parameters. Vectors use "x,y,z" format (e.g., po
         description: 'Send a response to the Unity chat interface',
         inputSchema: z.object({
             message: z.string().describe('Message to send'),
-            type: z.enum(['info', 'success', 'warning', 'error']).optional().default('info')
+            type: z.enum(['info', 'success', 'warning', 'error']).describe('Severity style applied to the chat message in the Unity UI').default('info').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('send_chat_response', params);
@@ -7058,10 +7058,10 @@ NOTE: Use STRING values for all parameters. Vectors use "x,y,z" format (e.g., po
         title: 'Create Caustics',
         description: 'Create underwater caustics effect',
         inputSchema: z.object({
-            targetObject: z.string().optional(),
-            intensity: z.number().optional().default(1),
-            scale: z.number().optional().default(1),
-            speed: z.number().optional().default(1)
+            targetObject: z.string().describe('GameObject name to receive the caustics projector or material').optional(),
+            intensity: z.number().describe('Brightness multiplier of the caustics light pattern').default(1).optional(),
+            scale: z.number().describe('Tiling scale of the caustics texture in world units').default(1).optional(),
+            speed: z.number().describe('Animation playback speed of the caustics pattern').default(1).optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_caustics', params);
@@ -7072,9 +7072,9 @@ NOTE: Use STRING values for all parameters. Vectors use "x,y,z" format (e.g., po
         title: 'Create Water',
         description: 'Create water surface with waves and reflections',
         inputSchema: z.object({
-            waterType: z.enum(['Ocean', 'Lake', 'River', 'Pool']).default('Ocean'),
-            size: z.number().optional().default(100),
-            quality: z.enum(['Low', 'Medium', 'High']).optional().default('Medium')
+            waterType: z.enum(['Ocean', 'Lake', 'River', 'Pool']).describe('Preset water body that determines waves, foam, and flow defaults').default('Ocean'),
+            size: z.number().describe('Size of the water plane in world units').default(100).optional(),
+            quality: z.enum(['Low', 'Medium', 'High']).describe('Shader and reflection quality tier for the water surface').default('Medium').optional()
         })
     }, async (params) => {
         const result = await sendUnityCommand('create_water', params);

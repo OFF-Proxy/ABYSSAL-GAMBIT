@@ -6,6 +6,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using UnityEngine;
+using SynapticAIPro;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
@@ -110,7 +111,7 @@ namespace SynapticPro
             {
                 Application.logMessageReceived += OnLogMessageReceived;
                 isLogCallbackRegistered = true;
-                Debug.Log("[NexusConsole] Log callback registered for real-time log collection");
+                SynLog.Info("[NexusConsole] Log callback registered for real-time log collection");
             }
 
 #if UNITY_EDITOR
@@ -123,14 +124,14 @@ namespace SynapticPro
                 var captureType = IsCapturingRegion ? "Region" : "Screenshot";
                 var capturePath = IsCapturingRegion ? "pending" : PendingScreenshotPath;
 
-                Debug.Log($"[NexusExecutor] {captureType} capture state restored after domain reload. Path: {capturePath}");
-                Debug.Log($"[NexusExecutor] Current play mode state: {(EditorApplication.isPlaying ? "Playing" : "Not Playing")}");
+                SynLog.Info($"[NexusExecutor] {captureType} capture state restored after domain reload. Path: {capturePath}");
+                SynLog.Info($"[NexusExecutor] Current play mode state: {(EditorApplication.isPlaying ? "Playing" : "Not Playing")}");
 
                 // If we're already in play mode, we missed the EnteredPlayMode event
                 // Start 120-frame wait for rendering to stabilize
                 if (EditorApplication.isPlaying)
                 {
-                    Debug.Log($"[NexusExecutor] Already in Play mode, starting 120-frame wait (~2 seconds) for {captureType} capture...");
+                    SynLog.Info($"[NexusExecutor] Already in Play mode, starting 120-frame wait (~2 seconds) for {captureType} capture...");
                     screenshotFrameCounter = 0;
                     screenshotUpdateHandler = ScreenshotFrameUpdate;
                     EditorApplication.update += screenshotUpdateHandler;
@@ -201,19 +202,19 @@ namespace SynapticPro
                         return await CreateScript(operation);
                         
                     case "MODIFY_SCRIPT":
-                        Debug.Log($"[NexusExecutor] Executing MODIFY_SCRIPT with parameters: {JsonConvert.SerializeObject(operation.parameters)}");
+                        SynLog.Info($"[NexusExecutor] Executing MODIFY_SCRIPT with parameters: {JsonConvert.SerializeObject(operation.parameters)}");
                         return ModifyScript(operation.parameters);
                         
                     case "EDIT_SCRIPT_LINE":
-                        Debug.Log($"[NexusExecutor] Executing EDIT_SCRIPT_LINE with parameters: {JsonConvert.SerializeObject(operation.parameters)}");
+                        SynLog.Info($"[NexusExecutor] Executing EDIT_SCRIPT_LINE with parameters: {JsonConvert.SerializeObject(operation.parameters)}");
                         return EditScriptLine(operation.parameters);
                         
                     case "ADD_SCRIPT_METHOD":
-                        Debug.Log($"[NexusExecutor] Executing ADD_SCRIPT_METHOD with parameters: {JsonConvert.SerializeObject(operation.parameters)}");
+                        SynLog.Info($"[NexusExecutor] Executing ADD_SCRIPT_METHOD with parameters: {JsonConvert.SerializeObject(operation.parameters)}");
                         return AddScriptMethod(operation.parameters);
                         
                     case "UPDATE_SCRIPT_VARIABLE":
-                        Debug.Log($"[NexusExecutor] Executing UPDATE_SCRIPT_VARIABLE with parameters: {JsonConvert.SerializeObject(operation.parameters)}");
+                        SynLog.Info($"[NexusExecutor] Executing UPDATE_SCRIPT_VARIABLE with parameters: {JsonConvert.SerializeObject(operation.parameters)}");
                         return UpdateScriptVariable(operation.parameters);
                         
                     case "READ_SCRIPT":
@@ -614,7 +615,7 @@ namespace SynapticPro
                         
                     case "GET_PROJECT_SUMMARY":
                         var projectSummary = NexusProjectSettings.GetProjectSettingsSummary();
-                        Debug.Log($"[NexusExecutor] GET_PROJECT_SUMMARY response length: {projectSummary.Length}");
+                        SynLog.Info($"[NexusExecutor] GET_PROJECT_SUMMARY response length: {projectSummary.Length}");
                         return projectSummary;
                         
                     case "BATCH_CREATE":
@@ -708,6 +709,9 @@ namespace SynapticPro
 
                     case "EXECUTE_MENU_ITEM":
                         return ExecuteMenuItem(operation.parameters);
+
+                    case "RUN_CSHARP":
+                        return NexusCSharpEval.Run(operation.parameters);
 
                     case "GET_INSPECTOR_INFO":
                         return GetInspectorInfo(operation.parameters);
@@ -1537,7 +1541,7 @@ namespace SynapticPro
                 string path = GetFullPath(gameObject);
                 string objectName = gameObject.name; // Save name before deletion
                 
-                Debug.Log($"[DeleteGameObject] Deleting object: {objectName} at path: {path}");
+                SynLog.Info($"[DeleteGameObject] Deleting object: {objectName} at path: {path}");
                 
                 // Cleanup
                 if (lastCreatedObject == gameObject)
@@ -1550,7 +1554,7 @@ namespace SynapticPro
                 {
                     // Register to UNDO before deletion
                     UnityEditor.Undo.DestroyObjectImmediate(gameObject);
-                    Debug.Log($"[DeleteGameObject] Successfully deleted: {objectName}");
+                    SynLog.Info($"[DeleteGameObject] Successfully deleted: {objectName}");
                 }
                 catch (System.Exception ex)
                 {
@@ -1832,10 +1836,10 @@ namespace SynapticPro
         {
             try
             {
-                Debug.Log($"[UpdateComponent] Called with {parameters.Count} parameters:");
+                SynLog.Info($"[UpdateComponent] Called with {parameters.Count} parameters:");
                 foreach (var kvp in parameters)
                 {
-                    Debug.Log($"[UpdateComponent] - {kvp.Key}: {kvp.Value}");
+                    SynLog.Info($"[UpdateComponent] - {kvp.Key}: {kvp.Value}");
                 }
                 
                 var component = parameters.GetValueOrDefault("component", "");
@@ -1851,7 +1855,7 @@ namespace SynapticPro
                 }
                 
                 var gameObject = GetTargetGameObject(parameters);
-                Debug.Log($"[UpdateComponent] Found GameObject: {gameObject?.name ?? "null"}");
+                SynLog.Info($"[UpdateComponent] Found GameObject: {gameObject?.name ?? "null"}");
                 
                 if (gameObject == null)
                 {
@@ -1865,7 +1869,7 @@ namespace SynapticPro
                 }
                 
                 var componentType = GetComponentType(component);
-                Debug.Log($"[UpdateComponent] Component type: {componentType?.Name ?? "null"}");
+                SynLog.Info($"[UpdateComponent] Component type: {componentType?.Name ?? "null"}");
                 
                 if (componentType == null)
                 {
@@ -1878,7 +1882,7 @@ namespace SynapticPro
                 }
                 
                 var comp = gameObject.GetComponent(componentType);
-                Debug.Log($"[UpdateComponent] Found component: {comp != null}");
+                SynLog.Info($"[UpdateComponent] Found component: {comp != null}");
                 
                 if (comp == null)
                 {
@@ -1907,14 +1911,14 @@ namespace SynapticPro
                     try
                     {
                         var propertiesJson = parameters["properties"];
-                        Debug.Log($"[UpdateComponent] Raw properties parameter: {propertiesJson}");
+                        SynLog.Info($"[UpdateComponent] Raw properties parameter: {propertiesJson}");
                         
                         // Unescape if escaped JSON string
                         if (propertiesJson.StartsWith("{\\\"") || propertiesJson.StartsWith("[\\\""))
                         {
                             // Unescape escaped JSON string
                             propertiesJson = System.Text.RegularExpressions.Regex.Unescape(propertiesJson);
-                            Debug.Log($"[UpdateComponent] Unescaped JSON: {propertiesJson}");
+                            SynLog.Info($"[UpdateComponent] Unescaped JSON: {propertiesJson}");
                         }
                         
                         Dictionary<string, object> propertiesDict;
@@ -1927,7 +1931,7 @@ namespace SynapticPro
                         catch
                         {
                             // If JSON parsing fails, attempt to parse as key=value format
-                            Debug.LogWarning($"[UpdateComponent] JSON parsing failed, attempting key=value parsing");
+                            SynLog.Warn($"[UpdateComponent] JSON parsing failed, attempting key=value parsing");
                             propertiesDict = ParseKeyValueString(propertiesJson);
                         }
                         
@@ -1935,9 +1939,9 @@ namespace SynapticPro
                         {
                             var valueStr = kvp.Value?.ToString() ?? "";
                             propertyParams.Add(new KeyValuePair<string, string>(kvp.Key, valueStr));
-                            Debug.Log($"[UpdateComponent] Added property: {kvp.Key} = {valueStr}");
+                            SynLog.Info($"[UpdateComponent] Added property: {kvp.Key} = {valueStr}");
                         }
-                        Debug.Log($"[UpdateComponent] Successfully parsed {propertyParams.Count} properties from JSON");
+                        SynLog.Info($"[UpdateComponent] Successfully parsed {propertyParams.Count} properties from JSON");
                     }
                     catch (Exception ex)
                     {
@@ -1950,10 +1954,10 @@ namespace SynapticPro
                 var directParams = parameters.Where(p => !excludedKeys.Contains(p.Key)).ToList();
                 propertyParams.AddRange(directParams);
                 
-                Debug.Log($"[UpdateComponent] Total property parameters to update: {propertyParams.Count}");
+                SynLog.Info($"[UpdateComponent] Total property parameters to update: {propertyParams.Count}");
                 foreach (var param in propertyParams)
                 {
-                    Debug.Log($"[UpdateComponent] - Will update: {param.Key} = {param.Value}");
+                    SynLog.Info($"[UpdateComponent] - Will update: {param.Key} = {param.Value}");
                 }
                 
                 if (propertyParams.Count == 0)
@@ -1972,7 +1976,7 @@ namespace SynapticPro
                 {
                     try
                     {
-                        Debug.Log($"[UpdateComponent] Setting property {kvp.Key} to {kvp.Value}");
+                        SynLog.Info($"[UpdateComponent] Setting property {kvp.Key} to {kvp.Value}");
                         SetComponentProperty(comp, kvp.Key, kvp.Value);
                         changes.Add($"{kvp.Key} = {kvp.Value}");
                         
@@ -1992,7 +1996,7 @@ namespace SynapticPro
                                 properties[kvp.Key] = ConvertValueForSerialization(value);
                             }
                         }
-                        Debug.Log($"[UpdateComponent] Successfully set {kvp.Key}");
+                        SynLog.Info($"[UpdateComponent] Successfully set {kvp.Key}");
                     }
                     catch (Exception ex)
                     {
@@ -2003,7 +2007,7 @@ namespace SynapticPro
                 
                 EditorUtility.SetDirty(comp);
                 
-                Debug.Log($"[UpdateComponent] Completed with {changes.Count} changes");
+                SynLog.Info($"[UpdateComponent] Completed with {changes.Count} changes");
                 
                 // Check for errors even on success
                 var failedChanges = changes.Where(c => c.StartsWith("Failed")).ToList();
@@ -2085,10 +2089,10 @@ namespace SynapticPro
             var excludedKeys = new[] { "target", "type", "componentType", "component", "gameObject", "object", "targetObject", "name", "objectName", "targetName", "source", "sourceName", "operationId" };
             var propertyParams = parameters.Where(p => !excludedKeys.Contains(p.Key)).ToList();
             
-            Debug.Log($"[AddComponent] Property parameters to set: {propertyParams.Count}");
+            SynLog.Info($"[AddComponent] Property parameters to set: {propertyParams.Count}");
             foreach (var param in propertyParams)
             {
-                Debug.Log($"[AddComponent] - Will set: {param.Key} = {param.Value}");
+                SynLog.Info($"[AddComponent] - Will set: {param.Key} = {param.Value}");
             }
             
             foreach (var kvp in propertyParams)
@@ -2096,7 +2100,7 @@ namespace SynapticPro
                 try
                 {
                     SetComponentProperty(component, kvp.Key, kvp.Value);
-                    Debug.Log($"[AddComponent] Successfully set property {kvp.Key}");
+                    SynLog.Info($"[AddComponent] Successfully set property {kvp.Key}");
                 }
                 catch (Exception ex)
                 {
@@ -2987,7 +2991,7 @@ public class {className} : MonoBehaviour
                 string searchText = parameters.GetValueOrDefault("searchText", "");
                 int lineNumber = Convert.ToInt32(parameters.GetValueOrDefault("lineNumber", "0"));
 
-                Debug.Log($"[NexusExecutor] ModifyScript - Operation: {operation}, SearchText: '{searchText}', LineNumber: {lineNumber}");
+                SynLog.Info($"[NexusExecutor] ModifyScript - Operation: {operation}, SearchText: '{searchText}', LineNumber: {lineNumber}");
 
                 // Parameter validation
                 if (string.IsNullOrEmpty(scriptPath) && string.IsNullOrEmpty(fileName))
@@ -3004,7 +3008,7 @@ public class {className} : MonoBehaviour
                     return CreateErrorResponse($"Script file not found\n\n{debugInfo}");
                 }
 
-                Debug.Log($"[NexusExecutor] ModifyScript - Found script at: {fullPath}");
+                SynLog.Info($"[NexusExecutor] ModifyScript - Found script at: {fullPath}");
 
                 if (!System.IO.File.Exists(fullPath))
                 {
@@ -3158,7 +3162,7 @@ public class {className} : MonoBehaviour
                 if (!ValidateCSharpSyntax(newContent, out syntaxError))
                 {
                     // Warn about syntax errors but continue as user may be doing it intentionally
-                    Debug.LogWarning($"[NexusExecutor] Possible syntax error: {syntaxError}");
+                    SynLog.Warn($"[NexusExecutor] Possible syntax error: {syntaxError}");
                     
                     // Return response including error content
                     return JsonConvert.SerializeObject(new
@@ -3190,7 +3194,7 @@ public class {className} : MonoBehaviour
                 AssetDatabase.ImportAsset(fullPath);
                 AssetDatabase.Refresh();
                 
-                Debug.Log($"[NexusExecutor] ModifyScript - Success: {operationResult}");
+                SynLog.Info($"[NexusExecutor] ModifyScript - Success: {operationResult}");
                 return CreateSuccessResponse($"Script modified successfully: {fullPath}\nOperation: {operationResult}\nFile refreshed in Unity");
             }
             catch (Exception e)
@@ -3307,7 +3311,7 @@ public class {className} : MonoBehaviour
                 string syntaxError;
                 if (!ValidateCSharpSyntax(newContent, out syntaxError))
                 {
-                    Debug.LogWarning($"[NexusExecutor] AddScriptMethod - Syntax error: {syntaxError}");
+                    SynLog.Warn($"[NexusExecutor] AddScriptMethod - Syntax error: {syntaxError}");
                     return CreateErrorResponse($"Syntax error detected after adding method: {syntaxError}\nUse Ctrl+Z to undo.");
                 }
                 
@@ -3399,7 +3403,7 @@ public class {className} : MonoBehaviour
                 string syntaxError;
                 if (!ValidateCSharpSyntax(newContent, out syntaxError))
                 {
-                    Debug.LogWarning($"[NexusExecutor] UpdateScriptVariable - Syntax error: {syntaxError}");
+                    SynLog.Warn($"[NexusExecutor] UpdateScriptVariable - Syntax error: {syntaxError}");
                     return CreateErrorResponse($"Syntax error detected after updating variable: {syntaxError}\nUse Ctrl+Z to undo.");
                 }
                 
@@ -3427,7 +3431,7 @@ public class {className} : MonoBehaviour
                 string scriptPath = parameters.GetValueOrDefault("scriptPath", "");
                 string fileName = parameters.GetValueOrDefault("fileName", "");
                 
-                Debug.Log($"[NexusExecutor] ReadScript - scriptPath: '{scriptPath}', fileName: '{fileName}'");
+                SynLog.Info($"[NexusExecutor] ReadScript - scriptPath: '{scriptPath}', fileName: '{fileName}'");
                 
                 // Parameter validation
                 if (string.IsNullOrEmpty(scriptPath) && string.IsNullOrEmpty(fileName))
@@ -3444,7 +3448,7 @@ public class {className} : MonoBehaviour
                     return CreateErrorResponse($"Script file not found\n\n{debugInfo}");
                 }
                 
-                Debug.Log($"[NexusExecutor] ReadScript - Found script at: {fullPath}");
+                SynLog.Info($"[NexusExecutor] ReadScript - Found script at: {fullPath}");
                 
                 if (!System.IO.File.Exists(fullPath))
                 {
@@ -3491,7 +3495,7 @@ public class {className} : MonoBehaviour
             string normalizedPath = NormalizeFilePath(filePath);
             readFiles.Add(normalizedPath);
             readFileTimestamps[normalizedPath] = DateTime.Now;
-            Debug.Log($"[NexusExecutor] File marked as read: {normalizedPath}");
+            SynLog.Info($"[NexusExecutor] File marked as read: {normalizedPath}");
         }
 
         /// <summary>
@@ -3635,7 +3639,7 @@ public class {className} : MonoBehaviour
                     }
                     catch (Exception ex)
                     {
-                        Debug.LogWarning($"[GrepScripts] Error reading file {filePath}: {ex.Message}");
+                        SynLog.Warn($"[GrepScripts] Error reading file {filePath}: {ex.Message}");
                     }
                 }
 
@@ -3845,7 +3849,7 @@ public class {className} : MonoBehaviour
                             }
                             catch (Exception ex)
                             {
-                                Debug.LogWarning($"[SearchCode] Error reading file {filePath}: {ex.Message}");
+                                SynLog.Warn($"[SearchCode] Error reading file {filePath}: {ex.Message}");
                             }
                         }
                     }
@@ -3984,7 +3988,7 @@ public class {className} : MonoBehaviour
                 string scriptPath = parameters.GetValueOrDefault("scriptPath", "");
                 string fileName = parameters.GetValueOrDefault("fileName", "");
                 
-                Debug.Log($"[NexusExecutor] AnalyzeScript - scriptPath: '{scriptPath}', fileName: '{fileName}'");
+                SynLog.Info($"[NexusExecutor] AnalyzeScript - scriptPath: '{scriptPath}', fileName: '{fileName}'");
                 
                 // Parameter validation
                 if (string.IsNullOrEmpty(scriptPath) && string.IsNullOrEmpty(fileName))
@@ -5596,7 +5600,7 @@ public class {className} : MonoBehaviour
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[NexusExecutor] Failed to access Unity log entries: {e.Message}");
+                SynLog.Warn($"[NexusExecutor] Failed to access Unity log entries: {e.Message}");
                 
                 // Fallback: Collect basic error information
                 errors.Add(new RuntimeError
@@ -6094,7 +6098,7 @@ public class {className} : MonoBehaviour
                 var componentType = component.GetType();
                 var fields = componentType.GetFields(BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Instance);
 
-                Debug.Log($"[AutoAttachUI] Found {fields.Length} fields in {componentType.Name}");
+                SynLog.Info($"[AutoAttachUI] Found {fields.Length} fields in {componentType.Name}");
 
                 foreach (var field in fields)
                 {
@@ -6102,7 +6106,7 @@ public class {className} : MonoBehaviour
                     bool isSerializable = field.IsPublic || field.GetCustomAttribute<SerializeField>() != null;
                     if (!isSerializable || field.IsStatic)
                     {
-                        Debug.Log($"[AutoAttachUI] Skipping field {field.Name} - Serializable: {isSerializable}, Static: {field.IsStatic}");
+                        SynLog.Info($"[AutoAttachUI] Skipping field {field.Name} - Serializable: {isSerializable}, Static: {field.IsStatic}");
                         continue;
                     }
 
@@ -6133,13 +6137,13 @@ public class {className} : MonoBehaviour
                         }
                     }
                     
-                    Debug.Log($"[AutoAttachUI] Processing field {field.Name} of type {fieldType.Name}");
+                    SynLog.Info($"[AutoAttachUI] Processing field {field.Name} of type {fieldType.Name}");
 
                     // Skip if value is already set
                     var currentValue = field.GetValue(component);
                     if (currentValue != null)
                     {
-                        Debug.Log($"[AutoAttachUI] Field {field.Name} already has value: {currentValue}");
+                        SynLog.Info($"[AutoAttachUI] Field {field.Name} already has value: {currentValue}");
                         continue;
                     }
 
@@ -6272,7 +6276,7 @@ public class {className} : MonoBehaviour
         /// </summary>
         private string GetScriptPath(string scriptPath, string fileName)
         {
-            Debug.Log($"[NexusExecutor] GetScriptPath - scriptPath: '{scriptPath}', fileName: '{fileName}'");
+            SynLog.Info($"[NexusExecutor] GetScriptPath - scriptPath: '{scriptPath}', fileName: '{fileName}'");
             
             // 1. When direct path is specified
             if (!string.IsNullOrEmpty(scriptPath))
@@ -6291,11 +6295,11 @@ public class {className} : MonoBehaviour
                 {
                     if (System.IO.File.Exists(pattern))
                     {
-                        Debug.Log($"[NexusExecutor] Found script at: {pattern}");
+                        SynLog.Info($"[NexusExecutor] Found script at: {pattern}");
                         return pattern;
                     }
                 }
-                Debug.LogWarning($"[NexusExecutor] Script not found with path patterns for: {scriptPath}");
+                SynLog.Warn($"[NexusExecutor] Script not found with path patterns for: {scriptPath}");
             }
             
             // 2. Search by file name
@@ -6304,7 +6308,7 @@ public class {className} : MonoBehaviour
                 // Ensure .cs is included
                 string searchName = fileName.EndsWith(".cs") ? fileName.Replace(".cs", "") : fileName;
                 
-                Debug.Log($"[NexusExecutor] Searching for script: {searchName}");
+                SynLog.Info($"[NexusExecutor] Searching for script: {searchName}");
                 
                 // More flexible search with AssetDatabase
                 string[] searchPatterns = new string[]
@@ -6326,20 +6330,20 @@ public class {className} : MonoBehaviour
                             string fileNameOnly = System.IO.Path.GetFileNameWithoutExtension(path);
                             if (string.Equals(fileNameOnly, searchName, StringComparison.OrdinalIgnoreCase))
                             {
-                                Debug.Log($"[NexusExecutor] Found exact match: {path}");
+                                SynLog.Info($"[NexusExecutor] Found exact match: {path}");
                                 return path;
                             }
                         }
                         
                         // Use first result if no exact match
                         string foundPath = AssetDatabase.GUIDToAssetPath(foundFiles[0]);
-                        Debug.Log($"[NexusExecutor] Found partial match: {foundPath}");
+                        SynLog.Info($"[NexusExecutor] Found partial match: {foundPath}");
                         return foundPath;
                     }
                 }
                 
                 // If not found in AssetDatabase, search directly in file system
-                Debug.Log("[NexusExecutor] AssetDatabase search failed, trying file system search");
+                SynLog.Info("[NexusExecutor] AssetDatabase search failed, trying file system search");
                 try
                 {
                     string[] allCsFiles = System.IO.Directory.GetFiles("Assets", "*.cs", System.IO.SearchOption.AllDirectories);
@@ -6351,7 +6355,7 @@ public class {className} : MonoBehaviour
                         if (string.Equals(fileNameOnly, searchName, StringComparison.OrdinalIgnoreCase))
                         {
                             string unityPath = file.Replace("\\", "/");
-                            Debug.Log($"[NexusExecutor] Found file system match: {unityPath}");
+                            SynLog.Info($"[NexusExecutor] Found file system match: {unityPath}");
                             return unityPath;
                         }
                     }
@@ -6363,7 +6367,7 @@ public class {className} : MonoBehaviour
                         if (fileNameOnly.IndexOf(searchName, StringComparison.OrdinalIgnoreCase) >= 0)
                         {
                             string unityPath = file.Replace("\\", "/");
-                            Debug.LogWarning($"[NexusExecutor] Found partial file system match: {unityPath}");
+                            SynLog.Warn($"[NexusExecutor] Found partial file system match: {unityPath}");
                             return unityPath;
                         }
                     }
@@ -6661,7 +6665,7 @@ public class {className} : MonoBehaviour
                             if (!nextLine.StartsWith(".") && !nextLine.StartsWith("&&") && !nextLine.StartsWith("||"))
                             {
                                 // Warning level (not treated as error)
-                                Debug.LogWarning($"[Syntax Check] Line {i + 1}: Possible missing semicolon: {line}");
+                                SynLog.Warn($"[Syntax Check] Line {i + 1}: Possible missing semicolon: {line}");
                             }
                         }
                     }
@@ -6815,16 +6819,16 @@ public class {className} : MonoBehaviour
                            parameters.GetValueOrDefault("objectName");
             GameObject source = null;
             
-            Debug.Log($"[CreatePrefab] === PARAMETER ANALYSIS ===");
-            Debug.Log($"[CreatePrefab] Total parameters: {parameters.Count}");
+            SynLog.Info($"[CreatePrefab] === PARAMETER ANALYSIS ===");
+            SynLog.Info($"[CreatePrefab] Total parameters: {parameters.Count}");
             foreach (var param in parameters)
             {
-                Debug.Log($"[CreatePrefab] Parameter: '{param.Key}' = '{param.Value}'");
+                SynLog.Info($"[CreatePrefab] Parameter: '{param.Key}' = '{param.Value}'");
             }
-            Debug.Log($"[CreatePrefab] Extracted path: '{path}'");
-            Debug.Log($"[CreatePrefab] Extracted name: '{name}'");
-            Debug.Log($"[CreatePrefab] Extracted sourceName: '{sourceName}'");
-            Debug.Log($"[CreatePrefab] === END ANALYSIS ===");
+            SynLog.Info($"[CreatePrefab] Extracted path: '{path}'");
+            SynLog.Info($"[CreatePrefab] Extracted name: '{name}'");
+            SynLog.Info($"[CreatePrefab] Extracted sourceName: '{sourceName}'");
+            SynLog.Info($"[CreatePrefab] === END ANALYSIS ===");
             
             // Path analysis
             string folderPath = "Assets/Synaptic_Generated";
@@ -6844,7 +6848,7 @@ public class {className} : MonoBehaviour
                     {
                         fileName = fileName.Substring(0, fileName.Length - 7);
                     }
-                    Debug.Log($"[CreatePrefab] Parsed path - folder: '{folderPath}', file: '{fileName}'");
+                    SynLog.Info($"[CreatePrefab] Parsed path - folder: '{folderPath}', file: '{fileName}'");
                 }
                 else
                 {
@@ -6857,12 +6861,12 @@ public class {className} : MonoBehaviour
                 if (!string.IsNullOrEmpty(sourceName))
                 {
                     fileName = sourceName + "Prefab";
-                    Debug.Log($"[CreatePrefab] Auto-generated name from source: '{fileName}'");
+                    SynLog.Info($"[CreatePrefab] Auto-generated name from source: '{fileName}'");
                 }
                 else
                 {
                     fileName = "NewPrefab";
-                    Debug.Log($"[CreatePrefab] Using default name: '{fileName}'");
+                    SynLog.Info($"[CreatePrefab] Using default name: '{fileName}'");
                 }
             }
             
@@ -6871,24 +6875,24 @@ public class {className} : MonoBehaviour
                 if (sourceName == "last")
                 {
                     source = lastCreatedObject;
-                    Debug.Log($"[CreatePrefab] Using last created object: {source?.name ?? "null"}");
+                    SynLog.Info($"[CreatePrefab] Using last created object: {source?.name ?? "null"}");
                 }
                 else
                 {
-                    Debug.Log($"[CreatePrefab] Searching for source object: {sourceName}");
+                    SynLog.Info($"[CreatePrefab] Searching for source object: {sourceName}");
 
                     // Search using GetTargetGameObject
                     var tempParams = new Dictionary<string, string> { {"target", sourceName} };
                     source = GetTargetGameObject(tempParams);
 
-                    Debug.Log($"[CreatePrefab] Found source object: {source?.name ?? "null"}");
+                    SynLog.Info($"[CreatePrefab] Found source object: {source?.name ?? "null"}");
 
                     // Additionally, search with different parameter name
                     if (source == null)
                     {
                         tempParams = new Dictionary<string, string> { {"name", sourceName} };
                         source = GetTargetGameObject(tempParams);
-                        Debug.Log($"[CreatePrefab] Fallback search by name: {source?.name ?? "null"}");
+                        SynLog.Info($"[CreatePrefab] Fallback search by name: {source?.name ?? "null"}");
                     }
 
                     // If not in scene, attempt to instantiate from existing prefab
@@ -6960,13 +6964,13 @@ public class {className} : MonoBehaviour
             {
                 // If source parameter not specified, use lastCreatedObject
                 source = lastCreatedObject;
-                Debug.Log($"[CreatePrefab] No source specified, using last created object: {source?.name ?? "null"}");
+                SynLog.Info($"[CreatePrefab] No source specified, using last created object: {source?.name ?? "null"}");
             }
             
             if (source == null)
             {
                 var allObjects = GameObject.FindObjectsOfType<GameObject>();
-                Debug.Log($"[CreatePrefab] Available objects in scene: {string.Join(", ", allObjects.Take(10).Select(o => o.name))}");
+                SynLog.Info($"[CreatePrefab] Available objects in scene: {string.Join(", ", allObjects.Take(10).Select(o => o.name))}");
                 
                 // Last resort: Search directly from available objects
                 if (!string.IsNullOrEmpty(sourceName))
@@ -6976,7 +6980,7 @@ public class {className} : MonoBehaviour
                     {
                         source = allObjects.FirstOrDefault(o => o.name.Contains(sourceName));
                     }
-                    Debug.Log($"[CreatePrefab] Direct search result: {source?.name ?? "null"}");
+                    SynLog.Info($"[CreatePrefab] Direct search result: {source?.name ?? "null"}");
                 }
                 
                 if (source == null)
@@ -7005,7 +7009,7 @@ public class {className} : MonoBehaviour
                     {
                         folderPath = "Assets/" + folderPath.TrimStart('/');
                     }
-                    Debug.Log($"[CreatePrefab] Using parameter folder path: '{folderPath}'");
+                    SynLog.Info($"[CreatePrefab] Using parameter folder path: '{folderPath}'");
                 }
             }
             
@@ -7017,13 +7021,13 @@ public class {className} : MonoBehaviour
             
             var prefabPath = $"{folderPath}/{fileName}";
             
-            Debug.Log($"[CreatePrefab] Final prefab path: '{prefabPath}'");
-            Debug.Log($"[CreatePrefab] Folder: '{folderPath}', File: '{fileName}'");
+            SynLog.Info($"[CreatePrefab] Final prefab path: '{prefabPath}'");
+            SynLog.Info($"[CreatePrefab] Folder: '{folderPath}', File: '{fileName}'");
             
             // Auto-create folder if it doesn't exist
             if (!AssetDatabase.IsValidFolder(folderPath))
             {
-                Debug.Log($"[Synaptic] Folder '{folderPath}' does not exist. Creating folder...");
+                SynLog.Info($"[Synaptic] Folder '{folderPath}' does not exist. Creating folder...");
                 
                 // Create folder using CreateFolder method
                 var createFolderParams = new Dictionary<string, string> { ["path"] = folderPath };
@@ -7036,7 +7040,7 @@ public class {className} : MonoBehaviour
                     {
                         return $"Error: Failed to create folder '{folderPath}': {result["error"]}";
                     }
-                    Debug.Log($"[Synaptic] Successfully created folder: {folderPath}");
+                    SynLog.Info($"[Synaptic] Successfully created folder: {folderPath}");
                 }
                 catch (Exception e)
                 {
@@ -7244,7 +7248,7 @@ public class {className} : MonoBehaviour
                     break;
             }
             var shaderName = parameters.GetValueOrDefault("shader", defaultShader);
-            Debug.Log($"[CreateMaterial] Pipeline: {pipeline}, Default shader: {defaultShader}, Using: {shaderName}");
+            SynLog.Info($"[CreateMaterial] Pipeline: {pipeline}, Default shader: {defaultShader}, Using: {shaderName}");
 
             // Create folder if it doesn't exist
             var folderPath = "Assets/Synaptic_Generated";
@@ -7258,19 +7262,19 @@ public class {className} : MonoBehaviour
             Shader shader = null;
             string usedShaderName = shaderName;
 
-            // Try third-party shader first if keyword matches
+            // Try registered Synaptic shader first if keyword matches
             var shaderKey = shaderName.ToLower();
             var currentPipeline = DetectRenderingPipeline();
-            if (ThirdPartyShaders.TryGetValue(shaderKey, out var shaderInfo))
+            if (RegisteredShaders.TryGetValue(shaderKey, out var shaderInfo))
             {
                 if (shaderInfo.IsAvailable(currentPipeline))
                 {
-                    var thirdPartyShaderName = shaderInfo.GetShaderName(currentPipeline);
-                    shader = Shader.Find(thirdPartyShaderName);
+                    var registeredShaderName = shaderInfo.GetShaderName(currentPipeline);
+                    shader = Shader.Find(registeredShaderName);
                     if (shader != null)
                     {
-                        usedShaderName = thirdPartyShaderName;
-                        Debug.Log($"[CreateMaterial] Using third-party shader: {thirdPartyShaderName}");
+                        usedShaderName = registeredShaderName;
+                        SynLog.Info($"[CreateMaterial] Using registered shader: {registeredShaderName}");
                     }
                 }
             }
@@ -7286,7 +7290,7 @@ public class {className} : MonoBehaviour
             {
                 shader = GetRenderPipelineCompatibleShader();
                 usedShaderName = shader.name;
-                Debug.LogWarning($"[CreateMaterial] Shader '{shaderName}' not found, using fallback: {usedShaderName}");
+                SynLog.Warn($"[CreateMaterial] Shader '{shaderName}' not found, using fallback: {usedShaderName}");
             }
 
             var mat = new Material(shader);
@@ -7295,7 +7299,7 @@ public class {className} : MonoBehaviour
             if (parameters.TryGetValue("color", out var colorStr))
             {
                 var color = ParseColor(colorStr);
-                Debug.Log($"[CreateMaterial] Setting color: {colorStr} -> {color}");
+                SynLog.Info($"[CreateMaterial] Setting color: {colorStr} -> {color}");
 
                 // URP/HDRP use _BaseColor, Legacy uses _Color
                 if (mat.HasProperty("_BaseColor"))
@@ -7544,7 +7548,7 @@ public class {className} : MonoBehaviour
                 }
 
                 var shaderName = parameters.GetValueOrDefault("shader", defaultShader);
-                Debug.Log($"[SetupMaterial] Pipeline: {pipeline}, Shader: {shaderName}");
+                SynLog.Info($"[SetupMaterial] Pipeline: {pipeline}, Shader: {shaderName}");
 
                 GameObject target = null;
                 if (!string.IsNullOrEmpty(targetObject))
@@ -7556,28 +7560,28 @@ public class {className} : MonoBehaviour
                     }
                 }
 
-                // Resolve shader FIRST - prioritize third-party MIT shaders
+                // Resolve shader FIRST - prioritize registered Synaptic shaders by logical key
                 var shaderKey = shaderName.ToLower();
-                bool usedThirdParty = false;
-                string thirdPartySource = "";
+                bool usedRegistered = false;
+                string registeredSource = "";
                 Shader resolvedShader = null;
                 string resolvedShaderName = shaderName;
 
                 var currentPipeline = DetectRenderingPipeline();
 
-                // Check if we have a high-quality third-party shader
-                if (ThirdPartyShaders.TryGetValue(shaderKey, out var shaderInfo))
+                // Check if we have a registered Synaptic shader for this logical key
+                if (RegisteredShaders.TryGetValue(shaderKey, out var shaderInfo))
                 {
                     if (shaderInfo.IsAvailable(currentPipeline))
                     {
-                        var thirdPartyShaderName = shaderInfo.GetShaderName(currentPipeline);
-                        resolvedShader = Shader.Find(thirdPartyShaderName);
+                        var registeredShaderName = shaderInfo.GetShaderName(currentPipeline);
+                        resolvedShader = Shader.Find(registeredShaderName);
                         if (resolvedShader != null)
                         {
-                            usedThirdParty = true;
-                            thirdPartySource = shaderInfo.Source;
-                            resolvedShaderName = thirdPartyShaderName;
-                            Debug.Log($"[SetupMaterial] Using third-party shader: {thirdPartyShaderName} from {shaderInfo.Source}");
+                            usedRegistered = true;
+                            registeredSource = shaderInfo.Source;
+                            resolvedShaderName = registeredShaderName;
+                            SynLog.Info($"[SetupMaterial] Using registered shader: {registeredShaderName} from {shaderInfo.Source}");
                         }
                     }
                 }
@@ -7597,7 +7601,7 @@ public class {className} : MonoBehaviour
                 {
                     resolvedShader = GetRenderPipelineCompatibleShader();
                     resolvedShaderName = resolvedShader.name;
-                    Debug.LogWarning($"[SetupMaterial] Shader '{shaderName}' not found, using fallback: {resolvedShaderName}");
+                    SynLog.Warn($"[SetupMaterial] Shader '{shaderName}' not found, using fallback: {resolvedShaderName}");
                 }
 
                 // Create or get material
@@ -7609,7 +7613,7 @@ public class {className} : MonoBehaviour
                 if (existingMat != null)
                 {
                     material = existingMat;
-                    Debug.Log($"[SetupMaterial] Using existing material: {existingMatPath}");
+                    SynLog.Info($"[SetupMaterial] Using existing material: {existingMatPath}");
                 }
 
                 if (target != null)
@@ -7650,13 +7654,13 @@ public class {className} : MonoBehaviour
                 }
 
                 // Apply resolved shader to material (in case we reused existing material)
-                if (parameters.ContainsKey("shader") || usedThirdParty)
+                if (parameters.ContainsKey("shader") || usedRegistered)
                 {
                     material.shader = resolvedShader;
                 }
 
                 // Apply default properties for specific shader types (when using fallback standard shader)
-                if (!usedThirdParty && (resolvedShaderName.Contains("Standard") || resolvedShaderName.Contains("Lit")))
+                if (!usedRegistered && (resolvedShaderName.Contains("Standard") || resolvedShaderName.Contains("Lit")))
                 {
                     switch (shaderKey)
                     {
@@ -7694,7 +7698,7 @@ public class {className} : MonoBehaviour
                 if (parameters.TryGetValue("color", out var colorStr))
                 {
                     var color = ParseColor(colorStr);
-                    Debug.Log($"[SetupMaterial] Setting color: {colorStr} -> {color}");
+                    SynLog.Info($"[SetupMaterial] Setting color: {colorStr} -> {color}");
                     material.SetColor("_Color", color);
                     material.SetColor("_BaseColor", color); // URP/HDRP support
                     
@@ -7809,7 +7813,7 @@ public class {className} : MonoBehaviour
                         }
                         catch (Exception ex)
                         {
-                            Debug.LogWarning($"Failed to auto-bake NavMesh: {ex.Message}");
+                            SynLog.Warn($"Failed to auto-bake NavMesh: {ex.Message}");
                         }
                         
                         return JsonConvert.SerializeObject(new
@@ -8114,12 +8118,12 @@ public class {className} : MonoBehaviour
             if (audioSource != null)
             {
                 foundLocation = $"{targetObject.name}/{audioSource.gameObject.name}";
-                Debug.Log($"[NexusAudio] Found AudioSource in child object '{audioSource.gameObject.name}'");
+                SynLog.Info($"[NexusAudio] Found AudioSource in child object '{audioSource.gameObject.name}'");
                 return audioSource;
             }
             
             // Suggest auto-creation if no AudioSource exists
-            Debug.LogWarning($"[NexusAudio] AudioSource not found in '{targetObject.name}' or its children. Consider auto-creating");
+            SynLog.Warn($"[NexusAudio] AudioSource not found in '{targetObject.name}' or its children. Consider auto-creating");
             return null;
         }
         
@@ -8134,7 +8138,7 @@ public class {className} : MonoBehaviour
             if (audioSource == null && autoCreate)
             {
                 audioSource = targetObject.AddComponent<AudioSource>();
-                Debug.Log($"[NexusAudio] Automatically created AudioSource on '{targetObject.name}'");
+                SynLog.Info($"[NexusAudio] Automatically created AudioSource on '{targetObject.name}'");
             }
             
             return audioSource;
@@ -8168,7 +8172,7 @@ public class {className} : MonoBehaviour
                 var audioSourceObject = audioSource.gameObject;
                 if (audioSourceObject != go)
                 {
-                    Debug.Log($"[NexusAudio] Applying effects to AudioSource at {foundLocation}");
+                    SynLog.Info($"[NexusAudio] Applying effects to AudioSource at {foundLocation}");
                 }
                 
                 var results = new List<string>();
@@ -10616,7 +10620,7 @@ public class {className} : MonoBehaviour
                     try
                     {
                         var propsJson = parameters["properties"];
-                        Debug.Log($"[Synaptic] Parsing properties JSON: {propsJson}");
+                        SynLog.Info($"[Synaptic] Parsing properties JSON: {propsJson}");
 
                         var propsDict = JsonConvert.DeserializeObject<Dictionary<string, object>>(propsJson);
                         foreach (var kvp in propsDict)
@@ -10624,11 +10628,11 @@ public class {className} : MonoBehaviour
                             props[kvp.Key] = kvp.Value?.ToString() ?? "";
                         }
 
-                        Debug.Log($"[Synaptic] Parsed {props.Count} properties: {string.Join(", ", props.Keys)}");
+                        SynLog.Info($"[Synaptic] Parsed {props.Count} properties: {string.Join(", ", props.Keys)}");
                     }
                     catch (Exception e)
                     {
-                        Debug.LogWarning($"[Synaptic] Failed to parse properties JSON: {e.Message}. Using direct parameters.");
+                        SynLog.Warn($"[Synaptic] Failed to parse properties JSON: {e.Message}. Using direct parameters.");
                         props = parameters;
                     }
                 }
@@ -10645,7 +10649,7 @@ public class {className} : MonoBehaviour
                 var emissionColor = props.GetValueOrDefault("emissionColor", "#000000");
                 var emissionIntensity = float.Parse(props.GetValueOrDefault("emissionIntensity", "1"));
 
-                Debug.Log($"[Synaptic] Material properties - Color: {color}, Metallic: {metallic}, Smoothness: {smoothness}");
+                SynLog.Info($"[Synaptic] Material properties - Color: {color}, Metallic: {metallic}, Smoothness: {smoothness}");
 
                 // Resolve shader with render pipeline compatibility
                 Shader shader = ResolveShaderName(shaderName);
@@ -10668,7 +10672,7 @@ public class {className} : MonoBehaviour
                 Material material = new Material(shader);
                 material.name = materialName;
 
-                Debug.Log($"[Synaptic] Created material '{materialName}' with shader '{shader.name}' (Pipeline: {DetectRenderingPipeline()})");
+                SynLog.Info($"[Synaptic] Created material '{materialName}' with shader '{shader.name}' (Pipeline: {DetectRenderingPipeline()})");
                 
                 // Configure basic properties with pipeline compatibility
                 if (ColorUtility.TryParseHtmlString(color, out Color parsedColor))
@@ -10680,11 +10684,11 @@ public class {className} : MonoBehaviour
                 if (material.HasProperty("_Metallic"))
                 {
                     material.SetFloat("_Metallic", metallic);
-                    Debug.Log($"[Synaptic] Set _Metallic to {metallic}");
+                    SynLog.Info($"[Synaptic] Set _Metallic to {metallic}");
                 }
                 else
                 {
-                    Debug.LogWarning($"[Synaptic] Material has no _Metallic property");
+                    SynLog.Warn($"[Synaptic] Material has no _Metallic property");
                 }
 
                 // URP/HDRP use different smoothness property names
@@ -10692,19 +10696,19 @@ public class {className} : MonoBehaviour
                 if (material.HasProperty("_Smoothness"))
                 {
                     material.SetFloat("_Smoothness", smoothness);
-                    Debug.Log($"[Synaptic] Set _Smoothness to {smoothness}");
+                    SynLog.Info($"[Synaptic] Set _Smoothness to {smoothness}");
                     smoothnessSet = true;
                 }
                 else if (material.HasProperty("_Glossiness"))
                 {
                     material.SetFloat("_Glossiness", smoothness);
-                    Debug.Log($"[Synaptic] Set _Glossiness to {smoothness}");
+                    SynLog.Info($"[Synaptic] Set _Glossiness to {smoothness}");
                     smoothnessSet = true;
                 }
 
                 if (!smoothnessSet)
                 {
-                    Debug.LogWarning($"[Synaptic] Material has no smoothness property");
+                    SynLog.Warn($"[Synaptic] Material has no smoothness property");
                 }
 
                 if (material.HasProperty("_GlossyReflections"))
@@ -11843,7 +11847,7 @@ public class {className} : MonoBehaviour
                     else
                     {
                         // Generate texture if not exists
-                        Debug.Log("[Synaptic] Caustics texture not found, please run Tools > Synaptic Pro > Shaders > Generate Caustics Texture");
+                        SynLog.Info("[Synaptic] Caustics texture not found, please run Tools > Synaptic Pro > Shaders > Generate Caustics Texture");
                     }
                 }
                 else
@@ -11906,7 +11910,7 @@ public class {className} : MonoBehaviour
                 var shader = ShaderPipelineManager.FindShaderForCurrentPipeline("Water");
                 if (shader == null)
                 {
-                    Debug.LogWarning("[Synaptic] Water shader not found, using fallback");
+                    SynLog.Warn("[Synaptic] Water shader not found, using fallback");
                     shader = GetRenderPipelineCompatibleShader();
                 }
 
@@ -11925,7 +11929,7 @@ public class {className} : MonoBehaviour
                 }
                 else
                 {
-                    Debug.Log("[Synaptic] Water normal map not found. Run Tools > Synaptic Pro > Water > Generate Water Normal Map");
+                    SynLog.Info("[Synaptic] Water normal map not found. Run Tools > Synaptic Pro > Water > Generate Water Normal Map");
                 }
 
                 var renderer = waterGO.GetComponent<Renderer>();
@@ -13181,7 +13185,7 @@ public class {className} : MonoBehaviour
         {
             // Detect rendering pipeline
             var pipeline = DetectRenderingPipeline();
-            Debug.Log($"[NexusWeather] Detected rendering pipeline: {pipeline}");
+            SynLog.Info($"[NexusWeather] Detected rendering pipeline: {pipeline}");
             
             // Check and fix shader compatibility
             CheckAndFixShaderCompatibility(pipeline);
@@ -13203,7 +13207,7 @@ public class {className} : MonoBehaviour
             if (currentPipeline != null)
             {
                 var pipelineName = currentPipeline.GetType().Name;
-                Debug.Log($"[DetectRenderingPipeline] Pipeline type: {pipelineName}");
+                SynLog.Info($"[DetectRenderingPipeline] Pipeline type: {pipelineName}");
 
                 if (pipelineName.Contains("Universal") || pipelineName.Contains("URP"))
                     detected = "URP";
@@ -13227,7 +13231,7 @@ public class {className} : MonoBehaviour
             // Cache and log
             if (_cachedPipeline != detected)
             {
-                Debug.Log($"[DetectRenderingPipeline] Detected: {detected}");
+                SynLog.Info($"[DetectRenderingPipeline] Detected: {detected}");
             }
             _cachedPipeline = detected;
 
@@ -13281,11 +13285,11 @@ public class {className} : MonoBehaviour
                         }
                     }
                     renderer.material = material;
-                    Debug.Log($"[CreatePrimitiveWithMaterial] Created {pipeline} material with shader: {shaderName}");
+                    SynLog.Info($"[CreatePrimitiveWithMaterial] Created {pipeline} material with shader: {shaderName}");
                 }
                 else
                 {
-                    Debug.LogWarning($"[Synaptic] Shader '{shaderName}' not found for {pipeline} pipeline. Using default material.");
+                    SynLog.Warn($"[Synaptic] Shader '{shaderName}' not found for {pipeline} pipeline. Using default material.");
                 }
             }
 
@@ -13316,7 +13320,7 @@ public class {className} : MonoBehaviour
             var shader = Shader.Find(shaderName);
             if (shader == null)
             {
-                Debug.LogWarning($"[Synaptic] Shader '{shaderName}' not found for {pipeline} pipeline. Falling back to Standard.");
+                SynLog.Warn($"[Synaptic] Shader '{shaderName}' not found for {pipeline} pipeline. Falling back to Standard.");
                 shader = Shader.Find("Standard");
             }
 
@@ -13338,7 +13342,7 @@ public class {className} : MonoBehaviour
                 }
             }
 
-            Debug.Log($"[CreateRenderPipelineCompatibleMaterial] Created material with shader: {shaderName}");
+            SynLog.Info($"[CreateRenderPipelineCompatibleMaterial] Created material with shader: {shaderName}");
             return material;
         }
 
@@ -13469,16 +13473,16 @@ public class {className} : MonoBehaviour
             if (material.HasProperty("_BaseColor"))
             {
                 material.SetColor("_BaseColor", color);
-                Debug.Log($"[Synaptic] Set _BaseColor to {color}");
+                SynLog.Info($"[Synaptic] Set _BaseColor to {color}");
             }
             else if (material.HasProperty("_Color"))
             {
                 material.SetColor("_Color", color);
-                Debug.Log($"[Synaptic] Set _Color to {color}");
+                SynLog.Info($"[Synaptic] Set _Color to {color}");
             }
             else
             {
-                Debug.LogWarning($"[Synaptic] Material '{material.name}' has no color property");
+                SynLog.Warn($"[Synaptic] Material '{material.name}' has no color property");
             }
         }
 
@@ -13493,11 +13497,11 @@ public class {className} : MonoBehaviour
                 material.SetColor("_EmissionColor", finalEmission);
                 material.EnableKeyword("_EMISSION");
                 material.globalIlluminationFlags = MaterialGlobalIlluminationFlags.RealtimeEmissive;
-                Debug.Log($"[Synaptic] Set emission to {finalEmission} (intensity: {intensity})");
+                SynLog.Info($"[Synaptic] Set emission to {finalEmission} (intensity: {intensity})");
             }
             else
             {
-                Debug.LogWarning($"[Synaptic] Material '{material.name}' has no emission property");
+                SynLog.Warn($"[Synaptic] Material '{material.name}' has no emission property");
             }
         }
 
@@ -13509,7 +13513,7 @@ public class {className} : MonoBehaviour
                 CreateFallbackFogMaterial(pipeline);
                 CreateFallbackParticleMaterial(pipeline);
                 
-                Debug.Log($"[NexusWeather] Shader compatibility fixed for {pipeline}");
+                SynLog.Info($"[NexusWeather] Shader compatibility fixed for {pipeline}");
             }
             catch (Exception e)
             {
@@ -13555,7 +13559,7 @@ public class {className} : MonoBehaviour
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[NexusWeather] Could not create fog fallback material: {e.Message}");
+                SynLog.Warn($"[NexusWeather] Could not create fog fallback material: {e.Message}");
             }
         }
         
@@ -13597,7 +13601,7 @@ public class {className} : MonoBehaviour
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[NexusWeather] Could not create particle fallback material: {e.Message}");
+                SynLog.Warn($"[NexusWeather] Could not create particle fallback material: {e.Message}");
             }
         }
         
@@ -13619,7 +13623,7 @@ public class {className} : MonoBehaviour
                     CreateFallbackParticleMaterial(pipeline);
                 }
                 
-                Debug.Log($"[NexusWeather] Weather materials validated for {pipeline}");
+                SynLog.Info($"[NexusWeather] Weather materials validated for {pipeline}");
             }
             catch (Exception e)
             {
@@ -13662,11 +13666,11 @@ public class {className} : MonoBehaviour
                     }
                 }
                 
-                Debug.Log("[NexusWeather] Particle system settings validated");
+                SynLog.Info("[NexusWeather] Particle system settings validated");
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[NexusWeather] Particle validation warning: {e.Message}");
+                SynLog.Warn($"[NexusWeather] Particle validation warning: {e.Message}");
             }
         }
         
@@ -13747,7 +13751,7 @@ public class {className} : MonoBehaviour
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[NexusWeather] Could not assign material: {e.Message}");
+                SynLog.Warn($"[NexusWeather] Could not assign material: {e.Message}");
             }
         }
         
@@ -15623,7 +15627,7 @@ Shader ""NexusGenerated/VolumetricFog""
                         return false;
                     }
                     
-                    Debug.Log($"[NexusShader] Successfully generated {effectName} shader for {parameters.GetValueOrDefault("PIPELINE", "Unknown")} pipeline");
+                    SynLog.Info($"[NexusShader] Successfully generated {effectName} shader for {parameters.GetValueOrDefault("PIPELINE", "Unknown")} pipeline");
                     return true;
                 }
                 catch (Exception e)
@@ -15743,12 +15747,12 @@ Shader ""NexusGenerated/VolumetricFog""
         {
             try
             {
-                Debug.Log($"[NexusShader] Starting {effectName} effect creation with auto-shader generation");
+                SynLog.Info($"[NexusShader] Starting {effectName} effect creation with auto-shader generation");
                 
                 // Try to generate shader
                 if (!ShaderTemplateManager.TryGenerateShader(effectName, parameters, out string shaderCode, out string errorMessage))
                 {
-                    Debug.LogWarning($"[NexusShader] Shader generation failed for {effectName}: {errorMessage}");
+                    SynLog.Warn($"[NexusShader] Shader generation failed for {effectName}: {errorMessage}");
                     
                     // Try fallback approach
                     return CreateFallbackEffect(effectName, parameters, errorMessage);
@@ -15758,14 +15762,14 @@ Shader ""NexusGenerated/VolumetricFog""
                 var shader = CreateShaderAsset(effectName, shaderCode);
                 if (shader == null)
                 {
-                    Debug.LogWarning($"[NexusShader] Shader asset creation failed for {effectName}");
+                    SynLog.Warn($"[NexusShader] Shader asset creation failed for {effectName}");
                     return CreateFallbackEffect(effectName, parameters, "Shader asset creation failed");
                 }
                 
                 // Validate shader compilation
                 if (!ValidateShaderCompilation(shader, effectName))
                 {
-                    Debug.LogWarning($"[NexusShader] Shader compilation failed for {effectName}");
+                    SynLog.Warn($"[NexusShader] Shader compilation failed for {effectName}");
                     return CreateFallbackEffect(effectName, parameters, "Shader compilation failed");
                 }
                 
@@ -15779,7 +15783,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 // Validate material
                 if (!ValidateMaterial(material, effectName))
                 {
-                    Debug.LogWarning($"[NexusShader] Material validation failed for {effectName}");
+                    SynLog.Warn($"[NexusShader] Material validation failed for {effectName}");
                     return CreateFallbackEffect(effectName, parameters, "Material validation failed");
                 }
                 
@@ -15788,11 +15792,11 @@ Shader ""NexusGenerated/VolumetricFog""
                 
                 if (effectObject == null)
                 {
-                    Debug.LogWarning($"[NexusShader] Effect object creation failed for {effectName}");
+                    SynLog.Warn($"[NexusShader] Effect object creation failed for {effectName}");
                     return CreateFallbackEffect(effectName, parameters, "Effect object creation failed");
                 }
                 
-                Debug.Log($"[NexusShader] Successfully created {effectName} effect with auto-generated shader");
+                SynLog.Info($"[NexusShader] Successfully created {effectName} effect with auto-generated shader");
                 
                 return $"[NexusShader] {effectName} effect created successfully!\n" +
                        $"  Auto-Generated Shader: Created & Compiled\n" +
@@ -15815,7 +15819,7 @@ Shader ""NexusGenerated/VolumetricFog""
         {
             try
             {
-                Debug.Log($"[NexusShader] Creating fallback effect for {effectName} due to: {reason}");
+                SynLog.Info($"[NexusShader] Creating fallback effect for {effectName} due to: {reason}");
 
                 // Create simple fallback using render pipeline compatible shader
                 Material fallbackMaterial = null;
@@ -15906,7 +15910,7 @@ Shader ""NexusGenerated/VolumetricFog""
                         }
                         else if (message.severity == ShaderCompilerMessageSeverity.Warning)
                         {
-                            Debug.LogWarning($"[NexusShader] Shader compilation warning in {effectName}: {message.message}");
+                            SynLog.Warn($"[NexusShader] Shader compilation warning in {effectName}: {message.message}");
                         }
                     }
                 }
@@ -15986,7 +15990,7 @@ Shader ""NexusGenerated/VolumetricFog""
                     return null;
                 }
                 
-                Debug.Log($"[NexusShader] Successfully created shader asset: {shaderPath}");
+                SynLog.Info($"[NexusShader] Successfully created shader asset: {shaderPath}");
                 return shader;
             }
             catch (Exception e)
@@ -16018,7 +16022,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 }
                 catch (Exception e)
                 {
-                    Debug.LogWarning($"[NexusShader] Could not set material property {param.Key}: {e.Message}");
+                    SynLog.Warn($"[NexusShader] Could not set material property {param.Key}: {e.Message}");
                 }
             }
         }
@@ -16170,7 +16174,7 @@ Shader ""NexusGenerated/VolumetricFog""
             
             void Start()
             {
-                Debug.LogWarning($"[NexusShader] Using fallback effect for {effectName}: {fallbackReason}");
+                SynLog.Warn($"[NexusShader] Using fallback effect for {effectName}: {fallbackReason}");
             }
         }
         
@@ -16183,7 +16187,7 @@ Shader ""NexusGenerated/VolumetricFog""
             
             void Start()
             {
-                Debug.Log($"[NexusShader] Bloom effect initialized with intensity: {intensity}, threshold: {threshold}");
+                SynLog.Info($"[NexusShader] Bloom effect initialized with intensity: {intensity}, threshold: {threshold}");
             }
         }
         
@@ -16195,7 +16199,7 @@ Shader ""NexusGenerated/VolumetricFog""
             
             void Start()
             {
-                Debug.Log($"[NexusShader] Film grain effect initialized with intensity: {intensity}, size: {grainSize}");
+                SynLog.Info($"[NexusShader] Film grain effect initialized with intensity: {intensity}, size: {grainSize}");
             }
         }
         
@@ -16207,7 +16211,7 @@ Shader ""NexusGenerated/VolumetricFog""
             
             void Start()
             {
-                Debug.Log($"[NexusShader] Motion blur effect initialized with strength: {blurStrength}, samples: {sampleCount}");
+                SynLog.Info($"[NexusShader] Motion blur effect initialized with strength: {blurStrength}, samples: {sampleCount}");
             }
         }
         
@@ -16220,7 +16224,7 @@ Shader ""NexusGenerated/VolumetricFog""
             
             void Start()
             {
-                Debug.Log($"[NexusShader] Depth of field effect initialized with focus: {focusDistance}, aperture: {aperture}");
+                SynLog.Info($"[NexusShader] Depth of field effect initialized with focus: {focusDistance}, aperture: {aperture}");
             }
         }
         
@@ -16233,7 +16237,7 @@ Shader ""NexusGenerated/VolumetricFog""
             
             void Start()
             {
-                Debug.Log($"[NexusShader] Lens distortion effect initialized with distortion: {distortionStrength}, aberration: {chromaticAberration}");
+                SynLog.Info($"[NexusShader] Lens distortion effect initialized with distortion: {distortionStrength}, aberration: {chromaticAberration}");
             }
         }
         
@@ -16307,7 +16311,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 var hdr = bool.Parse(parameters.GetValueOrDefault("hdr", "true"));
                 var msaa = parameters.GetValueOrDefault("msaa", "4x").ToLower();
                 
-                Debug.Log($"[NexusRendering] Setting up URP for {platform} platform with {quality} quality");
+                SynLog.Info($"[NexusRendering] Setting up URP for {platform} platform with {quality} quality");
                 
                 // Check if URP is available
                 var urpAsset = UnityEngine.Rendering.GraphicsSettings.currentRenderPipeline;
@@ -16485,7 +16489,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 // Apply pixel light count
                 QualitySettings.pixelLightCount = settings.maxPixelLights;
                 
-                Debug.Log($"[NexusRendering] Applied URP settings: Shadows={settings.shadowDistance}m, MSAA={settings.msaa}, Lights={settings.maxLights}");
+                SynLog.Info($"[NexusRendering] Applied URP settings: Shadows={settings.shadowDistance}m, MSAA={settings.msaa}, Lights={settings.maxLights}");
             }
             catch (Exception e)
             {
@@ -16810,7 +16814,7 @@ Shader ""NexusGenerated/VolumetricFog""
 
                 if (result.StartsWith("Error"))
                 {
-                    Debug.LogWarning($"[NexusVFX] VFX Graph creation failed: {result}");
+                    SynLog.Warn($"[NexusVFX] VFX Graph creation failed: {result}");
                     return CreateVFXWithParticleSystem(p.effectName, p.effectType, p.intensity, p.duration, p.looping, p.particleCount, p.color, p.position);
                 }
 
@@ -16841,7 +16845,7 @@ Shader ""NexusGenerated/VolumetricFog""
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[NexusVFX] VFX Graph creation failed: {e.Message}\n{e.StackTrace}");
+                SynLog.Warn($"[NexusVFX] VFX Graph creation failed: {e.Message}\n{e.StackTrace}");
                 // フォールバック
                 return CreateVFXWithParticleSystem(p.effectName, p.effectType, p.intensity, p.duration, p.looping, p.particleCount, p.color, p.position);
             }
@@ -18475,7 +18479,7 @@ Shader ""NexusGenerated/VolumetricFog""
             // 最終フォールバック
             if (shader == null)
             {
-                Debug.LogWarning($"[NexusVFX] No suitable particle shader found for {pipeline}. Using fallback.");
+                SynLog.Warn($"[NexusVFX] No suitable particle shader found for {pipeline}. Using fallback.");
                 shader = Shader.Find("Unlit/Color");
                 if (shader == null) shader = Shader.Find("Standard");
             }
@@ -18688,9 +18692,9 @@ Shader ""NexusGenerated/VolumetricFog""
             return tex;
         }
         
-        // Third-party shader mapping - MIT licensed shaders included in package
+        // Registered shader mapping - Synaptic original shaders by logical key
         // Supports both URP and Built-in pipeline with fallbacks
-        private class ThirdPartyShaderInfo
+        private class RegisteredShaderInfo
         {
             public string URPShaderName;      // Shader name for URP
             public string BuiltInShaderName;  // Shader name for Built-in pipeline
@@ -18699,7 +18703,7 @@ Shader ""NexusGenerated/VolumetricFog""
             public string License;
             public bool URPOnly;              // True if only available for URP
 
-            public ThirdPartyShaderInfo(string urpShaderName, string builtInShaderName, string folderPath, string source, string license, bool urpOnly = false)
+            public RegisteredShaderInfo(string urpShaderName, string builtInShaderName, string folderPath, string source, string license, bool urpOnly = false)
             {
                 URPShaderName = urpShaderName;
                 BuiltInShaderName = builtInShaderName;
@@ -18732,121 +18736,13 @@ Shader ""NexusGenerated/VolumetricFog""
             }
         }
 
-        private static readonly Dictionary<string, ThirdPartyShaderInfo> ThirdPartyShaders = new Dictionary<string, ThirdPartyShaderInfo>
+        private static readonly Dictionary<string, RegisteredShaderInfo> RegisteredShaders = new Dictionary<string, RegisteredShaderInfo>
         {
-            // === Built-in Pipeline Compatible (work on both) ===
-            // These shaders are in ThirdParty/BuiltIn/ folder and always available
-
-            // Hologram shaders - Works on Built-in
-            { "hologram", new ThirdPartyShaderInfo(
-                "Hologram/Hologram",           // URP
-                "Hologram/Hologram",           // Built-in (same shader works)
-                "ThirdParty/BuiltIn/HologramShader",
-                "andydbc/HologramShader",
-                "MIT") },
-
-            // Force field / Shield shaders - Works on Built-in (Amplify based)
-            { "forcefield", new ThirdPartyShaderInfo(
-                "AdultLink/HoloShield",
-                "AdultLink/HoloShield",
-                "ThirdParty/BuiltIn/HoloShield",
-                "AdultLink/HoloShield",
-                "MIT") },
-            { "force_field", new ThirdPartyShaderInfo(
-                "AdultLink/HoloShield",
-                "AdultLink/HoloShield",
-                "ThirdParty/BuiltIn/HoloShield",
-                "AdultLink/HoloShield",
-                "MIT") },
-            { "shield", new ThirdPartyShaderInfo(
-                "AdultLink/HoloShield",
-                "AdultLink/HoloShield",
-                "ThirdParty/BuiltIn/HoloShield",
-                "AdultLink/HoloShield",
-                "MIT") },
-
-            // Rim light / Fresnel shaders - Works on Built-in (Amplify based)
-            { "fresnel", new ThirdPartyShaderInfo(
-                "AdultLink/Rimlight",
-                "AdultLink/Rimlight",
-                "ThirdParty/BuiltIn/Rimlight",
-                "AdultLink/Rimlight",
-                "MIT") },
-            { "rim", new ThirdPartyShaderInfo(
-                "AdultLink/Rimlight",
-                "AdultLink/Rimlight",
-                "ThirdParty/BuiltIn/Rimlight",
-                "AdultLink/Rimlight",
-                "MIT") },
-            { "rimlight", new ThirdPartyShaderInfo(
-                "AdultLink/Rimlight",
-                "AdultLink/Rimlight",
-                "ThirdParty/BuiltIn/Rimlight",
-                "AdultLink/Rimlight",
-                "MIT") },
-
-            // Outline - Works on Built-in (core module)
-            { "outline", new ThirdPartyShaderInfo(
-                "Hidden/UnityFx/Outline",
-                "Hidden/UnityFx/Outline",
-                "ThirdParty/BuiltIn/Outline",
-                "Arvtesh/UnityFx.Outline",
-                "MIT") },
-
-            // === URP Only Shaders ===
-            // These shaders are in ThirdParty/URP/ folder and auto-disabled when URP is not installed
-
-            // Toon shaders - URP only
-            { "toon", new ThirdPartyShaderInfo(
-                "SimpleURPToonLitExample(With Outline)",
-                null,
-                "ThirdParty/URP/ToonLit",
-                "ColinLeung-NiloCat/UnityURPToonLitShaderExample",
-                "MIT",
-                urpOnly: true) },
-            { "cel", new ThirdPartyShaderInfo(
-                "SimpleURPToonLitExample(With Outline)",
-                null,
-                "ThirdParty/URP/ToonLit",
-                "ColinLeung-NiloCat/UnityURPToonLitShaderExample",
-                "MIT",
-                urpOnly: true) },
-
-            // === URP 14+ Shaders (VKevShaders - VKev) ===
-            { "urp_water", new ThirdPartyShaderInfo(
-                "MyCustom_URP_Shader/URP_Water",
-                null,
-                "ThirdParty/URP/VKevShaders",
-                "VKev/Unity-URP-Shaders-Code",
-                "MIT",
-                urpOnly: true) },
-            { "grass", new ThirdPartyShaderInfo(
-                "MyCustom_URP_Shader/URP_StylizeGrass",
-                null,
-                "ThirdParty/URP/VKevShaders",
-                "VKev/Unity-URP-Shaders-Code",
-                "MIT",
-                urpOnly: true) },
-            { "glow", new ThirdPartyShaderInfo(
-                "MyCustom_URP_Shader/URP_Glow",
-                null,
-                "ThirdParty/URP/VKevShaders",
-                "VKev/Unity-URP-Shaders-Code",
-                "MIT",
-                urpOnly: true) },
-            { "windtoon", new ThirdPartyShaderInfo(
-                "MyCustom_URP_Shader/URP_WindToon",
-                null,
-                "ThirdParty/URP/VKevShaders",
-                "VKev/Unity-URP-Shaders-Code",
-                "MIT",
-                urpOnly: true) },
-
             // === Synaptic Original Shaders ===
             // These are custom shaders created by Synaptic AI Pro
 
             // Caustics - Water light effect projector (works on both pipelines)
-            { "caustics", new ThirdPartyShaderInfo(
+            { "caustics", new RegisteredShaderInfo(
                 "Synaptic/Caustics",
                 "Synaptic/Caustics",
                 "Shaders/Caustics",
@@ -18854,7 +18750,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 "Included") },
 
             // Water - Full water system with waves, reflections, foam (works on both pipelines)
-            { "water", new ThirdPartyShaderInfo(
+            { "water", new RegisteredShaderInfo(
                 "Synaptic/Water",
                 "Synaptic/Water",
                 "Shaders/Water",
@@ -18865,19 +18761,19 @@ Shader ""NexusGenerated/VolumetricFog""
             // High-quality shaders - URP/Built-in/HDRP compatible
 
             // Water Pro - SSR, Tessellation, Caustics, Flowmap, SSS, Foam
-            { "water_pro", new ThirdPartyShaderInfo(
+            { "water_pro", new RegisteredShaderInfo(
                 "Synaptic/WaterPro",
                 "Synaptic/WaterPro",
                 "Shaders/Water",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "waterpro", new ThirdPartyShaderInfo(
+            { "waterpro", new RegisteredShaderInfo(
                 "Synaptic/WaterPro",
                 "Synaptic/WaterPro",
                 "Shaders/Water",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "ocean", new ThirdPartyShaderInfo(
+            { "ocean", new RegisteredShaderInfo(
                 "Synaptic/WaterPro",
                 "Synaptic/WaterPro",
                 "Shaders/Water",
@@ -18885,25 +18781,25 @@ Shader ""NexusGenerated/VolumetricFog""
                 "Included") },
 
             // Toon Pro - Genshin-style SDF face shadows, ramp, anisotropic specular, outline
-            { "toon_pro", new ThirdPartyShaderInfo(
+            { "toon_pro", new RegisteredShaderInfo(
                 "Synaptic/ToonPro",
                 "Synaptic/ToonPro",
                 "Shaders/Toon",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "toonpro", new ThirdPartyShaderInfo(
+            { "toonpro", new RegisteredShaderInfo(
                 "Synaptic/ToonPro",
                 "Synaptic/ToonPro",
                 "Shaders/Toon",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "anime", new ThirdPartyShaderInfo(
+            { "anime", new RegisteredShaderInfo(
                 "Synaptic/ToonPro",
                 "Synaptic/ToonPro",
                 "Shaders/Toon",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "genshin", new ThirdPartyShaderInfo(
+            { "genshin", new RegisteredShaderInfo(
                 "Synaptic/ToonPro",
                 "Synaptic/ToonPro",
                 "Shaders/Toon",
@@ -18911,25 +18807,25 @@ Shader ""NexusGenerated/VolumetricFog""
                 "Included") },
 
             // Grass Pro - Wind animation, player interaction, SSS, distance fade
-            { "grass_pro", new ThirdPartyShaderInfo(
+            { "grass_pro", new RegisteredShaderInfo(
                 "Synaptic/GrassPro",
                 "Synaptic/GrassPro",
                 "Shaders/Grass",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "grasspro", new ThirdPartyShaderInfo(
+            { "grasspro", new RegisteredShaderInfo(
                 "Synaptic/GrassPro",
                 "Synaptic/GrassPro",
                 "Shaders/Grass",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "vegetation", new ThirdPartyShaderInfo(
+            { "vegetation", new RegisteredShaderInfo(
                 "Synaptic/GrassPro",
                 "Synaptic/GrassPro",
                 "Shaders/Grass",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "foliage", new ThirdPartyShaderInfo(
+            { "foliage", new RegisteredShaderInfo(
                 "Synaptic/GrassPro",
                 "Synaptic/GrassPro",
                 "Shaders/Grass",
@@ -18937,31 +18833,31 @@ Shader ""NexusGenerated/VolumetricFog""
                 "Included") },
 
             // Sky Pro - Volumetric clouds, atmospheric scattering, stars, sun
-            { "sky_pro", new ThirdPartyShaderInfo(
+            { "sky_pro", new RegisteredShaderInfo(
                 "Synaptic/SkyPro",
                 "Synaptic/SkyPro",
                 "Shaders/Sky",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "skypro", new ThirdPartyShaderInfo(
+            { "skypro", new RegisteredShaderInfo(
                 "Synaptic/SkyPro",
                 "Synaptic/SkyPro",
                 "Shaders/Sky",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "skybox_pro", new ThirdPartyShaderInfo(
+            { "skybox_pro", new RegisteredShaderInfo(
                 "Synaptic/SkyPro",
                 "Synaptic/SkyPro",
                 "Shaders/Sky",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "atmosphere", new ThirdPartyShaderInfo(
+            { "atmosphere", new RegisteredShaderInfo(
                 "Synaptic/SkyPro",
                 "Synaptic/SkyPro",
                 "Shaders/Sky",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "volumetric_clouds", new ThirdPartyShaderInfo(
+            { "volumetric_clouds", new RegisteredShaderInfo(
                 "Synaptic/SkyPro",
                 "Synaptic/SkyPro",
                 "Shaders/Sky",
@@ -18969,25 +18865,25 @@ Shader ""NexusGenerated/VolumetricFog""
                 "Included") },
 
             // Dissolve Pro - Directional dissolve, edge glow, particles, vertex displacement
-            { "dissolve_pro", new ThirdPartyShaderInfo(
+            { "dissolve_pro", new RegisteredShaderInfo(
                 "Synaptic/DissolvePro",
                 "Synaptic/DissolvePro",
                 "Shaders/Effects",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "dissolvepro", new ThirdPartyShaderInfo(
+            { "dissolvepro", new RegisteredShaderInfo(
                 "Synaptic/DissolvePro",
                 "Synaptic/DissolvePro",
                 "Shaders/Effects",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "dissolve", new ThirdPartyShaderInfo(
+            { "dissolve", new RegisteredShaderInfo(
                 "Synaptic/DissolvePro",
                 "Synaptic/DissolvePro",
                 "Shaders/Effects",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "disintegrate", new ThirdPartyShaderInfo(
+            { "disintegrate", new RegisteredShaderInfo(
                 "Synaptic/DissolvePro",
                 "Synaptic/DissolvePro",
                 "Shaders/Effects",
@@ -18995,31 +18891,31 @@ Shader ""NexusGenerated/VolumetricFog""
                 "Included") },
 
             // Shield Pro - Hex pattern, hit effects, intersection glow, distortion
-            { "shield_pro", new ThirdPartyShaderInfo(
+            { "shield_pro", new RegisteredShaderInfo(
                 "Synaptic/ShieldPro",
                 "Synaptic/ShieldPro",
                 "Shaders/Effects",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "shieldpro", new ThirdPartyShaderInfo(
+            { "shieldpro", new RegisteredShaderInfo(
                 "Synaptic/ShieldPro",
                 "Synaptic/ShieldPro",
                 "Shaders/Effects",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "hex_shield", new ThirdPartyShaderInfo(
+            { "hex_shield", new RegisteredShaderInfo(
                 "Synaptic/ShieldPro",
                 "Synaptic/ShieldPro",
                 "Shaders/Effects",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "energy_shield", new ThirdPartyShaderInfo(
+            { "energy_shield", new RegisteredShaderInfo(
                 "Synaptic/ShieldPro",
                 "Synaptic/ShieldPro",
                 "Shaders/Effects",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "barrier", new ThirdPartyShaderInfo(
+            { "barrier", new RegisteredShaderInfo(
                 "Synaptic/ShieldPro",
                 "Synaptic/ShieldPro",
                 "Shaders/Effects",
@@ -19027,25 +18923,25 @@ Shader ""NexusGenerated/VolumetricFog""
                 "Included") },
 
             // Hair Pro - Kajiya-Kay dual specular, anisotropic highlights, SSS
-            { "hair_pro", new ThirdPartyShaderInfo(
+            { "hair_pro", new RegisteredShaderInfo(
                 "Synaptic/HairPro",
                 "Synaptic/HairPro",
                 "Shaders/Character",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "hairpro", new ThirdPartyShaderInfo(
+            { "hairpro", new RegisteredShaderInfo(
                 "Synaptic/HairPro",
                 "Synaptic/HairPro",
                 "Shaders/Character",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "anime_hair", new ThirdPartyShaderInfo(
+            { "anime_hair", new RegisteredShaderInfo(
                 "Synaptic/HairPro",
                 "Synaptic/HairPro",
                 "Shaders/Character",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "kajiya", new ThirdPartyShaderInfo(
+            { "kajiya", new RegisteredShaderInfo(
                 "Synaptic/HairPro",
                 "Synaptic/HairPro",
                 "Shaders/Character",
@@ -19053,31 +18949,31 @@ Shader ""NexusGenerated/VolumetricFog""
                 "Included") },
 
             // Eye Pro - Parallax iris, pupil dilation, caustics, multiple highlights
-            { "eye_pro", new ThirdPartyShaderInfo(
+            { "eye_pro", new RegisteredShaderInfo(
                 "Synaptic/EyePro",
                 "Synaptic/EyePro",
                 "Shaders/Character",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "eyepro", new ThirdPartyShaderInfo(
+            { "eyepro", new RegisteredShaderInfo(
                 "Synaptic/EyePro",
                 "Synaptic/EyePro",
                 "Shaders/Character",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "anime_eye", new ThirdPartyShaderInfo(
+            { "anime_eye", new RegisteredShaderInfo(
                 "Synaptic/EyePro",
                 "Synaptic/EyePro",
                 "Shaders/Character",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "iris", new ThirdPartyShaderInfo(
+            { "iris", new RegisteredShaderInfo(
                 "Synaptic/EyePro",
                 "Synaptic/EyePro",
                 "Shaders/Character",
                 "Synaptic AI Pro (Original)",
                 "Included") },
-            { "pupil", new ThirdPartyShaderInfo(
+            { "pupil", new RegisteredShaderInfo(
                 "Synaptic/EyePro",
                 "Synaptic/EyePro",
                 "Shaders/Character",
@@ -20416,19 +20312,18 @@ Shader ""NexusGenerated/VolumetricFog""
                 var currentPipeline = DetectRenderingPipeline();
                 var effectivePipeline = requestedPipeline == "auto" ? currentPipeline : requestedPipeline.ToUpper();
 
-                // Check if we have a high-quality third-party shader for this type
-                if (ThirdPartyShaders.TryGetValue(shaderType, out var shaderInfo))
+                // Check if we have a registered Synaptic shader for this type
+                if (RegisteredShaders.TryGetValue(shaderType, out var shaderInfo))
                 {
                     // Check if shader is available for current pipeline
                     if (!shaderInfo.IsAvailable(currentPipeline))
                     {
-                        // Shader is URP-only but we're on Built-in pipeline
                         return JsonConvert.SerializeObject(new
                         {
                             success = false,
                             shaderType = shaderType,
                             currentPipeline = currentPipeline,
-                            message = $"Third-party shader '{shaderType}' requires URP (Universal Render Pipeline), but current pipeline is {currentPipeline}. Using generated fallback shader instead.",
+                            message = $"Registered shader '{shaderType}' is not available for {currentPipeline} pipeline. Using generated fallback shader instead.",
                             fallbackAvailable = true
                         });
                     }
@@ -20447,7 +20342,7 @@ Shader ""NexusGenerated/VolumetricFog""
                         });
                     }
 
-                    // Use third-party shader
+                    // Use registered Synaptic shader
                     var shader = Shader.Find(shaderName);
                     if (shader != null)
                     {
@@ -20457,28 +20352,27 @@ Shader ""NexusGenerated/VolumetricFog""
                             shaderType = shaderType,
                             shaderName = shaderName,
                             currentPipeline = currentPipeline,
-                            source = "third-party",
+                            source = "registered",
                             repository = shaderInfo.Source,
                             license = shaderInfo.License,
                             folderPath = $"Assets/Synaptic AI Pro/Shaders/{shaderInfo.FolderPath}",
-                            message = $"Using high-quality third-party shader '{shaderName}' from {shaderInfo.Source} ({shaderInfo.License} license) for {currentPipeline} pipeline. Shader is ready to use.",
+                            message = $"Using registered shader '{shaderName}' from {shaderInfo.Source} for {currentPipeline} pipeline. Shader is ready to use.",
                             materialPreset = GetMaterialPreset(shaderType)
                         });
                     }
                     else
                     {
-                        // Shader not found, provide path info
                         return JsonConvert.SerializeObject(new
                         {
                             success = true,
                             shaderType = shaderType,
                             shaderName = shaderName,
                             currentPipeline = currentPipeline,
-                            source = "third-party",
+                            source = "registered",
                             repository = shaderInfo.Source,
                             license = shaderInfo.License,
                             folderPath = $"Assets/Synaptic AI Pro/Shaders/{shaderInfo.FolderPath}",
-                            message = $"Third-party shader '{shaderName}' is included in package at {shaderInfo.FolderPath}. May need Unity to refresh assets (Assets > Refresh).",
+                            message = $"Registered shader '{shaderName}' is included in package at {shaderInfo.FolderPath}. May need Unity to refresh assets (Assets > Refresh).",
                             materialPreset = GetMaterialPreset(shaderType)
                         });
                     }
@@ -26030,7 +25924,7 @@ Shader ""NexusGenerated/VolumetricFog""
                             }
                             else
                             {
-                                Debug.LogWarning($"[Skybox] Could not load texture: {face.Value}");
+                                SynLog.Warn($"[Skybox] Could not load texture: {face.Value}");
                             }
                         }
                     }
@@ -26081,7 +25975,7 @@ Shader ""NexusGenerated/VolumetricFog""
                     {
                         // Fallback to Unlit/Texture if custom shader not found
                         shader = Shader.Find("Unlit/Texture");
-                        Debug.LogWarning("[Synaptic] SkySphere shader not found, using Unlit/Texture fallback");
+                        SynLog.Warn("[Synaptic] SkySphere shader not found, using Unlit/Texture fallback");
                     }
 
                     var sphereMaterial = new Material(shader);
@@ -26970,7 +26864,7 @@ Shader ""NexusGenerated/VolumetricFog""
             }
             catch (Exception e)
             {
-                return JsonConvert.SerializeObject(new { error = $"Error getting scene summary: {e.Message}" });
+                return JsonConvert.SerializeObject(new { success = false, error = $"Error getting scene summary: {e.Message}" });
             }
         }
 
@@ -27027,6 +26921,7 @@ Shader ""NexusGenerated/VolumetricFog""
 
                 return JsonConvert.SerializeObject(new
                 {
+                    success = true,
                     count = result.Count,
                     total_matches = filtered.Count(),
                     objects = result
@@ -27121,7 +27016,7 @@ Shader ""NexusGenerated/VolumetricFog""
             }
             catch (Exception e)
             {
-                return JsonConvert.SerializeObject(new { error = $"Error getting GameObject detail: {e.Message}" });
+                return JsonConvert.SerializeObject(new { success = false, error = $"Error getting GameObject detail: {e.Message}" });
             }
         }
 
@@ -27348,7 +27243,7 @@ Shader ""NexusGenerated/VolumetricFog""
                     // Need to enter play mode first
                     if (IsCapturingScreenshot)
                     {
-                        Debug.LogWarning("[NexusExecutor] Screenshot: Capture already in progress. Resetting state...");
+                        SynLog.Warn("[NexusExecutor] Screenshot: Capture already in progress. Resetting state...");
                         // Force reset if stuck (safety measure)
                         IsCapturingScreenshot = false;
                         PendingScreenshotPath = null;
@@ -27362,7 +27257,7 @@ Shader ""NexusGenerated/VolumetricFog""
                     EditorApplication.playModeStateChanged -= OnPlayModeStateChangedForScreenshot;
                     EditorApplication.playModeStateChanged += OnPlayModeStateChangedForScreenshot;
 
-                    Debug.Log($"[NexusExecutor] Entering Play mode to capture screenshot: {fullPath}");
+                    SynLog.Info($"[NexusExecutor] Entering Play mode to capture screenshot: {fullPath}");
 
                     // Enter play mode
                     EditorApplication.EnterPlaymode();
@@ -27395,17 +27290,17 @@ Shader ""NexusGenerated/VolumetricFog""
             if (!IsCapturingScreenshot && !IsCapturingRegion) return;
 
             var captureType = IsCapturingRegion ? "Region" : "Screenshot";
-            Debug.Log($"[NexusExecutor] {captureType}: Play mode state changed: {state}");
+            SynLog.Info($"[NexusExecutor] {captureType}: Play mode state changed: {state}");
 
             if (state == PlayModeStateChange.EnteredPlayMode)
             {
                 if (IsCapturingRegion)
                 {
-                    Debug.Log($"[NexusExecutor] {captureType}: Entered Play mode, starting 120-frame wait (~2 seconds) for region capture");
+                    SynLog.Info($"[NexusExecutor] {captureType}: Entered Play mode, starting 120-frame wait (~2 seconds) for region capture");
                 }
                 else
                 {
-                    Debug.Log($"[NexusExecutor] {captureType}: Entered Play mode, starting 120-frame wait (~2 seconds) to capture: {PendingScreenshotPath}");
+                    SynLog.Info($"[NexusExecutor] {captureType}: Entered Play mode, starting 120-frame wait (~2 seconds) to capture: {PendingScreenshotPath}");
                 }
 
                 // Wait 120 frames (~2 seconds at 60fps) for rendering to stabilize before capturing
@@ -27415,7 +27310,7 @@ Shader ""NexusGenerated/VolumetricFog""
             }
             else if (state == PlayModeStateChange.EnteredEditMode)
             {
-                Debug.Log($"[NexusExecutor] {captureType}: Returned to Edit mode after capture");
+                SynLog.Info($"[NexusExecutor] {captureType}: Returned to Edit mode after capture");
 
                 // Clean up (keep ScreenshotCaptureResult for later retrieval)
                 IsCapturingScreenshot = false;
@@ -27439,7 +27334,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 {
                     // Restore parameters and determine which capture type
                     var paramsJson = PendingRegionParams;
-                    Debug.Log($"[NexusExecutor] Region: Capturing with params: {paramsJson}");
+                    SynLog.Info($"[NexusExecutor] Region: Capturing with params: {paramsJson}");
 
                     var parameters = JsonConvert.DeserializeObject<Dictionary<string, string>>(paramsJson);
                     var executor = new NexusUnityExecutor();
@@ -27447,12 +27342,12 @@ Shader ""NexusGenerated/VolumetricFog""
                     // Determine which capture method to use based on parameters
                     if (parameters.ContainsKey("grid"))
                     {
-                        Debug.Log($"[NexusExecutor] Grid: Capturing grid: {parameters["grid"]}");
+                        SynLog.Info($"[NexusExecutor] Grid: Capturing grid: {parameters["grid"]}");
                         result = executor.CaptureGrid(parameters);
                     }
                     else if (parameters.ContainsKey("elementName"))
                     {
-                        Debug.Log($"[NexusExecutor] UIElement: Capturing element: {parameters["elementName"]}");
+                        SynLog.Info($"[NexusExecutor] UIElement: Capturing element: {parameters["elementName"]}");
                         result = executor.CaptureUIElement(parameters);
                     }
                     else
@@ -27461,15 +27356,15 @@ Shader ""NexusGenerated/VolumetricFog""
                         result = executor.CaptureRegion(parameters);
                     }
 
-                    Debug.Log($"[NexusExecutor] Capture result: {result}");
+                    SynLog.Info($"[NexusExecutor] Capture result: {result}");
                 }
                 else
                 {
                     // Capture the screenshot
                     var path = PendingScreenshotPath;
-                    Debug.Log($"[NexusExecutor] Screenshot: Capturing to: {path}");
+                    SynLog.Info($"[NexusExecutor] Screenshot: Capturing to: {path}");
                     result = CaptureGameViewImmediateStatic(path);
-                    Debug.Log($"[NexusExecutor] Screenshot: Capture result: {result}");
+                    SynLog.Info($"[NexusExecutor] Screenshot: Capture result: {result}");
                 }
 
                 // Store result for later retrieval via unity_get_screenshot_result
@@ -27478,7 +27373,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 // Exit play mode immediately if we entered it for screenshot
                 if (!WasPlayingBeforeCapture)
                 {
-                    Debug.Log("[NexusExecutor] Screenshot: Exiting Play mode...");
+                    SynLog.Info("[NexusExecutor] Screenshot: Exiting Play mode...");
                     EditorApplication.ExitPlaymode();
                 }
             }
@@ -27509,7 +27404,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 }
 
                 var captureType = IsCapturingRegion ? "Region" : "Screenshot";
-                Debug.Log($"[NexusExecutor] {captureType}: 120 frames elapsed (~2 seconds), capturing now...");
+                SynLog.Info($"[NexusExecutor] {captureType}: 120 frames elapsed (~2 seconds), capturing now...");
 
                 // Perform the capture
                 CaptureImmediatelyAndExit();
@@ -27544,7 +27439,7 @@ Shader ""NexusGenerated/VolumetricFog""
 
                     AssetDatabase.Refresh();
 
-                    Debug.Log($"[NexusExecutor] Game View captured successfully (including Canvas/UI): {fullPath} ({width}x{height})");
+                    SynLog.Info($"[NexusExecutor] Game View captured successfully (including Canvas/UI): {fullPath} ({width}x{height})");
 
                     return JsonConvert.SerializeObject(new Dictionary<string, object>
                     {
@@ -27633,7 +27528,7 @@ Shader ""NexusGenerated/VolumetricFog""
 
                 AssetDatabase.Refresh();
 
-                Debug.Log($"[NexusExecutor] Scene View captured successfully: {fullPath}");
+                SynLog.Info($"[NexusExecutor] Scene View captured successfully: {fullPath}");
 
                 return JsonConvert.SerializeObject(new Dictionary<string, object>
                 {
@@ -27738,7 +27633,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 // Validate region bounds
                 if (x < 0 || y < 0 || x + width > viewPosition.width || y + height > viewPosition.height)
                 {
-                    Debug.LogWarning($"[NexusExecutor] Region bounds adjusted to fit view: {viewPosition.width}x{viewPosition.height}");
+                    SynLog.Warn($"[NexusExecutor] Region bounds adjusted to fit view: {viewPosition.width}x{viewPosition.height}");
                     x = Mathf.Max(0, x);
                     y = Mathf.Max(0, y);
                     width = Mathf.Min(width, (int)viewPosition.width - x);
@@ -27767,7 +27662,7 @@ Shader ""NexusGenerated/VolumetricFog""
                         EditorApplication.playModeStateChanged -= OnPlayModeStateChangedForScreenshot;
                         EditorApplication.playModeStateChanged += OnPlayModeStateChangedForScreenshot;
 
-                        Debug.Log($"[NexusExecutor] Entering Play mode to capture region: {fullPath}");
+                        SynLog.Info($"[NexusExecutor] Entering Play mode to capture region: {fullPath}");
 
                         // Enter play mode
                         EditorApplication.EnterPlaymode();
@@ -27791,7 +27686,7 @@ Shader ""NexusGenerated/VolumetricFog""
                     // Validate region bounds against captured screenshot
                     if (x < 0 || y < 0 || x + width > fullScreenshot.width || y + height > fullScreenshot.height)
                     {
-                        Debug.LogWarning($"[NexusExecutor] Region bounds adjusted to fit screenshot: {fullScreenshot.width}x{fullScreenshot.height}");
+                        SynLog.Warn($"[NexusExecutor] Region bounds adjusted to fit screenshot: {fullScreenshot.width}x{fullScreenshot.height}");
                         x = Mathf.Max(0, x);
                         y = Mathf.Max(0, y);
                         width = Mathf.Min(width, fullScreenshot.width - x);
@@ -27849,7 +27744,7 @@ Shader ""NexusGenerated/VolumetricFog""
 
                 AssetDatabase.Refresh();
 
-                Debug.Log($"[NexusExecutor] Region captured successfully: {fullPath} (x:{x}, y:{y}, {capturedWidth}x{capturedHeight})");
+                SynLog.Info($"[NexusExecutor] Region captured successfully: {fullPath} (x:{x}, y:{y}, {capturedWidth}x{capturedHeight})");
 
                 return JsonConvert.SerializeObject(new Dictionary<string, object>
                 {
@@ -27910,7 +27805,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 // Clear the result after retrieving it
                 ScreenshotCaptureResult = null;
 
-                Debug.Log("[NexusExecutor] Screenshot result retrieved and cleared");
+                SynLog.Info("[NexusExecutor] Screenshot result retrieved and cleared");
 
                 return result;
             }
@@ -27975,7 +27870,7 @@ Shader ""NexusGenerated/VolumetricFog""
                     EditorApplication.playModeStateChanged -= OnPlayModeStateChangedForScreenshot;
                     EditorApplication.playModeStateChanged += OnPlayModeStateChangedForScreenshot;
 
-                    Debug.Log($"[NexusExecutor] Entering Play mode to capture grid: {grid}");
+                    SynLog.Info($"[NexusExecutor] Entering Play mode to capture grid: {grid}");
 
                     EditorApplication.EnterPlaymode();
 
@@ -28040,7 +27935,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 UnityEngine.Object.DestroyImmediate(screenshotTexture);
                 AssetDatabase.Refresh();
 
-                Debug.Log($"[NexusExecutor] Grid {grid} captured successfully: {capturedFiles.Count} files");
+                SynLog.Info($"[NexusExecutor] Grid {grid} captured successfully: {capturedFiles.Count} files");
 
                 return JsonConvert.SerializeObject(new Dictionary<string, object>
                 {
@@ -28102,7 +27997,7 @@ Shader ""NexusGenerated/VolumetricFog""
                     EditorApplication.playModeStateChanged -= OnPlayModeStateChangedForScreenshot;
                     EditorApplication.playModeStateChanged += OnPlayModeStateChangedForScreenshot;
 
-                    Debug.Log($"[NexusExecutor] Entering Play mode to capture UI element: {elementName}");
+                    SynLog.Info($"[NexusExecutor] Entering Play mode to capture UI element: {elementName}");
 
                     EditorApplication.EnterPlaymode();
 
@@ -28165,7 +28060,7 @@ Shader ""NexusGenerated/VolumetricFog""
                     width = Mathf.RoundToInt(maxX - minX);
                     height = Mathf.RoundToInt(maxY - minY);
 
-                    Debug.Log($"[NexusExecutor] Overlay mode: corners ({minX},{minY}) to ({maxX},{maxY})");
+                    SynLog.Info($"[NexusExecutor] Overlay mode: corners ({minX},{minY}) to ({maxX},{maxY})");
                 }
                 else
                 {
@@ -28200,11 +28095,11 @@ Shader ""NexusGenerated/VolumetricFog""
                     width = Mathf.RoundToInt(maxX - minX);
                     height = Mathf.RoundToInt(maxY - minY);
 
-                    Debug.Log($"[NexusExecutor] Camera/WorldSpace mode: corners ({minX},{minY}) to ({maxX},{maxY})");
+                    SynLog.Info($"[NexusExecutor] Camera/WorldSpace mode: corners ({minX},{minY}) to ({maxX},{maxY})");
                 }
 
                 // Debug log for troubleshooting
-                Debug.Log($"[NexusExecutor] UI element '{elementName}' screen bounds: x={x}, y={y}, width={width}, height={height}");
+                SynLog.Info($"[NexusExecutor] UI element '{elementName}' screen bounds: x={x}, y={y}, width={width}, height={height}");
 
                 // Validate dimensions before creating texture
                 if (width <= 0 || height <= 0)
@@ -28214,7 +28109,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 }
 
                 // Capture full screenshot
-                Debug.Log($"[NexusExecutor] About to capture full screenshot. EditorApplication.isPlaying={EditorApplication.isPlaying}");
+                SynLog.Info($"[NexusExecutor] About to capture full screenshot. EditorApplication.isPlaying={EditorApplication.isPlaying}");
 
                 var fullScreenshot = ScreenCapture.CaptureScreenshotAsTexture(1);
                 if (fullScreenshot == null)
@@ -28222,7 +28117,7 @@ Shader ""NexusGenerated/VolumetricFog""
                     return "Error: Failed to capture screenshot";
                 }
 
-                Debug.Log($"[NexusExecutor] Screenshot captured: {fullScreenshot.width}x{fullScreenshot.height}");
+                SynLog.Info($"[NexusExecutor] Screenshot captured: {fullScreenshot.width}x{fullScreenshot.height}");
 
                 // Check if screenshot size is abnormally small (3024x40 bug)
                 if (fullScreenshot.height < 100)
@@ -28236,7 +28131,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 // Validate bounds
                 if (x < 0 || y < 0 || x + width > fullScreenshot.width || y + height > fullScreenshot.height)
                 {
-                    Debug.LogWarning($"[NexusExecutor] Element bounds need adjustment: original ({x},{y},{width},{height}), screenshot={fullScreenshot.width}x{fullScreenshot.height}");
+                    SynLog.Warn($"[NexusExecutor] Element bounds need adjustment: original ({x},{y},{width},{height}), screenshot={fullScreenshot.width}x{fullScreenshot.height}");
                     x = Mathf.Max(0, x);
                     y = Mathf.Max(0, y);
                     width = Mathf.Min(width, fullScreenshot.width - x);
@@ -28253,7 +28148,7 @@ Shader ""NexusGenerated/VolumetricFog""
                     }
                 }
 
-                Debug.Log($"[NexusExecutor] Extracting pixels: x={x}, y={y}, width={width}, height={height}, fullScreenshot={fullScreenshot.width}x{fullScreenshot.height}");
+                SynLog.Info($"[NexusExecutor] Extracting pixels: x={x}, y={y}, width={width}, height={height}, fullScreenshot={fullScreenshot.width}x{fullScreenshot.height}");
 
                 // Extract region (both GetWorldCorners and GetPixels use bottom-left origin, no conversion needed)
                 var texture2D = new Texture2D(width, height, TextureFormat.RGB24, false);
@@ -28270,7 +28165,7 @@ Shader ""NexusGenerated/VolumetricFog""
 
                 AssetDatabase.Refresh();
 
-                Debug.Log($"[NexusExecutor] UI element '{elementName}' captured: {fullPath} ({width}x{height})");
+                SynLog.Info($"[NexusExecutor] UI element '{elementName}' captured: {fullPath} ({width}x{height})");
 
                 return JsonConvert.SerializeObject(new Dictionary<string, object>
                 {
@@ -28307,7 +28202,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 // Get optional parameters
                 var importMode = parameters.GetValueOrDefault("importMode", "default");
 
-                Debug.Log("[NexusExecutor] Force refreshing assets...");
+                SynLog.Info("[NexusExecutor] Force refreshing assets...");
 
                 // Force Unity to reimport and recompile
                 switch (importMode.ToLower())
@@ -28326,7 +28221,7 @@ Shader ""NexusGenerated/VolumetricFog""
                         break;
                 }
 
-                Debug.Log("[NexusExecutor] Asset refresh completed successfully");
+                SynLog.Info("[NexusExecutor] Asset refresh completed successfully");
 
                 return JsonConvert.SerializeObject(new Dictionary<string, object>
                 {
@@ -28359,7 +28254,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 var methodName = parameters["methodName"];
                 var gameObjectName = parameters.GetValueOrDefault("gameObjectName", "");
 
-                Debug.Log($"[NexusExecutor] Invoking ContextMenu: {componentName}.{methodName}");
+                SynLog.Info($"[NexusExecutor] Invoking ContextMenu: {componentName}.{methodName}");
 
                 // Find the component type
                 var componentType = FindComponentType(componentName);
@@ -28379,7 +28274,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 var contextMenuAttr = method.GetCustomAttribute<ContextMenu>();
                 if (contextMenuAttr == null)
                 {
-                    Debug.LogWarning($"[NexusExecutor] Method '{methodName}' does not have [ContextMenu] attribute, but will execute anyway");
+                    SynLog.Warn($"[NexusExecutor] Method '{methodName}' does not have [ContextMenu] attribute, but will execute anyway");
                 }
 
                 // Find the component instance
@@ -28426,7 +28321,7 @@ Shader ""NexusGenerated/VolumetricFog""
                     return $"Error: Method '{methodName}' threw an exception: {actualException.Message}\n\nStack trace: {actualException.StackTrace}";
                 }
 
-                Debug.Log($"[NexusExecutor] Successfully invoked {componentName}.{methodName}");
+                SynLog.Info($"[NexusExecutor] Successfully invoked {componentName}.{methodName}");
 
                 return JsonConvert.SerializeObject(new Dictionary<string, object>
                 {
@@ -28469,14 +28364,14 @@ Shader ""NexusGenerated/VolumetricFog""
                     });
                 }
 
-                Debug.Log($"[NexusExecutor] Executing menu item: {menuPath}");
+                SynLog.Info($"[NexusExecutor] Executing menu item: {menuPath}");
 
                 // Execute the menu item
                 bool result = EditorApplication.ExecuteMenuItem(menuPath);
 
                 if (result)
                 {
-                    Debug.Log($"[NexusExecutor] Successfully executed menu item: {menuPath}");
+                    SynLog.Info($"[NexusExecutor] Successfully executed menu item: {menuPath}");
                     return JsonConvert.SerializeObject(new
                     {
                         success = true,
@@ -28738,29 +28633,29 @@ Shader ""NexusGenerated/VolumetricFog""
 
             var type = component.GetType();
 
-            Debug.Log($"[SetComponentProperty] Setting '{propertyName}' = '{value}' on {type.Name}");
+            SynLog.Info($"[SetComponentProperty] Setting '{propertyName}' = '{value}' on {type.Name}");
 
             try
             {
                 // Special component handling
                 if (HandleSpecialComponentProperty(component, propertyName, value))
                 {
-                    Debug.Log($"[SetComponentProperty] Successfully handled special case for {propertyName}");
+                    SynLog.Info($"[SetComponentProperty] Successfully handled special case for {propertyName}");
                     return;
                 }
 
                 // Common property name aliases
                 var actualPropertyName = GetActualPropertyName(type, propertyName);
-                Debug.Log($"[SetComponentProperty] Mapped '{propertyName}' to '{actualPropertyName}'");
+                SynLog.Info($"[SetComponentProperty] Mapped '{propertyName}' to '{actualPropertyName}'");
 
                 // Try property
                 var property = type.GetProperty(actualPropertyName, BindingFlags.Public | BindingFlags.Instance);
                 if (property != null && property.CanWrite)
                 {
                     var convertedValue = ConvertValue(value, property.PropertyType);
-                    Debug.Log($"[SetComponentProperty] Setting property {actualPropertyName} (type: {property.PropertyType.Name})");
+                    SynLog.Info($"[SetComponentProperty] Setting property {actualPropertyName} (type: {property.PropertyType.Name})");
                     property.SetValue(component, convertedValue);
-                    Debug.Log($"[SetComponentProperty] Successfully set property {actualPropertyName}");
+                    SynLog.Info($"[SetComponentProperty] Successfully set property {actualPropertyName}");
                     return;
                 }
 
@@ -28769,9 +28664,9 @@ Shader ""NexusGenerated/VolumetricFog""
                 if (field != null)
                 {
                     var convertedValue = ConvertValue(value, field.FieldType);
-                    Debug.Log($"[SetComponentProperty] Setting field {actualPropertyName} (type: {field.FieldType.Name})");
+                    SynLog.Info($"[SetComponentProperty] Setting field {actualPropertyName} (type: {field.FieldType.Name})");
                     field.SetValue(component, convertedValue);
-                    Debug.Log($"[SetComponentProperty] Successfully set field {actualPropertyName}");
+                    SynLog.Info($"[SetComponentProperty] Successfully set field {actualPropertyName}");
                     return;
                 }
 
@@ -28804,19 +28699,19 @@ Shader ""NexusGenerated/VolumetricFog""
             // Null checks
             if (component == null)
             {
-                Debug.LogWarning("[HandleSpecialComponentProperty] Component is null");
+                SynLog.Warn("[HandleSpecialComponentProperty] Component is null");
                 return false;
             }
             if (string.IsNullOrEmpty(propertyName))
             {
-                Debug.LogWarning("[HandleSpecialComponentProperty] PropertyName is null or empty");
+                SynLog.Warn("[HandleSpecialComponentProperty] PropertyName is null or empty");
                 return false;
             }
 
             var type = component.GetType();
             var lowerPropertyName = propertyName.ToLower();
 
-            Debug.Log($"[HandleSpecialComponentProperty] Checking special cases for {type.Name}.{propertyName}");
+            SynLog.Info($"[HandleSpecialComponentProperty] Checking special cases for {type.Name}.{propertyName}");
 
             // Record Undo before special handling
             UnityEditor.Undo.RecordObject(component, $"Set {type.Name}.{propertyName}");
@@ -28830,7 +28725,7 @@ Shader ""NexusGenerated/VolumetricFog""
                     var arrayName = arrayMatch.Groups[1].Value;
                     var index = int.Parse(arrayMatch.Groups[2].Value);
 
-                    Debug.Log($"[HandleSpecialComponentProperty] Array access detected: {arrayName}[{index}]");
+                    SynLog.Info($"[HandleSpecialComponentProperty] Array access detected: {arrayName}[{index}]");
 
                     // Get property or field
                     var prop = type.GetProperty(arrayName);
@@ -28844,7 +28739,7 @@ Shader ""NexusGenerated/VolumetricFog""
                             var elementType = prop.PropertyType.GetElementType();
                             var convertedValue = ConvertValue(value, elementType);
                             array.SetValue(convertedValue, index);
-                            Debug.Log($"[HandleSpecialComponentProperty] Set array element {arrayName}[{index}] = {value}");
+                            SynLog.Info($"[HandleSpecialComponentProperty] Set array element {arrayName}[{index}] = {value}");
                             return true;
                         }
                     }
@@ -28856,7 +28751,7 @@ Shader ""NexusGenerated/VolumetricFog""
                             var elementType = field.FieldType.GetElementType();
                             var convertedValue = ConvertValue(value, elementType);
                             array.SetValue(convertedValue, index);
-                            Debug.Log($"[HandleSpecialComponentProperty] Set array element {arrayName}[{index}] = {value}");
+                            SynLog.Info($"[HandleSpecialComponentProperty] Set array element {arrayName}[{index}] = {value}");
                             return true;
                         }
                     }
@@ -28913,18 +28808,18 @@ Shader ""NexusGenerated/VolumetricFog""
                             if (mat.HasProperty("_BaseColor"))
                             {
                                 mat.SetColor("_BaseColor", color);
-                                Debug.Log($"[HandleSpecialComponentProperty] Set _BaseColor to {color}");
+                                SynLog.Info($"[HandleSpecialComponentProperty] Set _BaseColor to {color}");
                             }
                             else if (mat.HasProperty("_Color"))
                             {
                                 mat.SetColor("_Color", color);
-                                Debug.Log($"[HandleSpecialComponentProperty] Set _Color to {color}");
+                                SynLog.Info($"[HandleSpecialComponentProperty] Set _Color to {color}");
                             }
                             else
                             {
                                 // Fallback: try setting color property directly
                                 mat.color = color;
-                                Debug.Log($"[HandleSpecialComponentProperty] Set material.color to {color}");
+                                SynLog.Info($"[HandleSpecialComponentProperty] Set material.color to {color}");
                             }
                             return true;
                         }
@@ -29023,7 +28918,7 @@ Shader ""NexusGenerated/VolumetricFog""
                         if (audioClip != null)
                         {
                             audioSource.clip = audioClip;
-                            Debug.Log($"[HandleSpecialComponentProperty] Set AudioSource.clip to {audioClip.name}");
+                            SynLog.Info($"[HandleSpecialComponentProperty] Set AudioSource.clip to {audioClip.name}");
                             return true;
                         }
                         Debug.LogError($"[HandleSpecialComponentProperty] Failed to load AudioClip: {value}");
@@ -29038,12 +28933,12 @@ Shader ""NexusGenerated/VolumetricFog""
                         if (bool.Parse(value))
                         {
                             audioSource.Play();
-                            Debug.Log($"[HandleSpecialComponentProperty] AudioSource.Play() called");
+                            SynLog.Info($"[HandleSpecialComponentProperty] AudioSource.Play() called");
                         }
                         else
                         {
                             audioSource.Stop();
-                            Debug.Log($"[HandleSpecialComponentProperty] AudioSource.Stop() called");
+                            SynLog.Info($"[HandleSpecialComponentProperty] AudioSource.Stop() called");
                         }
                         return true;
                     case "loop":
@@ -29080,11 +28975,11 @@ Shader ""NexusGenerated/VolumetricFog""
                             if (assetProp != null)
                             {
                                 assetProp.SetValue(component, vfxAsset);
-                                Debug.Log($"[HandleSpecialComponentProperty] Set VisualEffect.visualEffectAsset to {vfxAsset.name}");
+                                SynLog.Info($"[HandleSpecialComponentProperty] Set VisualEffect.visualEffectAsset to {vfxAsset.name}");
                                 return true;
                             }
                         }
-                        Debug.LogWarning($"[HandleSpecialComponentProperty] Failed to load VisualEffectAsset: {value}");
+                        SynLog.Warn($"[HandleSpecialComponentProperty] Failed to load VisualEffectAsset: {value}");
                         return false;
                     case "playrate":
                         var playRateProp = type.GetProperty("playRate", BindingFlags.Public | BindingFlags.Instance);
@@ -29106,19 +29001,19 @@ Shader ""NexusGenerated/VolumetricFog""
                 }
             }
 
-            Debug.Log($"[HandleSpecialComponentProperty] No special case found for {type.Name}.{propertyName}");
+            SynLog.Info($"[HandleSpecialComponentProperty] No special case found for {type.Name}.{propertyName}");
             return false;
         }
 
         private string GetActualPropertyName(Type componentType, string propertyName)
         {
-            Debug.Log($"[GetActualPropertyName] Component: {componentType.Name}, Property: {propertyName}");
+            SynLog.Info($"[GetActualPropertyName] Component: {componentType.Name}, Property: {propertyName}");
 
             // Try exact match first
             if (componentType.GetProperty(propertyName, BindingFlags.Public | BindingFlags.Instance) != null ||
                 componentType.GetField(propertyName, BindingFlags.Public | BindingFlags.Instance) != null)
             {
-                Debug.Log($"[GetActualPropertyName] Exact match found: {propertyName}");
+                SynLog.Info($"[GetActualPropertyName] Exact match found: {propertyName}");
                 return propertyName;
             }
 
@@ -29202,12 +29097,12 @@ Shader ""NexusGenerated/VolumetricFog""
                 if (componentType.GetProperty(mappedName, BindingFlags.Public | BindingFlags.Instance) != null ||
                     componentType.GetField(mappedName, BindingFlags.Public | BindingFlags.Instance) != null)
                 {
-                    Debug.Log($"[GetActualPropertyName] Mapped '{propertyName}' to '{mappedName}'");
+                    SynLog.Info($"[GetActualPropertyName] Mapped '{propertyName}' to '{mappedName}'");
                     return mappedName;
                 }
             }
 
-            Debug.Log($"[GetActualPropertyName] No mapping found for '{propertyName}', using original");
+            SynLog.Info($"[GetActualPropertyName] No mapping found for '{propertyName}', using original");
             return propertyName; // Return original name if not found
         }
         
@@ -29215,7 +29110,7 @@ Shader ""NexusGenerated/VolumetricFog""
         {
             try
             {
-                Debug.Log($"[ConvertValue] Converting '{value}' to {targetType.Name}");
+                SynLog.Info($"[ConvertValue] Converting '{value}' to {targetType.Name}");
                 
                 if (targetType == typeof(int))
                 {
@@ -29273,11 +29168,11 @@ Shader ""NexusGenerated/VolumetricFog""
                             if (prefab != null)
                             {
                                 gameObjects[i] = prefab;
-                                Debug.Log($"[ConvertValue] Loaded prefab from: {paths[i]}");
+                                SynLog.Info($"[ConvertValue] Loaded prefab from: {paths[i]}");
                             }
                             else
                             {
-                                Debug.LogWarning($"[ConvertValue] Failed to load prefab from: {paths[i]}");
+                                SynLog.Warn($"[ConvertValue] Failed to load prefab from: {paths[i]}");
                             }
                         }
                         
@@ -29355,7 +29250,7 @@ Shader ""NexusGenerated/VolumetricFog""
                             audioClip = AssetDatabase.LoadAssetAtPath<AudioClip>(assetPath);
                             if (audioClip != null)
                             {
-                                Debug.Log($"[ConvertValue] Found AudioClip by partial match: {assetPath}");
+                                SynLog.Info($"[ConvertValue] Found AudioClip by partial match: {assetPath}");
                                 return audioClip;
                             }
                         }
@@ -29429,36 +29324,36 @@ Shader ""NexusGenerated/VolumetricFog""
                 // More detailed fallback processing
                 if (targetType == typeof(float))
                 {
-                    Debug.LogWarning($"[ConvertValue] Using fallback float value 0.0f for '{value}'");
+                    SynLog.Warn($"[ConvertValue] Using fallback float value 0.0f for '{value}'");
                     return 0.0f;
                 }
                 if (targetType == typeof(double))
                 {
-                    Debug.LogWarning($"[ConvertValue] Using fallback double value 0.0 for '{value}'");
+                    SynLog.Warn($"[ConvertValue] Using fallback double value 0.0 for '{value}'");
                     return 0.0;
                 }
                 if (targetType == typeof(int))
                 {
-                    Debug.LogWarning($"[ConvertValue] Using fallback int value 0 for '{value}'");
+                    SynLog.Warn($"[ConvertValue] Using fallback int value 0 for '{value}'");
                     return 0;
                 }
                 if (targetType == typeof(bool))
                 {
-                    Debug.LogWarning($"[ConvertValue] Using fallback bool value false for '{value}'");
+                    SynLog.Warn($"[ConvertValue] Using fallback bool value false for '{value}'");
                     return false;
                 }
                 if (targetType == typeof(Vector3))
                 {
-                    Debug.LogWarning($"[ConvertValue] Using fallback Vector3.zero for '{value}'");
+                    SynLog.Warn($"[ConvertValue] Using fallback Vector3.zero for '{value}'");
                     return Vector3.zero;
                 }
                 if (targetType == typeof(Color))
                 {
-                    Debug.LogWarning($"[ConvertValue] Using fallback Color.white for '{value}'");
+                    SynLog.Warn($"[ConvertValue] Using fallback Color.white for '{value}'");
                     return Color.white;
                 }
                 
-                Debug.LogWarning($"[ConvertValue] No specific fallback for {targetType.Name}, throwing exception");
+                SynLog.Warn($"[ConvertValue] No specific fallback for {targetType.Name}, throwing exception");
                 throw new InvalidCastException($"Cannot convert value '{value}' to type {targetType.Name}: {ex.Message}");
             }
         }
@@ -29468,7 +29363,7 @@ Shader ""NexusGenerated/VolumetricFog""
             // null/empty check
             if (string.IsNullOrWhiteSpace(value))
             {
-                Debug.LogWarning("[ParseVector3] Empty or null value provided, returning Vector3.zero");
+                SynLog.Warn("[ParseVector3] Empty or null value provided, returning Vector3.zero");
                 return Vector3.zero;
             }
 
@@ -29490,7 +29385,7 @@ Shader ""NexusGenerated/VolumetricFog""
                         if (float.IsNaN(x) || float.IsNaN(y) || float.IsNaN(z) ||
                             float.IsInfinity(x) || float.IsInfinity(y) || float.IsInfinity(z))
                         {
-                            Debug.LogWarning($"[ParseVector3] Invalid float values detected in JSON: {value}");
+                            SynLog.Warn($"[ParseVector3] Invalid float values detected in JSON: {value}");
                             return Vector3.zero;
                         }
                         
@@ -29499,7 +29394,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogWarning($"[ParseVector3] Failed to parse JSON format '{value}': {ex.Message}");
+                    SynLog.Warn($"[ParseVector3] Failed to parse JSON format '{value}': {ex.Message}");
                 }
             }
             
@@ -29517,7 +29412,7 @@ Shader ""NexusGenerated/VolumetricFog""
                     if (float.IsNaN(x) || float.IsNaN(y) || float.IsNaN(z) ||
                         float.IsInfinity(x) || float.IsInfinity(y) || float.IsInfinity(z))
                     {
-                        Debug.LogWarning($"[ParseVector3] Invalid float values detected: {value}");
+                        SynLog.Warn($"[ParseVector3] Invalid float values detected: {value}");
                         return Vector3.zero;
                     }
                     
@@ -29535,10 +29430,10 @@ Shader ""NexusGenerated/VolumetricFog""
             }
             catch (Exception ex)
             {
-                Debug.LogWarning($"[ParseVector3] Failed to parse comma-separated format '{value}': {ex.Message}");
+                SynLog.Warn($"[ParseVector3] Failed to parse comma-separated format '{value}': {ex.Message}");
             }
             
-            Debug.LogWarning($"[ParseVector3] Unable to parse vector3 value '{value}', returning Vector3.zero");
+            SynLog.Warn($"[ParseVector3] Unable to parse vector3 value '{value}', returning Vector3.zero");
             return Vector3.zero;
         }
         
@@ -29547,7 +29442,7 @@ Shader ""NexusGenerated/VolumetricFog""
         {
             if (vector == Vector3.zero || vector.magnitude < 0.0001f)
             {
-                Debug.LogWarning($"[SafeNormalize] Cannot normalize zero or near-zero vector: {vector}");
+                SynLog.Warn($"[SafeNormalize] Cannot normalize zero or near-zero vector: {vector}");
                 return Vector3.forward; // Return default direction
             }
             
@@ -29557,7 +29452,7 @@ Shader ""NexusGenerated/VolumetricFog""
             if (float.IsNaN(normalized.x) || float.IsNaN(normalized.y) || float.IsNaN(normalized.z) ||
                 float.IsInfinity(normalized.x) || float.IsInfinity(normalized.y) || float.IsInfinity(normalized.z))
             {
-                Debug.LogWarning($"[SafeNormalize] Normalized vector contains invalid values: {normalized} from {vector}");
+                SynLog.Warn($"[SafeNormalize] Normalized vector contains invalid values: {normalized} from {vector}");
                 return Vector3.forward;
             }
             
@@ -29579,7 +29474,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogWarning($"[ParseVector2] Failed to parse JSON format: {ex.Message}");
+                    SynLog.Warn($"[ParseVector2] Failed to parse JSON format: {ex.Message}");
                 }
             }
             
@@ -29610,7 +29505,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogWarning($"[ParseVector4] Failed to parse JSON format: {ex.Message}");
+                    SynLog.Warn($"[ParseVector4] Failed to parse JSON format: {ex.Message}");
                 }
             }
 
@@ -29648,7 +29543,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogWarning($"[ParseColor] Failed to parse JSON format: {ex.Message}");
+                    SynLog.Warn($"[ParseColor] Failed to parse JSON format: {ex.Message}");
                 }
             }
             
@@ -29838,7 +29733,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogWarning($"Failed to parse parameters, using defaults: {ex.Message}");
+                    SynLog.Warn($"Failed to parse parameters, using defaults: {ex.Message}");
                 }
                 
                 var terrainData = terrain.terrainData;
@@ -31538,7 +31433,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 var duration = float.Parse(parameters.GetValueOrDefault("duration", "1"));
                 var loop = parameters.GetValueOrDefault("loop", "false") == "true";
                 
-                Debug.Log($"[CreateAnimation] Called with target: '{targetName}', animationName: '{animationName}'");
+                SynLog.Info($"[CreateAnimation] Called with target: '{targetName}', animationName: '{animationName}'");
                 
                 if (string.IsNullOrEmpty(targetName))
                 {
@@ -32196,7 +32091,7 @@ Shader ""NexusGenerated/VolumetricFog""
                                 }
                             }
                             
-                            Debug.Log($"[NexusConsole] Retrieved {logs.Count} logs from buffer (buffer size: {logBuffer.Count})");
+                            SynLog.Info($"[NexusConsole] Retrieved {logs.Count} logs from buffer (buffer size: {logBuffer.Count})");
                         }
                         
                         // If log buffer is insufficient, try to get from LogEntries
@@ -32228,7 +32123,7 @@ Shader ""NexusGenerated/VolumetricFog""
                                     // Debug info (first item only)
                                     if (i == startIndex && string.IsNullOrEmpty(condition))
                                     {
-                                        Debug.LogWarning($"[NexusConsole] LogEntry appears empty. Fields found: condition={conditionField != null}, mode={modeField != null}");
+                                        SynLog.Warn($"[NexusConsole] LogEntry appears empty. Fields found: condition={conditionField != null}, mode={modeField != null}");
                                     }
                                     
                                     // mode: 1 = Error, 2 = Assert, 4 = Log, 8 = Fatal, 16 = DontPrefilter, 
@@ -32800,7 +32695,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 var timestamp = System.DateTime.Now;
                 
                 // Log message to console
-                Debug.Log($"[AI Response] {response}");
+                SynLog.Info($"[AI Response] {response}");
                 
                 return JsonConvert.SerializeObject(new
                 {
@@ -32877,16 +32772,16 @@ Shader ""NexusGenerated/VolumetricFog""
                 switch (type.ToLower())
                 {
                     case "info":
-                        Debug.Log($"[RT Info] {content}");
+                        SynLog.Info($"[RT Info] {content}");
                         break;
                     case "warning":
-                        Debug.LogWarning($"[RT Warning] {content}");
+                        SynLog.Warn($"[RT Warning] {content}");
                         break;
                     case "error":
                         Debug.LogError($"[RT Error] {content}");
                         break;
                     case "success":
-                        Debug.Log($"[RT Success] {content}");
+                        SynLog.Info($"[RT Success] {content}");
                         break;
                 }
                 
@@ -32977,7 +32872,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogWarning($"Failed to get WebSocket session info: {ex.Message}");
+                    SynLog.Warn($"Failed to get WebSocket session info: {ex.Message}");
                 }
                 
                 return JsonConvert.SerializeObject(new
@@ -33362,8 +33257,8 @@ Shader ""NexusGenerated/VolumetricFog""
                                
                 var maintainWorldPosition = bool.Parse(parameters.GetValueOrDefault("maintainWorldPosition", "true"));
 
-                Debug.Log($"[GroupGameObjects] names parameter: '{names}'");
-                Debug.Log($"[GroupGameObjects] parentName: '{parentName}'");
+                SynLog.Info($"[GroupGameObjects] names parameter: '{names}'");
+                SynLog.Info($"[GroupGameObjects] parentName: '{parentName}'");
 
                 if (string.IsNullOrEmpty(names))
                     return JsonConvert.SerializeObject(new { 
@@ -33381,7 +33276,7 @@ Shader ""NexusGenerated/VolumetricFog""
                     {
                         // Parse as JSON array
                         gameObjectNames = JsonConvert.DeserializeObject<string[]>(names);
-                        Debug.Log($"[GroupGameObjects] Parsed JSON array: {string.Join(", ", gameObjectNames)}");
+                        SynLog.Info($"[GroupGameObjects] Parsed JSON array: {string.Join(", ", gameObjectNames)}");
                     }
                     catch (Exception ex)
                     {
@@ -33397,7 +33292,7 @@ Shader ""NexusGenerated/VolumetricFog""
                 {
                     // Parse as comma-separated string
                     gameObjectNames = names.Split(',').Select(n => n.Trim()).ToArray();
-                    Debug.Log($"[GroupGameObjects] Parsed comma-separated: {string.Join(", ", gameObjectNames)}");
+                    SynLog.Info($"[GroupGameObjects] Parsed comma-separated: {string.Join(", ", gameObjectNames)}");
                 }
                 var gameObjects = new List<GameObject>();
                 var notFound = new List<string>();
@@ -35878,7 +35773,7 @@ Shader ""NexusGenerated/VolumetricFog""
                         }
                         catch (Exception ex)
                         {
-                            Debug.LogWarning($"[PerformanceReport] Error processing renderer on {renderer?.name}: {ex.Message}");
+                            SynLog.Warn($"[PerformanceReport] Error processing renderer on {renderer?.name}: {ex.Message}");
                             continue;
                         }
                     }
@@ -36155,7 +36050,7 @@ Shader ""NexusGenerated/VolumetricFog""
                     meshFilter.sharedMesh = tempGO.GetComponent<MeshFilter>().sharedMesh;
                     GameObject.Destroy(tempGO);
                     
-                    Debug.Log($"[Synaptic] Auto-added MeshFilter with default cube mesh to '{gameObject.name}'");
+                    SynLog.Info($"[Synaptic] Auto-added MeshFilter with default cube mesh to '{gameObject.name}'");
                 }
                 
                 if (meshFilter.sharedMesh == null)
@@ -37225,7 +37120,7 @@ public class {className} : MonoBehaviour
     
     protected virtual void OnStateChange(States from, States to)
     {{
-        Debug.Log($""State changed from {{from}} to {{to}}"");
+        SynLog.Info($""State changed from {{from}} to {{to}}"");
     }}
 }}";
         }
@@ -37238,7 +37133,7 @@ public class {className} : MonoBehaviour
 {{
     public void Enter()
     {{
-        Debug.Log(""Entering {stateName} state"");
+        SynLog.Info(""Entering {stateName} state"");
         // State enter logic
     }}
     
@@ -37249,7 +37144,7 @@ public class {className} : MonoBehaviour
     
     public void Exit()
     {{
-        Debug.Log(""Exiting {stateName} state"");
+        SynLog.Info(""Exiting {stateName} state"");
         // State exit logic
     }}
 }}";
@@ -37399,7 +37294,7 @@ public class Item
     
     public virtual void Use()
     {{
-        Debug.Log($""Using {{itemName}}"");
+        SynLog.Info($""Using {{itemName}}"");
     }}
     
     public virtual string GetTooltip()
@@ -37476,7 +37371,7 @@ public class Inventory : MonoBehaviour
             }}
         }}
         
-        Debug.Log(""Inventory full!"");
+        SynLog.Info(""Inventory full!"");
         return false;
     }}
     
@@ -39882,6 +39777,7 @@ public class Inventory : MonoBehaviour
             // Simple movement script
             var moveScript = @"
 using UnityEngine;
+using SynapticAIPro;
 
 public class SimpleMove : MonoBehaviour {
     public float speed = 5f;
@@ -40121,7 +40017,7 @@ public class SimpleMove : MonoBehaviour {
                 if (GameObject.Find(name) != null)
                 {
                     name = $"{name}_{Random.Range(1000, 9999)}";
-                    Debug.LogWarning($"[CreateGoapAgent] Name conflict resolved, using: {name}");
+                    SynLog.Warn($"[CreateGoapAgent] Name conflict resolved, using: {name}");
                 }
                 
                 Vector3 position;
@@ -40131,7 +40027,7 @@ public class SimpleMove : MonoBehaviour {
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogWarning($"[CreateGoapAgent] Failed to parse position, using origin: {ex.Message}");
+                    SynLog.Warn($"[CreateGoapAgent] Failed to parse position, using origin: {ex.Message}");
                     position = Vector3.zero;
                 }
                 
@@ -40172,12 +40068,12 @@ public class SimpleMove : MonoBehaviour {
                         goapAgentComponent.SetWorldState("is_alive", true);
                         goapAgentComponent.SetWorldState("stamina", 100f);
 
-                        Debug.Log($"[GOAP] Added GOAPAgent component to '{name}'");
+                        SynLog.Info($"[GOAP] Added GOAPAgent component to '{name}'");
                     }
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogWarning($"[CreateGoapAgent] Failed to add GOAPAgent component: {ex.Message}");
+                    SynLog.Warn($"[CreateGoapAgent] Failed to add GOAPAgent component: {ex.Message}");
                 }
                 
                 // Save metadata (serialization safe)
@@ -40198,7 +40094,7 @@ public class SimpleMove : MonoBehaviour {
                 lastCreatedObject = agent;
                 createdObjects.Add(agent);
                 
-                Debug.Log($"[GOAP] Created agent '{name}' at position {position} with type '{agentType}'");
+                SynLog.Info($"[GOAP] Created agent '{name}' at position {position} with type '{agentType}'");
                 
                 return JsonConvert.SerializeObject(new
                 {
@@ -40269,7 +40165,7 @@ public class SimpleMove : MonoBehaviour {
                 // Add goal to agent
                 goapAgent.AddGoal(goal);
 
-                Debug.Log($"[GOAP] Defined goal '{goalName}' (priority: {priority}) for agent '{agentName}'");
+                SynLog.Info($"[GOAP] Defined goal '{goalName}' (priority: {priority}) for agent '{agentName}'");
 
                 return JsonConvert.SerializeObject(new
                 {
@@ -40352,13 +40248,13 @@ public class SimpleMove : MonoBehaviour {
                 if (!float.TryParse(parameters.GetValueOrDefault("cost", "1"), out cost) || cost < 0)
                 {
                     cost = 1.0f;
-                    Debug.LogWarning($"[CreateGoapAction] Invalid cost value, using default: {cost}");
+                    SynLog.Warn($"[CreateGoapAction] Invalid cost value, using default: {cost}");
                 }
                 
                 var agent = GameObject.Find(agentName);
                 if (agent == null)
                 {
-                    Debug.LogWarning($"[CreateGoapAction] Agent '{agentName}' not found in scene");
+                    SynLog.Warn($"[CreateGoapAction] Agent '{agentName}' not found in scene");
                     return JsonConvert.SerializeObject(new
                     {
                         success = false,
@@ -40383,7 +40279,7 @@ public class SimpleMove : MonoBehaviour {
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogWarning($"[CreateGoapAction] Failed to parse preconditions JSON: {ex.Message}");
+                    SynLog.Warn($"[CreateGoapAction] Failed to parse preconditions JSON: {ex.Message}");
                     preconditions = new string[0];
                 }
                 
@@ -40400,7 +40296,7 @@ public class SimpleMove : MonoBehaviour {
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogWarning($"[CreateGoapAction] Failed to parse effects JSON: {ex.Message}");
+                    SynLog.Warn($"[CreateGoapAction] Failed to parse effects JSON: {ex.Message}");
                     effects = new string[0];
                 }
                 
@@ -40415,7 +40311,7 @@ public class SimpleMove : MonoBehaviour {
                     ["agentName"] = agentName
                 };
                 
-                Debug.Log($"[GOAP] Created action '{actionName}' for agent '{agentName}' with {preconditions?.Length ?? 0} preconditions and {effects?.Length ?? 0} effects");
+                SynLog.Info($"[GOAP] Created action '{actionName}' for agent '{agentName}' with {preconditions?.Length ?? 0} preconditions and {effects?.Length ?? 0} effects");
                 
                 return JsonConvert.SerializeObject(new
                 {
@@ -40535,7 +40431,7 @@ public class SimpleMove : MonoBehaviour {
                         }
                         catch (Exception ex)
                         {
-                            Debug.LogWarning($"[GOAP] Failed to create action: {ex.Message}");
+                            SynLog.Warn($"[GOAP] Failed to create action: {ex.Message}");
                         }
                     }
                 }
@@ -40563,7 +40459,7 @@ public class SimpleMove : MonoBehaviour {
                     appliedToAgent = true
                 };
 
-                Debug.Log($"[GOAP] Defined behavior for agent '{agentName}' from natural language: {behavior}");
+                SynLog.Info($"[GOAP] Defined behavior for agent '{agentName}' from natural language: {behavior}");
 
                 return JsonConvert.SerializeObject(new
                 {
@@ -40606,7 +40502,7 @@ public class SimpleMove : MonoBehaviour {
                 // Generate role-based action set
                 var actionSet = GenerateRoleBasedActions(agentRole, environment, includeDefaults);
                 
-                Debug.Log($"[GOAP] Generated action set for {agentRole} agent '{agentName}'");
+                SynLog.Info($"[GOAP] Generated action set for {agentRole} agent '{agentName}'");
                 
                 return JsonConvert.SerializeObject(new
                 {
@@ -40654,14 +40550,14 @@ public class SimpleMove : MonoBehaviour {
                 if (!float.TryParse(parameters.GetValueOrDefault("updateFrequency", "0.5"), out updateFrequency))
                 {
                     updateFrequency = 0.5f;
-                    Debug.LogWarning($"[SetupGoapWorldState] Invalid updateFrequency, using default: {updateFrequency}");
+                    SynLog.Warn($"[SetupGoapWorldState] Invalid updateFrequency, using default: {updateFrequency}");
                 }
                 
                 // Search for agent
                 var agent = GameObject.Find(agentName);
                 if (agent == null)
                 {
-                    Debug.LogWarning($"[SetupGoapWorldState] Agent '{agentName}' not found in scene");
+                    SynLog.Warn($"[SetupGoapWorldState] Agent '{agentName}' not found in scene");
                     return JsonConvert.SerializeObject(new
                     {
                         success = false,
@@ -40686,7 +40582,7 @@ public class SimpleMove : MonoBehaviour {
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogWarning($"[SetupGoapWorldState] Failed to parse worldState JSON: {ex.Message}");
+                    SynLog.Warn($"[SetupGoapWorldState] Failed to parse worldState JSON: {ex.Message}");
                     worldState = new Dictionary<string, object>();
                 }
                 
@@ -40703,7 +40599,7 @@ public class SimpleMove : MonoBehaviour {
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogWarning($"[SetupGoapWorldState] Failed to parse sensors JSON: {ex.Message}");
+                    SynLog.Warn($"[SetupGoapWorldState] Failed to parse sensors JSON: {ex.Message}");
                     sensors = new string[0];
                 }
                 
@@ -40719,7 +40615,7 @@ public class SimpleMove : MonoBehaviour {
                     isActive = agent.activeInHierarchy
                 };
                 
-                Debug.Log($"[GOAP] Setup world state for agent '{agentName}' with {worldState?.Count ?? 0} state variables and {sensors?.Length ?? 0} sensors");
+                SynLog.Info($"[GOAP] Setup world state for agent '{agentName}' with {worldState?.Count ?? 0} state variables and {sensors?.Length ?? 0} sensors");
                 
                 return JsonConvert.SerializeObject(new
                 {
@@ -40839,12 +40735,12 @@ public class SimpleMove : MonoBehaviour {
                 
                 if (showGraph)
                 {
-                    Debug.Log($"[GOAP Debug] Graph visualization enabled for {agentName}");
+                    SynLog.Info($"[GOAP Debug] Graph visualization enabled for {agentName}");
                 }
                 
                 if (logToConsole)
                 {
-                    Debug.Log($"[GOAP Debug] {JsonConvert.SerializeObject(debugInfo, Formatting.Indented)}");
+                    SynLog.Info($"[GOAP Debug] {JsonConvert.SerializeObject(debugInfo, Formatting.Indented)}");
                 }
                 
                 return JsonConvert.SerializeObject(new
@@ -40894,7 +40790,7 @@ public class SimpleMove : MonoBehaviour {
                     estimatedPerformanceGain = enableMultithreading ? "40-60%" : "10-20%"
                 };
                 
-                Debug.Log($"[GOAP] Applied optimization settings to {targetAgents.Count} agents");
+                SynLog.Info($"[GOAP] Applied optimization settings to {targetAgents.Count} agents");
 
                 return JsonConvert.SerializeObject(new
                 {
@@ -40948,7 +40844,7 @@ public class SimpleMove : MonoBehaviour {
                     runner = agent.AddComponent<BehaviorTreeRunner>();
                 }
 
-                Debug.Log($"[BT] Created BehaviorTreeRunner on '{agent.name}'");
+                SynLog.Info($"[BT] Created BehaviorTreeRunner on '{agent.name}'");
 
                 return JsonConvert.SerializeObject(new
                 {
@@ -41008,7 +40904,7 @@ public class SimpleMove : MonoBehaviour {
                     });
                 }
 
-                Debug.Log($"[BT] Added {nodeType} node '{nodeName}' to '{agentName}'");
+                SynLog.Info($"[BT] Added {nodeType} node '{nodeName}' to '{agentName}'");
 
                 return JsonConvert.SerializeObject(new
                 {
@@ -41113,7 +41009,7 @@ public class SimpleMove : MonoBehaviour {
                     runner.SetTree(rootNode);
                 }
 
-                Debug.Log($"[BT] Created behavior tree from description for '{agentName}'");
+                SynLog.Info($"[BT] Created behavior tree from description for '{agentName}'");
 
                 return JsonConvert.SerializeObject(new
                 {
@@ -41281,7 +41177,7 @@ public class SimpleMove : MonoBehaviour {
                 }
 
                 runner.StartTree();
-                Debug.Log($"[BT] Started behavior tree on '{agentName}'");
+                SynLog.Info($"[BT] Started behavior tree on '{agentName}'");
 
                 return JsonConvert.SerializeObject(new
                 {
@@ -41325,7 +41221,7 @@ public class SimpleMove : MonoBehaviour {
                 }
 
                 runner.StopTree();
-                Debug.Log($"[BT] Stopped behavior tree on '{agentName}'");
+                SynLog.Info($"[BT] Stopped behavior tree on '{agentName}'");
 
                 return JsonConvert.SerializeObject(new
                 {
@@ -42426,7 +42322,7 @@ public class {agentName} : MonoBehaviour
             // GoalReachDetermine
             if (Vector3.Distance(transform.position, goal.position) < 1.5f)
             {{
-                Debug.Log(""Goal reached!"");
+                SynLog.Info(""Goal reached!"");
                 ResetPosition();
             }}
         }}
@@ -42611,7 +42507,7 @@ public class {treeName} : MonoBehaviour
     
     void Attack()
     {{
-        Debug.Log($""{{name}} attacks!"");
+        SynLog.Info($""{{name}} attacks!"");
     }}
 }}";
         }
@@ -42961,7 +42857,7 @@ public class {treeName} : MonoBehaviour
                 switch (operation)
                 {
                     case "pause":
-                        Debug.Log($"[BREAKPOINT] {message}");
+                        SynLog.Info($"[BREAKPOINT] {message}");
                         Debug.Break();
                         break;
                         
@@ -42987,7 +42883,7 @@ public class {treeName} : MonoBehaviour
                             
                             if (shouldBreak)
                             {
-                                Debug.Log($"[CONDITIONAL BREAKPOINT] {message} (Condition: {condition})");
+                                SynLog.Info($"[CONDITIONAL BREAKPOINT] {message} (Condition: {condition})");
                                 Debug.Break();
                             }
                         }
@@ -42995,7 +42891,7 @@ public class {treeName} : MonoBehaviour
                         
                     case "log":
                         // LogPoint (log only without breaking)
-                        Debug.Log($"[LOGPOINT] {message}");
+                        SynLog.Info($"[LOGPOINT] {message}");
                         break;
                         
                     case "assert":
@@ -45510,6 +45406,7 @@ public class {treeName} : MonoBehaviour
                 // Create Safe Area script (editor-only simple version)
                 var safeAreaScript = @"
 using UnityEngine;
+using SynapticAIPro;
 
 public class SafeAreaController : MonoBehaviour
 {
@@ -46373,7 +46270,7 @@ public class {systemName} : MonoBehaviour
                     {
                         if (progressFeedback)
                         {
-                            Debug.Log($"[Batch {i+1}/{tasks.Count}] {task.description}");
+                            SynLog.Info($"[Batch {i+1}/{tasks.Count}] {task.description}");
                         }
                         
                         // Execute task
@@ -46547,7 +46444,7 @@ public class {systemName} : MonoBehaviour
                 }
                 catch (Exception e)
                 {
-                    Debug.LogWarning($"Failed to update property {update.Key} on {component.GetType().Name}: {e.Message}");
+                    SynLog.Warn($"Failed to update property {update.Key} on {component.GetType().Name}: {e.Message}");
                 }
             }
             
@@ -46624,7 +46521,7 @@ public class {systemName} : MonoBehaviour
                     return CreateMissingParameterResponse("InstallPackage", "packageId", parameters);
                 }
                 
-                Debug.Log($"[InstallPackage] Installing package: {packageId}");
+                SynLog.Info($"[InstallPackage] Installing package: {packageId}");
                 var addRequest = UnityEditor.PackageManager.Client.Add(packageId);
                 
                 // Wait synchronously
@@ -46676,7 +46573,7 @@ public class {systemName} : MonoBehaviour
                     return CreateMissingParameterResponse("RemovePackage", "packageName", parameters);
                 }
                 
-                Debug.Log($"[RemovePackage] Removing package: {packageName}");
+                SynLog.Info($"[RemovePackage] Removing package: {packageName}");
                 var removeRequest = UnityEditor.PackageManager.Client.Remove(packageName);
                 
                 // Wait synchronously
@@ -46872,7 +46769,7 @@ public class {systemName} : MonoBehaviour
             if (string.IsNullOrEmpty(input))
                 return result;
                 
-            Debug.Log($"[ParseKeyValueString] Parsing: '{input}'");
+            SynLog.Info($"[ParseKeyValueString] Parsing: '{input}'");
             
             try
             {
@@ -46900,14 +46797,14 @@ public class {systemName} : MonoBehaviour
                         if (!string.IsNullOrEmpty(key))
                         {
                             result[key] = value;
-                            Debug.Log($"[ParseKeyValueString] Parsed: {key} = {value}");
+                            SynLog.Info($"[ParseKeyValueString] Parsed: {key} = {value}");
                         }
                     }
                     else
                     {
                         // If neither = nor :, treat entire string as "value" key
                         result["value"] = trimmedPair;
-                        Debug.Log($"[ParseKeyValueString] No separator found, using as value: {trimmedPair}");
+                        SynLog.Info($"[ParseKeyValueString] No separator found, using as value: {trimmedPair}");
                     }
                 }
             }
@@ -48263,7 +48160,7 @@ public class {systemName} : MonoBehaviour
             
             private void ExecuteTimeEvent(TimeEvent evt)
             {
-                Debug.Log($"[TimeOfDay] Event '{evt.eventName}' triggered at {currentTime:F1}:00");
+                SynLog.Info($"[TimeOfDay] Event '{evt.eventName}' triggered at {currentTime:F1}:00");
                 
                 // Execute action based on event configuration
                 if (!string.IsNullOrEmpty(evt.targetObject))
@@ -48421,7 +48318,7 @@ public class {systemName} : MonoBehaviour
                             if (material != null)
                             {
                                 resolvedMaterialPath = path;
-                                Debug.Log($"[BatchMaterialApply] Found material at: {path}");
+                                SynLog.Info($"[BatchMaterialApply] Found material at: {path}");
                                 break;
                             }
                         }
@@ -48440,7 +48337,7 @@ public class {systemName} : MonoBehaviour
                             {
                                 material = foundMat;
                                 resolvedMaterialPath = assetPath;
-                                Debug.Log($"[BatchMaterialApply] Found material by name at: {assetPath}");
+                                SynLog.Info($"[BatchMaterialApply] Found material by name at: {assetPath}");
                                 break;
                             }
                         }
@@ -48669,7 +48566,7 @@ public class {systemName} : MonoBehaviour
                     }
                     catch (Exception innerEx)
                     {
-                        Debug.LogWarning($"Failed to create prefab from {source.name}: {innerEx.Message}");
+                        SynLog.Warn($"Failed to create prefab from {source.name}: {innerEx.Message}");
                     }
                 }
                 
@@ -48940,7 +48837,7 @@ public class {systemName} : MonoBehaviour
                 var property = serializedObject.GetIterator();
                 
                 // Debug: Log component type
-                Debug.Log($"[NexusExecutor] Inspecting component: {componentType}");
+                SynLog.Info($"[NexusExecutor] Inspecting component: {componentType}");
                 
                 if (property.NextVisible(true))
                 {
@@ -48949,7 +48846,7 @@ public class {systemName} : MonoBehaviour
                         if (property.name == "m_Script") continue; // Skip script reference
                         
                         // Debug: Log property info
-                        Debug.Log($"[NexusExecutor] Property: {property.displayName} ({property.propertyPath}), Type: {property.propertyType}, IsArray: {property.isArray}");
+                        SynLog.Info($"[NexusExecutor] Property: {property.displayName} ({property.propertyPath}), Type: {property.propertyType}, IsArray: {property.isArray}");
                         
                         // Show details if array or list
                         if (property.isArray && property.propertyType != SerializedPropertyType.String)
@@ -48957,7 +48854,7 @@ public class {systemName} : MonoBehaviour
                             report.AppendLine($"  {property.displayName}: Array[{property.arraySize}]");
                             
                             // Debug logging
-                            Debug.Log($"[NexusExecutor] Processing array: {property.displayName} with {property.arraySize} elements");
+                            SynLog.Info($"[NexusExecutor] Processing array: {property.displayName} with {property.arraySize} elements");
                             
                             // Show each array element (max 10)
                             int displayCount = Mathf.Min(property.arraySize, 10);
@@ -48968,7 +48865,7 @@ public class {systemName} : MonoBehaviour
                                 report.AppendLine($"    [{i}]: {elementValue}");
                                 
                                 // Debug logging for each element
-                                Debug.Log($"[NexusExecutor] Array element [{i}]: {elementValue}, Type: {element.propertyType}");
+                                SynLog.Info($"[NexusExecutor] Array element [{i}]: {elementValue}, Type: {element.propertyType}");
                                 
                                 // Show more details if object reference
                                 if (element.propertyType == SerializedPropertyType.ObjectReference && 

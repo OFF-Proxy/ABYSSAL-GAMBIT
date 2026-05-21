@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using UnityEditor;
 using UnityEngine;
+using SynapticAIPro;
 using System.Net.Http;
 using Newtonsoft.Json;
 
@@ -113,7 +114,7 @@ namespace SynapticPro
             // Repaint window
             ThrottledRepaint();
             
-            Debug.Log($"[Synaptic] Claude response received: {message}");
+            SynLog.Info($"[Synaptic] Claude response received: {message}");
         }
         
         private void OnChatStatusReceived(string status)
@@ -681,7 +682,7 @@ namespace SynapticPro
             // Check WebSocket connection
             if (!NexusWebSocketClient.Instance.IsConnected)
             {
-                Debug.LogWarning("[Synaptic] WebSocket not connected. Attempting to connect...");
+                SynLog.Warn("[Synaptic] WebSocket not connected. Attempting to connect...");
                 await CheckMCPServerStatus();
                 if (!mcpServerStatus)
                 {
@@ -800,11 +801,11 @@ namespace SynapticPro
                 // Check MCP server status via WebSocket connection
                 if (!NexusWebSocketClient.Instance.IsConnected)
                 {
-                    Debug.Log("[Synaptic] Starting WebSocket connection...");
+                    SynLog.Info("[Synaptic] Starting WebSocket connection...");
                     var connected = await NexusWebSocketClient.Instance.Connect("ws://127.0.0.1:8090");
                     if (connected)
                     {
-                        Debug.Log("[Synaptic] WebSocket connection successful!");
+                        SynLog.Info("[Synaptic] WebSocket connection successful!");
                         mcpServerStatus = true;
                     }
                     else
@@ -815,7 +816,7 @@ namespace SynapticPro
                             connected = await NexusWebSocketClient.Instance.Connect($"ws://localhost:{port}");
                             if (connected)
                             {
-                                Debug.Log($"[Synaptic] WebSocket connection successful! Port: {port}");
+                                SynLog.Info($"[Synaptic] WebSocket connection successful! Port: {port}");
                                 mcpServerStatus = true;
                                 break;
                             }
@@ -853,7 +854,7 @@ namespace SynapticPro
                             var response = await client.GetAsync($"http://localhost:{port}/");
                             if (response != null)
                             {
-                                Debug.Log($"[Synaptic] MCP server detected on port {port}");
+                                SynLog.Info($"[Synaptic] MCP server detected on port {port}");
                                 return true;
                             }
                         }

@@ -35,8 +35,39 @@ namespace SynapticPro
 
         // スレッドセーフな時刻取得用 (Time.realtimeSinceStartup はメインスレッドからしか呼べないため、
         // OnConnectionLost等の非同期コンテキストからはこちらを使う)
+        //
+        // ⚠️ 重要: 戻り値は Time.realtimeSinceStartup と同一エポック (Editor 起動時起点) に
+        // 揃える必要がある。生の Stopwatch.Elapsed はクラス load 起点でドメインリロード毎に
+        // 0 リセットされるため、Time.realtimeSinceStartup と混在比較すると差分が常に
+        // ~Editor起動時間 となり再接続ループが永久発火する (ESC-0102 真因)。
+        // 解決: 初回メインスレッド呼び出し時に Time.realtimeSinceStartup でベースラインを記録、
+        // 以降は (ベースライン + Stopwatch差分) を返す。ベースライン未取得時はメインスレッド
+        // からの呼び出しのみで取得し、それまでは Stopwatch 直値 (フォールバック)。
         private static readonly System.Diagnostics.Stopwatch _threadSafeClock = System.Diagnostics.Stopwatch.StartNew();
-        private static float ThreadSafeTime() => (float)_threadSafeClock.Elapsed.TotalSeconds;
+        private static double _threadSafeBaselineOffset = -1.0;
+        private static float ThreadSafeTime()
+        {
+            // Time.realtimeSinceStartup は メインスレッド限定なので、安全側に倒して
+            // Stopwatch 直値を返す。CalibrateThreadSafeTime() がメインスレッドから
+            // 1回呼ばれていればオフセット適用で Time.realtimeSinceStartup と同一エポック。
+            double elapsed = _threadSafeClock.Elapsed.TotalSeconds;
+            if (_threadSafeBaselineOffset >= 0)
+            {
+                return (float)(_threadSafeBaselineOffset + elapsed);
+            }
+            return (float)elapsed;
+        }
+        private static void CalibrateThreadSafeTime()
+        {
+            // メインスレッドから呼ばれる前提。Time.realtimeSinceStartup を読み、
+            // Stopwatch 経過分を差し引いてベースラインオフセットを確定。
+            try
+            {
+                double elapsed = _threadSafeClock.Elapsed.TotalSeconds;
+                _threadSafeBaselineOffset = Time.realtimeSinceStartup - elapsed;
+            }
+            catch { /* Time.realtimeSinceStartup access failure — keep raw stopwatch */ }
+        }
         private const int CONNECT_TIMEOUT_SECONDS = 5;
         private static float lastConnectionCheckTime = 0;
         private static bool isReconnecting = false;
@@ -81,7 +112,7 @@ namespace SynapticPro
         {
             if (isInitialized) return;
             
-            Debug.Log("[Nexus Editor MCP] Initializing Editor MCP Service");
+            SynLog.Info("[Nexus Editor MCP] Initializing Editor MCP Service");
             
             // Auto-detect available port
             DetectAndSetAvailablePort();
@@ -100,7 +131,7 @@ namespace SynapticPro
             enableMCP = EditorPrefs.GetBool(mcpEnabledKey, false);
             if (!enableMCP)
             {
-                Debug.Log("[Nexus Editor MCP] MCP is disabled (persisted). Use Tools > Synaptic Pro > MCP Server: Start to enable.");
+                SynLog.Info("[Nexus Editor MCP] MCP is disabled (persisted). Use Tools > Synaptic Pro > MCP Server: Start to enable.");
             }
 
             // Delayed auto-connect (after 0.1s) - Connect reliably even in closed state
@@ -114,11 +145,11 @@ namespace SynapticPro
                         try
                         {
                             await ConnectToMCPServer();
-                            Debug.Log("[Nexus MCP] 🚀 Initial auto-connect completed");
+                            SynLog.Info("[Nexus MCP] 🚀 Initial auto-connect completed");
                         }
                         catch (Exception e)
                         {
-                            Debug.LogWarning($"[Nexus MCP] Initial auto-connect failed: {e.Message}");
+                            SynLog.Warn($"[Nexus MCP] Initial auto-connect failed: {e.Message}");
                             isConnected = false;
                             // On failure, gradual reconnection takes over
                             OnConnectionLost();
@@ -128,7 +159,7 @@ namespace SynapticPro
             };
             
             isInitialized = true;
-            Debug.Log("[Nexus Editor MCP] Service initialized - auto-connection will start immediately");
+            SynLog.Info("[Nexus Editor MCP] Service initialized - auto-connection will start immediately");
         }
 
         /// <summary>
@@ -143,14 +174,14 @@ namespace SynapticPro
                 const int mcpPort = 8090;
                 serverUrl = $"ws://localhost:{mcpPort}";
 
-                Debug.Log($"[Nexus Editor MCP] Using MCP server at {serverUrl}");
+                SynLog.Info($"[Nexus Editor MCP] Using MCP server at {serverUrl}");
 
                 // Auto-update Claude Desktop settings
                 UpdateClaudeDesktopConfigForPort(mcpPort);
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[Nexus Editor MCP] Setup failed: {e.Message}, using default port");
+                SynLog.Warn($"[Nexus Editor MCP] Setup failed: {e.Message}, using default port");
                 serverUrl = "ws://127.0.0.1:8090";
             }
         }
@@ -189,6 +220,15 @@ namespace SynapticPro
 
         private static void Update()
         {
+            // Calibrate ThreadSafeTime on first main-thread tick so it shares the
+            // same epoch as Time.realtimeSinceStartup. Without this the
+            // OnConnectionLost path stores stopwatch-since-classload values that
+            // never match Time.realtimeSinceStartup-since-editor-start, causing
+            // the reconnect gate (currentTime - lastConnectionCheckTime > 2f) to
+            // be permanently true after the first domain reload — root cause of
+            // the v1.2.21 MCP-timeout regression.
+            if (_threadSafeBaselineOffset < 0) CalibrateThreadSafeTime();
+
             // Process messages on main thread
             while (messageQueue.Count > 0)
             {
@@ -219,7 +259,7 @@ namespace SynapticPro
                                 var response = client.DownloadString($"http://localhost:{portCapture}/health");
                                 if (response.Contains("ok") || response.Contains("Synaptic"))
                                 {
-                                    Debug.Log($"[Nexus MCP] HTTP Server detected on port {portCapture}, auto-connecting...");
+                                    SynLog.Info($"[Nexus MCP] HTTP Server detected on port {portCapture}, auto-connecting...");
                                     await NexusHTTPWebSocketClient.Instance.Connect(portCapture);
                                 }
                             }
@@ -311,7 +351,7 @@ namespace SynapticPro
                 // Check WebSocket state even while connected (start reconnection immediately if Closed)
                 if (webSocket != null && webSocket.State == WebSocketState.Closed)
                 {
-                    Debug.Log("[Nexus MCP] WebSocket closed state detected, starting reconnection");
+                    SynLog.Info("[Nexus MCP] WebSocket closed state detected, starting reconnection");
                     OnConnectionLost();
                 }
             }
@@ -319,7 +359,7 @@ namespace SynapticPro
 
         private static void OnEditorQuitting()
         {
-            Debug.Log("[Nexus Editor MCP] Editor quitting, disconnecting MCP service");
+            SynLog.Info("[Nexus Editor MCP] Editor quitting, disconnecting MCP service");
             DisconnectFromMCPServer();
 
             // Unsubscribe from events
@@ -340,19 +380,19 @@ namespace SynapticPro
                     wasConnectedBeforePlayMode = IsConnected;
                     if (wasConnectedBeforePlayMode)
                     {
-                        Debug.Log("[Nexus Editor MCP] 🎮 Transitioning to Play Mode. Connection state saved.");
+                        SynLog.Info("[Nexus Editor MCP] 🎮 Transitioning to Play Mode. Connection state saved.");
                         EditorPrefs.SetBool(connectionStateKey, true);
                         EditorPrefs.SetString(connectionStateKey + "_ServerUrl", serverUrl);
                     }
                     break;
 
                 case PlayModeStateChange.EnteredPlayMode:
-                    Debug.Log("[Nexus Editor MCP] 🎮 Entered Play Mode. Basic tools are available but editing functions are restricted.");
+                    SynLog.Info("[Nexus Editor MCP] 🎮 Entered Play Mode. Basic tools are available but editing functions are restricted.");
 
                     // Reconnect if connection lost even in Play Mode
                     if (wasConnectedBeforePlayMode && !IsConnected)
                     {
-                        Debug.Log("[Nexus Editor MCP] 🔄 Connection lost in Play Mode. Reconnecting...");
+                        SynLog.Info("[Nexus Editor MCP] 🔄 Connection lost in Play Mode. Reconnecting...");
                         EditorApplication.delayCall += () =>
                         {
                             RunTracked(Task.Run(async () => await ConnectToMCPServer()), "PlayModeReconnect");
@@ -361,7 +401,7 @@ namespace SynapticPro
                     break;
 
                 case PlayModeStateChange.ExitingPlayMode:
-                    Debug.Log("[Nexus Editor MCP] ⏹️ Exiting Play Mode...");
+                    SynLog.Info("[Nexus Editor MCP] ⏹️ Exiting Play Mode...");
                     // Save current connection state before exiting Play Mode
                     if (IsConnected)
                     {
@@ -380,7 +420,7 @@ namespace SynapticPro
                             serverUrl = savedServerUrl;
                         }
 
-                        Debug.Log("[Nexus Editor MCP] ⏹️ Play Mode ended. Starting auto-reconnect...");
+                        SynLog.Info("[Nexus Editor MCP] ⏹️ Play Mode ended. Starting auto-reconnect...");
 
                         // Reconnect with slight delay
                         EditorApplication.delayCall += () =>
@@ -399,7 +439,7 @@ namespace SynapticPro
         /// </summary>
         private static void OnCompilationStarted(object context)
         {
-            Debug.Log("[Nexus MCP] 🔨 Compilation start detected");
+            SynLog.Info("[Nexus MCP] 🔨 Compilation start detected");
 
             // Keep current connection as compilation errors may occur
             if (isConnected)
@@ -424,7 +464,7 @@ namespace SynapticPro
                 Debug.LogError("[Nexus MCP] ❌ Compilation errors detected");
             }
 
-            Debug.Log($"[Nexus MCP] 🔨 Compilation completed (Errors: {hasErrors}) - Starting fast reconnection");
+            SynLog.Info($"[Nexus MCP] 🔨 Compilation completed (Errors: {hasErrors}) - Starting fast reconnection");
 
             // Reconnect 0.5 seconds after compilation completion (including when errors exist)
             EditorApplication.delayCall += () =>
@@ -444,18 +484,18 @@ namespace SynapticPro
                     {
                         try
                         {
-                            Debug.Log("[Nexus MCP] 🔄 Starting post-compilation reconnection...");
+                            SynLog.Info("[Nexus MCP] 🔄 Starting post-compilation reconnection...");
                             await ConnectToMCPServer();
-                            Debug.Log("[Nexus MCP] ⚡ Fast reconnection after compilation successful!");
+                            SynLog.Info("[Nexus MCP] ⚡ Fast reconnection after compilation successful!");
 
                             if (hasErrors)
                             {
-                                Debug.LogWarning("[Nexus MCP] ⚠️ Compilation had errors but connection was restored");
+                                SynLog.Warn("[Nexus MCP] ⚠️ Compilation had errors but connection was restored");
                             }
                         }
                         catch (Exception e)
                         {
-                            Debug.LogWarning($"[Nexus MCP] Post-compilation reconnection failed: {e.Message}");
+                            SynLog.Warn($"[Nexus MCP] Post-compilation reconnection failed: {e.Message}");
                             // Fall back to normal gradual reconnection on failure
                             OnConnectionLost();
                         }
@@ -475,7 +515,7 @@ namespace SynapticPro
             {
                 if (isConnected)
                 {
-                    Debug.Log("[Nexus Editor MCP] Already connected");
+                    SynLog.Info("[Nexus Editor MCP] Already connected");
                     return;
                 }
 
@@ -488,7 +528,7 @@ namespace SynapticPro
                 // Only log first attempt and every 5th attempt to reduce console noise
                 if (reconnectAttempts == 0 || reconnectAttempts % 5 == 0)
                 {
-                    Debug.Log($"[Nexus MCP] Connecting to {serverUrl}... (Attempt {reconnectAttempts + 1}/{maxReconnectAttempts})");
+                    SynLog.Info($"[Nexus MCP] Connecting to {serverUrl}... (Attempt {reconnectAttempts + 1}/{maxReconnectAttempts})");
                 }
 
                 // Clean up existing connection
@@ -513,13 +553,13 @@ namespace SynapticPro
                     await webSocket.ConnectAsync(new Uri(serverUrl), connectCts.Token);
                 }
                 
-                Debug.Log($"[Nexus Editor MCP] WebSocket State after connect: {webSocket.State}");
+                SynLog.Info($"[Nexus Editor MCP] WebSocket State after connect: {webSocket.State}");
                 
                 isConnected = true;
                 reconnectAttempts = 0; // Reset on success
                 OnConnected?.Invoke();
 
-                Debug.Log("[Nexus Editor MCP] Connected to MCP Server successfully");
+                SynLog.Info("[Nexus Editor MCP] Connected to MCP Server successfully");
 
                 // Start message listener first to avoid race conditions on some platforms
                 RunTracked(Task.Run(async () => await ListenForMessages()), "ListenForMessages");
@@ -537,7 +577,7 @@ namespace SynapticPro
                 // Only log every 5th failure to reduce console noise
                 if (reconnectAttempts == 1 || reconnectAttempts % 5 == 0)
                 {
-                    Debug.LogWarning($"[Nexus MCP] Connection failed (attempt {reconnectAttempts}/{maxReconnectAttempts}): {e.Message}");
+                    SynLog.Warn($"[Nexus MCP] Connection failed (attempt {reconnectAttempts}/{maxReconnectAttempts}): {e.Message}");
                 }
 
                 OnError?.Invoke(e.Message);
@@ -548,7 +588,7 @@ namespace SynapticPro
 
                 if (reconnectAttempts >= maxReconnectAttempts)
                 {
-                    Debug.LogWarning("[Nexus MCP] Cannot connect to MCP server. Make sure Claude Desktop, Cursor, or another MCP client is running.\nUse Tools > Synaptic Pro > AI Reconnect to retry.");
+                    SynLog.Warn("[Nexus MCP] Cannot connect to MCP server. Make sure Claude Desktop, Cursor, or another MCP client is running.\nUse Tools > Synaptic Pro > AI Reconnect to retry.");
                     // Reset attempts to allow future retries
                     reconnectAttempts = 0;
                 }
@@ -557,13 +597,20 @@ namespace SynapticPro
 
         private static async Task ListenForMessages()
         {
-            Debug.Log("[Nexus Editor MCP] Starting message listener");
-            
+            SynLog.Info("[Nexus Editor MCP] Starting message listener");
             var buffer = new byte[1024 * 16]; // Increased buffer size
+
+            // Snapshot the connection so a concurrent Connect() reassigning the
+            // static webSocket/cancellationTokenSource fields cannot make this
+            // loop silently read from a different (live) socket while pointing
+            // metadata at a stale one.
+            var ws = webSocket;
+            var cts = cancellationTokenSource;
+            if (ws == null) return;
 
             try
             {
-                while (webSocket.State == WebSocketState.Open && !cancellationTokenSource.Token.IsCancellationRequested)
+                while (ws.State == WebSocketState.Open && !cts.Token.IsCancellationRequested)
                 {
                     var messageBuffer = new List<byte>();
                     WebSocketReceiveResult result;
@@ -572,19 +619,19 @@ namespace SynapticPro
                     do
                     {
                         var segment = new ArraySegment<byte>(buffer);
-                        result = await webSocket.ReceiveAsync(segment, cancellationTokenSource.Token);
-                        
+                        result = await ws.ReceiveAsync(segment, cts.Token);
+
                         if (result.Count > 0)
                         {
                             messageBuffer.AddRange(buffer.Take(result.Count));
                         }
-                    } 
+                    }
                     while (!result.EndOfMessage);
                     
                     if (result.MessageType == WebSocketMessageType.Text && messageBuffer.Count > 0)
                     {
                         var messageText = Encoding.UTF8.GetString(messageBuffer.ToArray());
-                        Debug.Log($"[Nexus Editor MCP] ⚡ RAW MESSAGE RECEIVED: {messageText}");
+                        SynLog.Info($"[Nexus Editor MCP] ⚡ RAW MESSAGE RECEIVED: {messageText}");
                         
                         try
                         {
@@ -602,7 +649,7 @@ namespace SynapticPro
                     }
                     else if (result.MessageType == WebSocketMessageType.Close)
                     {
-                        Debug.Log("[Nexus Editor MCP] WebSocket closed by server");
+                        SynLog.Info("[Nexus Editor MCP] WebSocket closed by server");
                         break;
                     }
                 }
@@ -624,7 +671,7 @@ namespace SynapticPro
                 // Attempt auto-reconnect if WebSocket exception
                 if (e is WebSocketException || e.Message.Contains("WebSocket"))
                 {
-                    Debug.Log("[Nexus Editor MCP] WebSocket error detected, will attempt reconnection");
+                    SynLog.Info("[Nexus Editor MCP] WebSocket error detected, will attempt reconnection");
                 }
             }
             finally
@@ -640,7 +687,7 @@ namespace SynapticPro
 
         private static void ProcessMessage(MCPMessage message)
         {
-            Debug.Log($"[Nexus Editor MCP] Processing message type: {message.type}, tool: {message.tool}, command: {message.command}");
+            SynLog.Info($"[Nexus Editor MCP] Processing message type: {message.type}, tool: {message.tool}, command: {message.command}");
             
             switch (message.type)
             {
@@ -654,19 +701,19 @@ namespace SynapticPro
                     break;
                     
                 case "error":
-                    Debug.LogWarning($"[Nexus Editor MCP] {message.content}");
+                    SynLog.Warn($"[Nexus Editor MCP] {message.content}");
                     OnMessageReceived?.Invoke($"❗ {message.content}");
                     break;
                     
                 default:
-                    Debug.Log($"[Nexus Editor MCP] Unknown message type: {message.type}");
+                    SynLog.Info($"[Nexus Editor MCP] Unknown message type: {message.type}");
                     break;
             }
         }
 
         private static void ExecuteUnityOperation(MCPMessage message)
         {
-            Debug.Log($"[Nexus Editor MCP] Executing Unity operation: {message.tool} with command: {message.command}");
+            SynLog.Info($"[Nexus Editor MCP] Executing Unity operation: {message.tool} with command: {message.command}");
             
             try
             {
@@ -676,7 +723,7 @@ namespace SynapticPro
                 // Convert tool name to existing operation type
                 operationType = ConvertMCPToolToOperation(operationType);
 
-                Debug.Log($"[Nexus Editor MCP] Converted operation type: {operationType}");
+                SynLog.Info($"[Nexus Editor MCP] Converted operation type: {operationType}");
 
                 var operation = new NexusUnityOperation
                 {
@@ -725,10 +772,10 @@ namespace SynapticPro
                     }
                 }
 
-                Debug.Log($"[Nexus Editor MCP] About to execute operation with parameters: {operation.parameters.Count}");
+                SynLog.Info($"[Nexus Editor MCP] About to execute operation with parameters: {operation.parameters.Count}");
                 foreach (var param in operation.parameters)
                 {
-                    Debug.Log($"[Nexus Editor MCP] Parameter: {param.Key} = '{param.Value}'");
+                    SynLog.Info($"[Nexus Editor MCP] Parameter: {param.Key} = '{param.Value}'");
                 }
 
                 // Get message ID from either message.id or parameters.operationId
@@ -756,8 +803,8 @@ namespace SynapticPro
                 string result = await executor.ExecuteOperation(operation);
                 bool success = !result.StartsWith("Error:") && !result.StartsWith("Failed:");
                 
-                Debug.Log($"[Nexus Editor MCP] Operation result: {result}");
-                Debug.Log($"[Nexus Editor MCP] Operation success: {success}");
+                SynLog.Info($"[Nexus Editor MCP] Operation result: {result}");
+                SynLog.Info($"[Nexus Editor MCP] Operation success: {success}");
 
                 // Send result to MCP server
                 await SendOperationResult(messageId, success, result);
@@ -765,7 +812,7 @@ namespace SynapticPro
                 // Output result to log
                 if (success)
                 {
-                    Debug.Log($"[Nexus Editor MCP] SUCCESS: {result}");
+                    SynLog.Info($"[Nexus Editor MCP] SUCCESS: {result}");
                 }
                 else
                 {
@@ -800,11 +847,11 @@ namespace SynapticPro
                     CancellationToken.None
                 );
                 
-                Debug.Log("[Nexus Editor MCP] Sent connection ping");
+                SynLog.Info("[Nexus Editor MCP] Sent connection ping");
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[Nexus Editor MCP] Failed to send ping: {e.Message}");
+                SynLog.Warn($"[Nexus Editor MCP] Failed to send ping: {e.Message}");
             }
         }
 
@@ -827,7 +874,7 @@ namespace SynapticPro
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[Nexus Editor MCP] JSON parse failed: {e.Message}");
+                SynLog.Warn($"[Nexus Editor MCP] JSON parse failed: {e.Message}");
             }
 
             // Store result in content field according to MCP protocol
@@ -851,8 +898,8 @@ namespace SynapticPro
                     cancellationTokenSource.Token
                 );
                 
-                Debug.Log($"[Nexus Editor MCP] Sent operation result: {success}");
-                Debug.Log($"[Nexus Editor MCP] Response JSON: {json}");
+                SynLog.Info($"[Nexus Editor MCP] Sent operation result: {success}");
+                SynLog.Info($"[Nexus Editor MCP] Response JSON: {json}");
             }
             catch (Exception e)
             {
@@ -880,7 +927,7 @@ namespace SynapticPro
                     webSocket = null;
 
                     OnDisconnected?.Invoke();
-                    Debug.Log("[Nexus Editor MCP] Disconnected from MCP Server");
+                    SynLog.Info("[Nexus Editor MCP] Disconnected from MCP Server");
                 }
             }
             catch (Exception e)
@@ -892,7 +939,7 @@ namespace SynapticPro
         public static void SetServerUrl(string url)
         {
             serverUrl = url;
-            Debug.Log($"[Nexus Editor MCP] Server URL changed to: {url}");
+            SynLog.Info($"[Nexus Editor MCP] Server URL changed to: {url}");
         }
 
         public static async void ReconnectToMCPServer()
@@ -1617,7 +1664,7 @@ namespace SynapticPro
         {
             enableMCP = true;
             EditorPrefs.SetBool(mcpEnabledKey, true);
-            Debug.Log("[Nexus Editor MCP] ▶️ MCP enabled (persisted). Connecting...");
+            SynLog.Info("[Nexus Editor MCP] ▶️ MCP enabled (persisted). Connecting...");
 
             // Reset reconnect state so the first attempt fires immediately.
             reconnectPhase = 0;
@@ -1647,7 +1694,7 @@ namespace SynapticPro
         {
             enableMCP = false;
             EditorPrefs.SetBool(mcpEnabledKey, false);
-            Debug.Log("[Nexus Editor MCP] ⏹️ MCP disabled (persisted). HTTP server client unaffected.");
+            SynLog.Info("[Nexus Editor MCP] ⏹️ MCP disabled (persisted). HTTP server client unaffected.");
 
             DisconnectFromMCPServer();
         }
@@ -1682,7 +1729,7 @@ Details:
 
 If you have issues, try 'AI Reconnect'.";
 
-            Debug.Log(status);
+            SynLog.Info(status);
             EditorUtility.DisplayDialog("AI Connection Status", status, "OK");
         }
         
@@ -1693,7 +1740,7 @@ If you have issues, try 'AI Reconnect'.";
         public static void QuickStatus()
         {
             string status = IsConnected ? "✅ AI: Connected" : "❌ AI: Disconnected";
-            Debug.Log($"[Nexus MCP] {status}");
+            SynLog.Info($"[Nexus MCP] {status}");
             EditorUtility.DisplayDialog("Connection Status", status, "OK");
         }
 
@@ -1703,7 +1750,7 @@ If you have issues, try 'AI Reconnect'.";
         [MenuItem("Tools/Synaptic Pro/AI Reconnect", false, 12)]
         public static void ManualReconnect()
         {
-            Debug.Log("[Nexus Editor MCP] Manual reconnect requested");
+            SynLog.Info("[Nexus Editor MCP] Manual reconnect requested");
             
             // Display confirmation dialog to user
             bool reconnect = EditorUtility.DisplayDialog(
@@ -1736,7 +1783,7 @@ If you have issues, try 'AI Reconnect'.";
         // [MenuItem("Tools/🔗 AI Reconnect", false, 0)]
         public static void QuickReconnect()
         {
-            Debug.Log("[Nexus Editor MCP] Quick reconnect requested");
+            SynLog.Info("[Nexus Editor MCP] Quick reconnect requested");
             ReconnectToMCPServer();
         }
         
@@ -1748,7 +1795,7 @@ If you have issues, try 'AI Reconnect'.";
         {
             enableAutoReconnect = true;
             EditorPrefs.SetBool(autoReconnectKey, enableAutoReconnect);
-            Debug.Log("[Nexus Editor MCP] Auto-reconnect: enabled");
+            SynLog.Info("[Nexus Editor MCP] Auto-reconnect: enabled");
         }
 
         [MenuItem("Tools/Synaptic Pro/Auto Reconnect: Enable", true)]
@@ -1768,7 +1815,7 @@ If you have issues, try 'AI Reconnect'.";
         {
             enableAutoReconnect = false;
             EditorPrefs.SetBool(autoReconnectKey, enableAutoReconnect);
-            Debug.Log("[Nexus Editor MCP] Auto-reconnect: disabled");
+            SynLog.Info("[Nexus Editor MCP] Auto-reconnect: disabled");
         }
 
         [MenuItem("Tools/Synaptic Pro/Auto Reconnect: Disable", true)]
@@ -1806,13 +1853,13 @@ If you have issues, try 'AI Reconnect'.";
                 }
                 else
                 {
-                    Debug.LogWarning("[Nexus Editor MCP] Unsupported platform for Claude Desktop config update");
+                    SynLog.Warn("[Nexus Editor MCP] Unsupported platform for Claude Desktop config update");
                     return;
                 }
                 
                 if (!System.IO.File.Exists(configPath))
                 {
-                    Debug.LogWarning($"[Nexus Editor MCP] Claude Desktop config file not found: {configPath}");
+                    SynLog.Warn($"[Nexus Editor MCP] Claude Desktop config file not found: {configPath}");
                     return;
                 }
 
@@ -1837,7 +1884,7 @@ If you have issues, try 'AI Reconnect'.";
                     {
                         configContent = configContent.Replace(oldPattern, newPattern);
                         updated = true;
-                        Debug.Log($"[Nexus Editor MCP] 🔄 Auto-updated Claude Desktop config: {oldPattern} → {newPattern}");
+                        SynLog.Info($"[Nexus Editor MCP] 🔄 Auto-updated Claude Desktop config: {oldPattern} → {newPattern}");
                     }
                 }
                 
@@ -1851,9 +1898,9 @@ If you have issues, try 'AI Reconnect'.";
                     // Write new config
                     System.IO.File.WriteAllText(configPath, configContent);
                     
-                    Debug.Log($"[Nexus Editor MCP] 🔄 Auto-updated Claude Desktop config");
-                    Debug.Log($"[Nexus Editor MCP] 📁 Backup: {backupPath}");
-                    Debug.Log($"[Nexus Editor MCP] ⚠️ Claude Desktop restart required");
+                    SynLog.Info($"[Nexus Editor MCP] 🔄 Auto-updated Claude Desktop config");
+                    SynLog.Info($"[Nexus Editor MCP] 📁 Backup: {backupPath}");
+                    SynLog.Info($"[Nexus Editor MCP] ⚠️ Claude Desktop restart required");
                 }
             }
             catch (System.Exception e)
@@ -1885,7 +1932,7 @@ If you have issues, try 'AI Reconnect'.";
                 else if (webSocket?.State == WebSocketState.Closed || webSocket?.State == WebSocketState.Aborted)
                 {
                     // If Closed state, immediately proceed to full reconnect
-                    Debug.Log("[Nexus MCP] WebSocket is closed, skipping to full reconnection");
+                    SynLog.Info("[Nexus MCP] WebSocket is closed, skipping to full reconnection");
                     reconnectPhase = 2;
                     lastReconnectTime = Time.realtimeSinceStartup;
                     return;
@@ -1920,12 +1967,12 @@ If you have issues, try 'AI Reconnect'.";
                 if (isConnected)
                 {
                     reconnectPhase = 0;
-                    Debug.Log("[Nexus MCP] 🔄 Auto-reconnect successful");
+                    SynLog.Info("[Nexus MCP] 🔄 Auto-reconnect successful");
                 }
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[Nexus MCP] Reconnect failed: {e.Message}");
+                SynLog.Warn($"[Nexus MCP] Reconnect failed: {e.Message}");
             }
             finally
             {
@@ -1948,12 +1995,12 @@ If you have issues, try 'AI Reconnect'.";
                 if (isConnected)
                 {
                     reconnectPhase = 0;
-                    Debug.Log("[Nexus MCP] 🔄 Retry reconnect successful");
+                    SynLog.Info("[Nexus MCP] 🔄 Retry reconnect successful");
                 }
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[Nexus MCP] Retry failed: {e.Message}");
+                SynLog.Warn($"[Nexus MCP] Retry failed: {e.Message}");
             }
             finally
             {
@@ -2010,7 +2057,7 @@ If you have issues, try 'AI Reconnect'.";
         private static void RunTracked(Task task, string label)
         {
             task.ContinueWith(
-                t => Debug.LogWarning($"[Nexus MCP] {label} faulted: {t.Exception?.GetBaseException().Message}"),
+                t => SynLog.Warn($"[Nexus MCP] {label} faulted: {t.Exception?.GetBaseException().Message}"),
                 TaskContinuationOptions.OnlyOnFaulted);
         }
     }

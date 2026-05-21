@@ -22,6 +22,20 @@ public enum UnitSkillType
     AreaDamage
 }
 
+// スキルエフェクトの雰囲気です。ユニットごとに色や使うエフェクトを少し変えます。
+public enum SkillVisualTheme
+{
+    Neutral,
+    Fire,
+    Ice,
+    Nature,
+    Holy,
+    Shadow,
+    Lightning,
+    Tech,
+    Void
+}
+
 // すべてのユニットの共通処理を持つ基底クラスです。
 // 移動、攻撃、被ダメージ、スキル、HP/MPバー、スターアップ表示、描画順をまとめて扱います。
 public class BaseEntity : MonoBehaviour
@@ -41,6 +55,8 @@ public class BaseEntity : MonoBehaviour
     public int range = 1;
     public float attackSpeed = 1f; //Attacks per second
     public float movementSpeed = 1f; //Attacks per second
+    [Range(0f, 0.75f)]
+    public float baseDamageReduction = 0f;
 
     // マナ関連です。攻撃時や被ダメージ時にマナが溜まり、最大になるとスキルを使います。
     public int maxMana = 100;
@@ -67,6 +83,15 @@ public class BaseEntity : MonoBehaviour
     public float skillSlowDuration = 4f;
     public float skillAreaRadius = 1.65f;
     public float skillAreaDamageMultiplier = 1.35f;
+    public float focusInfluence = 1f;
+    public bool skillUsesFocusOnly = false;
+    public int skillBasePower = 120;
+    public SkillVisualTheme skillVisualTheme = SkillVisualTheme.Neutral;
+
+    // 一部ユニットだけが持つ通常攻撃の追加仕様です。
+    public bool normalAttackHitsAdjacentEnemies = false;
+    public float adjacentAttackDamageMultiplier = 0.55f;
+    public float adjacentAttackRadius = 1.2f;
 
     // 攻撃アニメーション全体の何割あたりでダメージ判定を出すかです。
     [Range(0.05f, 0.95f)]
@@ -103,6 +128,11 @@ public class BaseEntity : MonoBehaviour
     public int MaxMana => maxMana;
     public int MaxHealth => maxHealth > 0 ? maxHealth : baseHealth;
     public int CurrentHealth => baseHealth;
+    public float DamageReduction => GetTotalDamageReduction();
+    public SkillVisualTheme SkillTheme => skillVisualTheme;
+    public bool SkillUsesFocusOnly => skillUsesFocusOnly;
+    public int SkillBasePower => skillBasePower;
+    public bool CanBeTargeted => !dead && Time.time >= untargetableUntil;
     public bool IsDead => dead;
     public float HealthRatio => MaxHealth <= 0 ? 0f : Mathf.Clamp01((float)baseHealth / MaxHealth);
     public IReadOnlyList<ItemData> EquippedItems => equippedItems;
@@ -120,6 +150,7 @@ public class BaseEntity : MonoBehaviour
     private int originalRange;
     private float originalAttackSpeed;
     private float originalMovementSpeed;
+    private float originalBaseDamageReduction;
     private int originalMaxMana;
     private int originalManaOnAttack;
     private int originalManaOnDamageTaken;
@@ -133,8 +164,10 @@ public class BaseEntity : MonoBehaviour
     private Coroutine stunCoroutine;
     private Coroutine starPopupCoroutine;
     private GameObject starPopupObject;
+    private GameObject shieldAuraObject;
     private bool deathDestroyStarted;
     private bool stunned;
+    private float untargetableUntil;
     private float attackSpeedBuffMultiplier = 1f;
     private float damageBuffMultiplier = 1f;
     private float attackSpeedDebuffMultiplier = 1f;
@@ -148,6 +181,7 @@ public class BaseEntity : MonoBehaviour
     // 全体バランス調整用の倍率です。ここを下げると全ユニットの火力や攻撃速度が落ちます。
     private const float GlobalDamageMultiplier = 0.88f;
     private const float GlobalAttackSpeedMultiplier = 0.76f;
+    private const float GlobalHealingMultiplier = 0.78f;
     private const int MaxEquippedItems = 3;
 
     // Y座標とX座標から描画順を決めるための基準値です。
@@ -314,6 +348,8 @@ public class BaseEntity : MonoBehaviour
 
         if (starPopupObject != null)
             Destroy(starPopupObject);
+
+        DestroyShieldAuraVisual();
     }
 
     // ラウンド開始時の処理です。派生クラス側で動き方を実装します。
@@ -350,6 +386,9 @@ public class BaseEntity : MonoBehaviour
     // 戦闘中、現在のターゲットが射程外なら狙い直します。
     protected void RefreshTargetForCombat()
     {
+        if (currentTarget != null && !currentTarget.CanBeTargeted)
+            SetTarget(null);
+
         if (currentTarget != null && IsInRange)
         {
             ClearMovementReservation();
@@ -367,7 +406,7 @@ public class BaseEntity : MonoBehaviour
         BaseEntity entity = null;
         foreach (BaseEntity e in allEnemies)
         {
-            if (e == null || !e.IsOnBoard)
+            if (e == null || !e.IsOnBoard || !e.CanBeTargeted)
                 continue;
 
             float distance = Vector3.Distance(e.transform.position, this.transform.position);
@@ -456,20 +495,27 @@ public class BaseEntity : MonoBehaviour
 
         // まずシールドで受け止め、残った分だけHPを減らします。
         int remainingDamage = Mathf.Max(0, amount);
+        int displayedDamage = 0;
         if (shieldHealth > 0)
         {
             int blockedDamage = Mathf.Min(shieldHealth, remainingDamage);
             shieldHealth -= blockedDamage;
             remainingDamage -= blockedDamage;
+            displayedDamage += blockedDamage;
 
             if (healthbar != null)
                 healthbar.UpdateShieldBar(shieldHealth, MaxHealth);
+
+            if (shieldHealth <= 0)
+                DestroyShieldAuraVisual();
         }
 
         if (remainingDamage > 0)
-            remainingDamage = Mathf.Max(1, Mathf.RoundToInt(remainingDamage * (1f - GetItemDamageReduction())));
+            remainingDamage = Mathf.Max(1, Mathf.RoundToInt(remainingDamage * (1f - GetTotalDamageReduction())));
 
+        displayedDamage += remainingDamage;
         baseHealth -= remainingDamage;
+        ShowDamageNumber(displayedDamage);
         GainMana(manaOnDamageTaken);
         if (healthbar != null)
             healthbar.UpdateBar(baseHealth);
@@ -478,6 +524,35 @@ public class BaseEntity : MonoBehaviour
         {
             Die();
         }
+    }
+
+    // ユニットが受けたダメージを、頭上に浮かぶ数字として表示します。
+    private void ShowDamageNumber(int amount)
+    {
+        if (amount <= 0)
+            return;
+
+        GameObject textObject = new GameObject("DamageNumber");
+        textObject.transform.position = transform.position + new Vector3(UnityEngine.Random.Range(-0.16f, 0.16f), 0.72f, -0.08f);
+
+        TextMeshPro damageText = textObject.AddComponent<TextMeshPro>();
+        damageText.text = amount.ToString();
+        damageText.alignment = TextAlignmentOptions.Center;
+        damageText.fontSize = 3.2f;
+        damageText.fontStyle = FontStyles.Bold;
+        damageText.color = myTeam == Team.Team2
+            ? new Color(1f, 0.34f, 0.18f, 1f)
+            : new Color(1f, 0.88f, 0.28f, 1f);
+
+        MeshRenderer textRenderer = damageText.GetComponent<MeshRenderer>();
+        if (textRenderer != null)
+        {
+            textRenderer.sortingLayerName = "Default";
+            textRenderer.sortingOrder = CalculateSortingOrder(transform.position, 190);
+        }
+
+        DamageNumberFader fader = textObject.AddComponent<DamageNumberFader>();
+        fader.Begin(damageText, textObject.transform, 0.82f);
     }
 
     // 死亡アニメーションを待ってからGameObjectを破棄します。
@@ -584,6 +659,7 @@ public class BaseEntity : MonoBehaviour
         SetTarget(null);
         ClearMovementReservation();
         StopAttackAnimation();
+        ClearShield();
         canAttack = false;
         SetAnimatorBool("walking", false);
         SetAnimatorTrigger("dead");
@@ -693,14 +769,41 @@ public class BaseEntity : MonoBehaviour
             return;
 
         AttackEffectPlayer.PlayAttack(this, targetAtCast, range > 1);
-        targetAtCast.TakeDamage(GetCurrentDamage());
+        int damage = GetCurrentDamage();
+        targetAtCast.TakeDamage(damage);
+        ApplyAdjacentNormalAttackSplash(targetAtCast, damage);
         GainMana(manaOnAttack);
+    }
+
+    // Borealjuggernautなど、一部の通常攻撃が隣接した敵にも当たる処理です。
+    // 複数体に当たっても、マナ獲得は通常攻撃1回分だけです。
+    private void ApplyAdjacentNormalAttackSplash(BaseEntity primaryTarget, int primaryDamage)
+    {
+        if (!normalAttackHitsAdjacentEnemies || primaryTarget == null || GameManager.Instance == null)
+            return;
+
+        List<BaseEntity> enemies = GameManager.Instance.GetEntitiesAgainst(myTeam);
+        int splashDamage = Mathf.Max(1, Mathf.RoundToInt(primaryDamage * adjacentAttackDamageMultiplier));
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            BaseEntity enemy = enemies[i];
+            if (enemy == null || enemy == primaryTarget || enemy.dead || !enemy.IsOnBoard)
+                continue;
+
+            if (Vector3.Distance(enemy.transform.position, primaryTarget.transform.position) > adjacentAttackRadius)
+                continue;
+
+            enemy.TakeDamage(splashDamage);
+        }
     }
 
     // スキル種類に応じて、回復・シールド・バフ・デバフ・範囲攻撃などを実行します。
     private void ExecuteSkillEffect(BaseEntity targetAtCast)
     {
         if (dead)
+            return;
+
+        if (TryExecuteDedicatedSkill(targetAtCast))
             return;
 
         switch (skillType)
@@ -719,7 +822,10 @@ public class BaseEntity : MonoBehaviour
                 break;
             case UnitSkillType.AttackSpeedBoost:
                 AttackEffectPlayer.PlaySkill(this, this, skillType);
-                ApplyAttackSpeedBoost(1f + GetSkillBoostAmount(skillAttackSpeedBoostMultiplier), GetSkillDuration(skillBuffDuration, true));
+                if (ShouldApplySupportAura())
+                    ApplyAttackSpeedBoostToNearbyAllies(1f + GetSkillBoostAmount(skillAttackSpeedBoostMultiplier), GetSkillDuration(skillBuffDuration, true));
+                else
+                    ApplyAttackSpeedBoost(1f + GetSkillBoostAmount(skillAttackSpeedBoostMultiplier), GetSkillDuration(skillBuffDuration, true));
                 break;
             case UnitSkillType.Stun:
                 if (targetAtCast != null && !targetAtCast.dead)
@@ -737,7 +843,10 @@ public class BaseEntity : MonoBehaviour
                 break;
             case UnitSkillType.DamageBoost:
                 AttackEffectPlayer.PlaySkill(this, this, skillType);
-                ApplyDamageBoost(1f + GetSkillBoostAmount(skillDamageBoostMultiplier), GetSkillDuration(skillBuffDuration, true));
+                if (ShouldApplySupportAura())
+                    ApplyDamageBoostToNearbyAllies(1f + GetSkillBoostAmount(skillDamageBoostMultiplier), GetSkillDuration(skillBuffDuration, true));
+                else
+                    ApplyDamageBoost(1f + GetSkillBoostAmount(skillDamageBoostMultiplier), GetSkillDuration(skillBuffDuration, true));
                 break;
             case UnitSkillType.AreaDamage:
                 ApplyAreaDamage(targetAtCast);
@@ -745,12 +854,99 @@ public class BaseEntity : MonoBehaviour
             default:
                 if (targetAtCast != null && !targetAtCast.dead)
                 {
-                    int skillDamage = Mathf.Max(1, Mathf.RoundToInt(GetCurrentDamage() * skillDamageMultiplier * GetSkillEffectMultiplier(true)));
+                    int skillDamage = CalculateSingleTargetSkillDamage();
                     AttackEffectPlayer.PlaySkill(this, targetAtCast, skillType);
                     targetAtCast.TakeDamage(skillDamage);
                 }
                 break;
         }
+    }
+
+    // 一部ユニットだけが持つ、通常のスキル種別より踏み込んだ専用挙動です。
+    private bool TryExecuteDedicatedSkill(BaseEntity targetAtCast)
+    {
+        string id = NormalizeUnitId(UnitId);
+        switch (id)
+        {
+            case "shadowlord":
+                ExecuteAssassinLeapStrike(GetFarthestEnemy() ?? targetAtCast, 0.75f, false);
+                return true;
+            case "skindogehai":
+                ExecuteAssassinLeapStrike(GetFarthestEnemy() ?? targetAtCast, 0.55f, true);
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    // アサシン系スキルです。後衛側の敵付近へ瞬間移動し、大ダメージを与えます。
+    private void ExecuteAssassinLeapStrike(BaseEntity target, float untargetableDuration, bool stunTarget)
+    {
+        if (target == null || target.dead)
+            return;
+
+        BlinkToTargetSide(target);
+        SetTarget(target);
+        FaceTarget(target);
+        untargetableUntil = Time.time + Mathf.Max(0f, untargetableDuration);
+
+        AttackEffectPlayer.PlaySkill(this, target, skillType);
+        target.TakeDamage(CalculateSingleTargetSkillDamage());
+
+        if (stunTarget)
+            target.ApplyStun(GetSkillDuration(skillStunDuration, false));
+    }
+
+    // 対象の周囲に空きNodeがあれば、そこへ一瞬で移動します。
+    private void BlinkToTargetSide(BaseEntity target)
+    {
+        if (target == null || target.CurrentNode == null || currentNode == null || GridManager.Instance == null)
+            return;
+
+        ClearMovementReservation();
+        List<Node> candidates = GridManager.Instance.GetNodesCloseTo(target.CurrentNode)
+            .Where(node => node != null && (!node.IsOccupied || node == currentNode))
+            .OrderBy(node => Vector3.Distance(node.worldPosition, transform.position))
+            .ToList();
+
+        if (candidates.Count == 0)
+            return;
+
+        Node destinationNode = candidates[0];
+        if (currentNode != null && currentNode != destinationNode)
+            currentNode.SetOccupied(false);
+
+        destinationNode.SetOccupied(true);
+        currentNode = destinationNode;
+        transform.position = destinationNode.worldPosition;
+        moving = false;
+        destination = null;
+    }
+
+    // 自分から最も遠い敵を返します。アサシンが後衛を狙うために使います。
+    private BaseEntity GetFarthestEnemy()
+    {
+        if (GameManager.Instance == null)
+            return null;
+
+        List<BaseEntity> enemies = GameManager.Instance.GetEntitiesAgainst(myTeam);
+        BaseEntity farthestEnemy = null;
+        float farthestDistance = -1f;
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            BaseEntity enemy = enemies[i];
+            if (enemy == null || !enemy.IsOnBoard || !enemy.CanBeTargeted)
+                continue;
+
+            float distance = Vector3.Distance(enemy.transform.position, transform.position);
+            if (distance > farthestDistance)
+            {
+                farthestDistance = distance;
+                farthestEnemy = enemy;
+            }
+        }
+
+        return farthestEnemy;
     }
 
     // 指定秒数待ってからユニットを破棄します。
@@ -1026,19 +1222,33 @@ public class BaseEntity : MonoBehaviour
     // 自己回復スキルの回復量を計算します。
     private int GetSkillHealAmount()
     {
-        return Mathf.Max(1, Mathf.RoundToInt((skillFlatHeal + MaxHealth * Mathf.Max(0f, skillHealPercent)) * GetSkillEffectMultiplier(true)));
+        return Mathf.Max(1, Mathf.RoundToInt((skillFlatHeal + MaxHealth * Mathf.Max(0f, skillHealPercent)) * GetSkillEffectMultiplier(true) * GlobalHealingMultiplier));
     }
 
     // 味方回復スキルの回復量を計算します。
     private int GetSkillAllyHealAmount()
     {
-        return Mathf.Max(1, Mathf.RoundToInt((skillFlatAllyHeal + MaxHealth * Mathf.Max(0f, skillAllyHealPercent)) * GetSkillEffectMultiplier(true)));
+        return Mathf.Max(1, Mathf.RoundToInt((skillFlatAllyHeal + MaxHealth * Mathf.Max(0f, skillAllyHealPercent)) * GetSkillEffectMultiplier(true) * GlobalHealingMultiplier));
     }
 
     // シールドスキルで付与するシールド量を計算します。
     private int GetSkillShieldAmount()
     {
         return Mathf.Max(1, Mathf.RoundToInt((skillFlatShield + MaxHealth * Mathf.Max(0f, skillShieldPercent)) * GetSkillEffectMultiplier(true)));
+    }
+
+    // 単体攻撃スキルのダメージです。秘力型は攻撃力を混ぜず、専用基礎値と秘力だけを参照します。
+    private int CalculateSingleTargetSkillDamage()
+    {
+        float baseValue = skillUsesFocusOnly ? skillBasePower : GetCurrentDamage();
+        return Mathf.Max(1, Mathf.RoundToInt(baseValue * skillDamageMultiplier * GetSkillEffectMultiplier(true)));
+    }
+
+    // 範囲攻撃スキルのダメージです。秘力型は攻撃力ではなく専用基礎値から計算します。
+    private int CalculateAreaSkillDamage()
+    {
+        float baseValue = skillUsesFocusOnly ? skillBasePower : GetCurrentDamage();
+        return Mathf.Max(1, Mathf.RoundToInt(baseValue * skillAreaDamageMultiplier * GetSkillEffectMultiplier(true)));
     }
 
     // 自分のHPを回復します。最大HPは超えません。
@@ -1063,7 +1273,29 @@ public class BaseEntity : MonoBehaviour
         }
 
         ally.HealSelf(amount);
+        HealNearbyAllies(ally, Mathf.RoundToInt(amount * 0.55f));
         return ally;
+    }
+
+    // 高コストサポートなどは、主対象の周囲も少し回復します。
+    private void HealNearbyAllies(BaseEntity centerAlly, int amount)
+    {
+        if (centerAlly == null || amount <= 0 || skillAreaRadius < 2f || GameManager.Instance == null)
+            return;
+
+        Team opposingTeam = myTeam == Team.Team1 ? Team.Team2 : Team.Team1;
+        List<BaseEntity> allies = GameManager.Instance.GetEntitiesAgainst(opposingTeam);
+        for (int i = 0; i < allies.Count; i++)
+        {
+            BaseEntity ally = allies[i];
+            if (ally == null || ally == centerAlly || ally.dead || !ally.IsOnBoard || ally.baseHealth >= ally.MaxHealth)
+                continue;
+
+            if (Vector3.Distance(ally.transform.position, centerAlly.transform.position) > skillAreaRadius)
+                continue;
+
+            ally.HealSelf(amount);
+        }
     }
 
     // 同じチーム内で、最もHP割合が低い味方を探します。
@@ -1103,10 +1335,35 @@ public class BaseEntity : MonoBehaviour
         if (healthbar != null)
             healthbar.UpdateShieldBar(shieldHealth, MaxHealth);
 
+        RefreshShieldAuraVisual();
+
         if (shieldCoroutine != null)
             StopCoroutine(shieldCoroutine);
 
         shieldCoroutine = StartCoroutine(ShieldDurationCoroutine(Mathf.Max(0.1f, duration)));
+    }
+
+    // シールド中だけユニット本体を覆う見た目を出します。
+    private void RefreshShieldAuraVisual()
+    {
+        if (shieldHealth <= 0 || dead || !gameObject.activeInHierarchy)
+        {
+            DestroyShieldAuraVisual();
+            return;
+        }
+
+        if (shieldAuraObject == null)
+            shieldAuraObject = AttackEffectPlayer.AttachShieldAura(this);
+    }
+
+    // シールドが切れた時や死亡/再配置時に、追従エフェクトを片付けます。
+    private void DestroyShieldAuraVisual()
+    {
+        if (shieldAuraObject == null)
+            return;
+
+        Destroy(shieldAuraObject);
+        shieldAuraObject = null;
     }
 
     // 一定時間、自分の攻撃速度を上げます。
@@ -1118,6 +1375,14 @@ public class BaseEntity : MonoBehaviour
             StopCoroutine(attackSpeedBoostCoroutine);
 
         attackSpeedBoostCoroutine = StartCoroutine(ResetAttackSpeedBoostAfterDelay(Mathf.Max(0.1f, duration)));
+    }
+
+    // サポート用です。自分だけでなく周囲の味方にも攻撃速度バフを配ります。
+    private void ApplyAttackSpeedBoostToNearbyAllies(float multiplier, float duration)
+    {
+        List<BaseEntity> allies = GetNearbyAlliesForAura();
+        for (int i = 0; i < allies.Count; i++)
+            allies[i].ApplyAttackSpeedBoost(multiplier, duration);
     }
 
     // 攻撃速度アップの効果時間が終わったら元に戻します。
@@ -1137,6 +1402,44 @@ public class BaseEntity : MonoBehaviour
             StopCoroutine(damageBoostCoroutine);
 
         damageBoostCoroutine = StartCoroutine(ResetDamageBoostAfterDelay(Mathf.Max(0.1f, duration)));
+    }
+
+    // サポート用です。周囲の味方へ通常攻撃ダメージバフを配ります。
+    private void ApplyDamageBoostToNearbyAllies(float multiplier, float duration)
+    {
+        List<BaseEntity> allies = GetNearbyAlliesForAura();
+        for (int i = 0; i < allies.Count; i++)
+            allies[i].ApplyDamageBoost(multiplier, duration);
+    }
+
+    // サポートが影響を与える周囲味方の一覧を返します。範囲が狭い場合でも最低2マスは届きます。
+    private List<BaseEntity> GetNearbyAlliesForAura()
+    {
+        List<BaseEntity> result = new List<BaseEntity>();
+        if (GameManager.Instance == null)
+            return result;
+
+        Team opposingTeam = myTeam == Team.Team1 ? Team.Team2 : Team.Team1;
+        List<BaseEntity> allies = GameManager.Instance.GetEntitiesAgainst(opposingTeam);
+        float auraRadius = Mathf.Max(2f, skillAreaRadius);
+        for (int i = 0; i < allies.Count; i++)
+        {
+            BaseEntity ally = allies[i];
+            if (ally == null || ally.dead || !ally.IsOnBoard)
+                continue;
+
+            if (Vector3.Distance(ally.transform.position, transform.position) <= auraRadius)
+                result.Add(ally);
+        }
+
+        return result;
+    }
+
+    // サポート系ユニットは自己バフではなく、周囲に影響するオーラとして扱います。
+    private bool ShouldApplySupportAura()
+    {
+        string id = NormalizeUnitId(UnitId);
+        return id == "city" || id == "candypanda" || id == "snowchasermk";
     }
 
     // ダメージアップの効果時間が終わったら元に戻します。
@@ -1205,7 +1508,7 @@ public class BaseEntity : MonoBehaviour
         // エフェクトは中心になる対象位置へ出し、範囲内の敵全員にダメージを入れます。
         AttackEffectPlayer.PlaySkill(this, targetAtCast, skillType);
         List<BaseEntity> enemies = GameManager.Instance.GetEntitiesAgainst(myTeam);
-        int areaDamage = Mathf.Max(1, Mathf.RoundToInt(GetCurrentDamage() * skillAreaDamageMultiplier * GetSkillEffectMultiplier(true)));
+        int areaDamage = CalculateAreaSkillDamage();
 
         for (int i = 0; i < enemies.Count; i++)
         {
@@ -1217,7 +1520,39 @@ public class BaseEntity : MonoBehaviour
                 continue;
 
             enemy.TakeDamage(areaDamage);
+            if (ShouldAreaSkillApplySlow())
+                enemy.ApplyAttackSpeedSlow(0.72f, GetSkillDuration(2.2f, true));
+
+            if (ShouldAreaSkillApplyBurn())
+                StartCoroutine(ApplyBurnDamage(enemy, Mathf.Max(1, Mathf.RoundToInt(areaDamage * 0.18f)), 3, 0.65f));
         }
+    }
+
+    // 炎系の範囲スキルは、命中後に少しだけ継続ダメージを残します。
+    private IEnumerator ApplyBurnDamage(BaseEntity enemy, int tickDamage, int tickCount, float interval)
+    {
+        for (int i = 0; i < tickCount; i++)
+        {
+            yield return new WaitForSeconds(interval);
+            if (enemy == null || enemy.dead || !enemy.IsOnBoard)
+                yield break;
+
+            enemy.TakeDamage(tickDamage);
+        }
+    }
+
+    // 雷や影の範囲スキルは、短時間だけ敵の攻撃速度を落とします。
+    private bool ShouldAreaSkillApplySlow()
+    {
+        string id = NormalizeUnitId(UnitId);
+        return id == "maehvmk" || id == "vampire";
+    }
+
+    // 炎系メイジや火属性ボスは、範囲攻撃に継続ダメージを持ちます。
+    private bool ShouldAreaSkillApplyBurn()
+    {
+        string id = NormalizeUnitId(UnitId);
+        return id == "cindera" || id == "solfist";
     }
 
     // シールドの効果時間が終わったらシールド量を0にします。
@@ -1228,6 +1563,8 @@ public class BaseEntity : MonoBehaviour
         shieldHealth = 0;
         if (healthbar != null)
             healthbar.UpdateShieldBar(0, MaxHealth);
+
+        DestroyShieldAuraVisual();
     }
 
     // 現在のシールドを強制的に消します。ラウンド終了や再配置時に使います。
@@ -1242,6 +1579,8 @@ public class BaseEntity : MonoBehaviour
         shieldHealth = 0;
         if (healthbar != null)
             healthbar.UpdateShieldBar(0, MaxHealth);
+
+        DestroyShieldAuraVisual();
     }
 
     // バフ、デバフ、スタンなど戦闘中だけの状態をすべて解除します。
@@ -1402,6 +1741,7 @@ public class BaseEntity : MonoBehaviour
         originalRange = range;
         originalAttackSpeed = attackSpeed;
         originalMovementSpeed = movementSpeed;
+        originalBaseDamageReduction = baseDamageReduction;
         originalMaxMana = maxMana;
         originalManaOnAttack = manaOnAttack;
         originalManaOnDamageTaken = manaOnDamageTaken;
@@ -1429,6 +1769,7 @@ public class BaseEntity : MonoBehaviour
         range = Mathf.Max(1, originalRange);
         attackSpeed = originalAttackSpeed * GetStarAttackSpeedMultiplier(StarLevel) * itemAttackSpeedMultiplier;
         movementSpeed = originalMovementSpeed * GetStarMovementSpeedMultiplier(StarLevel);
+        baseDamageReduction = Mathf.Clamp(originalBaseDamageReduction + GetStarDamageReductionBonus(StarLevel), 0f, 0.75f);
         manaOnAttack = Mathf.Max(0, originalManaOnAttack + manaAttackBonus);
         manaOnDamageTaken = Mathf.Max(0, originalManaOnDamageTaken + manaDamageBonus);
         maxMana = Mathf.Max(20, originalMaxMana - maxManaReduction);
@@ -1446,17 +1787,18 @@ public class BaseEntity : MonoBehaviour
         }
     }
 
-    // 装備アイテムによる被ダメージ軽減率を返します。
-    private float GetItemDamageReduction()
+    // ユニット自身と装備アイテムを合わせた被ダメージ軽減率を返します。
+    private float GetTotalDamageReduction()
     {
         float reduction = equippedItems.Sum(item => item != null ? item.damageReductionPercent : 0f);
-        return Mathf.Clamp(reduction, 0f, 0.7f);
+        return Mathf.Clamp(baseDamageReduction + reduction, 0f, 0.75f);
     }
 
     // 装備アイテムによる秘力倍率を返します。秘力はスキル量や一部効果時間を伸ばします。
     private float GetItemFocusMultiplier()
     {
         float skillPower = equippedItems.Sum(item => item != null ? item.skillPowerPercent : 0f);
+        skillPower *= Mathf.Max(0.1f, focusInfluence);
         return Mathf.Max(0.1f, 1f + skillPower);
     }
 
@@ -1627,6 +1969,9 @@ public class BaseEntity : MonoBehaviour
     // コストと射程に応じて、基準HP・攻撃力・攻撃速度をゲーム用に整えます。
     private void ApplyBaseBalance()
     {
+        if (ApplyNamedUnitBalance())
+            return;
+
         // コスト1は基準ユニットです。遠距離はHPを低く、火力をやや高くします。
         if (BaseCost <= 1)
         {
@@ -1635,6 +1980,8 @@ public class BaseEntity : MonoBehaviour
             originalBaseDamage = BalanceDamage(ranged ? 125 : 80);
             originalAttackSpeed = BalanceAttackSpeed(ranged ? 1.15f : 1f);
             originalMovementSpeed = Mathf.Max(originalMovementSpeed, 1f);
+            originalMaxMana = ranged ? 105 : 95;
+            originalBaseDamageReduction = ranged ? 0.02f : 0.08f;
             return;
         }
 
@@ -1646,6 +1993,8 @@ public class BaseEntity : MonoBehaviour
             originalBaseDamage = BalanceDamage(cost2Ranged ? 180 : 150);
             originalAttackSpeed = BalanceAttackSpeed(cost2Ranged ? 1.1f : 1f);
             originalMovementSpeed = Mathf.Max(originalMovementSpeed, 1f);
+            originalMaxMana = cost2Ranged ? 105 : 100;
+            originalBaseDamageReduction = cost2Ranged ? 0.04f : 0.12f;
             return;
         }
 
@@ -1657,6 +2006,8 @@ public class BaseEntity : MonoBehaviour
             originalBaseDamage = BalanceDamage(cost3Ranged ? 270 : 220);
             originalAttackSpeed = BalanceAttackSpeed(cost3Ranged ? 1.12f : 1f);
             originalMovementSpeed = Mathf.Max(originalMovementSpeed, 0.95f);
+            originalMaxMana = cost3Ranged ? 110 : 105;
+            originalBaseDamageReduction = cost3Ranged ? 0.06f : 0.16f;
             return;
         }
 
@@ -1665,6 +2016,175 @@ public class BaseEntity : MonoBehaviour
         originalBaseDamage = BalanceDamage(highCostRanged ? 330 : 280);
         originalAttackSpeed = BalanceAttackSpeed(highCostRanged ? 1.12f : 1f);
         originalMovementSpeed = Mathf.Max(originalMovementSpeed, 1f);
+        originalMaxMana = highCostRanged ? 115 : 110;
+        originalBaseDamageReduction = highCostRanged ? 0.08f : 0.18f;
+    }
+
+    // ユニット名ごとの役割・マナ・基礎ステータス・スキル傾向を設定します。
+    private bool ApplyNamedUnitBalance()
+    {
+        string id = NormalizeUnitId(UnitId);
+        ResetUniqueAttackRules();
+
+        switch (id)
+        {
+            case "andromeda":
+                ApplyUnitTuning(620, 50, 0.98f, 4, 1.05f, 80, UnitSkillType.PowerStrike, SkillVisualTheme.Void, 0.02f, 24, 12, 2.7f, focusOnly: true, focusSkillPower: 155, skillDamage: 2.2f);
+                return true;
+            case "antiswarm":
+                ApplyUnitTuning(780, 50, 0.94f, 2, 1.08f, 95, UnitSkillType.AttackSpeedBoost, SkillVisualTheme.Lightning, 0.08f, 25, 15, 2.2f, focusOnly: true, focusSkillPower: 120, skillAttackSpeed: 1.55f, skillDuration: 4.4f);
+                return true;
+            case "borealjuggernaut":
+                ApplyUnitTuning(980, 58, 0.68f, 1, 0.9f, 125, UnitSkillType.Shield, SkillVisualTheme.Ice, 0.2f, 22, 18, 0.85f, shieldPercent: 0.42f, shieldDuration: 5.2f);
+                normalAttackHitsAdjacentEnemies = true;
+                adjacentAttackDamageMultiplier = 0.5f;
+                adjacentAttackRadius = 1.25f;
+                return true;
+            case "chaosknight":
+                ApplyUnitTuning(850, 86, 0.82f, 1, 1.0f, 90, UnitSkillType.PowerStrike, SkillVisualTheme.Fire, 0.1f, 24, 14, 0.75f, skillDamage: 2.15f);
+                return true;
+            case "christmas":
+                ApplyUnitTuning(880, 76, 0.84f, 1, 1.0f, 85, UnitSkillType.SelfHeal, SkillVisualTheme.Nature, 0.12f, 24, 15, 0.8f, healPercent: 0.22f);
+                return true;
+            case "valiant":
+                ApplyUnitTuning(1080, 56, 0.68f, 1, 0.88f, 120, UnitSkillType.Stun, SkillVisualTheme.Holy, 0.23f, 22, 18, 0.75f, skillStun: 1.15f);
+                return true;
+            case "vampire":
+                ApplyUnitTuning(560, 30, 0.78f, 4, 1.0f, 110, UnitSkillType.AreaDamage, SkillVisualTheme.Shadow, 0.02f, 28, 10, 3.0f, focusOnly: true, focusSkillPower: 135, areaDamage: 2.1f, areaRadius: 1.7f);
+                return true;
+            case "candypanda":
+                ApplyUnitTuning(800, 44, 0.86f, 1, 1.05f, 75, UnitSkillType.AllyHeal, SkillVisualTheme.Nature, 0.08f, 28, 16, 1.45f, allyHealPercent: 0.18f, areaRadius: 2.1f);
+                return true;
+            case "cindera":
+                ApplyUnitTuning(660, 34, 0.78f, 4, 1.0f, 115, UnitSkillType.AreaDamage, SkillVisualTheme.Fire, 0.03f, 26, 10, 2.9f, focusOnly: true, focusSkillPower: 150, areaDamage: 2.05f, areaRadius: 1.95f);
+                return true;
+            case "city":
+                ApplyUnitTuning(740, 38, 0.74f, 4, 0.95f, 70, UnitSkillType.AttackSpeedBoost, SkillVisualTheme.Tech, 0.06f, 30, 14, 1.65f, skillAttackSpeed: 1.32f, skillDuration: 5.2f, areaRadius: 2.6f);
+                return true;
+            case "crystal":
+                ApplyUnitTuning(860, 54, 0.82f, 2, 1.05f, 95, UnitSkillType.Shield, SkillVisualTheme.Ice, 0.12f, 25, 15, 2.35f, focusOnly: true, focusSkillPower: 120, shieldPercent: 0.28f, shieldDuration: 4.6f);
+                return true;
+            case "decepticle":
+                ApplyUnitTuning(1220, 58, 0.66f, 1, 0.85f, 130, UnitSkillType.Slow, SkillVisualTheme.Tech, 0.24f, 22, 18, 0.85f, skillSlow: 0.55f, slowDuration: 4.6f);
+                return true;
+            case "serpenti":
+                ApplyUnitTuning(920, 94, 0.82f, 1, 1.08f, 90, UnitSkillType.PowerStrike, SkillVisualTheme.Nature, 0.1f, 24, 14, 0.75f, skillDamage: 2.05f);
+                return true;
+            case "spelleater":
+                ApplyUnitTuning(860, 48, 0.86f, 2, 1.05f, 100, UnitSkillType.Slow, SkillVisualTheme.Void, 0.09f, 25, 15, 2.35f, focusOnly: true, focusSkillPower: 125, skillSlow: 0.52f, slowDuration: 4.2f);
+                return true;
+            case "umbra":
+                ApplyUnitTuning(940, 98, 0.76f, 1, 1.03f, 85, UnitSkillType.DamageBoost, SkillVisualTheme.Shadow, 0.11f, 24, 14, 0.75f, skillDamageBoost: 1.48f, skillDuration: 4.2f);
+                return true;
+            case "decepticlechassis":
+                ApplyUnitTuning(1580, 72, 0.62f, 1, 0.82f, 145, UnitSkillType.Shield, SkillVisualTheme.Tech, 0.3f, 21, 20, 0.8f, shieldPercent: 0.46f, shieldDuration: 5.8f);
+                return true;
+            case "decepticleprime":
+                ApplyUnitTuning(880, 112, 0.84f, 4, 0.98f, 90, UnitSkillType.PowerStrike, SkillVisualTheme.Tech, 0.07f, 25, 12, 0.9f, skillDamage: 2.55f);
+                return true;
+            case "shadowlord":
+                ApplyUnitTuning(780, 130, 0.92f, 1, 1.3f, 80, UnitSkillType.PowerStrike, SkillVisualTheme.Shadow, 0.06f, 28, 12, 0.75f, skillDamage: 2.35f);
+                return true;
+            case "skindogehai":
+                ApplyUnitTuning(760, 122, 0.96f, 1, 1.32f, 75, UnitSkillType.Stun, SkillVisualTheme.Fire, 0.05f, 29, 12, 0.75f, skillStun: 0.95f);
+                return true;
+            case "tier2general":
+                ApplyUnitTuning(1080, 104, 0.84f, 1, 1.05f, 95, UnitSkillType.PowerStrike, SkillVisualTheme.Ice, 0.15f, 24, 15, 0.8f, skillDamage: 2.15f);
+                return true;
+            case "wolfpunch":
+                ApplyUnitTuning(1420, 78, 0.7f, 1, 0.95f, 135, UnitSkillType.SelfHeal, SkillVisualTheme.Nature, 0.27f, 22, 19, 0.85f, healPercent: 0.18f);
+                return true;
+            case "maehvmk":
+                ApplyUnitTuning(1160, 70, 0.84f, 2, 1.0f, 105, UnitSkillType.AreaDamage, SkillVisualTheme.Lightning, 0.14f, 25, 15, 2.55f, focusOnly: true, focusSkillPower: 175, areaDamage: 1.85f, areaRadius: 2.15f);
+                return true;
+            case "snowchasermk":
+                ApplyUnitTuning(980, 52, 0.74f, 4, 0.98f, 80, UnitSkillType.AllyHeal, SkillVisualTheme.Ice, 0.08f, 29, 14, 1.7f, allyHealPercent: 0.145f, areaRadius: 2.7f);
+                return true;
+            case "solfist":
+                ApplyUnitTuning(1500, 96, 0.72f, 1, 0.95f, 120, UnitSkillType.AreaDamage, SkillVisualTheme.Fire, 0.22f, 23, 18, 1f, areaDamage: 1.7f, areaRadius: 2.15f);
+                return true;
+            default:
+                return false;
+        }
+    }
+
+    // 1ユニット分のチューニング値を、スター計算の基準値へ流し込みます。
+    private void ApplyUnitTuning(
+        int health,
+        int damage,
+        float attacksPerSecond,
+        int unitRange,
+        float moveSpeed,
+        int manaMax,
+        UnitSkillType configuredSkillType,
+        SkillVisualTheme visualTheme,
+        float damageReduction = 0f,
+        int attackMana = 24,
+        int damageTakenMana = 14,
+        float focusInfluenceValue = 1f,
+        bool focusOnly = false,
+        int focusSkillPower = 120,
+        float skillDamage = 1.8f,
+        float healPercent = 0.22f,
+        float shieldPercent = 0.32f,
+        float shieldDuration = 4f,
+        float allyHealPercent = 0.2f,
+        float skillAttackSpeed = 1.45f,
+        float skillDamageBoost = 1.5f,
+        float skillDuration = 4f,
+        float skillStun = 1.1f,
+        float skillSlow = 0.58f,
+        float slowDuration = 4f,
+        float areaRadius = 1.65f,
+        float areaDamage = 1.35f)
+    {
+        originalBaseHealth = Mathf.Max(1, health);
+        originalBaseDamage = BalanceDamage(damage);
+        originalAttackSpeed = BalanceAttackSpeed(attacksPerSecond);
+        originalRange = Mathf.Clamp(unitRange, 1, 5);
+        originalMovementSpeed = Mathf.Max(0.05f, moveSpeed);
+        originalMaxMana = Mathf.Max(20, manaMax);
+        originalManaOnAttack = Mathf.Max(0, attackMana);
+        originalManaOnDamageTaken = Mathf.Max(0, damageTakenMana);
+        originalBaseDamageReduction = Mathf.Clamp(damageReduction, 0f, 0.75f);
+
+        skillType = configuredSkillType;
+        skillVisualTheme = visualTheme;
+        focusInfluence = Mathf.Max(0.1f, focusInfluenceValue);
+        skillUsesFocusOnly = focusOnly;
+        skillBasePower = Mathf.Max(1, focusSkillPower);
+        skillDamageMultiplier = skillDamage;
+        skillHealPercent = healPercent;
+        skillFlatHeal = 0;
+        skillShieldPercent = shieldPercent;
+        skillFlatShield = 0;
+        skillShieldDuration = shieldDuration;
+        skillAllyHealPercent = allyHealPercent;
+        skillFlatAllyHeal = 0;
+        skillAttackSpeedBoostMultiplier = skillAttackSpeed;
+        skillDamageBoostMultiplier = skillDamageBoost;
+        skillBuffDuration = skillDuration;
+        skillStunDuration = skillStun;
+        skillSlowMultiplier = Mathf.Clamp(skillSlow, 0.1f, 1f);
+        skillSlowDuration = slowDuration;
+        skillAreaRadius = areaRadius;
+        skillAreaDamageMultiplier = areaDamage;
+    }
+
+    // 個別ユニットの特殊通常攻撃を初期化します。
+    private void ResetUniqueAttackRules()
+    {
+        normalAttackHitsAdjacentEnemies = false;
+        adjacentAttackDamageMultiplier = 0.55f;
+        adjacentAttackRadius = 1.2f;
+        skillUsesFocusOnly = false;
+        skillBasePower = 120;
+    }
+
+    // CloneやStar表記を外した、小文字のユニットIDを返します。
+    private static string NormalizeUnitId(string rawName)
+    {
+        return LocalizationManager.CleanUnitName(rawName).ToLowerInvariant();
     }
 
     // 全体火力調整倍率をかけた攻撃力を返します。
@@ -1724,6 +2244,18 @@ public class BaseEntity : MonoBehaviour
             return 1.05f;
 
         return 1f;
+    }
+
+    // スターアップ時に、防御面も少しだけ強くします。軽減率の主役はユニット個性とアイテムです。
+    private float GetStarDamageReductionBonus(int starLevel)
+    {
+        if (starLevel >= 3)
+            return 0.06f;
+
+        if (starLevel == 2)
+            return 0.03f;
+
+        return 0f;
     }
 
     // スターごとの見た目サイズ倍率を返します。
@@ -1979,6 +2511,44 @@ internal sealed class StarUpgradePopupFader : MonoBehaviour
             popupTransform.localScale = Vector3.one * Mathf.Lerp(startScale, endScale, eased);
             popupText.color = new Color(startColor.r, startColor.g, startColor.b, alpha);
             popupText.alpha = alpha;
+            yield return null;
+        }
+
+        Destroy(gameObject);
+    }
+}
+
+// ダメージ数字を少し上へ動かしながらフェードアウトさせる補助クラスです。
+internal sealed class DamageNumberFader : MonoBehaviour
+{
+    public void Begin(TextMeshPro damageText, Transform damageTransform, float duration)
+    {
+        StartCoroutine(FadeAndDestroy(damageText, damageTransform, Mathf.Max(0.1f, duration)));
+    }
+
+    private IEnumerator FadeAndDestroy(TextMeshPro damageText, Transform damageTransform, float duration)
+    {
+        if (damageText == null || damageTransform == null)
+        {
+            Destroy(gameObject);
+            yield break;
+        }
+
+        Vector3 startPosition = damageTransform.position;
+        Vector3 endPosition = startPosition + new Vector3(0f, 0.48f, 0f);
+        Vector3 startScale = Vector3.one * 0.45f;
+        Vector3 endScale = Vector3.one * 0.68f;
+        Color startColor = damageText.color;
+        float elapsed = 0f;
+
+        while (elapsed < duration && damageText != null && damageTransform != null)
+        {
+            elapsed += Time.deltaTime;
+            float progress = Mathf.Clamp01(elapsed / duration);
+            float eased = 1f - Mathf.Pow(1f - progress, 2f);
+            damageTransform.position = Vector3.Lerp(startPosition, endPosition, eased);
+            damageTransform.localScale = Vector3.Lerp(startScale, endScale, eased);
+            damageText.color = new Color(startColor.r, startColor.g, startColor.b, 1f - progress);
             yield return null;
         }
 

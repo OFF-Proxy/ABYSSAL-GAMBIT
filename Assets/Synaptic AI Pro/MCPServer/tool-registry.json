@@ -47,15 +47,19 @@
           "type": "string"
         },
         "newName": {
+          "description": "New name to rename the GameObject to",
           "type": "string"
         },
         "active": {
+          "description": "Whether the GameObject is active in the scene",
           "type": "boolean"
         },
         "tag": {
+          "description": "Tag name to assign (e.g., \"Player\", \"Enemy\", \"Untagged\")",
           "type": "string"
         },
         "layer": {
+          "description": "Layer index (0-31) to assign to the GameObject",
           "type": "number"
         }
       },
@@ -91,6 +95,7 @@
       "type": "object",
       "properties": {
         "assetPath": {
+          "description": "Full asset path (e.g., \"Assets/Prefabs/Player.prefab\" or \"Assets/Models/Chair.fbx\")",
           "type": "string"
         },
         "name": {
@@ -173,6 +178,7 @@
           "type": "string"
         },
         "properties": {
+          "description": "Properties to update (JSON object or string)",
           "type": "string"
         }
       },
@@ -190,6 +196,7 @@
       "type": "object",
       "properties": {
         "type": {
+          "description": "Type of UI element to create",
           "type": "string",
           "enum": [
             "Canvas",
@@ -203,9 +210,11 @@
           ]
         },
         "name": {
+          "description": "Name for the new UI element",
           "type": "string"
         },
         "parent": {
+          "description": "Parent GameObject name (typically a Canvas)",
           "type": "string"
         }
       },
@@ -224,21 +233,26 @@
       "type": "object",
       "properties": {
         "name": {
+          "description": "Name for the new terrain GameObject",
           "type": "string"
         },
         "width": {
+          "description": "Terrain width in world units (default 500)",
           "default": 500,
           "type": "number"
         },
         "height": {
+          "description": "Maximum terrain height in world units (default 600)",
           "default": 600,
           "type": "number"
         },
         "length": {
+          "description": "Terrain length in world units (default 500)",
           "default": 500,
           "type": "number"
         },
         "heightmapResolution": {
+          "description": "Heightmap resolution in pixels (default 513, must be 2^n + 1)",
           "default": 513,
           "type": "number"
         }
@@ -257,9 +271,11 @@
       "type": "object",
       "properties": {
         "name": {
+          "description": "Name of the terrain GameObject to modify",
           "type": "string"
         },
         "operation": {
+          "description": "Modification operation: raise heights, lower heights, flatten to a level, or smooth roughness",
           "type": "string",
           "enum": [
             "raise",
@@ -269,10 +285,12 @@
           ]
         },
         "radius": {
+          "description": "Brush radius in world units (default 10)",
           "default": 10,
           "type": "number"
         },
         "strength": {
+          "description": "Brush strength from 0 to 1 (default 0.5)",
           "default": 0.5,
           "type": "number"
         }
@@ -292,14 +310,17 @@
       "type": "object",
       "properties": {
         "name": {
+          "description": "Camera GameObject name (default \"Main Camera\")",
           "default": "Main Camera",
           "type": "string"
         },
         "fieldOfView": {
+          "description": "Vertical field of view in degrees (default 60)",
           "default": 60,
           "type": "number"
         },
         "cameraType": {
+          "description": "Projection mode: Perspective for 3D depth, Orthographic for 2D/isometric (default Perspective)",
           "default": "Perspective",
           "type": "string",
           "enum": [
@@ -737,6 +758,7 @@
           "type": "number"
         },
         "defaultVelocity": {
+          "description": "Default velocity as \"x,y,z\"",
           "default": "0,0,0",
           "type": "string"
         }
@@ -1076,6 +1098,7 @@
       "type": "object",
       "properties": {
         "preset": {
+          "description": "Predefined lighting preset that configures ambient, fog, and directional light to match a scene mood",
           "type": "string",
           "enum": [
             "studio",
@@ -1090,6 +1113,7 @@
           ]
         },
         "ambientMode": {
+          "description": "Ambient light source mode",
           "type": "string",
           "enum": [
             "skybox",
@@ -1099,21 +1123,27 @@
           ]
         },
         "ambientIntensity": {
+          "description": "Ambient light intensity (0-2)",
           "type": "number"
         },
         "ambientSkyColor": {
+          "description": "Ambient sky color as hex",
           "type": "string"
         },
         "ambientEquatorColor": {
+          "description": "Ambient equator color as hex",
           "type": "string"
         },
         "ambientGroundColor": {
+          "description": "Ambient ground color as hex (trilight)",
           "type": "string"
         },
         "fogEnabled": {
+          "description": "Enable scene fog rendering",
           "type": "boolean"
         },
         "fogMode": {
+          "description": "Fog falloff mode",
           "type": "string",
           "enum": [
             "linear",
@@ -1122,24 +1152,31 @@
           ]
         },
         "fogColor": {
+          "description": "Fog color as hex",
           "type": "string"
         },
         "fogDensity": {
+          "description": "Fog density for exponential modes (0-1)",
           "type": "number"
         },
         "fogStartDistance": {
+          "description": "Linear fog start distance",
           "type": "number"
         },
         "fogEndDistance": {
+          "description": "Linear fog end distance",
           "type": "number"
         },
         "directionalLightIntensity": {
+          "description": "Sun/directional light intensity (0-8)",
           "type": "number"
         },
         "directionalLightColor": {
+          "description": "Directional light color as hex",
           "type": "string"
         },
         "directionalLightShadows": {
+          "description": "Shadow type: none, hard, or soft",
           "type": "string",
           "enum": [
             "none",
@@ -1159,16 +1196,20 @@
       "type": "object",
       "properties": {
         "name": {
+          "description": "Name for the new material asset",
           "type": "string"
         },
         "shader": {
+          "description": "Shader name (default \"Standard\")",
           "default": "Standard",
           "type": "string"
         },
         "metallic": {
+          "description": "Metallic value (0 dielectric to 1 metal)",
           "type": "number"
         },
         "smoothness": {
+          "description": "Surface smoothness (0 rough to 1 mirror)",
           "type": "number"
         }
       },
@@ -1190,6 +1231,7 @@
           "type": "string"
         },
         "path": {
+          "description": "Full save path including filename (e.g., \"Assets/Prefabs/UI/MyButton.prefab\"). ALWAYS specify a proper organized path.",
           "type": "string"
         }
       },
@@ -1212,9 +1254,11 @@
           "type": "string"
         },
         "path": {
+          "description": "Folder path (e.g., \"Assets/Scripts/Player/\"). Defaults to \"Assets/Synaptic_Generated/\"",
           "type": "string"
         },
         "template": {
+          "description": "Script template: MonoBehaviour for components, ScriptableObject for assets, Empty for plain C# (default MonoBehaviour)",
           "default": "MonoBehaviour",
           "type": "string",
           "enum": [
@@ -1242,6 +1286,7 @@
       "type": "object",
       "properties": {
         "operation": {
+          "description": "Scene operation: save current scene, load from path, or create new empty scene",
           "type": "string",
           "enum": [
             "save",
@@ -1250,6 +1295,7 @@
           ]
         },
         "path": {
+          "description": "Scene file path (e.g., \"Assets/Scenes/Main.unity\"), required for save/load",
           "type": "string"
         }
       },
@@ -1405,16 +1451,20 @@
       "type": "object",
       "properties": {
         "gameObject": {
+          "description": "Target GameObject name to attach the Animator/Animation to",
           "type": "string"
         },
         "animationName": {
+          "description": "Name for the new animation clip",
           "type": "string"
         },
         "duration": {
+          "description": "Animation duration in seconds (default 1)",
           "default": 1,
           "type": "number"
         },
         "loop": {
+          "description": "Whether the animation loops (default false)",
           "default": false,
           "type": "boolean"
         }
@@ -1434,6 +1484,7 @@
       "type": "object",
       "properties": {
         "target": {
+          "description": "Target GameObject name (or \"global\" for global physics settings)",
           "type": "string"
         },
         "rigidbody": {
@@ -1445,6 +1496,7 @@
           "type": "number"
         },
         "gravity": {
+          "description": "Use gravity (bool), JSON string, or global gravity vector",
           "type": "string"
         },
         "collider": {
@@ -1452,12 +1504,10 @@
           "type": "string"
         },
         "defaultMaterial": {
+          "description": "Default physics material path (e.g., \"Assets/Materials/Ice.physicMaterial\")",
           "type": "string"
         }
-      },
-      "required": [
-        "gravity"
-      ]
+      }
     },
     "embedding": null
   },
@@ -1469,9 +1519,11 @@
       "type": "object",
       "properties": {
         "name": {
+          "description": "Name for the new particle system GameObject",
           "type": "string"
         },
         "preset": {
+          "description": "Predefined effect preset that auto-configures appearance and behavior",
           "type": "string",
           "enum": [
             "fire",
@@ -1487,21 +1539,27 @@
           ]
         },
         "lifetime": {
+          "description": "Particle lifetime in seconds (0.1-10)",
           "type": "number"
         },
         "startSpeed": {
+          "description": "Initial particle speed (0-100)",
           "type": "number"
         },
         "startSize": {
+          "description": "Initial particle size (0.01-10)",
           "type": "number"
         },
         "emission": {
+          "description": "Particles emitted per second (1-1000)",
           "type": "number"
         },
         "gravity": {
+          "description": "Gravity modifier (-10 to 10, 0 = no gravity)",
           "type": "number"
         },
         "shape": {
+          "description": "Emitter shape that determines particle spawn pattern",
           "type": "string",
           "enum": [
             "cone",
@@ -1513,6 +1571,7 @@
           ]
         },
         "usePhysics": {
+          "description": "Enable particle collision with scene physics",
           "type": "boolean"
         }
       },
@@ -1530,12 +1589,15 @@
       "type": "object",
       "properties": {
         "targetObject": {
+          "description": "GameObject to apply the material to",
           "type": "string"
         },
         "materialName": {
+          "description": "Name for the material asset",
           "type": "string"
         },
         "shader": {
+          "description": "Shader preset",
           "type": "string",
           "enum": [
             "Standard",
@@ -1547,27 +1609,35 @@
           ]
         },
         "color": {
+          "description": "Base color as hex",
           "type": "string"
         },
         "metallic": {
+          "description": "Metallic value (0 to 1)",
           "type": "number"
         },
         "smoothness": {
+          "description": "Smoothness (0 to 1)",
           "type": "number"
         },
         "emission": {
+          "description": "Enable emissive glow",
           "type": "boolean"
         },
         "emissionColor": {
+          "description": "Emission color as hex",
           "type": "string"
         },
         "transparency": {
+          "description": "Alpha (0 to 1)",
           "type": "number"
         },
         "normalMap": {
+          "description": "Enable normal map slot",
           "type": "boolean"
         },
         "texture": {
+          "description": "Albedo texture asset path",
           "type": "string"
         }
       },
@@ -1585,18 +1655,22 @@
       "type": "object",
       "properties": {
         "agentRadius": {
+          "description": "NavMesh agent radius in meters (default 0.5)",
           "default": 0.5,
           "type": "number"
         },
         "agentHeight": {
+          "description": "NavMesh agent height in meters (default 2.0)",
           "default": 2,
           "type": "number"
         },
         "maxSlope": {
+          "description": "Maximum walkable slope in degrees (default 45)",
           "default": 45,
           "type": "number"
         },
         "stepHeight": {
+          "description": "Maximum step height the agent can climb (default 0.4)",
           "default": 0.4,
           "type": "number"
         }
@@ -1612,9 +1686,11 @@
       "type": "object",
       "properties": {
         "name": {
+          "description": "Name for the new AudioMixer asset",
           "type": "string"
         },
         "groups": {
+          "description": "Mixer group names to create (e.g., [\"Master\", \"Music\", \"SFX\"])",
           "type": "array"
         }
       },
@@ -1632,28 +1708,35 @@
       "type": "object",
       "properties": {
         "gameObject": {
+          "description": "GameObject to attach the AudioSource to",
           "type": "string"
         },
         "audioClip": {
+          "description": "Audio clip asset path",
           "type": "string"
         },
         "playOnAwake": {
+          "description": "Play on scene start (default true)",
           "default": true,
           "type": "boolean"
         },
         "loop": {
+          "description": "Loop the audio clip (default false)",
           "default": false,
           "type": "boolean"
         },
         "volume": {
+          "description": "Volume level (0-1, default 1)",
           "default": 1,
           "type": "number"
         },
         "pitch": {
+          "description": "Pitch multiplier (-3 to 3, default 1)",
           "default": 1,
           "type": "number"
         },
         "spatialMode": {
+          "description": "2D non-positional or 3D spatial (default 3D)",
           "default": "3D",
           "type": "string",
           "enum": [
@@ -1662,10 +1745,12 @@
           ]
         },
         "minDistance": {
+          "description": "Distance below which audio is full volume (default 1)",
           "default": 1,
           "type": "number"
         },
         "maxDistance": {
+          "description": "Distance beyond which audio is silent (default 500)",
           "default": 500,
           "type": "number"
         }
@@ -1684,17 +1769,21 @@
       "type": "object",
       "properties": {
         "audioSource": {
+          "description": "GameObject with the AudioSource to configure",
           "type": "string"
         },
         "dopplerLevel": {
+          "description": "Doppler effect strength (0-5)",
           "default": 1,
           "type": "number"
         },
         "spread": {
+          "description": "Stereo spread in degrees (0-360)",
           "default": 0,
           "type": "number"
         },
         "volumeRolloff": {
+          "description": "Distance attenuation curve",
           "default": "Logarithmic",
           "type": "string",
           "enum": [
@@ -1704,14 +1793,17 @@
           ]
         },
         "minDistance": {
+          "description": "Full volume distance",
           "default": 1,
           "type": "number"
         },
         "maxDistance": {
+          "description": "Silence distance",
           "default": 500,
           "type": "number"
         },
         "customCurve": {
+          "description": "Use custom rolloff curve",
           "default": false,
           "type": "boolean"
         }
@@ -1730,12 +1822,15 @@
       "type": "object",
       "properties": {
         "name": {
+          "description": "Name of the audio clip asset to create or import",
           "type": "string"
         },
         "path": {
+          "description": "Optional source file path to import the audio from",
           "type": "string"
         },
         "loadType": {
+          "description": "How the audio clip is loaded into memory at runtime",
           "default": "DecompressOnLoad",
           "type": "string",
           "enum": [
@@ -1745,6 +1840,7 @@
           ]
         },
         "compressionFormat": {
+          "description": "Compression codec used for the imported audio data",
           "default": "Vorbis",
           "type": "string",
           "enum": [
@@ -1754,14 +1850,17 @@
           ]
         },
         "quality": {
+          "description": "Compression quality from 0 (lowest) to 1 (highest)",
           "default": 0.7,
           "type": "number"
         },
         "sampleRate": {
+          "description": "Target sample rate in Hz for the audio clip",
           "default": 44100,
           "type": "number"
         },
         "forceToMono": {
+          "description": "Whether to mix all channels down to a single mono channel",
           "default": false,
           "type": "boolean"
         }
@@ -1780,6 +1879,7 @@
       "type": "object",
       "properties": {
         "audioSource": {
+          "description": "Name or path of the target AudioSource GameObject to attach effects to",
           "type": "string"
         }
       },
@@ -1797,9 +1897,11 @@
       "type": "object",
       "properties": {
         "name": {
+          "description": "Name of the AudioReverbZone GameObject to create",
           "type": "string"
         },
         "position": {
+          "description": "World-space position of the reverb zone center",
           "type": "object",
           "properties": {
             "x": {
@@ -1814,14 +1916,17 @@
           }
         },
         "minDistance": {
+          "description": "Inner radius in world units where full reverb is applied",
           "default": 10,
           "type": "number"
         },
         "maxDistance": {
+          "description": "Outer radius in world units where reverb fades to zero",
           "default": 30,
           "type": "number"
         },
         "reverbPreset": {
+          "description": "Unity AudioReverbPreset defining environmental reverb characteristics",
           "default": "Room",
           "type": "string",
           "enum": [
@@ -1853,20 +1958,25 @@
       "type": "object",
       "properties": {
         "audioSource": {
+          "description": "Name of the AudioSource GameObject to apply occlusion to",
           "type": "string"
         },
         "enableOcclusion": {
+          "description": "Whether occlusion calculations are active at runtime",
           "default": true,
           "type": "boolean"
         },
         "occlusionLayers": {
+          "description": "Physics layer names that block or attenuate sound",
           "type": "array"
         },
         "maxOcclusionDistance": {
+          "description": "Maximum raycast distance in world units used to detect occluders",
           "default": 50,
           "type": "number"
         },
         "occlusionDamping": {
+          "description": "Volume attenuation factor applied per occluder from 0 to 1",
           "default": 0.5,
           "type": "number"
         }
@@ -1885,13 +1995,16 @@
       "type": "object",
       "properties": {
         "name": {
+          "description": "Name of the adaptive music system GameObject to create",
           "type": "string"
         },
         "bpm": {
+          "description": "Tempo of the music in beats per minute used for synced transitions",
           "default": 120,
           "type": "number"
         },
         "beatsPerBar": {
+          "description": "Number of beats per musical bar for bar-aligned transitions",
           "default": 4,
           "type": "number"
         }
@@ -1910,9 +2023,11 @@
       "type": "object",
       "properties": {
         "triggerName": {
+          "description": "Identifier for this audio trigger configuration",
           "type": "string"
         },
         "triggerType": {
+          "description": "Type of Unity event that fires this trigger",
           "type": "string",
           "enum": [
             "OnEnter",
@@ -1924,6 +2039,7 @@
           ]
         },
         "targetGameObject": {
+          "description": "GameObject in the scene that hosts the trigger collider or event",
           "type": "string"
         }
       },
@@ -1943,12 +2059,15 @@
       "type": "object",
       "properties": {
         "poolName": {
+          "description": "Identifier for the sound pool asset",
           "type": "string"
         },
         "audioClips": {
+          "description": "List of AudioClip asset names or paths to include in the pool",
           "type": "array"
         },
         "playbackMode": {
+          "description": "Selection strategy used when picking the next clip to play",
           "default": "RandomNoRepeat",
           "type": "string",
           "enum": [
@@ -1959,17 +2078,21 @@
           ]
         },
         "weights": {
+          "description": "Per-clip probability weights when playbackMode is Weighted",
           "type": "array"
         },
         "pitchVariation": {
+          "description": "Random pitch variation amount applied per playback",
           "default": 0,
           "type": "number"
         },
         "volumeVariation": {
+          "description": "Random volume variation amount applied per playback",
           "default": 0,
           "type": "number"
         },
         "cooldownTime": {
+          "description": "Minimum seconds between successive plays from this pool",
           "default": 0,
           "type": "number"
         }
@@ -1989,6 +2112,7 @@
       "type": "object",
       "properties": {
         "mixerName": {
+          "description": "Name of the AudioMixer asset to create",
           "type": "string"
         }
       },
@@ -2006,9 +2130,11 @@
       "type": "object",
       "properties": {
         "audioSource": {
+          "description": "Name of the AudioSource GameObject to spatialize",
           "type": "string"
         },
         "spatializerPlugin": {
+          "description": "Spatializer plugin used to render 3D audio",
           "default": "Unity",
           "type": "string",
           "enum": [
@@ -2019,10 +2145,12 @@
           ]
         },
         "enableBinaural": {
+          "description": "Whether to enable binaural HRTF rendering for headphones",
           "default": true,
           "type": "boolean"
         },
         "enableHeadTracking": {
+          "description": "Whether to use head tracking data for VR/AR spatialization",
           "default": true,
           "type": "boolean"
         }
@@ -2041,12 +2169,15 @@
       "type": "object",
       "properties": {
         "visualizerName": {
+          "description": "Name of the audio visualizer GameObject to create",
           "type": "string"
         },
         "audioSource": {
+          "description": "AudioSource GameObject whose output drives the visualization",
           "type": "string"
         },
         "visualizationType": {
+          "description": "Audio analysis method used to drive the visuals",
           "type": "string",
           "enum": [
             "Spectrum",
@@ -2056,17 +2187,21 @@
           ]
         },
         "targetObjects": {
+          "description": "GameObjects whose properties are animated by the audio",
           "type": "array"
         },
         "frequencyBands": {
+          "description": "Number of frequency bands sampled from the spectrum",
           "default": 64,
           "type": "number"
         },
         "sensitivity": {
+          "description": "Multiplier applied to the analyzed audio amplitude",
           "default": 100,
           "type": "number"
         },
         "responseProperty": {
+          "description": "Transform or material property animated in response to audio",
           "default": "Scale",
           "type": "string",
           "enum": [
@@ -2078,6 +2213,7 @@
           ]
         },
         "smoothing": {
+          "description": "Temporal smoothing factor between 0 (none) and 1 (max)",
           "default": 0.5,
           "type": "number"
         }
@@ -2098,9 +2234,11 @@
       "type": "object",
       "properties": {
         "actionName": {
+          "description": "Name of the InputAction to register",
           "type": "string"
         },
         "bindingType": {
+          "description": "Value type produced by the action",
           "default": "Button",
           "type": "string",
           "enum": [
@@ -2111,10 +2249,12 @@
           ]
         },
         "actionMap": {
+          "description": "InputActionMap that owns this action",
           "default": "Player",
           "type": "string"
         },
         "initialValue": {
+          "description": "Optional initial value applied to the action on enable",
           "type": "string"
         }
       },
@@ -2132,9 +2272,11 @@
       "type": "object",
       "properties": {
         "gestureName": {
+          "description": "Identifier for the gesture recognizer",
           "type": "string"
         },
         "gestureType": {
+          "description": "Predefined gesture template to recognize",
           "type": "string",
           "enum": [
             "Swipe",
@@ -2148,6 +2290,7 @@
           ]
         },
         "callbackEvent": {
+          "description": "Name of the UnityEvent to invoke when the gesture is detected",
           "type": "string"
         }
       },
@@ -2166,9 +2309,11 @@
       "type": "object",
       "properties": {
         "feedbackName": {
+          "description": "Identifier for this haptic feedback preset",
           "type": "string"
         },
         "platform": {
+          "description": "Target platform that receives the haptic signal",
           "default": "Both",
           "type": "string",
           "enum": [
@@ -2178,6 +2323,7 @@
           ]
         },
         "feedbackType": {
+          "description": "Predefined haptic intensity profile",
           "type": "string",
           "enum": [
             "Light",
@@ -2190,14 +2336,17 @@
           ]
         },
         "duration": {
+          "description": "Duration of the haptic pulse in seconds",
           "default": 0.1,
           "type": "number"
         },
         "intensity": {
+          "description": "Strength of the haptic pulse from 0 to 1",
           "default": 1,
           "type": "number"
         },
         "pattern": {
+          "description": "Custom pattern of on/off pulses in milliseconds",
           "type": "array"
         }
       },
@@ -2216,9 +2365,11 @@
       "type": "object",
       "properties": {
         "validatorName": {
+          "description": "Identifier for the input validator component",
           "type": "string"
         },
         "validationType": {
+          "description": "Built-in validation rule applied to the field",
           "type": "string",
           "enum": [
             "Email",
@@ -2231,18 +2382,23 @@
           ]
         },
         "customPattern": {
+          "description": "Custom regex pattern used when validationType is Custom",
           "type": "string"
         },
         "minLength": {
+          "description": "Minimum allowed input length in characters",
           "type": "number"
         },
         "maxLength": {
+          "description": "Maximum allowed input length in characters",
           "type": "number"
         },
         "errorMessage": {
+          "description": "Message shown to the user when validation fails",
           "type": "string"
         },
         "realTimeValidation": {
+          "description": "Whether to validate as the user types",
           "default": true,
           "type": "boolean"
         }
@@ -2262,16 +2418,20 @@
       "type": "object",
       "properties": {
         "accessibilityName": {
+          "description": "Identifier for this accessibility configuration",
           "type": "string"
         },
         "features": {
+          "description": "List of accessibility features to enable",
           "type": "array"
         },
         "buttonScaling": {
+          "description": "Scale multiplier applied to interactive UI elements",
           "default": 1.5,
           "type": "number"
         },
         "contrastLevel": {
+          "description": "High-contrast color profile to apply to UI",
           "default": "High",
           "type": "string",
           "enum": [
@@ -2296,9 +2456,11 @@
       "type": "object",
       "properties": {
         "recorderName": {
+          "description": "Identifier for the input recorder asset",
           "type": "string"
         },
         "recordingMode": {
+          "description": "Which input devices to capture",
           "type": "string",
           "enum": [
             "All",
@@ -2310,18 +2472,22 @@
           ]
         },
         "includeTimestamps": {
+          "description": "Whether to record per-event timestamps",
           "default": true,
           "type": "boolean"
         },
         "compression": {
+          "description": "Whether to compress the recorded data",
           "default": false,
           "type": "boolean"
         },
         "maxRecordingTime": {
+          "description": "Maximum recording duration in seconds",
           "default": 300,
           "type": "number"
         },
         "autoSave": {
+          "description": "Whether the recording is saved automatically when stopped",
           "default": true,
           "type": "boolean"
         }
@@ -2341,26 +2507,32 @@
       "type": "object",
       "properties": {
         "maxTouches": {
+          "description": "Maximum number of simultaneous touches to track",
           "default": 10,
           "type": "number"
         },
         "touchSensitivity": {
+          "description": "Multiplier applied to raw touch delta values",
           "default": 1,
           "type": "number"
         },
         "enableGestures": {
+          "description": "Whether built-in gesture recognition is enabled",
           "default": true,
           "type": "boolean"
         },
         "touchVisualization": {
+          "description": "Whether to draw on-screen touch indicators",
           "default": false,
           "type": "boolean"
         },
         "preventAccidentalTouches": {
+          "description": "Whether to filter out small or stray touches",
           "default": true,
           "type": "boolean"
         },
         "touchAreaPadding": {
+          "description": "Extra pixel padding added around interactive areas",
           "default": 10,
           "type": "number"
         }
@@ -2376,9 +2548,11 @@
       "type": "object",
       "properties": {
         "targetObject": {
+          "description": "Name of the GameObject, camera, or UI element to zoom",
           "type": "string"
         },
         "zoomType": {
+          "description": "What is zoomed by the pinch gesture",
           "default": "Camera",
           "type": "string",
           "enum": [
@@ -2388,22 +2562,27 @@
           ]
         },
         "minZoom": {
+          "description": "Lower bound for the zoom factor",
           "default": 0.5,
           "type": "number"
         },
         "maxZoom": {
+          "description": "Upper bound for the zoom factor",
           "default": 3,
           "type": "number"
         },
         "zoomSpeed": {
+          "description": "Multiplier applied to pinch delta when changing zoom",
           "default": 1,
           "type": "number"
         },
         "smoothing": {
+          "description": "Whether to interpolate zoom changes for smoother motion",
           "default": true,
           "type": "boolean"
         },
         "centerOnPinch": {
+          "description": "Whether to recenter the view on the pinch midpoint",
           "default": true,
           "type": "boolean"
         }
@@ -2422,22 +2601,27 @@
       "type": "object",
       "properties": {
         "swipeDirections": {
+          "description": "Allowed swipe directions to detect",
           "default": "['All']",
           "type": "array"
         },
         "minSwipeDistance": {
+          "description": "Minimum pixel distance required to register a swipe",
           "default": 50,
           "type": "number"
         },
         "maxSwipeTime": {
+          "description": "Maximum seconds allowed between touch start and end",
           "default": 0.5,
           "type": "number"
         },
         "detectDiagonals": {
+          "description": "Whether diagonal swipes are detected",
           "default": false,
           "type": "boolean"
         },
         "continuousDetection": {
+          "description": "Whether swipes can fire repeatedly during a drag",
           "default": false,
           "type": "boolean"
         }
@@ -2453,32 +2637,40 @@
       "type": "object",
       "properties": {
         "draggableObject": {
+          "description": "Name of the GameObject that can be dragged",
           "type": "string"
         },
         "dropZones": {
+          "description": "Names of GameObjects that accept the dragged object",
           "type": "array"
         },
         "snapToGrid": {
+          "description": "Whether dropped objects snap to a grid",
           "default": false,
           "type": "boolean"
         },
         "gridSize": {
+          "description": "Grid cell size in world units when snapToGrid is true",
           "default": 1,
           "type": "number"
         },
         "showGhost": {
+          "description": "Whether to show a ghost preview while dragging",
           "default": true,
           "type": "boolean"
         },
         "returnOnInvalidDrop": {
+          "description": "Whether the object returns to its origin on invalid drop",
           "default": true,
           "type": "boolean"
         },
         "dragThreshold": {
+          "description": "Pixel distance required before drag begins",
           "default": 5,
           "type": "number"
         },
         "allowRotation": {
+          "description": "Whether the dragged object can be rotated",
           "default": false,
           "type": "boolean"
         }
@@ -2497,6 +2689,7 @@
       "type": "object",
       "properties": {
         "effectType": {
+          "description": "Visual style of the touch effect",
           "default": "Ripple",
           "type": "string",
           "enum": [
@@ -2507,25 +2700,31 @@
           ]
         },
         "effectPrefab": {
+          "description": "Optional prefab used when effectType is Custom",
           "type": "string"
         },
         "color": {
+          "description": "Hex color string applied to the effect",
           "default": "#FFFFFF",
           "type": "string"
         },
         "size": {
+          "description": "Scale multiplier applied to the effect",
           "default": 1,
           "type": "number"
         },
         "duration": {
+          "description": "Effect lifetime in seconds",
           "default": 0.5,
           "type": "number"
         },
         "fadeOut": {
+          "description": "Whether the effect fades out before disappearing",
           "default": true,
           "type": "boolean"
         },
         "followFinger": {
+          "description": "Whether the effect follows the finger while touching",
           "default": false,
           "type": "boolean"
         }
@@ -2541,9 +2740,11 @@
       "type": "object",
       "properties": {
         "effectName": {
+          "description": "Name of the particle effect GameObject to create in the Unity scene",
           "type": "string"
         },
         "preset": {
+          "description": "Predefined Unity ParticleSystem preset configuring shape, emission, and color over lifetime",
           "default": "Fire",
           "type": "string",
           "enum": [
@@ -2561,9 +2762,11 @@
           ]
         },
         "colors": {
+          "description": "Array of hex color strings used for color over lifetime gradient",
           "type": "array"
         },
         "usePhysics": {
+          "description": "When true adds a ParticleSystem collision module for world physics interaction",
           "default": false,
           "type": "boolean"
         }
@@ -2582,9 +2785,11 @@
       "type": "object",
       "properties": {
         "materialName": {
+          "description": "Name of the Unity Material asset to create under Assets/Materials",
           "type": "string"
         },
         "shader": {
+          "description": "Shader pipeline; Standard for Built-in, UniversalRP/Lit for URP, HDRP/Lit for HDRP",
           "default": "Standard",
           "type": "string",
           "enum": [
@@ -2614,6 +2819,7 @@
       "type": "object",
       "properties": {
         "preset": {
+          "description": "Lighting environment preset that configures directional light, skybox, and ambient color",
           "default": "Studio",
           "type": "string",
           "enum": [
@@ -2630,10 +2836,12 @@
           ]
         },
         "intensity": {
+          "description": "Multiplier applied to directional light intensity (1 = preset default)",
           "default": 1,
           "type": "number"
         },
         "ambientMode": {
+          "description": "RenderSettings.ambientMode source: Skybox samples skybox, Gradient blends sky/equator/ground, Color uses flat color",
           "default": "Skybox",
           "type": "string",
           "enum": [
@@ -2643,10 +2851,12 @@
           ]
         },
         "fog": {
+          "description": "Enable RenderSettings.fog for distance-based atmospheric falloff",
           "default": false,
           "type": "boolean"
         },
         "shadows": {
+          "description": "Shadow quality: None disables shadows, Hard for hard-edged, Soft for filtered PCF shadows",
           "default": "Soft",
           "type": "string",
           "enum": [
@@ -2667,9 +2877,11 @@
       "type": "object",
       "properties": {
         "effectName": {
+          "description": "Name of the visual effect GameObject",
           "type": "string"
         },
         "effectType": {
+          "description": "Visual effect type",
           "default": "Aura",
           "type": "string",
           "enum": [
@@ -2684,17 +2896,21 @@
           ]
         },
         "target": {
+          "description": "Name of the GameObject to attach the effect to (parents the effect under it)",
           "type": "string"
         },
         "duration": {
+          "description": "Effect lifetime in seconds; 0 means infinite when loop is true",
           "default": 0,
           "type": "number"
         },
         "loop": {
+          "description": "Loop the effect continuously while the GameObject is active",
           "default": true,
           "type": "boolean"
         },
         "intensity": {
+          "description": "Overall intensity multiplier applied to emission rate, light, and alpha",
           "default": 1,
           "type": "number"
         }
@@ -2713,10 +2929,12 @@
       "type": "object",
       "properties": {
         "probeName": {
+          "description": "Name of the ReflectionProbe GameObject to create in the scene",
           "default": "ReflectionProbe",
           "type": "string"
         },
         "position": {
+          "description": "World-space position of the probe origin in Unity units",
           "type": "object",
           "properties": {
             "x": {
@@ -2731,6 +2949,7 @@
           }
         },
         "size": {
+          "description": "Bounding box size in Unity units of the volume the probe influences",
           "default": "{ x: 10, y: 10, z: 10 }",
           "type": "object",
           "properties": {
@@ -2746,6 +2965,7 @@
           }
         },
         "resolution": {
+          "description": "Cubemap face resolution in pixels; higher values produce sharper reflections at memory cost",
           "default": "128",
           "type": "string",
           "enum": [
@@ -2760,6 +2980,7 @@
           ]
         },
         "updateMode": {
+          "description": "ReflectionProbe refreshMode: OnAwake bakes on enable, EveryFrame realtime, ViaScripting manual",
           "default": "OnAwake",
           "type": "string",
           "enum": [
@@ -2769,6 +2990,7 @@
           ]
         },
         "importance": {
+          "description": "Probe importance used to resolve overlap order; higher values override lower ones",
           "default": 1,
           "type": "number"
         }
@@ -2784,10 +3006,12 @@
       "type": "object",
       "properties": {
         "groupName": {
+          "description": "Name of the LightProbeGroup GameObject to create",
           "default": "LightProbeGroup",
           "type": "string"
         },
         "gridSize": {
+          "description": "Number of probes along each axis forming the probe lattice",
           "default": "{ x: 5, y: 3, z: 5 }",
           "type": "object",
           "properties": {
@@ -2803,10 +3027,12 @@
           }
         },
         "spacing": {
+          "description": "Distance in Unity units between adjacent probes on each axis",
           "default": 2,
           "type": "number"
         },
         "center": {
+          "description": "World-space center position of the probe grid",
           "type": "object",
           "properties": {
             "x": {
@@ -2832,38 +3058,47 @@
       "type": "object",
       "properties": {
         "fogName": {
+          "description": "Name of the volumetric fog GameObject (LocalVolumetricFog in HDRP) to create",
           "default": "VolumetricFog",
           "type": "string"
         },
         "density": {
+          "description": "Fog density per Unity unit; higher values produce thicker fog",
           "default": 0.05,
           "type": "number"
         },
         "color": {
+          "description": "Fog tint as hex color (e.g., #FFFFFF for neutral white)",
           "default": "#FFFFFF",
           "type": "string"
         },
         "anisotropy": {
+          "description": "Henyey-Greenstein scattering anisotropy in -1..1; positive forward-scatters light",
           "default": 0.5,
           "type": "number"
         },
         "lightPenetration": {
+          "description": "How far light penetrates the fog volume in 0..1 range",
           "default": 0.5,
           "type": "number"
         },
         "noiseScale": {
+          "description": "World-space scale of the 3D noise modulating fog density",
           "default": 1,
           "type": "number"
         },
         "noiseIntensity": {
+          "description": "Strength of noise modulation applied to fog density (0..1)",
           "default": 0.5,
           "type": "number"
         },
         "windSpeed": {
+          "description": "Animation speed of the noise field simulating wind drift",
           "default": 1,
           "type": "number"
         },
         "height": {
+          "description": "Vertical extent in Unity units of the fog volume from the ground",
           "default": 100,
           "type": "number"
         }
@@ -2879,12 +3114,15 @@
       "type": "object",
       "properties": {
         "decalName": {
+          "description": "Name of the DecalProjector GameObject to create in the scene",
           "type": "string"
         },
         "texture": {
+          "description": "Asset path of the base color texture used by the decal",
           "type": "string"
         },
         "size": {
+          "description": "Projection box size in Unity units (x,y are footprint, z is depth)",
           "default": "{ x: 1, y: 1, z: 1 }",
           "type": "object",
           "properties": {
@@ -2900,14 +3138,17 @@
           }
         },
         "opacity": {
+          "description": "Decal blend opacity from 0 (invisible) to 1 (fully opaque)",
           "default": 1,
           "type": "number"
         },
         "normalBlend": {
+          "description": "Strength of normal map blending against underlying surfaces (0..1)",
           "default": 1,
           "type": "number"
         },
         "maskClipping": {
+          "description": "When true clips the decal against surfaces facing away beyond a normal threshold",
           "default": true,
           "type": "boolean"
         }
@@ -2926,6 +3167,7 @@
       "type": "object",
       "properties": {
         "preset": {
+          "description": "Color grading preset applied via PostProcess ColorAdjustments and Tonemapping",
           "default": "Cinematic",
           "type": "string",
           "enum": [
@@ -2940,22 +3182,27 @@
           ]
         },
         "temperature": {
+          "description": "White balance temperature offset in -100..100; positive warms, negative cools",
           "default": 0,
           "type": "number"
         },
         "tint": {
+          "description": "White balance tint offset in -100..100; positive magenta, negative green",
           "default": 0,
           "type": "number"
         },
         "contrast": {
+          "description": "Contrast adjustment in -100..100 applied to the final image",
           "default": 0,
           "type": "number"
         },
         "brightness": {
+          "description": "Post-exposure brightness offset in stops (EV)",
           "default": 0,
           "type": "number"
         },
         "saturation": {
+          "description": "Color saturation adjustment in -100..100; -100 desaturates fully",
           "default": 0,
           "type": "number"
         }
@@ -2971,17 +3218,21 @@
       "type": "object",
       "properties": {
         "flareName": {
+          "description": "Name of the LensFlare GameObject to create in the scene",
           "type": "string"
         },
         "intensity": {
+          "description": "Brightness multiplier for the lens flare elements",
           "default": 1,
           "type": "number"
         },
         "fadeSpeed": {
+          "description": "Speed in seconds at which the flare fades when occluded by geometry",
           "default": 3,
           "type": "number"
         },
         "color": {
+          "description": "Hex color tint applied to all flare elements (e.g., #FFFFFF)",
           "default": "#FFFFFF",
           "type": "string"
         }
@@ -3000,22 +3251,27 @@
       "type": "object",
       "properties": {
         "duration": {
+          "description": "Total shake duration in seconds before the camera returns to rest",
           "default": 0.5,
           "type": "number"
         },
         "intensity": {
+          "description": "Peak displacement amplitude in Unity units applied to the camera",
           "default": 1,
           "type": "number"
         },
         "frequency": {
+          "description": "Oscillation frequency in Hz controlling how rapidly the camera vibrates",
           "default": 10,
           "type": "number"
         },
         "damping": {
+          "description": "Decay factor reducing intensity over duration; 1 = linear falloff to zero",
           "default": 1,
           "type": "number"
         },
         "camera": {
+          "description": "Name of the Camera GameObject to apply the shake effect to",
           "default": "Main Camera",
           "type": "string"
         }
@@ -3031,6 +3287,7 @@
       "type": "object",
       "properties": {
         "fadeType": {
+          "description": "FadeIn reveals the scene from the color, FadeOut covers the scene to the color",
           "default": "FadeIn",
           "type": "string",
           "enum": [
@@ -3039,18 +3296,22 @@
           ]
         },
         "duration": {
+          "description": "Fade animation duration in seconds",
           "default": 1,
           "type": "number"
         },
         "color": {
+          "description": "Hex color of the fullscreen overlay used for the fade (e.g., #000000)",
           "default": "#000000",
           "type": "string"
         },
         "delay": {
+          "description": "Delay in seconds before the fade animation starts",
           "default": 0,
           "type": "number"
         },
         "curve": {
+          "description": "Animation easing curve applied to the alpha interpolation",
           "default": "Linear",
           "type": "string",
           "enum": [
@@ -3072,18 +3333,22 @@
       "type": "object",
       "properties": {
         "intensity": {
+          "description": "Vignette darkening strength from 0 (off) to 1 (fully dark edges)",
           "default": 0.5,
           "type": "number"
         },
         "smoothness": {
+          "description": "Edge smoothness of the vignette falloff in 0..1; higher is softer",
           "default": 0.5,
           "type": "number"
         },
         "color": {
+          "description": "Hex color of the vignette overlay (typically #000000 for darkening)",
           "default": "#000000",
           "type": "string"
         },
         "rounded": {
+          "description": "When true forces a circular vignette regardless of aspect ratio",
           "default": true,
           "type": "boolean"
         }
@@ -3099,10 +3364,12 @@
       "type": "object",
       "properties": {
         "intensity": {
+          "description": "Chromatic aberration strength in 0..1 controlling RGB channel separation",
           "default": 0.1,
           "type": "number"
         },
         "camera": {
+          "description": "Name of the Camera GameObject the post-process volume targets",
           "default": "Main Camera",
           "type": "string"
         }
@@ -3118,6 +3385,7 @@
       "type": "object",
       "properties": {
         "path": {
+          "description": "Path to shader file (e.g., \"Assets/Shaders/MyShader.shader\")",
           "type": "string"
         }
       },
@@ -3172,6 +3440,7 @@
           "type": "string"
         },
         "shader_name": {
+          "description": "Shader name (e.g., \"Standard\")",
           "type": "string"
         }
       }
@@ -3186,6 +3455,7 @@
       "type": "object",
       "properties": {
         "path": {
+          "description": "Path to ShaderGraph file (e.g., \"Assets/Shaders/MyGraph.shadergraph\")",
           "type": "string"
         }
       },
@@ -3203,6 +3473,7 @@
       "type": "object",
       "properties": {
         "path": {
+          "description": "Path to VFX Graph file (e.g., \"Assets/VFX/MyEffect.vfx\")",
           "type": "string"
         }
       },
@@ -3333,6 +3604,7 @@
           "type": "string"
         },
         "value": {
+          "description": "Value to set (e.g., \"1,0.5,0\" for color, \"150\" for rate)",
           "type": "string"
         }
       },
@@ -3505,13 +3777,16 @@
       "type": "object",
       "properties": {
         "targetObject": {
+          "description": "Name of the GameObject whose Renderer material property will be animated",
           "type": "string"
         },
         "propertyName": {
+          "description": "Shader property name to animate (e.g., _Color, _EmissionColor, _MainTex_ST)",
           "default": "_Color",
           "type": "string"
         },
         "propertyType": {
+          "description": "Shader property data type: Color for RGBA, Float for scalar, Vector for Vector4",
           "default": "Color",
           "type": "string",
           "enum": [
@@ -3521,20 +3796,25 @@
           ]
         },
         "startValue": {
+          "description": "Starting value as string (e.g., \"1,0,0,1\" for red color or \"0\" for float)",
           "type": "string"
         },
         "endValue": {
+          "description": "Ending value as string in the same format as startValue",
           "type": "string"
         },
         "duration": {
+          "description": "Animation duration in seconds for one start-to-end cycle",
           "default": 1,
           "type": "number"
         },
         "loop": {
+          "description": "When true the animation loops continuously between start and end values",
           "default": false,
           "type": "boolean"
         },
         "curve": {
+          "description": "Easing applied to the interpolation between start and end",
           "default": "Linear",
           "type": "string",
           "enum": [
@@ -3562,17 +3842,21 @@
       "type": "object",
       "properties": {
         "targetObject": {
+          "description": "Name of the GameObject whose Renderer receives the MaterialPropertyBlock",
           "type": "string"
         },
         "blockName": {
+          "description": "Identifier used internally to track the MaterialPropertyBlock instance",
           "default": "CustomPropertyBlock",
           "type": "string"
         },
         "preserveSharedMaterial": {
+          "description": "When true keeps sharedMaterial intact and applies overrides per-renderer only",
           "default": true,
           "type": "boolean"
         },
         "properties": {
+          "description": "Dictionary mapping shader property names to override values (color, float, texture, vector)",
           "type": "string"
         }
       },
@@ -3590,13 +3874,16 @@
       "type": "object",
       "properties": {
         "targetObject": {
+          "description": "Name or path of the target GameObject whose material will be animated",
           "type": "string"
         },
         "propertyName": {
+          "description": "Shader texture property to animate (defaults to main texture _MainTex)",
           "default": "_MainTex",
           "type": "string"
         },
         "animationType": {
+          "description": "Animation mode: Scroll offsets UV, Flipbook plays sprite sheet, Rotate spins UVs",
           "default": "Scroll",
           "type": "string",
           "enum": [
@@ -3606,22 +3893,27 @@
           ]
         },
         "speed": {
+          "description": "Scroll/rotation speed as comma-separated \"x,y\" UV units per second",
           "default": "1,0",
           "type": "string"
         },
         "scale": {
+          "description": "Texture tiling scale as comma-separated \"x,y\"",
           "default": "1,1",
           "type": "string"
         },
         "columns": {
+          "description": "Number of flipbook columns in the sprite sheet",
           "default": 4,
           "type": "number"
         },
         "rows": {
+          "description": "Number of flipbook rows in the sprite sheet",
           "default": 4,
           "type": "number"
         },
         "fps": {
+          "description": "Flipbook playback speed in frames per second",
           "default": 30,
           "type": "number"
         }
@@ -3640,9 +3932,11 @@
       "type": "object",
       "properties": {
         "targetObject": {
+          "description": "Name or path of the GameObject to receive the gradient material",
           "type": "string"
         },
         "gradientType": {
+          "description": "Gradient shape: Linear interpolates along an axis, Radial radiates from center",
           "default": "Linear",
           "type": "string",
           "enum": [
@@ -3651,14 +3945,17 @@
           ]
         },
         "startColor": {
+          "description": "Starting color of the gradient as hex (e.g. #FFFFFF)",
           "default": "#FFFFFF",
           "type": "string"
         },
         "endColor": {
+          "description": "Ending color of the gradient as hex (e.g. #000000)",
           "default": "#000000",
           "type": "string"
         },
         "direction": {
+          "description": "Linear gradient axis direction in UV space",
           "default": "Vertical",
           "type": "string",
           "enum": [
@@ -3668,6 +3965,7 @@
           ]
         },
         "blendMode": {
+          "description": "How the gradient blends with the base material color",
           "default": "Normal",
           "type": "string",
           "enum": [
@@ -3811,6 +4109,7 @@
       "type": "object",
       "properties": {
         "platform": {
+          "description": "Target platform preset that biases URP settings for performance vs. fidelity",
           "default": "pc",
           "type": "string",
           "enum": [
@@ -3825,6 +4124,7 @@
           ]
         },
         "quality": {
+          "description": "Overall URP quality tier controlling render features and resolutions",
           "default": "medium",
           "type": "string",
           "enum": [
@@ -3835,6 +4135,7 @@
           ]
         },
         "shadows": {
+          "description": "Shadow quality level and atlas resolution",
           "default": "medium",
           "type": "string",
           "enum": [
@@ -3847,6 +4148,7 @@
           ]
         },
         "antialiasing": {
+          "description": "Post-process anti-aliasing technique applied to the camera",
           "default": "fxaa",
           "type": "string",
           "enum": [
@@ -3867,6 +4169,7 @@
           "type": "boolean"
         },
         "msaa": {
+          "description": "Hardware MSAA sample count for forward rendering",
           "default": "4x",
           "type": "string",
           "enum": [
@@ -3888,6 +4191,7 @@
       "type": "object",
       "properties": {
         "platform": {
+          "description": "Target platform preset that scales HDRP feature set",
           "default": "pc",
           "type": "string",
           "enum": [
@@ -3898,6 +4202,7 @@
           ]
         },
         "quality": {
+          "description": "HDRP quality tier for shadows, reflections, and post effects",
           "default": "high",
           "type": "string",
           "enum": [
@@ -3917,6 +4222,7 @@
           "type": "boolean"
         },
         "reflections": {
+          "description": "Reflection technique: screen-space, ray-traced, or hybrid combination",
           "default": "screenspace",
           "type": "string",
           "enum": [
@@ -3937,6 +4243,7 @@
       "type": "object",
       "properties": {
         "profile": {
+          "description": "Visual style preset that selects the base Volume Profile",
           "default": "cinematic",
           "type": "string",
           "enum": [
@@ -3948,22 +4255,27 @@
           ]
         },
         "bloom": {
+          "description": "Enable Bloom effect for glowing bright highlights",
           "default": true,
           "type": "boolean"
         },
         "colorgrading": {
+          "description": "Enable Color Adjustments / Tonemapping for color grading",
           "default": true,
           "type": "boolean"
         },
         "vignette": {
+          "description": "Enable Vignette darkening at screen edges",
           "default": true,
           "type": "boolean"
         },
         "filmgrain": {
+          "description": "Enable Film Grain texture overlay for cinematic feel",
           "default": false,
           "type": "boolean"
         },
         "motionblur": {
+          "description": "Enable Motion Blur for camera and object movement",
           "default": false,
           "type": "boolean"
         }
@@ -3979,7 +4291,31 @@
       "type": "object",
       "properties": {
         "effectType": {
-          "type": "string"
+          "description": "Type of VFX effect preset",
+          "default": "fire",
+          "type": "string",
+          "enum": [
+            "fire",
+            "smoke",
+            "explosion",
+            "magic",
+            "water",
+            "splash",
+            "energy",
+            "sparks",
+            "dust",
+            "snow",
+            "rain",
+            "leaves",
+            "confetti",
+            "trail",
+            "cyber",
+            "heal",
+            "buff",
+            "debuff",
+            "portal",
+            "custom"
+          ]
         },
         "name": {
           "description": "Custom name for the VFX GameObject",
@@ -4006,6 +4342,7 @@
           "type": "number"
         },
         "color": {
+          "description": "Start/main color in hex (e.g., \"#00FFFF\")",
           "type": "string"
         },
         "endColor": {
@@ -4013,6 +4350,7 @@
           "type": "string"
         },
         "position": {
+          "description": "World position as \"x,y,z\"",
           "default": "0,0,0",
           "type": "string"
         },
@@ -4021,7 +4359,6 @@
           "default": "",
           "type": "string",
           "enum": [
-            "",
             "mesh",
             "sdf",
             "spline",
@@ -4029,6 +4366,7 @@
           ]
         },
         "meshPath": {
+          "description": "Asset path to mesh for mesh spawning (e.g., \"Assets/Models/Sword.fbx\")",
           "type": "string"
         },
         "meshName": {
@@ -4036,6 +4374,7 @@
           "type": "string"
         },
         "splinePoints": {
+          "description": "Spline points as \"x,y,z;x,y,z;...\" for path-based effects",
           "type": "string"
         },
         "sdfShape": {
@@ -4070,10 +4409,7 @@
             "opaque"
           ]
         }
-      },
-      "required": [
-        "effectType"
-      ]
+      }
     },
     "embedding": null
   },
@@ -4085,6 +4421,7 @@
       "type": "object",
       "properties": {
         "shaderType": {
+          "description": "Shader Graph master node preset that defines lighting model and base inputs",
           "default": "surface",
           "type": "string",
           "enum": [
@@ -4099,6 +4436,7 @@
           ]
         },
         "pipeline": {
+          "description": "Render pipeline target that determines generated subgraph compatibility",
           "default": "urp",
           "type": "string",
           "enum": [
@@ -4108,6 +4446,7 @@
           ]
         },
         "features": {
+          "description": "Additional shader features to wire into the graph (normal map, emission, etc.)",
           "default": "['normal_map']",
           "type": "array"
         },
@@ -4132,6 +4471,7 @@
           "type": "string"
         },
         "propertyName": {
+          "description": "Exposed property name (e.g., \"Intensity\", \"Color\", \"ParticleCount\")",
           "type": "string"
         },
         "propertyType": {
@@ -4151,6 +4491,7 @@
           ]
         },
         "value": {
+          "description": "Value to set. Float: \"1.5\", Color: \"#FF00FF\", Vector3: \"1,2,3\", Bool: \"true\"",
           "type": "string"
         }
       },
@@ -4235,10 +4576,33 @@
       "type": "object",
       "properties": {
         "vfxPath": {
+          "description": "Path to VFX asset (e.g., \"Assets/VFX/Fire.vfx\")",
           "type": "string"
         },
         "contextType": {
-          "type": "string"
+          "description": "Type of context to add",
+          "type": "string",
+          "enum": [
+            "spawn",
+            "spawner",
+            "gpuspawn",
+            "initialize",
+            "init",
+            "update",
+            "output",
+            "quad",
+            "point",
+            "line",
+            "linestrip",
+            "quadstrip",
+            "trail",
+            "ribbon",
+            "mesh",
+            "staticmesh",
+            "decal",
+            "event",
+            "outputevent"
+          ]
         },
         "capacity": {
           "description": "Particle capacity (for Initialize context)",
@@ -4272,18 +4636,67 @@
           "type": "number"
         },
         "blockType": {
-          "type": "string"
+          "description": "Type of block to add",
+          "type": "string",
+          "enum": [
+            "// Position\n                positionsphere",
+            "positioncircle",
+            "positioncone",
+            "positionline",
+            "positionbox",
+            "positiontorus",
+            "positionmesh",
+            "positionsdf",
+            "// Forces\n                gravity",
+            "drag",
+            "turbulence",
+            "force",
+            "conformtosphere",
+            "conformtosdf",
+            "vectorfieldforce",
+            "// Attributes\n                setattribute",
+            "setattributerandom",
+            "setposition",
+            "setvelocity",
+            "setcolor",
+            "setsize",
+            "setlifetime",
+            "setalpha",
+            "setangle",
+            "// Random\n                velocityrandom",
+            "// Collision\n                collisionsphere",
+            "collisionplane",
+            "collisionbox",
+            "collisiondepth",
+            "// Kill\n                killsphere",
+            "killbox",
+            "killplane",
+            "killage",
+            "// Orientation\n                orient",
+            "facecamera",
+            "orientalongvelocity",
+            "// Over lifetime\n                coloroverlife",
+            "sizeoverlife",
+            "// Spawn\n                spawnrate",
+            "spawnburst",
+            "// Other\n                flipbook",
+            "triggerevent"
+          ]
         },
         "attribute": {
+          "description": "Attribute name for SetAttribute blocks (e.g., \"position\", \"color\", \"size\", \"lifetime\", \"velocity\")",
           "type": "string"
         },
         "value": {
+          "description": "Value to set (e.g., \"1,0,0\" for vector, \"#FF0000\" for color)",
           "type": "string"
         },
         "min": {
+          "description": "Minimum value for setattributerandom (e.g., 0.5 for float, \"0,0,0\" for vector)",
           "type": "string"
         },
         "max": {
+          "description": "Maximum value for setattributerandom (e.g., 2.0 for float, \"1,1,1\" for vector)",
           "type": "string"
         }
       },
@@ -4307,7 +4720,55 @@
           "type": "string"
         },
         "operatorType": {
-          "type": "string"
+          "description": "Type of operator to add",
+          "type": "string",
+          "enum": [
+            "// Math\n                add",
+            "subtract",
+            "multiply",
+            "divide",
+            "power",
+            "modulo",
+            "absolute",
+            "negate",
+            "minimum",
+            "maximum",
+            "clamp",
+            "saturate",
+            "lerp",
+            "smoothstep",
+            "// Trigonometric\n                sine",
+            "cosine",
+            "tangent",
+            "atan2",
+            "// Vector\n                dot",
+            "cross",
+            "length",
+            "distance",
+            "normalize",
+            "// Noise\n                noise",
+            "curlnoise",
+            "voronoise",
+            "// Sampling\n                sampletexture2d",
+            "sampletexture3d",
+            "samplecurve",
+            "samplegradient",
+            "samplemesh",
+            "samplesdf",
+            "// Logic\n                compare",
+            "branch",
+            "and",
+            "or",
+            "not",
+            "// Utility\n                random",
+            "time",
+            "deltatime",
+            "maincamera",
+            "// Waveforms\n                sinewave",
+            "squarewave",
+            "trianglewave",
+            "sawtoothwave"
+          ]
         }
       },
       "required": [
@@ -4437,6 +4898,7 @@
           ]
         },
         "defaultValue": {
+          "description": "Default value (e.g., \"1.0\", \"1,2,3\" for vector)",
           "type": "string"
         },
         "exposed": {
@@ -4534,6 +4996,7 @@
           "type": "string"
         },
         "value": {
+          "description": "Value to set (e.g., \"1,2,3\" for vector, \"#FF0000\" for color, \"0.5\" for float)",
           "type": "string"
         },
         "composition": {
@@ -4601,6 +5064,7 @@
       "type": "object",
       "properties": {
         "vfxPath": {
+          "description": "Path to VFX asset (e.g., \"Assets/VFX/Fire.vfx\")",
           "type": "string"
         },
         "contextIndex": {
@@ -4662,6 +5126,7 @@
           "type": "number"
         },
         "colors": {
+          "description": "Array of hex colors (e.g., [\"#FF6600\", \"#FF0000\", \"#000000\"])",
           "type": "array"
         },
         "times": {
@@ -4686,6 +5151,7 @@
       "type": "object",
       "properties": {
         "scenario": {
+          "description": "Time-of-day or studio lighting preset that drives directional light color, intensity, and ambient",
           "default": "noon",
           "type": "string",
           "enum": [
@@ -4733,6 +5199,7 @@
       "type": "object",
       "properties": {
         "preset": {
+          "description": "Cinematic weather preset that configures particles, lighting, fog, and skybox",
           "default": "sunny",
           "type": "string",
           "enum": [
@@ -4766,6 +5233,7 @@
       "type": "object",
       "properties": {
         "preset": {
+          "description": "Target weather preset to smoothly transition the existing weather system to",
           "type": "string",
           "enum": [
             "sunny",
@@ -4795,26 +5263,32 @@
       "type": "object",
       "properties": {
         "intensity": {
+          "description": "Overall rain density and emission rate (0-1)",
           "default": 0.5,
           "type": "number"
         },
         "dropSize": {
+          "description": "Size of each rain drop particle in world units",
           "default": 0.02,
           "type": "number"
         },
         "dropSpeed": {
+          "description": "Vertical fall speed of rain drops in units per second",
           "default": 10,
           "type": "number"
         },
         "windStrength": {
+          "description": "Horizontal wind force applied to falling drops",
           "default": 0,
           "type": "number"
         },
         "rainArea": {
+          "description": "Box volume size for rain emitter as comma-separated \"x,y,z\"",
           "default": "50,30,50",
           "type": "string"
         },
         "useSplash": {
+          "description": "Spawn splash particles where drops hit the ground",
           "default": true,
           "type": "boolean"
         }
@@ -4830,26 +5304,32 @@
       "type": "object",
       "properties": {
         "intensity": {
+          "description": "Overall snowfall density and emission rate (0-1)",
           "default": 0.3,
           "type": "number"
         },
         "flakeSize": {
+          "description": "Min/max snowflake size as comma-separated \"min,max\" world units",
           "default": "0.1,0.3",
           "type": "string"
         },
         "fallSpeed": {
+          "description": "Vertical fall speed of snowflakes in units per second",
           "default": 1,
           "type": "number"
         },
         "turbulence": {
+          "description": "Random horizontal sway applied to snowflakes (0-1)",
           "default": 0.5,
           "type": "number"
         },
         "snowArea": {
+          "description": "Box volume size for snow emitter as comma-separated \"x,y,z\"",
           "default": "50,20,50",
           "type": "string"
         },
         "accumulation": {
+          "description": "Build up snow layer on ground meshes over time",
           "default": false,
           "type": "boolean"
         }
@@ -4865,26 +5345,32 @@
       "type": "object",
       "properties": {
         "strength": {
+          "description": "Base wind force magnitude applied to affected objects",
           "default": 5,
           "type": "number"
         },
         "direction": {
+          "description": "Wind direction as comma-separated normalized vector \"x,y,z\"",
           "default": "1,0,0",
           "type": "string"
         },
         "turbulence": {
+          "description": "Random variation added on top of the base wind direction (0-1)",
           "default": 0.5,
           "type": "number"
         },
         "gustFrequency": {
+          "description": "How often gusts occur, in Hz (gusts per second)",
           "default": 0.2,
           "type": "number"
         },
         "affectTrees": {
+          "description": "Apply wind to Unity Terrain trees via WindZone",
           "default": true,
           "type": "boolean"
         },
         "affectParticles": {
+          "description": "Apply wind force to particle systems in the scene",
           "default": true,
           "type": "boolean"
         }
@@ -4900,30 +5386,37 @@
       "type": "object",
       "properties": {
         "frequency": {
+          "description": "Lightning strike frequency in strikes per second",
           "default": 0.1,
           "type": "number"
         },
         "intensity": {
+          "description": "Brightness multiplier of the lightning flash light",
           "default": 5,
           "type": "number"
         },
         "duration": {
+          "description": "Duration of each lightning flash in seconds",
           "default": 0.2,
           "type": "number"
         },
         "color": {
+          "description": "Hex color of the lightning flash (e.g., \"#E0E0FF\")",
           "default": "#E0E0FF",
           "type": "string"
         },
         "minDelay": {
+          "description": "Minimum delay between strikes in seconds",
           "default": 2,
           "type": "number"
         },
         "maxDelay": {
+          "description": "Maximum delay between strikes in seconds",
           "default": 10,
           "type": "number"
         },
         "affectSkybox": {
+          "description": "Whether the lightning flash also brightens the skybox",
           "default": true,
           "type": "boolean"
         }
@@ -4939,18 +5432,22 @@
       "type": "object",
       "properties": {
         "intensity": {
+          "description": "Overall thunderstorm intensity from 0 (light) to 1 (heavy)",
           "default": 0.8,
           "type": "number"
         },
         "windStrength": {
+          "description": "Wind strength affecting rain direction and particle motion",
           "default": 10,
           "type": "number"
         },
         "lightningFrequency": {
+          "description": "Lightning strikes per second during the storm",
           "default": 0.2,
           "type": "number"
         },
         "fogDensity": {
+          "description": "Density of atmospheric fog applied to the scene",
           "default": 0.02,
           "type": "number"
         },
@@ -4971,6 +5468,7 @@
       "type": "object",
       "properties": {
         "startTime": {
+          "description": "Initial time of day in hours (0-24)",
           "default": 12,
           "type": "number"
         },
@@ -4980,18 +5478,22 @@
           "type": "number"
         },
         "latitude": {
+          "description": "Latitude in degrees for sun positioning",
           "default": 35,
           "type": "number"
         },
         "longitude": {
+          "description": "Longitude in degrees for sun positioning",
           "default": 0,
           "type": "number"
         },
         "enableClouds": {
+          "description": "Enable procedural cloud rendering in the sky",
           "default": true,
           "type": "boolean"
         },
         "enableStars": {
+          "description": "Enable star rendering during night time",
           "default": true,
           "type": "boolean"
         }
@@ -5011,10 +5513,12 @@
           "type": "number"
         },
         "instant": {
+          "description": "If true, jump to target time instantly without transition",
           "default": false,
           "type": "boolean"
         },
         "transitionDuration": {
+          "description": "Duration in seconds for the smooth time transition",
           "default": 5,
           "type": "number"
         }
@@ -5033,6 +5537,7 @@
       "type": "object",
       "properties": {
         "preset": {
+          "description": "Environment preset that defines lighting and sky behavior",
           "default": "Default",
           "type": "string",
           "enum": [
@@ -5044,26 +5549,32 @@
           ]
         },
         "sunriseTime": {
+          "description": "Sunrise time in hours (0-24)",
           "default": 6,
           "type": "number"
         },
         "sunsetTime": {
+          "description": "Sunset time in hours (0-24)",
           "default": 18,
           "type": "number"
         },
         "sunriseColor": {
+          "description": "Hex color of the directional light at sunrise",
           "default": "#FF8C42",
           "type": "string"
         },
         "noonColor": {
+          "description": "Hex color of the directional light at noon",
           "default": "#FFFFFF",
           "type": "string"
         },
         "sunsetColor": {
+          "description": "Hex color of the directional light at sunset",
           "default": "#FF6B35",
           "type": "string"
         },
         "nightColor": {
+          "description": "Hex color of ambient lighting during night time",
           "default": "#1E3A8A",
           "type": "string"
         }
@@ -5079,14 +5590,17 @@
       "type": "object",
       "properties": {
         "daySkybox": {
+          "description": "Name of the daytime skybox material to use",
           "default": "Default-Skybox",
           "type": "string"
         },
         "nightSkybox": {
+          "description": "Name of the nighttime skybox material to use",
           "default": "",
           "type": "string"
         },
         "blendCurve": {
+          "description": "Curve type for blending between day and night skyboxes",
           "default": "Smooth",
           "type": "string",
           "enum": [
@@ -5096,10 +5610,12 @@
           ]
         },
         "cloudSpeed": {
+          "description": "Movement speed of clouds across the skybox",
           "default": 0.1,
           "type": "number"
         },
         "cloudOpacity": {
+          "description": "Opacity of clouds in the skybox (0-1)",
           "default": 0.5,
           "type": "number"
         }
@@ -5129,6 +5645,7 @@
           ]
         },
         "imagePath": {
+          "description": "Path to image. e.g., \"Assets/Textures/sky.jpg\"",
           "type": "string"
         },
         "front": {
@@ -5207,6 +5724,7 @@
       "type": "object",
       "properties": {
         "eventName": {
+          "description": "Unique name identifier for the time event",
           "type": "string"
         },
         "triggerTime": {
@@ -5214,6 +5732,7 @@
           "type": "number"
         },
         "eventType": {
+          "description": "Event trigger type: Once fires single time, Daily fires every day",
           "default": "Once",
           "type": "string",
           "enum": [
@@ -5246,6 +5765,7 @@
       "type": "object",
       "properties": {
         "searchType": {
+          "description": "Type of search criterion to match GameObjects against",
           "type": "string",
           "enum": [
             "name",
@@ -5255,9 +5775,11 @@
           ]
         },
         "query": {
+          "description": "Search query string matched against the selected searchType",
           "type": "string"
         },
         "includeInactive": {
+          "description": "Include inactive GameObjects in the search results",
           "default": false,
           "type": "boolean"
         }
@@ -5291,9 +5813,11 @@
       "type": "object",
       "properties": {
         "layerFilter": {
+          "description": "Filter by layer name (e.g. \"UI\", \"Default\")",
           "type": "string"
         },
         "tagFilter": {
+          "description": "Filter by tag (e.g. \"Player\", \"Enemy\")",
           "type": "string"
         },
         "nameFilter": {
@@ -5339,6 +5863,7 @@
       "type": "object",
       "properties": {
         "timestamp": {
+          "description": "ISO 8601 timestamp (e.g. \"2025-01-15T12:00:00Z\"). Use current time on first call, then use returned timestamp for next call.",
           "type": "string"
         }
       },
@@ -5412,6 +5937,7 @@
           "type": "number"
         },
         "view": {
+          "description": "Which view to capture from: \"game\" (includes Canvas/UI, auto Play mode if needed) or \"scene\" (3D view only, works in Edit mode)",
           "default": "game",
           "type": "string",
           "enum": [
@@ -5453,6 +5979,7 @@
       "type": "object",
       "properties": {
         "grid": {
+          "description": "Grid size in format \"2x2\", \"3x3\", \"4x4\", etc. (max 5x5). Each cell will be saved as a separate file.",
           "type": "string"
         },
         "basename": {
@@ -5479,6 +6006,7 @@
       "type": "object",
       "properties": {
         "elementName": {
+          "description": "GameObject name of the UI element to capture (e.g., \"MoveButton\", \"CharacterNameText\")",
           "type": "string"
         },
         "filename": {
@@ -5505,6 +6033,7 @@
       "type": "object",
       "properties": {
         "importMode": {
+          "description": "Import mode: \"default\" (normal refresh), \"force\" (force reimport all), \"forcesynchronous\" (force reimport and wait for completion)",
           "default": "default",
           "type": "string",
           "enum": [
@@ -5525,9 +6054,11 @@
       "type": "object",
       "properties": {
         "componentName": {
+          "description": "Name of the component class (e.g., \"HomeScreenFlexLayout\")",
           "type": "string"
         },
         "methodName": {
+          "description": "Name of the method to invoke (e.g., \"BuildLayout\")",
           "type": "string"
         },
         "gameObjectName": {
@@ -5550,11 +6081,30 @@
       "type": "object",
       "properties": {
         "menuPath": {
+          "description": "The full menu path to execute (e.g., \"Edit/Preferences\", \"Window/Package Manager\", \"Assets/Refresh\")",
           "type": "string"
         }
       },
       "required": [
         "menuPath"
+      ]
+    },
+    "embedding": null
+  },
+  "unity_run_csharp": {
+    "title": "Run C# Code",
+    "description": "Execute arbitrary C# code against the running Unity Editor (equivalent of Blender's run_python). UnityEngine / UnityEditor / System.Linq / Newtonsoft.Json are pre-imported. Use this as an escape hatch when no dedicated tool covers the operation. Examples: \"AssetDatabase.SaveAssets(); return \\\"saved\\\";\", \"GameObject.Find(\\\"Cube\\\").transform.position = new Vector3(1,2,3);\", \"return Selection.activeGameObject?.name;\". Does NOT trigger an AssemblyReload — the HTTP/WebSocket connection stays alive.",
+    "category": "Other",
+    "inputSchema": {
+      "type": "object",
+      "properties": {
+        "code": {
+          "description": "C# code to execute. Can be a single expression (\"1+1\") or statements (\"var go = new GameObject(\\\"X\\\"); return go.name;\"). Pre-imported namespaces: System, System.Linq, System.Collections.Generic, UnityEngine, UnityEditor.",
+          "type": "string"
+        }
+      },
+      "required": [
+        "code"
       ]
     },
     "embedding": null
@@ -5581,6 +6131,7 @@
           "type": "boolean"
         },
         "componentFilter": {
+          "description": "Filter by specific component type (e.g., \"Transform\", \"Rigidbody\")",
           "type": "string"
         }
       },
@@ -5627,6 +6178,7 @@
           "type": "string"
         },
         "componentType": {
+          "description": "Type of the component (e.g., \"Transform\", \"Rigidbody\", \"BoxCollider\")",
           "type": "string"
         },
         "includeSerializedProperties": {
@@ -5650,6 +6202,7 @@
       "type": "object",
       "properties": {
         "operation": {
+          "description": "Console operation to perform: read logs or clear them",
           "default": "read",
           "type": "string",
           "enum": [
@@ -5658,6 +6211,7 @@
           ]
         },
         "logType": {
+          "description": "Filter logs by type or return all",
           "default": "all",
           "type": "string",
           "enum": [
@@ -5668,6 +6222,7 @@
           ]
         },
         "limit": {
+          "description": "Maximum number of log entries to return",
           "default": 50,
           "type": "number"
         }
@@ -5677,12 +6232,13 @@
   },
   "unity_analyze_console_logs": {
     "title": "Analyze Console Logs",
-    "description": "Detailed analysis of Unity console logs with file paths, line numbers and stack traces. CRITICAL: Always use this BEFORE unity_force_refresh_assets when you edit .cs files - check for syntax/compile errors with logType:\"error\". This prevents compilation failures and ensures clean workflows. Returns detailed error info including file paths and line numbers for easy fixing. Supports filtering to reduce token usage: excludeSynaptic (default true) hides internal logs, filter/exclude for custom patterns, groupByMessage to deduplicate repeated logs.",
+    "description": "Detailed analysis of Unity console logs with file paths, line numbers and stack traces. CRITICAL: Always use this BEFORE unity_force_refresh_assets when you edit .cs files - check for syntax/compile errors with logType:\"error\". This prevents compilation failures and ensures clean workflows. Returns detailed error info including file paths and line numbers for easy fixing.",
     "category": "Editor",
     "inputSchema": {
       "type": "object",
       "properties": {
         "logType": {
+          "description": "Filter Unity console logs by severity level",
           "default": "error",
           "type": "string",
           "enum": [
@@ -5693,37 +6249,22 @@
           ]
         },
         "limit": {
+          "description": "Maximum number of log entries to analyze and return",
           "default": 10,
           "type": "number"
         },
         "includeStackTrace": {
+          "description": "Include full stack trace information in the analysis output",
           "default": true,
           "type": "boolean"
         },
         "operation": {
+          "description": "Operation mode for console log analysis",
           "default": "analyze",
           "type": "string",
           "enum": [
             "analyze"
           ]
-        },
-        "filter": {
-          "description": "Include only logs containing this text (case-insensitive)",
-          "type": "string"
-        },
-        "exclude": {
-          "description": "Exclude logs containing these patterns (comma-separated, case-insensitive)",
-          "type": "string"
-        },
-        "excludeSynaptic": {
-          "description": "Exclude Synaptic internal logs ([Synaptic], [NexusConsole], etc.)",
-          "default": true,
-          "type": "boolean"
-        },
-        "groupByMessage": {
-          "description": "Group duplicate messages and show count instead of repeating",
-          "default": false,
-          "type": "boolean"
         }
       }
     },
@@ -5737,6 +6278,7 @@
       "type": "object",
       "properties": {
         "filter": {
+          "description": "Package list filter: all packages or only offline cached",
           "default": "all",
           "type": "string",
           "enum": [
@@ -5810,9 +6352,11 @@
       "type": "object",
       "properties": {
         "prefab": {
+          "description": "Prefab asset path or name to instantiate (e.g., Assets/Prefabs/Tree.prefab)",
           "type": "string"
         },
         "pattern": {
+          "description": "Placement pattern: grid layout, circle ring, straight line, or random scatter",
           "type": "string",
           "enum": [
             "grid",
@@ -5822,9 +6366,11 @@
           ]
         },
         "count": {
+          "description": "Total number of prefab instances to place in the scene",
           "type": "number"
         },
         "spacing": {
+          "description": "Distance in Unity world units between placed objects",
           "default": 1,
           "type": "number"
         }
@@ -5845,6 +6391,7 @@
       "type": "object",
       "properties": {
         "count": {
+          "description": "Maximum number of recent operation history entries to return",
           "default": 10,
           "type": "number"
         }
@@ -5874,6 +6421,7 @@
       "type": "object",
       "properties": {
         "name": {
+          "description": "Unique checkpoint name used later to restore the saved Unity scene state",
           "type": "string"
         }
       },
@@ -5891,6 +6439,7 @@
       "type": "object",
       "properties": {
         "name": {
+          "description": "Name of a previously created checkpoint to roll the scene back to",
           "type": "string"
         }
       },
@@ -5908,6 +6457,7 @@
       "type": "object",
       "properties": {
         "enable": {
+          "description": "Enable or disable monitoring of Unity Editor play mode state transitions",
           "type": "boolean"
         }
       },
@@ -5925,9 +6475,11 @@
       "type": "object",
       "properties": {
         "enable": {
+          "description": "Enable or disable file change monitoring for the Unity project asset folders",
           "type": "boolean"
         },
         "folders": {
+          "description": "List of folder paths under Assets to watch; defaults to entire Assets folder",
           "type": "array"
         }
       },
@@ -5945,6 +6497,7 @@
       "type": "object",
       "properties": {
         "enable": {
+          "description": "Enable or disable monitoring of Unity script compilation start and finish events",
           "type": "boolean"
         }
       },
@@ -5962,6 +6515,7 @@
       "type": "object",
       "properties": {
         "events": {
+          "description": "List of Unity event names to subscribe to (e.g., playModeStateChanged, hierarchyChanged)",
           "type": "array"
         }
       },
@@ -5979,6 +6533,7 @@
       "type": "object",
       "properties": {
         "count": {
+          "description": "Maximum number of most recent Unity events to retrieve",
           "default": 10,
           "type": "number"
         }
@@ -6043,13 +6598,16 @@
       "type": "object",
       "properties": {
         "path": {
+          "description": "Project-relative folder path to list assets from (e.g., Assets/Prefabs)",
           "default": "Assets",
           "type": "string"
         },
         "type": {
+          "description": "Optional Unity asset type filter such as Prefab, Material, Texture2D, or Script",
           "type": "string"
         },
         "recursive": {
+          "description": "Recursively include assets in all subfolders under the given path",
           "default": true,
           "type": "boolean"
         }
@@ -6065,6 +6623,7 @@
       "type": "object",
       "properties": {
         "componentName": {
+          "description": "Component name to search for (e.g., \"Rigidbody\", \"AudioSource\")",
           "type": "string"
         },
         "searchPath": {
@@ -6225,6 +6784,7 @@
       "type": "object",
       "properties": {
         "path": {
+          "description": "Project-relative folder path to check for existence (e.g., Assets/Prefabs)",
           "type": "string"
         }
       },
@@ -6242,6 +6802,7 @@
       "type": "object",
       "properties": {
         "path": {
+          "description": "Project-relative path of the new folder to create (e.g., Assets/MyNewFolder)",
           "type": "string"
         }
       },
@@ -6259,6 +6820,7 @@
       "type": "object",
       "properties": {
         "path": {
+          "description": "Project-relative path to enumerate child folders under (defaults to project root Assets)",
           "default": "Assets",
           "type": "string"
         }
@@ -6274,9 +6836,11 @@
       "type": "object",
       "properties": {
         "gameObject": {
+          "description": "Name or hierarchy path of the source GameObject in the active scene to duplicate",
           "type": "string"
         },
         "newName": {
+          "description": "Optional name for the duplicated GameObject; defaults to source name with (Clone) suffix",
           "type": "string"
         }
       },
@@ -6294,9 +6858,11 @@
       "type": "object",
       "properties": {
         "componentType": {
+          "description": "Unity component type name to search for (e.g., Rigidbody, AudioSource, MeshRenderer)",
           "type": "string"
         },
         "includeInactive": {
+          "description": "Whether to include inactive GameObjects in the scene search results",
           "default": false,
           "type": "boolean"
         }
@@ -6315,6 +6881,7 @@
       "type": "object",
       "properties": {
         "dryRun": {
+          "description": "When true, only report empty GameObjects that would be removed without modifying the scene",
           "default": true,
           "type": "boolean"
         }
@@ -6476,9 +7043,11 @@
       "type": "object",
       "properties": {
         "name": {
+          "description": "Unique name for the project snapshot capturing the current Unity project state",
           "type": "string"
         },
         "description": {
+          "description": "Optional human-readable description explaining the purpose of this snapshot",
           "type": "string"
         }
       },
@@ -6521,6 +7090,7 @@
       "type": "object",
       "properties": {
         "format": {
+          "description": "Output format for the exported project folder structure: json data, ASCII tree, or csv table",
           "default": "tree",
           "type": "string",
           "enum": [
@@ -6530,6 +7100,7 @@
           ]
         },
         "includeFileSize": {
+          "description": "Whether to include file size information for each asset in the exported structure",
           "default": true,
           "type": "boolean"
         }
@@ -6539,26 +7110,28 @@
   },
   "unity_export_package": {
     "title": "Export Unity Package",
-    "description": "Export assets as a .unitypackage file. Useful for distributing assets or creating backups. Supports multiple asset paths and optional dependency inclusion.",
-    "category": "AssetManagement",
+    "description": "Export assets as a .unitypackage file. Useful for distributing assets or creating backups.",
+    "category": "Package",
     "inputSchema": {
       "type": "object",
       "properties": {
         "assetPaths": {
-          "type": "string",
-          "description": "Comma-separated asset paths to include (e.g., 'Assets/MyFolder,Assets/Scripts')"
+          "description": "Comma-separated asset paths to include (e.g., \"Assets/MyFolder,Assets/Scripts\")",
+          "type": "string"
         },
         "outputPath": {
-          "type": "string",
-          "description": "Full output path including filename (optional, defaults to Desktop with timestamp)"
+          "description": "Full output path including filename (optional, defaults to Desktop)",
+          "type": "string"
         },
         "includeDependencies": {
-          "type": "boolean",
+          "description": "Include asset dependencies",
           "default": true,
-          "description": "Include asset dependencies in the package"
+          "type": "boolean"
         }
       },
-      "required": ["assetPaths"]
+      "required": [
+        "assetPaths"
+      ]
     },
     "embedding": null
   },
@@ -6649,6 +7222,7 @@
           ]
         },
         "folderPath": {
+          "description": "Folder path (required if scope is \"folder\")",
           "type": "string"
         },
         "useRegex": {
@@ -6657,6 +7231,7 @@
           "type": "boolean"
         },
         "caseSensitive": {
+          "description": "Whether the search pattern matching should be case sensitive when locating asset names",
           "default": true,
           "type": "boolean"
         },
@@ -6731,6 +7306,7 @@
           ]
         },
         "properties": {
+          "description": "Properties to set if operation is \"modify\"",
           "type": "string"
         }
       },
@@ -6830,6 +7406,7 @@
       "type": "object",
       "properties": {
         "assetTypes": {
+          "description": "Asset types to scan for unused references",
           "type": "array"
         },
         "excludeFolders": {
@@ -6837,6 +7414,7 @@
           "type": "array"
         },
         "includePackages": {
+          "description": "Whether to also scan assets inside the Packages folder",
           "default": false,
           "type": "boolean"
         }
@@ -6852,13 +7430,16 @@
       "type": "object",
       "properties": {
         "platforms": {
+          "description": "Target build platforms to estimate size for",
           "type": "array"
         },
         "includeStreamingAssets": {
+          "description": "Include StreamingAssets folder contents in size estimation",
           "default": true,
           "type": "boolean"
         },
         "compressionLevel": {
+          "description": "Asset compression level used for the estimation",
           "default": "normal",
           "type": "string",
           "enum": [
@@ -6880,26 +7461,32 @@
       "type": "object",
       "properties": {
         "includeRendering": {
+          "description": "Include rendering metrics such as draw calls and batches",
           "default": true,
           "type": "boolean"
         },
         "includeTextures": {
+          "description": "Include texture memory and import setting analysis",
           "default": true,
           "type": "boolean"
         },
         "includeMeshes": {
+          "description": "Include mesh vertex and triangle count analysis",
           "default": true,
           "type": "boolean"
         },
         "includeScripts": {
+          "description": "Include script CPU cost analysis in the report",
           "default": true,
           "type": "boolean"
         },
         "includeAudio": {
+          "description": "Include audio clip memory and compression analysis",
           "default": true,
           "type": "boolean"
         },
         "targetPlatform": {
+          "description": "Target platform used to apply performance budgets",
           "type": "string",
           "enum": [
             "Mobile",
@@ -6920,18 +7507,22 @@
       "type": "object",
       "properties": {
         "rootFolder": {
+          "description": "Root project folder to organize, typically Assets",
           "default": "Assets",
           "type": "string"
         },
         "createStandardFolders": {
+          "description": "Create standard Unity subfolders such as Scripts, Prefabs, Materials",
           "default": true,
           "type": "boolean"
         },
         "moveAssets": {
+          "description": "Actually move existing assets into the proper folders",
           "default": false,
           "type": "boolean"
         },
         "dryRun": {
+          "description": "Preview the changes without modifying any assets on disk",
           "default": true,
           "type": "boolean"
         }
@@ -6951,6 +7542,7 @@
           "type": "string"
         },
         "lodLevels": {
+          "description": "Number of LOD levels to generate, between 2 and 4",
           "default": 3,
           "type": "number"
         },
@@ -6959,6 +7551,7 @@
           "type": "array"
         },
         "generateSimplifiedMeshes": {
+          "description": "Auto-generate decimated meshes for each LOD level",
           "default": false,
           "type": "boolean"
         }
@@ -6985,14 +7578,17 @@
           "type": "string"
         },
         "maxAtlasSize": {
+          "description": "Maximum atlas texture size in pixels, e.g. 2048",
           "default": 2048,
           "type": "number"
         },
         "padding": {
+          "description": "Padding in pixels between sprites in the atlas",
           "default": 2,
           "type": "number"
         },
         "includeInBuild": {
+          "description": "Include the generated atlas in the built player",
           "default": true,
           "type": "boolean"
         }
@@ -7012,6 +7608,7 @@
       "type": "object",
       "properties": {
         "type": {
+          "description": "Player controller archetype to generate",
           "default": "FirstPerson",
           "type": "string",
           "enum": [
@@ -7022,18 +7619,22 @@
           ]
         },
         "playerName": {
+          "description": "Name of the generated player GameObject",
           "default": "Player",
           "type": "string"
         },
         "includeCamera": {
+          "description": "Also create and attach a camera rig for the player",
           "default": true,
           "type": "boolean"
         },
         "movementSpeed": {
+          "description": "Player movement speed in Unity units per second",
           "default": 5,
           "type": "number"
         },
         "jumpHeight": {
+          "description": "Player jump height in Unity world units",
           "default": 3,
           "type": "number"
         }
@@ -7049,6 +7650,7 @@
       "type": "object",
       "properties": {
         "template": {
+          "description": "Predefined input bindings template to apply",
           "default": "Standard",
           "type": "string",
           "enum": [
@@ -7058,6 +7660,7 @@
           ]
         },
         "createAsset": {
+          "description": "Create a saved InputActionAsset in the project",
           "default": true,
           "type": "boolean"
         }
@@ -7073,9 +7676,11 @@
       "type": "object",
       "properties": {
         "targetObject": {
+          "description": "GameObject name to attach the state machine to",
           "type": "string"
         },
         "type": {
+          "description": "State machine category, for example Character, Enemy, or Game",
           "default": "Character",
           "type": "string"
         },
@@ -7096,14 +7701,17 @@
       "type": "object",
       "properties": {
         "size": {
+          "description": "Number of inventory slots to create",
           "default": 20,
           "type": "number"
         },
         "hasUI": {
+          "description": "Also generate a Canvas-based inventory UI",
           "default": true,
           "type": "boolean"
         },
         "stackable": {
+          "description": "Allow stacking of identical items in one slot",
           "default": true,
           "type": "boolean"
         }
@@ -7119,6 +7727,7 @@
       "type": "object",
       "properties": {
         "genre": {
+          "description": "Game genre template to scaffold",
           "default": "FPS",
           "type": "string",
           "enum": [
@@ -7131,13 +7740,16 @@
           ]
         },
         "name": {
+          "description": "Name used for the generated game template scene and assets",
           "type": "string"
         },
         "includeUI": {
+          "description": "Generate default UI Canvas with HUD elements",
           "default": true,
           "type": "boolean"
         },
         "includeAudio": {
+          "description": "Add AudioSources and basic music/SFX setup",
           "default": true,
           "type": "boolean"
         }
@@ -7153,14 +7765,17 @@
       "type": "object",
       "properties": {
         "elements": {
+          "description": "Comma-separated prototype elements to include, e.g. player,enemies,collectibles",
           "default": "player,enemies,collectibles,obstacles",
           "type": "string"
         },
         "worldSize": {
+          "description": "Size in Unity units of the generated square world",
           "default": 20,
           "type": "number"
         },
         "playerType": {
+          "description": "Primitive shape used as the placeholder player mesh",
           "default": "Capsule",
           "type": "string",
           "enum": [
@@ -7181,10 +7796,12 @@
       "type": "object",
       "properties": {
         "agentName": {
+          "description": "Name of the generated ML-Agents agent GameObject",
           "default": "MLAgent",
           "type": "string"
         },
         "agentType": {
+          "description": "Complexity preset for the agent behavior script",
           "default": "Basic",
           "type": "string",
           "enum": [
@@ -7194,10 +7811,12 @@
           ]
         },
         "vectorObservationSize": {
+          "description": "Length of the vector observation array fed to the policy",
           "default": 8,
           "type": "number"
         },
         "useVisualObservation": {
+          "description": "Attach a camera sensor for visual observations",
           "default": false,
           "type": "boolean"
         }
@@ -7213,10 +7832,12 @@
       "type": "object",
       "properties": {
         "networkName": {
+          "description": "Name of the generated neural network script and asset",
           "default": "NeuralNetwork",
           "type": "string"
         },
         "networkType": {
+          "description": "Neural network architecture style to generate",
           "default": "Feedforward",
           "type": "string",
           "enum": [
@@ -7226,14 +7847,17 @@
           ]
         },
         "inputSize": {
+          "description": "Number of neurons in the input layer",
           "default": 4,
           "type": "number"
         },
         "hiddenSize": {
+          "description": "Number of neurons in each hidden layer",
           "default": 8,
           "type": "number"
         },
         "outputSize": {
+          "description": "Number of neurons in the output layer",
           "default": 2,
           "type": "number"
         }
@@ -7249,10 +7873,12 @@
       "type": "object",
       "properties": {
         "treeName": {
+          "description": "Name of the generated behavior tree asset and script",
           "default": "BehaviorTree",
           "type": "string"
         },
         "aiType": {
+          "description": "AI archetype to seed the behavior tree with",
           "default": "Enemy",
           "type": "string",
           "enum": [
@@ -7263,14 +7889,17 @@
           ]
         },
         "includePatrol": {
+          "description": "Include a patrol sequence in the generated tree",
           "default": true,
           "type": "boolean"
         },
         "includeChase": {
+          "description": "Include a chase branch when the player is detected",
           "default": true,
           "type": "boolean"
         },
         "includeAttack": {
+          "description": "Include an attack branch when target is in range",
           "default": true,
           "type": "boolean"
         }
@@ -7286,10 +7915,12 @@
       "type": "object",
       "properties": {
         "systemName": {
+          "description": "Name of the generated pathfinding manager GameObject",
           "default": "PathfindingAI",
           "type": "string"
         },
         "algorithm": {
+          "description": "Pathfinding algorithm used by the generated system",
           "default": "AStar",
           "type": "string",
           "enum": [
@@ -7299,14 +7930,17 @@
           ]
         },
         "gridWidth": {
+          "description": "Width of the pathfinding grid in cells",
           "default": 20,
           "type": "number"
         },
         "gridHeight": {
+          "description": "Height of the pathfinding grid in cells",
           "default": 20,
           "type": "number"
         },
         "use3D": {
+          "description": "Use a 3D voxel grid instead of a 2D grid",
           "default": false,
           "type": "boolean"
         }
@@ -7322,6 +7956,7 @@
       "type": "object",
       "properties": {
         "operation": {
+          "description": "Time scale operation to perform",
           "default": "set",
           "type": "string",
           "enum": [
@@ -7332,9 +7967,11 @@
           ]
         },
         "speed": {
+          "description": "Time scale multiplier when operation is set, e.g. 0.5 for half speed",
           "type": "number"
         },
         "preset": {
+          "description": "Named speed preset applied to Time.timeScale",
           "type": "string",
           "enum": [
             "pause",
@@ -7346,6 +7983,7 @@
           ]
         },
         "pauseMode": {
+          "description": "How to apply the pause when operation is pause",
           "default": "toggle",
           "type": "string",
           "enum": [
@@ -7366,6 +8004,7 @@
       "type": "object",
       "properties": {
         "category": {
+          "description": "Profiler category to sample",
           "default": "general",
           "type": "string",
           "enum": [
@@ -7377,10 +8016,12 @@
           ]
         },
         "duration": {
+          "description": "Sampling duration in seconds, 0 means a single snapshot",
           "default": 0,
           "type": "number"
         },
         "detailed": {
+          "description": "Include detailed per-marker breakdown in the result",
           "default": false,
           "type": "boolean"
         }
@@ -7396,6 +8037,7 @@
       "type": "object",
       "properties": {
         "type": {
+          "description": "Debug shape type to draw, or clear to remove existing shapes",
           "default": "line",
           "type": "string",
           "enum": [
@@ -7408,10 +8050,12 @@
           ]
         },
         "duration": {
+          "description": "How long the debug shape stays visible in seconds",
           "default": 5,
           "type": "number"
         },
         "color": {
+          "description": "Color used to draw the debug shape",
           "default": "red",
           "type": "string",
           "enum": [
@@ -7426,9 +8070,11 @@
           ]
         },
         "start": {
+          "description": "Start position for line (e.g., \"0,0,0\")",
           "type": "string"
         },
         "end": {
+          "description": "End position for line (e.g., \"1,1,1\")",
           "type": "string"
         },
         "origin": {
@@ -7448,6 +8094,7 @@
           "type": "string"
         },
         "size": {
+          "description": "Box size (e.g., \"1,1,1\")",
           "type": "string"
         },
         "radius": {
@@ -7455,6 +8102,7 @@
           "type": "number"
         },
         "points": {
+          "description": "Semicolon-separated points (e.g., \"0,0,0;1,1,0;2,1,0\")",
           "type": "string"
         }
       }
@@ -7502,6 +8150,7 @@
       "type": "object",
       "properties": {
         "operation": {
+          "description": "Breakpoint behavior to register on hit",
           "default": "pause",
           "type": "string",
           "enum": [
@@ -7512,9 +8161,11 @@
           ]
         },
         "condition": {
+          "description": "Condition for breakpoint (e.g., \"frame > 100\", \"time > 5\")",
           "type": "string"
         },
         "message": {
+          "description": "Message logged when the breakpoint triggers",
           "default": "Breakpoint hit",
           "type": "string"
         }
@@ -7534,9 +8185,11 @@
           "type": "string"
         },
         "agentType": {
+          "description": "Type: \"Guard\", \"Worker\", \"Enemy\", \"NPC\", \"Merchant\", \"Monster\", etc.",
           "type": "string"
         },
         "capabilities": {
+          "description": "Capabilities: \"movement\", \"combat\", \"ranged\", \"melee\", \"stealth\", \"healing\", \"building\"",
           "type": "array"
         }
       },
@@ -7562,6 +8215,7 @@
           "type": "string"
         },
         "description": {
+          "description": "Natural language description of the goal (e.g., \"Keep area safe from enemies\")",
           "type": "string"
         },
         "priority": {
@@ -7570,6 +8224,7 @@
           "type": "number"
         },
         "conditions": {
+          "description": "Conditions for goal activation (e.g., \"enemy detected within 10 units\")",
           "type": "string"
         }
       },
@@ -7601,9 +8256,11 @@
           "type": "string"
         },
         "preconditions": {
+          "description": "Conditions that must be true before action (e.g., [\"has_weapon\", \"enemy_in_range\"])",
           "type": "array"
         },
         "effects": {
+          "description": "Effects after action completion (e.g., [\"enemy_defeated\", \"area_secure\"])",
           "type": "array"
         },
         "cost": {
@@ -7634,6 +8291,7 @@
           "type": "string"
         },
         "behavior": {
+          "description": "Natural language behavior description. Examples: \"Patrol and attack enemies on sight, retreat when health low\" or \"巡回して敵を攻撃、体力低下時は撤退\"",
           "type": "string"
         },
         "gameContext": {
@@ -7641,6 +8299,7 @@
           "type": "string"
         },
         "difficulty": {
+          "description": "AI difficulty level affecting reaction speed, accuracy, and decision quality",
           "default": "normal",
           "type": "string",
           "enum": [
@@ -7681,6 +8340,7 @@
           ]
         },
         "environment": {
+          "description": "Environment type (e.g., \"forest\", \"urban\", \"dungeon\")",
           "type": "string"
         },
         "includeDefaults": {
@@ -7708,9 +8368,11 @@
           "type": "string"
         },
         "worldState": {
+          "description": "World state key-value pairs (e.g., {\"has_weapon\": true, \"enemies_nearby\": 2})",
           "type": "string"
         },
         "sensors": {
+          "description": "Sensors to add (e.g., [\"enemy_detector\", \"health_monitor\"])",
           "type": "array"
         },
         "updateFrequency": {
@@ -7728,12 +8390,13 @@
   },
   "unity_create_goap_template": {
     "title": "Create GOAP Template",
-    "description": "Visualize and debug GOAP decision-making process",
+    "description": "Create a complete game-specific GOAP AI from pre-built professional templates.",
     "category": "GOAP",
     "inputSchema": {
       "type": "object",
       "properties": {
         "templateType": {
+          "description": "Pre-built GOAP template type for common game AI archetypes",
           "type": "string",
           "enum": [
             "fps_enemy",
@@ -7755,6 +8418,7 @@
           ]
         },
         "difficulty": {
+          "description": "Difficulty preset that scales agent stats and reaction times",
           "default": "normal",
           "type": "string",
           "enum": [
@@ -7893,7 +8557,25 @@
           "type": "string"
         },
         "nodeType": {
-          "type": "string"
+          "description": "Type of node to add",
+          "type": "string",
+          "enum": [
+            "selector",
+            "sequence",
+            "parallel",
+            "randomselector",
+            "randomsequence",
+            "inverter",
+            "succeeder",
+            "failer",
+            "repeater",
+            "cooldown",
+            "timeout",
+            "retry",
+            "delay",
+            "wait",
+            "log"
+          ]
         },
         "nodeName": {
           "description": "Name for the node",
@@ -7956,6 +8638,7 @@
           "type": "string"
         },
         "gameContext": {
+          "description": "Game genre context to tune behavior tree generation (Generic, FPS, RPG, RTS, Stealth, Survival)",
           "default": "Generic",
           "type": "string",
           "enum": [
@@ -8037,10 +8720,12 @@
       "type": "object",
       "properties": {
         "name": {
+          "description": "Name of the new Animator Controller asset",
           "default": "NewAnimatorController",
           "type": "string"
         },
         "path": {
+          "description": "Asset folder path where the Animator Controller will be saved",
           "default": "Assets/Animations/Controllers/",
           "type": "string"
         },
@@ -8049,6 +8734,7 @@
           "type": "string"
         },
         "applyToObject": {
+          "description": "If true, assign the created controller to the targetObject Animator component",
           "default": true,
           "type": "boolean"
         }
@@ -8068,6 +8754,7 @@
           "type": "string"
         },
         "stateName": {
+          "description": "Name of the animation state to add",
           "default": "NewState",
           "type": "string"
         },
@@ -8076,10 +8763,12 @@
           "type": "string"
         },
         "layerIndex": {
+          "description": "Index of the Animator layer to add the state into",
           "default": 0,
           "type": "number"
         },
         "isDefault": {
+          "description": "If true, set this state as the layer default entry state",
           "default": false,
           "type": "boolean"
         }
@@ -8098,25 +8787,31 @@
       "type": "object",
       "properties": {
         "name": {
+          "description": "Name of the new animation clip asset",
           "default": "NewAnimation",
           "type": "string"
         },
         "path": {
+          "description": "Asset folder path where the animation clip will be saved",
           "default": "Assets/Animations/Clips/",
           "type": "string"
         },
         "duration": {
+          "description": "Duration of the animation clip in seconds",
           "default": 1,
           "type": "number"
         },
         "frameRate": {
+          "description": "Sampling frame rate of the clip in frames per second",
           "default": 30,
           "type": "number"
         },
         "targetObject": {
+          "description": "GameObject the sample curves target (used for binding paths)",
           "type": "string"
         },
         "animationType": {
+          "description": "Type of sample curve generated for the clip",
           "default": "position",
           "type": "string",
           "enum": [
@@ -8142,10 +8837,12 @@
           "type": "string"
         },
         "stateName": {
+          "description": "Name of the state that hosts the blend tree",
           "default": "Movement",
           "type": "string"
         },
         "blendType": {
+          "description": "Blend tree dimension: 1D uses one parameter, 2D uses two",
           "default": "1D",
           "type": "string",
           "enum": [
@@ -8154,10 +8851,12 @@
           ]
         },
         "parameterName": {
+          "description": "Animator parameter that drives blending between motions",
           "default": "Speed",
           "type": "string"
         },
         "layerIndex": {
+          "description": "Index of the Animator layer containing the blend tree state",
           "default": 0,
           "type": "number"
         }
@@ -8180,6 +8879,7 @@
           "type": "string"
         },
         "fromState": {
+          "description": "Source state name (use \"Any\" for Any State)",
           "type": "string"
         },
         "toState": {
@@ -8195,14 +8895,17 @@
           "type": "string"
         },
         "hasExitTime": {
+          "description": "If true, the transition waits for the source state exit time before triggering",
           "default": true,
           "type": "boolean"
         },
         "transitionDuration": {
+          "description": "Blend duration of the transition in seconds",
           "default": 0.25,
           "type": "number"
         },
         "layerIndex": {
+          "description": "Index of the Animator layer containing the source state",
           "default": 0,
           "type": "number"
         }
@@ -8227,14 +8930,17 @@
           "type": "string"
         },
         "layerName": {
+          "description": "Display name of the new Animator layer",
           "default": "NewLayer",
           "type": "string"
         },
         "weight": {
+          "description": "Initial layer weight controlling how strongly it contributes to the final pose",
           "default": 1,
           "type": "number"
         },
         "blendMode": {
+          "description": "Layer blending mode: override replaces, additive adds onto lower layers",
           "default": "override",
           "type": "string",
           "enum": [
@@ -8243,6 +8949,7 @@
           ]
         },
         "avatarMaskPath": {
+          "description": "Path to an Avatar Mask asset that restricts which bones the layer affects",
           "type": "string"
         }
       },
@@ -8269,16 +8976,20 @@
           "type": "number"
         },
         "functionName": {
+          "description": "Name of the MonoBehaviour method invoked when the event fires",
           "default": "OnAnimationEvent",
           "type": "string"
         },
         "stringParameter": {
+          "description": "Optional string argument passed to the event handler",
           "type": "string"
         },
         "floatParameter": {
+          "description": "Optional float argument passed to the event handler",
           "type": "number"
         },
         "intParameter": {
+          "description": "Optional int argument passed to the event handler",
           "type": "number"
         }
       },
@@ -8300,14 +9011,17 @@
           "type": "string"
         },
         "avatarName": {
+          "description": "Name of the generated Avatar asset",
           "default": "NewAvatar",
           "type": "string"
         },
         "isHumanoid": {
+          "description": "If true, configure as a Humanoid avatar; otherwise Generic",
           "default": true,
           "type": "boolean"
         },
         "rootBone": {
+          "description": "Name of the root bone transform for Generic avatars",
           "type": "string"
         }
       },
@@ -8325,22 +9039,27 @@
       "type": "object",
       "properties": {
         "name": {
+          "description": "Name of the new Timeline asset",
           "default": "NewTimeline",
           "type": "string"
         },
         "path": {
+          "description": "Asset folder path where the Timeline asset will be saved",
           "default": "Assets/Timelines/",
           "type": "string"
         },
         "duration": {
+          "description": "Total duration of the Timeline in seconds",
           "default": 10,
           "type": "number"
         },
         "frameRate": {
+          "description": "Timeline frame rate in frames per second",
           "default": 30,
           "type": "number"
         },
         "targetObject": {
+          "description": "GameObject that will receive the PlayableDirector bound to this Timeline",
           "type": "string"
         }
       }
@@ -8359,22 +9078,27 @@
           "type": "string"
         },
         "animationName": {
+          "description": "Name of the baked animation clip asset to create",
           "default": "BakedAnimation",
           "type": "string"
         },
         "startFrame": {
+          "description": "First frame of the recording range to bake",
           "default": 0,
           "type": "number"
         },
         "endFrame": {
+          "description": "Last frame of the recording range to bake",
           "default": 60,
           "type": "number"
         },
         "frameRate": {
+          "description": "Sampling frame rate of the baked clip in frames per second",
           "default": 30,
           "type": "number"
         },
         "path": {
+          "description": "Asset folder path where the baked animation clip will be saved",
           "default": "Assets/Animations/Baked/",
           "type": "string"
         }
@@ -8475,6 +9199,7 @@
           "type": "string"
         },
         "propertyName": {
+          "description": "Property name (e.g., \"windSpeed\", \"waterColor\", \"foamAmount\")",
           "type": "string"
         },
         "value": {
@@ -8498,9 +9223,11 @@
       "type": "object",
       "properties": {
         "materialPath": {
+          "description": "Path to the material asset (e.g., \"Assets/Materials/Water.mat\")",
           "type": "string"
         },
         "propertyName": {
+          "description": "Shader property name (e.g., \"_WaveHeight\", \"_ShallowColor\", \"_Smoothness\")",
           "type": "string"
         },
         "propertyType": {
@@ -8514,6 +9241,7 @@
           ]
         },
         "value": {
+          "description": "Value to set. Float: \"1.5\", Color: \"#FF0000\" or \"1,0.5,0,1\", Vector: \"1,2,3,4\", Texture: asset path",
           "type": "string"
         }
       },
@@ -8534,6 +9262,7 @@
       "type": "object",
       "properties": {
         "materialPath": {
+          "description": "Path to the material asset (e.g., \"Assets/Materials/Water.mat\")",
           "type": "string"
         }
       },
@@ -9203,24 +9932,53 @@
           "type": "string"
         },
         "anchorPreset": {
-          "type": "string"
+          "description": "RectTransform anchor preset for UI alignment",
+          "default": "center",
+          "type": "string",
+          "enum": [
+            "top-left",
+            "top-center",
+            "top-right",
+            "middle-left",
+            "center",
+            "middle-right",
+            "bottom-left",
+            "bottom-center",
+            "bottom-right",
+            "stretch-horizontal",
+            "stretch-vertical",
+            "stretch-all"
+          ]
         },
         "pivotPreset": {
-          "type": "string"
+          "description": "Pivot point preset for the RectTransform",
+          "default": "center",
+          "type": "string",
+          "enum": [
+            "top-left",
+            "top-center",
+            "top-right",
+            "middle-left",
+            "center",
+            "middle-right",
+            "bottom-left",
+            "bottom-center",
+            "bottom-right"
+          ]
         },
         "margin": {
+          "description": "Margin in pixels from the anchored edges",
           "default": 10,
           "type": "number"
         },
         "recursive": {
+          "description": "Apply anchor settings recursively to child UI elements",
           "default": false,
           "type": "boolean"
         }
       },
       "required": [
-        "targetObject",
-        "anchorPreset",
-        "pivotPreset"
+        "targetObject"
       ]
     },
     "embedding": null
@@ -9233,10 +9991,12 @@
       "type": "object",
       "properties": {
         "containerName": {
+          "description": "Name of the responsive layout container GameObject",
           "default": "ResponsiveContainer",
           "type": "string"
         },
         "layoutType": {
+          "description": "LayoutGroup orientation for arranging children",
           "default": "horizontal",
           "type": "string",
           "enum": [
@@ -9245,24 +10005,37 @@
           ]
         },
         "spacing": {
+          "description": "Spacing in pixels between child elements",
           "default": 10,
           "type": "number"
         },
         "padding": {
+          "description": "Inner padding in pixels around the layout",
           "default": 20,
           "type": "number"
         },
         "childAlignment": {
-          "type": "string"
+          "description": "Child alignment within the LayoutGroup",
+          "default": "middle-center",
+          "type": "string",
+          "enum": [
+            "upper-left",
+            "upper-center",
+            "upper-right",
+            "middle-left",
+            "middle-center",
+            "middle-right",
+            "lower-left",
+            "lower-center",
+            "lower-right"
+          ]
         },
         "useContentSizeFitter": {
+          "description": "Attach a ContentSizeFitter to auto-fit the container size",
           "default": true,
           "type": "boolean"
         }
-      },
-      "required": [
-        "childAlignment"
-      ]
+      }
     },
     "embedding": null
   },
@@ -9278,6 +10051,7 @@
           "type": "string"
         },
         "animationType": {
+          "description": "Type of tween animation to play on the UI element",
           "default": "fade",
           "type": "string",
           "enum": [
@@ -9289,18 +10063,22 @@
           ]
         },
         "duration": {
+          "description": "Animation duration in seconds",
           "default": 0.5,
           "type": "number"
         },
         "delay": {
+          "description": "Delay in seconds before the animation starts",
           "default": 0,
           "type": "number"
         },
         "easing": {
+          "description": "Easing curve name applied to the animation (e.g., ease, linear)",
           "default": "ease",
           "type": "string"
         },
         "autoPlay": {
+          "description": "Play the animation automatically on enable",
           "default": false,
           "type": "boolean"
         }
@@ -9319,30 +10097,37 @@
       "type": "object",
       "properties": {
         "gridName": {
+          "description": "Name of the GridLayoutGroup root GameObject",
           "default": "UIGrid",
           "type": "string"
         },
         "columns": {
+          "description": "Number of grid columns",
           "default": 3,
           "type": "number"
         },
         "rows": {
+          "description": "Number of grid rows",
           "default": 3,
           "type": "number"
         },
         "cellSize": {
+          "description": "Cell size as \"width,height\"",
           "default": "100,100",
           "type": "string"
         },
         "spacing": {
+          "description": "Spacing as \"x,y\"",
           "default": "10,10",
           "type": "string"
         },
         "padding": {
+          "description": "Padding as \"left,right,top,bottom\"",
           "default": "10,10,10,10",
           "type": "string"
         },
         "fillType": {
+          "description": "Type of UI element placed in each grid cell",
           "default": "button",
           "type": "string",
           "enum": [
@@ -9364,10 +10149,12 @@
       "type": "object",
       "properties": {
         "scrollViewName": {
+          "description": "Name of the ScrollRect root GameObject",
           "default": "ScrollView",
           "type": "string"
         },
         "scrollDirection": {
+          "description": "Axis the ScrollRect can scroll along",
           "default": "vertical",
           "type": "string",
           "enum": [
@@ -9376,6 +10163,7 @@
           ]
         },
         "contentType": {
+          "description": "Type of UI prefab used for each scroll item",
           "default": "text",
           "type": "string",
           "enum": [
@@ -9385,18 +10173,22 @@
           ]
         },
         "itemCount": {
+          "description": "Number of items to populate the content with",
           "default": 10,
           "type": "number"
         },
         "itemSize": {
+          "description": "Item size as \"width,height\"",
           "default": "200,50",
           "type": "string"
         },
         "useScrollbar": {
+          "description": "Add a Scrollbar component along the scroll axis",
           "default": true,
           "type": "boolean"
         },
         "elasticity": {
+          "description": "ScrollRect elasticity when scrolling past the bounds",
           "default": 0.1,
           "type": "number"
         }
@@ -9412,10 +10204,12 @@
       "type": "object",
       "properties": {
         "notificationName": {
+          "description": "Name of the notification manager GameObject",
           "default": "NotificationSystem",
           "type": "string"
         },
         "notificationType": {
+          "description": "Visual style applied to the notification",
           "default": "toast",
           "type": "string",
           "enum": [
@@ -9426,6 +10220,7 @@
           ]
         },
         "position": {
+          "description": "Anchor position of the notification on screen",
           "default": "top-right",
           "type": "string",
           "enum": [
@@ -9437,6 +10232,7 @@
           ]
         },
         "animationType": {
+          "description": "Show/hide animation for the notification",
           "default": "slide",
           "type": "string",
           "enum": [
@@ -9447,10 +10243,12 @@
           ]
         },
         "autoHide": {
+          "description": "Automatically dismiss the notification after the delay",
           "default": true,
           "type": "boolean"
         },
         "hideDelay": {
+          "description": "Seconds before the notification auto-hides",
           "default": 3,
           "type": "number"
         }
@@ -9466,10 +10264,12 @@
       "type": "object",
       "properties": {
         "navigationName": {
+          "description": "Name for the navigation root GameObject",
           "default": "UINavigation",
           "type": "string"
         },
         "navigationType": {
+          "description": "Navigation control style to generate",
           "default": "tab",
           "type": "string",
           "enum": [
@@ -9479,10 +10279,12 @@
           ]
         },
         "itemCount": {
+          "description": "Number of navigation items to create",
           "default": 3,
           "type": "number"
         },
         "orientation": {
+          "description": "Layout direction for the navigation items",
           "default": "horizontal",
           "type": "string",
           "enum": [
@@ -9491,6 +10293,7 @@
           ]
         },
         "selectedIndex": {
+          "description": "Index of the item initially selected",
           "default": 0,
           "type": "number"
         }
@@ -9506,10 +10309,12 @@
       "type": "object",
       "properties": {
         "dialogName": {
+          "description": "Name for the dialog root GameObject",
           "default": "Dialog",
           "type": "string"
         },
         "dialogType": {
+          "description": "Dialog template to instantiate (confirmation, alert, or input)",
           "default": "confirmation",
           "type": "string",
           "enum": [
@@ -9519,18 +10324,22 @@
           ]
         },
         "title": {
+          "description": "Title bar text displayed at the top of the dialog",
           "default": "Dialog Title",
           "type": "string"
         },
         "message": {
+          "description": "Body message shown inside the dialog",
           "default": "Dialog message content",
           "type": "string"
         },
         "hasOverlay": {
+          "description": "Add a dimmed full-screen overlay behind the dialog",
           "default": true,
           "type": "boolean"
         },
         "isModal": {
+          "description": "Block input to underlying UI while the dialog is open",
           "default": true,
           "type": "boolean"
         }
@@ -9550,6 +10359,7 @@
           "type": "string"
         },
         "optimizationType": {
+          "description": "Canvas optimization profile to apply",
           "default": "performance",
           "type": "string",
           "enum": [
@@ -9559,10 +10369,12 @@
           ]
         },
         "targetFrameRate": {
+          "description": "Target frame rate (FPS) used to tune Canvas update settings",
           "default": 60,
           "type": "number"
         },
         "enablePixelPerfect": {
+          "description": "Enable Canvas pixel perfect rendering for sharper UI",
           "default": false,
           "type": "boolean"
         }
@@ -9578,6 +10390,7 @@
       "type": "object",
       "properties": {
         "safeAreaName": {
+          "description": "Name for the created Safe Area container GameObject",
           "default": "SafeAreaContainer",
           "type": "string"
         },
@@ -9586,10 +10399,12 @@
           "type": "string"
         },
         "applyToCanvas": {
+          "description": "Apply Safe Area adjustments to the parent Canvas",
           "default": false,
           "type": "boolean"
         },
         "includeNotch": {
+          "description": "Account for device notch cutouts when computing the safe area",
           "default": true,
           "type": "boolean"
         }
@@ -9643,18 +10458,23 @@
           "type": "string"
         },
         "normalColor": {
+          "description": "Default Selectable color in hex (e.g., #FFFFFF)",
           "type": "string"
         },
         "highlightedColor": {
+          "description": "Hover/highlighted state color in hex",
           "type": "string"
         },
         "pressedColor": {
+          "description": "Pressed state color in hex",
           "type": "string"
         },
         "selectedColor": {
+          "description": "Selected state color in hex",
           "type": "string"
         },
         "disabledColor": {
+          "description": "Disabled state color in hex",
           "type": "string"
         }
       },
@@ -9672,21 +10492,27 @@
       "type": "object",
       "properties": {
         "targetObject": {
+          "description": "Target UI GameObject name to style",
           "type": "string"
         },
         "borderRadius": {
+          "description": "Corner radius in pixels for rounded UI borders",
           "type": "number"
         },
         "borderWidth": {
+          "description": "Border outline width in pixels",
           "type": "number"
         },
         "borderColor": {
+          "description": "Border color as hex code (e.g., #FFFFFF)",
           "type": "string"
         },
         "shadowOffset": {
+          "description": "Shadow offset as \"x,y\" pixels from the element",
           "type": "string"
         },
         "shadowColor": {
+          "description": "Drop shadow color as hex or rgba string",
           "type": "string"
         }
       },
@@ -9704,9 +10530,11 @@
       "type": "object",
       "properties": {
         "targetObject": {
+          "description": "Target UI GameObject to apply the effect to",
           "type": "string"
         },
         "effectType": {
+          "description": "Visual effect component to add to the UI element",
           "default": "Shadow",
           "type": "string",
           "enum": [
@@ -9718,9 +10546,11 @@
           ]
         },
         "color": {
+          "description": "Effect color in hex (e.g., #000000) or rgba string",
           "type": "string"
         },
         "intensity": {
+          "description": "Effect strength multiplier controlling distance or alpha",
           "default": 1,
           "type": "number"
         }
@@ -9739,15 +10569,19 @@
       "type": "object",
       "properties": {
         "targetObject": {
+          "description": "Target UI Text or TextMeshPro GameObject name",
           "type": "string"
         },
         "fontAsset": {
+          "description": "Path to font asset (TTF, OTF, or TMP_FontAsset)",
           "type": "string"
         },
         "fontSize": {
+          "description": "Font size in points",
           "type": "number"
         },
         "fontStyle": {
+          "description": "Font style applied to the text component",
           "type": "string",
           "enum": [
             "Normal",
@@ -9757,9 +10591,11 @@
           ]
         },
         "lineSpacing": {
+          "description": "Line spacing multiplier between text lines",
           "type": "number"
         },
         "characterSpacing": {
+          "description": "Spacing between individual characters in the text",
           "type": "number"
         }
       },
@@ -9889,10 +10725,12 @@
           "type": "string"
         },
         "searchScenes": {
+          "description": "Include scene files when scanning for asset references",
           "default": true,
           "type": "boolean"
         },
         "searchPrefabs": {
+          "description": "Include prefab assets when scanning for asset references",
           "default": true,
           "type": "boolean"
         }
@@ -9979,6 +10817,7 @@
       "type": "object",
       "properties": {
         "terrainName": {
+          "description": "Specific terrain GameObject name to query (omit to list all terrains)",
           "type": "string"
         }
       }
@@ -10015,6 +10854,7 @@
       "type": "object",
       "properties": {
         "canvasName": {
+          "description": "Specific Canvas GameObject name to inspect (omit for all canvases)",
           "type": "string"
         }
       }
@@ -10044,6 +10884,7 @@
           "type": "string"
         },
         "loopAnimation": {
+          "description": "Enable loop wrap mode on the imported AnimationClip",
           "default": false,
           "type": "boolean"
         }
@@ -10070,6 +10911,7 @@
           "type": "string"
         },
         "groupBy": {
+          "description": "Grouping strategy for organizing animation files into subfolders",
           "default": "character",
           "type": "string",
           "enum": [
@@ -10097,6 +10939,7 @@
           "type": "string"
         },
         "ikType": {
+          "description": "Inverse Kinematics setup type to configure on the Animator",
           "default": "FullBody",
           "type": "string",
           "enum": [
@@ -10107,6 +10950,7 @@
           ]
         },
         "weight": {
+          "description": "IK influence weight from 0 (off) to 1 (full)",
           "default": 1,
           "type": "number"
         }
@@ -10133,6 +10977,7 @@
           "type": "array"
         },
         "savePath": {
+          "description": "Asset path where the AvatarMask asset will be saved",
           "type": "string"
         }
       },
@@ -10159,6 +11004,7 @@
           "type": "string"
         },
         "blendType": {
+          "description": "Blend tree dimension and interpolation algorithm used by the Animator",
           "default": "2D_FreeformDirectional",
           "type": "string",
           "enum": [
@@ -10193,6 +11039,7 @@
           "type": "string"
         },
         "outputPath": {
+          "description": "Asset path to save the retargeted AnimationClip",
           "type": "string"
         }
       },
@@ -10211,21 +11058,26 @@
       "type": "object",
       "properties": {
         "presetName": {
+          "description": "Identifier for the saved transition preset",
           "type": "string"
         },
         "duration": {
+          "description": "Transition duration in seconds or normalized time",
           "default": 0.25,
           "type": "number"
         },
         "exitTime": {
+          "description": "Normalized time at which the source state can exit",
           "default": 0.75,
           "type": "number"
         },
         "hasFixedDuration": {
+          "description": "If true, duration is in seconds rather than normalized time",
           "default": true,
           "type": "boolean"
         },
         "interruptionSource": {
+          "description": "Which state can interrupt this transition",
           "type": "string",
           "enum": [
             "None",
@@ -10254,6 +11106,7 @@
           "type": "string"
         },
         "includeBlendShapes": {
+          "description": "Include SkinnedMeshRenderer blend shape costs in analysis",
           "default": true,
           "type": "boolean"
         }
@@ -10338,6 +11191,7 @@
           "type": "string"
         },
         "type": {
+          "description": "Severity style applied to the chat message in the Unity UI",
           "default": "info",
           "type": "string",
           "enum": [
@@ -10369,17 +11223,21 @@
       "type": "object",
       "properties": {
         "targetObject": {
+          "description": "GameObject name to receive the caustics projector or material",
           "type": "string"
         },
         "intensity": {
+          "description": "Brightness multiplier of the caustics light pattern",
           "default": 1,
           "type": "number"
         },
         "scale": {
+          "description": "Tiling scale of the caustics texture in world units",
           "default": 1,
           "type": "number"
         },
         "speed": {
+          "description": "Animation playback speed of the caustics pattern",
           "default": 1,
           "type": "number"
         }
@@ -10395,6 +11253,7 @@
       "type": "object",
       "properties": {
         "waterType": {
+          "description": "Preset water body that determines waves, foam, and flow defaults",
           "default": "Ocean",
           "type": "string",
           "enum": [
@@ -10405,10 +11264,12 @@
           ]
         },
         "size": {
+          "description": "Size of the water plane in world units",
           "default": 100,
           "type": "number"
         },
         "quality": {
+          "description": "Shader and reflection quality tier for the water surface",
           "default": "Medium",
           "type": "string",
           "enum": [
@@ -10552,6 +11413,7 @@
           "type": "string"
         },
         "newDeclaration": {
+          "description": "New variable declaration (e.g., \"public float speed = 10f;\")",
           "type": "string"
         },
         "updateType": {
@@ -10681,9 +11543,11 @@
           "type": "string"
         },
         "searchIn": {
+          "description": "Directories to search in (e.g., [\"Scripts\", \"Editor\"])",
           "type": "array"
         },
         "fileTypes": {
+          "description": "File extensions to search (e.g., [\".cs\", \".shader\"])",
           "default": "['.cs']",
           "type": "array"
         },
@@ -10900,6 +11764,7 @@
           "type": "boolean"
         },
         "camera": {
+          "description": "Camera name for camera mode (use \"new\" to create UI camera)",
           "type": "string"
         },
         "planeDistance": {
@@ -10908,15 +11773,19 @@
           "type": "number"
         },
         "position": {
+          "description": "Position for world space canvas (e.g., \"0,0,5\")",
           "type": "string"
         },
         "rotation": {
+          "description": "Rotation for world space canvas (e.g., \"0,180,0\")",
           "type": "string"
         },
         "scale": {
+          "description": "Scale for world space canvas (e.g., \"0.01,0.01,0.01\")",
           "type": "string"
         },
         "sizeDelta": {
+          "description": "Canvas size for world space (e.g., \"1920,1080\")",
           "type": "string"
         },
         "scaleMode": {
@@ -10964,21 +11833,48 @@
           "type": "string"
         },
         "preset": {
-          "type": "string"
+          "description": "Anchor preset to apply",
+          "type": "string",
+          "enum": [
+            "center",
+            "middle-center",
+            "top-left",
+            "top-center",
+            "top-right",
+            "middle-left",
+            "middle-right",
+            "bottom-left",
+            "bottom-center",
+            "bottom-right",
+            "stretch-horizontal",
+            "stretch-vertical",
+            "stretch-all",
+            "fill",
+            "top-stretch",
+            "bottom-stretch",
+            "left-stretch",
+            "right-stretch",
+            "custom"
+          ]
         },
         "anchorMin": {
+          "description": "Custom anchor min (e.g., \"0,0\") - only for custom preset",
           "type": "string"
         },
         "anchorMax": {
+          "description": "Custom anchor max (e.g., \"1,1\") - only for custom preset",
           "type": "string"
         },
         "pivot": {
+          "description": "Pivot point (e.g., \"0.5,0.5\") - only for custom preset",
           "type": "string"
         },
         "anchoredPosition": {
+          "description": "Anchored position (e.g., \"0,0\")",
           "type": "string"
         },
         "sizeDelta": {
+          "description": "Size delta (e.g., \"100,100\")",
           "type": "string"
         },
         "keepPosition": {
@@ -10997,8 +11893,7 @@
         }
       },
       "required": [
-        "target",
-        "preset"
+        "target"
       ]
     },
     "embedding": null
@@ -11011,6 +11906,7 @@
       "type": "object",
       "properties": {
         "target": {
+          "description": "What to inspect: gameobject (properties/components), component (all serialized fields), scene (current scene info), project (project structure), prefabs (search prefabs), hierarchy (scene hierarchy)",
           "type": "string",
           "enum": [
             "gameobject",
@@ -11026,9 +11922,11 @@
           "type": "string"
         },
         "component": {
+          "description": "Component type to inspect (e.g., \"Camera\", \"CinemachineVirtualCamera\")",
           "type": "string"
         },
         "path": {
+          "description": "Asset path filter for project/prefabs (e.g., \"Assets/Prefabs/*\")",
           "type": "string"
         },
         "depth": {
@@ -11055,9 +11953,11 @@
           "type": "string"
         },
         "component": {
+          "description": "Component type (e.g., \"Transform\", \"Camera\", \"CinemachineVirtualCamera\")",
           "type": "string"
         },
         "properties": {
+          "description": "Property paths and values as key-value pairs (e.g., {\"m_Lens.FieldOfView\": 60, \"m_Priority\": 10})",
           "type": "string"
         },
         "createIfMissing": {
@@ -11082,6 +11982,7 @@
       "type": "object",
       "properties": {
         "type": {
+          "description": "What to create: gameobject (empty or primitive), prefab (instantiate from asset), scene (load scene), component (add to existing object)",
           "type": "string",
           "enum": [
             "gameobject",
@@ -11108,6 +12009,7 @@
           ]
         },
         "asset": {
+          "description": "Asset path for prefab (e.g., \"Assets/Prefabs/Enemy.prefab\")",
           "type": "string"
         },
         "scene": {

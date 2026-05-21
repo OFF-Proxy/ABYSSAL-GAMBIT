@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using UnityEngine;
+using SynapticAIPro;
 using UnityEngine.VFX;
 using UnityEditor;
 using Newtonsoft.Json;
@@ -112,11 +113,11 @@ namespace SynapticPro
                 if (_contextTypes.ContainsKey(urpType))
                 {
                     convertedType = urpType;
-                    Debug.Log($"[NexusVFX] Auto-converted output '{contextType}' -> '{urpType}' for URP pipeline");
+                    SynLog.Info($"[NexusVFX] Auto-converted output '{contextType}' -> '{urpType}' for URP pipeline");
                 }
                 else
                 {
-                    Debug.LogWarning($"[NexusVFX] URP output type '{urpType}' not available, using built-in '{contextType}'");
+                    SynLog.Warn($"[NexusVFX] URP output type '{urpType}' not available, using built-in '{contextType}'");
                 }
             }
             else if (pipeline == "HDRP" && _hdrpOutputMapping.TryGetValue(lowerType, out string hdrpType))
@@ -125,11 +126,11 @@ namespace SynapticPro
                 if (_contextTypes.ContainsKey(hdrpType))
                 {
                     convertedType = hdrpType;
-                    Debug.Log($"[NexusVFX] Auto-converted output '{contextType}' -> '{hdrpType}' for HDRP pipeline");
+                    SynLog.Info($"[NexusVFX] Auto-converted output '{contextType}' -> '{hdrpType}' for HDRP pipeline");
                 }
                 else
                 {
-                    Debug.LogWarning($"[NexusVFX] HDRP output type '{hdrpType}' not available, using built-in '{contextType}'");
+                    SynLog.Warn($"[NexusVFX] HDRP output type '{hdrpType}' not available, using built-in '{contextType}'");
                 }
             }
 
@@ -148,7 +149,7 @@ namespace SynapticPro
             var vfxEditorAssembly = GetVFXEditorAssembly();
             if (vfxEditorAssembly == null)
             {
-                Debug.LogWarning("[NexusVFX] VFX Graph Editor assembly not found. Is the package installed?");
+                SynLog.Warn("[NexusVFX] VFX Graph Editor assembly not found. Is the package installed?");
                 return;
             }
 
@@ -158,7 +159,7 @@ namespace SynapticPro
             PopulateOperatorTypes(vfxEditorAssembly);
 
             _initialized = true;
-            Debug.Log($"[NexusVFX] Initialized: {_contextTypes.Count} contexts, {_blockTypes.Count} blocks, {_operatorTypes.Count} operators");
+            SynLog.Info($"[NexusVFX] Initialized: {_contextTypes.Count} contexts, {_blockTypes.Count} blocks, {_operatorTypes.Count} operators");
         }
 
         private static Assembly GetVFXEditorAssembly()
@@ -277,12 +278,12 @@ namespace SynapticPro
                 if (type != null)
                 {
                     _contextTypes[mapping.Key] = type;
-                    Debug.Log($"[NexusVFX] Registered context: {mapping.Key} -> {type.FullName}");
+                    SynLog.Info($"[NexusVFX] Registered context: {mapping.Key} -> {type.FullName}");
                 }
             }
 
             // Log pipeline availability
-            Debug.Log($"[NexusVFX] URP VFX assembly found: {urpVfxAssembly != null}, HDRP: {hdrpVfxAssembly != null}");
+            SynLog.Info($"[NexusVFX] URP VFX assembly found: {urpVfxAssembly != null}, HDRP: {hdrpVfxAssembly != null}");
         }
 
         private static void PopulateBlockTypes(Assembly assembly)
@@ -419,10 +420,10 @@ namespace SynapticPro
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[NexusVFX] Failed to discover additional block types: {e.Message}");
+                SynLog.Warn($"[NexusVFX] Failed to discover additional block types: {e.Message}");
             }
 
-            Debug.Log($"[NexusVFX] Block types discovered: {_blockTypes.Count}");
+            SynLog.Info($"[NexusVFX] Block types discovered: {_blockTypes.Count}");
         }
 
         private static void PopulateOperatorTypes(Assembly assembly)
@@ -600,7 +601,7 @@ namespace SynapticPro
                     return "Error: No VFX template found in package. Please create a VFX manually first.";
                 }
 
-                Debug.Log($"[NexusVFX] Using template: {templatePath}");
+                SynLog.Info($"[NexusVFX] Using template: {templatePath}");
 
                 // Copy template to target path
                 bool copySuccess = AssetDatabase.CopyAsset(templatePath, assetPath);
@@ -665,7 +666,7 @@ namespace SynapticPro
 
                 // Create context instance
                 var context = ScriptableObject.CreateInstance(ctxType);
-                Debug.Log($"[NexusVFX] Created context: {context.GetType().Name}");
+                SynLog.Info($"[NexusVFX] Created context: {context.GetType().Name}");
 
                 // Add to graph - try multiple AddChild signatures
                 var graphType = graph.GetType();
@@ -681,7 +682,7 @@ namespace SynapticPro
 
                 // Get initial child count to verify if add succeeded
                 int initialChildCount = GetChildren(graph).Count;
-                Debug.Log($"[NexusVFX] Found {addChildMethods.Count} AddChild overloads, initial children: {initialChildCount}");
+                SynLog.Info($"[NexusVFX] Found {addChildMethods.Count} AddChild overloads, initial children: {initialChildCount}");
 
                 bool added = false;
                 Exception lastException = null;
@@ -693,7 +694,7 @@ namespace SynapticPro
                 foreach (var addChildMethod in sortedMethods)
                 {
                     var parameters = addChildMethod.GetParameters();
-                    Debug.Log($"[NexusVFX] Trying AddChild({string.Join(", ", parameters.Select(p => p.ParameterType.Name))})");
+                    SynLog.Info($"[NexusVFX] Trying AddChild({string.Join(", ", parameters.Select(p => p.ParameterType.Name))})");
 
                     try
                     {
@@ -701,34 +702,34 @@ namespace SynapticPro
                         {
                             addChildMethod.Invoke(graph, new object[] { context });
                             added = true;
-                            Debug.Log("[NexusVFX] Successfully added context (1 param)");
+                            SynLog.Info("[NexusVFX] Successfully added context (1 param)");
                             break;
                         }
                         else if (parameters.Length == 2 && parameters[1].ParameterType == typeof(int))
                         {
                             addChildMethod.Invoke(graph, new object[] { context, 0 });
                             added = true;
-                            Debug.Log("[NexusVFX] Successfully added context (2 params, index 0)");
+                            SynLog.Info("[NexusVFX] Successfully added context (2 params, index 0)");
                             break;
                         }
                         else if (parameters.Length == 3 && parameters[1].ParameterType == typeof(int))
                         {
                             addChildMethod.Invoke(graph, new object[] { context, 0, true });
                             added = true;
-                            Debug.Log("[NexusVFX] Successfully added context (3 params, index 0)");
+                            SynLog.Info("[NexusVFX] Successfully added context (3 params, index 0)");
                             break;
                         }
                     }
                     catch (Exception ex)
                     {
                         lastException = ex.InnerException ?? ex;
-                        Debug.LogWarning($"[NexusVFX] AddChild attempt failed: {lastException.Message}");
+                        SynLog.Warn($"[NexusVFX] AddChild attempt failed: {lastException.Message}");
                         // Check if child was actually added despite the exception
                         int currentCount = GetChildren(graph).Count;
                         if (currentCount > initialChildCount)
                         {
                             added = true;
-                            Debug.Log($"[NexusVFX] Context was added despite exception (children: {initialChildCount} -> {currentCount})");
+                            SynLog.Info($"[NexusVFX] Context was added despite exception (children: {initialChildCount} -> {currentCount})");
                             break;
                         }
                     }
@@ -761,7 +762,7 @@ namespace SynapticPro
                     {
                         // Set default to Additive for particle effects
                         SetOutputBlendMode(context, "Additive");
-                        Debug.Log("[NexusVFX] Auto-set blendMode to Additive for output context");
+                        SynLog.Info("[NexusVFX] Auto-set blendMode to Additive for output context");
                     }
 
                     // Enable particle color usage so color attribute works
@@ -812,11 +813,11 @@ namespace SynapticPro
 
                                     // Set the rate on the block
                                     ApplySettings(spawnRateBlock, new Dictionary<string, object> { { "Rate", rate } });
-                                    Debug.Log($"[NexusVFX] Added spawnRate block with rate: {rate}");
+                                    SynLog.Info($"[NexusVFX] Added spawnRate block with rate: {rate}");
                                 }
                                 catch (Exception ex)
                                 {
-                                    Debug.LogWarning($"[NexusVFX] Failed to add spawnRate block: {ex.Message}");
+                                    SynLog.Warn($"[NexusVFX] Failed to add spawnRate block: {ex.Message}");
                                 }
                             }
                         }
@@ -869,7 +870,7 @@ namespace SynapticPro
 
                 // Create block instance
                 var block = ScriptableObject.CreateInstance(blkType);
-                Debug.Log($"[NexusVFX] Created block: {block.GetType().Name}");
+                SynLog.Info($"[NexusVFX] Created block: {block.GetType().Name}");
 
                 // Add to context - try multiple AddChild signatures
                 var contextType = context.GetType();
@@ -885,7 +886,7 @@ namespace SynapticPro
 
                 // Get initial block count to verify if add succeeded
                 int initialBlockCount = GetBlocks(context).Count;
-                Debug.Log($"[NexusVFX] Found {addChildMethods.Count} AddChild overloads on context, initial blocks: {initialBlockCount}");
+                SynLog.Info($"[NexusVFX] Found {addChildMethods.Count} AddChild overloads on context, initial blocks: {initialBlockCount}");
 
                 bool blockAdded = false;
                 Exception lastBlockException = null;
@@ -896,7 +897,7 @@ namespace SynapticPro
                 foreach (var addChildMethod in sortedBlockMethods)
                 {
                     var parameters = addChildMethod.GetParameters();
-                    Debug.Log($"[NexusVFX] Trying context AddChild({string.Join(", ", parameters.Select(p => p.ParameterType.Name))})");
+                    SynLog.Info($"[NexusVFX] Trying context AddChild({string.Join(", ", parameters.Select(p => p.ParameterType.Name))})");
 
                     try
                     {
@@ -904,34 +905,34 @@ namespace SynapticPro
                         {
                             addChildMethod.Invoke(context, new object[] { block });
                             blockAdded = true;
-                            Debug.Log("[NexusVFX] Successfully added block (1 param)");
+                            SynLog.Info("[NexusVFX] Successfully added block (1 param)");
                             break;
                         }
                         else if (parameters.Length == 2 && parameters[1].ParameterType == typeof(int))
                         {
                             addChildMethod.Invoke(context, new object[] { block, 0 });
                             blockAdded = true;
-                            Debug.Log("[NexusVFX] Successfully added block (2 params, index 0)");
+                            SynLog.Info("[NexusVFX] Successfully added block (2 params, index 0)");
                             break;
                         }
                         else if (parameters.Length == 3 && parameters[1].ParameterType == typeof(int))
                         {
                             addChildMethod.Invoke(context, new object[] { block, 0, true });
                             blockAdded = true;
-                            Debug.Log("[NexusVFX] Successfully added block (3 params, index 0)");
+                            SynLog.Info("[NexusVFX] Successfully added block (3 params, index 0)");
                             break;
                         }
                     }
                     catch (Exception ex)
                     {
                         lastBlockException = ex.InnerException ?? ex;
-                        Debug.LogWarning($"[NexusVFX] Context AddChild attempt failed: {lastBlockException.Message}");
+                        SynLog.Warn($"[NexusVFX] Context AddChild attempt failed: {lastBlockException.Message}");
                         // Check if block was actually added despite the exception
                         int currentBlockCount = GetBlocks(context).Count;
                         if (currentBlockCount > initialBlockCount)
                         {
                             blockAdded = true;
-                            Debug.Log($"[NexusVFX] Block was added despite exception (blocks: {initialBlockCount} -> {currentBlockCount})");
+                            SynLog.Info($"[NexusVFX] Block was added despite exception (blocks: {initialBlockCount} -> {currentBlockCount})");
                             break;
                         }
                     }
@@ -978,7 +979,7 @@ namespace SynapticPro
                         if (randomModeField != null && randomModeField.FieldType == typeof(bool))
                         {
                             randomModeField.SetValue(block, true);
-                            Debug.Log("[NexusVFX] Set Random mode to true for SetAttribute");
+                            SynLog.Info("[NexusVFX] Set Random mode to true for SetAttribute");
                         }
                         else
                         {
@@ -991,7 +992,7 @@ namespace SynapticPro
                                 {
                                     var randomValue = Enum.Parse(randomModeEnumField.FieldType, "Uniform", true);
                                     randomModeEnumField.SetValue(block, randomValue);
-                                    Debug.Log("[NexusVFX] Set randomMode to Uniform");
+                                    SynLog.Info("[NexusVFX] Set randomMode to Uniform");
                                 }
                                 catch { }
                             }
@@ -1038,7 +1039,7 @@ namespace SynapticPro
                         }
                         catch (Exception ex)
                         {
-                            Debug.LogWarning($"[NexusVFX] SetSettingValue failed (non-critical): {ex.Message}");
+                            SynLog.Warn($"[NexusVFX] SetSettingValue failed (non-critical): {ex.Message}");
                         }
 
                         // Verify and fix if needed
@@ -1055,7 +1056,7 @@ namespace SynapticPro
                         }
                         catch (Exception ex)
                         {
-                            Debug.LogWarning($"[NexusVFX] Direct field access failed (non-critical): {ex.Message}");
+                            SynLog.Warn($"[NexusVFX] Direct field access failed (non-critical): {ex.Message}");
                         }
 
                         // Set composition mode if specified
@@ -1069,7 +1070,7 @@ namespace SynapticPro
                                 {
                                     var compositionValue = Enum.Parse(compositionField.FieldType, compValue.ToString(), true);
                                     compositionField.SetValue(block, compositionValue);
-                                    Debug.Log($"[NexusVFX] Set composition to: {compValue}");
+                                    SynLog.Info($"[NexusVFX] Set composition to: {compValue}");
                                 }
                                 catch { }
                             }
@@ -1088,18 +1089,18 @@ namespace SynapticPro
                             if (settings.TryGetValue("min", out object minObj))
                             {
                                 SetBlockInputSlotValueByName(block, "A", minObj);
-                                Debug.Log($"[NexusVFX] Set min (A) value: {minObj}");
+                                SynLog.Info($"[NexusVFX] Set min (A) value: {minObj}");
                             }
                             if (settings.TryGetValue("max", out object maxObj))
                             {
                                 SetBlockInputSlotValueByName(block, "B", maxObj);
-                                Debug.Log($"[NexusVFX] Set max (B) value: {maxObj}");
+                                SynLog.Info($"[NexusVFX] Set max (B) value: {maxObj}");
                             }
                         }
                     }
                     else
                     {
-                        Debug.LogWarning("[NexusVFX] SetAttribute block created without attribute name - this may cause errors");
+                        SynLog.Warn("[NexusVFX] SetAttribute block created without attribute name - this may cause errors");
                     }
                 }
 
@@ -1145,7 +1146,7 @@ namespace SynapticPro
 
                 // Create operator instance
                 var op = ScriptableObject.CreateInstance(opType);
-                Debug.Log($"[NexusVFX] Created operator: {op.GetType().Name}");
+                SynLog.Info($"[NexusVFX] Created operator: {op.GetType().Name}");
 
                 // Add to graph - try multiple AddChild signatures
                 var graphType = graph.GetType();
@@ -1200,7 +1201,7 @@ namespace SynapticPro
                         if (currentOpCount > initialOpCount)
                         {
                             opAdded = true;
-                            Debug.Log($"[NexusVFX] Operator was added despite exception (children: {initialOpCount} -> {currentOpCount})");
+                            SynLog.Info($"[NexusVFX] Operator was added despite exception (children: {initialOpCount} -> {currentOpCount})");
                             break;
                         }
                     }
@@ -1210,7 +1211,7 @@ namespace SynapticPro
                 {
                     return $"Error: AddChild failed - {lastOpException?.Message ?? "Unknown error"}";
                 }
-                Debug.Log("[NexusVFX] Successfully added operator");
+                SynLog.Info("[NexusVFX] Successfully added operator");
 
                 // Apply settings
                 if (settings != null)
@@ -1254,7 +1255,7 @@ namespace SynapticPro
                 var fromContext = contexts[fromIndex];
                 var toContext = contexts[toIndex];
 
-                Debug.Log($"[NexusVFX] Linking {fromContext.GetType().Name} to {toContext.GetType().Name}");
+                SynLog.Info($"[NexusVFX] Linking {fromContext.GetType().Name} to {toContext.GetType().Name}");
 
                 var contextType = fromContext.GetType();
 
@@ -1262,13 +1263,13 @@ namespace SynapticPro
                 var linkMethods = contextType.GetMethods(BindingFlags.Public | BindingFlags.Instance)
                     .Where(m => m.Name == "LinkTo").ToArray();
 
-                Debug.Log($"[NexusVFX] Found {linkMethods.Length} LinkTo methods");
+                SynLog.Info($"[NexusVFX] Found {linkMethods.Length} LinkTo methods");
 
                 bool linked = false;
                 foreach (var method in linkMethods)
                 {
                     var parameters = method.GetParameters();
-                    Debug.Log($"[NexusVFX] LinkTo params: {string.Join(", ", parameters.Select(p => $"{p.Name}:{p.ParameterType.Name}"))}");
+                    SynLog.Info($"[NexusVFX] LinkTo params: {string.Join(", ", parameters.Select(p => $"{p.Name}:{p.ParameterType.Name}"))}");
 
                     try
                     {
@@ -1771,7 +1772,7 @@ namespace SynapticPro
                     }
                     catch (Exception ex)
                     {
-                        Debug.LogWarning($"[NexusVFX] RemoveChild with {parameters.Length} params failed: {ex.Message}");
+                        SynLog.Warn($"[NexusVFX] RemoveChild with {parameters.Length} params failed: {ex.Message}");
                         continue;
                     }
                 }
@@ -1881,17 +1882,17 @@ namespace SynapticPro
             var vfxAsset = AssetDatabase.LoadAssetAtPath<VisualEffectAsset>(assetPath);
             if (vfxAsset == null)
             {
-                Debug.LogWarning($"[NexusVFX] VisualEffectAsset not found at {assetPath}");
+                SynLog.Warn($"[NexusVFX] VisualEffectAsset not found at {assetPath}");
                 return null;
             }
 
-            Debug.Log($"[NexusVFX] Loaded VFXAsset: {vfxAsset.name}");
+            SynLog.Info($"[NexusVFX] Loaded VFXAsset: {vfxAsset.name}");
 
             // Get VFX Editor assembly
             var vfxEditorAssembly = GetVFXEditorAssembly();
             if (vfxEditorAssembly == null)
             {
-                Debug.LogWarning("[NexusVFX] VFX Editor assembly not found");
+                SynLog.Warn("[NexusVFX] VFX Editor assembly not found");
                 return null;
             }
 
@@ -1899,20 +1900,20 @@ namespace SynapticPro
             var extensionsType = vfxEditorAssembly.GetType("UnityEditor.VFX.VisualEffectObjectExtensions");
             if (extensionsType != null)
             {
-                Debug.Log("[NexusVFX] Found VisualEffectObjectExtensions");
+                SynLog.Info("[NexusVFX] Found VisualEffectObjectExtensions");
 
                 var getResourceMethod = extensionsType.GetMethod("GetResource",
                     BindingFlags.Public | BindingFlags.Static);
 
                 if (getResourceMethod != null)
                 {
-                    Debug.Log("[NexusVFX] Found GetResource method");
+                    SynLog.Info("[NexusVFX] Found GetResource method");
                     try
                     {
                         var resource = getResourceMethod.Invoke(null, new object[] { vfxAsset });
                         if (resource != null)
                         {
-                            Debug.Log($"[NexusVFX] Got resource: {resource.GetType().Name}");
+                            SynLog.Info($"[NexusVFX] Got resource: {resource.GetType().Name}");
 
                             // Get graph property from resource
                             var resourceType = resource.GetType();
@@ -1924,7 +1925,7 @@ namespace SynapticPro
                                 var graph = graphProp.GetValue(resource);
                                 if (graph != null)
                                 {
-                                    Debug.Log($"[NexusVFX] Got VFXGraph: {graph.GetType().Name}");
+                                    SynLog.Info($"[NexusVFX] Got VFXGraph: {graph.GetType().Name}");
                                     return graph;
                                 }
                             }
@@ -1937,19 +1938,19 @@ namespace SynapticPro
                                 var graph = getGraphMethod.Invoke(resource, null);
                                 if (graph != null)
                                 {
-                                    Debug.Log($"[NexusVFX] Got VFXGraph via GetOrCreateGraph");
+                                    SynLog.Info($"[NexusVFX] Got VFXGraph via GetOrCreateGraph");
                                     return graph;
                                 }
                             }
                         }
                         else
                         {
-                            Debug.LogWarning("[NexusVFX] GetResource returned null");
+                            SynLog.Warn("[NexusVFX] GetResource returned null");
                         }
                     }
                     catch (Exception e)
                     {
-                        Debug.LogWarning($"[NexusVFX] GetResource failed: {e.Message}");
+                        SynLog.Warn($"[NexusVFX] GetResource failed: {e.Message}");
                     }
                 }
             }
@@ -1958,7 +1959,7 @@ namespace SynapticPro
             var assetExtType = vfxEditorAssembly.GetType("UnityEditor.VFX.VisualEffectAssetExtensions");
             if (assetExtType != null)
             {
-                Debug.Log("[NexusVFX] Found VisualEffectAssetExtensions");
+                SynLog.Info("[NexusVFX] Found VisualEffectAssetExtensions");
                 var getGraphMethod = assetExtType.GetMethod("GetOrCreateGraph",
                     BindingFlags.Public | BindingFlags.Static);
                 if (getGraphMethod != null)
@@ -1968,34 +1969,34 @@ namespace SynapticPro
                         var graph = getGraphMethod.Invoke(null, new object[] { vfxAsset });
                         if (graph != null)
                         {
-                            Debug.Log($"[NexusVFX] Got graph via VisualEffectAssetExtensions");
+                            SynLog.Info($"[NexusVFX] Got graph via VisualEffectAssetExtensions");
                             return graph;
                         }
                     }
                     catch (Exception e)
                     {
-                        Debug.LogWarning($"[NexusVFX] GetOrCreateGraph failed: {e.Message}");
+                        SynLog.Warn($"[NexusVFX] GetOrCreateGraph failed: {e.Message}");
                     }
                 }
             }
 
             // Fallback: try loading sub-assets
             var subAssets = AssetDatabase.LoadAllAssetsAtPath(assetPath);
-            Debug.Log($"[NexusVFX] Checking {subAssets.Length} sub-assets");
+            SynLog.Info($"[NexusVFX] Checking {subAssets.Length} sub-assets");
             foreach (var sub in subAssets)
             {
                 if (sub != null)
                 {
-                    Debug.Log($"[NexusVFX] Sub-asset: {sub.name} ({sub.GetType().Name})");
+                    SynLog.Info($"[NexusVFX] Sub-asset: {sub.name} ({sub.GetType().Name})");
                     if (sub.GetType().Name == "VFXGraph")
                     {
-                        Debug.Log("[NexusVFX] Found VFXGraph in sub-assets");
+                        SynLog.Info("[NexusVFX] Found VFXGraph in sub-assets");
                         return sub;
                     }
                 }
             }
 
-            Debug.LogWarning("[NexusVFX] Could not get VFXGraph from asset");
+            SynLog.Warn("[NexusVFX] Could not get VFXGraph from asset");
             return null;
         }
 
@@ -2051,7 +2052,7 @@ namespace SynapticPro
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[NexusVFX] Failed to clear graph: {e.Message}");
+                SynLog.Warn($"[NexusVFX] Failed to clear graph: {e.Message}");
             }
         }
 
@@ -2140,7 +2141,7 @@ namespace SynapticPro
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[NexusVFX] GetChildren failed: {e.Message}");
+                SynLog.Warn($"[NexusVFX] GetChildren failed: {e.Message}");
             }
 
             return result;
@@ -2185,7 +2186,7 @@ namespace SynapticPro
                     {
                         value = dict.Values.First();
                     }
-                    Debug.Log($"[NexusVFX] Unwrapped Dictionary to: {value} ({value?.GetType().Name})");
+                    SynLog.Info($"[NexusVFX] Unwrapped Dictionary to: {value} ({value?.GetType().Name})");
                 }
 
                 // Get input slots from the block
@@ -2194,14 +2195,14 @@ namespace SynapticPro
 
                 if (inputSlotsProperty == null)
                 {
-                    Debug.LogWarning("[NexusVFX] inputSlots property not found on block");
+                    SynLog.Warn("[NexusVFX] inputSlots property not found on block");
                     return;
                 }
 
                 var inputSlots = inputSlotsProperty.GetValue(block) as System.Collections.IEnumerable;
                 if (inputSlots == null)
                 {
-                    Debug.LogWarning("[NexusVFX] inputSlots is null");
+                    SynLog.Warn("[NexusVFX] inputSlots is null");
                     return;
                 }
 
@@ -2215,7 +2216,7 @@ namespace SynapticPro
 
                 if (targetSlot == null)
                 {
-                    Debug.LogWarning("[NexusVFX] No input slots found on block");
+                    SynLog.Warn("[NexusVFX] No input slots found on block");
                     return;
                 }
 
@@ -2260,19 +2261,19 @@ namespace SynapticPro
                     {
                         // Float to Vector3 conversion (e.g., Angle attribute)
                         vfxValue = new Vector3(floatForVec3, floatForVec3, floatForVec3);
-                        Debug.Log($"[NexusVFX] Converted float {floatForVec3} to Vector3 for Float3 slot");
+                        SynLog.Info($"[NexusVFX] Converted float {floatForVec3} to Vector3 for Float3 slot");
                     }
                     else if (vfxValue is double doubleForVec3)
                     {
                         float f = (float)doubleForVec3;
                         vfxValue = new Vector3(f, f, f);
-                        Debug.Log($"[NexusVFX] Converted double {doubleForVec3} to Vector3 for Float3 slot");
+                        SynLog.Info($"[NexusVFX] Converted double {doubleForVec3} to Vector3 for Float3 slot");
                     }
                     else if (vfxValue is int intForVec3)
                     {
                         float f = intForVec3;
                         vfxValue = new Vector3(f, f, f);
-                        Debug.Log($"[NexusVFX] Converted int {intForVec3} to Vector3 for Float3 slot");
+                        SynLog.Info($"[NexusVFX] Converted int {intForVec3} to Vector3 for Float3 slot");
                     }
                 }
                 else if (slotTypeName.Contains("Float4"))
@@ -2280,17 +2281,17 @@ namespace SynapticPro
                     if (vfxValue is Vector3 vec3)
                     {
                         vfxValue = new Vector4(vec3.x, vec3.y, vec3.z, 1f);
-                        Debug.Log($"[NexusVFX] Converted Vector3 to Vector4 for Float4 slot: {vfxValue}");
+                        SynLog.Info($"[NexusVFX] Converted Vector3 to Vector4 for Float4 slot: {vfxValue}");
                     }
                     else if (vfxValue is Vector4 vec4)
                     {
                         // Vector4 is correct for Float4, keep as is
-                        Debug.Log($"[NexusVFX] Using Vector4 for Float4 slot: {vfxValue}");
+                        SynLog.Info($"[NexusVFX] Using Vector4 for Float4 slot: {vfxValue}");
                     }
                     else if (vfxValue is Color col)
                     {
                         vfxValue = new Vector4(col.r, col.g, col.b, col.a);
-                        Debug.Log($"[NexusVFX] Converted Color to Vector4 for Float4 slot: {vfxValue}");
+                        SynLog.Info($"[NexusVFX] Converted Color to Vector4 for Float4 slot: {vfxValue}");
                     }
                 }
                 // Handle Float slot expecting float but receiving Vector3
@@ -2299,12 +2300,12 @@ namespace SynapticPro
                     if (vfxValue is Vector3 vecToFloat)
                     {
                         vfxValue = vecToFloat.x;
-                        Debug.Log($"[NexusVFX] Converted Vector3 to float {vfxValue} for Float slot");
+                        SynLog.Info($"[NexusVFX] Converted Vector3 to float {vfxValue} for Float slot");
                     }
                     else if (vfxValue is Vector4 vec4ToFloat)
                     {
                         vfxValue = vec4ToFloat.x;
-                        Debug.Log($"[NexusVFX] Converted Vector4 to float {vfxValue} for Float slot");
+                        SynLog.Info($"[NexusVFX] Converted Vector4 to float {vfxValue} for Float slot");
                     }
                 }
 
@@ -2317,12 +2318,12 @@ namespace SynapticPro
                     try
                     {
                         setValueMethod.Invoke(targetSlot, new object[] { vfxValue });
-                        Debug.Log($"[NexusVFX] Set slot value via SetValue: {vfxValue}");
+                        SynLog.Info($"[NexusVFX] Set slot value via SetValue: {vfxValue}");
                         return;
                     }
                     catch (Exception ex)
                     {
-                        Debug.LogWarning($"[NexusVFX] SetValue failed: {ex.Message}");
+                        SynLog.Warn($"[NexusVFX] SetValue failed: {ex.Message}");
                     }
                 }
 
@@ -2335,12 +2336,12 @@ namespace SynapticPro
                     try
                     {
                         valueProperty.SetValue(targetSlot, vfxValue);
-                        Debug.Log($"[NexusVFX] Set slot value via property: {vfxValue}");
+                        SynLog.Info($"[NexusVFX] Set slot value via property: {vfxValue}");
                         return;
                     }
                     catch (Exception ex)
                     {
-                        Debug.LogWarning($"[NexusVFX] value property set failed: {ex.Message}");
+                        SynLog.Warn($"[NexusVFX] value property set failed: {ex.Message}");
                     }
                 }
 
@@ -2353,20 +2354,20 @@ namespace SynapticPro
                     try
                     {
                         valueField.SetValue(targetSlot, vfxValue);
-                        Debug.Log($"[NexusVFX] Set slot value via m_Value field: {vfxValue}");
+                        SynLog.Info($"[NexusVFX] Set slot value via m_Value field: {vfxValue}");
                         return;
                     }
                     catch (Exception ex)
                     {
-                        Debug.LogWarning($"[NexusVFX] m_Value field set failed: {ex.Message}");
+                        SynLog.Warn($"[NexusVFX] m_Value field set failed: {ex.Message}");
                     }
                 }
 
-                Debug.LogWarning($"[NexusVFX] Could not set value on slot for attribute: {attributeName}");
+                SynLog.Warn($"[NexusVFX] Could not set value on slot for attribute: {attributeName}");
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[NexusVFX] SetBlockInputSlotValue failed: {e.Message}");
+                SynLog.Warn($"[NexusVFX] SetBlockInputSlotValue failed: {e.Message}");
             }
         }
 
@@ -2382,7 +2383,7 @@ namespace SynapticPro
 
                 if (inputSlotsProperty == null)
                 {
-                    Debug.LogWarning("[NexusVFX] inputSlots property not found");
+                    SynLog.Warn("[NexusVFX] inputSlots property not found");
                     return;
                 }
 
@@ -2402,7 +2403,7 @@ namespace SynapticPro
 
                 if (targetSlot == null)
                 {
-                    Debug.LogWarning($"[NexusVFX] Slot '{slotName}' not found");
+                    SynLog.Warn($"[NexusVFX] Slot '{slotName}' not found");
                     return;
                 }
 
@@ -2416,12 +2417,12 @@ namespace SynapticPro
                 if (valueProperty != null && valueProperty.CanWrite)
                 {
                     valueProperty.SetValue(targetSlot, vfxValue);
-                    Debug.Log($"[NexusVFX] Set slot '{slotName}' value: {vfxValue}");
+                    SynLog.Info($"[NexusVFX] Set slot '{slotName}' value: {vfxValue}");
                 }
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[NexusVFX] SetBlockInputSlotValueByName failed: {e.Message}");
+                SynLog.Warn($"[NexusVFX] SetBlockInputSlotValueByName failed: {e.Message}");
             }
         }
 
@@ -2445,7 +2446,7 @@ namespace SynapticPro
                 }
                 else
                 {
-                    Debug.LogWarning($"[NexusVFX] ConvertToVFXValue received Dictionary for {attributeName}, cannot extract value");
+                    SynLog.Warn($"[NexusVFX] ConvertToVFXValue received Dictionary for {attributeName}, cannot extract value");
                     return null;
                 }
             }
@@ -2559,7 +2560,7 @@ namespace SynapticPro
                             {
                                 method.Invoke(target, new object[] { kvp.Key, kvp.Value });
                                 set = true;
-                                Debug.Log($"[NexusVFX] Set {kvp.Key} = {kvp.Value}");
+                                SynLog.Info($"[NexusVFX] Set {kvp.Key} = {kvp.Value}");
                                 break;
                             }
                             catch { }
@@ -2575,7 +2576,7 @@ namespace SynapticPro
                     if (prop != null && prop.CanWrite)
                     {
                         prop.SetValue(target, Convert.ChangeType(kvp.Value, prop.PropertyType));
-                        Debug.Log($"[NexusVFX] Set property {kvp.Key} = {kvp.Value}");
+                        SynLog.Info($"[NexusVFX] Set property {kvp.Key} = {kvp.Value}");
                         continue;
                     }
 
@@ -2586,7 +2587,7 @@ namespace SynapticPro
                     if (field != null)
                     {
                         field.SetValue(target, Convert.ChangeType(kvp.Value, field.FieldType));
-                        Debug.Log($"[NexusVFX] Set field {kvp.Key} = {kvp.Value}");
+                        SynLog.Info($"[NexusVFX] Set field {kvp.Key} = {kvp.Value}");
                     }
                 }
                 catch (Exception)
@@ -2633,11 +2634,11 @@ namespace SynapticPro
                 if (exposedField != null)
                 {
                     exposedField.SetValue(parameter, exposed);
-                    Debug.Log($"[NexusVFX] Set m_Exposed = {exposed}");
+                    SynLog.Info($"[NexusVFX] Set m_Exposed = {exposed}");
                 }
                 else
                 {
-                    Debug.LogWarning("[NexusVFX] Could not find m_Exposed field on VFXParameter");
+                    SynLog.Warn("[NexusVFX] Could not find m_Exposed field on VFXParameter");
                 }
 
                 // Set m_ExposedName field directly (exposedName property is read-only)
@@ -2646,11 +2647,11 @@ namespace SynapticPro
                 if (exposedNameField != null)
                 {
                     exposedNameField.SetValue(parameter, paramName);
-                    Debug.Log($"[NexusVFX] Set m_ExposedName = {paramName}");
+                    SynLog.Info($"[NexusVFX] Set m_ExposedName = {paramName}");
                 }
                 else
                 {
-                    Debug.LogWarning("[NexusVFX] Could not find m_ExposedName field on VFXParameter");
+                    SynLog.Warn("[NexusVFX] Could not find m_ExposedName field on VFXParameter");
                 }
 
                 // Determine value type based on paramType
@@ -2693,34 +2694,34 @@ namespace SynapticPro
                         {
                             addChildMethod.Invoke(graph, new object[] { parameter });
                             paramAdded = true;
-                            Debug.Log("[NexusVFX] Added parameter (1 param)");
+                            SynLog.Info("[NexusVFX] Added parameter (1 param)");
                             break;
                         }
                         else if (addParams.Length == 2 && addParams[1].ParameterType == typeof(int))
                         {
                             addChildMethod.Invoke(graph, new object[] { parameter, 0 });
                             paramAdded = true;
-                            Debug.Log("[NexusVFX] Added parameter (2 params, index 0)");
+                            SynLog.Info("[NexusVFX] Added parameter (2 params, index 0)");
                             break;
                         }
                         else if (addParams.Length == 3 && addParams[1].ParameterType == typeof(int))
                         {
                             addChildMethod.Invoke(graph, new object[] { parameter, 0, true });
                             paramAdded = true;
-                            Debug.Log("[NexusVFX] Added parameter (3 params, index 0)");
+                            SynLog.Info("[NexusVFX] Added parameter (3 params, index 0)");
                             break;
                         }
                     }
                     catch (Exception ex)
                     {
                         lastParamException = ex.InnerException ?? ex;
-                        Debug.LogWarning($"[NexusVFX] AddChild attempt for parameter failed: {lastParamException.Message}");
+                        SynLog.Warn($"[NexusVFX] AddChild attempt for parameter failed: {lastParamException.Message}");
                         // Check if parameter was actually added despite the exception
                         int currentParamCount = GetChildren(graph).Count;
                         if (currentParamCount > initialParamCount)
                         {
                             paramAdded = true;
-                            Debug.Log($"[NexusVFX] Parameter was added despite exception (children: {initialParamCount} -> {currentParamCount})");
+                            SynLog.Info($"[NexusVFX] Parameter was added despite exception (children: {initialParamCount} -> {currentParamCount})");
                             break;
                         }
                     }
@@ -2879,7 +2880,7 @@ namespace SynapticPro
                 if (linkMethod != null)
                 {
                     var linkParams = linkMethod.GetParameters();
-                    Debug.Log($"[NexusVFX] Link method params: {string.Join(", ", linkParams.Select(p => $"{p.Name}:{p.ParameterType.Name}"))}");
+                    SynLog.Info($"[NexusVFX] Link method params: {string.Join(", ", linkParams.Select(p => $"{p.Name}:{p.ParameterType.Name}"))}");
 
                     try
                     {
@@ -2897,7 +2898,7 @@ namespace SynapticPro
                     }
                     catch (Exception ex)
                     {
-                        Debug.LogWarning($"[NexusVFX] Link on inputSlot failed: {ex.Message}");
+                        SynLog.Warn($"[NexusVFX] Link on inputSlot failed: {ex.Message}");
                     }
                 }
 
@@ -2924,7 +2925,7 @@ namespace SynapticPro
                         }
                         catch (Exception ex)
                         {
-                            Debug.LogWarning($"[NexusVFX] Link on outputSlot failed: {ex.Message}");
+                            SynLog.Warn($"[NexusVFX] Link on outputSlot failed: {ex.Message}");
                         }
                     }
                 }
@@ -3080,11 +3081,11 @@ namespace SynapticPro
                 if (attributeField != null)
                 {
                     attributeField.SetValue(block, attributeName);
-                    Debug.Log($"[NexusVFX] Set attribute field to: {attributeName}");
+                    SynLog.Info($"[NexusVFX] Set attribute field to: {attributeName}");
                 }
                 else
                 {
-                    Debug.LogWarning("[NexusVFX] Could not find attribute field on SetAttribute block");
+                    SynLog.Warn("[NexusVFX] Could not find attribute field on SetAttribute block");
                 }
 
                 // Set composition mode - it's also a public field (Composition)
@@ -3096,11 +3097,11 @@ namespace SynapticPro
                     {
                         var compositionValue = Enum.Parse(compositionField.FieldType, compositionMode, true);
                         compositionField.SetValue(block, compositionValue);
-                        Debug.Log($"[NexusVFX] Set Composition to: {compositionMode}");
+                        SynLog.Info($"[NexusVFX] Set Composition to: {compositionMode}");
                     }
                     catch (Exception ex)
                     {
-                        Debug.LogWarning($"[NexusVFX] Could not set Composition: {ex.Message}");
+                        SynLog.Warn($"[NexusVFX] Could not set Composition: {ex.Message}");
                     }
                 }
 
@@ -3129,7 +3130,7 @@ namespace SynapticPro
                 }
                 catch (Exception ex)
                 {
-                    Debug.LogWarning($"[NexusVFX] Could not invalidate block (non-critical): {ex.Message}");
+                    SynLog.Warn($"[NexusVFX] Could not invalidate block (non-critical): {ex.Message}");
                 }
 
                 // Set the value on input slot
@@ -3946,12 +3947,12 @@ namespace SynapticPro
                             try
                             {
                                 valueProp.SetValue(slot, texture);
-                                Debug.Log($"[NexusVFX] Set texture on slot '{slotName}': {texture.name}");
+                                SynLog.Info($"[NexusVFX] Set texture on slot '{slotName}': {texture.name}");
                                 return;
                             }
                             catch (Exception ex)
                             {
-                                Debug.LogWarning($"[NexusVFX] Failed to set texture on slot: {ex.Message}");
+                                SynLog.Warn($"[NexusVFX] Failed to set texture on slot: {ex.Message}");
                             }
                         }
                     }
@@ -3967,7 +3968,7 @@ namespace SynapticPro
                 try
                 {
                     setSettingMethod.Invoke(context, new object[] { propertyName, value });
-                    Debug.Log($"[NexusVFX] Set output setting {propertyName} = {value}");
+                    SynLog.Info($"[NexusVFX] Set output setting {propertyName} = {value}");
                     return;
                 }
                 catch { }
@@ -3980,7 +3981,7 @@ namespace SynapticPro
             if (prop != null && prop.CanWrite)
             {
                 prop.SetValue(context, value);
-                Debug.Log($"[NexusVFX] Set output property {propertyName} = {value}");
+                SynLog.Info($"[NexusVFX] Set output property {propertyName} = {value}");
                 return;
             }
 
@@ -3991,11 +3992,11 @@ namespace SynapticPro
             if (field != null)
             {
                 field.SetValue(context, value);
-                Debug.Log($"[NexusVFX] Set output field {propertyName} = {value}");
+                SynLog.Info($"[NexusVFX] Set output field {propertyName} = {value}");
                 return;
             }
 
-            Debug.LogWarning($"[NexusVFX] Could not find property/field {propertyName} on {contextType.Name}");
+            SynLog.Warn($"[NexusVFX] Could not find property/field {propertyName} on {contextType.Name}");
         }
 
         private static void SetOutputBlendMode(object context, string blendMode)
@@ -4026,7 +4027,7 @@ namespace SynapticPro
 
                 if (blendModeField != null)
                 {
-                    Debug.Log($"[NexusVFX] Found blend field: {fieldName} on {contextType.Name}");
+                    SynLog.Info($"[NexusVFX] Found blend field: {fieldName} on {contextType.Name}");
                     break;
                 }
             }
@@ -4043,18 +4044,18 @@ namespace SynapticPro
                     {
                         // Try setting blendMode via method
                         setSettingMethod.Invoke(context, new object[] { "blendMode", blendMode });
-                        Debug.Log($"[NexusVFX] Set blendMode via SetSettingValue: {blendMode}");
+                        SynLog.Info($"[NexusVFX] Set blendMode via SetSettingValue: {blendMode}");
                         return;
                     }
                     catch
                     {
                         // URP may not have blendMode setting, just skip
-                        Debug.LogWarning($"[NexusVFX] blendMode not supported on {contextType.Name} - skipping");
+                        SynLog.Warn($"[NexusVFX] blendMode not supported on {contextType.Name} - skipping");
                         return;
                     }
                 }
 
-                Debug.LogWarning($"[NexusVFX] Could not find blendMode field on {contextType.Name} - skipping");
+                SynLog.Warn($"[NexusVFX] Could not find blendMode field on {contextType.Name} - skipping");
                 return;
             }
 
@@ -4108,7 +4109,7 @@ namespace SynapticPro
                 if (field != null && field.FieldType == typeof(bool))
                 {
                     field.SetValue(context, true);
-                    Debug.Log($"[NexusVFX] Enabled particle color via {fieldName}");
+                    SynLog.Info($"[NexusVFX] Enabled particle color via {fieldName}");
                     return;
                 }
             }
@@ -4131,7 +4132,7 @@ namespace SynapticPro
                                 valName.Contains("particle") || valName.Contains("color"))
                             {
                                 field.SetValue(context, val);
-                                Debug.Log($"[NexusVFX] Set color mode to {val} via {fieldName}");
+                                SynLog.Info($"[NexusVFX] Set color mode to {val} via {fieldName}");
                                 return;
                             }
                         }
@@ -4147,13 +4148,13 @@ namespace SynapticPro
                 try
                 {
                     setSettingMethod.Invoke(context, new object[] { "useParticleColor", true });
-                    Debug.Log("[NexusVFX] Enabled particle color via SetSettingValue");
+                    SynLog.Info("[NexusVFX] Enabled particle color via SetSettingValue");
                     return;
                 }
                 catch { }
             }
 
-            Debug.Log("[NexusVFX] Could not find particle color setting - may need manual configuration");
+            SynLog.Info("[NexusVFX] Could not find particle color setting - may need manual configuration");
         }
 
         private static FieldInfo FindFieldInHierarchy(Type type, string fieldName)
@@ -4191,17 +4192,17 @@ namespace SynapticPro
                 if (texture != null)
                 {
                     SetOutputProperty(outputContext, "mainTexture", texture);
-                    Debug.Log($"[NexusVFX] Set particle texture: {textureName}");
+                    SynLog.Info($"[NexusVFX] Set particle texture: {textureName}");
                 }
                 else
                 {
-                    Debug.LogWarning($"[NexusVFX] Texture not found: {texturePath}, using default");
+                    SynLog.Warn($"[NexusVFX] Texture not found: {texturePath}, using default");
                     SetDefaultParticleTexture(vfxPath, outputContextIndex);
                 }
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[NexusVFX] Failed to set texture {textureName}: {e.Message}");
+                SynLog.Warn($"[NexusVFX] Failed to set texture {textureName}: {e.Message}");
             }
         }
 
@@ -4223,16 +4224,16 @@ namespace SynapticPro
                 if (particleTexture != null)
                 {
                     SetOutputProperty(outputContext, "mainTexture", particleTexture);
-                    Debug.Log($"[NexusVFX] Set particle texture: {particleTexture.name}");
+                    SynLog.Info($"[NexusVFX] Set particle texture: {particleTexture.name}");
                 }
                 else
                 {
-                    Debug.LogWarning("[NexusVFX] Could not find or create default particle texture");
+                    SynLog.Warn("[NexusVFX] Could not find or create default particle texture");
                 }
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[NexusVFX] Failed to set default texture: {e.Message}");
+                SynLog.Warn($"[NexusVFX] Failed to set default texture: {e.Message}");
             }
         }
 
@@ -4248,7 +4249,7 @@ namespace SynapticPro
             Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(texturePath);
             if (texture != null)
             {
-                Debug.Log($"[NexusVFX] Loaded existing particle texture: {texturePath}");
+                SynLog.Info($"[NexusVFX] Loaded existing particle texture: {texturePath}");
                 return texture;
             }
 
@@ -4310,7 +4311,7 @@ namespace SynapticPro
 
             // Reload the saved texture
             texture = AssetDatabase.LoadAssetAtPath<Texture2D>(texturePath);
-            Debug.Log($"[NexusVFX] Created and saved particle texture: {texturePath}");
+            SynLog.Info($"[NexusVFX] Created and saved particle texture: {texturePath}");
 
             return texture;
         }
@@ -4359,7 +4360,7 @@ namespace SynapticPro
                 // Auto-detect: if contextIndex is -1, find ALL Output contexts with Color gradient blocks
                 if (contextIndex < 0)
                 {
-                    Debug.Log("[NexusVFX] Auto-detecting ALL Color gradient blocks in Output contexts...");
+                    SynLog.Info("[NexusVFX] Auto-detecting ALL Color gradient blocks in Output contexts...");
                     int blocksModified = 0;
 
                     // Search all contexts
@@ -4408,7 +4409,7 @@ namespace SynapticPro
                                         if (SetGradientOnBlock(blk, gradient))
                                         {
                                             blocksModified++;
-                                            Debug.Log($"[NexusVFX] Set gradient on Context {ci}, Block {bi} ({blkTypeName})");
+                                            SynLog.Info($"[NexusVFX] Set gradient on Context {ci}, Block {bi} ({blkTypeName})");
                                         }
                                     }
                                 }
@@ -4445,7 +4446,7 @@ namespace SynapticPro
 
                 if (!gradientSet)
                 {
-                    Debug.LogWarning($"[NexusVFX] Could not find gradient slot to set");
+                    SynLog.Warn($"[NexusVFX] Could not find gradient slot to set");
                 }
 
                 EditorUtility.SetDirty(graph as UnityEngine.Object);
@@ -4486,7 +4487,7 @@ namespace SynapticPro
                         }
                         catch (Exception ex)
                         {
-                            Debug.LogWarning($"[NexusVFX] Failed to set gradient directly: {ex.Message}");
+                            SynLog.Warn($"[NexusVFX] Failed to set gradient directly: {ex.Message}");
 
                             // Try setting via SerializedObject
                             var slotAsObject = slot as UnityEngine.Object;

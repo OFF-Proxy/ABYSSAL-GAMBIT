@@ -5,6 +5,7 @@ using System.Linq;
 using UnityEditor;
 using UnityEditor.Animations;
 using UnityEngine;
+using SynapticAIPro;
 
 namespace SynapticPro
 {
@@ -611,7 +612,7 @@ namespace SynapticPro
         {
             // This would normally set up IK components
             // Actual implementation would depend on the IK solution being used
-            Debug.Log($"IK setup prepared for {characterName}");
+            SynLog.Info($"IK setup prepared for {characterName}");
         }
 
         private static string DetectAnimationType(string clipName)

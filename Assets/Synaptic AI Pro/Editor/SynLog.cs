@@ -12,30 +12,50 @@ namespace SynapticAIPro
     {
         private const string PREF_KEY = "Synaptic.VerboseLog";
 
+        // EditorPrefs.GetBool is main-thread only. Calling it from background
+        // threads (e.g. WebSocket ReceiveAsync handlers) throws and silently
+        // kills the calling Task. We snapshot the value into a volatile bool
+        // on the main thread, and Info/Warn read the cache (thread-safe).
+        // This was the root cause of v1.2.20/v1.2.21 MCP timeout (ESC-0102).
+        private static volatile bool _verboseCached = true;
+        private static bool _initialized = false;
+
+        [InitializeOnLoadMethod]
+        private static void InitVerboseCache()
+        {
+            try { _verboseCached = EditorPrefs.GetBool(PREF_KEY, true); }
+            catch { _verboseCached = true; }
+            _initialized = true;
+        }
+
         public static bool VerboseEnabled
         {
-            get => EditorPrefs.GetBool(PREF_KEY, true);
-            set => EditorPrefs.SetBool(PREF_KEY, value);
+            get => _initialized ? _verboseCached : true;
+            set
+            {
+                _verboseCached = value;
+                try { EditorPrefs.SetBool(PREF_KEY, value); } catch { }
+            }
         }
 
         public static void Info(string msg)
         {
-            if (VerboseEnabled) Debug.Log(msg);
+            if (_verboseCached) Debug.Log(msg);
         }
 
         public static void Info(string msg, Object context)
         {
-            if (VerboseEnabled) Debug.Log(msg, context);
+            if (_verboseCached) Debug.Log(msg, context);
         }
 
         public static void Warn(string msg)
         {
-            if (VerboseEnabled) Debug.LogWarning(msg);
+            if (_verboseCached) Debug.LogWarning(msg);
         }
 
         public static void Warn(string msg, Object context)
         {
-            if (VerboseEnabled) Debug.LogWarning(msg, context);
+            if (_verboseCached) Debug.LogWarning(msg, context);
         }
 
         // Error は常に出力（重要な情報）

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using SynapticAIPro;
 using UnityEditor;
 
 #if CINEMACHINE_2
@@ -317,7 +318,7 @@ namespace SynapticPro
                                   $"  Following: {parameters["follow"]}\n" +
                                   $"  Orbits: Top, Middle, Bottom rigs configured";
 
-                Debug.Log($"[Synaptic] {successMsg}");
+                SynLog.Info($"[Synaptic] {successMsg}");
                 return successMsg;
             }
             catch (Exception e)
@@ -412,7 +413,7 @@ namespace SynapticPro
                 // Note: CM3's InputAxisController speed configuration is done via Driver settings
                 if (parameters.ContainsKey("xAxisSpeed") || parameters.ContainsKey("yAxisSpeed"))
                 {
-                    Debug.Log("[Synaptic] CM3 FreeLook: Input axis speeds configured. Adjust via Inspector if needed.");
+                    SynLog.Info("[Synaptic] CM3 FreeLook: Input axis speeds configured. Adjust via Inspector if needed.");
                 }
 
                 // Priority
@@ -429,7 +430,7 @@ namespace SynapticPro
                                   $"  Components: CinemachineCamera, OrbitalFollow, RotationComposer, InputAxisController\n" +
                                   $"  Following: {parameters["follow"]}";
 
-                Debug.Log($"[Synaptic] {successMsg}");
+                SynLog.Info($"[Synaptic] {successMsg}");
                 return successMsg;
             }
             catch (Exception e)
@@ -2984,7 +2985,7 @@ namespace SynapticPro
                     // Dynamic MaxSpeed modification is not supported in the same way as CM2
                     if (parameters.ContainsKey("horizontalAxis") || parameters.ContainsKey("verticalAxis"))
                     {
-                        Debug.LogWarning("[Synaptic] CM3: POV axis speed configuration not supported via script. Configure in Inspector.");
+                        SynLog.Warn("[Synaptic] CM3: POV axis speed configuration not supported via script. Configure in Inspector.");
                     }
                     break;
 

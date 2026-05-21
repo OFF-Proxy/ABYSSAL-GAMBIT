@@ -1,4 +1,5 @@
 using UnityEngine;
+using SynapticAIPro;
 using UnityEditor;
 using UnityEditor.PackageManager;
 using UnityEditor.PackageManager.Requests;
@@ -34,14 +35,14 @@ namespace SynapticPro
                     if (package.name == NEWTONSOFT_PACKAGE)
                     {
                         isInstalled = true;
-                        Debug.Log($"[Synaptic AI Pro] Newtonsoft.Json is already installed (version {package.version})");
+                        SynLog.Info($"[Synaptic AI Pro] Newtonsoft.Json is already installed (version {package.version})");
                         break;
                     }
                 }
 
                 if (!isInstalled)
                 {
-                    Debug.Log("[Synaptic AI Pro] Newtonsoft.Json not found. Installing...");
+                    SynLog.Info("[Synaptic AI Pro] Newtonsoft.Json not found. Installing...");
                     InstallNewtonsoftJson();
                 }
             }
@@ -68,12 +69,12 @@ namespace SynapticPro
 
             if (addRequest.Status == StatusCode.Success)
             {
-                Debug.Log($"[Synaptic AI Pro] Successfully installed {NEWTONSOFT_PACKAGE}");
+                SynLog.Info($"[Synaptic AI Pro] Successfully installed {NEWTONSOFT_PACKAGE}");
             }
             else if (addRequest.Status >= StatusCode.Failure)
             {
                 Debug.LogError($"[Synaptic AI Pro] Failed to install {NEWTONSOFT_PACKAGE}: {addRequest.Error.message}");
-                Debug.LogWarning("[Synaptic AI Pro] Please install Newtonsoft.Json manually via Package Manager:\n" +
+                SynLog.Warn("[Synaptic AI Pro] Please install Newtonsoft.Json manually via Package Manager:\n" +
                                 "Window > Package Manager > + > Add package by name...\n" +
                                 "Package name: com.unity.nuget.newtonsoft-json");
             }

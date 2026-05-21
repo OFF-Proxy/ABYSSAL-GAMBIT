@@ -141,12 +141,15 @@ public class UnitStatusPanelUI : MonoBehaviour
         CreateBar("ManaBar", new Vector2(17f, -172f), new Color(0.01f, 0.02f, 0.05f, 1f), new Color(0.08f, 0.58f, 1f, 1f), out manaFillRect, out manaText);
 
         CreateStatRows();
-        skillTitleText = CreateText("SkillTitle", panelRect, new Vector2(20f, -334f), new Vector2(244f, 24f), 17f, FontStyles.Bold, new Color(0.35f, 0.95f, 1f, 1f));
-        skillScalingText = CreateText("SkillScaling", panelRect, new Vector2(20f, -358f), new Vector2(48f, 22f), 13f, FontStyles.Bold, new Color(0.75f, 0.95f, 1f, 1f));
+        skillTitleText = CreateText("SkillTitle", panelRect, new Vector2(20f, -354f), new Vector2(244f, 24f), 17f, FontStyles.Bold, new Color(0.35f, 0.95f, 1f, 1f));
+        skillScalingText = CreateText("SkillScaling", panelRect, new Vector2(20f, -378f), new Vector2(48f, 22f), 13f, FontStyles.Bold, new Color(0.75f, 0.95f, 1f, 1f));
         skillScalingText.enableWordWrapping = false;
         CreateSkillScalingIcons();
-        skillBodyText = CreateText("SkillBody", panelRect, new Vector2(20f, -382f), new Vector2(244f, 70f), 14f, FontStyles.Normal, new Color(0.86f, 0.93f, 1f, 1f));
-        itemTitleText = CreateText("ItemsTitle", panelRect, new Vector2(20f, -430f), new Vector2(244f, 24f), 17f, FontStyles.Bold, new Color(1f, 0.86f, 0.35f, 1f));
+        skillBodyText = CreateText("SkillBody", panelRect, new Vector2(20f, -402f), new Vector2(244f, 68f), 14f, FontStyles.Normal, new Color(0.86f, 0.93f, 1f, 1f));
+        skillBodyText.enableAutoSizing = true;
+        skillBodyText.fontSizeMin = 10f;
+        skillBodyText.fontSizeMax = 14f;
+        itemTitleText = CreateText("ItemsTitle", panelRect, new Vector2(20f, -468f), new Vector2(244f, 24f), 17f, FontStyles.Bold, new Color(1f, 0.86f, 0.35f, 1f));
 
         for (int i = 0; i < 3; i++)
             CreateItemRow(i);
@@ -212,7 +215,7 @@ public class UnitStatusPanelUI : MonoBehaviour
         skillTitleText.text = LocalizationManager.IsJapanese
             ? $"スキル: {GetSkillName(selectedEntity.skillType)}"
             : $"Skill: {GetSkillName(selectedEntity.skillType)}";
-        UpdateSkillScalingIcons(selectedEntity.skillType);
+        UpdateSkillScalingIcons(selectedEntity);
         skillBodyText.text = BuildSkillText(selectedEntity);
         UpdateItemRows(selectedEntity);
     }
@@ -263,21 +266,23 @@ public class UnitStatusPanelUI : MonoBehaviour
     // 攻撃力や秘力など、アイコン付きで常に見たいステータス行を作成します。
     private void CreateStatRows()
     {
-        CreateStatRow(StatIconKind.Health, -205f);
-        CreateStatRow(StatIconKind.AttackPower, -229f);
-        CreateStatRow(StatIconKind.AttackSpeed, -253f);
-        CreateStatRow(StatIconKind.DamageReduction, -277f);
-        CreateStatRow(StatIconKind.Focus, -301f);
+        CreateStatRow(StatIconKind.Health, -203f);
+        CreateStatRow(StatIconKind.AttackPower, -224f);
+        CreateStatRow(StatIconKind.AttackSpeed, -245f);
+        CreateStatRow(StatIconKind.Range, -266f);
+        CreateStatRow(StatIconKind.MovementSpeed, -287f);
+        CreateStatRow(StatIconKind.DamageReduction, -308f);
+        CreateStatRow(StatIconKind.Focus, -329f);
     }
 
     // ステータス1行分のアイコンと数値テキストを作成します。
     private void CreateStatRow(StatIconKind iconKind, float y)
     {
-        Image icon = CreateImage($"{iconKind}Icon", panelRect, new Vector2(20f, y), new Vector2(20f, 20f), Color.white);
+        Image icon = CreateImage($"{iconKind}Icon", panelRect, new Vector2(20f, y), new Vector2(18f, 18f), Color.white);
         icon.sprite = StatIconLibrary.GetSprite(iconKind);
         icon.preserveAspect = true;
 
-        TextMeshProUGUI valueText = CreateText($"{iconKind}Value", panelRect, new Vector2(48f, y + 1f), new Vector2(220f, 22f), 14f, FontStyles.Normal, new Color(0.92f, 0.98f, 1f, 1f));
+        TextMeshProUGUI valueText = CreateText($"{iconKind}Value", panelRect, new Vector2(45f, y + 1f), new Vector2(223f, 20f), 13f, FontStyles.Normal, new Color(0.92f, 0.98f, 1f, 1f));
         valueText.enableWordWrapping = false;
         valueText.overflowMode = TextOverflowModes.Ellipsis;
 
@@ -290,7 +295,7 @@ public class UnitStatusPanelUI : MonoBehaviour
     {
         for (int i = 0; i < 3; i++)
         {
-            Image icon = CreateImage($"SkillScaleIcon{i + 1}", panelRect, new Vector2(68f + i * 24f, -356f), new Vector2(19f, 19f), Color.white);
+            Image icon = CreateImage($"SkillScaleIcon{i + 1}", panelRect, new Vector2(68f + i * 24f, -376f), new Vector2(19f, 19f), Color.white);
             icon.preserveAspect = true;
             icon.gameObject.SetActive(false);
             skillScalingIcons.Add(icon);
@@ -315,7 +320,7 @@ public class UnitStatusPanelUI : MonoBehaviour
     // アイテム3枠のうち、1行分を作成します。
     private void CreateItemRow(int index)
     {
-        float y = -456f - index * 49f;
+        float y = -494f - index * 49f;
         Image iconBack = CreateImage($"ItemSlot{index + 1}", panelRect, new Vector2(20f, y), new Vector2(42f, 42f), new Color(0.02f, 0.05f, 0.06f, 1f));
         Image icon = CreateImage($"ItemIcon{index + 1}", iconBack.rectTransform, new Vector2(4f, -4f), new Vector2(34f, 34f), Color.white);
         icon.preserveAspect = true;
@@ -345,22 +350,25 @@ public class UnitStatusPanelUI : MonoBehaviour
     // 基本ステータス行へ、現在値をアイコン横に表示します。
     private void UpdateStatRows(BaseEntity entity)
     {
-        if (statRowTexts.Count < 5)
+        if (statRowTexts.Count < 7)
             return;
 
-        string rangeLabel = LocalizationManager.IsJapanese ? "射程" : "Range";
         string itemLabel = LocalizationManager.IsJapanese ? "アイテム" : "Items";
         statRowTexts[0].text = $"{StatIconLibrary.GetLabel(StatIconKind.Health)} {entity.CurrentHealth}/{entity.MaxHealth}";
         statRowTexts[1].text = $"{StatIconLibrary.GetLabel(StatIconKind.AttackPower)} {entity.baseDamage}  ★{entity.StarLevel}";
-        statRowTexts[2].text = $"{StatIconLibrary.GetLabel(StatIconKind.AttackSpeed)} {entity.attackSpeed:0.00}/s  {rangeLabel} {entity.range}";
-        statRowTexts[3].text = $"{StatIconLibrary.GetLabel(StatIconKind.DamageReduction)} {LocalizationManager.FormatPercent(GetDamageReduction(entity))}";
-        statRowTexts[4].text = $"{StatIconLibrary.GetLabel(StatIconKind.Focus)} {LocalizationManager.FormatPercent(GetFocusBonus(entity))}  {itemLabel} {entity.EquippedItems.Count}/3";
+        statRowTexts[2].text = $"{StatIconLibrary.GetLabel(StatIconKind.AttackSpeed)} {entity.attackSpeed:0.00}/s";
+        statRowTexts[3].text = $"{StatIconLibrary.GetLabel(StatIconKind.Range)} {entity.range}";
+        statRowTexts[4].text = $"{StatIconLibrary.GetLabel(StatIconKind.MovementSpeed)} {entity.movementSpeed:0.00}";
+        statRowTexts[5].text = $"{StatIconLibrary.GetLabel(StatIconKind.DamageReduction)} {LocalizationManager.FormatPercent(GetDamageReduction(entity))}";
+        statRowTexts[6].text = $"{StatIconLibrary.GetLabel(StatIconKind.Focus)} {LocalizationManager.FormatPercent(GetFocusBonus(entity))}  {itemLabel} {entity.EquippedItems.Count}/3";
     }
 
     // スキルが参照する値を、説明文の直上にアイコンとして表示します。
-    private void UpdateSkillScalingIcons(UnitSkillType skillType)
+    private void UpdateSkillScalingIcons(BaseEntity entity)
     {
-        List<StatIconKind> icons = StatIconLibrary.GetSkillScalingIcons(skillType);
+        List<StatIconKind> icons = entity != null && entity.SkillUsesFocusOnly
+            ? new List<StatIconKind> { StatIconKind.Focus }
+            : StatIconLibrary.GetSkillScalingIcons(entity != null ? entity.skillType : UnitSkillType.PowerStrike);
         skillScalingText.text = LocalizationManager.IsJapanese ? "参照" : "Uses";
 
         for (int i = 0; i < skillScalingIcons.Count; i++)
@@ -382,52 +390,114 @@ public class UnitStatusPanelUI : MonoBehaviour
     // スキルの効果量を、現在ステータスと装備アイテム込みで説明します。
     private string BuildSkillText(BaseEntity entity)
     {
+        string baseText;
         if (LocalizationManager.IsJapanese)
         {
             switch (entity.skillType)
             {
                 case UnitSkillType.SelfHeal:
-                    return $"マナ最大時、自身のHPを{GetSelfHealAmount(entity)}回復する。";
+                    baseText = $"マナ最大時、自身のHPを{GetSelfHealAmount(entity)}回復する。";
+                    break;
                 case UnitSkillType.AllyHeal:
-                    return $"最も傷ついた味方のHPを{GetAllyHealAmount(entity)}回復する。";
+                    baseText = $"最も傷ついた味方のHPを{GetAllyHealAmount(entity)}回復する。";
+                    break;
                 case UnitSkillType.Shield:
-                    return $"{GetSkillDuration(entity, entity.skillShieldDuration, true):0.#}秒間、HP{GetShieldAmount(entity)}分の白いシールドを得る。";
+                    baseText = $"{GetSkillDuration(entity, entity.skillShieldDuration, true):0.#}秒間、HP{GetShieldAmount(entity)}分の白いシールドを得る。";
+                    break;
                 case UnitSkillType.AttackSpeedBoost:
-                    return $"{GetSkillDuration(entity, entity.skillBuffDuration, true):0.#}秒間、攻撃速度を{FormatPercent(GetBoostAmount(entity, entity.skillAttackSpeedBoostMultiplier))}上げる。";
+                    baseText = $"{GetSkillDuration(entity, entity.skillBuffDuration, true):0.#}秒間、攻撃速度を{FormatPercent(GetBoostAmount(entity, entity.skillAttackSpeedBoostMultiplier))}上げる。";
+                    break;
                 case UnitSkillType.Stun:
-                    return $"対象を{GetSkillDuration(entity, entity.skillStunDuration, false):0.#}秒間スタンさせる。";
+                    baseText = $"対象を{GetSkillDuration(entity, entity.skillStunDuration, false):0.#}秒間スタンさせる。";
+                    break;
                 case UnitSkillType.Slow:
-                    return $"{GetSkillDuration(entity, entity.skillSlowDuration, true):0.#}秒間、対象の攻撃速度を{FormatPercent(GetSlowAmount(entity))}下げる。";
+                    baseText = $"{GetSkillDuration(entity, entity.skillSlowDuration, true):0.#}秒間、対象の攻撃速度を{FormatPercent(GetSlowAmount(entity))}下げる。";
+                    break;
                 case UnitSkillType.DamageBoost:
-                    return $"{GetSkillDuration(entity, entity.skillBuffDuration, true):0.#}秒間、通常攻撃ダメージを{FormatPercent(GetBoostAmount(entity, entity.skillDamageBoostMultiplier))}上げる。";
+                    baseText = $"{GetSkillDuration(entity, entity.skillBuffDuration, true):0.#}秒間、通常攻撃ダメージを{FormatPercent(GetBoostAmount(entity, entity.skillDamageBoostMultiplier))}上げる。";
+                    break;
                 case UnitSkillType.AreaDamage:
-                    return $"対象の周囲{entity.skillAreaRadius:0.#}マスに{GetAreaDamage(entity)}ダメージを与える。";
+                    baseText = $"対象の周囲{entity.skillAreaRadius:0.#}マスに{GetAreaDamage(entity)}ダメージを与える。";
+                    break;
                 default:
-                    return $"次の攻撃で{GetPowerStrikeDamage(entity)}ダメージを与える。";
+                    baseText = $"次の攻撃で{GetPowerStrikeDamage(entity)}ダメージを与える。";
+                    break;
             }
+
+            return AppendExtraSkillText(entity, baseText);
         }
 
         switch (entity.skillType)
         {
             case UnitSkillType.SelfHeal:
-                return $"Restores {GetSelfHealAmount(entity)} HP to itself when MP is full.";
+                baseText = $"Restores {GetSelfHealAmount(entity)} HP to itself when MP is full.";
+                break;
             case UnitSkillType.AllyHeal:
-                return $"Restores {GetAllyHealAmount(entity)} HP to the most damaged ally.";
+                baseText = $"Restores {GetAllyHealAmount(entity)} HP to the most damaged ally.";
+                break;
             case UnitSkillType.Shield:
-                return $"Gains a white shield for {GetShieldAmount(entity)} HP during {GetSkillDuration(entity, entity.skillShieldDuration, true):0.#}s.";
+                baseText = $"Gains a white shield for {GetShieldAmount(entity)} HP during {GetSkillDuration(entity, entity.skillShieldDuration, true):0.#}s.";
+                break;
             case UnitSkillType.AttackSpeedBoost:
-                return $"Increases attack speed by {FormatPercent(GetBoostAmount(entity, entity.skillAttackSpeedBoostMultiplier))} for {GetSkillDuration(entity, entity.skillBuffDuration, true):0.#}s.";
+                baseText = $"Increases attack speed by {FormatPercent(GetBoostAmount(entity, entity.skillAttackSpeedBoostMultiplier))} for {GetSkillDuration(entity, entity.skillBuffDuration, true):0.#}s.";
+                break;
             case UnitSkillType.Stun:
-                return $"Stops the target for {GetSkillDuration(entity, entity.skillStunDuration, false):0.#}s.";
+                baseText = $"Stops the target for {GetSkillDuration(entity, entity.skillStunDuration, false):0.#}s.";
+                break;
             case UnitSkillType.Slow:
-                return $"Lowers target attack speed by {FormatPercent(GetSlowAmount(entity))} for {GetSkillDuration(entity, entity.skillSlowDuration, true):0.#}s.";
+                baseText = $"Lowers target attack speed by {FormatPercent(GetSlowAmount(entity))} for {GetSkillDuration(entity, entity.skillSlowDuration, true):0.#}s.";
+                break;
             case UnitSkillType.DamageBoost:
-                return $"Increases normal attack damage by {FormatPercent(GetBoostAmount(entity, entity.skillDamageBoostMultiplier))} for {GetSkillDuration(entity, entity.skillBuffDuration, true):0.#}s.";
+                baseText = $"Increases normal attack damage by {FormatPercent(GetBoostAmount(entity, entity.skillDamageBoostMultiplier))} for {GetSkillDuration(entity, entity.skillBuffDuration, true):0.#}s.";
+                break;
             case UnitSkillType.AreaDamage:
-                return $"Deals {GetAreaDamage(entity)} damage around the target within {entity.skillAreaRadius:0.#} cells.";
+                baseText = $"Deals {GetAreaDamage(entity)} damage around the target within {entity.skillAreaRadius:0.#} cells.";
+                break;
             default:
-                return $"Next attack deals {GetPowerStrikeDamage(entity)} damage.";
+                baseText = $"Next attack deals {GetPowerStrikeDamage(entity)} damage.";
+                break;
         }
+
+        return AppendExtraSkillText(entity, baseText);
+    }
+
+    // ユニット固有の追加効果やパッシブを、基本スキル説明に追記します。
+    private string AppendExtraSkillText(BaseEntity entity, string baseText)
+    {
+        StringBuilder builder = new StringBuilder(baseText);
+        string id = GetNormalizedUnitId(entity);
+        bool japanese = LocalizationManager.IsJapanese;
+
+        if (id == "city")
+            builder.Append(japanese ? $" 周囲{Mathf.Max(2f, entity.skillAreaRadius):0.#}マスの味方にも付与。" : $" Also affects allies within {Mathf.Max(2f, entity.skillAreaRadius):0.#} cells.");
+        else if (id == "candypanda" || id == "snowchasermk")
+            builder.Append(japanese ? $" 主対象の周囲{entity.skillAreaRadius:0.#}マスの味方も少し回復。" : $" Also lightly heals allies within {entity.skillAreaRadius:0.#} cells of the main target.");
+
+        if (id == "vampire" || id == "maehvmk")
+            builder.Append(japanese ? " 命中した敵の攻撃速度も短時間低下。" : " Hit enemies are also briefly slowed.");
+
+        if (id == "cindera" || id == "solfist")
+            builder.Append(japanese ? " 命中後、燃焼で追加ダメージ。" : " Hit enemies also take burn damage.");
+
+        if (id == "shadowlord")
+            builder.Append(japanese ? " 最も遠い敵へ飛び込み、短時間狙われにくくなる。" : " Leaps to the farthest enemy and becomes briefly untargetable.");
+        else if (id == "skindogehai")
+            builder.Append(japanese ? " 最も遠い敵へ飛び込み、対象を短時間スタンさせる。" : " Leaps to the farthest enemy and briefly stuns the target.");
+
+        if (id == "borealjuggernaut")
+            builder.Append(japanese ? "\nパッシブ: 通常攻撃が対象の周囲にも命中。マナ獲得は1回分。" : "\nPassive: Normal attacks also hit adjacent enemies. Mana gain counts once.");
+
+        return builder.ToString();
+    }
+
+    // CloneやStar表記を外し、小文字の比較用IDへ変換します。
+    private string GetNormalizedUnitId(BaseEntity entity)
+    {
+        if (entity == null)
+            return string.Empty;
+
+        string cleanName = LocalizationManager.CleanUnitName(entity.UnitId);
+        return string.IsNullOrEmpty(cleanName) ? string.Empty : cleanName.ToLowerInvariant();
     }
 
     // 装備アイテムのアイコンと効果説明を3枠へ反映します。
@@ -468,13 +538,13 @@ public class UnitStatusPanelUI : MonoBehaviour
     // 自身回復スキルの回復量を計算します。
     private int GetSelfHealAmount(BaseEntity entity)
     {
-        return Mathf.Max(1, Mathf.RoundToInt((entity.skillFlatHeal + entity.MaxHealth * Mathf.Max(0f, entity.skillHealPercent)) * GetSkillEffectMultiplier(entity, true)));
+        return Mathf.Max(1, Mathf.RoundToInt((entity.skillFlatHeal + entity.MaxHealth * Mathf.Max(0f, entity.skillHealPercent)) * GetSkillEffectMultiplier(entity, true) * 0.78f));
     }
 
     // 味方回復スキルの回復量を計算します。
     private int GetAllyHealAmount(BaseEntity entity)
     {
-        return Mathf.Max(1, Mathf.RoundToInt((entity.skillFlatAllyHeal + entity.MaxHealth * Mathf.Max(0f, entity.skillAllyHealPercent)) * GetSkillEffectMultiplier(entity, true)));
+        return Mathf.Max(1, Mathf.RoundToInt((entity.skillFlatAllyHeal + entity.MaxHealth * Mathf.Max(0f, entity.skillAllyHealPercent)) * GetSkillEffectMultiplier(entity, true) * 0.78f));
     }
 
     // シールドスキルの付与量を計算します。
@@ -486,25 +556,30 @@ public class UnitStatusPanelUI : MonoBehaviour
     // 強力な一撃スキルのダメージ量を計算します。
     private int GetPowerStrikeDamage(BaseEntity entity)
     {
-        return Mathf.Max(1, Mathf.RoundToInt(entity.baseDamage * entity.skillDamageMultiplier * GetSkillEffectMultiplier(entity, true)));
+        float baseValue = entity.SkillUsesFocusOnly ? entity.SkillBasePower : entity.baseDamage;
+        return Mathf.Max(1, Mathf.RoundToInt(baseValue * entity.skillDamageMultiplier * GetSkillEffectMultiplier(entity, true)));
     }
 
     // 範囲ダメージスキルのダメージ量を計算します。
     private int GetAreaDamage(BaseEntity entity)
     {
-        return Mathf.Max(1, Mathf.RoundToInt(entity.baseDamage * entity.skillAreaDamageMultiplier * GetSkillEffectMultiplier(entity, true)));
+        float baseValue = entity.SkillUsesFocusOnly ? entity.SkillBasePower : entity.baseDamage;
+        return Mathf.Max(1, Mathf.RoundToInt(baseValue * entity.skillAreaDamageMultiplier * GetSkillEffectMultiplier(entity, true)));
     }
 
     // 装備中アイテムによる被ダメージ軽減率を合計します。
     private float GetDamageReduction(BaseEntity entity)
     {
-        return Mathf.Clamp(entity.EquippedItems.Sum(item => item != null ? item.damageReductionPercent : 0f), 0f, 0.7f);
+        return entity != null ? entity.DamageReduction : 0f;
     }
 
-    // 秘力アイテムの合計値を返します。表示ではこの値をそのまま%化します。
+    // 秘力アイテムの合計値を、ユニットごとの秘力適性込みで返します。
     private float GetFocusBonus(BaseEntity entity)
     {
-        return entity.EquippedItems.Sum(item => item != null ? item.skillPowerPercent : 0f);
+        if (entity == null)
+            return 0f;
+
+        return entity.EquippedItems.Sum(item => item != null ? item.skillPowerPercent : 0f) * Mathf.Max(0.1f, entity.focusInfluence);
     }
 
     // ★によるスキル全体強化を返します。スタンもこの倍率だけは受けます。

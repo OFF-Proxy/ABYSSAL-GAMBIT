@@ -8,6 +8,8 @@ public enum StatIconKind
     AttackPower,
     Health,
     AttackSpeed,
+    Range,
+    MovementSpeed,
     DamageReduction,
     Focus
 }
@@ -64,6 +66,10 @@ public static class StatIconLibrary
                     return "体力";
                 case StatIconKind.AttackSpeed:
                     return "攻撃速度";
+                case StatIconKind.Range:
+                    return "射程";
+                case StatIconKind.MovementSpeed:
+                    return "移動速度";
                 case StatIconKind.DamageReduction:
                     return "軽減";
                 case StatIconKind.Focus:
@@ -81,6 +87,10 @@ public static class StatIconLibrary
                 return "Health";
             case StatIconKind.AttackSpeed:
                 return "Atk Speed";
+            case StatIconKind.Range:
+                return "Range";
+            case StatIconKind.MovementSpeed:
+                return "Move Speed";
             case StatIconKind.DamageReduction:
                 return "Reduction";
             case StatIconKind.Focus:
@@ -160,6 +170,10 @@ public static class StatIconLibrary
                 return IconRoot + "health_green_heart_80";
             case StatIconKind.AttackSpeed:
                 return IconRoot + "attack_speed_arrow_80";
+            case StatIconKind.Range:
+                return IconRoot + "range_icon_80_transparent";
+            case StatIconKind.MovementSpeed:
+                return IconRoot + "movement_speed_icon_80_transparent";
             case StatIconKind.DamageReduction:
                 return IconRoot + "damage_reduction_shield_80";
             case StatIconKind.Focus:

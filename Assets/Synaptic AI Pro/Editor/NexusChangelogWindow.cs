@@ -162,6 +162,73 @@ namespace SynapticPro
                 richText = true
             };
 
+            // v1.2.22
+            GUILayout.Label(L("v1.2.22 - EMERGENCY HOTFIX: MCP timeout (ESC-0102)", "v1.2.22 - 緊急修正: MCP timeout 問題 (ESC-0102)"), sectionStyle);
+            GUILayout.Space(5);
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+
+            GUILayout.Label(L("<b>★ Critical fix: MCP timeout after v1.2.20/21 update</b>", "<b>★ 重要修正: v1.2.20/21 アップデート後の MCP タイムアウト</b>"), itemStyle);
+            GUILayout.Label(L("• SynLog.Info called EditorPrefs.GetBool on every log — main-thread only, threw silently on background WebSocket Receive thread and killed the listener Task", "• SynLog.Info が毎回 EditorPrefs.GetBool を呼び、これがメインスレッド限定だったため WebSocket 受信スレッドで例外を投げ、リスナータスクが silent kill されていた"), itemStyle);
+            GUILayout.Label(L("• Fix: SynLog now caches verbose flag in a volatile bool, initialized via [InitializeOnLoadMethod]", "• 修正: SynLog の verbose flag を volatile bool でキャッシュ、[InitializeOnLoadMethod] で初期化"), itemStyle);
+
+            GUILayout.Space(5);
+            GUILayout.Label(L("<b>★ Fix: NexusEditorMCPService reconnect storm</b>", "<b>★ 修正: NexusEditorMCPService 再接続ストーム</b>"), itemStyle);
+            GUILayout.Label(L("• lastConnectionCheckTime was written via Stopwatch-since-classload but compared against Time.realtimeSinceStartup. After domain reload Stopwatch reset to 0 → reconnect gate always true → reconnects every frame", "• lastConnectionCheckTime が Stopwatch ベースで書き込まれ、Time.realtimeSinceStartup で読まれていた。ドメインリロード後に Stopwatch=0 になり差分が常に大きく、毎フレーム再接続ループ発生"), itemStyle);
+            GUILayout.Label(L("• Fix: ThreadSafeTime() now calibrates against Time.realtimeSinceStartup on first main-thread tick", "• 修正: ThreadSafeTime() を初回 main-thread tick で Time.realtimeSinceStartup と同期キャリブレーション"), itemStyle);
+
+            GUILayout.Space(5);
+            GUILayout.Label(L("<b>★ New: unity_run_csharp tool (equivalent of Blender's run_python)</b>", "<b>★ 新規: unity_run_csharp ツール (Blender run_python 相当)</b>"), itemStyle);
+            GUILayout.Label(L("• Execute arbitrary C# against the running Editor — UnityEngine / UnityEditor / Linq / Newtonsoft.Json pre-imported", "• 任意 C# を Editor 内で実行可能。UnityEngine / UnityEditor / Linq / Newtonsoft.Json プリインポート済み"), itemStyle);
+            GUILayout.Label(L("• Uses Mono.CSharp.Evaluator instance API + AppDomain assembly injection, does NOT trigger AssemblyReload", "• Mono.CSharp.Evaluator のインスタンス API + AppDomain アセンブリ注入。AssemblyReload を起こさない"), itemStyle);
+            GUILayout.Label(L("• Promoted to a SuperSave top-level meta-tool for direct invocation", "• SuperSave のトップレベル meta-tool に昇格、直接呼び出し可"), itemStyle);
+
+            GUILayout.Space(5);
+            GUILayout.Label(L("<b>★ Diagnostics</b>", "<b>★ 診断改善</b>"), itemStyle);
+            GUILayout.Label(L("• index-supersave.js: ws error handlers, send callback, connection diagnostics", "• index-supersave.js: ws エラーハンドラ、send コールバック、接続診断ログ追加"), itemStyle);
+            GUILayout.Label(L("• NexusWebSocketClient.ReceiveLoop (HTTP path): fixed missing EndOfMessage concatenation that truncated >4KB messages", "• NexusWebSocketClient.ReceiveLoop (HTTP 経路): 4KB 超メッセージが切れる EndOfMessage 連結欠落バグ修正"), itemStyle);
+
+            EditorGUILayout.EndVertical();
+            GUILayout.Space(15);
+
+            // v1.2.21
+            GUILayout.Label(L("v1.2.21 - Windows HTTP Server Cascade Kill Fix (ESC-0095)", "v1.2.21 - Windows HTTP サーバー連鎖死問題の修正 (ESC-0095)"), sectionStyle);
+            GUILayout.Space(5);
+
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+
+            GUILayout.Label(L("<b>★ Root cause finally identified</b>", "<b>★ 長年未解決だった根本原因を特定</b>"), itemStyle);
+            GUILayout.Label(L("• Unity Editor on Windows assigns itself a Win32 Job Object with KILL_ON_JOB_CLOSE", "• Unity Editor (Windows) は自身を Win32 Job Object に登録し KILL_ON_JOB_CLOSE フラグで管理している"), itemStyle);
+            GUILayout.Label(L("• Process.Start children inherit the Job and die on assembly reload / PlayMode transitions", "• Process.Start で起動した子プロセスはこの Job を継承し、アセンブリリロード / PlayMode 遷移で殺される"), itemStyle);
+            GUILayout.Label(L("• This is why the v1.2.10 → v1.2.11 internal→external rewrite did not fix it (node.exe was still in Unity's Job)", "• v1.2.10 → v1.2.11 で内部 C# → 外部 Node.js に切り出しても改善しなかったのはこのため (node.exe も Unity の Job 内にいた)"), itemStyle);
+
+            GUILayout.Space(5);
+            GUILayout.Label(L("<b>★ Fix: CreateProcessW with CREATE_BREAKAWAY_FROM_JOB</b>", "<b>★ 修正: CreateProcessW + CREATE_BREAKAWAY_FROM_JOB</b>"), itemStyle);
+            GUILayout.Label(L("• On Windows, node.exe is now spawned via P/Invoke CreateProcessW with BREAKAWAY_FROM_JOB | DETACHED_PROCESS | NEW_PROCESS_GROUP", "• Windows では P/Invoke で CreateProcessW を直接呼び、BREAKAWAY_FROM_JOB | DETACHED_PROCESS | NEW_PROCESS_GROUP を立てて spawn"), itemStyle);
+            GUILayout.Label(L("• The spawned node.exe now runs fully independent of Unity's Job Object", "• 起動した node.exe は Unity の Job から完全に独立"), itemStyle);
+            GUILayout.Label(L("• Same technique used by Unity's own Burst Compiler (BclApp.cs)", "• Unity 公式の Burst Compiler (BclApp.cs) と同じ技法"), itemStyle);
+
+            GUILayout.Space(5);
+            GUILayout.Label(L("<b>★ Fix: PID Recovery After Domain Reload</b>", "<b>★ 修正: ドメインリロード後の PID 復元</b>"), itemStyle);
+            GUILayout.Label(L("• Node PID stored in SessionState + EditorPrefs", "• Node PID を SessionState + EditorPrefs に保存"), itemStyle);
+            GUILayout.Label(L("• [InitializeOnLoadMethod] re-attaches by PID after reload and reconnects WebSocket only", "• [InitializeOnLoadMethod] でリロード後に PID から再接続。WebSocket だけ繋ぎ直し"), itemStyle);
+            GUILayout.Label(L("• No more 'Connect Unity Only' button required after script edits", "• スクリプト編集後に 'Connect Unity Only' を押す必要が無くなる"), itemStyle);
+
+            GUILayout.Space(5);
+            GUILayout.Label(L("<b>★ Fix: Parent-PID Watchdog (orphan guard)</b>", "<b>★ 修正: 親 PID watchdog (孤児防止)</b>"), itemStyle);
+            GUILayout.Label(L("• http-server.js now self-terminates 5s after Unity dies", "• http-server.js は Unity 死亡後 5秒以内に self-exit"), itemStyle);
+            GUILayout.Label(L("• Prevents zombie node.exe even when BREAKAWAY succeeds", "• BREAKAWAY 成功時でも node.exe ゾンビ化を防止"), itemStyle);
+
+            GUILayout.Space(5);
+            GUILayout.Label(L("<b>★ Change: Detached log file</b>", "<b>★ 変更: detached モードのログファイル化</b>"), itemStyle);
+            GUILayout.Label(L("• DETACHED_PROCESS breaks stdout pipes, so node now writes to MCPServer/logs/http-server.log", "• DETACHED_PROCESS では stdout パイプが使えないため node 側でログファイル直書き (MCPServer/logs/http-server.log)"), itemStyle);
+
+            GUILayout.Space(5);
+            GUILayout.Label(L("<b>★ macOS / Linux behaviour unchanged</b>", "<b>★ macOS / Linux は従来通り</b>"), itemStyle);
+            GUILayout.Label(L("• No Job-Object-equivalent cascade-kill on these platforms — legacy Process.Start path retained", "• Job Object 相当の仕組みが無いため、従来の Process.Start 経路を維持"), itemStyle);
+
+            EditorGUILayout.EndVertical();
+            GUILayout.Space(15);
+
             // v1.2.20
             GUILayout.Label(L("v1.2.20 - Async Crash Fix & Log Cleanup", "v1.2.20 - 非同期クラッシュ修正 & ログ整理"), sectionStyle);
             GUILayout.Space(5);
@@ -635,7 +702,7 @@ namespace SynapticPro
         {
             EditorPrefs.DeleteKey(PREF_KEY_LAST_VERSION);
             EditorPrefs.DeleteKey(PREF_KEY_DONT_SHOW);
-            Debug.Log("[Synaptic] Changelog preference reset. Will show on next startup.");
+            SynLog.Info("[Synaptic] Changelog preference reset. Will show on next startup.");
         }
     }
 }

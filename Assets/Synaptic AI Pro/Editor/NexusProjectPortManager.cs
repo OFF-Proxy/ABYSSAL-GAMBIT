@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using UnityEngine;
+using SynapticAIPro;
 using UnityEditor;
 using Newtonsoft.Json;
 
@@ -51,8 +52,8 @@ namespace SynapticPro
             string projectPath = Application.dataPath;
             projectId = GetProjectId(projectPath);
 
-            Debug.Log($"[Nexus Port Manager] Project ID: {projectId}");
-            Debug.Log($"[Nexus Port Manager] Project Path: {projectPath}");
+            SynLog.Info($"[Nexus Port Manager] Project ID: {projectId}");
+            SynLog.Info($"[Nexus Port Manager] Project Path: {projectPath}");
 
             // Assign port
             AssignPort();
@@ -91,7 +92,7 @@ namespace SynapticPro
                 info.lastUpdated = DateTime.Now;
                 info.isActive = true;
                 info.projectName = PlayerSettings.productName;
-                Debug.Log($"[Nexus Port Manager] Using existing port: {assignedPort}");
+                SynLog.Info($"[Nexus Port Manager] Using existing port: {assignedPort}");
             }
             else
             {
@@ -105,7 +106,7 @@ namespace SynapticPro
                     lastUpdated = DateTime.Now,
                     isActive = true
                 };
-                Debug.Log($"[Nexus Port Manager] Assigned new port: {assignedPort}");
+                SynLog.Info($"[Nexus Port Manager] Assigned new port: {assignedPort}");
             }
 
             SaveMapping(mapping);
@@ -164,7 +165,7 @@ namespace SynapticPro
                         // If actual port differs from assigned port, prioritize actual port
                         if (actualPort != assignedPort && IsPortInUse(actualPort))
                         {
-                            Debug.Log($"[Nexus Port Manager] MCP Server is actually running on port {actualPort}, not {assignedPort}. Keeping actual port.");
+                            SynLog.Info($"[Nexus Port Manager] MCP Server is actually running on port {actualPort}, not {assignedPort}. Keeping actual port.");
                             assignedPort = actualPort;
 
                             // Update mapping
@@ -182,7 +183,7 @@ namespace SynapticPro
                 // Only use saved port if actual server not found
                 string serverUrl = $"ws://localhost:{assignedPort}";
                 NexusEditorMCPService.SetServerUrl(serverUrl);
-                Debug.Log($"[Nexus Port Manager] Updated MCP Service URL: {serverUrl}");
+                SynLog.Info($"[Nexus Port Manager] Updated MCP Service URL: {serverUrl}");
             }
         }
 
@@ -260,7 +261,7 @@ namespace SynapticPro
                     json = json.Trim();
                     if (string.IsNullOrEmpty(json))
                     {
-                        Debug.LogWarning("[Nexus Port Manager] Mapping file is empty, creating new mapping.");
+                        SynLog.Warn("[Nexus Port Manager] Mapping file is empty, creating new mapping.");
                         return new ProjectPortMapping();
                     }
                     
@@ -285,7 +286,7 @@ namespace SynapticPro
                 {
                     string backupPath = MAPPING_FILE_PATH + ".backup";
                     File.Move(MAPPING_FILE_PATH, backupPath);
-                    Debug.Log($"[Nexus Port Manager] Corrupted file backed up to: {backupPath}");
+                    SynLog.Info($"[Nexus Port Manager] Corrupted file backed up to: {backupPath}");
                 }
                 catch { }
                 
@@ -380,7 +381,7 @@ namespace SynapticPro
                 info.AppendLine($"   Last Updated: {project.lastUpdated}");
             }
             
-            Debug.Log(info.ToString());
+            SynLog.Info(info.ToString());
             EditorUtility.DisplayDialog("Port Mapping", info.ToString(), "OK");
         }
     }

@@ -41,6 +41,8 @@ public class HealthBar : MonoBehaviour
 
     // ゲージの隙間を隠すためのマスク色と、各ゲージの色です。
     public Color fillMaskColor = new Color(0.02f, 0.025f, 0.04f, 1f);
+    public Color allyHealthFillColor = new Color(0.55f, 0.95f, 0.08f, 1f);
+    public Color enemyHealthFillColor = new Color(1f, 0.18f, 0.12f, 1f);
     public Color shieldFillColor = new Color(1f, 1f, 1f, 0.95f);
     public Color shieldMaskColor = new Color(0.015f, 0.04f, 0.06f, 1f);
     public Color manaFillColor = new Color(0.05f, 0.58f, 1f, 1f);
@@ -139,6 +141,7 @@ public class HealthBar : MonoBehaviour
         transform.localScale = worldScale;
 
         EnsureRenderers();
+        ApplyTeamFillColors();
         SetStarLevel(starLevel);
         RebuildSeparators();
         UpdateBar(maxHealth);
@@ -331,6 +334,19 @@ public class HealthBar : MonoBehaviour
             manaMaskRenderer.sprite = GetSolidSprite();
             manaMaskRenderer.color = manaMaskColor;
         }
+
+        ApplyTeamFillColors();
+    }
+
+    // 敵味方を見分けやすくするため、HPゲージ本体の色をチームで変えます。
+    private void ApplyTeamFillColors()
+    {
+        if (fillRenderer == null)
+            return;
+
+        fillRenderer.color = ownerEntity != null && ownerEntity.Team == Team.Team2
+            ? enemyHealthFillColor
+            : allyHealthFillColor;
     }
 
     // シールド用のゲージRendererを用意します。

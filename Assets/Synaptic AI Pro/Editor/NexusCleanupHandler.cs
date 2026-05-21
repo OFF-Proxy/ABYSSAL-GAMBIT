@@ -1,6 +1,7 @@
 using System;
 using System.Diagnostics;
 using UnityEngine;
+using SynapticAIPro;
 using UnityEditor;
 
 namespace SynapticPro
@@ -36,7 +37,7 @@ namespace SynapticPro
         
         private static bool OnEditorQuitting()
         {
-            UnityEngine.Debug.Log("[Synaptic] Unity exit detected - Cleaning up MCP server");
+            SynLog.Info("[Synaptic] Unity exit detected - Cleaning up MCP server");
 
             // Ensure MCP server is stopped
             var stopTask = NexusMCPSetupManager.Instance?.StopMCPServer();
@@ -45,11 +46,11 @@ namespace SynapticPro
                 // Wait synchronously for async operation (max 5 seconds)
                 if (stopTask.Wait(5000))
                 {
-                    UnityEngine.Debug.Log("[Synaptic] MCP server stopped successfully");
+                    SynLog.Info("[Synaptic] MCP server stopped successfully");
                 }
                 else
                 {
-                    UnityEngine.Debug.LogWarning("[Synaptic] MCP server stop timed out");
+                    SynLog.Warn("[Synaptic] MCP server stop timed out");
                 }
             }
 
@@ -61,7 +62,7 @@ namespace SynapticPro
         {
             if (state == PlayModeStateChange.ExitingEditMode || state == PlayModeStateChange.ExitingPlayMode)
             {
-                UnityEngine.Debug.Log($"[Synaptic] Play mode change detected ({state}) - Checking MCP server");
+                SynLog.Info($"[Synaptic] Play mode change detected ({state}) - Checking MCP server");
                 // Cleanup as needed on play mode change
                 // Usually maintain server, but stop if there are issues
             }
@@ -69,7 +70,7 @@ namespace SynapticPro
 
         private static void OnBeforeAssemblyReload()
         {
-            UnityEngine.Debug.Log("[Synaptic] Before assembly reload - Saving MCP server state");
+            SynLog.Info("[Synaptic] Before assembly reload - Saving MCP server state");
             // Handle state saving before assembly reload if needed
         }
 
@@ -82,7 +83,7 @@ namespace SynapticPro
             {
                 // In new architecture, cleanup on Unity startup is not needed
                 // Claude Desktop manages MCP server
-                UnityEngine.Debug.Log("[Synaptic] Unity is now a MCP client - skipping server cleanup");
+                SynLog.Info("[Synaptic] Unity is now a MCP client - skipping server cleanup");
             }
             catch (Exception e)
             {
@@ -131,7 +132,7 @@ namespace SynapticPro
             try
             {
                 KillNodeProcesses();
-                UnityEngine.Debug.Log("[Synaptic] MCP server cleaned up");
+                SynLog.Info("[Synaptic] MCP server cleaned up");
             }
             catch (Exception e)
             {
@@ -167,7 +168,7 @@ namespace SynapticPro
             }
             catch (Exception e)
             {
-                UnityEngine.Debug.LogWarning($"[Synaptic] Warning during process termination: {e.Message}");
+                SynLog.Warn($"[Synaptic] Warning during process termination: {e.Message}");
             }
         }
 
@@ -206,13 +207,13 @@ namespace SynapticPro
                         {
                             var setServerUrlMethod = webSocketClientType.GetMethod("SetServerUrl");
                             setServerUrlMethod?.Invoke(instance, new object[] { $"ws://localhost:{wsPort}" });
-                            UnityEngine.Debug.Log($"[Synaptic] WebSocket client port updated to {wsPort}");
+                            SynLog.Info($"[Synaptic] WebSocket client port updated to {wsPort}");
                         }
                     }
                 }
                 catch (System.Exception ex)
                 {
-                    UnityEngine.Debug.LogWarning($"[Synaptic] Failed to update WebSocket client: {ex.Message}");
+                    SynLog.Warn($"[Synaptic] Failed to update WebSocket client: {ex.Message}");
                 }
 #endif
 
@@ -224,12 +225,12 @@ namespace SynapticPro
                     {
                         var setServerUrlMethod = editorMCPServiceType.GetMethod("SetServerUrl", System.Reflection.BindingFlags.Public | System.Reflection.BindingFlags.Static);
                         setServerUrlMethod?.Invoke(null, new object[] { $"ws://localhost:{wsPort}" });
-                        UnityEngine.Debug.Log($"[Synaptic] Editor MCP Service port updated to {wsPort}");
+                        SynLog.Info($"[Synaptic] Editor MCP Service port updated to {wsPort}");
                     }
                 }
                 catch (System.Exception ex)
                 {
-                    UnityEngine.Debug.LogWarning($"[Synaptic] Failed to update Editor MCP Service: {ex.Message}");
+                    SynLog.Warn($"[Synaptic] Failed to update Editor MCP Service: {ex.Message}");
                 }
 
                 // Update MCP client port (for Runtime)
@@ -237,7 +238,7 @@ namespace SynapticPro
                 if (mcpClient != null)
                 {
                     mcpClient.SetServerUrl($"ws://localhost:{wsPort}");
-                    UnityEngine.Debug.Log($"[Synaptic] MCP client port updated to {wsPort}");
+                    SynLog.Info($"[Synaptic] MCP client port updated to {wsPort}");
                 }
 
                 // Update Claude Desktop configuration
@@ -249,7 +250,7 @@ namespace SynapticPro
                 // HTTP port settings (for future expansion)
                 if (httpPort != 3000)
                 {
-                    UnityEngine.Debug.Log($"[Synaptic] HTTP port changed to {httpPort} (will apply on MCP server startup)");
+                    SynLog.Info($"[Synaptic] HTTP port changed to {httpPort} (will apply on MCP server startup)");
                     // TODO: Update MCP server config file or environment variables
                     System.Environment.SetEnvironmentVariable("NEXUS_HTTP_PORT", httpPort.ToString());
                 }
@@ -286,13 +287,13 @@ namespace SynapticPro
                 }
                 else
                 {
-                    UnityEngine.Debug.LogWarning("[Synaptic] Unsupported platform for Claude Desktop config update");
+                    SynLog.Warn("[Synaptic] Unsupported platform for Claude Desktop config update");
                     return;
                 }
 
                 if (!System.IO.File.Exists(configPath))
                 {
-                    UnityEngine.Debug.LogWarning($"[Synaptic] Claude Desktop config file not found: {configPath}");
+                    SynLog.Warn($"[Synaptic] Claude Desktop config file not found: {configPath}");
                     return;
                 }
 
@@ -316,7 +317,7 @@ namespace SynapticPro
                     if (configContent.Contains(oldWsPattern) && oldWsPattern != newWsPattern)
                     {
                         configContent = configContent.Replace(oldWsPattern, newWsPattern);
-                        UnityEngine.Debug.Log($"[Synaptic] WebSocket port updated: {oldWsPattern} → {newWsPattern}");
+                        SynLog.Info($"[Synaptic] WebSocket port updated: {oldWsPattern} → {newWsPattern}");
                         updated = true;
                     }
                 }
@@ -328,7 +329,7 @@ namespace SynapticPro
                 if (configContent.Contains(oldHttpPattern))
                 {
                     configContent = configContent.Replace(oldHttpPattern, newHttpPattern);
-                    UnityEngine.Debug.Log($"[Synaptic] HTTP port updated: {oldHttpPattern} → {newHttpPattern}");
+                    SynLog.Info($"[Synaptic] HTTP port updated: {oldHttpPattern} → {newHttpPattern}");
                     updated = true;
                 }
 
@@ -339,7 +340,7 @@ namespace SynapticPro
                 if (configContent.Contains(oldPortPattern))
                 {
                     configContent = configContent.Replace(oldPortPattern, newPortPattern);
-                    UnityEngine.Debug.Log($"[Synaptic] Port setting updated: {oldPortPattern} → {newPortPattern}");
+                    SynLog.Info($"[Synaptic] Port setting updated: {oldPortPattern} → {newPortPattern}");
                     updated = true;
                 }
 
@@ -352,13 +353,13 @@ namespace SynapticPro
                     // Write new configuration
                     System.IO.File.WriteAllText(configPath, configContent);
 
-                    UnityEngine.Debug.Log($"[Synaptic] Claude Desktop configuration updated");
-                    UnityEngine.Debug.Log($"[Synaptic] Backup created: {backupPath}");
-                    UnityEngine.Debug.Log($"[Synaptic] 🔄 Please restart Claude Desktop");
+                    SynLog.Info($"[Synaptic] Claude Desktop configuration updated");
+                    SynLog.Info($"[Synaptic] Backup created: {backupPath}");
+                    SynLog.Info($"[Synaptic] 🔄 Please restart Claude Desktop");
                 }
                 else
                 {
-                    UnityEngine.Debug.LogWarning($"[Synaptic] No update targets found in config file");
+                    SynLog.Warn($"[Synaptic] No update targets found in config file");
                 }
             }
             catch (System.Exception e)

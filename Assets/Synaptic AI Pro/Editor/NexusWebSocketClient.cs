@@ -50,7 +50,7 @@ namespace SynapticPro
         private static void LogTaskFault(Task t, string label)
         {
             t.ContinueWith(
-                x => Debug.LogWarning($"[Nexus WebSocket] {label} faulted: {x.Exception?.GetBaseException().Message}"),
+                x => SynLog.Warn($"[Nexus WebSocket] {label} faulted: {x.Exception?.GetBaseException().Message}"),
                 TaskContinuationOptions.OnlyOnFaulted);
         }
 
@@ -63,7 +63,7 @@ namespace SynapticPro
             {
                 try
                 {
-                    Debug.Log($"[Nexus WebSocket] Connecting to {url}... (Attempt {reconnectAttempts + 1})");
+                    SynLog.Info($"[Nexus WebSocket] Connecting to {url}... (Attempt {reconnectAttempts + 1})");
                     
                     webSocket = new ClientWebSocket();
                     cancellationTokenSource = new CancellationTokenSource();
@@ -76,7 +76,7 @@ namespace SynapticPro
                     isConnected = true;
                     reconnectAttempts = 0; // Reset on success
 
-                    Debug.Log("[Nexus WebSocket] Connected successfully!");
+                    SynLog.Info("[Nexus WebSocket] Connected successfully!");
                     OnConnected?.Invoke();
 
                     // Start message receive loop (tracked so Disconnect can await)
@@ -102,7 +102,7 @@ namespace SynapticPro
                     
                     if (reconnectAttempts < maxReconnectAttempts && shouldReconnect)
                     {
-                        Debug.Log($"[Nexus WebSocket] Retrying in {reconnectDelay / 1000} seconds...");
+                        SynLog.Info($"[Nexus WebSocket] Retrying in {reconnectDelay / 1000} seconds...");
                         await Task.Delay(reconnectDelay);
                     }
                 }
@@ -114,25 +114,42 @@ namespace SynapticPro
         private async Task ReceiveLoop()
         {
             var buffer = new byte[4096];
-            
+            var messageBuilder = new StringBuilder();
+
             try
             {
                 while (webSocket.State == WebSocketState.Open)
                 {
                     var result = await webSocket.ReceiveAsync(
-                        new ArraySegment<byte>(buffer), 
+                        new ArraySegment<byte>(buffer),
                         cancellationTokenSource.Token
                     );
-                    
+
                     if (result.MessageType == WebSocketMessageType.Text)
                     {
-                        var message = Encoding.UTF8.GetString(buffer, 0, result.Count);
-                        Debug.Log($"[Nexus WebSocket] Received: {message}");
-                        
-                        lock (messageQueue)
+                        // Accumulate fragments until EndOfMessage. Without this,
+                        // any message larger than 4096B (e.g. tool args / scene
+                        // dumps) gets truncated mid-chunk and fails JSON parse —
+                        // root cause of ESC-0102 (Win + Unity 6.3 MCP receive
+                        // appears to "drop" large messages).
+                        messageBuilder.Append(Encoding.UTF8.GetString(buffer, 0, result.Count));
+
+                        if (result.EndOfMessage)
                         {
-                            messageQueue.Enqueue(message);
+                            var message = messageBuilder.ToString();
+                            messageBuilder.Clear();
+
+                            SynLog.Info($"[Nexus WebSocket] Received ({message.Length} chars): {message.Substring(0, System.Math.Min(message.Length, 200))}");
+
+                            lock (messageQueue)
+                            {
+                                messageQueue.Enqueue(message);
+                            }
                         }
+                    }
+                    else if (result.MessageType == WebSocketMessageType.Close)
+                    {
+                        break;
                     }
                 }
             }
@@ -184,7 +201,7 @@ namespace SynapticPro
                 var command = data.ContainsKey("command") ? data["command"].ToString() : "";
                 var parameters = data.ContainsKey("parameters") ? data["parameters"] as Newtonsoft.Json.Linq.JObject : null;
                 
-                Debug.Log($"[Nexus WebSocket] Executing Unity command: {command}");
+                SynLog.Info($"[Nexus WebSocket] Executing Unity command: {command}");
 
                 // Execute Unity operation in editor mode
                 EditorApplication.delayCall += () =>
@@ -202,7 +219,7 @@ namespace SynapticPro
                     var sessionId = responseData.Value<string>("sessionId") ?? "";
                     var responseType = responseData.Value<string>("responseType") ?? "response";
 
-                    Debug.Log($"[Nexus WebSocket] Claude response received: {message}");
+                    SynLog.Info($"[Nexus WebSocket] Claude response received: {message}");
 
                     // Fire event on main thread
                     EditorApplication.delayCall += () =>
@@ -219,7 +236,7 @@ namespace SynapticPro
                 {
                     var status = chatData.Value<string>("status") ?? "Processing...";
 
-                    Debug.Log($"[Nexus WebSocket] Chat initiated: {status}");
+                    SynLog.Info($"[Nexus WebSocket] Chat initiated: {status}");
 
                     EditorApplication.delayCall += () =>
                     {
@@ -231,8 +248,8 @@ namespace SynapticPro
         
         private async void ExecuteUnityOperation(string command, Newtonsoft.Json.Linq.JObject parameters)
         {
-            Debug.Log($"[Nexus WebSocket] Executing Unity operation: {command}");
-            Debug.Log($"[Nexus WebSocket] Parameters: {parameters?.ToString()}");
+            SynLog.Info($"[Nexus WebSocket] Executing Unity operation: {command}");
+            SynLog.Info($"[Nexus WebSocket] Parameters: {parameters?.ToString()}");
             
             var operationId = parameters?.Value<string>("operationId") ?? Guid.NewGuid().ToString();
 
@@ -333,7 +350,7 @@ namespace SynapticPro
                     ["data"] = new Dictionary<string, object> { ["success"] = success }
                 };
 
-                Debug.Log($"[Nexus WebSocket] Operation result: {result}");
+                SynLog.Info($"[Nexus WebSocket] Operation result: {result}");
 
                 // Send result to MCP server
                 await SendMessage(response);
@@ -413,7 +430,7 @@ namespace SynapticPro
         {
             if (!isConnected || webSocket.State != WebSocketState.Open)
             {
-                Debug.LogWarning("[Nexus WebSocket] Cannot send message: not connected");
+                SynLog.Warn("[Nexus WebSocket] Cannot send message: not connected");
                 return;
             }
             
@@ -450,7 +467,7 @@ namespace SynapticPro
                     }
                     else
                     {
-                        Debug.LogWarning("[Nexus WebSocket] Connection lost during heartbeat");
+                        SynLog.Warn("[Nexus WebSocket] Connection lost during heartbeat");
                         isConnected = false;
                         OnDisconnected?.Invoke();
 
@@ -512,7 +529,7 @@ namespace SynapticPro
         public void SetServerUrl(string url)
         {
             serverUrl = url;
-            Debug.Log($"[Nexus WebSocket] Server URL changed to: {url}");
+            SynLog.Info($"[Nexus WebSocket] Server URL changed to: {url}");
         }
     }
     
@@ -578,7 +595,7 @@ namespace SynapticPro
         private static void LogTaskFault(Task t, string label)
         {
             t.ContinueWith(
-                x => Debug.LogWarning($"[HTTP WebSocket] {label} faulted: {x.Exception?.GetBaseException().Message}"),
+                x => SynLog.Warn($"[HTTP WebSocket] {label} faulted: {x.Exception?.GetBaseException().Message}"),
                 TaskContinuationOptions.OnlyOnFaulted);
         }
 
@@ -606,7 +623,7 @@ namespace SynapticPro
                 {
                     try
                     {
-                        Debug.Log($"[HTTP WebSocket] Connecting to {serverUrl}... (Attempt {reconnectAttempts + 1})");
+                        SynLog.Info($"[HTTP WebSocket] Connecting to {serverUrl}... (Attempt {reconnectAttempts + 1})");
 
                         var ws = new ClientWebSocket();
                         ws.Options.SetRequestHeader("X-Client-Type", "unity");
@@ -622,7 +639,7 @@ namespace SynapticPro
                         isConnected = true;
                         reconnectAttempts = 0;
 
-                        Debug.Log($"[HTTP WebSocket] Connected to HTTP Server on port {port}!");
+                        SynLog.Info($"[HTTP WebSocket] Connected to HTTP Server on port {port}!");
 
                         // Start message receive loop — snapshot ws+cts so a stale loop whose
                         // fields were overwritten by a subsequent Connect bails out cleanly.
@@ -637,7 +654,7 @@ namespace SynapticPro
                     }
                     catch (Exception e)
                     {
-                        Debug.LogWarning($"[HTTP WebSocket] Connection failed: {e.Message}");
+                        SynLog.Warn($"[HTTP WebSocket] Connection failed: {e.Message}");
                         isConnected = false;
                         reconnectAttempts++;
 
@@ -648,7 +665,7 @@ namespace SynapticPro
                     }
                 }
 
-                Debug.LogWarning($"[HTTP WebSocket] Could not connect after {maxReconnectAttempts} attempts");
+                SynLog.Warn($"[HTTP WebSocket] Could not connect after {maxReconnectAttempts} attempts");
                 return false;
             }
             finally
@@ -696,7 +713,7 @@ namespace SynapticPro
             {
                 if (!cts.IsCancellationRequested)
                 {
-                    Debug.LogWarning($"[HTTP WebSocket] Receive error: {e.Message}");
+                    SynLog.Warn($"[HTTP WebSocket] Receive error: {e.Message}");
                 }
             }
             finally
@@ -893,7 +910,7 @@ namespace SynapticPro
                 backgroundTasks.Clear();
             }
 
-            Debug.Log("[HTTP WebSocket] Disconnected");
+            SynLog.Info("[HTTP WebSocket] Disconnected");
         }
     }
 }

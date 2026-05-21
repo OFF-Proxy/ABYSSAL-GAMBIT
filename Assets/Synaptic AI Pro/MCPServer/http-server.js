@@ -27,6 +27,50 @@ const path = require('path');
 // ===== Configuration =====
 const PORT = parseInt(process.argv[2]) || parseInt(process.env.HTTP_PORT) || 8086;
 
+// ===== Parent-PID watchdog =====
+// When launched detached from Unity's JobObject (Windows), we lose the
+// guarantee that the OS will reap us if Unity dies. Poll the parent PID
+// every 5s and self-terminate if it's gone — prevents orphaned node.exe.
+(function setupParentWatchdog() {
+  const arg = (process.argv.find(a => typeof a === 'string' && a.startsWith('--parent-pid=')) || '');
+  const parentPid = arg ? parseInt(arg.split('=')[1], 10) : 0;
+  if (!parentPid) return;
+  setInterval(() => {
+    try {
+      // Signal 0 is a "check process exists" probe on both POSIX and Windows
+      process.kill(parentPid, 0);
+    } catch (_e) {
+      console.error(`[watchdog] Parent PID ${parentPid} gone. Exiting.`);
+      process.exit(0);
+    }
+  }, 5000).unref();
+})();
+
+// ===== File log (when --log=path is provided) =====
+// Detached mode disables stdout/stderr piping from C# side, so route logs
+// to a file instead. Best-effort: silent failure if file can't be opened.
+(function setupFileLog() {
+  const arg = (process.argv.find(a => typeof a === 'string' && a.startsWith('--log=')) || '');
+  const logPath = arg ? arg.split('=').slice(1).join('=') : '';
+  if (!logPath) return;
+  try {
+    const fs = require('fs');
+    const stream = fs.createWriteStream(logPath, { flags: 'a' });
+    const wrap = (orig) => (...args) => {
+      try {
+        const line = args.map(a => typeof a === 'string' ? a : JSON.stringify(a)).join(' ');
+        stream.write(`[${new Date().toISOString()}] ${line}\n`);
+      } catch (_) { /* ignore */ }
+      try { orig.apply(console, args); } catch (_) { /* detached: stdout may be closed */ }
+    };
+    console.log = wrap(console.log);
+    console.error = wrap(console.error);
+    console.warn = wrap(console.warn);
+  } catch (_e) {
+    /* ignore: log is best-effort */
+  }
+})();
+
 const app = express();
 app.use(cors());
 app.use(express.json({ limit: '10mb' }));

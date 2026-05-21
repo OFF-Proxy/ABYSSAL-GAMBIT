@@ -92,14 +92,32 @@ loadToolRegistry();
 function setupWebSocketHandlers() {
     if (!wss) return;
 
+    // Surface server-level errors (ECONNRESET etc.) that would otherwise
+    // disappear into the void.
+    wss.on('error', (err) => {
+        console.error('[SuperSave] WSS error:', err && err.message ? err.message : err);
+    });
+
     wss.on('connection', (ws, req) => {
         const isUnity = req.headers['x-client-type'] === 'unity' || req.url === '/unity';
+
+        // Diagnostic — helps ESC-0102 class issues where connections come in
+        // but get classified wrong and unityWebSocket never gets set.
+        console.error(`[SuperSave] WS connection: url=${req.url} x-client-type=${req.headers['x-client-type'] || '(none)'} isUnity=${isUnity}`);
+
+        // Per-socket error handler — without this, send() failures (peer gone,
+        // backpressure, etc.) crash silently and the caller just hits the 60s
+        // timeout with no clue why.
+        ws.on('error', (err) => {
+            console.error('[SuperSave] WS socket error:', err && err.message ? err.message : err);
+        });
 
         if (isUnity || !req.url.includes('mcp')) {
             if (unityWebSocket) {
                 unityWebSocket.close();
             }
             unityWebSocket = ws;
+            console.error('[SuperSave] unityWebSocket assigned');
 
             ws.on('message', async (message) => {
                 try {
@@ -158,7 +176,26 @@ async function sendUnityCommandOnce(command, params, id) {
                 operationId: id.toString()
             }
         });
-        unityWebSocket.send(message);
+
+        // Confirm the socket is open before pushing — without this we have
+        // raced an in-flight close() and the message disappears.
+        if (!unityWebSocket || unityWebSocket.readyState !== 1 /* OPEN */) {
+            clearTimeout(timeout);
+            pendingRequests.delete(id);
+            const state = unityWebSocket ? unityWebSocket.readyState : 'null';
+            return reject(new Error(`unityWebSocket not open (readyState=${state})`));
+        }
+
+        // send() with callback so write failures surface immediately instead
+        // of bleeding into the 60s timeout. ESC-0102 root-cause hunt.
+        unityWebSocket.send(message, (err) => {
+            if (err) {
+                clearTimeout(timeout);
+                pendingRequests.delete(id);
+                console.error('[SuperSave] send failed:', err.message);
+                reject(err);
+            }
+        });
     });
 }
 
@@ -575,6 +612,35 @@ async function setupMCPServer() {
                 content: [{
                     type: 'text',
                     text: errorDetail
+                }]
+            };
+        }
+    });
+
+    // ===== META-TOOL 3.5: run_csharp =====
+    // Arbitrary C# execution escape-hatch (equivalent of Blender's run_python).
+    // Promoted to a top-level meta-tool so small local LLMs don't have to go
+    // through the execute({tool, params}) two-level nest.
+    mcpServer.registerTool('run_csharp', {
+        title: 'Run C# Code',
+        description: 'Execute arbitrary C# code against the running Unity Editor (equivalent of Blender run_python). UnityEngine / UnityEditor / System.Linq / Newtonsoft.Json are pre-imported. Use this when no dedicated tool covers the operation. Does NOT trigger AssemblyReload so the connection stays alive. Examples: "AssetDatabase.SaveAssets(); return \\"saved\\";", "return Selection.activeGameObject?.name;".',
+        inputSchema: z.object({
+            code: z.string().describe('C# code to execute. Can be a single expression ("1+1") or statements ("var go = new GameObject(\\"X\\"); return go.name;"). Pre-imported: System, System.Linq, System.Collections.Generic, UnityEngine, UnityEditor.')
+        })
+    }, async (params) => {
+        try {
+            const result = await sendUnityCommand('run_csharp', params);
+            return {
+                content: [{
+                    type: 'text',
+                    text: typeof result === 'string' ? result : JSON.stringify(result, null, 2)
+                }]
+            };
+        } catch (error) {
+            return {
+                content: [{
+                    type: 'text',
+                    text: `run_csharp failed: ${error.message}`
                 }]
             };
         }

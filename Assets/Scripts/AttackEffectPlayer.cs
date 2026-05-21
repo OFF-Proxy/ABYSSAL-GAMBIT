@@ -12,17 +12,17 @@ public class AttackEffectPlayer : MonoBehaviour
     private const float FrameRate = 18f;
 
     // Resources配下に置かれている各エフェクト画像のパスです。
-    private const string ProjectileResourcePath = "AttackEffects/fx_f1_casterprojectile";
-    private const string ImpactResourcePath = "AttackEffects/fx_explosionblueelectrical";
-    private const string MeleeResourcePath = "AttackEffects/fx_crossslash";
-    private const string HealResourcePath = "AttackEffects/fx_heal";
-    private const string ShieldResourcePath = "AttackEffects/fx_distortion_hex_shield";
-    private const string BuffResourcePath = "AttackEffects/fx_buff";
-    private const string StunResourcePath = "AttackEffects/fx_f6_bbs_stun";
-    private const string SlowResourcePath = "AttackEffects/fx_frozen";
-    private const string PowerResourcePath = "AttackEffects/fx_slashfrenzy";
-    private const string AreaResourcePath = "AttackEffects/fx_whiteexplosion";
-    private const string DamageBoostResourcePath = "AttackEffects/fx_ringswirl";
+    private const string ProjectileResourcePath = "AttackEffects/Generated/fx_f1_casterprojectile";
+    private const string ImpactResourcePath = "AttackEffects/Generated/fx_explosionblueelectrical";
+    private const string MeleeResourcePath = "AttackEffects/Generated/fx_crossslash";
+    private const string HealResourcePath = "AttackEffects/Generated/fx_heal";
+    private const string ShieldResourcePath = "AttackEffects/Generated/fx_distortion_hex_shield";
+    private const string BuffResourcePath = "AttackEffects/Generated/fx_buff";
+    private const string StunResourcePath = "AttackEffects/Generated/fx_f6_bbs_stun";
+    private const string SlowResourcePath = "AttackEffects/Generated/fx_frozen";
+    private const string PowerResourcePath = "AttackEffects/Generated/fx_slashfrenzy";
+    private const string AreaResourcePath = "AttackEffects/Generated/fx_whiteexplosion";
+    private const string DamageBoostResourcePath = "AttackEffects/Generated/fx_ringswirl";
 
     // BGM候補です。上から順にResources.Loadで探し、最初に見つかったものを使います。
     private static readonly string[] BgmCandidates =
@@ -99,12 +99,38 @@ public class AttackEffectPlayer : MonoBehaviour
         BaseEntity effectTarget = GetSkillEffectTarget(caster, target, skillType);
         Vector3 position = effectTarget.transform.position + new Vector3(0f, 0.2f, 0f);
         Color color = GetSkillEffectColor(caster, skillType);
-        Sprite[] sprites = GetSkillSprites(skillType);
-        string resourcePath = GetSkillResourcePath(skillType);
-        float scale = GetSkillEffectScale(skillType);
+        Sprite[] sprites = GetSkillSprites(caster, skillType);
+        string resourcePath = GetSkillResourcePath(caster, skillType);
+        float scale = GetSkillEffectScale(caster, skillType);
 
-        instance.PlaySfx(GetSkillSfxName(skillType), GetSkillSfxVolume(skillType));
+        instance.PlaySfx(GetSkillSfxName(caster, skillType), GetSkillSfxVolume(skillType));
         instance.StartCoroutine(instance.PlayAnimatedSprite(resourcePath, sprites, position, scale, color, 0f, GetEffectSortingOrder(position, 70)));
+    }
+
+    // シールドが残っている間、ユニットを覆う追従エフェクトを作ります。
+    public static GameObject AttachShieldAura(BaseEntity owner)
+    {
+        if (owner == null)
+            return null;
+
+        EnsureInstance();
+        EnsureSpritesLoaded();
+
+        Sprite[] auraSprites = GetShieldAuraSprites();
+        if (auraSprites.Length == 0)
+            return null;
+
+        GameObject auraObject = new GameObject("ActiveShieldAura");
+        SpriteRenderer renderer = auraObject.AddComponent<SpriteRenderer>();
+        renderer.sprite = auraSprites[0];
+        renderer.color = GetPersistentShieldColor(owner);
+
+        if (owner.spriteRender != null)
+            renderer.sortingLayerID = owner.spriteRender.sortingLayerID;
+
+        ShieldAuraVisual auraVisual = auraObject.AddComponent<ShieldAuraVisual>();
+        auraVisual.Begin(owner, renderer, auraSprites);
+        return auraObject;
     }
 
     // 死亡時のSEを鳴らします。
@@ -182,6 +208,19 @@ public class AttackEffectPlayer : MonoBehaviour
             .ToArray();
     }
 
+    // 常時表示用のシールドは、発生途中の小さいコマを避けて大きいコマだけループします。
+    private static Sprite[] GetShieldAuraSprites()
+    {
+        if (shieldSprites == null || shieldSprites.Length == 0)
+            return new Sprite[0];
+
+        Sprite[] loopSprites = shieldSprites
+            .Where(sprite => ExtractTrailingNumber(sprite.name) >= 4)
+            .ToArray();
+
+        return loopSprites.Length > 0 ? loopSprites : shieldSprites;
+    }
+
     // "name_001" のような名前から末尾番号を取り出します。
     private static int ExtractTrailingNumber(string value)
     {
@@ -200,6 +239,21 @@ public class AttackEffectPlayer : MonoBehaviour
     // スキル種類ごとのエフェクト色を返します。
     private static Color GetSkillEffectColor(BaseEntity caster, UnitSkillType skillType)
     {
+        Color themeColor = GetThemeColor(caster != null ? caster.SkillTheme : SkillVisualTheme.Neutral);
+        if ((caster != null ? caster.SkillTheme : SkillVisualTheme.Neutral) != SkillVisualTheme.Neutral)
+        {
+            switch (skillType)
+            {
+                case UnitSkillType.SelfHeal:
+                case UnitSkillType.AllyHeal:
+                    return Color.Lerp(new Color(0.35f, 1f, 0.28f, 1f), themeColor, 0.35f);
+                case UnitSkillType.Shield:
+                    return Color.Lerp(new Color(0.95f, 1f, 1f, 1f), themeColor, 0.45f);
+                default:
+                    return themeColor;
+            }
+        }
+
         switch (skillType)
         {
             case UnitSkillType.SelfHeal:
@@ -221,9 +275,33 @@ public class AttackEffectPlayer : MonoBehaviour
         }
     }
 
-    // スキル種類に合ったSprite配列を返します。
-    private static Sprite[] GetSkillSprites(UnitSkillType skillType)
+    // ユニットの属性とスキル種類に合ったSprite配列を返します。
+    private static Sprite[] GetSkillSprites(BaseEntity caster, UnitSkillType skillType)
     {
+        if (skillType == UnitSkillType.Shield)
+            return shieldSprites;
+
+        SkillVisualTheme theme = caster != null ? caster.SkillTheme : SkillVisualTheme.Neutral;
+        switch (theme)
+        {
+            case SkillVisualTheme.Fire:
+                return skillType == UnitSkillType.Shield ? shieldSprites : areaSprites;
+            case SkillVisualTheme.Ice:
+                return skillType == UnitSkillType.AllyHeal ? healSprites : slowSprites;
+            case SkillVisualTheme.Nature:
+                return skillType == UnitSkillType.PowerStrike ? powerSprites : healSprites;
+            case SkillVisualTheme.Holy:
+                return skillType == UnitSkillType.Stun ? stunSprites : shieldSprites;
+            case SkillVisualTheme.Shadow:
+                return skillType == UnitSkillType.AreaDamage ? areaSprites : damageBoostSprites;
+            case SkillVisualTheme.Lightning:
+                return skillType == UnitSkillType.AttackSpeedBoost ? buffSprites : impactSprites;
+            case SkillVisualTheme.Tech:
+                return skillType == UnitSkillType.Shield ? shieldSprites : buffSprites;
+            case SkillVisualTheme.Void:
+                return skillType == UnitSkillType.Slow ? slowSprites : powerSprites;
+        }
+
         switch (skillType)
         {
             case UnitSkillType.SelfHeal:
@@ -246,9 +324,33 @@ public class AttackEffectPlayer : MonoBehaviour
         }
     }
 
-    // スキル種類に合ったResourcesパスを返します。
-    private static string GetSkillResourcePath(UnitSkillType skillType)
+    // ユニットの属性とスキル種類に合ったResourcesパスを返します。
+    private static string GetSkillResourcePath(BaseEntity caster, UnitSkillType skillType)
     {
+        if (skillType == UnitSkillType.Shield)
+            return ShieldResourcePath;
+
+        SkillVisualTheme theme = caster != null ? caster.SkillTheme : SkillVisualTheme.Neutral;
+        switch (theme)
+        {
+            case SkillVisualTheme.Fire:
+                return skillType == UnitSkillType.Shield ? ShieldResourcePath : AreaResourcePath;
+            case SkillVisualTheme.Ice:
+                return skillType == UnitSkillType.AllyHeal ? HealResourcePath : SlowResourcePath;
+            case SkillVisualTheme.Nature:
+                return skillType == UnitSkillType.PowerStrike ? PowerResourcePath : HealResourcePath;
+            case SkillVisualTheme.Holy:
+                return skillType == UnitSkillType.Stun ? StunResourcePath : ShieldResourcePath;
+            case SkillVisualTheme.Shadow:
+                return skillType == UnitSkillType.AreaDamage ? AreaResourcePath : DamageBoostResourcePath;
+            case SkillVisualTheme.Lightning:
+                return skillType == UnitSkillType.AttackSpeedBoost ? BuffResourcePath : ImpactResourcePath;
+            case SkillVisualTheme.Tech:
+                return skillType == UnitSkillType.Shield ? ShieldResourcePath : BuffResourcePath;
+            case SkillVisualTheme.Void:
+                return skillType == UnitSkillType.Slow ? SlowResourcePath : PowerResourcePath;
+        }
+
         switch (skillType)
         {
             case UnitSkillType.SelfHeal:
@@ -272,25 +374,55 @@ public class AttackEffectPlayer : MonoBehaviour
     }
 
     // スキル種類ごとのエフェクトサイズです。
-    private static float GetSkillEffectScale(UnitSkillType skillType)
+    private static float GetSkillEffectScale(BaseEntity caster, UnitSkillType skillType)
     {
+        float costScale = caster != null ? 1f + Mathf.Max(0, caster.BaseCost - 1) * 0.08f : 1f;
+        float radiusScale = caster != null ? Mathf.Clamp(caster.skillAreaRadius / 1.6f, 0.9f, 2.4f) : 1f;
         switch (skillType)
         {
             case UnitSkillType.AreaDamage:
-                return 1.35f;
+                return 1.35f * costScale * radiusScale;
+            case UnitSkillType.AllyHeal:
+            case UnitSkillType.AttackSpeedBoost:
+            case UnitSkillType.DamageBoost:
+                return Mathf.Max(1f, 0.9f * costScale * radiusScale);
             case UnitSkillType.Shield:
-                return 1.08f;
+                return 1.08f * costScale;
             case UnitSkillType.Stun:
             case UnitSkillType.Slow:
-                return 0.92f;
+                return 0.92f * costScale;
             default:
-                return 1f;
+                return 1f * costScale;
         }
     }
 
     // スキル種類から再生したいSE名を決めます。
-    private static string GetSkillSfxName(UnitSkillType skillType)
+    private static string GetSkillSfxName(BaseEntity caster, UnitSkillType skillType)
     {
+        if (skillType == UnitSkillType.Shield)
+            return "skill_shield";
+
+        if (caster != null)
+        {
+            switch (caster.SkillTheme)
+            {
+                case SkillVisualTheme.Fire:
+                    return "skill_area";
+                case SkillVisualTheme.Ice:
+                    return "skill_control";
+                case SkillVisualTheme.Nature:
+                case SkillVisualTheme.Holy:
+                    return skillType == UnitSkillType.PowerStrike ? "skill_power" : "skill_heal";
+                case SkillVisualTheme.Lightning:
+                    return "skill_control";
+                case SkillVisualTheme.Shadow:
+                case SkillVisualTheme.Void:
+                    return skillType == UnitSkillType.SelfHeal || skillType == UnitSkillType.AllyHeal ? "skill_heal" : "skill_power";
+                case SkillVisualTheme.Tech:
+                    return "skill_buff";
+            }
+        }
+
         switch (skillType)
         {
             case UnitSkillType.SelfHeal:
@@ -308,6 +440,121 @@ public class AttackEffectPlayer : MonoBehaviour
                 return "skill_area";
             default:
                 return "skill_power";
+        }
+    }
+
+    // 持続シールドは半透明にして、ユニット本体を隠しすぎないようにします。
+    private static Color GetPersistentShieldColor(BaseEntity owner)
+    {
+        Color color = GetSkillEffectColor(owner, UnitSkillType.Shield);
+        color = Color.Lerp(Color.white, color, 0.42f);
+        color.a = 0.58f;
+        return color;
+    }
+
+    // ユニットの見た目を覆うサイズに、シールド用Spriteを拡縮します。
+    private static float GetPersistentShieldScale(BaseEntity owner, Sprite[] sprites)
+    {
+        if (owner == null || sprites == null || sprites.Length == 0)
+            return 0.65f;
+
+        Sprite referenceSprite = sprites[sprites.Length - 1];
+        Vector3 referenceSize = referenceSprite != null ? referenceSprite.bounds.size : new Vector3(2f, 2.56f, 0f);
+        Vector2 shieldSize = new Vector2(referenceSize.x, referenceSize.y);
+        if (shieldSize.x <= 0.01f || shieldSize.y <= 0.01f)
+            return 0.65f;
+
+        Bounds unitBounds = owner.spriteRender != null && owner.spriteRender.sprite != null
+            ? owner.spriteRender.bounds
+            : new Bounds(owner.transform.position, Vector3.one);
+        float desiredWidth = Mathf.Clamp(unitBounds.size.x * 1.35f, 0.95f, 2.4f);
+        float desiredHeight = Mathf.Clamp(unitBounds.size.y * 1.22f, 1.05f, 2.6f);
+        float scale = Mathf.Max(desiredWidth / shieldSize.x, desiredHeight / shieldSize.y);
+        return Mathf.Clamp(scale, 0.42f, 1.35f);
+    }
+
+    // シールド残量がある間だけ、ユニット位置へ追従してアニメーションする小さな補助コンポーネントです。
+    private class ShieldAuraVisual : MonoBehaviour
+    {
+        private BaseEntity owner;
+        private SpriteRenderer auraRenderer;
+        private Sprite[] sprites;
+        private int frameIndex;
+        private float frameTimer;
+
+        public void Begin(BaseEntity owner, SpriteRenderer renderer, Sprite[] sprites)
+        {
+            this.owner = owner;
+            auraRenderer = renderer;
+            this.sprites = sprites;
+            frameIndex = 0;
+            frameTimer = 0f;
+            UpdateVisualNow();
+        }
+
+        private void LateUpdate()
+        {
+            if (owner == null || owner.IsDead || !owner.gameObject.activeInHierarchy)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            if (sprites == null || sprites.Length == 0 || auraRenderer == null)
+            {
+                Destroy(gameObject);
+                return;
+            }
+
+            frameTimer += Time.deltaTime;
+            float frameTime = 1f / Mathf.Max(1f, FrameRate * 0.72f);
+            if (frameTimer >= frameTime)
+            {
+                frameTimer -= frameTime;
+                frameIndex = (frameIndex + 1) % sprites.Length;
+                auraRenderer.sprite = sprites[frameIndex];
+            }
+
+            UpdateVisualNow();
+        }
+
+        private void UpdateVisualNow()
+        {
+            if (owner == null || auraRenderer == null)
+                return;
+
+            Bounds unitBounds = owner.spriteRender != null && owner.spriteRender.sprite != null
+                ? owner.spriteRender.bounds
+                : new Bounds(owner.transform.position, Vector3.one);
+            transform.position = new Vector3(unitBounds.center.x, unitBounds.center.y + 0.03f, owner.transform.position.z - 0.08f);
+            transform.localScale = Vector3.one * GetPersistentShieldScale(owner, sprites);
+            auraRenderer.sortingOrder = GetEffectSortingOrder(owner.transform.position, 34);
+        }
+    }
+
+    // ユニットごとの属性色です。似たスキルでも、キャラの雰囲気が少し出るようにします。
+    private static Color GetThemeColor(SkillVisualTheme theme)
+    {
+        switch (theme)
+        {
+            case SkillVisualTheme.Fire:
+                return new Color(1f, 0.28f, 0.08f, 1f);
+            case SkillVisualTheme.Ice:
+                return new Color(0.35f, 0.9f, 1f, 1f);
+            case SkillVisualTheme.Nature:
+                return new Color(0.35f, 1f, 0.35f, 1f);
+            case SkillVisualTheme.Holy:
+                return new Color(1f, 0.9f, 0.3f, 1f);
+            case SkillVisualTheme.Shadow:
+                return new Color(0.72f, 0.15f, 1f, 1f);
+            case SkillVisualTheme.Lightning:
+                return new Color(0.3f, 0.85f, 1f, 1f);
+            case SkillVisualTheme.Tech:
+                return new Color(0.95f, 0.45f, 1f, 1f);
+            case SkillVisualTheme.Void:
+                return new Color(0.42f, 0.2f, 1f, 1f);
+            default:
+                return Color.white;
         }
     }
 

@@ -1,5 +1,6 @@
 using UnityEditor;
 using UnityEngine;
+using SynapticAIPro;
 using System.IO;
 using System.Linq;
 using UnityEditor.PackageManager;
@@ -34,12 +35,12 @@ namespace SynapticPro
 
             if (cinemachineVersion == null)
             {
-                Debug.Log("[Synaptic] Cinemachine not detected. Cinemachine features will be disabled.");
+                SynLog.Info("[Synaptic] Cinemachine not detected. Cinemachine features will be disabled.");
                 RemoveAllCinemachineSymbols();
                 return;
             }
 
-            Debug.Log($"[Synaptic] Detected Cinemachine version: {cinemachineVersion}");
+            SynLog.Info($"[Synaptic] Detected Cinemachine version: {cinemachineVersion}");
 
             // Parse version
             var versionParts = cinemachineVersion.Split('.');
@@ -48,7 +49,7 @@ namespace SynapticPro
                 if (majorVersion >= 3)
                 {
                     SetCinemachineSymbol(3);
-                    Debug.Log("[Synaptic] ✅ Cinemachine 3.x detected - Using Cinemachine 3 API");
+                    SynLog.Info("[Synaptic] ✅ Cinemachine 3.x detected - Using Cinemachine 3 API");
 
                     // Cinemachine 3.x requires Unity.Splines package
                     CheckAndInstallSplines();
@@ -56,11 +57,11 @@ namespace SynapticPro
                 else if (majorVersion == 2)
                 {
                     SetCinemachineSymbol(2);
-                    Debug.Log("[Synaptic] ✅ Cinemachine 2.x detected - Using Cinemachine 2 API");
+                    SynLog.Info("[Synaptic] ✅ Cinemachine 2.x detected - Using Cinemachine 2 API");
                 }
                 else
                 {
-                    Debug.LogWarning($"[Synaptic] ⚠️ Unsupported Cinemachine version: {cinemachineVersion}. Recommended: 2.9.7 or 3.0+");
+                    SynLog.Warn($"[Synaptic] ⚠️ Unsupported Cinemachine version: {cinemachineVersion}. Recommended: 2.9.7 or 3.0+");
                     RemoveAllCinemachineSymbols();
                 }
             }
@@ -127,7 +128,7 @@ namespace SynapticPro
             var newDefines = string.Join(";", definesList.Distinct().Where(s => !string.IsNullOrEmpty(s)));
             PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, newDefines);
 
-            Debug.Log($"[Synaptic] Scripting symbols updated: {newDefines}");
+            SynLog.Info($"[Synaptic] Scripting symbols updated: {newDefines}");
         }
 
         private static void RemoveAllCinemachineSymbols()
@@ -143,7 +144,7 @@ namespace SynapticPro
             var newDefines = string.Join(";", definesList.Distinct().Where(s => !string.IsNullOrEmpty(s)));
             PlayerSettings.SetScriptingDefineSymbolsForGroup(buildTargetGroup, newDefines);
 
-            Debug.Log("[Synaptic] Cinemachine symbols removed");
+            SynLog.Info("[Synaptic] Cinemachine symbols removed");
         }
 
         private static void CheckAndInstallSplines()
@@ -164,14 +165,14 @@ namespace SynapticPro
                     if (package.name == SPLINES_PACKAGE)
                     {
                         isInstalled = true;
-                        Debug.Log($"[Synaptic] Unity.Splines is already installed (version {package.version})");
+                        SynLog.Info($"[Synaptic] Unity.Splines is already installed (version {package.version})");
                         break;
                     }
                 }
 
                 if (!isInstalled)
                 {
-                    Debug.Log("[Synaptic] Unity.Splines not found. Installing dependency for Cinemachine 3.x...");
+                    SynLog.Info("[Synaptic] Unity.Splines not found. Installing dependency for Cinemachine 3.x...");
                     InstallSplines();
                 }
             }
@@ -196,13 +197,13 @@ namespace SynapticPro
 
             if (splinesAddRequest.Status == StatusCode.Success)
             {
-                Debug.Log($"[Synaptic] ✅ Successfully installed {SPLINES_PACKAGE} for Cinemachine 3.x");
-                Debug.Log("[Synaptic] Please wait for Unity to recompile scripts...");
+                SynLog.Info($"[Synaptic] ✅ Successfully installed {SPLINES_PACKAGE} for Cinemachine 3.x");
+                SynLog.Info("[Synaptic] Please wait for Unity to recompile scripts...");
             }
             else if (splinesAddRequest.Status >= StatusCode.Failure)
             {
                 Debug.LogError($"[Synaptic] ❌ Failed to install {SPLINES_PACKAGE}: {splinesAddRequest.Error.message}");
-                Debug.LogWarning("[Synaptic] Cinemachine 3.x requires Unity.Splines package.\n" +
+                SynLog.Warn("[Synaptic] Cinemachine 3.x requires Unity.Splines package.\n" +
                                 "Please install it manually via Package Manager:\n" +
                                 "Window > Package Manager > + > Add package by name...\n" +
                                 $"Package name: {SPLINES_PACKAGE}");

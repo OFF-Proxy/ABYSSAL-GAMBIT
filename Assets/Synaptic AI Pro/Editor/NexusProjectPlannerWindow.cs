@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using SynapticAIPro;
 using Newtonsoft.Json;
 
 namespace SynapticPro

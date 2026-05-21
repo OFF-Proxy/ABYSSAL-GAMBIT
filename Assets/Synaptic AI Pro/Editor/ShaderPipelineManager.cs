@@ -1,4 +1,5 @@
 using UnityEngine;
+using SynapticAIPro;
 using UnityEditor;
 using UnityEngine.Rendering;
 using System.IO;
@@ -47,7 +48,7 @@ namespace Synaptic.Editor
 
         private static void OnPipelineChanged()
         {
-            Debug.Log("[Synaptic] Render pipeline changed, updating shaders...");
+            SynLog.Info("[Synaptic] Render pipeline changed, updating shaders...");
             UpdateShadersForCurrentPipeline();
         }
 
@@ -86,7 +87,7 @@ namespace Synaptic.Editor
         public static void UpdateShadersForCurrentPipeline()
         {
             var currentPipeline = DetectCurrentPipeline();
-            Debug.Log($"[Synaptic] Detected render pipeline: {currentPipeline}");
+            SynLog.Info($"[Synaptic] Detected render pipeline: {currentPipeline}");
 
             bool changed = false;
 
@@ -106,7 +107,7 @@ namespace Synaptic.Editor
             if (changed)
             {
                 AssetDatabase.Refresh();
-                Debug.Log($"[Synaptic] Shaders updated for {currentPipeline} pipeline");
+                SynLog.Info($"[Synaptic] Shaders updated for {currentPipeline} pipeline");
             }
         }
 
@@ -177,7 +178,7 @@ namespace Synaptic.Editor
             }
             catch (System.Exception e)
             {
-                Debug.LogWarning($"[Synaptic] Failed to move shader file: {e.Message}");
+                SynLog.Warn($"[Synaptic] Failed to move shader file: {e.Message}");
             }
         }
 

@@ -35,7 +35,8 @@ function parseZodSchema(zodString) {
     const lines = zodString.split('\n');
     let braceDepth = 0;
 
-    for (const line of lines) {
+    for (let li = 0; li < lines.length; li++) {
+        const line = lines[li];
         const trimmed = line.trim();
 
         // Track brace depth for nested objects
@@ -51,16 +52,38 @@ function parseZodSchema(zodString) {
             if (propName === 'inputSchema') continue;
 
             const prop = {};
-            let isOptional = trimmed.includes('.optional()');
 
-            // Extract description
-            const descMatch = trimmed.match(/\.describe\(['"]([^'"]+)['"]\)/);
-            if (descMatch) {
-                prop.description = descMatch[1];
+            // Build "lookahead window" — if the property continues to next lines
+            // (multi-line z.enum/z.union/etc), accumulate until parens balance.
+            // This lets us catch .describe() that appears on a later line.
+            let window = line;
+            let parenDepth = (line.match(/\(/g) || []).length - (line.match(/\)/g) || []).length;
+            let extraLines = 0;
+            // Continue while: parens unbalanced OR next line is a chain continuation (.method)
+            while ((li + extraLines + 1) < lines.length && extraLines < 30) {
+                const nextLine = lines[li + extraLines + 1];
+                const nextTrim = nextLine.trim();
+                const isChainContinuation = nextTrim.startsWith('.');
+                if (parenDepth > 0 || isChainContinuation) {
+                    extraLines++;
+                    window += '\n' + nextLine;
+                    parenDepth += (nextLine.match(/\(/g) || []).length;
+                    parenDepth -= (nextLine.match(/\)/g) || []).length;
+                } else {
+                    break;
+                }
             }
 
+            const isOptional = /\.optional\(\)/.test(window);
+
+            // Extract description (single quote, double quote, or backtick)
+            let descMatch = window.match(/\.describe\(\s*'((?:[^']|\\')*)'\s*\)/);
+            if (!descMatch) descMatch = window.match(/\.describe\(\s*"((?:[^"]|\\")*)"\s*\)/);
+            if (!descMatch) descMatch = window.match(/\.describe\(\s*`([\s\S]*?)`\s*\)/);
+            if (descMatch) prop.description = descMatch[1].split('\n')[0].trim();
+
             // Extract default value
-            const defaultMatch = trimmed.match(/\.default\(([^)]+)\)/);
+            const defaultMatch = window.match(/\.default\(([^)]+)\)/);
             if (defaultMatch) {
                 try {
                     const defaultVal = defaultMatch[1].trim();
@@ -89,15 +112,16 @@ function parseZodSchema(zodString) {
                     break;
                 case 'enum':
                     prop.type = 'string';
-                    const enumMatch = trimmed.match(/z\.enum\(\[([^\]]+)\]/);
+                    const enumMatch = window.match(/z\.enum\(\[([\s\S]+?)\]\)/);
                     if (enumMatch) {
-                        prop.enum = enumMatch[1].split(',').map(s => s.trim().replace(/['"]/g, ''));
+                        prop.enum = enumMatch[1].split(',')
+                            .map(s => s.trim().replace(/['"`]/g, ''))
+                            .filter(s => s.length > 0);
                     }
                     break;
                 case 'object':
                     prop.type = 'object';
-                    // Check for common patterns like position {x, y, z}
-                    if (trimmed.includes('x: z.number()') || trimmed.includes('x:z.number()')) {
+                    if (window.includes('x: z.number()') || window.includes('x:z.number()')) {
                         prop.properties = {
                             x: { type: 'number' },
                             y: { type: 'number' },
@@ -107,6 +131,9 @@ function parseZodSchema(zodString) {
                     break;
                 case 'array':
                     prop.type = 'array';
+                    break;
+                case 'union':
+                    prop.type = 'string';
                     break;
                 default:
                     prop.type = 'string';

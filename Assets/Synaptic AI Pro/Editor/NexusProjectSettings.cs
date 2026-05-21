@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using SynapticAIPro;
 using UnityEditor;
 using System.Text;
 using Newtonsoft.Json;
@@ -321,7 +322,7 @@ namespace SynapticPro
                 var inputManagerAssets = AssetDatabase.LoadAllAssetsAtPath("ProjectSettings/InputManager.asset");
                 if (inputManagerAssets == null || inputManagerAssets.Length == 0)
                 {
-                    Debug.LogWarning("[GetInputSettings] InputManager asset not found");
+                    SynLog.Warn("[GetInputSettings] InputManager asset not found");
                     inputSettings["input_axes"] = new List<Dictionary<string, object>>();
                 }
                 else
@@ -329,7 +330,7 @@ namespace SynapticPro
                     var inputManagerAsset = inputManagerAssets[0];
                     if (inputManagerAsset == null)
                     {
-                        Debug.LogWarning("[GetInputSettings] InputManager asset is null");
+                        SynLog.Warn("[GetInputSettings] InputManager asset is null");
                         inputSettings["input_axes"] = new List<Dictionary<string, object>>();
                     }
                     else
@@ -339,7 +340,7 @@ namespace SynapticPro
                         
                         if (axesProperty == null)
                         {
-                            Debug.LogWarning("[GetInputSettings] m_Axes property not found");
+                            SynLog.Warn("[GetInputSettings] m_Axes property not found");
                             inputSettings["input_axes"] = new List<Dictionary<string, object>>();
                         }
                         else
@@ -375,7 +376,7 @@ namespace SynapticPro
                                 }
                                 catch (Exception axisEx)
                                 {
-                                    Debug.LogWarning($"[GetInputSettings] Failed to read axis {i}: {axisEx.Message}");
+                                    SynLog.Warn($"[GetInputSettings] Failed to read axis {i}: {axisEx.Message}");
                                 }
                             }
                             

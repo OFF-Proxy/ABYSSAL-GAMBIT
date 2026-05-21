@@ -5,6 +5,40 @@ All notable changes to Synaptic AI Pro for Unity will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.22] - 2026-05-21 — Emergency Hotfix
+
+### Critical Fix
+- **MCP timeout regression (ESC-0102)**: `SynLog.Info` called `EditorPrefs.GetBool` on every log invocation. `EditorPrefs` is main-thread only — calling it from `ListenForMessages` (Task.Run background thread, e.g. WebSocket `ReceiveAsync` handlers) threw silently and killed the listener Task. Every MCP command from Claude Desktop / Cursor then timed out.
+  - **Fix**: `SynLog` now caches the verbose flag in a `volatile bool` at `[InitializeOnLoadMethod]` time. Info/Warn read the cache (thread-safe). `Set` updates both the cache and `EditorPrefs`.
+  - Introduced in v1.2.20 with the SynLog wrapper; surfaced under load with the v1.2.21 detached-spawn pipeline. Affected all platforms (Win + Mac).
+- **`NexusEditorMCPService.lastConnectionCheckTime` epoch mismatch**: Written via `ThreadSafeTime()` (Stopwatch-since-classload), compared against `Time.realtimeSinceStartup` (Editor-since-startup). After the first domain reload Stopwatch reset to 0 while `Time.realtimeSinceStartup` kept counting — the gate `currentTime - lastConnectionCheckTime > 2f` became permanently true, forcing the reconnect phase to fire every frame and tearing down established sessions.
+  - **Fix**: `Update()` calibrates `ThreadSafeTime()` against `Time.realtimeSinceStartup` on the first main-thread tick. Both sides now share the same epoch.
+
+### Added
+- **`unity_run_csharp` meta-tool (SuperSave) / `run_csharp` Editor operation**: Equivalent of Blender's `run_python`. Execute arbitrary C# against the running Editor (UnityEngine / UnityEditor / Linq / Newtonsoft.Json pre-imported). Uses `Mono.CSharp.Evaluator` (instance API, all-AppDomain assembly injection) — does NOT trigger an AssemblyReload, so the connection stays alive.
+
+### Diagnostics
+- `index-supersave.js`: added `wss.on('error')` + per-socket `ws.on('error')`, connection-info logging, `unityWebSocket assigned` confirmation, `readyState !== OPEN` precheck, and `send()` callback so write failures surface immediately instead of bleeding into the 60s timeout.
+- `NexusWebSocketClient.ReceiveLoop` (HTTP-bridge path): added missing `EndOfMessage` concatenation. Messages over 4096B were truncated mid-chunk and failed JSON parse.
+
+---
+
+## [1.2.21] - 2026-05-20
+
+### Fixed
+- **Windows HTTP Server Cascade Kill (ESC-0095)**: Root cause finally identified. Unity Editor on Windows assigns itself a Win32 Job Object with `JOB_OBJECT_LIMIT_KILL_ON_JOB_CLOSE`. Any child process started via `Process.Start` inherits the Job and gets killed when Unity manipulates it on assembly reload / PlayMode transitions. This is the long-standing reason HTTP server "dies" after several script edits — and why the v1.2.10 → v1.2.11 internal-to-external rewrite did not fix it (the external Node.js was still inside Unity's Job).
+  - **Fix**: Replaced `Process.Start` on Windows with `CreateProcessW` P/Invoke using `CREATE_BREAKAWAY_FROM_JOB | DETACHED_PROCESS | CREATE_NEW_PROCESS_GROUP`. The spawned `node.exe` now runs fully independent of Unity's Job Object.
+  - **PID Recovery**: Node PID stored in `SessionState` + `EditorPrefs`. After domain reload, `[InitializeOnLoadMethod]` re-attaches by PID and only reconnects the WebSocket — the HTTP process itself survives.
+  - **Parent Watchdog (orphan guard)**: `http-server.js` now accepts `--parent-pid={UnityPID}` and self-terminates if Unity dies. Prevents zombie `node.exe` even when `BREAKAWAY` succeeds.
+  - **Detached log file**: `--log={path}` routes Node output to a file because stdout pipes break under `DETACHED_PROCESS`. Logs land in `MCPServer/logs/http-server.log`.
+  - **Fallback**: If `CREATE_BREAKAWAY_FROM_JOB` is denied (ACCESS_DENIED — Unity's Job missing `JOB_OBJECT_LIMIT_BREAKAWAY_OK`), retries with `DETACHED_PROCESS` only. Behaviour matches v1.2.20 in that fallback case, but the parent-PID watchdog still guards orphans.
+- **macOS / Linux behaviour unchanged**: Those platforms have no Job-Object-equivalent cascade-kill mechanism, so the legacy `Process.Start` path is retained.
+
+### Reference
+- Burst Compiler (Unity's own package) uses the same `CREATE_BREAKAWAY_FROM_JOB` technique for the same reason. See `BclApp.cs` in `com.unity.burst`.
+
+---
+
 ## [1.2.20] - 2026-05-10
 
 ### Fixed

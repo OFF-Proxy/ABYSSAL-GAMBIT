@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using UnityEngine;
+using SynapticAIPro;
 
 namespace SynapticAIPro
 {
@@ -63,7 +64,7 @@ namespace SynapticAIPro
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[Synaptic] Failed to read version from package.json: {e.Message}");
+                SynLog.Warn($"[Synaptic] Failed to read version from package.json: {e.Message}");
             }
 
             return "1.0.0"; // Fallback

@@ -188,13 +188,92 @@ namespace SynapticPro
                         p.Start();
                         p.WaitForExit(3000);
                     }
-                    Debug.Log($"[Synaptic] Killed HTTP server process on port {port} (Unity quitting)");
+                    SynLog.Info($"[Synaptic] Killed HTTP server process on port {port} (Unity quitting)");
                 }
                 catch { }
             };
         }
 
         // Unity起動時にアップデートチェック（Setup Windowを開かなくても通知）
+        /// <summary>
+        /// After domain reload, recover the previously spawned detached
+        /// node.exe by re-attaching to its PID stored in SessionState.
+        /// Only the WebSocket needs reconnecting — the HTTP process itself
+        /// was started detached and survives across reloads.
+        /// </summary>
+        [InitializeOnLoadMethod]
+        private static void RestoreDetachedHttpServerOnReload()
+        {
+            EditorApplication.delayCall += () =>
+            {
+                // Windows detached path: recover by PID stored in SessionState.
+                if (Application.platform == RuntimePlatform.WindowsEditor &&
+                    SynapticDetachedProcess.IsStoredProcessAlive(out int pid, out int wPort))
+                {
+                    externalHttpRunning = true;
+                    EditorPrefs.SetInt(PREF_HTTP_PORT, wPort);
+                    SynLog.Info($"[Synaptic] Recovered detached HTTP server PID={pid} on port {wPort}. Reconnecting WebSocket.");
+                    _ = ReconnectWebSocketOnlyAsync(wPort);
+                    return;
+                }
+
+                // Generic path (Mac/Linux, or Windows fallback): probe last-used
+                // port; if a server is listening, just reconnect WS.
+                int port = EditorPrefs.GetInt(PREF_HTTP_PORT, 8086);
+                if (IsPortListeningStatic(port))
+                {
+                    externalHttpRunning = true;
+                    SynLog.Info($"[Synaptic] HTTP server alive on port {port} after reload. Reconnecting WebSocket.");
+                    _ = ReconnectWebSocketOnlyAsync(port);
+                }
+                else if (Application.platform == RuntimePlatform.WindowsEditor)
+                {
+                    // Stored PID is stale and port dead — clear for fresh spawn.
+                    SynapticDetachedProcess.ClearStoredPid();
+                }
+            };
+        }
+
+        /// <summary>
+        /// Static port-alive probe usable from [InitializeOnLoadMethod].
+        /// Lightweight TCP connect with short timeout.
+        /// </summary>
+        private static bool IsPortListeningStatic(int port)
+        {
+            try
+            {
+                using (var tcp = new System.Net.Sockets.TcpClient())
+                {
+                    var ar = tcp.BeginConnect("127.0.0.1", port, null, null);
+                    bool ok = ar.AsyncWaitHandle.WaitOne(500);
+                    if (!ok) return false;
+                    try { tcp.EndConnect(ar); return true; } catch { return false; }
+                }
+            }
+            catch { return false; }
+        }
+
+        /// <summary>
+        /// Reconnect WebSocket to an already-running HTTP server after domain
+        /// reload. Does not start the server or open any UI.
+        /// </summary>
+        private static async System.Threading.Tasks.Task ReconnectWebSocketOnlyAsync(int port)
+        {
+            // Light delay so the editor finishes loading other systems first.
+            await System.Threading.Tasks.Task.Delay(500);
+            for (int i = 0; i < 3; i++)
+            {
+                bool ok = await NexusHTTPWebSocketClient.Instance.Connect(port);
+                if (ok)
+                {
+                    SynLog.Info($"[Synaptic] WebSocket re-attached to port {port} after reload.");
+                    return;
+                }
+                await System.Threading.Tasks.Task.Delay(1500);
+            }
+            SynLog.Warn($"[Synaptic] Could not reconnect WebSocket to port {port}. Use Setup window to reconnect manually.");
+        }
+
         [InitializeOnLoadMethod]
         private static void CheckForUpdatesOnStartup()
         {
@@ -281,13 +360,13 @@ namespace SynapticPro
                 {
                     // 既にサーバーが動いてる（前回のプロセスが残ってる）→ 再接続のみ
                     externalHttpRunning = true;
-                    Debug.Log("[Synaptic] Auto-start: Existing server detected, reconnecting...");
+                    SynLog.Info("[Synaptic] Auto-start: Existing server detected, reconnecting...");
                     _ = ConnectToHttpServerAsync(httpPort);
                 }
                 else
                 {
                     // サーバーがない → 新規起動
-                    Debug.Log("[Synaptic] Auto-starting HTTP Server...");
+                    SynLog.Info("[Synaptic] Auto-starting HTTP Server...");
                     StartExternalHttpServer();
                 }
             }
@@ -992,7 +1071,7 @@ namespace SynapticPro
                 if (GUILayout.Button("Copy Base URL", GUILayout.Height(25)))
                 {
                     GUIUtility.systemCopyBuffer = baseUrl;
-                    Debug.Log($"Copied: {baseUrl}");
+                    SynLog.Info($"Copied: {baseUrl}");
                 }
 
                 EditorGUILayout.EndVertical();
@@ -1038,7 +1117,7 @@ namespace SynapticPro
                 var mcpServerPath = FindMCPServerPath();
                 var aiPrompt = GetHTTPControlPrompt(mcpServerPath, httpPort);
                 GUIUtility.systemCopyBuffer = aiPrompt;
-                Debug.Log("[Synaptic] AI Prompt copied to clipboard!");
+                SynLog.Info("[Synaptic] AI Prompt copied to clipboard!");
                 EditorUtility.DisplayDialog("Copied!", "AI Control Prompt has been copied to clipboard.\n\nPaste it to your AI assistant to enable HTTP control.", "OK");
             }
 
@@ -1294,20 +1373,49 @@ namespace SynapticPro
 
                 if (Application.platform == RuntimePlatform.WindowsEditor)
                 {
-                    // Windows: node.exeを直接実行（cmd.exeのクォート問題を回避）
-                    startInfo = new System.Diagnostics.ProcessStartInfo
+                    // Windows: detached from Unity's Job Object via CreateProcessW
+                    // with CREATE_BREAKAWAY_FROM_JOB. Process.Start inherits the
+                    // Job and gets killed on assembly reload — see ESC-0095.
+                    string logDir = Path.Combine(mcpServerPath, "logs");
+                    try { Directory.CreateDirectory(logDir); } catch { }
+                    string logFile = Path.Combine(logDir, "http-server.log");
+
+                    int pid = SynapticDetachedProcess.StartWindows(
+                        nodePath, httpServerScript, httpPort, mcpServerPath, logFile);
+
+                    if (pid == 0)
                     {
-                        FileName = nodePath,
-                        Arguments = $"\"{httpServerScript}\" {httpPort}",
-                        WorkingDirectory = mcpServerPath,
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true,
-                        CreateNoWindow = true,
-                        StandardOutputEncoding = System.Text.Encoding.UTF8,
-                        StandardErrorEncoding = System.Text.Encoding.UTF8
-                    };
-                    startInfo.EnvironmentVariables["HTTP_PORT"] = httpPort.ToString();
+                        SynLog.Info("[Synaptic] Detached spawn failed, falling back to Process.Start");
+                        // Fall through to legacy path below
+                        startInfo = new System.Diagnostics.ProcessStartInfo
+                        {
+                            FileName = nodePath,
+                            Arguments = $"\"{httpServerScript}\" {httpPort}",
+                            WorkingDirectory = mcpServerPath,
+                            UseShellExecute = false,
+                            RedirectStandardOutput = true,
+                            RedirectStandardError = true,
+                            CreateNoWindow = true,
+                            StandardOutputEncoding = System.Text.Encoding.UTF8,
+                            StandardErrorEncoding = System.Text.Encoding.UTF8
+                        };
+                        startInfo.EnvironmentVariables["HTTP_PORT"] = httpPort.ToString();
+                    }
+                    else
+                    {
+                        // Detached path: process is independent of Unity's Job.
+                        // We don't keep externalHttpProcess (no handle) — recovery
+                        // uses SessionState PID. Mark running and connect.
+                        externalHttpProcess = null;
+                        externalHttpRunning = true;
+                        EditorPrefs.SetInt(PREF_HTTP_PORT, httpPort);
+                        SynLog.Info($"[Synaptic] External HTTP Server started detached (PID={pid}) on port {httpPort}");
+                        SynLog.Info($"[Synaptic] Node: {nodePath}");
+                        SynLog.Info($"[Synaptic] Script: {httpServerScript}");
+                        SynLog.Info($"[Synaptic] Log: {logFile}");
+                        _ = ConnectToHttpServerAsync(httpPort);
+                        return;
+                    }
                 }
                 else
                 {
@@ -1332,12 +1440,12 @@ namespace SynapticPro
                 externalHttpProcess.OutputDataReceived += (sender, e) =>
                 {
                     if (!string.IsNullOrEmpty(e.Data))
-                        Debug.Log($"[HTTP Server] {e.Data}");
+                        SynLog.Info($"[HTTP Server] {e.Data}");
                 };
                 externalHttpProcess.ErrorDataReceived += (sender, e) =>
                 {
                     if (!string.IsNullOrEmpty(e.Data))
-                        Debug.Log($"[HTTP Server] {e.Data}");
+                        SynLog.Info($"[HTTP Server] {e.Data}");
                 };
 
                 externalHttpProcess.Start();
@@ -1347,9 +1455,9 @@ namespace SynapticPro
                 externalHttpRunning = true;
                 EditorPrefs.SetInt(PREF_HTTP_PORT, httpPort);
 
-                Debug.Log($"[Synaptic] External HTTP Server started on port {httpPort}");
-                Debug.Log($"[Synaptic] Node: {nodePath}");
-                Debug.Log($"[Synaptic] Script: {httpServerScript}");
+                SynLog.Info($"[Synaptic] External HTTP Server started on port {httpPort}");
+                SynLog.Info($"[Synaptic] Node: {nodePath}");
+                SynLog.Info($"[Synaptic] Script: {httpServerScript}");
 
                 // Connect Unity to HTTP Server via WebSocket (with delay to let server start)
                 _ = ConnectToHttpServerAsync(httpPort);
@@ -1375,18 +1483,30 @@ namespace SynapticPro
                 var connected = await NexusHTTPWebSocketClient.Instance.Connect(port);
                 if (connected)
                 {
-                    Debug.Log($"[Synaptic] Unity connected to HTTP Server on port {port}");
+                    SynLog.Info($"[Synaptic] Unity connected to HTTP Server on port {port}");
                     return;
                 }
-                Debug.Log($"[Synaptic] Connection attempt {i + 1}/3 failed, retrying...");
+                SynLog.Info($"[Synaptic] Connection attempt {i + 1}/3 failed, retrying...");
                 await Task.Delay(2000);
             }
 
-            Debug.LogWarning($"[Synaptic] Failed to connect Unity to HTTP Server after 3 attempts.\nTry starting manually: cd to MCPServer folder and run 'node http-server.js {port}'");
+            SynLog.Warn($"[Synaptic] Failed to connect Unity to HTTP Server after 3 attempts.\nTry starting manually: cd to MCPServer folder and run 'node http-server.js {port}'");
         }
 
         private void StopExternalHttpServer()
         {
+            // Detached path: kill by stored PID (no Process handle exists)
+            if (Application.platform == RuntimePlatform.WindowsEditor &&
+                externalHttpProcess == null && externalHttpRunning)
+            {
+                if (SynapticDetachedProcess.KillStored())
+                {
+                    externalHttpRunning = false;
+                    SynLog.Info("[Synaptic] Detached HTTP server stopped.");
+                    return;
+                }
+            }
+
             // Kill process first (WebSocket will disconnect automatically)
             if (externalHttpProcess != null)
             {
@@ -1401,7 +1521,7 @@ namespace SynapticPro
                 }
                 catch (Exception e)
                 {
-                    Debug.LogWarning($"[Synaptic] Error stopping HTTP server: {e.Message}");
+                    SynLog.Warn($"[Synaptic] Error stopping HTTP server: {e.Message}");
                 }
                 finally
                 {
@@ -1415,10 +1535,10 @@ namespace SynapticPro
                 // Kill by port number instead
                 KillProcessOnPortSafe(httpPort);
                 externalHttpRunning = false;
-                Debug.Log($"[Synaptic] HTTP Server on port {httpPort} - process reference lost. Killing by port.");
+                SynLog.Info($"[Synaptic] HTTP Server on port {httpPort} - process reference lost. Killing by port.");
             }
 
-            Debug.Log("[Synaptic] External HTTP Server stopped");
+            SynLog.Info("[Synaptic] External HTTP Server stopped");
         }
 
         private void KillProcessOnPortSafe(int port)
@@ -1432,7 +1552,7 @@ namespace SynapticPro
                 }
                 catch (Exception e)
                 {
-                    Debug.LogWarning($"[Synaptic] Could not kill process on port {port}: {e.Message}");
+                    SynLog.Warn($"[Synaptic] Could not kill process on port {port}: {e.Message}");
                 }
             });
         }
@@ -1478,7 +1598,7 @@ namespace SynapticPro
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[Synaptic] Failed to kill process on port {port}: {e.Message}");
+                SynLog.Warn($"[Synaptic] Failed to kill process on port {port}: {e.Message}");
             }
         }
 
@@ -1670,7 +1790,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
             if (GUILayout.Button("⏹️ Cancel", GUILayout.Height(30)))
             {
                 isConnecting = false;
-                Debug.Log("[Synaptic] AI connection cancelled");
+                SynLog.Info("[Synaptic] AI connection cancelled");
                 Repaint();
             }
             
@@ -1681,7 +1801,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
         {
             try
             {
-                Debug.Log("[Synaptic] Starting AI Connection...");
+                SynLog.Info("[Synaptic] Starting AI Connection...");
 
                 // Start animation
                 isConnecting = true;
@@ -1709,7 +1829,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                     // Auto-generate configuration files for desktop AI
                     GenerateDesktopAIConfigs();
 
-                    Debug.Log("[Synaptic] ✅ AI connection setup complete! Desktop AI will auto-connect");
+                    SynLog.Info("[Synaptic] ✅ AI connection setup complete! Desktop AI will auto-connect");
                     EditorUtility.DisplayDialog("AI Connection Ready", 
                         "Connection completed successfully.\n\n" +
                         "Unity tools are now available in AI apps.\n" +
@@ -1745,7 +1865,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
         private void StopAIConnection()
         {
             mcpServerRunning = false;
-            Debug.Log("[Synaptic] AI Connection stopped");
+            SynLog.Info("[Synaptic] AI Connection stopped");
             Repaint();
         }
         
@@ -1830,7 +1950,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
 
                 if (!File.Exists(packageJsonPath))
                 {
-                    Debug.LogWarning("[Synaptic] package.json not found. Skipping update.");
+                    SynLog.Warn("[Synaptic] package.json not found. Skipping update.");
                     return;
                 }
 
@@ -1843,7 +1963,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                     // hub-server.js uses ESM (import) - requires "type": "module"
                     packageJson["type"] = "module";
                     packageJson["main"] = "hub-server.js";
-                    Debug.Log("[Synaptic] package.json updated for hub-server.js (ESM)");
+                    SynLog.Info("[Synaptic] package.json updated for hub-server.js (ESM)");
                 }
                 else if (selectedAIClient == AIClientType.TokenSuperSaveMode)
                 {
@@ -1853,7 +1973,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                         packageJson.Remove("type");
                     }
                     packageJson["main"] = "index-supersave.js";
-                    Debug.Log("[Synaptic] package.json updated for index-supersave.js (CommonJS)");
+                    SynLog.Info("[Synaptic] package.json updated for index-supersave.js (CommonJS)");
                 }
                 else
                 {
@@ -1863,7 +1983,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                         packageJson.Remove("type");
                     }
                     packageJson["main"] = "index.js";
-                    Debug.Log("[Synaptic] package.json updated for index.js (CommonJS)");
+                    SynLog.Info("[Synaptic] package.json updated for index.js (CommonJS)");
                 }
 
                 // Write updated package.json
@@ -1974,7 +2094,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 // Update MCPServer/mcp-config.json with current project path
                 UpdateMCPServerConfig();
 
-                Debug.Log($"[Synaptic] Auto-generated {configuredCount} MCP configurations: {string.Join(", ", configuredTools)}");
+                SynLog.Info($"[Synaptic] Auto-generated {configuredCount} MCP configurations: {string.Join(", ", configuredTools)}");
             }
             catch (Exception e)
             {
@@ -2061,7 +2181,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 var claudeConfigDir = DetectClaudeConfigPath();
                 if (string.IsNullOrEmpty(claudeConfigDir))
                 {
-                    Debug.LogWarning("[Synaptic] Claude Desktop config path not detected.");
+                    SynLog.Warn("[Synaptic] Claude Desktop config path not detected.");
                     return false;
                 }
 
@@ -2083,7 +2203,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 }
                 catch (Exception e)
                 {
-                    Debug.LogWarning($"[Synaptic] Failed to load existing Claude configuration: {e.Message}");
+                    SynLog.Warn($"[Synaptic] Failed to load existing Claude configuration: {e.Message}");
                 }
             }
 
@@ -2131,7 +2251,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
             
             File.WriteAllText(configPath, JsonConvert.SerializeObject(claudeConfig, Newtonsoft.Json.Formatting.Indented));
 
-            Debug.Log($"[Synaptic] Claude configuration file created: {configPath}");
+            SynLog.Info($"[Synaptic] Claude configuration file created: {configPath}");
             return true;
             }
             catch (Exception e)
@@ -2255,7 +2375,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 var geminiConfigDir = DetectGeminiConfigPath();
                 if (string.IsNullOrEmpty(geminiConfigDir))
                 {
-                    Debug.LogWarning("[Synaptic] Gemini Desktop not found.");
+                    SynLog.Warn("[Synaptic] Gemini Desktop not found.");
                     return false;
                 }
 
@@ -2280,7 +2400,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
             var configPath = Path.Combine(geminiConfigDir, "config.json");
             File.WriteAllText(configPath, JsonConvert.SerializeObject(geminiConfig, Newtonsoft.Json.Formatting.Indented));
 
-            Debug.Log($"[Synaptic] Gemini configuration file created: {configPath}");
+            SynLog.Info($"[Synaptic] Gemini configuration file created: {configPath}");
             return true;
             }
             catch (Exception e)
@@ -2335,7 +2455,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 var cursorConfigDir = DetectCursorConfigPath();
                 if (string.IsNullOrEmpty(cursorConfigDir))
                 {
-                    Debug.LogWarning("[Synaptic] Could not determine Cursor config path.");
+                    SynLog.Warn("[Synaptic] Could not determine Cursor config path.");
                     return false;
                 }
 
@@ -2357,7 +2477,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                     }
                     catch (Exception e)
                     {
-                        Debug.LogWarning($"[Synaptic] Failed to load existing Cursor configuration: {e.Message}");
+                        SynLog.Warn($"[Synaptic] Failed to load existing Cursor configuration: {e.Message}");
                     }
                 }
 
@@ -2397,7 +2517,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
 
                 File.WriteAllText(configPath, JsonConvert.SerializeObject(cursorConfig, Newtonsoft.Json.Formatting.Indented));
 
-                Debug.Log($"[Synaptic] ✅ Cursor configuration file created: {configPath}");
+                SynLog.Info($"[Synaptic] ✅ Cursor configuration file created: {configPath}");
                 return true;
             }
             catch (Exception e)
@@ -2423,7 +2543,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 var vscodeConfigDir = DetectVSCodeConfigPath();
                 if (string.IsNullOrEmpty(vscodeConfigDir))
                 {
-                    Debug.LogWarning("[Synaptic] Could not determine VS Code config path.");
+                    SynLog.Warn("[Synaptic] Could not determine VS Code config path.");
                     return false;
                 }
 
@@ -2445,7 +2565,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                     }
                     catch (Exception e)
                     {
-                        Debug.LogWarning($"[Synaptic] Failed to load existing VS Code configuration: {e.Message}");
+                        SynLog.Warn($"[Synaptic] Failed to load existing VS Code configuration: {e.Message}");
                     }
                 }
 
@@ -2485,7 +2605,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
 
                 File.WriteAllText(configPath, JsonConvert.SerializeObject(vscodeConfig, Newtonsoft.Json.Formatting.Indented));
 
-                Debug.Log($"[Synaptic] ✅ VS Code configuration file created: {configPath}");
+                SynLog.Info($"[Synaptic] ✅ VS Code configuration file created: {configPath}");
                 return true;
             }
             catch (Exception e)
@@ -2520,7 +2640,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 var lmstudioConfigDir = DetectLMStudioConfigPath();
                 if (string.IsNullOrEmpty(lmstudioConfigDir))
                 {
-                    Debug.LogWarning("[Synaptic] Could not determine LM Studio config path.");
+                    SynLog.Warn("[Synaptic] Could not determine LM Studio config path.");
                     return false;
                 }
 
@@ -2542,7 +2662,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                     }
                     catch (Exception e)
                     {
-                        Debug.LogWarning($"[Synaptic] Failed to load existing LM Studio configuration: {e.Message}");
+                        SynLog.Warn($"[Synaptic] Failed to load existing LM Studio configuration: {e.Message}");
                     }
                 }
 
@@ -2582,7 +2702,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
 
                 File.WriteAllText(configPath, JsonConvert.SerializeObject(lmstudioConfig, Newtonsoft.Json.Formatting.Indented));
 
-                Debug.Log($"[Synaptic] ✅ LM Studio configuration file created: {configPath}");
+                SynLog.Info($"[Synaptic] ✅ LM Studio configuration file created: {configPath}");
                 return true;
             }
             catch (Exception e)
@@ -2599,14 +2719,14 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 var mcpServerPath = FindMCPServerPath();
                 if (string.IsNullOrEmpty(mcpServerPath))
                 {
-                    Debug.LogWarning("[Synaptic] MCP Server path not found.");
+                    SynLog.Warn("[Synaptic] MCP Server path not found.");
                     return false;
                 }
 
                 var configPath = Path.Combine(mcpServerPath, "mcp-config.json");
                 if (!File.Exists(configPath))
                 {
-                    Debug.LogWarning($"[Synaptic] mcp-config.json not found at: {configPath}");
+                    SynLog.Warn($"[Synaptic] mcp-config.json not found at: {configPath}");
                     return false;
                 }
 
@@ -2619,7 +2739,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 // Write back
                 File.WriteAllText(configPath, configContent);
 
-                Debug.Log($"[Synaptic] ✅ Updated mcp-config.json with project path: {mcpServerPath}");
+                SynLog.Info($"[Synaptic] ✅ Updated mcp-config.json with project path: {mcpServerPath}");
                 return true;
             }
             catch (Exception e)
@@ -2636,7 +2756,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 var chatgptConfigDir = DetectChatGPTConfigPath();
                 if (string.IsNullOrEmpty(chatgptConfigDir))
                 {
-                    Debug.LogWarning("[Synaptic] ChatGPT Desktop not found.");
+                    SynLog.Warn("[Synaptic] ChatGPT Desktop not found.");
                     return false;
                 }
 
@@ -2658,7 +2778,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 }
                 catch (Exception e)
                 {
-                    Debug.LogWarning($"[Synaptic] Failed to load existing ChatGPT configuration: {e.Message}");
+                    SynLog.Warn($"[Synaptic] Failed to load existing ChatGPT configuration: {e.Message}");
                 }
             }
 
@@ -2700,7 +2820,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
 
             File.WriteAllText(configPath, JsonConvert.SerializeObject(chatgptConfig, Newtonsoft.Json.Formatting.Indented));
 
-            Debug.Log($"[Synaptic] ChatGPT configuration file created: {configPath}");
+            SynLog.Info($"[Synaptic] ChatGPT configuration file created: {configPath}");
             return true;
             }
             catch (Exception e)
@@ -2769,7 +2889,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
             };
 
             System.IO.File.WriteAllLines(envPath, envContent);
-            Debug.Log("[Synaptic] MCP settings saved");
+            SynLog.Info("[Synaptic] MCP settings saved");
         }
 
 
@@ -2797,7 +2917,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
         {
             try
             {
-                Debug.Log("[Synaptic] Starting MCP setup...");
+                SynLog.Info("[Synaptic] Starting MCP setup...");
                 
                 // Check and install dependencies
                 if (!CheckAndInstallDependencies())
@@ -2825,7 +2945,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 // Set configuration complete flag
                 mcpConfigured = true;
                 
-                Debug.Log("[Synaptic] MCP setup completed. Ready for AI integration.");
+                SynLog.Info("[Synaptic] MCP setup completed. Ready for AI integration.");
 
                 // Display success message based on selected AI client (v1.1.0)
                 string successMessage;
@@ -2890,7 +3010,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 mcpConfigured = false;
                 mcpSetupManager = null;
 
-                Debug.Log("[Synaptic] MCP settings have been reset. Please reconfigure.");
+                SynLog.Info("[Synaptic] MCP settings have been reset. Please reconfigure.");
 
                 EditorUtility.DisplayDialog(
                     "Settings Reset Complete",
@@ -2911,7 +3031,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 // Create Claude Code specific configuration (no detection required)
                 if (GenerateClaudeCodeSpecificConfig())
                 {
-                    Debug.Log("[Synaptic] Claude Code configuration complete");
+                    SynLog.Info("[Synaptic] Claude Code configuration complete");
 
                     EditorUtility.DisplayDialog(
                         "Claude Code Configuration Complete",
@@ -2983,7 +3103,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                     }
                     catch (Exception e)
                     {
-                        Debug.LogWarning($"[Synaptic] Failed to load existing Windsurf config: {e.Message}");
+                        SynLog.Warn($"[Synaptic] Failed to load existing Windsurf config: {e.Message}");
                     }
                 }
                 
@@ -3013,7 +3133,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 
                 File.WriteAllText(windsurfConfigPath, JsonConvert.SerializeObject(windsurfConfig, Newtonsoft.Json.Formatting.Indented));
                 
-                Debug.Log($"[Synaptic] Windsurf config file created: {windsurfConfigPath}");
+                SynLog.Info($"[Synaptic] Windsurf config file created: {windsurfConfigPath}");
                 
                 EditorUtility.DisplayDialog(
                     "Windsurf Configuration Complete",
@@ -3058,7 +3178,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 }
                 else
                 {
-                    Debug.LogWarning("[Synaptic] Antigravity config: Unsupported platform");
+                    SynLog.Warn("[Synaptic] Antigravity config: Unsupported platform");
                     return false;
                 }
 
@@ -3079,7 +3199,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                     }
                     catch (Exception e)
                     {
-                        Debug.LogWarning($"[Synaptic] Failed to load existing Antigravity config: {e.Message}");
+                        SynLog.Warn($"[Synaptic] Failed to load existing Antigravity config: {e.Message}");
                     }
                 }
 
@@ -3115,7 +3235,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 }
 
                 File.WriteAllText(configPath, JsonConvert.SerializeObject(antigravityConfig, Newtonsoft.Json.Formatting.Indented));
-                Debug.Log($"[Synaptic] ✅ Google Antigravity config created: {configPath}");
+                SynLog.Info($"[Synaptic] ✅ Google Antigravity config created: {configPath}");
                 return true;
             }
             catch (Exception e)
@@ -3149,7 +3269,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 }
                 else
                 {
-                    Debug.LogWarning("[Synaptic] Kiro config: Unsupported platform");
+                    SynLog.Warn("[Synaptic] Kiro config: Unsupported platform");
                     return false;
                 }
 
@@ -3170,7 +3290,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                     }
                     catch (Exception e)
                     {
-                        Debug.LogWarning($"[Synaptic] Failed to load existing Kiro config: {e.Message}");
+                        SynLog.Warn($"[Synaptic] Failed to load existing Kiro config: {e.Message}");
                     }
                 }
 
@@ -3207,7 +3327,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 }
 
                 File.WriteAllText(configPath, JsonConvert.SerializeObject(kiroConfig, Newtonsoft.Json.Formatting.Indented));
-                Debug.Log($"[Synaptic] ✅ Amazon Kiro config created: {configPath}");
+                SynLog.Info($"[Synaptic] ✅ Amazon Kiro config created: {configPath}");
                 return true;
             }
             catch (Exception e)
@@ -3221,7 +3341,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
         {
             try
             {
-                Debug.Log("[Synaptic] Configuring all MCP clients...");
+                SynLog.Info("[Synaptic] Configuring all MCP clients...");
                 
                 var configuredTools = new List<string>();
                 
@@ -3245,7 +3365,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 }
                 catch (Exception e)
                 {
-                    Debug.LogWarning($"[Synaptic] Cursor config skipped: {e.Message}");
+                    SynLog.Warn($"[Synaptic] Cursor config skipped: {e.Message}");
                 }
 
                 // VS Code
@@ -3258,7 +3378,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 }
                 catch (Exception e)
                 {
-                    Debug.LogWarning($"[Synaptic] VS Code config skipped: {e.Message}");
+                    SynLog.Warn($"[Synaptic] VS Code config skipped: {e.Message}");
                 }
 
                 // Windsurf
@@ -3269,7 +3389,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 }
                 catch (Exception e)
                 {
-                    Debug.LogWarning($"[Synaptic] Windsurf config skipped: {e.Message}");
+                    SynLog.Warn($"[Synaptic] Windsurf config skipped: {e.Message}");
                 }
 
                 // Google Antigravity
@@ -3282,7 +3402,7 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 }
                 catch (Exception e)
                 {
-                    Debug.LogWarning($"[Synaptic] Antigravity config skipped: {e.Message}");
+                    SynLog.Warn($"[Synaptic] Antigravity config skipped: {e.Message}");
                 }
 
                 // Amazon Kiro
@@ -3295,14 +3415,14 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 }
                 catch (Exception e)
                 {
-                    Debug.LogWarning($"[Synaptic] Kiro config skipped: {e.Message}");
+                    SynLog.Warn($"[Synaptic] Kiro config skipped: {e.Message}");
                 }
 
                 // Generic settings for other MCP-compatible tools
                 GenerateUniversalCLIConfig();
                 configuredTools.Add("Generic MCP Clients");
                 
-                Debug.Log($"[Synaptic] All CLI AI configs completed: {string.Join(", ", configuredTools)}");
+                SynLog.Info($"[Synaptic] All CLI AI configs completed: {string.Join(", ", configuredTools)}");
                 
                 EditorUtility.DisplayDialog(
                     "MCP Client Configuration Complete",
@@ -3383,11 +3503,11 @@ node ""$MCP_SERVER_PATH/index.js""
                     System.Diagnostics.Process.Start("chmod", $"+x \"{scriptPath}\"");
                 }
                 
-                Debug.Log($"[Synaptic] Generic CLI config created: {configPath}");
+                SynLog.Info($"[Synaptic] Generic CLI config created: {configPath}");
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[Synaptic] Failed to create generic CLI config: {e.Message}");
+                SynLog.Warn($"[Synaptic] Failed to create generic CLI config: {e.Message}");
             }
         }
         
@@ -3470,7 +3590,7 @@ fi
                     System.Diagnostics.Process.Start("chmod", $"+x \"{watchScriptPath}\"");
                 }
                 
-                Debug.Log($"[Synaptic] Watch config creation completed: {watchConfigPath}");
+                SynLog.Info($"[Synaptic] Watch config creation completed: {watchConfigPath}");
 
                 EditorUtility.DisplayDialog(
                     "Watch Config Created",
@@ -3522,7 +3642,7 @@ fi
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[Synaptic] CLI check error ({cliName}): {e.Message}");
+                SynLog.Warn($"[Synaptic] CLI check error ({cliName}): {e.Message}");
             }
             
             return null;
@@ -3689,7 +3809,7 @@ fi
                 }
                 catch (Exception e)
                 {
-                    Debug.LogWarning($"[Synaptic] Path check error ({path}): {e.Message}");
+                    SynLog.Warn($"[Synaptic] Path check error ({path}): {e.Message}");
                 }
             }
             
@@ -3736,7 +3856,7 @@ fi
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[Synaptic] Process detection error ({processName}): {e.Message}");
+                SynLog.Warn($"[Synaptic] Process detection error ({processName}): {e.Message}");
             }
             
             return null;
@@ -3826,7 +3946,7 @@ fi
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[Synaptic] Gemini CLI config path detection error: {e.Message}");
+                SynLog.Warn($"[Synaptic] Gemini CLI config path detection error: {e.Message}");
             }
             
             return null;
@@ -3855,7 +3975,7 @@ fi
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[Synaptic] OpenAI Codex CLI config path detection error: {e.Message}");
+                SynLog.Warn($"[Synaptic] OpenAI Codex CLI config path detection error: {e.Message}");
             }
             
             return null;
@@ -3880,7 +4000,7 @@ fi
                     }
                     catch (Exception e)
                     {
-                        Debug.LogWarning($"[Synaptic] Failed to load existing Claude Code config: {e.Message}");
+                        SynLog.Warn($"[Synaptic] Failed to load existing Claude Code config: {e.Message}");
                     }
                 }
                 
@@ -3933,7 +4053,7 @@ fi
                 
                 File.WriteAllText(claudeConfigPath, JsonConvert.SerializeObject(claudeCodeConfig, Newtonsoft.Json.Formatting.Indented));
                 
-                Debug.Log($"[Synaptic] Claude Code config file created: {claudeConfigPath}");
+                SynLog.Info($"[Synaptic] Claude Code config file created: {claudeConfigPath}");
                 
                 // Also create alternate config path (user global settings)
                 var userConfigPath = Path.Combine(
@@ -3968,7 +4088,7 @@ fi
                     }
                     catch (Exception e)
                     {
-                        Debug.LogWarning($"[Synaptic] Failed to load existing user settings: {e.Message}");
+                        SynLog.Warn($"[Synaptic] Failed to load existing user settings: {e.Message}");
                     }
                 }
                 
@@ -3996,11 +4116,11 @@ fi
                 }
                 
                 File.WriteAllText(userConfigPath, JsonConvert.SerializeObject(userConfig, Newtonsoft.Json.Formatting.Indented));
-                Debug.Log($"[Synaptic] User global settings also created: {userConfigPath}");
+                SynLog.Info($"[Synaptic] User global settings also created: {userConfigPath}");
             }
             catch (Exception e)
             {
-                Debug.LogWarning($"[Synaptic] User global settings creation skipped: {e.Message}");
+                SynLog.Warn($"[Synaptic] User global settings creation skipped: {e.Message}");
             }
         }
         
@@ -4032,7 +4152,7 @@ fi
             var knownPath = Path.Combine(Application.dataPath, "Synaptic AI Pro", "MCPServer");
             if (Directory.Exists(knownPath))
             {
-                Debug.Log($"[Synaptic] Found MCPServer at known path: {knownPath}");
+                SynLog.Info($"[Synaptic] Found MCPServer at known path: {knownPath}");
                 _cachedMCPServerPath = knownPath;
                 return knownPath;
             }
@@ -4045,7 +4165,7 @@ fi
                     var mcpPath = Path.Combine(dir, "MCPServer");
                     if (Directory.Exists(mcpPath))
                     {
-                        Debug.Log($"[Synaptic] Found MCPServer in Assets: {mcpPath}");
+                        SynLog.Info($"[Synaptic] Found MCPServer in Assets: {mcpPath}");
                         _cachedMCPServerPath = mcpPath;
                         return mcpPath;
                     }
@@ -4065,7 +4185,7 @@ fi
                         var mcpPath = Path.Combine(dir, "MCPServer");
                         if (Directory.Exists(mcpPath))
                         {
-                            Debug.Log($"[Synaptic] Found MCPServer in Packages: {mcpPath}");
+                            SynLog.Info($"[Synaptic] Found MCPServer in Packages: {mcpPath}");
                             _cachedMCPServerPath = mcpPath;
                             return mcpPath;
                         }
@@ -4085,7 +4205,7 @@ fi
                         var mcpPath = Path.Combine(dir, "MCPServer");
                         if (Directory.Exists(mcpPath))
                         {
-                            Debug.Log($"[Synaptic] Found MCPServer in PackageCache: {mcpPath}");
+                            SynLog.Info($"[Synaptic] Found MCPServer in PackageCache: {mcpPath}");
                             _cachedMCPServerPath = mcpPath;
                             return mcpPath;
                         }
@@ -4096,7 +4216,7 @@ fi
 
             // 5. フォールバック
             string defaultPath = Path.Combine(Application.dataPath, "Synaptic AI Pro", "MCPServer");
-            Debug.LogWarning($"[Synaptic] MCPServer not found, using default path: {defaultPath}");
+            SynLog.Warn($"[Synaptic] MCPServer not found, using default path: {defaultPath}");
             _cachedMCPServerPath = defaultPath;
             return defaultPath;
         }
@@ -4148,7 +4268,7 @@ fi
 
                                 EditorApplication.delayCall += () =>
                                 {
-                                    Debug.Log($"[Synaptic] Update available: {currentVersion} → {latestVersion}");
+                                    SynLog.Info($"[Synaptic] Update available: {currentVersion} → {latestVersion}");
                                     Repaint();
                                 };
                             }
@@ -4158,7 +4278,7 @@ fi
                 catch (Exception e)
                 {
                     // フェイルサイレント
-                    Debug.Log($"[Synaptic] Update check failed (non-critical): {e.Message}");
+                    SynLog.Info($"[Synaptic] Update check failed (non-critical): {e.Message}");
                 }
             });
         }
@@ -4205,7 +4325,7 @@ fi
 
             try
             {
-                Debug.Log($"[Synaptic] Downloading update v{latestVersion}...");
+                SynLog.Info($"[Synaptic] Downloading update v{latestVersion}...");
 
                 // ダウンロード先
                 var downloadPath = Path.Combine(Path.GetTempPath(), $"SynapticAIPro_v{latestVersion}.unitypackage.zip");
@@ -4219,7 +4339,7 @@ fi
                     }
                 });
 
-                Debug.Log($"[Synaptic] Downloaded to: {downloadPath}");
+                SynLog.Info($"[Synaptic] Downloaded to: {downloadPath}");
 
                 // ZIPを展開してunitypackageを取得
                 var extractDir = Path.Combine(Path.GetTempPath(), "SynapticUpdate");
@@ -4233,7 +4353,7 @@ fi
                 if (packages.Length > 0)
                 {
                     var packagePath = packages[0];
-                    Debug.Log($"[Synaptic] Importing update package: {packagePath}");
+                    SynLog.Info($"[Synaptic] Importing update package: {packagePath}");
 
                     var synapticPath = Path.Combine(Application.dataPath, "Synaptic AI Pro");
 
@@ -4286,7 +4406,7 @@ fi
                     AssetDatabase.Refresh();
 
                     updateAvailable = false;
-                    Debug.Log($"[Synaptic] Update to v{latestVersion} complete!");
+                    SynLog.Info($"[Synaptic] Update to v{latestVersion} complete!");
                     EditorUtility.DisplayDialog("Update Complete",
                         $"Synaptic AI Pro has been updated to v{latestVersion}.\nPlease restart Unity for changes to take effect.",
                         "OK");
@@ -4333,7 +4453,7 @@ fi
                         var fullPath = Path.Combine(path.Trim(), nodeExecutable);
                         if (File.Exists(fullPath))
                         {
-                            Debug.Log($"[Synaptic] Found Node.js in PATH: {fullPath}");
+                            SynLog.Info($"[Synaptic] Found Node.js in PATH: {fullPath}");
                             return NormalizePathForJson(fullPath);
                         }
                     }
@@ -4407,7 +4527,7 @@ fi
                     var directPath = Path.Combine(basePath, nodeExecutable);
                     if (File.Exists(directPath))
                     {
-                        Debug.Log($"[Synaptic] Found Node.js: {directPath}");
+                        SynLog.Info($"[Synaptic] Found Node.js: {directPath}");
                         return NormalizePathForJson(directPath);
                     }
 
@@ -4419,14 +4539,14 @@ fi
                             var binPath = Path.Combine(subdir, nodeExecutable);
                             if (File.Exists(binPath))
                             {
-                                Debug.Log($"[Synaptic] Found Node.js in version manager: {binPath}");
+                                SynLog.Info($"[Synaptic] Found Node.js in version manager: {binPath}");
                                 return NormalizePathForJson(binPath);
                             }
                             // Also check bin subdirectory
                             binPath = Path.Combine(subdir, "bin", nodeExecutable);
                             if (File.Exists(binPath))
                             {
-                                Debug.Log($"[Synaptic] Found Node.js in version manager: {binPath}");
+                                SynLog.Info($"[Synaptic] Found Node.js in version manager: {binPath}");
                                 return NormalizePathForJson(binPath);
                             }
                         }
@@ -4456,14 +4576,14 @@ fi
 
                 if (process.ExitCode == 0 && !string.IsNullOrEmpty(output) && File.Exists(output))
                 {
-                    Debug.Log($"[Synaptic] Found Node.js via system command: {output}");
+                    SynLog.Info($"[Synaptic] Found Node.js via system command: {output}");
                     return NormalizePathForJson(output);
                 }
             }
             catch { }
 
             // 4. Return "node" as fallback (rely on PATH)
-            Debug.LogWarning("[Synaptic] Node.js path not detected, using 'node' (requires PATH to be set correctly)");
+            SynLog.Warn("[Synaptic] Node.js path not detected, using 'node' (requires PATH to be set correctly)");
             return "node";
         }
 
@@ -4471,7 +4591,7 @@ fi
         {
             try
             {
-                Debug.Log("[Synaptic] Checking dependencies...");
+                SynLog.Info("[Synaptic] Checking dependencies...");
                 
                 // Check if Newtonsoft.Json is installed
                 var listRequest = Client.List();
@@ -4488,14 +4608,14 @@ fi
                         if (package.name == "com.unity.nuget.newtonsoft-json")
                         {
                             hasNewtonsoft = true;
-                            Debug.Log($"[Synaptic] Newtonsoft.Json already installed: v{package.version}");
+                            SynLog.Info($"[Synaptic] Newtonsoft.Json already installed: v{package.version}");
                             break;
                         }
                     }
                     
                     if (!hasNewtonsoft)
                     {
-                        Debug.Log("[Synaptic] Installing Newtonsoft.Json...");
+                        SynLog.Info("[Synaptic] Installing Newtonsoft.Json...");
                         
                         // Install Newtonsoft.Json
                         var addRequest = Client.Add("com.unity.nuget.newtonsoft-json");
@@ -4507,7 +4627,7 @@ fi
                         
                         if (addRequest.Status == StatusCode.Success)
                         {
-                            Debug.Log("[Synaptic] Newtonsoft.Json installed successfully");
+                            SynLog.Info("[Synaptic] Newtonsoft.Json installed successfully");
                             
                             // Wait for compilation
                             EditorUtility.DisplayDialog(
@@ -4535,7 +4655,7 @@ fi
                         if (package.name == "com.unity.textmeshpro")
                         {
                             hasTMP = true;
-                            Debug.Log($"[Synaptic] TextMeshPro already installed: v{package.version}");
+                            SynLog.Info($"[Synaptic] TextMeshPro already installed: v{package.version}");
                             break;
                         }
                     }
@@ -4543,7 +4663,7 @@ fi
                 
                 if (!hasTMP)
                 {
-                    Debug.LogWarning("[Synaptic] TextMeshPro not found. Some features may not work properly.");
+                    SynLog.Warn("[Synaptic] TextMeshPro not found. Some features may not work properly.");
                 }
                 
                 return true;
