@@ -1,0 +1,730 @@
+fileFormatVersion: 2
+guid: 62ced3118b9363741938d3ec131ae8f8
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_000
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3ca6cb3ed9d5cbbe0800000000000000
+      internalID: -1460189246462858557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_001
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbb57a711a836c830800000000000000
+      internalID: 4091019576050408381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_002
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8dee3f85e2ad05c0800000000000000
+      internalID: -4247559766706033266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_003
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1694f8ac9b621c00800000000000000
+      internalID: 869875998629598747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_004
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 970e4aaacdaa1ec70800000000000000
+      internalID: 8998661395195420793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_005
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 994a08c290d91dcc0800000000000000
+      internalID: -3687993957112830823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_006
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bb586c6f6d372d80800000000000000
+      internalID: -8275578241500554320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_007
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ec68f34cb8d5e8280800000000000000
+      internalID: -9039184547211671858
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_008
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dcecde4f82b541500800000000000000
+      internalID: 366017701189897933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_009
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fff8858d32f1bd970800000000000000
+      internalID: 8780646137302913023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_010
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 558d309723be0cd10800000000000000
+      internalID: 2143972024639543381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_011
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4f8b97637c9d3d8e0800000000000000
+      internalID: -1669751587188655884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_012
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f178b1dec0a5322e0800000000000000
+      internalID: -2151777185388853473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_013
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c4328a97b3ae78a0800000000000000
+      internalID: -6305422419305548605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_014
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5730a9228fd8a2ca0800000000000000
+      internalID: -6040859853292174475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_015
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2b198402c960f0360800000000000000
+      internalID: 7137931202031817138
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_016
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 040d35b11ff99cb20800000000000000
+      internalID: 3155228871844155456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_017
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ab31363bd2e163bb0800000000000000
+      internalID: -4956741158242675782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_018
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 29521ce36c1800f70800000000000000
+      internalID: 9151457131273201042
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_019
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c30d987492a2ad990800000000000000
+      internalID: -7360524284201414596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_020
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c069fcfebbc6a7150800000000000000
+      internalID: 5871124618668905996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_021
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5bfb217a618f473d0800000000000000
+      internalID: -3209667858232328267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_022
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 523b81fd33fa78650800000000000000
+      internalID: 6235144846438871845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_023
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1b71d7fa4bef19400800000000000000
+      internalID: 329324299766536113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_024
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 74a6b65ffccef3b80800000000000000
+      internalID: -8412745200984954297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_025
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0117c3ad1c75ab070800000000000000
+      internalID: 8122901368017809680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_026
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4eaf999926181df80800000000000000
+      internalID: -8083537595669546268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_voidpulse_027
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7de7b8f66b3df9e10800000000000000
+      internalID: 2206715122943753943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      fx_f4_voidpulse_000: -1460189246462858557
+      fx_f4_voidpulse_001: 4091019576050408381
+      fx_f4_voidpulse_002: -4247559766706033266
+      fx_f4_voidpulse_003: 869875998629598747
+      fx_f4_voidpulse_004: 8998661395195420793
+      fx_f4_voidpulse_005: -3687993957112830823
+      fx_f4_voidpulse_006: -8275578241500554320
+      fx_f4_voidpulse_007: -9039184547211671858
+      fx_f4_voidpulse_008: 366017701189897933
+      fx_f4_voidpulse_009: 8780646137302913023
+      fx_f4_voidpulse_010: 2143972024639543381
+      fx_f4_voidpulse_011: -1669751587188655884
+      fx_f4_voidpulse_012: -2151777185388853473
+      fx_f4_voidpulse_013: -6305422419305548605
+      fx_f4_voidpulse_014: -6040859853292174475
+      fx_f4_voidpulse_015: 7137931202031817138
+      fx_f4_voidpulse_016: 3155228871844155456
+      fx_f4_voidpulse_017: -4956741158242675782
+      fx_f4_voidpulse_018: 9151457131273201042
+      fx_f4_voidpulse_019: -7360524284201414596
+      fx_f4_voidpulse_020: 5871124618668905996
+      fx_f4_voidpulse_021: -3209667858232328267
+      fx_f4_voidpulse_022: 6235144846438871845
+      fx_f4_voidpulse_023: 329324299766536113
+      fx_f4_voidpulse_024: -8412745200984954297
+      fx_f4_voidpulse_025: 8122901368017809680
+      fx_f4_voidpulse_026: -8083537595669546268
+      fx_f4_voidpulse_027: 2206715122943753943
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,1412 @@
+fileFormatVersion: 2
+guid: dac67078b36f2ca4182ca3e03aa8e63b
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Paragon_Default_000
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 747abf5848c7d7f43a5dca4f674776b8
+      internalID: 1492123654
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Default_001
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa2232bd8b461b24b9ac8743c3342957
+      internalID: 1613309704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Default_002
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3ecdb32e2a59ca40bc6a3d8cb907e3f
+      internalID: 468217353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Default_003
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7fc829b8f0e1984ba6bf9b900c862a7
+      internalID: 1672445012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Default_004
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 066deb91488ff0445b47da3afafb6560
+      internalID: -749539070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Default_005
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 17
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32b7c912a0953c842ad06dc5abb7cb19
+      internalID: 1872960373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Default_006
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 143
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06b168ac9ac6e1d49b0f014a918b66ad
+      internalID: -1102314235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Default_007
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2968305e95377174d9039d1e28e4ccd7
+      internalID: -1242043776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Default_008
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 552060acbdff62348a1cff148ecc1d2a
+      internalID: -1800165942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Default_009
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ab46e26bcf18e84596a1d8dff5b430e
+      internalID: -69115215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Default_010
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ee9833041e018c4684538ae3bc50a7c
+      internalID: -769521961
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Default_011
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09646063dd118f6479c0734a1daddccd
+      internalID: -820422409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Default_012
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 143
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b04df0cb9acb9d408f34dd47ed24577
+      internalID: -1530382114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Default_013
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 17
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84ef8c2b10c06da49a0110a13175b4bc
+      internalID: 779769247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Move_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 196b1845868779f4ebb2f8eee83ecacc
+      internalID: -1068579891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Move_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 395
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d87fcd2e79432f4bbd89f796b701212
+      internalID: 679966722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Move_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 521
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 484d3817875f58848b88d7f67d1c961f
+      internalID: -1774849213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Move_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 647
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f40dcdd25c05fd148bd6fae7193b5fe4
+      internalID: 274594095
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 773
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d62db5a021c92b64c8794a68d10fea7b
+      internalID: -1742434390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c87cd503d9075b4381b803ee14e7c28
+      internalID: 337996721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ecb0324fb62e2e4e915fd28519b61bd
+      internalID: 1562982199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24ac750ad231bf945994d041cb409467
+      internalID: 1332416570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 17
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adb8f2e14ad03bb4aa9af4c82264961d
+      internalID: -2071437658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 143
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2970638a27a9904e8167446c195ac65
+      internalID: -556253921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b44ee7821eeabe34f9c99163049f4df1
+      internalID: -962439819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 395
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1fe8aad7cae80b94981d66d489fe7944
+      internalID: 67962204
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 521
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 948371ed2491a6044933f3130a5a4e68
+      internalID: 1444989619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 647
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee7fc2fbadb639c4e961c0d7bed17d32
+      internalID: 1095955505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 773
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8be264f1ecf375b4c9693a025765d09f
+      internalID: -149783697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a4786c6a3ecf5142b59ea62c1d2cd0d
+      internalID: 311426146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 17
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b2b5e49c0ccc8f45971e700d2243827
+      internalID: 386314288
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 143
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba6601e44c9287d4098c8a9b1f19c37f
+      internalID: 1377430658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11496e8df1cf6fc44a0504157a817353
+      internalID: -540548799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 395
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04c4cea3aa52a9e43b47548acb301d77
+      internalID: -561273311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 521
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b8bbd3473a40334380a025edcc66a2d
+      internalID: -1331886099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 647
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a288daac277f3fd48bd2e39e38b1fa0f
+      internalID: -1235502069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 773
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 892a3b48e457bd6409544d818b068849
+      internalID: 1853684142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb94dfe16dd8af242bc43775920b8818
+      internalID: 935896798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 17
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4e4f42673285fb4397d504e7ec73a8b
+      internalID: 1027732641
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 143
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c13659a421aa3214bb9d41b0688bcfae
+      internalID: -309286849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a11a33986990aa4d85fe50cbcebd37e
+      internalID: -1745006599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 395
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c40ff948f756bc74d8fcf157cb4c4d96
+      internalID: 455282046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 521
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4e6c4f49515be344bb0fa57e7dbdb1c
+      internalID: -417343601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_023
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 647
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2242883eb1cc6d49b0fef65513555ba
+      internalID: -1060019886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Attack_024
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 773
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a387f9771bf9174497e7ef32708fbb1
+      internalID: 837023657
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 161b3359ccec37046a6376b589f07d79
+      internalID: -191051113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 395
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3adddd53ec2582469398636895a6cf5
+      internalID: -502590004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 521
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1a23e1b50e022b48990c0585119a186
+      internalID: -1190258622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 647
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3940182d91c1ee44cba33f7889357c6b
+      internalID: -760534470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 773
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d49ca963ec5a2fa4d9170a2117338194
+      internalID: 1374347103
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 773
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 452b5622b38e4084a85eb3c4e70a77f8
+      internalID: 399635675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 17
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7bf5f8024fc316047ac4a1423a24c26a
+      internalID: -1518077785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 143
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 459612c615534964aaa6eaf65e8aca74
+      internalID: -867916902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9a67890a222be040a75ff3d6f663db0
+      internalID: 942476570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 395
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8ee350bcad503945a9c24b3e7b5168f
+      internalID: -396706966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 521
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5efe13a347082d146b1b6e1f3c7bbaed
+      internalID: -1003272072
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 647
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 017cc76441cc64044b63bd8dd5852c4f
+      internalID: 429932317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 773
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 164b9dddbbcc6994e9d513fd1f2ca4a2
+      internalID: 862234033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Paragon_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e42567536e387b94d8f314771d6f8f75
+      internalID: 2040083688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Paragon_Attack_000: 1562982199
+      Paragon_Attack_001: 1332416570
+      Paragon_Attack_002: -2071437658
+      Paragon_Attack_003: -556253921
+      Paragon_Attack_004: -962439819
+      Paragon_Attack_005: 67962204
+      Paragon_Attack_006: 1444989619
+      Paragon_Attack_007: 1095955505
+      Paragon_Attack_008: -149783697
+      Paragon_Attack_009: 311426146
+      Paragon_Attack_010: 386314288
+      Paragon_Attack_011: 1377430658
+      Paragon_Attack_012: -540548799
+      Paragon_Attack_013: -561273311
+      Paragon_Attack_014: -1331886099
+      Paragon_Attack_015: -1235502069
+      Paragon_Attack_016: 1853684142
+      Paragon_Attack_017: 935896798
+      Paragon_Attack_018: 1027732641
+      Paragon_Attack_019: -309286849
+      Paragon_Attack_020: -1745006599
+      Paragon_Attack_021: 455282046
+      Paragon_Attack_022: -417343601
+      Paragon_Attack_023: -1060019886
+      Paragon_Attack_024: 837023657
+      Paragon_Dead_000: -191051113
+      Paragon_Dead_001: -502590004
+      Paragon_Dead_002: -1190258622
+      Paragon_Dead_003: -760534470
+      Paragon_Dead_004: 1374347103
+      Paragon_Dead_005: 399635675
+      Paragon_Dead_006: -1518077785
+      Paragon_Dead_007: -867916902
+      Paragon_Dead_008: 942476570
+      Paragon_Dead_009: -396706966
+      Paragon_Dead_010: -1003272072
+      Paragon_Dead_011: 429932317
+      Paragon_Dead_012: 862234033
+      Paragon_Dead_013: 2040083688
+      Paragon_Default_000: 1492123654
+      Paragon_Default_001: 1613309704
+      Paragon_Default_002: 468217353
+      Paragon_Default_003: 1672445012
+      Paragon_Default_004: -749539070
+      Paragon_Default_005: 1872960373
+      Paragon_Default_006: -1102314235
+      Paragon_Default_007: -1242043776
+      Paragon_Default_008: -1800165942
+      Paragon_Default_009: -69115215
+      Paragon_Default_010: -769521961
+      Paragon_Default_011: -820422409
+      Paragon_Default_012: -1530382114
+      Paragon_Default_013: 779769247
+      Paragon_Move_000: -1068579891
+      Paragon_Move_001: 679966722
+      Paragon_Move_002: -1774849213
+      Paragon_Move_003: 274594095
+      Paragon_Move_004: -1742434390
+      Paragon_Move_005: 337996721
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

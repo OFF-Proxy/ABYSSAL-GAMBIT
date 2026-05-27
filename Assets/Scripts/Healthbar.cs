@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using DG.Tweening;
 #if UNITY_EDITOR
 using UnityEditor;
 #endif
@@ -94,6 +95,17 @@ public class HealthBar : MonoBehaviour
     private FillLayout healthLayout;
     private FillLayout shieldLayout;
     private FillLayout manaLayout;
+    private Tween healthFillTween;
+    private Tween shieldFillTween;
+    private Tween manaFillTween;
+    private float displayedHealthFraction = 1f;
+    private float displayedShieldFraction;
+    private float displayedManaFraction;
+    private float targetHealthFraction = -1f;
+    private float targetShieldFraction = -1f;
+    private float targetManaFraction = -1f;
+    private const float FillTweenDuration = 0.16f;
+    private const float FillTweenThreshold = 0.002f;
 
     // 描画順制御用の値です。ユニットの足元位置に合わせて毎フレーム更新します。
     private int sortingBaseOrder = 1000;
@@ -144,16 +156,16 @@ public class HealthBar : MonoBehaviour
         ApplyTeamFillColors();
         SetStarLevel(starLevel);
         RebuildSeparators();
-        UpdateBar(maxHealth);
-        UpdateShieldBar(0, Mathf.RoundToInt(maxHealth));
-        UpdateManaBar(ownerEntity != null ? ownerEntity.CurrentMana : 0, maxMana);
+        SetHealthFillImmediate(maxHealth <= 0f ? 0f : 1f);
+        SetShieldFillImmediate(0f);
+        SetManaFillImmediate(maxMana <= 0 ? 0f : Mathf.Clamp01((float)(ownerEntity != null ? ownerEntity.CurrentMana : 0) / maxMana));
     }
 
     // HPゲージの残量を更新します。
     public void UpdateBar(float newValue)
     {
         float fraction = maxHealth <= 0f ? 0f : Mathf.Clamp01(newValue / maxHealth);
-        UpdateFill(bar, healthLayout, fraction);
+        TweenHealthFill(fraction);
     }
 
     // MPゲージの残量を更新します。
@@ -161,14 +173,14 @@ public class HealthBar : MonoBehaviour
     {
         this.maxMana = maxMana;
         float fraction = maxMana <= 0 ? 0f : Mathf.Clamp01((float)currentMana / maxMana);
-        UpdateFill(manaBar, manaLayout, fraction);
+        TweenManaFill(fraction);
     }
 
     // シールドゲージの残量を更新します。HPを基準に長さを決めます。
     public void UpdateShieldBar(int currentShield, int referenceHealth)
     {
         float fraction = referenceHealth <= 0 ? 0f : Mathf.Clamp01((float)currentShield / referenceHealth);
-        UpdateFill(shieldBar, shieldLayout, fraction);
+        TweenShieldFill(fraction);
     }
 
     // 装備中アイテムのアイコンを、HPバーの上に最大3つ表示します。
@@ -285,6 +297,11 @@ public class HealthBar : MonoBehaviour
         // MPは攻撃や被ダメージで変わるので、所有者がいる時は毎フレーム反映します。
         if (ownerEntity != null)
             UpdateManaBar(ownerEntity.CurrentMana, ownerEntity.MaxMana);
+    }
+
+    private void OnDestroy()
+    {
+        KillFillTweens();
     }
 
     // 必要なSpriteRendererを探すか、なければ作成します。
@@ -822,6 +839,126 @@ public class HealthBar : MonoBehaviour
 
         UpdateFill(shieldBar, shieldLayout, 0f);
         FitFillMask(shieldMaskRenderer, shieldRenderer.sprite, shieldLayout, targetWidth, targetHeight, shieldMaskColor);
+    }
+
+    private void SetHealthFillImmediate(float fraction)
+    {
+        healthFillTween?.Kill();
+        displayedHealthFraction = Mathf.Clamp01(fraction);
+        targetHealthFraction = displayedHealthFraction;
+        UpdateFill(bar, healthLayout, displayedHealthFraction);
+    }
+
+    private void SetShieldFillImmediate(float fraction)
+    {
+        shieldFillTween?.Kill();
+        displayedShieldFraction = Mathf.Clamp01(fraction);
+        targetShieldFraction = displayedShieldFraction;
+        UpdateFill(shieldBar, shieldLayout, displayedShieldFraction);
+    }
+
+    private void SetManaFillImmediate(float fraction)
+    {
+        manaFillTween?.Kill();
+        displayedManaFraction = Mathf.Clamp01(fraction);
+        targetManaFraction = displayedManaFraction;
+        UpdateFill(manaBar, manaLayout, displayedManaFraction);
+    }
+
+    private void TweenHealthFill(float fraction)
+    {
+        fraction = Mathf.Clamp01(fraction);
+        if (!CanTweenFill(bar, healthLayout))
+        {
+            SetHealthFillImmediate(fraction);
+            return;
+        }
+
+        if (Mathf.Abs(targetHealthFraction - fraction) <= FillTweenThreshold)
+            return;
+
+        healthFillTween?.Kill();
+        targetHealthFraction = fraction;
+        healthFillTween = DOTween.To(
+                () => displayedHealthFraction,
+                value =>
+                {
+                    displayedHealthFraction = value;
+                    UpdateFill(bar, healthLayout, value);
+                },
+                fraction,
+                FillTweenDuration)
+            .SetEase(Ease.OutQuad)
+            .SetTarget(bar);
+    }
+
+    private void TweenShieldFill(float fraction)
+    {
+        fraction = Mathf.Clamp01(fraction);
+        if (!CanTweenFill(shieldBar, shieldLayout))
+        {
+            SetShieldFillImmediate(fraction);
+            return;
+        }
+
+        if (Mathf.Abs(targetShieldFraction - fraction) <= FillTweenThreshold)
+            return;
+
+        shieldFillTween?.Kill();
+        targetShieldFraction = fraction;
+        shieldFillTween = DOTween.To(
+                () => displayedShieldFraction,
+                value =>
+                {
+                    displayedShieldFraction = value;
+                    UpdateFill(shieldBar, shieldLayout, value);
+                },
+                fraction,
+                FillTweenDuration)
+            .SetEase(Ease.OutQuad)
+            .SetTarget(shieldBar);
+    }
+
+    private void TweenManaFill(float fraction)
+    {
+        fraction = Mathf.Clamp01(fraction);
+        if (!CanTweenFill(manaBar, manaLayout))
+        {
+            SetManaFillImmediate(fraction);
+            return;
+        }
+
+        if (Mathf.Abs(targetManaFraction - fraction) <= FillTweenThreshold)
+            return;
+
+        manaFillTween?.Kill();
+        targetManaFraction = fraction;
+        manaFillTween = DOTween.To(
+                () => displayedManaFraction,
+                value =>
+                {
+                    displayedManaFraction = value;
+                    UpdateFill(manaBar, manaLayout, value);
+                },
+                fraction,
+                FillTweenDuration)
+            .SetEase(Ease.OutQuad)
+            .SetTarget(manaBar);
+    }
+
+    private bool CanTweenFill(Transform fillTransform, FillLayout layout)
+    {
+        return Application.isPlaying && gameObject.activeInHierarchy && fillTransform != null && layout.valid;
+    }
+
+    private void KillFillTweens()
+    {
+        healthFillTween?.Kill();
+        shieldFillTween?.Kill();
+        manaFillTween?.Kill();
+        healthFillTween = null;
+        shieldFillTween = null;
+        manaFillTween = null;
     }
 
     // 残量fractionに合わせて、ゲージの横幅と左端位置を更新します。

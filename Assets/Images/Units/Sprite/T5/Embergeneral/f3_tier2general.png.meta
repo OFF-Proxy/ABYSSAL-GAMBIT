@@ -1,0 +1,2182 @@
+fileFormatVersion: 2
+guid: 69d2dd37ba7a3b54b8cd9f4eb1824392
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Embergeneral_Default_000
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7eaf7821250a924da73183367374aba
+      internalID: -545661267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Default_001
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd83a901162006845afa519f5ea3c1a7
+      internalID: -249620551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Default_002
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a454a5388016d04c8675126363c86dc
+      internalID: -696365953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Default_003
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fd040d22e176db48bfcc626ba0e5f0e
+      internalID: 1797475308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Default_004
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd55db730d8e8944383e9ebec3d1fc9e
+      internalID: 1227133119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Default_005
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27823c2658b8a024086859e228754ed0
+      internalID: -2105870299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Default_006
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 633af51d890b2fa48a34cd43a5c9d9cc
+      internalID: -68000812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Default_007
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23662810211d12348996798c40306baf
+      internalID: 1766180516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Default_008
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1687f1ff3be04bb4f8c643a353b882ad
+      internalID: 2011869312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Default_009
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfc674c30a2435d4ca0f4845bf80c9d9
+      internalID: -516233877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Default_010
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92440dc263cd0824d9851dd6fbc7b909
+      internalID: 1007606317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Default_011
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 212d1aa3e197d9044a40bbccc183e9b5
+      internalID: 38108124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Default_012
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ac7c9bebc81d0a4ab3f7a7ae4449c7d
+      internalID: -904147563
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Default_013
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21b8c83ec62b02b4fb399f70640360be
+      internalID: -683932805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Move_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19bc6c5e2ab2ec848a31eeb99bb93f96
+      internalID: 709355430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Move_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebab35228f8647e469b700707d7d5624
+      internalID: 1073035719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Move_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1c751a4d9a39c7439acd225708fb524
+      internalID: -1254430746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Move_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 221401999276430409a40e9bf0e97a0b
+      internalID: -1991368524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fed53e341566574489130822608cfce6
+      internalID: -806802772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b309261885f5bad439b3316a22598b0b
+      internalID: 56906730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Move_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9f927c7c67be6b4b9abbf314170e552
+      internalID: 43741660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Move_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ea47ba8f2adfe649927580a376deaae
+      internalID: -2010698608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b26d92faf5e971b45ab742db9597d7a4
+      internalID: 1129065800
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13a8cf8e10f52d849a7cd6c89e685518
+      internalID: -1402347192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b18c76ecb511ef54996efe40db01f115
+      internalID: -502515852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fad3fdcc3202c484fb1f75f483de66c7
+      internalID: -1328476085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5ea0b7fe28006d4993dae1c99d64de4
+      internalID: 232964627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf37c801530c8c84d8d4df704a9154a6
+      internalID: -1831351065
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0a57a0e5a3909a48a9c0a8c91e111b1
+      internalID: 697491402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9896f7e1227f4343b303be04aa71c0f
+      internalID: 1868248240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abac56d5339dd7d4c8771563d4590b29
+      internalID: -2065891968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab14cfdde2919354c8bc91ec37fd6728
+      internalID: 132205011
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 819e127cbe80d664ebec2c1efcc0e6b1
+      internalID: 874490810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a84bb85889bf144fac376d8e79f637f
+      internalID: -1889872891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 729a28e3363047a4ea7d72fa4a7108c7
+      internalID: -595544262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e4dd6284decbcc4f87abaff8a41ffc0
+      internalID: -1262090958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe47a222db297c245a1e2b06efd1f22b
+      internalID: 437747897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3094f44f1482144bb88493e4a797107
+      internalID: -2095793672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3239ddcde8f59b3478fcb6a938630148
+      internalID: -287771383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20cac26f223727943b07bf7ceb16b002
+      internalID: -1895358895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f396df846d7eaa4cb600ea5f36bb58d
+      internalID: 1804850575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cae3734b83573047bf3b69c1c0b3f33
+      internalID: 390752540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e5af9061c935224184dab97c1212cae
+      internalID: 513787936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18c53206b61d8084d85f35f48b514ee3
+      internalID: 260303743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_000
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b54125b1fddbfdb45a17901cb1248846
+      internalID: -1484135750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_001
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff926d78278771b4f9357ac5c0655801
+      internalID: -609653786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_002
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a0e040268fdca34980733735dce968b
+      internalID: 2042886067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_003
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6b2de939eb6da54182968750ea68d37
+      internalID: 807992803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_004
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5828aaf0a064e104e9a8567dc2962d32
+      internalID: 2090528049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_005
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01a6f7c3690eefb4294e8ed24f4919db
+      internalID: 2075032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_006
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21bf28bd888006b40aeeccbcd90cceff
+      internalID: 1946398223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_007
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aceb38120f9dfa3479fb19475b46b3ab
+      internalID: -1413560116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_008
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f6861fb1de963c4eb5f7f58e7739da7
+      internalID: 1093103305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_009
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3039023d29345e14aa264855e5490bef
+      internalID: 1921682433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_010
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c74931aad8164c468c0b421ccb9e138
+      internalID: 1071874140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_011
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71fc9df8f9f87794c98323a86e9f919d
+      internalID: -132876738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_012
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c3cf1582600a144991007779c923b5f
+      internalID: 1539872526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_013
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5be950bf0f3681c4a8a9cbc0f3456578
+      internalID: -501334748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_014
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd0e4217de9ad274ab929d4dd8adbe68
+      internalID: -311851459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_015
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 758b399c8ceae4a499c50b91e461c62f
+      internalID: 1837685768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_016
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 186141ae8980dc44a9eb7e5aa9c5638e
+      internalID: 846586389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_017
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 72f9cdd02cc117b46b67c8917ffe228c
+      internalID: 1991190592
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_018
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f7205d2db0faeb42826ee2a88abd16a
+      internalID: -162837784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_019
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb2f6feda85725c418fa60618271a1b5
+      internalID: -1539444968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_020
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 852120b776af11a4f82af0fe6ea98d13
+      internalID: -1774782198
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_021
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1c73d6c24ed40a4a977504a39a2f448
+      internalID: -661491375
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_022
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b6b0d3152f6bda40bd4b3863454ec75
+      internalID: 1558186926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_023
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed0edc720c26f4c4da19f02daf36ab7c
+      internalID: -940103043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_024
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eeea887626070354b95c46b31fc99133
+      internalID: -1896227070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_025
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76b4188d1fbcc8341a7c894b581c006d
+      internalID: -1865327614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_026
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32e13825208e74c478a76f009efee47a
+      internalID: -632041689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_027
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7489ffba2c60dc458a4da6e00ae5627
+      internalID: -704513531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Ability_028
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 480dabde2ff1a2f438e1911f694fd731
+      internalID: 529303999
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 047bf91eeebf98b449eafb7211d70d40
+      internalID: 764603211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15c67c2ac20387d46917652b1c30a3f4
+      internalID: -211965522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f36ad3b5b004abd41bd422498710fcd0
+      internalID: 1165407021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e40431c92ddee054b8eb525d43d66477
+      internalID: -1385841561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d9dd367fc87317418a1b9dd1a9dac37
+      internalID: -227678493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3355db7ebbcd0946b9bb41457499978
+      internalID: 547694748
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9df60d9314f67ac4f9aa2eebf37d7e32
+      internalID: 341800400
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5da83a335e14e424c80c44dd0eb15654
+      internalID: 1943117672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 944e92ae1688f154ab23ff0497ce5cb7
+      internalID: 1846649503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35cbbbdbd0ac705419eba8d79cbe4098
+      internalID: 410934222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ab5db4324876ac489c9c7d5ab2e7979
+      internalID: -2016138182
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 144e0484ea7a4a642bf5f0dd1082b616
+      internalID: 1482670384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5338116fe9b48ac4fadfdc21ac8f4dab
+      internalID: 2090313878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67ba8ead761f34c4383c687a0099eb90
+      internalID: -80796658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 661be5b77cdc7454180d106b3ad096b4
+      internalID: 394034791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_015
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a4006bc43300584bb68c8975b24fd4e
+      internalID: 850083228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_016
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da5204a294bbbd34da6f9d7926c78de6
+      internalID: -1464571861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_017
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f094c4f445baff84792c427dda70b97b
+      internalID: 866995873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_018
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f316977d110ea57418f37e3603a42ab1
+      internalID: 192413135
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_019
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8936a9cc1ad73c4da8e3224b169fc50
+      internalID: -1341862318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Embergeneral_Dead_020
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b05cf935e7287c4fba53fa99e61b3fc
+      internalID: 948704152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Embergeneral_Ability_000: -1484135750
+      Embergeneral_Ability_001: -609653786
+      Embergeneral_Ability_002: 2042886067
+      Embergeneral_Ability_003: 807992803
+      Embergeneral_Ability_004: 2090528049
+      Embergeneral_Ability_005: 2075032
+      Embergeneral_Ability_006: 1946398223
+      Embergeneral_Ability_007: -1413560116
+      Embergeneral_Ability_008: 1093103305
+      Embergeneral_Ability_009: 1921682433
+      Embergeneral_Ability_010: 1071874140
+      Embergeneral_Ability_011: -132876738
+      Embergeneral_Ability_012: 1539872526
+      Embergeneral_Ability_013: -501334748
+      Embergeneral_Ability_014: -311851459
+      Embergeneral_Ability_015: 1837685768
+      Embergeneral_Ability_016: 846586389
+      Embergeneral_Ability_017: 1991190592
+      Embergeneral_Ability_018: -162837784
+      Embergeneral_Ability_019: -1539444968
+      Embergeneral_Ability_020: -1774782198
+      Embergeneral_Ability_021: -661491375
+      Embergeneral_Ability_022: 1558186926
+      Embergeneral_Ability_023: -940103043
+      Embergeneral_Ability_024: -1896227070
+      Embergeneral_Ability_025: -1865327614
+      Embergeneral_Ability_026: -632041689
+      Embergeneral_Ability_027: -704513531
+      Embergeneral_Ability_028: 529303999
+      Embergeneral_Attack_000: 1129065800
+      Embergeneral_Attack_001: -1402347192
+      Embergeneral_Attack_002: -502515852
+      Embergeneral_Attack_003: -1328476085
+      Embergeneral_Attack_004: 232964627
+      Embergeneral_Attack_005: -1831351065
+      Embergeneral_Attack_006: 697491402
+      Embergeneral_Attack_007: 1868248240
+      Embergeneral_Attack_008: -2065891968
+      Embergeneral_Attack_009: 132205011
+      Embergeneral_Attack_010: 874490810
+      Embergeneral_Attack_011: -1889872891
+      Embergeneral_Attack_012: -595544262
+      Embergeneral_Attack_013: -1262090958
+      Embergeneral_Attack_014: 437747897
+      Embergeneral_Attack_015: -2095793672
+      Embergeneral_Attack_016: -287771383
+      Embergeneral_Attack_017: -1895358895
+      Embergeneral_Attack_018: 1804850575
+      Embergeneral_Attack_019: 390752540
+      Embergeneral_Attack_020: 513787936
+      Embergeneral_Attack_021: 260303743
+      Embergeneral_Dead_000: 764603211
+      Embergeneral_Dead_001: -211965522
+      Embergeneral_Dead_002: 1165407021
+      Embergeneral_Dead_003: -1385841561
+      Embergeneral_Dead_004: -227678493
+      Embergeneral_Dead_005: 547694748
+      Embergeneral_Dead_006: 341800400
+      Embergeneral_Dead_007: 1943117672
+      Embergeneral_Dead_008: 1846649503
+      Embergeneral_Dead_009: 410934222
+      Embergeneral_Dead_010: -2016138182
+      Embergeneral_Dead_011: 1482670384
+      Embergeneral_Dead_012: 2090313878
+      Embergeneral_Dead_013: -80796658
+      Embergeneral_Dead_014: 394034791
+      Embergeneral_Dead_015: 850083228
+      Embergeneral_Dead_016: -1464571861
+      Embergeneral_Dead_017: 866995873
+      Embergeneral_Dead_018: 192413135
+      Embergeneral_Dead_019: -1341862318
+      Embergeneral_Dead_020: 948704152
+      Embergeneral_Default_000: -545661267
+      Embergeneral_Default_001: -249620551
+      Embergeneral_Default_002: -696365953
+      Embergeneral_Default_003: 1797475308
+      Embergeneral_Default_004: 1227133119
+      Embergeneral_Default_005: -2105870299
+      Embergeneral_Default_006: -68000812
+      Embergeneral_Default_007: 1766180516
+      Embergeneral_Default_008: 2011869312
+      Embergeneral_Default_009: -516233877
+      Embergeneral_Default_010: 1007606317
+      Embergeneral_Default_011: 38108124
+      Embergeneral_Default_012: -904147563
+      Embergeneral_Default_013: -683932805
+      Embergeneral_Move_000: 709355430
+      Embergeneral_Move_001: 1073035719
+      Embergeneral_Move_002: -1254430746
+      Embergeneral_Move_003: -1991368524
+      Embergeneral_Move_004: -806802772
+      Embergeneral_Move_005: 56906730
+      Embergeneral_Move_006: 43741660
+      Embergeneral_Move_007: -2010698608
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

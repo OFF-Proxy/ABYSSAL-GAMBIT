@@ -111,6 +111,7 @@ MonoBehaviour:
   range: 4
   attackSpeed: 0.9
   movementSpeed: 1
+  baseDamageReduction: 0
   maxMana: 100
   manaOnAttack: 25
   manaOnDamageTaken: 15
@@ -132,8 +133,23 @@ MonoBehaviour:
   skillSlowDuration: 4
   skillAreaRadius: 1.65
   skillAreaDamageMultiplier: 1.35
+  focusInfluence: 1
+  skillUsesFocusOnly: 0
+  skillBasePower: 120
+  skillVisualTheme: 0
+  synergy1: 0
+  synergy2: 0
+  synergy3: 0
+  normalAttackHitsAdjacentEnemies: 0
+  adjacentAttackDamageMultiplier: 0.55
+  adjacentAttackRadius: 1.2
   attackImpactNormalizedTime: 0.55
   skillImpactNormalizedTime: 0.55
+  synergyDamageReductionBonus: 0
+  synergyAttackSpeedBonus: 0
+  synergyPowerBonus: 0
+  synergyMoveSpeedBonus: 0
+  synergyDamageDealtBonus: 0
 --- !u!95 &6167090234760718286
 Animator:
   serializedVersion: 5

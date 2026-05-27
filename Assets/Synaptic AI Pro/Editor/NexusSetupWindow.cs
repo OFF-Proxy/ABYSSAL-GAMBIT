@@ -225,11 +225,25 @@ namespace SynapticPro
                     externalHttpRunning = true;
                     SynLog.Info($"[Synaptic] HTTP server alive on port {port} after reload. Reconnecting WebSocket.");
                     _ = ReconnectWebSocketOnlyAsync(port);
+                    return;
                 }
-                else if (Application.platform == RuntimePlatform.WindowsEditor)
+
+                // Server is dead. If the user opted into HTTP auto-start,
+                // bring the Setup window up so its OnEnable → TryHttpAutoStart
+                // path can re-spawn the node process. Without this nudge the
+                // NexusHTTPWebSocketClient retry loop just hammers a closed
+                // port forever (the client cannot start its own server).
+                if (Application.platform == RuntimePlatform.WindowsEditor)
                 {
                     // Stored PID is stale and port dead — clear for fresh spawn.
                     SynapticDetachedProcess.ClearStoredPid();
+                }
+                if (HttpAutoStartEnabled)
+                {
+                    SynLog.Info("[Synaptic] HTTP server not running after reload; opening Setup window to auto-restart.");
+                    // GetWindow opens existing or creates new; OnEnable fires
+                    // TryHttpAutoStart which spawns the node process.
+                    EditorWindow.GetWindow<NexusMCPSetupWindow>("Synaptic Setup", true);
                 }
             };
         }
@@ -442,6 +456,77 @@ namespace SynapticPro
             }
         }
         
+        /// <summary>
+        /// Compact toolbar with live MCP connection controls. Visible only in the
+        /// AI Connection tab — the HTTP Server tab uses its own port lifecycle
+        /// and these controls don't apply there.
+        /// </summary>
+        private void DrawConnectionControlsBar()
+        {
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+
+            EditorGUILayout.BeginHorizontal();
+
+            // Status indicator: a small color-coded square + plain text label.
+            // Using a textured box (drawn via a colored rect) instead of an
+            // emoji bullet so the visual works under any system font.
+            bool connected = NexusEditorMCPService.IsConnected;
+            var statusColor = connected ? new Color(0.2f, 0.8f, 0.2f) : new Color(0.7f, 0.45f, 0.2f);
+            var dotRect = GUILayoutUtility.GetRect(10, 10, GUILayout.Width(10), GUILayout.Height(10));
+            // Vertical-center the dot relative to surrounding label baseline.
+            dotRect.y += 5;
+            EditorGUI.DrawRect(dotRect, statusColor);
+            GUILayout.Space(4);
+            GUILayout.Label(connected ? "MCP Connected" : "MCP Disconnected", EditorStyles.boldLabel, GUILayout.Width(160));
+
+            GUILayout.FlexibleSpace();
+
+            // Built-in Editor icons — no emoji, render consistently across OS.
+            //   "Refresh"  : circular arrow (used by Asset refresh, Console clear)
+            //   "linkicon" : chain link (Editor's link icon, varies by version)
+            var reconnectIcon = EditorGUIUtility.IconContent("Refresh");
+            var reconnectContent = new GUIContent(" AI Reconnect", reconnectIcon.image, "Reconnect to MCP server");
+            if (GUILayout.Button(reconnectContent, GUILayout.Width(130), GUILayout.Height(22)))
+            {
+                NexusEditorMCPService.QuickReconnect();
+            }
+
+            EditorGUILayout.Space(4);
+
+            // Auto Reconnect toggle — direct binding to the EditorPrefs-backed property.
+            bool prevAuto = NexusEditorMCPService.AutoReconnectEnabled;
+            bool nextAuto = GUILayout.Toggle(prevAuto, new GUIContent(" Auto Reconnect", "Automatically reconnect when the connection drops"), GUILayout.Width(130));
+            if (nextAuto != prevAuto)
+            {
+                NexusEditorMCPService.AutoReconnectEnabled = nextAuto;
+            }
+
+            EditorGUILayout.Space(4);
+
+            // No Unity built-in icon for Discord — use a small link/external
+            // icon ("BuildSettings.Web.Small" is the closest globe-like icon
+            // across Unity 2022 / 6.x). Fall back to plain text on failure.
+            GUIContent discordContent;
+            try
+            {
+                var icon = EditorGUIUtility.IconContent("BuildSettings.Web.Small");
+                discordContent = new GUIContent(" Discord", icon != null ? icon.image : null, "Join the Synaptic Discord community");
+            }
+            catch
+            {
+                discordContent = new GUIContent("Discord", "Join the Synaptic Discord community");
+            }
+            if (GUILayout.Button(discordContent, GUILayout.Width(90), GUILayout.Height(22)))
+            {
+                NexusEditorMCPService.OpenDiscord();
+            }
+
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.Space(8);
+        }
+
         private void DrawHeader()
         {
             EditorGUILayout.Space(10);
@@ -488,7 +573,16 @@ namespace SynapticPro
         private void DrawAIConnectionTab()
         {
             scrollPosition = EditorGUILayout.BeginScrollView(scrollPosition);
-            
+
+            // ─── Live MCP connection controls ───────────────────────────────
+            // Previously the only entry points for these were Tools menu items
+            // (Tools > Synaptic Pro > AI Reconnect / Auto Reconnect: Enable|Disable
+            // / Join Discord). Surfacing them in the Setup window cuts the
+            // discovery cost — users already open this window when troubleshooting.
+            // MCP Server: Start/Stop stays in the Tools menu (advanced; the
+            // typical workflow is to let Claude Desktop spawn the server).
+            DrawConnectionControlsBar();
+
             // One-click startup
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
             GUILayout.Label("MCP Setup", EditorStyles.boldLabel);
@@ -1420,19 +1514,60 @@ namespace SynapticPro
                 else
                 {
                     // macOS/Linux: 直接起動
+                    //
+                    // Previous implementation piped stdout/stderr back to C#
+                    // (RedirectStandardOutput/Error + BeginOutputReadLine).
+                    // When Unity's C# domain reloads (recompile), the pipe
+                    // readers on the C# side disappear; the node process's
+                    // next stdout write then hits SIGPIPE and node terminates.
+                    // Result: HTTP server died every time a script was edited.
+                    //
+                    // Fix: launch via `sh -c "nohup node ... >log 2>&1 &"` so
+                    // the child is fully detached from Unity's pipes and
+                    // process group, mirroring the Windows detached path.
+                    string logDir = Path.Combine(mcpServerPath, "logs");
+                    try { Directory.CreateDirectory(logDir); } catch { }
+                    string logFile = Path.Combine(logDir, "http-server.log");
+
+                    // sh -c is portable to both macOS (BSD sh) and Linux.
+                    // Quote the script path; quote the log path; redirect both
+                    // streams to the log file; trailing `&` to detach.
+                    string escapedScript = httpServerScript.Replace("\"", "\\\"");
+                    string escapedLog = logFile.Replace("\"", "\\\"");
+                    string shellCmd =
+                        $"nohup \"{nodePath}\" \"{escapedScript}\" {httpPort} " +
+                        $">\"{escapedLog}\" 2>&1 </dev/null &";
+
                     startInfo = new System.Diagnostics.ProcessStartInfo
                     {
-                        FileName = nodePath,
-                        Arguments = $"\"{httpServerScript}\" {httpPort}",
+                        FileName = "/bin/sh",
+                        Arguments = $"-c \"{shellCmd.Replace("\"", "\\\"")}\"",
                         WorkingDirectory = mcpServerPath,
                         UseShellExecute = false,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true,
+                        RedirectStandardOutput = false,
+                        RedirectStandardError = false,
                         CreateNoWindow = true,
-                        StandardOutputEncoding = System.Text.Encoding.UTF8,
-                        StandardErrorEncoding = System.Text.Encoding.UTF8
                     };
                     startInfo.EnvironmentVariables["HTTP_PORT"] = httpPort.ToString();
+
+                    var detachProc = new System.Diagnostics.Process { StartInfo = startInfo };
+                    detachProc.Start();
+                    detachProc.WaitForExit(); // sh exits immediately after backgrounding node
+                    detachProc.Dispose();
+
+                    // We have no handle to the actual node process — by design,
+                    // so that domain reload can't kill it. Recovery on next
+                    // load uses port-listen probe in RestoreDetachedHttpServerOnReload.
+                    externalHttpProcess = null;
+                    externalHttpRunning = true;
+                    EditorPrefs.SetInt(PREF_HTTP_PORT, httpPort);
+                    SynLog.Info($"[Synaptic] External HTTP Server detach-spawned on port {httpPort}");
+                    SynLog.Info($"[Synaptic] Node: {nodePath}");
+                    SynLog.Info($"[Synaptic] Script: {httpServerScript}");
+                    SynLog.Info($"[Synaptic] Log: {logFile}");
+
+                    _ = ConnectToHttpServerAsync(httpPort);
+                    return;
                 }
 
                 externalHttpProcess = new System.Diagnostics.Process { StartInfo = startInfo };

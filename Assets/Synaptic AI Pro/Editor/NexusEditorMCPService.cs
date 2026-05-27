@@ -11,6 +11,7 @@ using System.Threading;
 using System.Linq;
 using SynapticAIPro;
 
+// v1.2.23 staged: enableMCP default true, AutoReconnectEnabled property, ConfigureAwait fix.
 namespace SynapticPro
 {
     /// <summary>
@@ -76,12 +77,43 @@ namespace SynapticPro
         // Play Mode auto-reconnect related
         private static bool wasConnectedBeforePlayMode = false;
         private static bool enableAutoReconnect = true;
-        private static bool enableMCP = false; // Master switch: if false, MCP WebSocket stays offline (HTTP server is unaffected). Default off — opt in via Tools > Synaptic Pro > MCP Server: Start.
+        // Master switch for the MCP CLIENT (Unity always connects as client to
+        // the index-supersave.js / hub-server.js running on port 8090 — Unity
+        // is never the host). Default true so the install is functional out of
+        // the box; advanced users can toggle off via the legacy "MCP Server:
+        // Stop" menu (the name is historical, kept for menu-item discoverability).
+        // The HTTP server (port 8086) is independent and unaffected by this flag.
+        private static bool enableMCP = true;
         private static string connectionStateKey = "NexusMCP_ConnectionState";
         private static string autoReconnectKey = "NexusMCP_AutoReconnect";
         private const string mcpEnabledKey = "NexusMCP_Enabled";
 
         public static bool IsConnected => isConnected && webSocket != null && webSocket.State == WebSocketState.Open;
+
+        /// <summary>
+        /// Public accessor for the auto-reconnect toggle so the Setup window
+        /// can render a checkbox without going through the menu items.
+        /// Persisted in EditorPrefs under <see cref="autoReconnectKey"/>.
+        /// </summary>
+        public static bool AutoReconnectEnabled
+        {
+            get => EditorPrefs.GetBool(autoReconnectKey, true);
+            set
+            {
+                enableAutoReconnect = value;
+                EditorPrefs.SetBool(autoReconnectKey, value);
+                // Turning Auto Reconnect ON implies the user wants MCP active.
+                // Without this, the Update() gate would still skip reconnect
+                // because of the separate `enableMCP` master switch — a UX
+                // trap users hit constantly (Auto checkbox looks like it should
+                // be the only switch they need).
+                if (value && !enableMCP)
+                {
+                    enableMCP = true;
+                    EditorPrefs.SetBool(mcpEnabledKey, true);
+                }
+            }
+        }
         
         public static string GetServerUrl() => serverUrl ?? "ws://127.0.0.1:8090";
         
@@ -126,12 +158,15 @@ namespace SynapticPro
             CompilationPipeline.compilationStarted += OnCompilationStarted;
             CompilationPipeline.compilationFinished += OnCompilationFinished;
 
-            // Load settings
+            // Load settings. Both default true — Unity is a client of the
+            // MCP server (port 8090) and Auto Reconnect is the normal flow.
+            // Users who don't use MCP can disable via the legacy menu items
+            // or just rely on verbose-log filtering to hide retry noise.
             enableAutoReconnect = EditorPrefs.GetBool(autoReconnectKey, true);
-            enableMCP = EditorPrefs.GetBool(mcpEnabledKey, false);
+            enableMCP = EditorPrefs.GetBool(mcpEnabledKey, true);
             if (!enableMCP)
             {
-                SynLog.Info("[Nexus Editor MCP] MCP is disabled (persisted). Use Tools > Synaptic Pro > MCP Server: Start to enable.");
+                SynLog.Info("[Nexus Editor MCP] MCP client disabled (persisted). Use Tools > Synaptic Pro > MCP Server: Start to re-enable.");
             }
 
             // Delayed auto-connect (after 0.1s) - Connect reliably even in closed state
@@ -557,6 +592,17 @@ namespace SynapticPro
                 
                 isConnected = true;
                 reconnectAttempts = 0; // Reset on success
+
+                // Successful connection => MCP is in use. Persist so the next
+                // domain reload doesn't wake up with enableMCP=false (default)
+                // and silently skip auto-reconnect. The user only opts OUT
+                // explicitly via `Tools > Synaptic Pro > MCP Server: Stop`.
+                if (!enableMCP)
+                {
+                    enableMCP = true;
+                    EditorPrefs.SetBool(mcpEnabledKey, true);
+                }
+
                 OnConnected?.Invoke();
 
                 SynLog.Info("[Nexus Editor MCP] Connected to MCP Server successfully");
@@ -946,6 +992,15 @@ namespace SynapticPro
         {
             shouldReconnect = true; // Enable reconnection
             reconnectAttempts = 0; // Reset counter
+
+            // Manual reconnect implies the user wants MCP enabled. Without this,
+            // auto-reconnect after the next domain reload silently no-ops because
+            // the Update() gate checks `enableMCP`, which defaults to false and
+            // is only ever flipped on via `Tools > Synaptic Pro > MCP Server: Start`.
+            // Users hit this when they install the package, never see that menu
+            // item, and assume the Auto Reconnect checkbox is the master switch.
+            enableMCP = true;
+            EditorPrefs.SetBool(mcpEnabledKey, true);
 
             DisconnectFromMCPServer();
             shouldReconnect = true; // Re-enable as Disconnect sets it to false
@@ -1681,7 +1736,7 @@ namespace SynapticPro
         [MenuItem("Tools/Synaptic Pro/MCP Server: Start", true)]
         public static bool StartMCPValidate()
         {
-            enableMCP = EditorPrefs.GetBool(mcpEnabledKey, false);
+            enableMCP = EditorPrefs.GetBool(mcpEnabledKey, true);
             return !enableMCP; // show Start only when currently stopped
         }
 
@@ -1702,7 +1757,7 @@ namespace SynapticPro
         [MenuItem("Tools/Synaptic Pro/MCP Server: Stop", true)]
         public static bool StopMCPValidate()
         {
-            enableMCP = EditorPrefs.GetBool(mcpEnabledKey, false);
+            enableMCP = EditorPrefs.GetBool(mcpEnabledKey, true);
             return enableMCP; // show Stop only when currently running
         }
 

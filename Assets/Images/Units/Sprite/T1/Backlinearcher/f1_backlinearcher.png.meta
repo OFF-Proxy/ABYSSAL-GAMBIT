@@ -1,0 +1,1456 @@
+fileFormatVersion: 2
+guid: bc7b10b3d648c0a42a1b61913dd8013a
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Backlinearcher_Default_000
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad142d4198d09b6438f280c12c823e6e
+      internalID: 419524334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Default_001
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b794bcc3b10506546918b3f1c44405dd
+      internalID: 1703470230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Default_002
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ab7116e668d03242b242da8e7f1fdb3
+      internalID: 1542412658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Default_003
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f76463606060f644b933e747332d0d7
+      internalID: 252326313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Default_004
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7750e0573e05b794388f179952d280f1
+      internalID: 1144561130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Default_005
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f6039ac1f07de740b48cd2e26870cd7
+      internalID: 610600338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Default_006
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6485f363cc4ec7c439a7b946799b10d5
+      internalID: -1582491102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Default_007
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66b2f559963c385408d5c215e5dcaca9
+      internalID: 597350401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Default_008
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad00e9b8c7bfc5e41af5a59f3f4447e1
+      internalID: 1161490872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Default_009
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b1760b055ccb0d44a286eb711de6d15
+      internalID: -1798131874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Default_010
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ebfff501bd3ea44a830ca81f7bd94e8
+      internalID: 175876990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Default_011
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53141f29410ef0d42b99b839883a9493
+      internalID: 946854847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Default_012
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9054d7403134c9c4e85f768f94f6a474
+      internalID: -834115863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Default_013
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2fa8f183c50e774fb09b15125242e41
+      internalID: 1580210497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Move_000
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e879821fe5087a141bfed85cce62afaf
+      internalID: -1590894647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Move_001
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 088085e5cac06594aa61eb5cfbb0c65d
+      internalID: 1406516001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Move_002
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eef9dcd36f698a942a5b83260c76a3b5
+      internalID: -545998054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Move_003
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7665c94db305a7b44af323b3d3d40da2
+      internalID: 2104552169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Move_004
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f8c80dd50e593b439cf65deac39ca93
+      internalID: -1101270591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Move_005
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91cdbf9c6180b184bb90495303c938cd
+      internalID: -2006846164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Move_006
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b2ad4c7ca9d772419e738a4f4e0d8d5
+      internalID: -637744019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Move_007
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f4f4cec88ba1e94c914fe2a19c8caa9
+      internalID: -513193749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11e29c0afb9cff243bf4c12f5a424f42
+      internalID: 1128724240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a9269de0f9cc584d80c19e194a221d6
+      internalID: 1887723219
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd637da8882b9cc448b69baff7c6e2be
+      internalID: 332061984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a4ab7f363db43945adcf049fe880490
+      internalID: -1869701735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 898717044b5a5744b8ccf6fdae813238
+      internalID: 30795585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6eadd1a5bfebb084788efe05ac796627
+      internalID: 1885928340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b20f31e68683a94189644f8613c1633
+      internalID: -1287305239
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6a1e3b9f507b5148b5cc22021f4f2dc
+      internalID: -184694977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b77a594dc397514b8e97ce3b474ae80
+      internalID: 556712345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb27a904d0db960479bf68c5b70bcceb
+      internalID: -1517151038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a87bc596fb5834244a1f361299ad06f4
+      internalID: -587114624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c3eb85ac966b4a4c975eb51141417eb
+      internalID: -468198836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3cf40c329fe7df4cb5163b5ddce16cf
+      internalID: -214689423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc5f5ee9adc0ca640acb58b3fd1a8621
+      internalID: 1615554338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18b58bf1bd34ada4fb6184d635896dbd
+      internalID: 1917948734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78b43eacc9ecf764482cac8016ea6c1c
+      internalID: 1942795890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a91f061d43dac145891b7243a012cc2
+      internalID: 1134040803
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba606ed553107f047b65f2f9b487488e
+      internalID: -2076538006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8dde80f44c92eab47aa2addd7d2acb5f
+      internalID: 1953594616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee45eee0b1ddc1f449d62a60eac749dc
+      internalID: -31891785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75b9dc0c13be50543a5df7eeece6b0b1
+      internalID: -882334285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15bc41e1d7bef6f4896c632c37c04a46
+      internalID: 1631509739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c54ffd5ddd8b177418ee33745d18de3f
+      internalID: -163694759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Attack_023
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: efd7a9391f8c5a34c8bb8029f44fa214
+      internalID: 714888756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 885e593b1f65e5c41b5f6d90879b84d4
+      internalID: -963427172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7871131717a9a3c47b09b8460cbbc03d
+      internalID: -1914609199
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d8c9579aa447514fa604dd9975fcabf
+      internalID: 1145506157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e357b66e3b7c5b74cbb59553997b69c1
+      internalID: -1182702128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 889c218a8084a934c9d75ede5eae4474
+      internalID: -1251072215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2a7cc3eda056f74ea7ea664f38467a6
+      internalID: 258562102
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 628fbaeef38ef554c8ae9fcf720e3b26
+      internalID: 1704193274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 505dbeba56f72a44489677d438e9059e
+      internalID: 542739475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ba80dfcff420684ea9d54a2c42ba4a4
+      internalID: 1446120735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e496f7159e8e4c14c8aa1a1744e4837b
+      internalID: -1584809001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34485c372d5fea444a714916a14b8b19
+      internalID: -1367446005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bf69781a33863c45b5cb0fb7f45fa2b
+      internalID: 361462240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffd8a60cbab00a049ab6abe35b86846b
+      internalID: 965981992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 392446543346b0a40b171af22233238a
+      internalID: 504322390
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Backlinearcher_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 121
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bed3284dec068b241948a68234fbfe4c
+      internalID: 71851087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Backlinearcher_Attack_000: 1128724240
+      Backlinearcher_Attack_001: 1887723219
+      Backlinearcher_Attack_002: 332061984
+      Backlinearcher_Attack_003: -1869701735
+      Backlinearcher_Attack_004: 30795585
+      Backlinearcher_Attack_005: 1885928340
+      Backlinearcher_Attack_006: -1287305239
+      Backlinearcher_Attack_007: -184694977
+      Backlinearcher_Attack_008: 556712345
+      Backlinearcher_Attack_009: -1517151038
+      Backlinearcher_Attack_010: -587114624
+      Backlinearcher_Attack_011: -468198836
+      Backlinearcher_Attack_012: -214689423
+      Backlinearcher_Attack_013: 1615554338
+      Backlinearcher_Attack_014: 1917948734
+      Backlinearcher_Attack_015: 1942795890
+      Backlinearcher_Attack_016: 1134040803
+      Backlinearcher_Attack_017: -2076538006
+      Backlinearcher_Attack_018: 1953594616
+      Backlinearcher_Attack_019: -31891785
+      Backlinearcher_Attack_020: -882334285
+      Backlinearcher_Attack_021: 1631509739
+      Backlinearcher_Attack_022: -163694759
+      Backlinearcher_Attack_023: 714888756
+      Backlinearcher_Dead_000: -963427172
+      Backlinearcher_Dead_001: -1914609199
+      Backlinearcher_Dead_002: 1145506157
+      Backlinearcher_Dead_003: -1182702128
+      Backlinearcher_Dead_004: -1251072215
+      Backlinearcher_Dead_005: 258562102
+      Backlinearcher_Dead_006: 1704193274
+      Backlinearcher_Dead_007: 542739475
+      Backlinearcher_Dead_008: 1446120735
+      Backlinearcher_Dead_009: -1584809001
+      Backlinearcher_Dead_010: -1367446005
+      Backlinearcher_Dead_011: 361462240
+      Backlinearcher_Dead_012: 965981992
+      Backlinearcher_Dead_013: 504322390
+      Backlinearcher_Dead_014: 71851087
+      Backlinearcher_Default_000: 419524334
+      Backlinearcher_Default_001: 1703470230
+      Backlinearcher_Default_002: 1542412658
+      Backlinearcher_Default_003: 252326313
+      Backlinearcher_Default_004: 1144561130
+      Backlinearcher_Default_005: 610600338
+      Backlinearcher_Default_006: -1582491102
+      Backlinearcher_Default_007: 597350401
+      Backlinearcher_Default_008: 1161490872
+      Backlinearcher_Default_009: -1798131874
+      Backlinearcher_Default_010: 175876990
+      Backlinearcher_Default_011: 946854847
+      Backlinearcher_Default_012: -834115863
+      Backlinearcher_Default_013: 1580210497
+      Backlinearcher_Move_000: -1590894647
+      Backlinearcher_Move_001: 1406516001
+      Backlinearcher_Move_002: -545998054
+      Backlinearcher_Move_003: 2104552169
+      Backlinearcher_Move_004: -1101270591
+      Backlinearcher_Move_005: -2006846164
+      Backlinearcher_Move_006: -637744019
+      Backlinearcher_Move_007: -513193749
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

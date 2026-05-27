@@ -8,7 +8,9 @@ public class MeleeEntity : BaseEntity
     // 戦闘開始時に、行動できる状態なら最初の敵を探します。
     protected override void OnRoundStart()
     {
-        if (CanAct)
+        base.OnRoundStart();
+
+        if (CanAct && !IsDebugTrainingDummy)
             FindTarget();
     }
 
@@ -17,6 +19,9 @@ public class MeleeEntity : BaseEntity
     {
         // 死亡中、ベンチ待機中、スタン中などは行動しません。
         if (!CanAct)
+            return;
+
+        if (TryHandleDebugTrainingDummy())
             return;
 
         // 今狙っている敵が倒れたり射程外になった時に、必要なら狙い直します。

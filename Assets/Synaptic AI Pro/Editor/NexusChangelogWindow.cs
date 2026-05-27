@@ -162,6 +162,44 @@ namespace SynapticPro
                 richText = true
             };
 
+            // v1.2.23
+            GUILayout.Label(L("v1.2.23 - run_csharp result capture + HTTP server stability", "v1.2.23 - run_csharp 戻り値捕捉 + HTTP サーバー安定化"), sectionStyle);
+            GUILayout.Space(5);
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+
+            GUILayout.Label(L("<b>★ Fix (ESC-0107): run_csharp returned result:null for most snippets</b>", "<b>★ 修正 (ESC-0107): run_csharp が殆どの snippet で result:null を返していた問題</b>"), itemStyle);
+            GUILayout.Label(L("• Mono.CSharp.Evaluator.Run discards return values. We now detect the last top-level return keyword (depth-aware) and rewrite `return X;` into a static-field sink call, capturing X across multi-statement bodies / foreach{}/if{} blocks / multiplication expressions.", "• Mono.CSharp.Evaluator.Run は戻り値を破棄するため、最後の top-level return キーワードを深度考慮で検出し、`return X;` を静的フィールド経由の sink 呼び出しに書き換え。複文 / foreach { } / if { } / 乗算式すべてで X が捕捉されるようになった"), itemStyle);
+            GUILayout.Label(L("• Application.logMessageReceived hook added so Debug.Log / LogWarning / LogError lines appear in the `output` field (was missing — only Console.Out was captured)", "• Application.logMessageReceived フック追加。Debug.Log / LogWarning / LogError が output フィールドに反映 (従来は Console.Out のみで取得漏れ)"), itemStyle);
+            GUILayout.Label(L("• Known limitation: Mono parser cannot instantiate generic TYPES (new List&lt;int&gt;() etc). Workaround: use arrays / ArrayList / generic methods (FindObjectsByType&lt;T&gt;)", "• 既知制限: Mono パーサが generic 型インスタンス化 (new List&lt;int&gt;() 等) を解釈できない。回避策は配列 / ArrayList / generic メソッド (FindObjectsByType&lt;T&gt;) 利用"), itemStyle);
+
+            GUILayout.Space(5);
+            GUILayout.Label(L("<b>★ Fix (ESC-0108): HTTP server WebSocket dropped every ~30s</b>", "<b>★ 修正 (ESC-0108): HTTP サーバー WebSocket が約30秒で切断</b>"), itemStyle);
+            GUILayout.Label(L("• Mono ClientWebSocket doesn't auto-pong protocol-level pings (unlike .NET 5+). Node side terminated the connection every heartbeat interval", "• Mono ClientWebSocket は .NET 5+ と異なり protocol-level ping に自動 pong しない。結果 Node 側が毎ハートビートで切断"), itemStyle);
+            GUILayout.Label(L("• http-server.js heartbeat now uses last-message-seen timestamps. Configurable via UNITY_STALE_TIMEOUT_MS env (default 60s)", "• http-server.js の heartbeat を last-message-seen 方式に置換。UNITY_STALE_TIMEOUT_MS 環境変数で調整可 (デフォルト 60s)"), itemStyle);
+            GUILayout.Label(L("• Reported and verified by xvpower. — thank you!", "• xvpower. さん報告・検証ありがとうございます"), itemStyle);
+
+            GUILayout.Space(5);
+            GUILayout.Label(L("<b>★ Fix: HTTP server died on macOS/Linux during domain reload</b>", "<b>★ 修正: macOS/Linux で domain reload のたびに HTTP サーバーが死亡</b>"), itemStyle);
+            GUILayout.Label(L("• Previous Process.Start with piped stdout/stderr caused node to hit SIGPIPE when Unity's C# domain reloaded the pipe readers", "• 旧 Process.Start は stdout/stderr を C# 側 pipe にリダイレクトしており、domain reload で pipe reader が消えて node が SIGPIPE で死亡"), itemStyle);
+            GUILayout.Label(L("• Replaced with `nohup node ... >log 2>&1 </dev/null &` detach. Process is independent of Unity's lifecycle, survives all recompiles", "• `nohup node ... >log 2>&1 </dev/null &` 経由の detach に変更。Unity ライフサイクルから独立、recompile で死なない"), itemStyle);
+
+            GUILayout.Space(5);
+            GUILayout.Label(L("<b>★ Fix: Auto Reconnect didn't engage on fresh installs</b>", "<b>★ 修正: 新規インストール時に Auto Reconnect が機能しなかった問題</b>"), itemStyle);
+            GUILayout.Label(L("• enableMCP default flipped from false → true. Unity is always a CLIENT of the MCP server (port 8090), the opt-in flag was a UX trap", "• enableMCP デフォルトを false → true に変更。Unity は常に MCP サーバー (port 8090) のクライアントなので opt-in 必要なフラグは UX トラップだった"), itemStyle);
+            GUILayout.Label(L("• Manual AI Reconnect, Auto Reconnect toggle, and successful connect all force enableMCP=true so it persists across domain reloads", "• 手動 AI Reconnect、Auto Reconnect トグル、接続成功時のいずれでも enableMCP=true を永続化、domain reload を跨いで維持"), itemStyle);
+
+            GUILayout.Space(5);
+            GUILayout.Label(L("<b>★ Added: AI Connection tab connection-controls bar</b>", "<b>★ 追加: AI Connection タブに接続コントロールバー</b>"), itemStyle);
+            GUILayout.Label(L("• Live MCP status indicator + `AI Reconnect` button (silent) + `Auto Reconnect` checkbox + `Discord` shortcut. Surfaces Tools-menu items in the Setup window where users actually troubleshoot", "• MCP 接続ライブステータス + `AI Reconnect` ボタン (確認ダイアログなし) + `Auto Reconnect` チェックボックス + `Discord` ショートカット。Tools メニュー項目をユーザーが普段デバッグする Setup Window 内に集約"), itemStyle);
+            GUILayout.Label(L("• MCP Server: Start/Stop kept in Tools menu (advanced)", "• MCP Server: Start/Stop は引き続き Tools メニュー (上級向け)"), itemStyle);
+
+            GUILayout.Space(5);
+            GUILayout.Label(L("<b>★ Fix: port-mapping JSON corruption infinite log loop</b>", "<b>★ 修正: port-mapping JSON 破損による Console ログ無限ループ</b>"), itemStyle);
+            GUILayout.Label(L("• NexusProjectPortManager.LoadMapping recovery now deletes .backup before File.Move, then writes a fresh empty mapping. Previously the silent catch left the corrupt file in place, causing frame-rate Console spam after any concurrent write race", "• NexusProjectPortManager.LoadMapping の復旧処理を強化。.backup を事前削除し、復旧後すぐ空の有効 JSON を書き出す。従来は silent catch で破損ファイルが残存し書き込み競合後に毎フレーム Console エラーが出続けていた"), itemStyle);
+
+            EditorGUILayout.EndVertical();
+            GUILayout.Space(15);
+
             // v1.2.22
             GUILayout.Label(L("v1.2.22 - EMERGENCY HOTFIX: MCP timeout (ESC-0102)", "v1.2.22 - 緊急修正: MCP timeout 問題 (ESC-0102)"), sectionStyle);
             GUILayout.Space(5);

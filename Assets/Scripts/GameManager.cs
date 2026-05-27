@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using System.Linq;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 // ゲーム全体の進行を管理する中心クラスです。
 // 購入ユニットの生成、ベンチ管理、盤面配置、入れ替え、売却、スターアップ、戦闘開始/終了を担当します。
@@ -38,6 +39,7 @@ public class GameManager : Manager<GameManager>
     public float itemBenchLeftEdgeMargin = 0.75f;
     public float itemBenchPickRadius = 0.68f;
     public Vector3 itemIconScale = new Vector3(1.25f, 1.25f, 1f);
+    public bool useCanvasItemBench = true;
     public bool spawnDebugItemsOnStart = true;
 
     // マウスホイールで盤面を見る時のカメラ設定です。
@@ -76,6 +78,13 @@ public class GameManager : Manager<GameManager>
     readonly List<BaseEntity> roundPlayerUnits = new List<BaseEntity>();
     readonly Dictionary<BaseEntity, Node> roundStartNodeByPlayerUnit = new Dictionary<BaseEntity, Node>();
 
+    // 検証用ウェーブです。通常進行では序盤ウェーブの後ろに挟み、F8でも直接開始できます。
+    public bool includeDebugTrainingWave = true;
+    public bool enableDebugTrainingWaveHotkey = true;
+    public KeyCode debugTrainingWaveHotkey = KeyCode.F8;
+    public int debugTrainingDummyHealth = 300000;
+    public float debugTrainingDummyMoveSpeed = 0.95f;
+
     // ウェーブ定義と、次に開始するウェーブ番号です。
     readonly List<WaveDefinition> waveDefinitions = new List<WaveDefinition>();
     readonly string[] bossRewardUnitIds =
@@ -88,12 +97,20 @@ public class GameManager : Manager<GameManager>
     int currentWaveIndex;
     bool gameOver;
     bool bossRewardSelectionPending;
+    bool debugTrainingWaveActive;
+    float roundStartTime;
+    bool roundTimeoutResolved;
+    const float RoundDamageRampStartTime = 15f;
+    const float RoundDamageRampSecondStageTime = 45f;
+    const float RoundHardLimitSeconds = 60f;
 
     // 現在戦闘中かどうか、ベンチ空き、盤面配置数、配置上限を外部から確認できます。
     public bool IsRoundInProgress { get; private set; }
     public bool HasBenchSpace => benchEntities.Count < benchSlotCount;
     public int PlacedTeam1Count => team1Entities.Count;
     public int PlacementLimit => PlayerData.Instance != null ? PlayerData.Instance.Level : 1;
+    public float RoundElapsedTime => IsRoundInProgress ? Mathf.Max(0f, Time.time - roundStartTime) : 0f;
+    public float RoundDamageMultiplier => GetRoundDamageMultiplier();
 
     // ホイール押し込みドラッグ中かどうかと、前フレームのマウス位置です。
     bool isMiddleMousePanning;
@@ -110,6 +127,9 @@ public class GameManager : Manager<GameManager>
         EnsureItemBenchParents();
         SpawnDebugItemsIfNeeded();
         RepositionItemBenchItems();
+        RefreshItemBenchCanvasUi();
+        SynergyManager.EnsureExists().AttachGameManager(this);
+        EnsureFightButtonPresentation();
 
         Camera targetCamera = GetBoardCamera();
         EnsureCameraZoomTarget(targetCamera);
@@ -133,11 +153,155 @@ public class GameManager : Manager<GameManager>
 
         // ズームや移動後に、背景の外側が見えない位置へカメラを収めます。
         ClampCameraInsideBackground(targetCamera);
+
+        // デバッグ用の耐久ダミーウェーブを、通常ウェーブ進行とは別にすぐ開始できます。
+        if (enableDebugTrainingWaveHotkey && Input.GetKeyDown(debugTrainingWaveHotkey))
+            StartDebugTrainingWave();
+
+        // 耐久ユニット同士で戦闘が長引いた時、1分で必ず決着を付けます。
+        HandleRoundTimeout();
+    }
+
+    // 戦闘時間に応じた与ダメージ倍率です。序盤は等倍、後半ほど一気に決着が付きやすくします。
+    private float GetRoundDamageMultiplier()
+    {
+        if (!IsRoundInProgress)
+            return 1f;
+
+        float elapsed = RoundElapsedTime;
+        if (elapsed <= RoundDamageRampStartTime)
+            return 1f;
+
+        if (elapsed < RoundDamageRampSecondStageTime)
+        {
+            float normalized = Mathf.InverseLerp(RoundDamageRampStartTime, RoundDamageRampSecondStageTime, elapsed);
+            return Mathf.Lerp(1f, 4f, normalized * normalized);
+        }
+
+        if (elapsed < RoundHardLimitSeconds)
+        {
+            float normalized = Mathf.InverseLerp(RoundDamageRampSecondStageTime, RoundHardLimitSeconds, elapsed);
+            return Mathf.Lerp(4f, 25f, normalized * normalized);
+        }
+
+        return 100f;
+    }
+
+    // FIGHTボタンの見た目アニメと、少し広めの透明クリック範囲を実行時に足します。
+    private void EnsureFightButtonPresentation()
+    {
+        GameObject fightObject = GameObject.Find("FIGHT");
+        if (fightObject == null)
+            return;
+
+        if (fightObject.GetComponent<TweenButtonFeedback>() == null)
+        {
+            TweenButtonFeedback feedback = fightObject.AddComponent<TweenButtonFeedback>();
+            feedback.PlayAppear(0.1f);
+        }
+
+        RectTransform fightRect = fightObject.GetComponent<RectTransform>();
+        if (fightRect == null || fightObject.transform.Find("ExpandedHitArea") != null)
+            return;
+
+        GameObject hitAreaObject = new GameObject("ExpandedHitArea", typeof(RectTransform), typeof(Image), typeof(Button));
+        hitAreaObject.transform.SetParent(fightObject.transform, false);
+        hitAreaObject.transform.SetAsFirstSibling();
+
+        RectTransform hitAreaRect = hitAreaObject.GetComponent<RectTransform>();
+        hitAreaRect.anchorMin = Vector2.zero;
+        hitAreaRect.anchorMax = Vector2.one;
+        hitAreaRect.offsetMin = new Vector2(-24f, -18f);
+        hitAreaRect.offsetMax = new Vector2(24f, 18f);
+
+        Image hitImage = hitAreaObject.GetComponent<Image>();
+        hitImage.color = new Color(1f, 1f, 1f, 0.001f);
+        hitImage.raycastTarget = true;
+
+        Button hitButton = hitAreaObject.GetComponent<Button>();
+        hitButton.targetGraphic = hitImage;
+        hitButton.onClick.AddListener(DebugFight);
+    }
+
+    // 60秒を超えても両軍が残っている場合は、残HP割合が高い側を勝ちにして戦闘を終了します。
+    private void HandleRoundTimeout()
+    {
+        if (!IsRoundInProgress || roundTimeoutResolved || RoundElapsedTime < RoundHardLimitSeconds)
+            return;
+
+        roundTimeoutResolved = true;
+        float playerHealthRatio = GetTeamRemainingHealthRatio(team1Entities, true);
+        float enemyHealthRatio = GetTeamRemainingHealthRatio(team2Entities);
+        Debug.Log($"Round time limit reached. Player HP ratio:{playerHealthRatio:0.00} Enemy HP ratio:{enemyHealthRatio:0.00}");
+
+        if (!HasLivingPlayerBattleUnit())
+        {
+            TriggerGameOver();
+            return;
+        }
+
+        if (!HasLivingEnemyBattleUnit() || playerHealthRatio >= enemyHealthRatio)
+        {
+            CompleteCurrentWave();
+            return;
+        }
+
+        TriggerGameOver();
+    }
+
+    // 生存している盤面ユニットの「現在HP合計 / 最大HP合計」を返します。
+    private float GetTeamRemainingHealthRatio(List<BaseEntity> entities, bool excludeSummons = false)
+    {
+        float totalCurrentHealth = 0f;
+        float totalMaxHealth = 0f;
+        for (int i = 0; i < entities.Count; i++)
+        {
+            BaseEntity entity = entities[i];
+            if (entity == null || entity.IsDead || !entity.IsOnBoard || (excludeSummons && entity.IsSummonedUnit))
+                continue;
+
+            totalCurrentHealth += Mathf.Max(0, entity.CurrentHealth);
+            totalMaxHealth += Mathf.Max(1, entity.MaxHealth);
+        }
+
+        return totalMaxHealth <= 0f ? 0f : totalCurrentHealth / totalMaxHealth;
+    }
+
+    // プレイヤー本体の生存判定です。Legionの亡霊などの召喚体だけが残っても敗北扱いにします。
+    private bool HasLivingPlayerBattleUnit()
+    {
+        for (int i = 0; i < team1Entities.Count; i++)
+        {
+            BaseEntity entity = team1Entities[i];
+            if (entity != null && entity.Team == Team.Team1 && entity.IsOnBoard && !entity.IsDead && !entity.IsSummonedUnit)
+                return true;
+        }
+
+        return false;
+    }
+
+    // 敵側は一時召喚も戦場にいる敵として扱い、全て倒れたらウェーブクリアにします。
+    private bool HasLivingEnemyBattleUnit()
+    {
+        for (int i = 0; i < team2Entities.Count; i++)
+        {
+            BaseEntity entity = team2Entities[i];
+            if (entity != null && entity.Team == Team.Team2 && entity.IsOnBoard && !entity.IsDead)
+                return true;
+        }
+
+        return false;
     }
 
     // ショップでこのユニットを買えるか確認します。
     public bool CanBuyEntity(EntitiesDatabaseSO.EntityData entityData)
     {
+        if (IsLegionOnlySummonData(entityData))
+            return false;
+
+        if (HasOwnedStarThreeUnit(entityData.name))
+            return false;
+
         // ベンチに空きがある、または購入直後にスターアップして枠が空くなら購入可能です。
         return HasBenchSpace || CanCompleteUpgradeWithPurchase(entityData.name);
     }
@@ -148,10 +312,31 @@ public class GameManager : Manager<GameManager>
         if (string.IsNullOrEmpty(entityData.name))
             return true;
 
+        if (IsLegionOnlySummonData(entityData))
+            return false;
+
+        if (HasOwnedStarThreeUnit(entityData.name))
+            return false;
+
         if (!bossRewardUnitIds.Contains(entityData.name, StringComparer.OrdinalIgnoreCase))
             return true;
 
         return unlockedBossRewardUnitIds.Contains(entityData.name);
+    }
+
+    // 同名の★3ユニットを所有している間は、そのユニットをショップから外します。
+    public bool HasOwnedStarThreeUnit(string unitId)
+    {
+        if (string.IsNullOrEmpty(unitId))
+            return false;
+
+        return team1Entities
+            .Concat(benchEntities)
+            .Any(entity => entity != null
+                && entity.Team == Team.Team1
+                && !entity.IsSummonedUnit
+                && entity.StarLevel >= 3
+                && string.Equals(entity.UnitId, unitId, StringComparison.OrdinalIgnoreCase));
     }
 
     // ショップ購入後に呼ばれ、ユニットをベンチへ生成します。
@@ -186,6 +371,7 @@ public class GameManager : Manager<GameManager>
         // 購入・報酬ユニットは盤面ではなく、まずベンチ親の下に生成します。
         BaseEntity newEntity = Instantiate(entityData.prefab, benchParent);
         newEntity.InitializeIdentity(entityData.name, entityData.cost, starLevel);
+        SynergyManager.AssignEntitySynergies(newEntity, entityData);
 
         benchEntities.Add(newEntity);
         if (slotIndex != -1)
@@ -203,6 +389,25 @@ public class GameManager : Manager<GameManager>
             return team2Entities;
         else
             return team1Entities;
+    }
+
+    // シナジー計算用に、盤面上の味方ユニットだけを返します。ベンチと敵は含めません。
+    public List<BaseEntity> GetPlayerBoardEntitiesForSynergy()
+    {
+        return team1Entities
+            .Where(entity => entity != null && entity.Team == Team.Team1 && entity.IsOnBoard && !entity.IsSummonedUnit)
+            .Distinct()
+            .ToList();
+    }
+
+    // シナジー計算用に、指定チームの盤面ユニットだけを返します。召喚体はカウントしません。
+    public List<BaseEntity> GetBoardEntitiesForSynergy(Team team)
+    {
+        List<BaseEntity> source = team == Team.Team1 ? team1Entities : team2Entities;
+        return source
+            .Where(entity => entity != null && entity.Team == team && entity.IsOnBoard && !entity.IsSummonedUnit)
+            .Distinct()
+            .ToList();
     }
 
     // このユニットをドラッグ可能か判定します。
@@ -543,6 +748,7 @@ public class GameManager : Manager<GameManager>
         itemBenchSlotByItem.Remove(itemInstance);
         Destroy(itemInstance.gameObject);
         AttackEffectPlayer.PlayUiSfx("item_equip");
+        RefreshItemBenchCanvasUi();
         OnRosterChanged?.Invoke();
         return true;
     }
@@ -575,6 +781,8 @@ public class GameManager : Manager<GameManager>
         itemInstance.transform.position = GetItemBenchPosition(slotIndex);
         itemInstance.transform.localScale = itemIconScale;
         itemInstance.SetSlotIndex(slotIndex);
+        itemInstance.SetWorldVisible(!useCanvasItemBench);
+        RefreshItemBenchCanvasUi();
         return true;
     }
 
@@ -634,7 +842,37 @@ public class GameManager : Manager<GameManager>
         else
             itemInstance.transform.position = GetItemBenchOverflowPosition();
 
+        if (itemInstance != null)
+            itemInstance.SetWorldVisible(!useCanvasItemBench);
+
+        RefreshItemBenchCanvasUi();
         return itemInstance;
+    }
+
+    // Canvas版アイテムベンチが現在使う縦スロット数です。
+    public int ItemBenchRowsForUi => Mathf.Max(1, itemBenchRows);
+
+    // Canvas版アイテムベンチが扱う横列数です。1列表示から展開できるよう、最低2列を確保します。
+    public int ItemBenchColumnsForUi => Mathf.Max(2, itemBenchColumns);
+
+    // UIから、指定スロットに入っているアイテムを取得します。
+    public ItemInstance GetItemBenchItemAtSlotForUi(int slotIndex)
+    {
+        return GetItemBenchItemAtSlot(slotIndex);
+    }
+
+    // 指定列より右側にアイテムがあるかを返します。展開ボタン表示に使います。
+    public bool HasItemBenchItemsBeyondColumn(int columnIndex)
+    {
+        int rows = Mathf.Max(1, itemBenchRows);
+        int firstHiddenSlot = (columnIndex + 1) * rows;
+        foreach (KeyValuePair<ItemInstance, int> pair in itemBenchSlotByItem)
+        {
+            if (pair.Key != null && pair.Value >= firstHiddenSlot)
+                return true;
+        }
+
+        return itemBenchItems.Count(item => item != null) > firstHiddenSlot;
     }
 
     // 複数アイテムをまとめてアイテムベンチへ戻します。
@@ -653,14 +891,14 @@ public class GameManager : Manager<GameManager>
         if (entity == null)
             return;
 
-        bool playerUnitDiedDuringWave = IsRoundInProgress && entity.Team == Team.Team1;
+        bool playerUnitDiedDuringWave = IsRoundInProgress && entity.Team == Team.Team1 && !entity.IsSummonedUnit;
 
         team1Entities.Remove(entity);
         team2Entities.Remove(entity);
 
         OnUnitDied?.Invoke(entity);
 
-        // 敵は破棄します。味方は次ウェーブで復活させるため、一時退場に留めます。
+        // 敵と召喚体は破棄します。味方本体は次ウェーブで復活させるため、一時退場に留めます。
         if (playerUnitDiedDuringWave)
             entity.WaitForWaveReviveAfterDeathAnimation();
         else
@@ -704,6 +942,7 @@ public class GameManager : Manager<GameManager>
 
         ClearEnemyUnits();
         SnapshotPlayerBoardUnits();
+        debugTrainingWaveActive = false;
         SpawnWaveEnemies(waveDefinitions[currentWaveIndex]);
 
         if (team2Entities.Count == 0)
@@ -713,12 +952,60 @@ public class GameManager : Manager<GameManager>
         }
 
         IsRoundInProgress = true;
+        roundStartTime = Time.time;
+        roundTimeoutResolved = false;
+        SynergyManager.EnsureExists().ApplyBattleStartSynergies();
         AttackEffectPlayer.PlayUiSfx("fight_start");
         UpdateRoundProgressUi();
         OnRoundStart?.Invoke();
     }
 
-    // 最初の6ウェーブを作ります。列は左から、行は下から数えます。
+    // 検証用の耐久ダミーだけを出すウェーブを開始します。通常ウェーブ番号は進めません。
+    public void StartDebugTrainingWave()
+    {
+        if (IsRoundInProgress)
+            return;
+
+        if (bossRewardSelectionPending)
+        {
+            Debug.LogWarning("Choose a boss reward before starting a debug training wave.");
+            return;
+        }
+
+        if (gameOver)
+        {
+            Debug.LogWarning("Game over. Restart the scene to try again.");
+            return;
+        }
+
+        if (team1Entities.Count == 0)
+        {
+            Debug.LogWarning("Place at least one unit before starting a debug training wave.");
+            return;
+        }
+
+        ClearEnemyUnits();
+        SnapshotPlayerBoardUnits();
+        debugTrainingWaveActive = true;
+        SpawnWaveEnemies(CreateDebugTrainingWaveDefinition());
+
+        if (team2Entities.Count == 0)
+        {
+            debugTrainingWaveActive = false;
+            Debug.LogWarning("Debug training wave could not spawn any enemies.");
+            return;
+        }
+
+        IsRoundInProgress = true;
+        roundStartTime = Time.time;
+        roundTimeoutResolved = false;
+        SynergyManager.EnsureExists().ApplyBattleStartSynergies();
+        AttackEffectPlayer.PlayUiSfx("fight_start");
+        UpdateRoundProgressUi();
+        OnRoundStart?.Invoke();
+    }
+
+    // 固定ウェーブを作ります。列は左から、行は下から数えます。
     private void InitializeWaveDefinitions()
     {
         if (waveDefinitions.Count > 0)
@@ -726,14 +1013,17 @@ public class GameManager : Manager<GameManager>
 
         waveDefinitions.Add(new WaveDefinition(
             new WaveEnemyPlacement(WaveEnemyKind.Cost1Melee, 1, 6, 5)));
+        AddOpeningDebugWaveIfNeeded();
 
         waveDefinitions.Add(new WaveDefinition(
             new WaveEnemyPlacement(WaveEnemyKind.Cost1Melee, 2, 6, 4),
             new WaveEnemyPlacement(WaveEnemyKind.Cost1Melee, 2, 6, 6)));
+        AddOpeningDebugWaveIfNeeded();
 
         waveDefinitions.Add(new WaveDefinition(
             new WaveEnemyPlacement(WaveEnemyKind.Cost1Melee, 3, 6, 5),
             new WaveEnemyPlacement(WaveEnemyKind.Cost1Ranged, 1, 10, 5)));
+        AddOpeningDebugWaveIfNeeded();
 
         waveDefinitions.Add(new WaveDefinition(true,
             new WaveEnemyPlacement("Snowchasermk", 2, 7, 6),
@@ -754,6 +1044,25 @@ public class GameManager : Manager<GameManager>
             new WaveEnemyPlacement(WaveEnemyKind.Cost2Melee, 3, 6, 3, 0),
             new WaveEnemyPlacement(WaveEnemyKind.Cost2Melee, 3, 6, 5, 1),
             new WaveEnemyPlacement(WaveEnemyKind.Cost2Melee, 3, 6, 7, 2)));
+
+    }
+
+    // 序盤3ラウンドの確認用に、高HPダミー戦を通常進行へ挟み込みます。
+    private void AddOpeningDebugWaveIfNeeded()
+    {
+        if (!includeDebugTrainingWave)
+            return;
+
+        waveDefinitions.Add(CreateDebugTrainingWaveDefinition());
+    }
+
+    // 1分ほど耐える高HPダミーを複数置く、スキル・シナジー確認用ウェーブです。
+    private WaveDefinition CreateDebugTrainingWaveDefinition()
+    {
+        return new WaveDefinition(false, true,
+            new WaveEnemyPlacement(WaveEnemyKind.Cost1Melee, 1, 6, 4, -1, true),
+            new WaveEnemyPlacement(WaveEnemyKind.Cost1Melee, 1, 8, 5, -1, true),
+            new WaveEnemyPlacement(WaveEnemyKind.Cost1Melee, 1, 10, 6, -1, true));
     }
 
     // 戦闘開始前の味方盤面配置を保存します。
@@ -807,8 +1116,114 @@ public class GameManager : Manager<GameManager>
 
         BaseEntity newEntity = Instantiate(entityData.prefab, team2Parent);
         newEntity.InitializeIdentity(entityData.name, entityData.cost, placement.StarLevel);
+        SynergyManager.AssignEntitySynergies(newEntity, entityData);
+        if (placement.IsDebugTrainingDummy)
+            newEntity.ConfigureDebugTrainingDummy(debugTrainingDummyHealth, debugTrainingDummyMoveSpeed);
         team2Entities.Add(newEntity);
         newEntity.Setup(Team.Team2, spawnNode);
+    }
+
+    // 召喚シナジー用の一時味方を盤面へ出します。所有ユニットではないので合成・売却・シナジーカウントから外れます。
+    public BaseEntity SpawnTemporarySummonFromSynergy(bool large)
+    {
+        if (entitiesDatabase == null || entitiesDatabase.allEntities == null || GridManager.Instance == null)
+            return null;
+
+        Node spawnNode = GridManager.Instance.GetFreeNode(Team.Team1);
+        if (spawnNode == null)
+            return null;
+
+        int maxCost = large ? 2 : 1;
+        List<EntitiesDatabaseSO.EntityData> candidates = entitiesDatabase.allEntities
+            .Where(data => data.prefab != null
+                && data.cost <= maxCost
+                && data.prefab.range <= 2
+                && !IsLegionOnlySummonData(data)
+                && data.synergy1 != SynergyType.Apex
+                && data.synergy2 != SynergyType.Apex
+                && data.synergy3 != SynergyType.Apex)
+            .ToList();
+
+        if (candidates.Count == 0)
+            return null;
+
+        EntitiesDatabaseSO.EntityData entityData = candidates[UnityEngine.Random.Range(0, candidates.Count)];
+        BaseEntity summon = Instantiate(entityData.prefab, team1Parent != null ? team1Parent : transform);
+        summon.InitializeIdentity(entityData.name, entityData.cost, large ? 2 : 1);
+        summon.SetSummonedUnit(true);
+        team1Entities.Add(summon);
+        summon.Setup(Team.Team1, spawnNode);
+        return summon;
+    }
+
+    // 指定ユニット名の一時召喚体を、できるだけ指定Node付近へ出します。Legionなどの専用召喚で使います。
+    public BaseEntity SpawnTemporarySummonByUnitName(string unitName, Team team, Node nearNode, int starLevel, float lifetime)
+    {
+        if (string.IsNullOrEmpty(unitName) || entitiesDatabase == null || entitiesDatabase.allEntities == null || GridManager.Instance == null)
+            return null;
+
+        EntitiesDatabaseSO.EntityData entityData = entitiesDatabase.allEntities
+            .FirstOrDefault(data => data.prefab != null && string.Equals(data.name, unitName, StringComparison.OrdinalIgnoreCase));
+        if (entityData.prefab == null)
+            return null;
+
+        Node spawnNode = null;
+        if (nearNode != null)
+        {
+            spawnNode = GridManager.Instance.GetNodesInRange(nearNode, 2.5f)
+                .Where(node => node != null && !node.IsOccupied)
+                .OrderBy(node => Vector3.Distance(node.worldPosition, nearNode.worldPosition))
+                .FirstOrDefault();
+        }
+
+        if (spawnNode == null)
+            spawnNode = GridManager.Instance.GetFreeNode(team);
+
+        if (spawnNode == null)
+            return null;
+
+        Transform parent = team == Team.Team1 ? team1Parent : team2Parent;
+        BaseEntity summon = Instantiate(entityData.prefab, parent != null ? parent : transform);
+        summon.InitializeIdentity(entityData.name, entityData.cost, Mathf.Max(1, starLevel));
+        summon.SetSummonedUnit(true);
+
+        if (team == Team.Team1)
+            team1Entities.Add(summon);
+        else
+            team2Entities.Add(summon);
+
+        summon.Setup(team, spawnNode);
+        summon.BeginTemporarySummonLifetime(lifetime);
+        return summon;
+    }
+
+    // 戦闘終了時などに、召喚シナジーが出した一時ユニットを安全に片付けます。
+    public void RemoveTemporarySummonFromSynergy(BaseEntity summon)
+    {
+        if (summon == null)
+            return;
+
+        if (summon.CurrentNode != null)
+            summon.CurrentNode.SetOccupied(false);
+
+        team1Entities.Remove(summon);
+        team2Entities.Remove(summon);
+        benchEntities.Remove(summon);
+        benchSlotByEntity.Remove(summon);
+        Destroy(summon.gameObject);
+        OnRosterChanged?.Invoke();
+    }
+
+    // 錬金シナジーの報酬として、ランダムなアイテムをアイテムベンチに追加します。
+    public void GrantRandomItemFromSynergy()
+    {
+        IReadOnlyList<ItemData> items = ItemCatalog.AllItems;
+        if (items == null || items.Count == 0)
+            return;
+
+        ItemData item = items[UnityEngine.Random.Range(0, items.Count)];
+        ReturnItemToBench(item);
+        AttackEffectPlayer.PlayUiSfx("item_equip");
     }
 
     // ウェーブ指定に合うユニットを選びます。固定名、候補番号、ランダム指定の順で処理します。
@@ -864,9 +1279,16 @@ public class GameManager : Manager<GameManager>
         int cost = GetWaveEnemyCost(kind);
 
         return entitiesDatabase.allEntities
-            .Where(data => data.cost == cost && data.prefab != null && MatchesWaveEnemyKind(data, kind))
+            .Where(data => data.cost == cost && data.prefab != null && !IsLegionOnlySummonData(data) && MatchesWaveEnemyKind(data, kind))
             .OrderBy(data => data.name, StringComparer.OrdinalIgnoreCase)
             .ToList();
+    }
+
+    // Legionのスキル専用召喚体は、ショップ・通常ウェーブ・ランダム召喚候補から外します。
+    private bool IsLegionOnlySummonData(EntitiesDatabaseSO.EntityData data)
+    {
+        return !string.IsNullOrEmpty(data.name)
+            && string.Equals(data.name, "Taskmaster", StringComparison.OrdinalIgnoreCase);
     }
 
     // ウェーブ種別から必要コストを返します。
@@ -912,23 +1334,44 @@ public class GameManager : Manager<GameManager>
     // ウェーブクリア時、味方を戦闘前配置へ戻して全回復させます。
     private void CompleteCurrentWave()
     {
+        bool completedDebugTrainingWave = debugTrainingWaveActive;
         bool clearedBossWave = currentWaveIndex >= 0
             && currentWaveIndex < waveDefinitions.Count
             && waveDefinitions[currentWaveIndex].IsBossWave;
+        bool clearedProgressDebugWave = !completedDebugTrainingWave
+            && currentWaveIndex >= 0
+            && currentWaveIndex < waveDefinitions.Count
+            && waveDefinitions[currentWaveIndex].IsDebugWave;
+
+        if (!completedDebugTrainingWave && !clearedProgressDebugWave)
+            SynergyManager.Instance?.NotifyWaveCleared(clearedBossWave);
 
         IsRoundInProgress = false;
+        debugTrainingWaveActive = false;
+        ResetAllBattleRuntimeStates();
+        AttackEffectPlayer.ClearBattleVisuals();
         OnRoundEnd?.Invoke();
+        SynergyManager.Instance?.ClearBattleSynergyState();
 
+        ClearTemporarySummons();
         ClearEnemyUnits();
         RestorePlayerUnitsAfterWave();
         ResolveAllAvailableUpgrades(UpgradeScope.AllOwned);
 
-        currentWaveIndex++;
-        Debug.Log($"Wave {currentWaveIndex} cleared.");
+        if (!completedDebugTrainingWave)
+        {
+            currentWaveIndex++;
+            Debug.Log($"Wave {currentWaveIndex} cleared.");
+        }
+        else
+        {
+            Debug.Log("Debug training wave cleared.");
+        }
+
         UpdateRoundProgressUi();
         OnRosterChanged?.Invoke();
 
-        if (clearedBossWave)
+        if (!completedDebugTrainingWave && clearedBossWave)
             ShowBossRewardSelection();
     }
 
@@ -990,11 +1433,57 @@ public class GameManager : Manager<GameManager>
     private void TriggerGameOver()
     {
         IsRoundInProgress = false;
+        debugTrainingWaveActive = false;
         gameOver = true;
+        ResetAllBattleRuntimeStates();
+        AttackEffectPlayer.ClearBattleVisuals();
         OnRoundEnd?.Invoke();
+        SynergyManager.Instance?.ClearBattleSynergyState();
+        ClearTemporarySummons();
         ClearEnemyUnits();
         Debug.LogWarning("Game Over. All player units were defeated.");
         UpdateRoundProgressUi();
+    }
+
+    // 戦闘終了時に、残り時間付きのスキル・バフ・デバフを全ユニットから即時解除します。
+    private void ResetAllBattleRuntimeStates()
+    {
+        HashSet<BaseEntity> entities = new HashSet<BaseEntity>();
+        AddEntitiesToSet(team1Entities, entities);
+        AddEntitiesToSet(team2Entities, entities);
+        AddEntitiesToSet(roundPlayerUnits, entities);
+
+        foreach (BaseEntity entity in entities)
+        {
+            if (entity != null)
+                entity.ResetBattleTemporaryState();
+        }
+    }
+
+    // nullを避けながらユニット一覧をSetへ入れます。
+    private void AddEntitiesToSet(IEnumerable<BaseEntity> source, HashSet<BaseEntity> destination)
+    {
+        if (source == null || destination == null)
+            return;
+
+        foreach (BaseEntity entity in source)
+        {
+            if (entity != null)
+                destination.Add(entity);
+        }
+    }
+
+    // 戦闘終了時に残っている召喚体を片付けます。
+    private void ClearTemporarySummons()
+    {
+        List<BaseEntity> summons = team1Entities
+            .Concat(team2Entities)
+            .Where(entity => entity != null && entity.IsSummonedUnit)
+            .Distinct()
+            .ToList();
+
+        for (int i = 0; i < summons.Count; i++)
+            RemoveTemporarySummonFromSynergy(summons[i]);
     }
 
     // ウェーブ開始時に保存したNodeへ味方を戻し、倒されたユニットも復活させます。
@@ -1115,6 +1604,7 @@ public class GameManager : Manager<GameManager>
         }
 
         EnsureItemBenchTiles();
+        SetItemBenchWorldVisualsVisible(!useCanvasItemBench);
     }
 
     // Gridオブジェクトがあればその下に、なければGameManagerの下にアイテムベンチを作ります。
@@ -1226,6 +1716,7 @@ public class GameManager : Manager<GameManager>
     // 古いシーンに保存されている小さすぎる値を、見やすい現在値へ補正します。
     private void NormalizeItemBenchVisualSettings()
     {
+        itemBenchColumns = Mathf.Max(itemBenchColumns, useCanvasItemBench ? 2 : 1);
         itemBenchColumnSpacing = Mathf.Max(itemBenchColumnSpacing, 0.96f);
         itemBenchRowSpacing = Mathf.Max(itemBenchRowSpacing, 0.96f);
         itemBenchGapFromUnitBench = Mathf.Max(itemBenchGapFromUnitBench, 1.45f);
@@ -1248,7 +1739,36 @@ public class GameManager : Manager<GameManager>
             item.transform.position = GetItemBenchPosition(pair.Value);
             item.transform.localScale = itemIconScale;
             item.SetSlotIndex(pair.Value);
+            item.SetWorldVisible(!useCanvasItemBench);
         }
+
+        RefreshItemBenchCanvasUi();
+    }
+
+    // Canvas版ベンチ利用時は、古いワールドベンチのタイルとアイテム表示を非表示にします。
+    private void SetItemBenchWorldVisualsVisible(bool visible)
+    {
+        if (itemBenchTilesParent != null && itemBenchTilesParent.gameObject.activeSelf != visible)
+            itemBenchTilesParent.gameObject.SetActive(visible);
+
+        for (int i = 0; i < itemBenchItems.Count; i++)
+        {
+            if (itemBenchItems[i] != null)
+                itemBenchItems[i].SetWorldVisible(visible);
+        }
+    }
+
+    // Canvas版アイテムベンチに、現在の所持アイテムを反映します。
+    private void RefreshItemBenchCanvasUi()
+    {
+        if (!useCanvasItemBench)
+        {
+            SetItemBenchWorldVisualsVisible(true);
+            return;
+        }
+
+        SetItemBenchWorldVisualsVisible(false);
+        ItemBenchCanvasUI.EnsureExists(this).Refresh();
     }
 
     // 自分ベンチタイルの一番下の中心位置を、アイテムベンチの基準にします。
@@ -1715,7 +2235,7 @@ public class GameManager : Manager<GameManager>
     // ユニットを売却し、お金を増やします。
     public bool TrySellEntity(BaseEntity entity)
     {
-        if (entity == null || entity.Team != Team.Team1 || PlayerData.Instance == null)
+        if (entity == null || entity.Team != Team.Team1 || entity.IsSummonedUnit || PlayerData.Instance == null)
             return false;
 
         int sellValue = GetSellValue(entity);
@@ -1867,7 +2387,7 @@ public class GameManager : Manager<GameManager>
 
         return team1Entities
             .Concat(benchEntities)
-            .Where(entity => entity != null && entity.Team == Team.Team1)
+            .Where(entity => entity != null && entity.Team == Team.Team1 && !entity.IsSummonedUnit)
             .Distinct()
             .ToList();
     }
@@ -1880,6 +2400,7 @@ public class GameManager : Manager<GameManager>
 
         return entity != null
             && entity.Team == Team.Team1
+            && !entity.IsSummonedUnit
             && !entity.IsOnBoard
             && (isAssignedToBenchSlot || isUnderBenchParent);
     }
@@ -1925,16 +2446,19 @@ public class GameManager : Manager<GameManager>
         if (!IsRoundInProgress)
             return;
 
-        if (team1Entities.Count > 0 && team2Entities.Count > 0)
+        bool playerHasBattleUnit = HasLivingPlayerBattleUnit();
+        bool enemyHasBattleUnit = HasLivingEnemyBattleUnit();
+
+        if (playerHasBattleUnit && enemyHasBattleUnit)
             return;
 
-        if (team1Entities.Count == 0)
+        if (!playerHasBattleUnit)
         {
             TriggerGameOver();
             return;
         }
 
-        if (team2Entities.Count == 0)
+        if (!enemyHasBattleUnit)
             CompleteCurrentWave();
     }
 
@@ -1978,8 +2502,9 @@ public class GameManager : Manager<GameManager>
         public readonly int Column;
         public readonly int Row;
         public readonly int CandidateIndex;
+        public readonly bool IsDebugTrainingDummy;
 
-        public WaveEnemyPlacement(WaveEnemyKind kind, int starLevel, int column, int row, int candidateIndex = -1)
+        public WaveEnemyPlacement(WaveEnemyKind kind, int starLevel, int column, int row, int candidateIndex = -1, bool isDebugTrainingDummy = false)
         {
             Kind = kind;
             UnitId = string.Empty;
@@ -1987,6 +2512,7 @@ public class GameManager : Manager<GameManager>
             Column = column;
             Row = row;
             CandidateIndex = candidateIndex;
+            IsDebugTrainingDummy = isDebugTrainingDummy;
         }
 
         public WaveEnemyPlacement(string unitId, int starLevel, int column, int row)
@@ -1997,6 +2523,7 @@ public class GameManager : Manager<GameManager>
             Column = column;
             Row = row;
             CandidateIndex = -1;
+            IsDebugTrainingDummy = false;
         }
     }
 
@@ -2005,6 +2532,7 @@ public class GameManager : Manager<GameManager>
     {
         public readonly List<WaveEnemyPlacement> Enemies = new List<WaveEnemyPlacement>();
         public readonly bool IsBossWave;
+        public readonly bool IsDebugWave;
 
         public WaveDefinition(params WaveEnemyPlacement[] enemies)
         {
@@ -2014,6 +2542,13 @@ public class GameManager : Manager<GameManager>
         public WaveDefinition(bool isBossWave, params WaveEnemyPlacement[] enemies)
         {
             IsBossWave = isBossWave;
+            Enemies.AddRange(enemies);
+        }
+
+        public WaveDefinition(bool isBossWave, bool isDebugWave, params WaveEnemyPlacement[] enemies)
+        {
+            IsBossWave = isBossWave;
+            IsDebugWave = isDebugWave;
             Enemies.AddRange(enemies);
         }
     }

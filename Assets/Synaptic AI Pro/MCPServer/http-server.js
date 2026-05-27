@@ -150,24 +150,36 @@ function setupWebSocket() {
                 console.error(`[HTTP] WebSocket error: ${err.message}`);
             });
 
-            // Ping/Pong heartbeat（30秒ごと、接続維持）
-            ws.isAlive = true;
-            ws.on('pong', () => { ws.isAlive = true; });
+            // ESC-0108 fix (reported by xvpower., 2026-05-22):
+            // Mono's `ClientWebSocket` (Unity) does NOT auto-respond to
+            // WebSocket protocol-level `ping` frames with `pong` — unlike
+            // .NET 5+ runtime. The previous `ws.ping() / ws.on('pong')`
+            // heartbeat therefore terminated the connection after ~30s on
+            // every Unity 6.3 LTS environment.
+            // Switch to last-message-seen tracking: Unity already emits its
+            // own application-level traffic (operation_response, debug logs)
+            // so we just observe the timestamp of any received frame.
+            ws.lastSeen = Date.now();
+            const recordSeen = () => { ws.lastSeen = Date.now(); };
+            ws.on('message', recordSeen);
+            ws.on('ping', recordSeen);
+            ws.on('pong', recordSeen);
         }
     });
 
-    // Heartbeat interval（30秒ごとにpingを送信）
+    // Heartbeat: declare a connection dead only if no inbound frame for N ms.
+    // Override via env (UNITY_STALE_TIMEOUT_MS); default 60 000 keeps a safe
+    // margin over Unity's slowest legitimate quiet period.
+    const STALE_TIMEOUT_MS = parseInt(process.env.UNITY_STALE_TIMEOUT_MS || '60000', 10);
     const heartbeatInterval = setInterval(() => {
-        if (wss.clients) {
-            wss.clients.forEach((ws) => {
-                if (ws.isAlive === false) {
-                    console.error('[HTTP] Unity heartbeat timeout - closing connection');
-                    return ws.terminate();
-                }
-                ws.isAlive = false;
-                ws.ping();
-            });
-        }
+        if (!wss.clients) return;
+        wss.clients.forEach((ws) => {
+            if (!ws.lastSeen) return;
+            if (Date.now() - ws.lastSeen > STALE_TIMEOUT_MS) {
+                console.error(`[HTTP] Unity stale (no frames for ${STALE_TIMEOUT_MS}ms) - closing connection`);
+                try { ws.terminate(); } catch {}
+            }
+        });
     }, 30000);
 
     wss.on('close', () => {

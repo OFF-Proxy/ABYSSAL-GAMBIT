@@ -1,0 +1,1544 @@
+fileFormatVersion: 2
+guid: 98f1ef932f4a1974ca65c1f86c973754
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Legion_Default_000
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 203f43c21325b6047b8d7ca7a4bc48a5
+      internalID: -449272718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Default_001
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a1904220fae4514eb77ca86270a820d
+      internalID: 1469053571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Default_002
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54fba6826c359f84db20affa1b6fe31b
+      internalID: -678249633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Default_003
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 514cfb38fc989e541b51be8f53371701
+      internalID: -799491906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Default_004
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17cbe980d48b5254f9a2c42a2c435e6c
+      internalID: -33482207
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Default_005
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c282b551ada2e345b8ec47c510ea1ab
+      internalID: 1595133418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Default_006
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00c7f523685e8d648b96c637ef4473a3
+      internalID: -436790528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Default_007
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db8265a3cc3258743b43a3a02e3faad4
+      internalID: 90829208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Default_008
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a41dcae3e3e89f4aa04d35407f1824a
+      internalID: -454281706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Default_009
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c80a22aac6b3705489781711eff59ca3
+      internalID: 1135239670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Default_010
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1821c462e3f783f43a789bcea401091e
+      internalID: -1865131410
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Default_011
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90be44e0cf7a19b47bb883151691fb6e
+      internalID: -1669597125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Default_012
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5bd99c6bba536f41bc5c981d0dca252
+      internalID: -1386871847
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Default_013
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c56b193388f2790478a1791f76d45b21
+      internalID: 1914051024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Move_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 399b7c2e73ec3cb459057cf219b1662f
+      internalID: 1944249664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Move_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21b5f2c73f39d214997aa44a71f5a7c8
+      internalID: -15129157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Move_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15a2cb41be9bcc14ea2f56926fa2b3f0
+      internalID: 1442181350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Move_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b1e41faeef1c0947b831dd172e10c44
+      internalID: -1832712746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71ceef6038a0aed43b67490ce9bb74aa
+      internalID: 1208860001
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c34c919865741a940ad02dacbad3706b
+      internalID: 1797626913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Move_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94ce7acb679adc445be36f796fb941e0
+      internalID: -76301348
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Move_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f0883b2e61bf954e95a95848c71fb4e
+      internalID: -1981805099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1e4417178bb6304dbe5efc08f4283d0
+      internalID: -285169528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55e94a0511aff104a99e52c63fa1a4cf
+      internalID: 235764321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86d09c2733b154b4f9ac6f3d890e33df
+      internalID: -1769247176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dadb40a8c13da154585910f1e2fd4b0e
+      internalID: -1666328214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 776e3f22b74b34c4195fde4764e5d417
+      internalID: -2120927509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18f0f2327636a1440ac0d11ddac3578d
+      internalID: -433672073
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ed9cb6e8187576499b5a5b0b3f2718f
+      internalID: -677875445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e6cb52d17c052548bc45852d4c57790
+      internalID: 431724415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a888838ccc1c8049b577612cbc57240
+      internalID: 1631762934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9521c6af1c3b9784ba20da05802a1a3e
+      internalID: -1369958053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19fce08281e2c7e459e6bed9d28f4ac8
+      internalID: 665975593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6914e307cb855c43940b7728e7e89b1
+      internalID: 2027974178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86631157143634646a8624c9ea263be3
+      internalID: 291757849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1f80ad674912e446937053615fd706d
+      internalID: 847065083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 546f9707c54fa0944b2a3a38c5eb6b93
+      internalID: -61392907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54f5155f5cb8a874aa6cd2a20f19da03
+      internalID: -1302041034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cfb7d46336cdb940b71f1ba3ab8af90
+      internalID: 1497083601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87fcbb194d937954b977af07e962d455
+      internalID: -1243502331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0afd069ae2e6d484eb3c72e6972efd62
+      internalID: -1002119407
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4859ca40355583f43bed7ebaad38aab6
+      internalID: -1609653966
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23c723a043c6da040bd0d06695d1b789
+      internalID: -1381865145
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12c9d8609fafb3743a40d47bd4ef093e
+      internalID: -204581130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e6ee4dc67fc33d46b8706bb86655850
+      internalID: 1911915989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_023
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac197a99e6f40374fb04d67324748aec
+      internalID: -1176729755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_024
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d21f53a50c5ef8d409d212d6a2e602ce
+      internalID: -251636853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Attack_025
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d304962cc3dde1340ba730ccb6cce1d1
+      internalID: -790780426
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 879f90958921bee40b32cf92f78ec716
+      internalID: 1774947855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de7529275ef33f14ab0914cb0e7bfa60
+      internalID: -191849234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35528570a8197cc4d84fadfa75314581
+      internalID: -237649325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af4485ee1796fe1428ff6ac607d44e15
+      internalID: -2050654383
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbf4e8ff2c5d1624e9ccb13dbd679027
+      internalID: -703981738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 616818828efb2f34584e48408ca12ab9
+      internalID: -480050185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0843a30b90a11764ca6800f9d6aa0a18
+      internalID: 1182580968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06297f1f3e1ded94f9904ba8cfbdf229
+      internalID: -1110460636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3547e589a8c26c841bb8171f8ca40eb0
+      internalID: 1013165504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b16ba5a5e5d5624880b7119d301a9af
+      internalID: -2053062443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e32bdc44a9c2ad46932151f281bdcde
+      internalID: 2056334659
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b86072861ae70a44b7815c34aa5dd0d
+      internalID: -1620169285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f03c11eff2928b74dbcb3d2e3d3e8f9b
+      internalID: -1823907170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04f54bb99e315a146828e81b45717874
+      internalID: 1043764131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dee2f6b52c6ff7c4081d0bfb1d83c404
+      internalID: -1579160622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Dead_015
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70660b661fdae5b4a98a66c430081521
+      internalID: 414207835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Legion_Dead_016
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b90c6648284243f40b2392856693d8dc
+      internalID: -1673794413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Legion_Attack_000: -285169528
+      Legion_Attack_001: 235764321
+      Legion_Attack_002: -1769247176
+      Legion_Attack_003: -1666328214
+      Legion_Attack_004: -2120927509
+      Legion_Attack_005: -433672073
+      Legion_Attack_006: -677875445
+      Legion_Attack_007: 431724415
+      Legion_Attack_008: 1631762934
+      Legion_Attack_009: -1369958053
+      Legion_Attack_010: 665975593
+      Legion_Attack_011: 2027974178
+      Legion_Attack_012: 291757849
+      Legion_Attack_013: 847065083
+      Legion_Attack_014: -61392907
+      Legion_Attack_015: -1302041034
+      Legion_Attack_016: 1497083601
+      Legion_Attack_017: -1243502331
+      Legion_Attack_018: -1002119407
+      Legion_Attack_019: -1609653966
+      Legion_Attack_020: -1381865145
+      Legion_Attack_021: -204581130
+      Legion_Attack_022: 1911915989
+      Legion_Attack_023: -1176729755
+      Legion_Attack_024: -251636853
+      Legion_Attack_025: -790780426
+      Legion_Dead_000: 1774947855
+      Legion_Dead_001: -191849234
+      Legion_Dead_002: -237649325
+      Legion_Dead_003: -2050654383
+      Legion_Dead_004: -703981738
+      Legion_Dead_005: -480050185
+      Legion_Dead_006: 1182580968
+      Legion_Dead_007: -1110460636
+      Legion_Dead_008: 1013165504
+      Legion_Dead_009: -2053062443
+      Legion_Dead_010: 2056334659
+      Legion_Dead_011: -1620169285
+      Legion_Dead_012: -1823907170
+      Legion_Dead_013: 1043764131
+      Legion_Dead_014: -1579160622
+      Legion_Dead_015: 414207835
+      Legion_Dead_016: -1673794413
+      Legion_Default_000: -449272718
+      Legion_Default_001: 1469053571
+      Legion_Default_002: -678249633
+      Legion_Default_003: -799491906
+      Legion_Default_004: -33482207
+      Legion_Default_005: 1595133418
+      Legion_Default_006: -436790528
+      Legion_Default_007: 90829208
+      Legion_Default_008: -454281706
+      Legion_Default_009: 1135239670
+      Legion_Default_010: -1865131410
+      Legion_Default_011: -1669597125
+      Legion_Default_012: -1386871847
+      Legion_Default_013: 1914051024
+      Legion_Move_000: 1944249664
+      Legion_Move_001: -15129157
+      Legion_Move_002: 1442181350
+      Legion_Move_003: -1832712746
+      Legion_Move_004: 1208860001
+      Legion_Move_005: 1797626913
+      Legion_Move_006: -76301348
+      Legion_Move_007: -1981805099
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

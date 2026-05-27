@@ -1,0 +1,972 @@
+fileFormatVersion: 2
+guid: 840f7c77807dd1147b67327a433e8b8d
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_000
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b052751a83c2b0c60800000000000000
+      internalID: 7785365002576667915
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_001
+      rect:
+        serializedVersion: 2
+        x: 1267
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d2048b2872b49850800000000000000
+      internalID: 6382922801086726867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_002
+      rect:
+        serializedVersion: 2
+        x: 1267
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0ea840933115ce630800000000000000
+      internalID: 3957627315554650848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_003
+      rect:
+        serializedVersion: 2
+        x: 1267
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15919da2c318cc8a0800000000000000
+      internalID: -6283505284671792815
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_004
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e56d8f6796c7b0fe0800000000000000
+      internalID: -1221746081491528098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_005
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a91cdb44ce877bd0800000000000000
+      internalID: -2632478483437315674
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_006
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c1ad1b1d3521b6d0800000000000000
+      internalID: -2976556934337027645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_007
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99f94e65654d0b350800000000000000
+      internalID: 6030553368339193753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_008
+      rect:
+        serializedVersion: 2
+        x: 1086
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 35211c59b152645b0800000000000000
+      internalID: -5384575504068046253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_009
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37de1c253e51dae30800000000000000
+      internalID: 4516290067412675955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_010
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8f547ed1faaaa88c0800000000000000
+      internalID: -3996194050240199176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_011
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d47a406e0e8dd2c0800000000000000
+      internalID: -4405208668102298411
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_012
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6b1edbe0dc3a7c900800000000000000
+      internalID: 704711967817720246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_013
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2dfe02d211bb35c90800000000000000
+      internalID: -7182191298279837742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_014
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2eecb1539264aa210800000000000000
+      internalID: 1344964581522132706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_015
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9e1907d3af239b000800000000000000
+      internalID: 52128921045471721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_016
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 309dc987956b70550800000000000000
+      internalID: 6127066313452738819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_017
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b646cfd58ea257790800000000000000
+      internalID: -7533067624209685397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_018
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 47cf1d550c124bc70800000000000000
+      internalID: 8985844266468244596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_019
+      rect:
+        serializedVersion: 2
+        x: 1267
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b8b5dcc889ff19df0800000000000000
+      internalID: -175077879828358261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_020
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 15e1f71bec5cb2890800000000000000
+      internalID: -7481668864414114223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_021
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d6db3e5577d2282a0800000000000000
+      internalID: -6736772102027494035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_022
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bbf9b9cb7fd0148e0800000000000000
+      internalID: -1711071025751679045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_023
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8aa4d0f4f568e7bf0800000000000000
+      internalID: -324674379217810776
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_024
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 37bf2dd7a51cdebe0800000000000000
+      internalID: -1446287310913864845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_025
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d61af4e74bfc6fea0800000000000000
+      internalID: -5839251492719058579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_026
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81cb036d059162300800000000000000
+      internalID: 226896666210384920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_027
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6c9cdf4da35b940c0800000000000000
+      internalID: -4590939080841377338
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_028
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 68a90d2a4a1932850800000000000000
+      internalID: 6351080035814775430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_029
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 487e557b885944510800000000000000
+      internalID: 1532514187636762500
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_030
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 794f1fe0d43d8e3d0800000000000000
+      internalID: -3177057209193204585
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_031
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c965ffa4585823350800000000000000
+      internalID: 5995000861518943900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_032
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8af95866b0f421790800000000000000
+      internalID: -7560893914018373720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_033
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5323f6ae61f52da20800000000000000
+      internalID: 3085633246729286197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_034
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8ec846012c8e1d390800000000000000
+      internalID: -7795193559805293336
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_035
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c60640a778d26a20800000000000000
+      internalID: 3054241505612269249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_036
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1db3fb5e5a436c5f0800000000000000
+      internalID: -736843601899734063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_037
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 762b464f981034c70800000000000000
+      internalID: 8954002176165065319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_nethersummoning_038
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d6cd02be417eba30800000000000000
+      internalID: 4232945282583480025
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      fx_f4_nethersummoning_000: 7785365002576667915
+      fx_f4_nethersummoning_001: 6382922801086726867
+      fx_f4_nethersummoning_002: 3957627315554650848
+      fx_f4_nethersummoning_003: -6283505284671792815
+      fx_f4_nethersummoning_004: -1221746081491528098
+      fx_f4_nethersummoning_005: -2632478483437315674
+      fx_f4_nethersummoning_006: -2976556934337027645
+      fx_f4_nethersummoning_007: 6030553368339193753
+      fx_f4_nethersummoning_008: -5384575504068046253
+      fx_f4_nethersummoning_009: 4516290067412675955
+      fx_f4_nethersummoning_010: -3996194050240199176
+      fx_f4_nethersummoning_011: -4405208668102298411
+      fx_f4_nethersummoning_012: 704711967817720246
+      fx_f4_nethersummoning_013: -7182191298279837742
+      fx_f4_nethersummoning_014: 1344964581522132706
+      fx_f4_nethersummoning_015: 52128921045471721
+      fx_f4_nethersummoning_016: 6127066313452738819
+      fx_f4_nethersummoning_017: -7533067624209685397
+      fx_f4_nethersummoning_018: 8985844266468244596
+      fx_f4_nethersummoning_019: -175077879828358261
+      fx_f4_nethersummoning_020: -7481668864414114223
+      fx_f4_nethersummoning_021: -6736772102027494035
+      fx_f4_nethersummoning_022: -1711071025751679045
+      fx_f4_nethersummoning_023: -324674379217810776
+      fx_f4_nethersummoning_024: -1446287310913864845
+      fx_f4_nethersummoning_025: -5839251492719058579
+      fx_f4_nethersummoning_026: 226896666210384920
+      fx_f4_nethersummoning_027: -4590939080841377338
+      fx_f4_nethersummoning_028: 6351080035814775430
+      fx_f4_nethersummoning_029: 1532514187636762500
+      fx_f4_nethersummoning_030: -3177057209193204585
+      fx_f4_nethersummoning_031: 5995000861518943900
+      fx_f4_nethersummoning_032: -7560893914018373720
+      fx_f4_nethersummoning_033: 3085633246729286197
+      fx_f4_nethersummoning_034: -7795193559805293336
+      fx_f4_nethersummoning_035: 3054241505612269249
+      fx_f4_nethersummoning_036: -736843601899734063
+      fx_f4_nethersummoning_037: 8954002176165065319
+      fx_f4_nethersummoning_038: 4232945282583480025
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

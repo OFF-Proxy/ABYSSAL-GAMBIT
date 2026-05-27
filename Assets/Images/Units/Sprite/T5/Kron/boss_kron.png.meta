@@ -1,0 +1,1434 @@
+fileFormatVersion: 2
+guid: b23d8eee93afe354faf5eaa5a987435e
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Kron_Default_000
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 137
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e93b0c05569417148bfa12f17d6f3f53
+      internalID: 172418148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Default_001
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 248
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08fb356b2a91919429e08d67647658ed
+      internalID: -639010994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Default_002
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 359
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abdf01536c06d6b4ba08f821f0b9ed9e
+      internalID: 769462988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Default_003
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 470
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdaaced8af325184e9e75d4d5a5b5b2e
+      internalID: -773382122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Default_004
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 581
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb4b8b30c9f866c45808445e03bf347b
+      internalID: 1596987806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Default_005
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 692
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef2cfbd9cfdbad242ba88ea34d95d0b0
+      internalID: 93894324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Default_006
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 803
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af72eb0249eae104591769f80f224074
+      internalID: -1438179505
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Default_007
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 914
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71b7462b046ca8c4098f8832a863c246
+      internalID: 1538250233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Default_008
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 26
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a50aa4efcffa09f40a5172761d587380
+      internalID: -129390737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Default_009
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 137
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a661833acfdf694ca625517f32f9de9
+      internalID: -960905151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Default_010
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 248
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95cdee21c49e1044a839d45122367007
+      internalID: -1561890799
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Default_011
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 359
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d4ffbd213ddc70469cdb6f0c34da601
+      internalID: -1177786867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Default_012
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 470
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12e1c7c52ec70da40a881d59325ad626
+      internalID: -312927260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Default_013
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 581
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 03b39045bb3fa22498175844c8d7ada7
+      internalID: -1155344382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Move_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 137
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4477f1030dd6c0c4abfdf5f1473d47f9
+      internalID: 1034260066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Move_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 248
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5df85ba8f62ea7547917b14c41a4e28e
+      internalID: 529110633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Move_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 359
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcf34bc0421e98147b739b4f84d4c356
+      internalID: 27960084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Move_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 470
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef9132f1d56592b42a2a700514bf0a74
+      internalID: -1296288648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 581
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e7097fd9491e384fa0fd5d7976553f1
+      internalID: -409353512
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 692
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e830ddcf2f8a214eb3591433cd9b046
+      internalID: 1052227296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Move_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 803
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 226904bbb4357a54f8d10ab0a0d449da
+      internalID: 1302769024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Move_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 914
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adf384fd55e656546b8cf41b2b9f018e
+      internalID: -1288706821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 803
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15d74ae7d163eed4c9e2ec1e14cbf2e5
+      internalID: -151670995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 888
+        y: 692
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9efe2f0f522e384da851775491ca5f3
+      internalID: 2095826848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 888
+        y: 803
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1443f4fdc632b664291a59b8d319246a
+      internalID: 1247266702
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 888
+        y: 914
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0585b078be5671e4d90ccb4dad6cd860
+      internalID: 751825888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 26
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8cf2043cc1a644488ab5e57edee532b
+      internalID: 161865004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 137
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8698c3722376a67498b68cc90e4cb906
+      internalID: -373016033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 248
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eebb0f7a442488544a433c74f3db8033
+      internalID: -1648506871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 359
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6a4fd77782dc8c4e9c20120ae3d2fb7
+      internalID: 1650417250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 470
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2d5dd2508912634b80879dba92fe5a3
+      internalID: 1276716865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 581
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3dd201484203bce448f02c40edc7c955
+      internalID: 1513422345
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 692
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67a6ce44e3c3b1545b317260b0f008fc
+      internalID: 446350458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 803
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3718a45e6ab3ca74bb05953cf7470af3
+      internalID: -545465807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 777
+        y: 914
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08d567e788347054ba9f17a12785ea37
+      internalID: 658686741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 26
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96dac0c72f7d0804b8513f33c73376ff
+      internalID: 474521164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 137
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eaa255fadd1c5d1419d733e1ef9d6d70
+      internalID: 96362232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 248
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8258e0296995df146abc50791dd78a8a
+      internalID: 1590197745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 359
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 155956dcae38d884b86e24c74fe99cb1
+      internalID: 1828472308
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 470
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af0ab6a74e88c5a4da98fb03531e1ba7
+      internalID: -1213239070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 581
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16fc6353d4fbc2744b461e2fb3c6ecfb
+      internalID: -1535397313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 692
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a1cc20c0e997074a868bedaf500c71c
+      internalID: -1375694706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 803
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d7b9fba3b0918b4da120e0b9106915d
+      internalID: 946725998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 914
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2280057a5f37244c88d22529b433212
+      internalID: 1937663840
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 555
+        y: 26
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5115f7d1a8e433744a432158318bc68c
+      internalID: 142072492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 692
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b744f7c130c94e44b6052b83cbdc0f1
+      internalID: 2028093325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 888
+        y: 581
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2b72385e139137448d691437d301dbb
+      internalID: -223430927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 444
+        y: 914
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb24db54ed4f2a9448ef9a74aa434660
+      internalID: 1240447868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 26
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61081b52f114814448ffa8b16bb606b4
+      internalID: -720342205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 137
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba3c34a39a9b979489a4bd2d0afd69fd
+      internalID: 388572414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 248
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9184101280f930043ba9845a17efb7c7
+      internalID: -1355598365
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 359
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9aff7cb8c9a742c489300b193946a280
+      internalID: -66198758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 470
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eeaa35e3b26820f429d78bf1dfd8fb82
+      internalID: -1249937678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 581
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71748ba3dee26d34e8d1547b1364d8c8
+      internalID: 2103601969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 692
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c888f86281cd5146b8de9893927b7bc
+      internalID: 1301282756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 803
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5a2581a547ab874a947c8e0caa353c7
+      internalID: -2079924712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 333
+        y: 914
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b74b801e9ad3e945b95bab4ddd4c3e7
+      internalID: 28034249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 26
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d233527455c2c1e4dbe4f7d69db4d59a
+      internalID: 995715908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 137
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edcd2d41c252a5d46a1a80e830879eee
+      internalID: -54515721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Kron_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 222
+        y: 248
+        width: 110
+        height: 110
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5548bb2bf1f7a6f4293ff56717e333c7
+      internalID: -769762331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Kron_Attack_000: -151670995
+      Kron_Attack_001: 2095826848
+      Kron_Attack_002: 1247266702
+      Kron_Attack_003: 751825888
+      Kron_Attack_004: 161865004
+      Kron_Attack_005: -373016033
+      Kron_Attack_006: -1648506871
+      Kron_Attack_007: 1650417250
+      Kron_Attack_008: 1276716865
+      Kron_Attack_009: 1513422345
+      Kron_Attack_010: 446350458
+      Kron_Attack_011: -545465807
+      Kron_Attack_012: 658686741
+      Kron_Attack_013: 474521164
+      Kron_Attack_014: 96362232
+      Kron_Attack_015: 1590197745
+      Kron_Attack_016: 1828472308
+      Kron_Attack_017: -1213239070
+      Kron_Attack_018: -1535397313
+      Kron_Attack_019: -1375694706
+      Kron_Attack_020: 946725998
+      Kron_Attack_021: 1937663840
+      Kron_Attack_022: 142072492
+      Kron_Dead_000: 2028093325
+      Kron_Dead_001: -223430927
+      Kron_Dead_002: 1240447868
+      Kron_Dead_003: -720342205
+      Kron_Dead_004: 388572414
+      Kron_Dead_005: -1355598365
+      Kron_Dead_006: -66198758
+      Kron_Dead_007: -1249937678
+      Kron_Dead_008: 2103601969
+      Kron_Dead_009: 1301282756
+      Kron_Dead_010: -2079924712
+      Kron_Dead_011: 28034249
+      Kron_Dead_012: 995715908
+      Kron_Dead_013: -54515721
+      Kron_Dead_014: -769762331
+      Kron_Default_000: 172418148
+      Kron_Default_001: -639010994
+      Kron_Default_002: 769462988
+      Kron_Default_003: -773382122
+      Kron_Default_004: 1596987806
+      Kron_Default_005: 93894324
+      Kron_Default_006: -1438179505
+      Kron_Default_007: 1538250233
+      Kron_Default_008: -129390737
+      Kron_Default_009: -960905151
+      Kron_Default_010: -1561890799
+      Kron_Default_011: -1177786867
+      Kron_Default_012: -312927260
+      Kron_Default_013: -1155344382
+      Kron_Move_000: 1034260066
+      Kron_Move_001: 529110633
+      Kron_Move_002: 27960084
+      Kron_Move_003: -1296288648
+      Kron_Move_004: -409353512
+      Kron_Move_005: 1052227296
+      Kron_Move_006: 1302769024
+      Kron_Move_007: -1288706821
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

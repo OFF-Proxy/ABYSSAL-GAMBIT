@@ -54,16 +54,63 @@ public class PlayerData : Manager<PlayerData>
         return Level < MaxLevel && CanAfford(cost);
     }
 
-    // お金を払って経験値を買います。成功した時だけtrueを返します。
+    // 既存コード向けの入口です。通常の4EXP購入として扱います。
     public bool TryBuyExp(int expAmount, int cost)
     {
-        if (!CanBuyExp(cost))
+        return TryBuyExp(expAmount, cost, false);
+    }
+
+    // お金を払って経験値を買います。bulkToNextLevelがtrueなら次レベル到達分だけまとめ買いします。
+    public bool TryBuyExp(int expAmount, int cost, bool bulkToNextLevel)
+    {
+        int actualExpAmount = Mathf.Max(1, expAmount);
+        int actualCost = Mathf.Max(1, cost);
+
+        if (bulkToNextLevel && Level < MaxLevel)
+        {
+            // 一括購入でも4EXP/4コイン単位は崩さず、必要分を少し超える場合もそのまま購入します。
+            int purchaseCountToNextLevel = GetExpPurchaseCountToNextLevel(actualExpAmount);
+            int levelUpCost = purchaseCountToNextLevel * actualCost;
+            if (CanAfford(levelUpCost))
+            {
+                actualExpAmount *= purchaseCountToNextLevel;
+                actualCost = levelUpCost;
+            }
+        }
+
+        if (!CanBuyExp(actualCost))
             return false;
 
         // SpendMoneyを使うと更新通知が2回走るため、ここでは直接引いてからAddExpで通知します。
-        Money -= cost;
-        AddExp(expAmount);
+        Money -= actualCost;
+        AddExp(actualExpAmount);
         return true;
+    }
+
+    // 次のレベルへ届くまでに、EXP購入ボタンを何回押す必要があるかを返します。
+    public int GetExpPurchaseCountToNextLevel(int expAmount)
+    {
+        if (Level >= MaxLevel)
+            return 0;
+
+        int actualExpAmount = Mathf.Max(1, expAmount);
+        int remainingExp = Mathf.Max(0, NextLevelExp - Exp);
+        return Mathf.Max(1, Mathf.CeilToInt((float)remainingExp / actualExpAmount));
+    }
+
+    // 一括レベルアップに必要なコイン数を返します。
+    public int GetBulkExpCostToNextLevel(int expAmount, int cost)
+    {
+        if (Level >= MaxLevel)
+            return 0;
+
+        return GetExpPurchaseCountToNextLevel(expAmount) * Mathf.Max(1, cost);
+    }
+
+    // 一括レベルアップを買えるか確認します。
+    public bool CanBulkBuyExpToNextLevel(int expAmount, int cost)
+    {
+        return Level < MaxLevel && CanAfford(GetBulkExpCostToNextLevel(expAmount, cost));
     }
 
     // 経験値を加算し、必要量を超えたらレベルアップします。

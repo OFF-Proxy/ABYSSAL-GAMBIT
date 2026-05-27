@@ -1,0 +1,598 @@
+fileFormatVersion: 2
+guid: 657d2596246f35e4ebeca929190c842d
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: fx_f4_shadownova_000
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 828
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dd20ff607911e1a20800000000000000
+      internalID: 3034882539249402589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_001
+      rect:
+        serializedVersion: 2
+        x: 788
+        y: 828
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f19863238df873750800000000000000
+      internalID: 6284649963736959263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_002
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 40
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 86c6f9b076f634260800000000000000
+      internalID: 7080625527523863656
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_003
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 237
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c8df44488193043f0800000000000000
+      internalID: -918671546522468980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_004
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 434
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e80c743c02b77eb20800000000000000
+      internalID: 3163632643896492174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_005
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 631
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: be626e0527014fba0800000000000000
+      internalID: -6056197515736897813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_006
+      rect:
+        serializedVersion: 2
+        x: 591
+        y: 828
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f49c40c2ce7e5910800000000000000
+      internalID: 1828037873673999605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_007
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 40
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f631429c63e92120800000000000000
+      internalID: 2389691132746479353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_008
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 237
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 397ff467a1c2d1a20800000000000000
+      internalID: 3034630216083306387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_009
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 434
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09286b7a6c4042740800000000000000
+      internalID: 5126227527118258832
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_010
+      rect:
+        serializedVersion: 2
+        x: 394
+        y: 631
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe93017314b3a1370800000000000000
+      internalID: 8294006815038913007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_011
+      rect:
+        serializedVersion: 2
+        x: 788
+        y: 631
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ff14377092dc40780800000000000000
+      internalID: -8717617402580090369
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_012
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 40
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7b632e267b36a7310800000000000000
+      internalID: 1403543873168488119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_013
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 237
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bd853ac2f9445c610800000000000000
+      internalID: 1640793089685805275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_014
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 434
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0646b2aab072eed90800000000000000
+      internalID: -7066667834244635552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_015
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 631
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c7b6659d1895e5a0800000000000000
+      internalID: -6492616034956691520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_016
+      rect:
+        serializedVersion: 2
+        x: 197
+        y: 828
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c95ae878146ba7640800000000000000
+      internalID: 5078571922377057692
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_017
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 40
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c1c94072bea5168a0800000000000000
+      internalID: -6313665236578296804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_018
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 237
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5cebca582d106d360800000000000000
+      internalID: 7193939458468396741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_019
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 434
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e2692c493ef925190800000000000000
+      internalID: -7975136190317554130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_020
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 631
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 750d4510bab8cffd0800000000000000
+      internalID: -2306815342542532521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f4_shadownova_021
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 828
+        width: 196
+        height: 196
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 983858f8f03fe2f60800000000000000
+      internalID: 8011608035296641929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      fx_f4_shadownova_000: 3034882539249402589
+      fx_f4_shadownova_001: 6284649963736959263
+      fx_f4_shadownova_002: 7080625527523863656
+      fx_f4_shadownova_003: -918671546522468980
+      fx_f4_shadownova_004: 3163632643896492174
+      fx_f4_shadownova_005: -6056197515736897813
+      fx_f4_shadownova_006: 1828037873673999605
+      fx_f4_shadownova_007: 2389691132746479353
+      fx_f4_shadownova_008: 3034630216083306387
+      fx_f4_shadownova_009: 5126227527118258832
+      fx_f4_shadownova_010: 8294006815038913007
+      fx_f4_shadownova_011: -8717617402580090369
+      fx_f4_shadownova_012: 1403543873168488119
+      fx_f4_shadownova_013: 1640793089685805275
+      fx_f4_shadownova_014: -7066667834244635552
+      fx_f4_shadownova_015: -6492616034956691520
+      fx_f4_shadownova_016: 5078571922377057692
+      fx_f4_shadownova_017: -6313665236578296804
+      fx_f4_shadownova_018: 7193939458468396741
+      fx_f4_shadownova_019: -7975136190317554130
+      fx_f4_shadownova_020: -2306815342542532521
+      fx_f4_shadownova_021: 8011608035296641929
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

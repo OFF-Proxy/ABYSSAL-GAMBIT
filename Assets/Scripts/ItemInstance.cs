@@ -74,6 +74,23 @@ public class ItemInstance : MonoBehaviour
             spriteRenderer.sortingOrder = sortingOrder;
     }
 
+    // Canvas版アイテムベンチを使う時は、ワールド上の見た目とクリック判定だけを隠します。
+    public void SetWorldVisible(bool visible)
+    {
+        EnsureRenderer();
+
+        if (spriteRenderer != null)
+            spriteRenderer.enabled = visible;
+
+        Collider2D collider = GetComponent<Collider2D>();
+        if (collider != null)
+            collider.enabled = visible;
+
+        DraggableItem draggableItem = GetComponent<DraggableItem>();
+        if (draggableItem != null)
+            draggableItem.enabled = visible;
+    }
+
     // アイコンを表示するSpriteRendererを用意します。
     private void EnsureRenderer()
     {

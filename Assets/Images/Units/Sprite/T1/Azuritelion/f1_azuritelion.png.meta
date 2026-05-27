@@ -1,0 +1,1170 @@
+fileFormatVersion: 2
+guid: 61942beddbc74354ab83c20c2272a071
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Azuritelion_Default_000
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d54ea4613be898c4aaa1c40a06b372ea
+      internalID: -1430862360
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Default_001
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4239e4074f36f94db3a555f892c0107
+      internalID: 361568226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Default_002
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e47cd32cf56edd4094919563269f737
+      internalID: -220079535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Default_003
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9657889f904dd04994673003541e653
+      internalID: 498068323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Default_004
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59425d91dd02b35458d8f11237a17e8f
+      internalID: -1806666506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Default_005
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 296
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b606124056c1391478fa877a6688048a
+      internalID: -525436377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Default_006
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5495ebdb15c5157489de8d6f12ab9787
+      internalID: -2044716599
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Default_007
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bb9ae98327827f4c8561df29ecbb9b7
+      internalID: -429343746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Default_008
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 381efb55ef9ae484b872a0b1d1239005
+      internalID: 466363819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Default_009
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a84ca9c2093660b488e4976961225505
+      internalID: -44932756
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Default_010
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4934f2062bad52c42b53b999e33807ba
+      internalID: 1270875554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Default_011
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb15ef02795f23840bea37018ec309f8
+      internalID: -1831830928
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Default_012
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7247226e95349e40823e625511adb67
+      internalID: 2081126937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Default_013
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0984ccbe61317754c98b19aa962f8bdf
+      internalID: -497536637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Move_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b8726ded3150a74c931e593ac1cb8d3
+      internalID: 762601964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Move_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b2c69248c52ec8409b6ea59ae5873a4
+      internalID: -384614693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Move_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9dbcaf664f7fb6b418806be71f8ada92
+      internalID: 460635773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Move_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cbef5041043a5f40a7205f6427e9c71
+      internalID: 1445124503
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fae6182dd49e12c4c82b4731b7ead68e
+      internalID: -1450671767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b94281c8377df2419cd0ed1005e1b6b
+      internalID: -1511955623
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Move_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25adeb7e5f9e5bc4c9bcec48000c1532
+      internalID: 223554691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Move_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e9330e34237edc43a5f416485f0b966
+      internalID: -1881642229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08eecb15b9a16a94eba7f15d6611616c
+      internalID: -118034933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12342520ffea64e4fa0e32245d3bd6d9
+      internalID: -1758802156
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93a1173d91a8fd443837322f8cf785dd
+      internalID: -2078160949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 296
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b656dcba09f5e94eb4d4cfb52641459
+      internalID: 456208660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54d9c7f499422a045a2065defe789a7d
+      internalID: 710854166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 610fe273bf93c524aa43e9cb98764706
+      internalID: -1505074682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fc765e5cfb941f4e9a91321040048da
+      internalID: 94789728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b28a4b71c0214a4a8a28a963c2a125f
+      internalID: -1737276954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47e671f8e171dd0458ac435957d068f9
+      internalID: 795832638
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 930e3095117baa649b43784310d65db4
+      internalID: 1622148920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f61b82e9baedfa04a8170a505097b11b
+      internalID: -2136397057
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6a599cb4861ef44998f4f8929b616f2
+      internalID: 1520654533
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 264e00cf1003bc441a3bbef8166089ac
+      internalID: -1528469913
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 296
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc07732519c964e46a6ac32802b9645c
+      internalID: -1818345860
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b227af206d1db8448bc345df03e9b5e
+      internalID: -342382941
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1d290f9c0652cc4783a18b47b302f1d
+      internalID: -640985549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91324bed1fed9a846b6066d20a92871e
+      internalID: -1289281206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 185ff19388a79bb4583aa4d9402b1bd9
+      internalID: -833257488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39f6444d39d3cf34d8db169a876da81f
+      internalID: -1737671107
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f4b97c16431b474e87b40d4c8cb7d36
+      internalID: 493631590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf74d41ba8d958844afed84e2c9a4366
+      internalID: -1526872608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82f24ee2bc38e3446ae4617a748b235a
+      internalID: 385851658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cc254c960cf0394588acbc566fe65a7
+      internalID: -2054786577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1488fa7dbfc21264e95975dd95f524b1
+      internalID: 535740665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a155bdd133374544c850d08a280c2905
+      internalID: -706013841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Azuritelion_Dead_015
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee01036f81f89df41aff136f26ef09ff
+      internalID: -1461716535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Azuritelion_Attack_000: -118034933
+      Azuritelion_Attack_001: -1758802156
+      Azuritelion_Attack_002: -2078160949
+      Azuritelion_Attack_003: 456208660
+      Azuritelion_Attack_004: 710854166
+      Azuritelion_Attack_005: -1505074682
+      Azuritelion_Attack_006: 94789728
+      Azuritelion_Attack_007: -1737276954
+      Azuritelion_Attack_008: 795832638
+      Azuritelion_Attack_009: 1622148920
+      Azuritelion_Dead_000: -2136397057
+      Azuritelion_Dead_001: 1520654533
+      Azuritelion_Dead_002: -1528469913
+      Azuritelion_Dead_003: -1818345860
+      Azuritelion_Dead_004: -342382941
+      Azuritelion_Dead_005: -640985549
+      Azuritelion_Dead_006: -1289281206
+      Azuritelion_Dead_007: -833257488
+      Azuritelion_Dead_008: -1737671107
+      Azuritelion_Dead_009: 493631590
+      Azuritelion_Dead_010: -1526872608
+      Azuritelion_Dead_011: 385851658
+      Azuritelion_Dead_012: -2054786577
+      Azuritelion_Dead_013: 535740665
+      Azuritelion_Dead_014: -706013841
+      Azuritelion_Dead_015: -1461716535
+      Azuritelion_Default_000: -1430862360
+      Azuritelion_Default_001: 361568226
+      Azuritelion_Default_002: -220079535
+      Azuritelion_Default_003: 498068323
+      Azuritelion_Default_004: -1806666506
+      Azuritelion_Default_005: -525436377
+      Azuritelion_Default_006: -2044716599
+      Azuritelion_Default_007: -429343746
+      Azuritelion_Default_008: 466363819
+      Azuritelion_Default_009: -44932756
+      Azuritelion_Default_010: 1270875554
+      Azuritelion_Default_011: -1831830928
+      Azuritelion_Default_012: 2081126937
+      Azuritelion_Default_013: -497536637
+      Azuritelion_Move_000: 762601964
+      Azuritelion_Move_001: -384614693
+      Azuritelion_Move_002: 460635773
+      Azuritelion_Move_003: 1445124503
+      Azuritelion_Move_004: -1450671767
+      Azuritelion_Move_005: -1511955623
+      Azuritelion_Move_006: 223554691
+      Azuritelion_Move_007: -1881642229
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

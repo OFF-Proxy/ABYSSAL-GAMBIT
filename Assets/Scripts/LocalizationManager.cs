@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.RegularExpressions;
 using TMPro;
 using UnityEngine;
@@ -54,7 +55,28 @@ public class LocalizationManager : MonoBehaviour
         { "Tier2general", "ティアツージェネラル" },
         { "Snowchasermk", "スノーチェイサー" },
         { "Solfist", "ソルフィスト" },
-        { "Maehvmk", "メーヴ" }
+        { "Maehvmk", "メーヴ" },
+        { "Archdeacon", "アークディーコン" },
+        { "Backlinearcher", "バックラインアーチャー" },
+        { "Auroralioness", "オーロラライオネス" },
+        { "Azuritelion", "アズライトライオン" },
+        { "Sandpanther", "サンドパンサー" },
+        { "Protector", "プロテクター" },
+        { "Taskmaster", "タスクマスター" },
+        { "Kane", "ケイン" },
+        { "Malyk", "マリック" },
+        { "Paragon", "パラゴン" },
+        { "Wujin", "ウージン" },
+        { "Wraith", "レイス" },
+        { "Altgeneraltier2", "アルトジェネラル" },
+        { "Ilenamk2", "イレーナ" },
+        { "Embergeneral", "エンバージェネラル" },
+        { "Plaguegeneral", "プレイグジェネラル" },
+        { "Skyfalltyrant", "スカイフォールタイラント" },
+        { "Kron", "クロン" },
+        { "Gol", "ゴル" },
+        { "Invader", "インベーダー" },
+        { "Legion", "レギオン" }
     };
 
     private static readonly Dictionary<string, string> ItemNameJa = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -332,6 +354,111 @@ public class LocalizationManager : MonoBehaviour
         return starLevel >= 3 ? "STAR 3" : "STAR 2";
     }
 
+    public static string SynergyName(SynergyType type)
+    {
+        if (IsJapanese)
+        {
+            switch (type)
+            {
+                case SynergyType.Warrior:
+                    return "戦士";
+                case SynergyType.Ranger:
+                    return "射手";
+                case SynergyType.Arcanist:
+                    return "魔導";
+                case SynergyType.Guardian:
+                    return "守護";
+                case SynergyType.Beast:
+                    return "獣";
+                case SynergyType.Shadow:
+                    return "影";
+                case SynergyType.Machine:
+                    return "機械";
+                case SynergyType.Wraith:
+                    return "亡霊";
+                case SynergyType.Apex:
+                    return "覇者";
+                case SynergyType.Inferno:
+                    return "炎獄";
+                case SynergyType.Frost:
+                    return "氷晶";
+                case SynergyType.Storm:
+                    return "雷鳴";
+                case SynergyType.Abyss:
+                    return "深淵";
+                case SynergyType.Divine:
+                    return "神聖";
+                case SynergyType.Frenzy:
+                    return "狂乱";
+                case SynergyType.Royal:
+                    return "王族";
+                case SynergyType.Summoner:
+                    return "召喚";
+                case SynergyType.Alchemy:
+                    return "錬金";
+                default:
+                    return "なし";
+            }
+        }
+
+        switch (type)
+        {
+            case SynergyType.Warrior:
+                return "Warrior";
+            case SynergyType.Ranger:
+                return "Ranger";
+            case SynergyType.Arcanist:
+                return "Arcanist";
+            case SynergyType.Guardian:
+                return "Guardian";
+            case SynergyType.Beast:
+                return "Beast";
+            case SynergyType.Shadow:
+                return "Shadow";
+            case SynergyType.Machine:
+                return "Machine";
+            case SynergyType.Wraith:
+                return "Wraith";
+            case SynergyType.Apex:
+                return "Apex";
+            case SynergyType.Inferno:
+                return "Inferno";
+            case SynergyType.Frost:
+                return "Frost";
+            case SynergyType.Storm:
+                return "Storm";
+            case SynergyType.Abyss:
+                return "Abyss";
+            case SynergyType.Divine:
+                return "Divine";
+            case SynergyType.Frenzy:
+                return "Frenzy";
+            case SynergyType.Royal:
+                return "Royal";
+            case SynergyType.Summoner:
+                return "Summoner";
+            case SynergyType.Alchemy:
+                return "Alchemy";
+            default:
+                return "None";
+        }
+    }
+
+    public static string FormatSynergyList(BaseEntity entity)
+    {
+        if (entity == null)
+            return IsJapanese ? "シナジー: なし" : "Synergy: None";
+
+        List<SynergyType> synergies = entity.GetSynergyTypes();
+        if (synergies.Count == 0)
+            return IsJapanese ? "シナジー: なし" : "Synergy: None";
+
+        List<string> names = synergies.Select(SynergyName).ToList();
+        return IsJapanese
+            ? $"シナジー: {string.Join(" / ", names)}"
+            : $"Synergy: {string.Join(" / ", names)}";
+    }
+
     public static string UnitName(string rawName)
     {
         string cleanName = CleanUnitName(rawName);
@@ -411,11 +538,93 @@ public class LocalizationManager : MonoBehaviour
         AddLine(lines, itemData.manaOnAttackBonus != 0, IsJapanese ? $"攻撃時マナ +{itemData.manaOnAttackBonus}" : $"Mana on Attack +{itemData.manaOnAttackBonus}");
         AddLine(lines, itemData.manaOnDamageTakenBonus != 0, IsJapanese ? $"被弾時マナ +{itemData.manaOnDamageTakenBonus}" : $"Mana on Hit +{itemData.manaOnDamageTakenBonus}");
         AddLine(lines, itemData.maxManaReduction != 0, IsJapanese ? $"必要マナ -{itemData.maxManaReduction}" : $"Max Mana -{itemData.maxManaReduction}");
+        AddLine(lines, !string.IsNullOrEmpty(GetItemSpecialEffectText(itemData)), GetItemSpecialEffectText(itemData));
 
         if (lines.Count == 0)
             return itemData.description;
 
         return string.Join(inline ? "、" : "\n", lines);
+    }
+
+    public static string GetItemSpecialEffectText(ItemData itemData)
+    {
+        if (itemData == null || string.IsNullOrEmpty(itemData.id))
+            return string.Empty;
+
+        if (IsJapanese)
+        {
+            switch (itemData.id)
+            {
+                case "iron_bulwark":
+                    return "戦闘開始時、最大HP12%のシールドを8秒得る";
+                case "frostguard_plate":
+                    return "被弾時、攻撃者の攻撃速度を2秒間18%下げる";
+                case "eternal_heart":
+                    return "戦闘中、3秒ごとに最大HP4%を回復する";
+                case "iridium_scale":
+                    return "受ける回復量とシールド量が20%増える";
+                case "phalanx_aegis":
+                    return "周囲1マスの味方の被ダメージを6%下げる";
+                case "spine_cleaver":
+                    return "通常攻撃時、対象の軽減を3秒間4%下げる。最大3スタック";
+                case "skywind_glaives":
+                    return "通常攻撃4回ごとに、別の近い敵へ攻撃力60%の風刃を飛ばす";
+                case "godhammer":
+                    return "5回目の通常攻撃で、対象を0.8秒スタンさせる";
+                case "adamantine_claws":
+                    return "同じ敵を攻撃し続けるたび与ダメージ+4%。最大5スタック";
+                case "rage_chakram":
+                    return "敵を倒すたび4秒間攻撃速度+20%。最大3スタック";
+                case "unbounded_amulet":
+                    return "スキル発動後5秒間、通常攻撃の獲得マナ+6";
+                case "ykir_staff":
+                    return "戦闘中の初回スキル効果量+30%";
+                case "thunderclap_scepter":
+                    return "被弾4回ごとに、周囲の敵へ秘力依存の小雷撃を放つ";
+                case "repair_staff":
+                    return "スキル発動時、HP割合が最も低い味方1体を追加回復する";
+                case "darkstone_ring":
+                    return "戦闘開始時、MPを15得る";
+                default:
+                    return string.Empty;
+            }
+        }
+
+        switch (itemData.id)
+        {
+            case "iron_bulwark":
+                return "Combat start: gain an 8s shield equal to 12% max HP";
+            case "frostguard_plate":
+                return "When hit, slow the attacker's attack speed by 18% for 2s";
+            case "eternal_heart":
+                return "During combat, heal 4% max HP every 3s";
+            case "iridium_scale":
+                return "Incoming healing and shields are increased by 20%";
+            case "phalanx_aegis":
+                return "Allies within 1 hex take 6% less damage";
+            case "spine_cleaver":
+                return "Basic attacks reduce the target's reduction by 4% for 3s. Stacks 3 times";
+            case "skywind_glaives":
+                return "Every 4th basic attack fires a wind blade at another nearby enemy for 60% attack damage";
+            case "godhammer":
+                return "Every 5th basic attack stuns the target for 0.8s";
+            case "adamantine_claws":
+                return "Repeated attacks on the same target deal +4% damage. Stacks 5 times";
+            case "rage_chakram":
+                return "On takedown, gain +20% attack speed for 4s. Stacks 3 times";
+            case "unbounded_amulet":
+                return "After casting, basic attacks grant +6 extra mana for 5s";
+            case "ykir_staff":
+                return "The first skill each combat has +30% effect";
+            case "thunderclap_scepter":
+                return "Every 4 hits taken releases a focus-scaling thunder pulse nearby";
+            case "repair_staff":
+                return "On skill cast, additionally heal the lowest-health ally";
+            case "darkstone_ring":
+                return "Combat start: gain 15 MP";
+            default:
+                return string.Empty;
+        }
     }
 
     private static void AddLine(List<string> lines, bool condition, string line)

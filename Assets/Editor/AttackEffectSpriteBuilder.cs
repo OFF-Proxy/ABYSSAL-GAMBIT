@@ -11,7 +11,7 @@ using UnityEngine;
 public static class AttackEffectSpriteBuilder
 {
     private const string SourceRoot = "Assets/Resources/AttackEffects";
-    private const string GeneratedRoot = "Assets/Resources/AttackEffects/Generated";
+    private const string LegacyGeneratedRoot = "Assets/Resources/AttackEffects/Generated";
     private const float SpritePixelsPerUnit = 100f;
 
     private static readonly string[] EffectNames =
@@ -30,7 +30,15 @@ public static class AttackEffectSpriteBuilder
         "fx_redlightning",
         "fx_ringswirl",
         "fx_slashfrenzy",
-        "fx_whiteexplosion"
+        "fx_whiteexplosion",
+        "fx_fireimpact",
+        "fx_f2_phoenixfire",
+        "fx_chainlightning",
+        "fx_f4_shadownova",
+        "fx_f4_voidpulse",
+        "fx_summonlegendary",
+        "fx_f4_nethersummoning",
+        "fx_f3_blaststarfire"
     };
 
     private static readonly HashSet<string> AlreadyUprightRotatedEffects = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
@@ -41,6 +49,9 @@ public static class AttackEffectSpriteBuilder
     [MenuItem("Tools/AutoChess/Build Attack Effect Sprites")]
     public static void BuildAttackEffectSprites()
     {
+        if (AssetDatabase.IsValidFolder(LegacyGeneratedRoot))
+            AssetDatabase.DeleteAsset(LegacyGeneratedRoot);
+
         int builtCount = 0;
         for (int i = 0; i < EffectNames.Length; i++)
         {
@@ -50,7 +61,50 @@ public static class AttackEffectSpriteBuilder
 
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
-        Debug.Log($"Built attack effect sprite sheets: {builtCount}/{EffectNames.Length}");
+        Debug.Log($"Sliced attack effect sprite sheets: {builtCount}/{EffectNames.Length}");
+    }
+
+    [MenuItem("Tools/AutoChess/Build Lightning Skill Effect Sprites")]
+    public static void BuildLightningSkillEffectSprites()
+    {
+        string texturePath = $"{SourceRoot}/Pixel Art Skill Animations - Lightning/VFX3/Sprite-sheet/Sprite-sheet.png";
+        Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(texturePath);
+        if (texture == null)
+        {
+            Debug.LogWarning($"Lightning skill sprite sheet missing: {texturePath}");
+            return;
+        }
+
+        ConfigureUniformSpriteSheet(texturePath, texture, 128, 256, 5, "lightning_vfx3");
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        Debug.Log("Sliced lightning skill VFX3 sprite sheet into 5 frames.");
+    }
+
+    [MenuItem("Tools/AutoChess/Slice Free4 Skill Effect Sprites")]
+    public static void SliceFree4SkillEffectSprites()
+    {
+        string free4Root = $"{SourceRoot}/Free4";
+        string[] texturePaths = Directory.GetFiles(free4Root, "*.png")
+            .Where(path => !path.EndsWith(".meta", StringComparison.OrdinalIgnoreCase))
+            .Select(path => path.Replace("\\", "/"))
+            .OrderBy(path => path)
+            .ToArray();
+
+        int slicedCount = 0;
+        for (int i = 0; i < texturePaths.Length; i++)
+        {
+            Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(texturePaths[i]);
+            if (texture == null)
+                continue;
+
+            ConfigureUniformGridSpriteSheet(texturePaths[i], texture, 64, 64, Path.GetFileNameWithoutExtension(texturePaths[i]));
+            slicedCount++;
+        }
+
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        Debug.Log($"Sliced Free4 skill effect sprite sheets: {slicedCount}/{texturePaths.Length}");
     }
 
     private static bool BuildEffect(string effectName)
@@ -63,10 +117,10 @@ public static class AttackEffectSpriteBuilder
             return false;
         }
 
-        Texture2D texture = LoadTexture(texturePath);
+        Texture2D texture = AssetDatabase.LoadAssetAtPath<Texture2D>(texturePath);
         if (texture == null)
         {
-            Debug.LogWarning($"Attack effect texture is unreadable: {texturePath}");
+            Debug.LogWarning($"Attack effect texture could not be loaded: {texturePath}");
             return false;
         }
 
@@ -77,50 +131,9 @@ public static class AttackEffectSpriteBuilder
             return false;
         }
 
-        string outputFolder = $"{GeneratedRoot}/{effectName}";
-        PrepareOutputFolder(outputFolder);
-        int writtenCount = 0;
-        for (int i = 0; i < frames.Count; i++)
-        {
-            EffectFrame frame = frames[i];
-            Texture2D frameTexture = CreateFrameTexture(texture, frame, effectName);
-            if (frameTexture == null)
-                continue;
-
-            string spriteName = Path.GetFileNameWithoutExtension(frame.Name);
-            if (string.IsNullOrEmpty(spriteName))
-                spriteName = $"{effectName}_{i:D3}";
-
-            string outputPath = $"{outputFolder}/{spriteName}.png";
-            File.WriteAllBytes(outputPath, frameTexture.EncodeToPNG());
-            UnityEngine.Object.DestroyImmediate(frameTexture);
-            AssetDatabase.ImportAsset(outputPath, ImportAssetOptions.ForceUpdate);
-            ConfigureGeneratedSprite(outputPath);
-            writtenCount++;
-        }
-
-        if (writtenCount == 0)
-            return false;
-
-        Debug.Log($"{effectName}: {writtenCount} plist-corrected frames generated.");
+        ConfigureSourceSpriteSheet(texturePath, texture, frames);
+        Debug.Log($"{effectName}: {frames.Count} plist frames sliced on source texture.");
         return true;
-    }
-
-    private static void PrepareOutputFolder(string outputFolder)
-    {
-        if (!Directory.Exists(GeneratedRoot))
-            Directory.CreateDirectory(GeneratedRoot);
-
-        if (!Directory.Exists(outputFolder))
-            Directory.CreateDirectory(outputFolder);
-
-        foreach (string filePath in Directory.GetFiles(outputFolder, "*.png", SearchOption.TopDirectoryOnly))
-        {
-            File.Delete(filePath);
-            string metaPath = $"{filePath}.meta";
-            if (File.Exists(metaPath))
-                File.Delete(metaPath);
-        }
     }
 
     private static Texture2D LoadTexture(string path)
@@ -316,6 +329,147 @@ public static class AttackEffectSpriteBuilder
         importer.alphaIsTransparency = true;
         importer.filterMode = FilterMode.Point;
         importer.spritePixelsPerUnit = SpritePixelsPerUnit;
+
+        TextureImporterSettings settings = new TextureImporterSettings();
+        importer.ReadTextureSettings(settings);
+        settings.spriteMeshType = SpriteMeshType.FullRect;
+        settings.spriteAlignment = (int)SpriteAlignment.Center;
+        settings.spritePivot = new Vector2(0.5f, 0.5f);
+        importer.SetTextureSettings(settings);
+        EditorUtility.SetDirty(importer);
+        importer.SaveAndReimport();
+    }
+
+    private static void ConfigureSourceSpriteSheet(string texturePath, Texture2D texture, List<EffectFrame> frames)
+    {
+        TextureImporter importer = AssetImporter.GetAtPath(texturePath) as TextureImporter;
+        if (importer == null)
+            return;
+
+        List<SpriteMetaData> sprites = new List<SpriteMetaData>();
+        HashSet<string> usedNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        for (int i = 0; i < frames.Count; i++)
+        {
+            EffectFrame frame = frames[i];
+            int packedWidth = frame.Rotated ? frame.Rect.height : frame.Rect.width;
+            int packedHeight = frame.Rotated ? frame.Rect.width : frame.Rect.height;
+            int unityY = texture.height - frame.Rect.y - packedHeight;
+            if (frame.Rect.x < 0 || unityY < 0 || packedWidth <= 0 || packedHeight <= 0 ||
+                frame.Rect.x + packedWidth > texture.width || unityY + packedHeight > texture.height)
+            {
+                Debug.LogWarning($"Attack effect frame is outside the texture and was skipped: {frame.Name} {frame.Rect}");
+                continue;
+            }
+
+            string spriteName = Path.GetFileNameWithoutExtension(frame.Name);
+            if (string.IsNullOrEmpty(spriteName))
+                spriteName = $"{Path.GetFileNameWithoutExtension(texturePath)}_{i:D3}";
+
+            string uniqueName = spriteName;
+            int duplicateIndex = 1;
+            while (!usedNames.Add(uniqueName))
+            {
+                uniqueName = $"{spriteName}_{duplicateIndex}";
+                duplicateIndex++;
+            }
+
+            sprites.Add(new SpriteMetaData
+            {
+                name = uniqueName,
+                rect = new Rect(frame.Rect.x, unityY, packedWidth, packedHeight),
+                alignment = (int)SpriteAlignment.Center,
+                pivot = new Vector2(0.5f, 0.5f)
+            });
+        }
+
+        importer.textureType = TextureImporterType.Sprite;
+        importer.spriteImportMode = SpriteImportMode.Multiple;
+        importer.mipmapEnabled = false;
+        importer.alphaIsTransparency = true;
+        importer.filterMode = FilterMode.Point;
+        importer.spritePixelsPerUnit = SpritePixelsPerUnit;
+        importer.spritesheet = sprites.ToArray();
+
+        TextureImporterSettings settings = new TextureImporterSettings();
+        importer.ReadTextureSettings(settings);
+        settings.spriteMeshType = SpriteMeshType.FullRect;
+        settings.spriteAlignment = (int)SpriteAlignment.Center;
+        settings.spritePivot = new Vector2(0.5f, 0.5f);
+        importer.SetTextureSettings(settings);
+        EditorUtility.SetDirty(importer);
+        importer.SaveAndReimport();
+    }
+
+    private static void ConfigureUniformSpriteSheet(string texturePath, Texture2D texture, int frameWidth, int frameHeight, int frameCount, string spritePrefix)
+    {
+        TextureImporter importer = AssetImporter.GetAtPath(texturePath) as TextureImporter;
+        if (importer == null)
+            return;
+
+        List<SpriteMetaData> sprites = new List<SpriteMetaData>();
+        int columns = Mathf.Max(1, texture.width / frameWidth);
+        int safeFrameCount = Mathf.Clamp(frameCount, 1, columns);
+        int y = texture.height - frameHeight;
+        for (int i = 0; i < safeFrameCount; i++)
+        {
+            sprites.Add(new SpriteMetaData
+            {
+                name = $"{spritePrefix}_{i:D3}",
+                rect = new Rect(i * frameWidth, y, frameWidth, frameHeight),
+                alignment = (int)SpriteAlignment.Center,
+                pivot = new Vector2(0.5f, 0.5f)
+            });
+        }
+
+        importer.textureType = TextureImporterType.Sprite;
+        importer.spriteImportMode = SpriteImportMode.Multiple;
+        importer.mipmapEnabled = false;
+        importer.alphaIsTransparency = true;
+        importer.filterMode = FilterMode.Point;
+        importer.spritePixelsPerUnit = SpritePixelsPerUnit;
+        importer.spritesheet = sprites.ToArray();
+
+        TextureImporterSettings settings = new TextureImporterSettings();
+        importer.ReadTextureSettings(settings);
+        settings.spriteMeshType = SpriteMeshType.FullRect;
+        settings.spriteAlignment = (int)SpriteAlignment.Center;
+        settings.spritePivot = new Vector2(0.5f, 0.5f);
+        importer.SetTextureSettings(settings);
+        EditorUtility.SetDirty(importer);
+        importer.SaveAndReimport();
+    }
+
+    private static void ConfigureUniformGridSpriteSheet(string texturePath, Texture2D texture, int frameWidth, int frameHeight, string spritePrefix)
+    {
+        TextureImporter importer = AssetImporter.GetAtPath(texturePath) as TextureImporter;
+        if (importer == null)
+            return;
+
+        List<SpriteMetaData> sprites = new List<SpriteMetaData>();
+        int columns = Mathf.Max(1, texture.width / frameWidth);
+        int rows = Mathf.Max(1, texture.height / frameHeight);
+        for (int rowFromTop = 0; rowFromTop < rows; rowFromTop++)
+        {
+            int y = texture.height - (rowFromTop + 1) * frameHeight;
+            for (int column = 0; column < columns; column++)
+            {
+                sprites.Add(new SpriteMetaData
+                {
+                    name = $"{spritePrefix}_row{rowFromTop:00}_{column:000}",
+                    rect = new Rect(column * frameWidth, y, frameWidth, frameHeight),
+                    alignment = (int)SpriteAlignment.Center,
+                    pivot = new Vector2(0.5f, 0.5f)
+                });
+            }
+        }
+
+        importer.textureType = TextureImporterType.Sprite;
+        importer.spriteImportMode = SpriteImportMode.Multiple;
+        importer.mipmapEnabled = false;
+        importer.alphaIsTransparency = true;
+        importer.filterMode = FilterMode.Point;
+        importer.spritePixelsPerUnit = SpritePixelsPerUnit;
+        importer.spritesheet = sprites.ToArray();
 
         TextureImporterSettings settings = new TextureImporterSettings();
         importer.ReadTextureSettings(settings);

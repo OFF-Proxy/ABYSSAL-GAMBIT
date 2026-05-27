@@ -1,0 +1,1588 @@
+fileFormatVersion: 2
+guid: 756eab279884bc04087d677af6d4eb99
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Taskmaster_Default_000
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13a228a359fed0648aeec8a3da13f8ed
+      internalID: 311467469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Default_001
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4893742ee80c26245ae112d6baa7085b
+      internalID: 356357184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Default_002
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e9a7bedfe5d55d4ea0142135ebb5023
+      internalID: 1194758328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Default_003
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b5ccff43dc0ab3346a7598a08c1031d7
+      internalID: -30680492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Default_004
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a392a016d1ece2749a8e6b8a2940471b
+      internalID: 706200848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Default_005
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82284295e5259b54dad5ecae3488d0e0
+      internalID: 6947476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Default_006
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9cdfbdab89b43a14aa825335b2920159
+      internalID: -1430790996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Default_007
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c885d1326ad9ef43b47318ad836101e
+      internalID: 1448448669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Default_008
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11e567666b0a1a34eb18a56806570df6
+      internalID: 494368893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Default_009
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a82db34c1f7c39a4d90b8c5e54af4a2d
+      internalID: 1129530247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Default_010
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a498eaed21d0c3649baecc514ad827c1
+      internalID: -1656801231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Default_011
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9e92824a4ae5d344b32ba4b670b64b7
+      internalID: 756543038
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Default_012
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e18d13ca8fa69fe479ce7fe315fdf804
+      internalID: -2050223124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Default_013
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dda776f01147ae44c84d9698e5b7cf13
+      internalID: -917683862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Move_000
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b8965289871e864ba20e2798d6fa4af
+      internalID: -820548552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Move_001
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e5d3ba92d854114f97232f3097a0b79
+      internalID: 1649690829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Move_002
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 324dba3e920656f428c456625fcc0ed7
+      internalID: 1781941233
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Move_003
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fed0d29b02cdd04fa42b8f7ff718e75
+      internalID: 2083601007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Move_004
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cd70a69091b0c6242be509852d8c7eb4
+      internalID: 1578649333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Move_005
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f61a2a8d249c05243bd3271151849a7c
+      internalID: 919125843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Move_006
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f6295fb26447d3409bb32e96b0306fb
+      internalID: 731827908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Move_007
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 310e6716eee3a354e93201d48a13fdbb
+      internalID: -1960022217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28ee2e845719c56498e9500777d11a27
+      internalID: -618880427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3ac7c90e799cfd44ab32e08e42946d3
+      internalID: 1212740450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5066a1deecfb15d44b26800cee51e05e
+      internalID: -1019139099
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f5bbb7662c67904da687479c0f48908
+      internalID: -824024178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a2c1a33da4b4e2d4ca7d8cf1fd364a3c
+      internalID: 1555397195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca99f0e5cc672cf49acd0c6550b52c7e
+      internalID: -1834104896
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ef33e4fc24ba2d48be20dec05255324
+      internalID: -853423877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 693d450a6f570c54bba5af18d3d9687a
+      internalID: 130867434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83531efa4b1633049b6c3b30cbb15c72
+      internalID: 405418813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8e4c809e986a9042aa4ac10fb9b08db
+      internalID: -1198973462
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e6b9ef5dfb4f96458754b65aa67b786
+      internalID: 737120447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28ff734d17556c045bf89a179b3dd2b5
+      internalID: 1793399723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ded4ea492195654d96a447d8e64b1f1
+      internalID: -1536444948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be9ee5aaf3b09c64b8fa6d957c1dc2b5
+      internalID: -1590715240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24c72d7307825964a899b806c49bd8f1
+      internalID: -1969111100
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ab41809321e15d4a98f6063dd552b91
+      internalID: 1218511211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bee97c7874983b44af1ac1d3bd6a1b6
+      internalID: -858397221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 515ff979519d74f48ab9e09df9aef198
+      internalID: -47995661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a706f05e95b96b244ad062581602c249
+      internalID: -1320977874
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d733e40147833f48bdb787475d4da2e
+      internalID: -155606468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 412c99e5342733e4382bdbf85c51e5c4
+      internalID: 1003060093
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dda90d0122d98534caae1a97f931f360
+      internalID: -799353784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7d5b5e5bc7d79e4fa026ae6c6912fdf
+      internalID: -1260566931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_023
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3fea627e3346d3d40a9dade80314a60c
+      internalID: 183083924
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_024
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ae02252a1b70c845bbec020a4b54e1a
+      internalID: -348328787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_025
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 734de2edef924f04ea6ae0162d7740f3
+      internalID: 384823745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Attack_026
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa688562a69d3824ea3715e4c9871524
+      internalID: 1817407363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 080666c900a29724b843453c27895181
+      internalID: 726366077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27697ec4355493a4b9c2c34d865ac736
+      internalID: -1333965522
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbc1cca168901e442b6b8877a50bf1d2
+      internalID: -501821443
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7ca6c6395a03d446bb65988a37fcea3
+      internalID: 656192132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d20ed4e48f083a488662634096fa753
+      internalID: -563921012
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09fb1757c47259141889a26451b77ae1
+      internalID: 108992668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8957a679cbfde24ea942d18babfeaba
+      internalID: 1493377298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36ff72d564a281940adc53a086876717
+      internalID: 453659617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1aaa037023e428841a2f711496823c11
+      internalID: -1690708253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd5ff38a5a442bf4eb1f2a740cadf648
+      internalID: 1798067818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1344df3624b06c64f8b0a96570f8fac6
+      internalID: -1025330805
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41d2ad5ded11cf944ad5dec95a2cf2cb
+      internalID: -4522341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73c08d240fc34a34586c2c4349ec281b
+      internalID: 2116736934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3e8e91230c9ef349b7a7efa07b02b34
+      internalID: 2125115784
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e96588c0d5fe9334991c9bf9facf9565
+      internalID: 1825848161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Dead_015
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf332908b9aa77349ab9681e4c284d2f
+      internalID: -316691810
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Dead_016
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9d4b86b99082684c82f0eee61cc4fec
+      internalID: 60101354
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Taskmaster_Dead_017
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ae2df0b60a8f014abc7648bdb82c02a
+      internalID: 1585557588
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Taskmaster_Attack_000: -618880427
+      Taskmaster_Attack_001: 1212740450
+      Taskmaster_Attack_002: -1019139099
+      Taskmaster_Attack_003: -824024178
+      Taskmaster_Attack_004: 1555397195
+      Taskmaster_Attack_005: -1834104896
+      Taskmaster_Attack_006: -853423877
+      Taskmaster_Attack_007: 130867434
+      Taskmaster_Attack_008: 405418813
+      Taskmaster_Attack_009: -1198973462
+      Taskmaster_Attack_010: 737120447
+      Taskmaster_Attack_011: 1793399723
+      Taskmaster_Attack_012: -1536444948
+      Taskmaster_Attack_013: -1590715240
+      Taskmaster_Attack_014: -1969111100
+      Taskmaster_Attack_015: 1218511211
+      Taskmaster_Attack_016: -858397221
+      Taskmaster_Attack_017: -47995661
+      Taskmaster_Attack_018: -1320977874
+      Taskmaster_Attack_019: -155606468
+      Taskmaster_Attack_020: 1003060093
+      Taskmaster_Attack_021: -799353784
+      Taskmaster_Attack_022: -1260566931
+      Taskmaster_Attack_023: 183083924
+      Taskmaster_Attack_024: -348328787
+      Taskmaster_Attack_025: 384823745
+      Taskmaster_Attack_026: 1817407363
+      Taskmaster_Dead_000: 726366077
+      Taskmaster_Dead_001: -1333965522
+      Taskmaster_Dead_002: -501821443
+      Taskmaster_Dead_003: 656192132
+      Taskmaster_Dead_004: -563921012
+      Taskmaster_Dead_005: 108992668
+      Taskmaster_Dead_006: 1493377298
+      Taskmaster_Dead_007: 453659617
+      Taskmaster_Dead_008: -1690708253
+      Taskmaster_Dead_009: 1798067818
+      Taskmaster_Dead_010: -1025330805
+      Taskmaster_Dead_011: -4522341
+      Taskmaster_Dead_012: 2116736934
+      Taskmaster_Dead_013: 2125115784
+      Taskmaster_Dead_014: 1825848161
+      Taskmaster_Dead_015: -316691810
+      Taskmaster_Dead_016: 60101354
+      Taskmaster_Dead_017: 1585557588
+      Taskmaster_Default_000: 311467469
+      Taskmaster_Default_001: 356357184
+      Taskmaster_Default_002: 1194758328
+      Taskmaster_Default_003: -30680492
+      Taskmaster_Default_004: 706200848
+      Taskmaster_Default_005: 6947476
+      Taskmaster_Default_006: -1430790996
+      Taskmaster_Default_007: 1448448669
+      Taskmaster_Default_008: 494368893
+      Taskmaster_Default_009: 1129530247
+      Taskmaster_Default_010: -1656801231
+      Taskmaster_Default_011: 756543038
+      Taskmaster_Default_012: -2050223124
+      Taskmaster_Default_013: -917683862
+      Taskmaster_Move_000: -820548552
+      Taskmaster_Move_001: 1649690829
+      Taskmaster_Move_002: 1781941233
+      Taskmaster_Move_003: 2083601007
+      Taskmaster_Move_004: 1578649333
+      Taskmaster_Move_005: 919125843
+      Taskmaster_Move_006: 731827908
+      Taskmaster_Move_007: -1960022217
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

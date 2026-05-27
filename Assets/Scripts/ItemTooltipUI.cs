@@ -1,5 +1,6 @@
 using System.Text;
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -9,17 +10,20 @@ using UnityEngine.UI;
 public class ItemTooltipUI : MonoBehaviour
 {
     private static ItemTooltipUI instance;
+    private static Sprite frameSprite;
 
     private Canvas canvas;
     private RectTransform panelRect;
+    private CanvasGroup panelCanvasGroup;
     private TextMeshProUGUI titleText;
     private TextMeshProUGUI categoryText;
     private TextMeshProUGUI descriptionText;
     private readonly List<Image> effectIcons = new List<Image>();
     private readonly List<TextMeshProUGUI> effectTexts = new List<TextMeshProUGUI>();
     private ItemData currentItem;
+    private Tween panelTween;
 
-    private readonly Vector2 panelSize = new Vector2(360f, 206f);
+    private readonly Vector2 panelSize = new Vector2(360f, 540f);
     private readonly Vector2 pointerOffset = new Vector2(18f, 18f);
 
     // アイテム情報を表示します。マウス位置の少し右上に出し、画面外にはみ出さないようにします。
@@ -28,18 +32,23 @@ public class ItemTooltipUI : MonoBehaviour
         if (itemData == null)
             return;
 
+        SynergyTooltipUI.Hide();
         EnsureInstance();
         instance.currentItem = itemData;
         instance.ApplyItem(itemData);
         instance.MoveNearPointer(screenPosition);
         instance.gameObject.SetActive(true);
+        instance.PlayPanelAppear();
     }
 
     // 表示中の説明を閉じます。
     public static void Hide()
     {
         if (instance != null)
+        {
+            instance.panelTween?.Kill(false);
             instance.gameObject.SetActive(false);
+        }
     }
 
     // まだTooltipが無い場合だけ、必要なCanvasと中身を作ります。
@@ -65,6 +74,8 @@ public class ItemTooltipUI : MonoBehaviour
     // Canvas、背景、テキストを実行時に組み立てます。
     private void BuildUi()
     {
+        LoadSprites();
+
         canvas = gameObject.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
         canvas.sortingOrder = 50000;
@@ -82,17 +93,38 @@ public class ItemTooltipUI : MonoBehaviour
         panelRect.anchorMax = Vector2.zero;
         panelRect.pivot = Vector2.zero;
         panelRect.sizeDelta = panelSize;
+        panelCanvasGroup = panelObject.AddComponent<CanvasGroup>();
 
         Image background = panelObject.GetComponent<Image>();
-        background.color = new Color(0.015f, 0.02f, 0.035f, 0.94f);
+        background.sprite = frameSprite;
+        background.color = frameSprite != null ? Color.white : new Color(0.015f, 0.02f, 0.035f, 0.94f);
+        background.type = Image.Type.Simple;
         background.raycastTarget = false;
 
-        titleText = CreateText("Title", new Vector2(18f, -14f), new Vector2(-18f, -42f), 24f, FontStyles.Bold, Color.white);
-        categoryText = CreateText("Category", new Vector2(18f, -44f), new Vector2(-18f, -66f), 16f, FontStyles.Bold, new Color(0.3f, 0.95f, 1f, 1f));
-        descriptionText = CreateText("Description", new Vector2(18f, -72f), new Vector2(-18f, -194f), 18f, FontStyles.Normal, new Color(0.88f, 0.94f, 1f, 1f));
+        titleText = CreateText("Title", new Vector2(24f, -28f), new Vector2(-24f, -60f), 24f, FontStyles.Bold, Color.white);
+        categoryText = CreateText("Category", new Vector2(24f, -62f), new Vector2(-24f, -88f), 16f, FontStyles.Bold, new Color(0.3f, 0.95f, 1f, 1f));
+        descriptionText = CreateText("Description", new Vector2(24f, -96f), new Vector2(-24f, -506f), 18f, FontStyles.Normal, new Color(0.88f, 0.94f, 1f, 1f));
+        descriptionText.lineSpacing = 1.5f;
 
         for (int i = 0; i < 5; i++)
             CreateEffectRow(i);
+    }
+
+    // 説明パネルを開いた時だけ、ふわっと出るDOTween演出を入れます。
+    private void PlayPanelAppear()
+    {
+        if (panelRect == null || panelCanvasGroup == null || !gameObject.activeInHierarchy)
+            return;
+
+        panelTween?.Kill(false);
+        Vector3 targetScale = Vector3.one;
+        panelCanvasGroup.alpha = 0f;
+        panelRect.localScale = targetScale * 0.96f;
+        panelTween = DOTween.Sequence()
+            .SetTarget(this)
+            .SetUpdate(true)
+            .Append(panelCanvasGroup.DOFade(1f, 0.12f).SetEase(Ease.OutQuad))
+            .Join(panelRect.DOScale(targetScale, 0.18f).SetEase(Ease.OutBack));
     }
 
     // TextMeshProの子オブジェクトを作り、パネル内の指定範囲へ配置します。
@@ -122,12 +154,13 @@ public class ItemTooltipUI : MonoBehaviour
     // アイテム効果を「アイコン + 数値」で表示する1行を作ります。
     private void CreateEffectRow(int index)
     {
-        float y = -75f - index * 24f;
+        float y = -100f - index * 40f;
 
-        Image icon = CreateImage($"EffectIcon{index + 1}", new Vector2(18f, y), new Vector2(21f, 21f));
-        TextMeshProUGUI text = CreateText($"EffectText{index + 1}", new Vector2(46f, y - 1f), new Vector2(-18f, y - 23f), 17f, FontStyles.Bold, new Color(0.9f, 0.98f, 1f, 1f));
-        text.enableWordWrapping = false;
-        text.overflowMode = TextOverflowModes.Ellipsis;
+        Image icon = CreateImage($"EffectIcon{index + 1}", new Vector2(24f, y), new Vector2(24f, 24f));
+        TextMeshProUGUI text = CreateText($"EffectText{index + 1}", new Vector2(56f, y - 1f), new Vector2(-24f, y - 52f), 15.5f, FontStyles.Bold, new Color(0.9f, 0.98f, 1f, 1f));
+        text.enableWordWrapping = true;
+        text.overflowMode = TextOverflowModes.Overflow;
+        text.lineSpacing = 1.5f;
 
         icon.gameObject.SetActive(false);
         text.gameObject.SetActive(false);
@@ -215,5 +248,26 @@ public class ItemTooltipUI : MonoBehaviour
         targetPosition.x = Mathf.Clamp(targetPosition.x, 8f, Mathf.Max(8f, Screen.width - panelSize.x - 8f));
         targetPosition.y = Mathf.Clamp(targetPosition.y, 8f, Mathf.Max(8f, Screen.height - panelSize.y - 8f));
         panelRect.anchoredPosition = targetPosition;
+    }
+
+    private static void LoadSprites()
+    {
+        if (frameSprite != null)
+            return;
+
+        frameSprite = LoadUiSprite("UI/ItemBench/synergy_tooltip_frame");
+    }
+
+    private static Sprite LoadUiSprite(string resourcePath)
+    {
+        Sprite sprite = Resources.Load<Sprite>(resourcePath);
+        if (sprite != null)
+            return sprite;
+
+        Texture2D texture = Resources.Load<Texture2D>(resourcePath);
+        if (texture == null)
+            return null;
+
+        return Sprite.Create(texture, new Rect(0f, 0f, texture.width, texture.height), new Vector2(0.5f, 0.5f), 100f);
     }
 }

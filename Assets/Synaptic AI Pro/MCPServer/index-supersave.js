@@ -101,10 +101,6 @@ function setupWebSocketHandlers() {
     wss.on('connection', (ws, req) => {
         const isUnity = req.headers['x-client-type'] === 'unity' || req.url === '/unity';
 
-        // Diagnostic — helps ESC-0102 class issues where connections come in
-        // but get classified wrong and unityWebSocket never gets set.
-        console.error(`[SuperSave] WS connection: url=${req.url} x-client-type=${req.headers['x-client-type'] || '(none)'} isUnity=${isUnity}`);
-
         // Per-socket error handler — without this, send() failures (peer gone,
         // backpressure, etc.) crash silently and the caller just hits the 60s
         // timeout with no clue why.
@@ -117,7 +113,6 @@ function setupWebSocketHandlers() {
                 unityWebSocket.close();
             }
             unityWebSocket = ws;
-            console.error('[SuperSave] unityWebSocket assigned');
 
             ws.on('message', async (message) => {
                 try {
@@ -623,9 +618,9 @@ async function setupMCPServer() {
     // through the execute({tool, params}) two-level nest.
     mcpServer.registerTool('run_csharp', {
         title: 'Run C# Code',
-        description: 'Execute arbitrary C# code against the running Unity Editor (equivalent of Blender run_python). UnityEngine / UnityEditor / System.Linq / Newtonsoft.Json are pre-imported. Use this when no dedicated tool covers the operation. Does NOT trigger AssemblyReload so the connection stays alive. Examples: "AssetDatabase.SaveAssets(); return \\"saved\\";", "return Selection.activeGameObject?.name;".',
+        description: 'Execute arbitrary C# code against the running Unity Editor (equivalent of Blender run_python). UnityEngine / UnityEditor / System.Linq / Newtonsoft.Json are pre-imported. Use this when no dedicated tool covers the operation. Does NOT trigger AssemblyReload so the connection stays alive.\n\nReturn value: end the snippet with `return X;` to capture X into the `result` field (prefix statements like `var x = ...;` execute first). A bare expression without trailing `;` is also accepted. Side-effect-only snippets return `result: null`. Debug.Log / LogWarning / LogError are captured into `output`.\n\nWORKS: GameObject / Transform / Component manipulation, AssetDatabase, Selection, EditorApplication, scene/asset queries via `FindObjectsByType<T>()` and other generic METHODS, generic method extension calls (`GetComponent<T>()`), arrays + foreach + LINQ-like loops, string interpolation, math, multi-statement bodies.\n\nKNOWN LIMITATION: Unity Mono.CSharp interactive parser cannot instantiate generic TYPES — `new List<int>()`, `new Dictionary<K,V>()`, `new HashSet<T>()` etc. silently return `result: null`. Workarounds: use plain arrays (`new int[] {1,2,3}`), `System.Collections.ArrayList`, or invoke generic helper methods that already exist (e.g. `FindObjectsByType<GameObject>(...)`). Generic method calls themselves are fine; only `new T<U>()` is blocked. LINQ chains that infer `IEnumerable<T>` may also fail — use `foreach` instead.',
         inputSchema: z.object({
-            code: z.string().describe('C# code to execute. Can be a single expression ("1+1") or statements ("var go = new GameObject(\\"X\\"); return go.name;"). Pre-imported: System, System.Linq, System.Collections.Generic, UnityEngine, UnityEditor.')
+            code: z.string().describe('C# code. End with `return X;` to capture X into `result`. A bare expression (no trailing `;`) also returns its value. Pre-imported: System, System.Linq, System.Collections.Generic, UnityEngine, UnityEditor, Newtonsoft.Json. AVOID `new List<int>()` / `new Dictionary<K,V>()` style generic instantiation (Mono parser limitation) — use arrays or ArrayList instead.')
         })
     }, async (params) => {
         try {

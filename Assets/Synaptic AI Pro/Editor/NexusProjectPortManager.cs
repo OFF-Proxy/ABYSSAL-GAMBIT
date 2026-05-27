@@ -280,17 +280,49 @@ namespace SynapticPro
             {
                 Debug.LogError($"[Nexus Port Manager] JSON parsing error: {jsonEx.Message}");
                 Debug.LogError($"[Nexus Port Manager] Recreating mapping file due to corruption.");
-                
-                // Backup corrupted file and create new one
+
+                // Move-aside corrupted file, then write a fresh empty mapping so
+                // the next LoadMapping doesn't hit the same corrupt content and
+                // spam the console at frame rate.
+                // Bugs the previous implementation had:
+                //   1. `File.Move` to an existing `.backup` throws on Windows,
+                //      the silent catch left the corrupt file in place → loop.
+                //   2. Even on success, no fresh file was written, so any later
+                //      reader before a SaveMapping run kept hitting the error
+                //      (relevant when MAPPING_FILE_PATH still existed under
+                //      filesystem latency on slow disks).
                 try
                 {
                     string backupPath = MAPPING_FILE_PATH + ".backup";
-                    File.Move(MAPPING_FILE_PATH, backupPath);
+                    if (File.Exists(backupPath))
+                    {
+                        try { File.Delete(backupPath); } catch { }
+                    }
+                    if (File.Exists(MAPPING_FILE_PATH))
+                    {
+                        try { File.Move(MAPPING_FILE_PATH, backupPath); }
+                        catch
+                        {
+                            // Move failed (permissions, fs lock) — delete the
+                            // corrupt source outright so we don't loop.
+                            try { File.Delete(MAPPING_FILE_PATH); } catch { }
+                        }
+                    }
+
+                    // Immediately materialize a clean mapping file so concurrent
+                    // readers (and the next Update tick) see valid JSON.
+                    var fresh = new ProjectPortMapping();
+                    var freshJson = JsonConvert.SerializeObject(fresh, Formatting.Indented);
+                    File.WriteAllText(MAPPING_FILE_PATH, freshJson);
+
                     SynLog.Info($"[Nexus Port Manager] Corrupted file backed up to: {backupPath}");
+                    return fresh;
                 }
-                catch { }
-                
-                return new ProjectPortMapping();
+                catch (Exception writeErr)
+                {
+                    Debug.LogError($"[Nexus Port Manager] Failed to reset mapping file: {writeErr.Message}");
+                    return new ProjectPortMapping();
+                }
             }
             catch (Exception e)
             {

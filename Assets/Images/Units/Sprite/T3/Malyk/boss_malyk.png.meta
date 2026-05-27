@@ -1,0 +1,1390 @@
+fileFormatVersion: 2
+guid: ac01c195e0e16b14093799271231f496
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Malyk_Default_000
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37c51068b86c94f4fb768d1c96b90674
+      internalID: 1001643678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Default_001
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b0edcdcadceb524a939e7ce9bbd29fe
+      internalID: 848834260
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Default_002
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b47e0f37da5a382478a3c6d2086bece4
+      internalID: -1326306087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Default_003
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7e395a3f9eb26844afcce8d5e351bed
+      internalID: -1223798296
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Default_004
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93d5b49df6525514da93324cb275a8cf
+      internalID: 898342344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Default_005
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12b1a526999a57b4aad67b7ad21c5c5c
+      internalID: 1680300571
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Default_006
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea2aa41471feb9a45832baedebf7255d
+      internalID: -308545130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Default_007
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d20ec1381785174999fb9db8297b679
+      internalID: -731222380
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Default_008
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8da8de6727fcb734ab65f8f9c9fa895e
+      internalID: -469794876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Default_009
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d10da8d20df12354ab3629df5ff6887d
+      internalID: -738621930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Default_010
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ef09f7f1b5545e478323972bbefd623
+      internalID: -1078113515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Default_011
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47c6d53127ae1b14b8be838a104f7116
+      internalID: -437498224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Default_012
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 049b37997028baf4bb916843ba693116
+      internalID: -1275552885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Default_013
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64b232c775e44084e9b71c133568a08a
+      internalID: 146226572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Move_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45729167f53e9ea459b38551db512c2f
+      internalID: 1400497023
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Move_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e33f70a198fd21499535ba0aafadb16
+      internalID: 1148433108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Move_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dd7ce388c999594bbfa51b9b09fdfb1
+      internalID: 1024419014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Move_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 21f4da2d9fc7381438b7991052fd3409
+      internalID: 839493953
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d11be3b8f62ca74980ae75575d86249
+      internalID: 1883471504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 993f58f37f9c58342836c060cfea6588
+      internalID: 818951700
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Move_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 102e055995b0ece4f900bd81da4da65e
+      internalID: -1485246030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Move_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1dceed2d01050f418a291bd875842d2
+      internalID: 1576215129
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11c866ae8a28a894ab8087cf4e330f10
+      internalID: -1824543573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db49b8489de94cb47bc07300f24e5e2e
+      internalID: 1235956900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4df1c6f4f9ecd84992f0ad4c9f8d740
+      internalID: 1559240935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d0d89a5968261f43b03f40521b0c66e
+      internalID: 1362761942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a6cdc42b8a1acf43acd99a288c0c2df
+      internalID: -953411871
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c310453bfd841e844ad8c89f2793a28b
+      internalID: 1310017157
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d6566bab2c05284cb603ea6f372c110
+      internalID: -1452148817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7894864958795df4eaaa6339d951988b
+      internalID: -2071466155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f461166eb5cb234cabc3169a5760f65
+      internalID: -1629982170
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0aa1c20c41558e46a04c6b91cdef2a5
+      internalID: 2089819104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 264b2a5bc03d95d45b6feafe92501591
+      internalID: -2114628378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fc4191ac561041145b6464a798a2d015
+      internalID: -2097340714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71298a812e6a91944b4dfda4f537392b
+      internalID: 720330578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54173577d819b6a4089ae1aa38439733
+      internalID: 1773021295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b15005f3de3aae46a040c88b1a18042
+      internalID: -888437000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f69bb87c6ad9a54592619c09b83d755
+      internalID: 789129476
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcd20a9dba83b574db23d9f70969f272
+      internalID: -887121787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4970b96e2ff3eb34ebc7c05f386c1ba4
+      internalID: 1199698627
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc04524f24f1b9541ab6b22b62518245
+      internalID: -652961955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 318e541d2712c7140a8ec1e52b9a463c
+      internalID: -1536842529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b2490349df4c92449814d813b59c1a5
+      internalID: 1544613466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5549b8548f3fa8489d97e1512958d79
+      internalID: 837303542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 66cf0612bbbfc284487f5eaf8f591605
+      internalID: 1623288809
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 448adee6084e9554a8060f2cdfdbb6cb
+      internalID: 397336043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a20196aad0985e54781ef917c1f14dd9
+      internalID: -1566206200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3afacbeb209d0804fb294e1ffae0f026
+      internalID: 1085171593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d895320fc27b7c04d957235d53ec3092
+      internalID: -773385703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1cbc0add1606cc49aa6b15d44e2e21c
+      internalID: -1408702189
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34e64f377f712dd4190ae6be2e707739
+      internalID: 139784495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de50f2e6963ca9644bfabf499571fc63
+      internalID: 1456789149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e48370c0bdece074b989fc2755980852
+      internalID: -1187168385
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb22be4c4f520ef40a444bf65fae027b
+      internalID: 1357906058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4385fad700678a64aa28856bb12c2112
+      internalID: -611797507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa609558583d7bf4ba7f18af4360dd79
+      internalID: -1740399196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 198ccdf6f81c7bd46afd200e37f8055a
+      internalID: 285460335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Malyk_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 02357ce5416363a4f892ec36ce0ca7b8
+      internalID: -490066493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Malyk_Attack_000: -1824543573
+      Malyk_Attack_001: 1235956900
+      Malyk_Attack_002: 1559240935
+      Malyk_Attack_003: 1362761942
+      Malyk_Attack_004: -953411871
+      Malyk_Attack_005: 1310017157
+      Malyk_Attack_006: -1452148817
+      Malyk_Attack_007: -2071466155
+      Malyk_Attack_008: -1629982170
+      Malyk_Attack_009: 2089819104
+      Malyk_Attack_010: -2114628378
+      Malyk_Attack_011: -2097340714
+      Malyk_Attack_012: 720330578
+      Malyk_Attack_013: 1773021295
+      Malyk_Attack_014: -888437000
+      Malyk_Attack_015: 789129476
+      Malyk_Attack_016: -887121787
+      Malyk_Attack_017: 1199698627
+      Malyk_Attack_018: -652961955
+      Malyk_Attack_019: -1536842529
+      Malyk_Attack_020: 1544613466
+      Malyk_Dead_000: 837303542
+      Malyk_Dead_001: 1623288809
+      Malyk_Dead_002: 397336043
+      Malyk_Dead_003: -1566206200
+      Malyk_Dead_004: 1085171593
+      Malyk_Dead_005: -773385703
+      Malyk_Dead_006: -1408702189
+      Malyk_Dead_007: 139784495
+      Malyk_Dead_008: 1456789149
+      Malyk_Dead_009: -1187168385
+      Malyk_Dead_010: 1357906058
+      Malyk_Dead_011: -611797507
+      Malyk_Dead_012: -1740399196
+      Malyk_Dead_013: 285460335
+      Malyk_Dead_014: -490066493
+      Malyk_Default_000: 1001643678
+      Malyk_Default_001: 848834260
+      Malyk_Default_002: -1326306087
+      Malyk_Default_003: -1223798296
+      Malyk_Default_004: 898342344
+      Malyk_Default_005: 1680300571
+      Malyk_Default_006: -308545130
+      Malyk_Default_007: -731222380
+      Malyk_Default_008: -469794876
+      Malyk_Default_009: -738621930
+      Malyk_Default_010: -1078113515
+      Malyk_Default_011: -437498224
+      Malyk_Default_012: -1275552885
+      Malyk_Default_013: 146226572
+      Malyk_Move_000: 1400497023
+      Malyk_Move_001: 1148433108
+      Malyk_Move_002: 1024419014
+      Malyk_Move_003: 839493953
+      Malyk_Move_004: 1883471504
+      Malyk_Move_005: 818951700
+      Malyk_Move_006: -1485246030
+      Malyk_Move_007: 1576215129
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

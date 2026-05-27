@@ -329,9 +329,16 @@ namespace SynapticPro
                         result = NexusStateInspector.GetProjectStatistics();
                         break;
                     default:
-                        // Normal operation
+                        // Normal operation.
+                        // ESC-0107 fix: previously used `.Result` which blocks the
+                        // main thread (delayCall) on a Task whose continuation may
+                        // need to repost via UnitySynchronizationContext → classic
+                        // SyncContext deadlock. ConfigureAwait(false) drops the
+                        // captured context so the continuation can run on any
+                        // thread; the body of ExecuteOperation is itself sync
+                        // for most cases (e.g. RUN_CSHARP returns immediately).
                         var executor = new NexusUnityExecutor();
-                        result = executor.ExecuteOperation(operation).Result;
+                        result = await executor.ExecuteOperation(operation).ConfigureAwait(false);
 
                         // Error check
                         if (result.StartsWith("Error") || result.Contains("not found") || result.Contains("failed"))

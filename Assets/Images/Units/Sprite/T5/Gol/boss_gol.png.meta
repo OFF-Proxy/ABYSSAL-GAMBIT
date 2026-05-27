@@ -1,0 +1,1786 @@
+fileFormatVersion: 2
+guid: c36514c8adc0f1c4985889b91e114936
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Gol_Default_000
+      rect:
+        serializedVersion: 2
+        x: 1269
+        y: 884
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35cdc81026db40f45b38a7274d3e2801
+      internalID: -1875519936
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Default_001
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 38
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1e7ee98482c40d409dafb8049120191
+      internalID: 417556843
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Default_002
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 179
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5bfb21c72968804dbfd3b320c79a507
+      internalID: 718591423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Default_003
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 320
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 602138641c0d0714d9ffce5883d832be
+      internalID: -1405174274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Default_004
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 461
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2813fa5b8c8b9884dbcc5e9151907f21
+      internalID: 1718842942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Default_005
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 602
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 532c47c98acc5dd45ba912c6a4ae34a0
+      internalID: 2009609594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Default_006
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 743
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a62273f22d1aa5418a845e18aa70ead
+      internalID: -2100431224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Default_007
+      rect:
+        serializedVersion: 2
+        x: 1128
+        y: 884
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44d73a982f360034db69a3949c2463b0
+      internalID: -1875290466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Default_008
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 38
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 228c1852efbf28f41936cfab2e3b5d2d
+      internalID: 1193119171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Default_009
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 179
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8796111ac1998241b52dd2120834c8a
+      internalID: 436827867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Default_010
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 320
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5901d316aff98704da89e0906305c3ee
+      internalID: -1039238932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Default_011
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 461
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c07205920de378b4c9b0f51bb8d9c03b
+      internalID: -546200629
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Default_012
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 602
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69888aa05be7d244baf992d74a26aa16
+      internalID: 1436025744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Default_013
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 743
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b4f9558185cd2e43a62f31afe01f829
+      internalID: 1539415477
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Move_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 179
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e08a385ec46bbf458d770bcd172df24
+      internalID: 1796179154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Move_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 320
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 622990377bdfa664b99cb55b8b8117c6
+      internalID: 1786026942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Move_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 461
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6709b49987bd0d941b6cec648ef6f881
+      internalID: 2132989211
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Move_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 602
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6570cc0d2aec31d44bf10204c28fc6fa
+      internalID: -67937996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 743
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 949c4e3c9d1f5b8409a1b3d5ce7e68fc
+      internalID: 1960011408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 884
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32edeeb8f7875394ca1f39bfe8d62375
+      internalID: -942727318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 320
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 043e57e801e0f314e80b893cb837d0c5
+      internalID: -1194662259
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 1833
+        y: 884
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d41ebcc1db262e7438907c70cfb9736b
+      internalID: 639998695
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 1692
+        y: 38
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: daea1042bb1415e41ae2a9453b76f4a3
+      internalID: -94151716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 1692
+        y: 179
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f00572b0f24587e49bd99d2006e371d7
+      internalID: -113146143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 1692
+        y: 320
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35c9a7a601f9de041a8f271a15d0fe9b
+      internalID: 1597027779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 1692
+        y: 461
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcc91e814aee2d849910db2fe9e5c510
+      internalID: -177949266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 1692
+        y: 602
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2753de2f65aa53049b3170eed3b4594b
+      internalID: 1158181356
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 1692
+        y: 743
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f591e6c74306894dadc2850eddc1a53
+      internalID: 2087026217
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 1692
+        y: 884
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bf4bd1b8fd5ffc4b96b443a0eccb238
+      internalID: -24828687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 1551
+        y: 38
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c08daf8ca6688b74aa5b649ef5af1a22
+      internalID: 1758166683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 1551
+        y: 179
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c983d0495322e4f43a8ad4abec11a0d1
+      internalID: 2012476448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 1551
+        y: 320
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 493efb7d6bdc14548b88ce777610e779
+      internalID: 1225430765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 1551
+        y: 461
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2e8027b01ae14a499ea75622899a6ae
+      internalID: 257386595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 1551
+        y: 602
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1ef7b31033b1964fae10e0f0e3dc9e5
+      internalID: 1678913863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 1551
+        y: 743
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c276700c4189194db5c6ce67611a24d
+      internalID: 35534538
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 1551
+        y: 884
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d77bbaec7cded1f4a80ee42e474e25e1
+      internalID: -1654508056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 1410
+        y: 38
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 513721a22b3423d42b02ee59e10b66e2
+      internalID: 1238081007
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 1410
+        y: 179
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 05d92c0000db2e14eac52ae6d8a43096
+      internalID: -853416469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 1410
+        y: 320
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 003150ca0dddf294d87e42f580c8ce7e
+      internalID: 807231473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 1410
+        y: 461
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d59ed6e2d08d51c4394941770ccd9da0
+      internalID: 691204747
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 1410
+        y: 602
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83d9df13b9cd1e1408b2bed51e56d50c
+      internalID: 1316549978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 1410
+        y: 743
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c016c9c9e2f428241aa9b9af8db5d175
+      internalID: 933418231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 1410
+        y: 884
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c470001011841340afe16c143a7d485
+      internalID: -1497866608
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_023
+      rect:
+        serializedVersion: 2
+        x: 1269
+        y: 38
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a7fbfdcbd6b42f489c95943a1b005ee
+      internalID: -1600035079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_024
+      rect:
+        serializedVersion: 2
+        x: 1269
+        y: 179
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a27eb29e8503c349adf3d9d4874fb85
+      internalID: -1827138200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_025
+      rect:
+        serializedVersion: 2
+        x: 1269
+        y: 320
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d724c2e602f99c429f78cb935f88c6c
+      internalID: 37370117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_026
+      rect:
+        serializedVersion: 2
+        x: 1269
+        y: 461
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 132b87edeeeec9f4392b2c42155564c7
+      internalID: 64578245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_027
+      rect:
+        serializedVersion: 2
+        x: 1269
+        y: 602
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8bcf74b23ce5f5445b5c087297e62eb5
+      internalID: -749224293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Attack_028
+      rect:
+        serializedVersion: 2
+        x: 1269
+        y: 743
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44811288ad0b2c94a99f91bf857e5fc0
+      internalID: -144995452
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 884
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 52f74d00d531ede47a44bbcab257e706
+      internalID: -1803601916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 38
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3270c8421a3db6f4889339d69e805699
+      internalID: 1077222663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 179
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8eb9fdb1558934e4a81cdc65dbf843e0
+      internalID: -1167122582
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 1833
+        y: 743
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb1adb5e932836a44b42f4d49f3baae2
+      internalID: -1604900281
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 461
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5e60054dfae2311429cf44f431a67b47
+      internalID: -1109680313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 602
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76b9785528cbbd143a75fede4cca06da
+      internalID: 34207946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 743
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55982b39e7fdee24094a68551248c7be
+      internalID: -1886696714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 884
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d52847d17436f4647b587e91fa24e965
+      internalID: 641097650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 38
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54ef396cb99ef4a43bc16d643bf4f665
+      internalID: -1148622882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 179
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddf8d88d01e62d945b805e8c0f0cee33
+      internalID: -1624572464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 320
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84765aa151e35d049aa501cac62a8f8e
+      internalID: -1670396516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 461
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5253a8998a34be04eb4e300f92be6e9b
+      internalID: -1056378330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 602
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b18517191ff53345825af085ba65e47
+      internalID: -2091853278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 743
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45bda3fccf5f9414981398b5742b3222
+      internalID: -1691916710
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 884
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 129cb6acaf3077949894b7f3be1c9b52
+      internalID: -184316271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_015
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 38
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d4fc41b0a8013742b462b073ec477ac
+      internalID: -1087210804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_016
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 179
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7603a12b001dd8a4d851fb272fcc08eb
+      internalID: -1747995080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_017
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 320
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa80057c706cffe48b7b6e1c4803003c
+      internalID: 1119379841
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_018
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 461
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 17a58067755ab034c979f453272e62d2
+      internalID: 2126778004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_019
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 743
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f059267380035224e886b33b53ecc2a1
+      internalID: -775433864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_020
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 884
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5325102b6a47012439cd14a68d67c1f7
+      internalID: -643226240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_021
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 461
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a08cda74e67e8e447911ca370d91c57f
+      internalID: -988497857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_022
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 602
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f99f67d59c2cdc34db91b4d17334f5a8
+      internalID: 6520532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_023
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 743
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8884825dce539443a39af3f6d9cb0a8
+      internalID: -1645401030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_024
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 884
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91d44ca8487977143aae72225a960367
+      internalID: 1288028467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_025
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 38
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3111844cc011491428c2c76427fb0f55
+      internalID: 1561384171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Gol_Dead_026
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 179
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 264e060ad2c59fa42aceb7c413c0b33b
+      internalID: -612116604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Gol_Attack_000: -1194662259
+      Gol_Attack_001: 639998695
+      Gol_Attack_002: -94151716
+      Gol_Attack_003: -113146143
+      Gol_Attack_004: 1597027779
+      Gol_Attack_005: -177949266
+      Gol_Attack_006: 1158181356
+      Gol_Attack_007: 2087026217
+      Gol_Attack_008: -24828687
+      Gol_Attack_009: 1758166683
+      Gol_Attack_010: 2012476448
+      Gol_Attack_011: 1225430765
+      Gol_Attack_012: 257386595
+      Gol_Attack_013: 1678913863
+      Gol_Attack_014: 35534538
+      Gol_Attack_015: -1654508056
+      Gol_Attack_016: 1238081007
+      Gol_Attack_017: -853416469
+      Gol_Attack_018: 807231473
+      Gol_Attack_019: 691204747
+      Gol_Attack_020: 1316549978
+      Gol_Attack_021: 933418231
+      Gol_Attack_022: -1497866608
+      Gol_Attack_023: -1600035079
+      Gol_Attack_024: -1827138200
+      Gol_Attack_025: 37370117
+      Gol_Attack_026: 64578245
+      Gol_Attack_027: -749224293
+      Gol_Attack_028: -144995452
+      Gol_Dead_000: -1803601916
+      Gol_Dead_001: 1077222663
+      Gol_Dead_002: -1167122582
+      Gol_Dead_003: -1604900281
+      Gol_Dead_004: -1109680313
+      Gol_Dead_005: 34207946
+      Gol_Dead_006: -1886696714
+      Gol_Dead_007: 641097650
+      Gol_Dead_008: -1148622882
+      Gol_Dead_009: -1624572464
+      Gol_Dead_010: -1670396516
+      Gol_Dead_011: -1056378330
+      Gol_Dead_012: -2091853278
+      Gol_Dead_013: -1691916710
+      Gol_Dead_014: -184316271
+      Gol_Dead_015: -1087210804
+      Gol_Dead_016: -1747995080
+      Gol_Dead_017: 1119379841
+      Gol_Dead_018: 2126778004
+      Gol_Dead_019: -775433864
+      Gol_Dead_020: -643226240
+      Gol_Dead_021: -988497857
+      Gol_Dead_022: 6520532
+      Gol_Dead_023: -1645401030
+      Gol_Dead_024: 1288028467
+      Gol_Dead_025: 1561384171
+      Gol_Dead_026: -612116604
+      Gol_Default_000: -1875519936
+      Gol_Default_001: 417556843
+      Gol_Default_002: 718591423
+      Gol_Default_003: -1405174274
+      Gol_Default_004: 1718842942
+      Gol_Default_005: 2009609594
+      Gol_Default_006: -2100431224
+      Gol_Default_007: -1875290466
+      Gol_Default_008: 1193119171
+      Gol_Default_009: 436827867
+      Gol_Default_010: -1039238932
+      Gol_Default_011: -546200629
+      Gol_Default_012: 1436025744
+      Gol_Default_013: 1539415477
+      Gol_Move_000: 1796179154
+      Gol_Move_001: 1786026942
+      Gol_Move_002: 2132989211
+      Gol_Move_003: -67937996
+      Gol_Move_004: 1960011408
+      Gol_Move_005: -942727318
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

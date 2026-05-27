@@ -1,0 +1,2468 @@
+fileFormatVersion: 2
+guid: b2a32bf128ff89a47b3cddad00d6feaa
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Plaguegeneral_Default_000
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 105
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c3a35cdab7b55349a878f6d2123244d
+      internalID: 141336872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Default_001
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 220
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d12466ac79e4ff4a91ba55e7388c68b
+      internalID: -1814201596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Default_002
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 335
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9b1e64e8212dab4cb13b5fa453edea7
+      internalID: 539879650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Default_003
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 450
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd07a52c6e2737c4494a79a14e52b9ac
+      internalID: -1547284865
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Default_004
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 565
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4560b8c6a44556c4f8f5e3cae47b5a4b
+      internalID: 778191147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Default_005
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 680
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6958813ca42b4574fb00b73cd95de2ec
+      internalID: -2045481950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Default_006
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 795
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d615fd50105a9984cad04eeed13c271d
+      internalID: 1993963241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Default_007
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 910
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edc950b546f3d8d4d96c494b72952828
+      internalID: -576768932
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Default_008
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 105
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c08b0c9cc454eae41813dc116f5cbf2d
+      internalID: 2137054123
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Default_009
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 220
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d23a2d202e371454cbce31ea07da4335
+      internalID: -1929113849
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Default_010
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 335
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8962cd0290ee3041974c993a009f73c
+      internalID: 2043380721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Default_011
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 450
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d73a3fb8e6ea022428ce449b265e3947
+      internalID: -681281705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Default_012
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 565
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbd0afa93c6681140b495646a2ff0521
+      internalID: -1290188739
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Default_013
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 680
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd276e09df12e914f961b58b7a66bc98
+      internalID: 2082712264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Move_000
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 910
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdff57c853cab3046abb398ec9396709
+      internalID: 1470164212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Move_001
+      rect:
+        serializedVersion: 2
+        x: 1265
+        y: 105
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8936b4e893f3d084caa3b8f9acb207dd
+      internalID: 1696408423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Move_002
+      rect:
+        serializedVersion: 2
+        x: 1265
+        y: 220
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c97cb13aef6dd2429a3259ded62b4ba
+      internalID: 2145119450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Move_003
+      rect:
+        serializedVersion: 2
+        x: 1265
+        y: 335
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c6b07572fcc8cd469a3ff67f3b9e5d8
+      internalID: 343142855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Move_004
+      rect:
+        serializedVersion: 2
+        x: 1265
+        y: 450
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c95d5b7696ffffa48bd44afe62f3950f
+      internalID: -972547325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Move_005
+      rect:
+        serializedVersion: 2
+        x: 1265
+        y: 565
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 095c3efb57814504688fa34bcd64b3fe
+      internalID: -417907225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Move_006
+      rect:
+        serializedVersion: 2
+        x: 1265
+        y: 680
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1446049895618594ebb2370c0a835723
+      internalID: 1885098322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Move_007
+      rect:
+        serializedVersion: 2
+        x: 1265
+        y: 795
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5b663146b4e4df468b753aad9a7aeea
+      internalID: -466117018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 795
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1bc7b56f063680458d72c3d19e05c2b
+      internalID: -642094418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 460
+        y: 910
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 746f7029b17cc7c41a17da1bb09d6e4e
+      internalID: 1723786918
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 105
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be875bdec0f75444badec0098fa7ca6e
+      internalID: -203681852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 220
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4135e20677c512140bc11bf7b828cada
+      internalID: -1967559504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 335
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e43bdfc23639a5d46872b56e4c8c5158
+      internalID: -242841873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 450
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee114b78faf6de44b92b4c53a5162df5
+      internalID: -850523844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 565
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f957a466d672aa44bc19bd63d132cf7
+      internalID: -286232353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 680
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 175f278fb4047db4fa1e6b3b1014ea98
+      internalID: -2098411108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 795
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa9e497d3b926d448ae1046aa3abbf77
+      internalID: 2014494178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 345
+        y: 910
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b58351a78f06e9744a89e139200ac57b
+      internalID: 1907526033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 105
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c22ec2ccef93944ba909f20cfadce95
+      internalID: 2043835846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 220
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f84ffd2fa09dd7c4b92ba5ec1b556e32
+      internalID: 1517540839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 335
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 876d928dd025b4e4db8c15f282f02172
+      internalID: 1260120340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 450
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e1c902c08599da418dfb6c1a4eb4dd6
+      internalID: 1720118027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 565
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca45437bb504ee14baab0d5dbf89c7f6
+      internalID: 1645401515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 680
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ec49070d07e1bd41a957bc4dc9fe613
+      internalID: -1178702412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 795
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0904a9bd64535714c97fbba7ef3a07d2
+      internalID: 1870512996
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 230
+        y: 910
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f934b7f13c0dc34984f9b384801e80f
+      internalID: 1432337919
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 105
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3f761430f0342345bd2d36779674f67
+      internalID: 1734388669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 220
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4b5679931cfc5943a43c51a47ce2645
+      internalID: 490631331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 335
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8eb547bff69e6b14f86c98205fa76a2a
+      internalID: -1244741615
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 450
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db4861981a67d14478c2123bab52b5bb
+      internalID: -449564567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 565
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0c3561c7acd15144b027bd6a54a86dd
+      internalID: 1600394688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_023
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 680
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae721e4834b80f1408a2432d915c8f29
+      internalID: 1468916688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_024
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 795
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67726468bd9f6bd4185d5c964486d1e2
+      internalID: -1689839836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_025
+      rect:
+        serializedVersion: 2
+        x: 115
+        y: 910
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93673a656ef78c44895cdb43d9529154
+      internalID: -1317983058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_026
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 105
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bc28571eb61b214eb21828d2e2e1c3b
+      internalID: -2145980997
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_027
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 220
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e468bbac4a5f4264b95e110c07979d4f
+      internalID: -719024115
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_028
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 335
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf374389c5edc3c4cbf7bc2ab9c4f3bf
+      internalID: 1990130660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_029
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 450
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f60d5d735e407248bd4577cf1bb7fae
+      internalID: -566869332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_030
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 565
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbf8491a19658f847b6b34cd2a67f475
+      internalID: 486375409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_031
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 680
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc64033d5c97f5f4a98fddea62ba1aee
+      internalID: 1365970677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_032
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 795
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 558cb6889e08dc34086ca780d33359c5
+      internalID: 1358879813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Attack_033
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 910
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 662c9a9671d2a2e459949d903f39c425
+      internalID: 1768671171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_000
+      rect:
+        serializedVersion: 2
+        x: 1495
+        y: 910
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b1ed5446f537534a9a1876fa934fce0
+      internalID: 1909208851
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_001
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 105
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 362729a5ef9fe344a9aa72bd79cc60f6
+      internalID: -608104412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_002
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 220
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32aafd9d5a9b9ee44b4b4cd272a4a48b
+      internalID: -1973258159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_003
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 335
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4ca2e30db058524bbcbcd9c35a3f038
+      internalID: 2087444206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_004
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 220
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f3fe71caaa8622847956880abefa6b77
+      internalID: 1896003009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_005
+      rect:
+        serializedVersion: 2
+        x: 1725
+        y: 450
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5e25026248b0e44bad93652ff5119aa
+      internalID: 676558976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_006
+      rect:
+        serializedVersion: 2
+        x: 1725
+        y: 565
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6da04c5874a94a540a1c039ca3a9f502
+      internalID: -1693666789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_007
+      rect:
+        serializedVersion: 2
+        x: 1725
+        y: 680
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e6aad5b0c595654a8371f3a546ae53f
+      internalID: -1570851009
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_008
+      rect:
+        serializedVersion: 2
+        x: 1725
+        y: 795
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3afd3365ac07b94dab0ac4055c90e13
+      internalID: 348082907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_009
+      rect:
+        serializedVersion: 2
+        x: 1725
+        y: 910
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d68af36ed3b203c428c43bec11e45204
+      internalID: 991764223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_010
+      rect:
+        serializedVersion: 2
+        x: 1610
+        y: 105
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50bc88a6739845e4ab5f54d783319d2a
+      internalID: -176389172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_011
+      rect:
+        serializedVersion: 2
+        x: 1610
+        y: 220
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44d745860075e7f44afdb3c6060bbab3
+      internalID: 631337504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_012
+      rect:
+        serializedVersion: 2
+        x: 1610
+        y: 335
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eaf69af3d06f5ec45b492c3b09d70df6
+      internalID: 1280659378
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_013
+      rect:
+        serializedVersion: 2
+        x: 1610
+        y: 450
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b96ae04c15dd13246961f5454f0991df
+      internalID: 944620372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_014
+      rect:
+        serializedVersion: 2
+        x: 1610
+        y: 565
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b694fd3ca08185439742446edfba7f5
+      internalID: -818125573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_015
+      rect:
+        serializedVersion: 2
+        x: 1610
+        y: 680
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e6f668b139efe6b42aa1ee11a1696d66
+      internalID: 969497501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_016
+      rect:
+        serializedVersion: 2
+        x: 1610
+        y: 795
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70d350ad19db36641ba262575637dda5
+      internalID: 237973298
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_017
+      rect:
+        serializedVersion: 2
+        x: 1610
+        y: 910
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a3e4b2f4cc98944091f4379c9c98cd8
+      internalID: -397950501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_018
+      rect:
+        serializedVersion: 2
+        x: 1495
+        y: 105
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62b3e7fa529a4ad4e9b42816dd61b113
+      internalID: 198270016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_019
+      rect:
+        serializedVersion: 2
+        x: 1495
+        y: 220
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bcec8313d8ca18c498548e221f357e0c
+      internalID: -62643770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_020
+      rect:
+        serializedVersion: 2
+        x: 1495
+        y: 335
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3dea788f5c1b76458c9624a31728b23
+      internalID: -1653963085
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_021
+      rect:
+        serializedVersion: 2
+        x: 1495
+        y: 450
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e088d15b5dff8a54585cfe63c802ebdc
+      internalID: -555343466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_022
+      rect:
+        serializedVersion: 2
+        x: 1495
+        y: 565
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 571b964091525e045a524b5ed37f7743
+      internalID: -1598114892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_023
+      rect:
+        serializedVersion: 2
+        x: 1495
+        y: 680
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3bdac89e3665b345ab00fe80060c2ed
+      internalID: 742279907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_024
+      rect:
+        serializedVersion: 2
+        x: 1495
+        y: 795
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39161eaf23040564ca894a05f9c0fa09
+      internalID: 397444694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_025
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 450
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59ef0b93b61bafd42a402a02ec996b3b
+      internalID: 380277150
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_026
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 565
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4897ddefb0c8ca4e85465d4bdfd3070
+      internalID: -1712395472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_027
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 680
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07448555190545246abe38e151425c7d
+      internalID: 826413722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Ability_028
+      rect:
+        serializedVersion: 2
+        x: 1380
+        y: 795
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77bd0edf1c46dfe4693fe5167f4e1633
+      internalID: 1554927795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 335
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a74859c538cff2042a255a02d89953a2
+      internalID: 590755678
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 450
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1d6f65a7c563744db93ad371444b8cc
+      internalID: -1481955584
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 565
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 75dfa2c4dd08b404d9077cb3d072b1db
+      internalID: 444347210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 680
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7da53b269d2b844b9e7aba280310638
+      internalID: 869125927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 795
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb7be4fb82f38634786d401a762914b3
+      internalID: 782413087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 920
+        y: 910
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 144f5417a40435c4aa0152e9b8b679d7
+      internalID: -1434787530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 105
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 066d7914bafed22428fefc2134715672
+      internalID: -1985789782
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 1725
+        y: 335
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3405e13a662cc34284e2e6c99552d7a
+      internalID: -963664545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 335
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01577d86ae9402f4dbe60cd1ff1737be
+      internalID: 568882300
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 450
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69e36f45b9e8e6b4a81f9164e643d489
+      internalID: -620476895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 565
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12d13298bdab3c547aede3fb7b01177e
+      internalID: 1722859826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 680
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b084e1a679faa549abb5ed964897fa7
+      internalID: -1922958154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 795
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1afe9ba21037512478d46748fbb3d754
+      internalID: -1853849408
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 805
+        y: 910
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c249a4fcd1af782498a237b3ac5c657d
+      internalID: -592974690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 105
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 900bcad95bd0d5f48ad46064c90b366f
+      internalID: 1697062228
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_015
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 220
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c9f54c00c1d5bc4ab81e4ba0f5d64ef
+      internalID: 642587967
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_016
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 335
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d2cfc7feea1f644d9ed760aa3d90131
+      internalID: 1015351325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_017
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 450
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20a36f51c44a7824cb09b3a301ff22db
+      internalID: -1360750742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_018
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 565
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76f2f995cad15454eabe2c17ec33246a
+      internalID: 100102927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_019
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 680
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bacd3c1711d5e1c4a99cce2e7c86256d
+      internalID: 370800715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_020
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 795
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 203109d3b0dcfe94890bf2d0fb126a15
+      internalID: 1626415934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Plaguegeneral_Dead_021
+      rect:
+        serializedVersion: 2
+        x: 690
+        y: 910
+        width: 114
+        height: 114
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be28e8f5b3c22d3429cfd4de07fa3cac
+      internalID: 1668902062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Plaguegeneral_Ability_000: 1909208851
+      Plaguegeneral_Ability_001: -608104412
+      Plaguegeneral_Ability_002: -1973258159
+      Plaguegeneral_Ability_003: 2087444206
+      Plaguegeneral_Ability_004: 1896003009
+      Plaguegeneral_Ability_005: 676558976
+      Plaguegeneral_Ability_006: -1693666789
+      Plaguegeneral_Ability_007: -1570851009
+      Plaguegeneral_Ability_008: 348082907
+      Plaguegeneral_Ability_009: 991764223
+      Plaguegeneral_Ability_010: -176389172
+      Plaguegeneral_Ability_011: 631337504
+      Plaguegeneral_Ability_012: 1280659378
+      Plaguegeneral_Ability_013: 944620372
+      Plaguegeneral_Ability_014: -818125573
+      Plaguegeneral_Ability_015: 969497501
+      Plaguegeneral_Ability_016: 237973298
+      Plaguegeneral_Ability_017: -397950501
+      Plaguegeneral_Ability_018: 198270016
+      Plaguegeneral_Ability_019: -62643770
+      Plaguegeneral_Ability_020: -1653963085
+      Plaguegeneral_Ability_021: -555343466
+      Plaguegeneral_Ability_022: -1598114892
+      Plaguegeneral_Ability_023: 742279907
+      Plaguegeneral_Ability_024: 397444694
+      Plaguegeneral_Ability_025: 380277150
+      Plaguegeneral_Ability_026: -1712395472
+      Plaguegeneral_Ability_027: 826413722
+      Plaguegeneral_Ability_028: 1554927795
+      Plaguegeneral_Attack_000: -642094418
+      Plaguegeneral_Attack_001: 1723786918
+      Plaguegeneral_Attack_002: -203681852
+      Plaguegeneral_Attack_003: -1967559504
+      Plaguegeneral_Attack_004: -242841873
+      Plaguegeneral_Attack_005: -850523844
+      Plaguegeneral_Attack_006: -286232353
+      Plaguegeneral_Attack_007: -2098411108
+      Plaguegeneral_Attack_008: 2014494178
+      Plaguegeneral_Attack_009: 1907526033
+      Plaguegeneral_Attack_010: 2043835846
+      Plaguegeneral_Attack_011: 1517540839
+      Plaguegeneral_Attack_012: 1260120340
+      Plaguegeneral_Attack_013: 1720118027
+      Plaguegeneral_Attack_014: 1645401515
+      Plaguegeneral_Attack_015: -1178702412
+      Plaguegeneral_Attack_016: 1870512996
+      Plaguegeneral_Attack_017: 1432337919
+      Plaguegeneral_Attack_018: 1734388669
+      Plaguegeneral_Attack_019: 490631331
+      Plaguegeneral_Attack_020: -1244741615
+      Plaguegeneral_Attack_021: -449564567
+      Plaguegeneral_Attack_022: 1600394688
+      Plaguegeneral_Attack_023: 1468916688
+      Plaguegeneral_Attack_024: -1689839836
+      Plaguegeneral_Attack_025: -1317983058
+      Plaguegeneral_Attack_026: -2145980997
+      Plaguegeneral_Attack_027: -719024115
+      Plaguegeneral_Attack_028: 1990130660
+      Plaguegeneral_Attack_029: -566869332
+      Plaguegeneral_Attack_030: 486375409
+      Plaguegeneral_Attack_031: 1365970677
+      Plaguegeneral_Attack_032: 1358879813
+      Plaguegeneral_Attack_033: 1768671171
+      Plaguegeneral_Dead_000: 590755678
+      Plaguegeneral_Dead_001: -1481955584
+      Plaguegeneral_Dead_002: 444347210
+      Plaguegeneral_Dead_003: 869125927
+      Plaguegeneral_Dead_004: 782413087
+      Plaguegeneral_Dead_005: -1434787530
+      Plaguegeneral_Dead_006: -1985789782
+      Plaguegeneral_Dead_007: -963664545
+      Plaguegeneral_Dead_008: 568882300
+      Plaguegeneral_Dead_009: -620476895
+      Plaguegeneral_Dead_010: 1722859826
+      Plaguegeneral_Dead_011: -1922958154
+      Plaguegeneral_Dead_012: -1853849408
+      Plaguegeneral_Dead_013: -592974690
+      Plaguegeneral_Dead_014: 1697062228
+      Plaguegeneral_Dead_015: 642587967
+      Plaguegeneral_Dead_016: 1015351325
+      Plaguegeneral_Dead_017: -1360750742
+      Plaguegeneral_Dead_018: 100102927
+      Plaguegeneral_Dead_019: 370800715
+      Plaguegeneral_Dead_020: 1626415934
+      Plaguegeneral_Dead_021: 1668902062
+      Plaguegeneral_Default_000: 141336872
+      Plaguegeneral_Default_001: -1814201596
+      Plaguegeneral_Default_002: 539879650
+      Plaguegeneral_Default_003: -1547284865
+      Plaguegeneral_Default_004: 778191147
+      Plaguegeneral_Default_005: -2045481950
+      Plaguegeneral_Default_006: 1993963241
+      Plaguegeneral_Default_007: -576768932
+      Plaguegeneral_Default_008: 2137054123
+      Plaguegeneral_Default_009: -1929113849
+      Plaguegeneral_Default_010: 2043380721
+      Plaguegeneral_Default_011: -681281705
+      Plaguegeneral_Default_012: -1290188739
+      Plaguegeneral_Default_013: 2082712264
+      Plaguegeneral_Move_000: 1470164212
+      Plaguegeneral_Move_001: 1696408423
+      Plaguegeneral_Move_002: 2145119450
+      Plaguegeneral_Move_003: 343142855
+      Plaguegeneral_Move_004: -972547325
+      Plaguegeneral_Move_005: -417907225
+      Plaguegeneral_Move_006: 1885098322
+      Plaguegeneral_Move_007: -466117018
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

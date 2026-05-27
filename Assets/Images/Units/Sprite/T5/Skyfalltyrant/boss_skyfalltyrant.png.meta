@@ -1,0 +1,1544 @@
+fileFormatVersion: 2
+guid: f703ac644d99d014b96faa98cc6a161d
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Skyfalltyrant_Default_000
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97e1eb6e4231fd24b990fa3e72f11e5e
+      internalID: -1648543559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Default_001
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e7e84a2678beb054bab4a081db065a90
+      internalID: 1377301811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Default_002
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2532afefacca6144b05cc3ffdd20ea4
+      internalID: -1428131070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Default_003
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0001beb163c284240a79db25633764c9
+      internalID: 1800955312
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Default_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d84f07e7223713e418ff4a0a4cf7df06
+      internalID: -2042415246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Default_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: faf336e20b51fda42922f9808f10b10c
+      internalID: -892580327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Default_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 105aa220faf5f814b9035d09abc31cc0
+      internalID: 2144940183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Default_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d650945e87d078c449ca28acd4180386
+      internalID: 1102353752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Default_008
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 975a1a51fdf462047bd3952d976f3c8a
+      internalID: -415730376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Default_009
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edb1d6cfd6fa1274ea322de067acd810
+      internalID: -240431877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Default_010
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 038e5c5552ac1ed44adbd4baac75c0ab
+      internalID: -1226206021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Default_011
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: eca40c2270377a343b1e47f5500409ae
+      internalID: 1015600179
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Default_012
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 861421f84b4c63c41a7b9cafbad4ef28
+      internalID: 1464627618
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Default_013
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4b29de3a7c4978419c840d436adfe63
+      internalID: 972936720
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Move_000
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6700da3624f6b0748bc1b881aa433102
+      internalID: 1772371982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Move_001
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90efcb42a8b470b4bb31c84805da2ddd
+      internalID: 1310269432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Move_002
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a72aa0e2141245c47b659d646929f32e
+      internalID: -835453962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Move_003
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69b613831c88c6b458c278557cb0b722
+      internalID: 988579353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Move_004
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab2ebd4a3aca5584d903e97c41206fda
+      internalID: 1398166164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Move_005
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b93ead8ff660e154da5d4e916545a6f7
+      internalID: -1592830737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Move_006
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67e0d15d453573849b674fa877362c1e
+      internalID: 846259880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Move_007
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58c755e71fc36ee4980f86804c6c372f
+      internalID: 1255323489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 599f2ef4dfcb23a488cfb9c2a43bd0c3
+      internalID: -1220684882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b37891c3620bca3459c4058152e58268
+      internalID: -516080267
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 709d8726d53d28d4c804811e0121dc51
+      internalID: 150861642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7be58cad7f25d4042b5087ae61f9dfb2
+      internalID: -2011988816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a7454c4a9208f743ab6c335cc0465c8
+      internalID: 1605558020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 167ba7ae8c8f3d4439e9531a9874d823
+      internalID: 670139715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19d77e6f68fa1c947a95c69d79c24996
+      internalID: 860244943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6993b8328d29fe9429316ed9f3ac6970
+      internalID: -1360155309
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08dd8002a105ea04b8fa8562b9e5ef82
+      internalID: -480792930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fd5b21c5c515864a85104d9031fe836
+      internalID: -1227337467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a2a44eee7d5ca94c9283ed0a85eee98
+      internalID: -1512654427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad4b295872015ed418e42cf9d9a77fc0
+      internalID: -546767763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f85de1587a5dce44cb901a42dcffa7fe
+      internalID: 637649989
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6f66f7f1b64216439f5094f83795fd2
+      internalID: 657562634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47653d599d769ed4f8f591dcdf523326
+      internalID: -967971613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67c2abda24cf86146a0215d56e321d4a
+      internalID: 175785412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b01b28732a868c4a9a1df2b092f2904
+      internalID: -1181045923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46d244ce819133349a6b0f929cba6e36
+      internalID: 1987584248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c32ad528ed84f2d44bf0e409cd0e796a
+      internalID: -812631718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08614198fffbef642b782bcf298cc2a5
+      internalID: 1288351839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bacaae3cfa34b0948ae60a1f508b8362
+      internalID: -1393473523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b9e44ccacd53cd41ba2bc93de9eab11
+      internalID: 229220118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64a146319942b834a90b05df9d7d172c
+      internalID: 531733284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_023
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33211eee7fc5cbb4b80d7595dcc8a3c6
+      internalID: -1020255070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_024
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bef259d05e5854b42950cb2d769a073a
+      internalID: 252277047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_025
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2b15bf45d509054d91976b57868fbda
+      internalID: -853163531
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_026
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39c23deb2cc58c3469540130540db8df
+      internalID: -182018370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_027
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b3ef97cb09ed0854291a8bb4bb21581c
+      internalID: 1568705862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_028
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f75ad2198db32154ab238f27ef2ea79d
+      internalID: 21213295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_029
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f4b15fa5ced53946be5fe5182512369
+      internalID: -1499663881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_030
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fb44a225a520944a8406f07e96f0f32
+      internalID: 1757898729
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Attack_031
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65df6af4480857a4eb65eb0b05e3af9a
+      internalID: -984334612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59d315a769ed8e1469959ee8e4a7535d
+      internalID: 268880295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f74e5d8da415544c8a7941bd0a3dbf0
+      internalID: -902078035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46b68e7f09dd7ee469e094b02a129a1e
+      internalID: -1502005224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b458427748a9b85438cea69b363cf365
+      internalID: 1746465215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64f615d954c834242a990986c0d38a98
+      internalID: 634256389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f556311e08013941b3e8ecc7b663a39
+      internalID: -150824876
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 614f23ea79be87742989cfafffaa8025
+      internalID: 476696004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd6fdce4a4091ed42ab192c57b4936ff
+      internalID: -1136572020
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d67aae69457ea7469dc7509d1cc290a
+      internalID: 902618048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0d0b7fd6cd9c724da50529982f83e15
+      internalID: 1824360660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Skyfalltyrant_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5eb20dc73aa46448b90dc92016d9329
+      internalID: -1915613397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Skyfalltyrant_Attack_000: -1220684882
+      Skyfalltyrant_Attack_001: -516080267
+      Skyfalltyrant_Attack_002: 150861642
+      Skyfalltyrant_Attack_003: -2011988816
+      Skyfalltyrant_Attack_004: 1605558020
+      Skyfalltyrant_Attack_005: 670139715
+      Skyfalltyrant_Attack_006: 860244943
+      Skyfalltyrant_Attack_007: -1360155309
+      Skyfalltyrant_Attack_008: -480792930
+      Skyfalltyrant_Attack_009: -1227337467
+      Skyfalltyrant_Attack_010: -1512654427
+      Skyfalltyrant_Attack_011: -546767763
+      Skyfalltyrant_Attack_012: 637649989
+      Skyfalltyrant_Attack_013: 657562634
+      Skyfalltyrant_Attack_014: -967971613
+      Skyfalltyrant_Attack_015: 175785412
+      Skyfalltyrant_Attack_016: -1181045923
+      Skyfalltyrant_Attack_017: 1987584248
+      Skyfalltyrant_Attack_018: -812631718
+      Skyfalltyrant_Attack_019: 1288351839
+      Skyfalltyrant_Attack_020: -1393473523
+      Skyfalltyrant_Attack_021: 229220118
+      Skyfalltyrant_Attack_022: 531733284
+      Skyfalltyrant_Attack_023: -1020255070
+      Skyfalltyrant_Attack_024: 252277047
+      Skyfalltyrant_Attack_025: -853163531
+      Skyfalltyrant_Attack_026: -182018370
+      Skyfalltyrant_Attack_027: 1568705862
+      Skyfalltyrant_Attack_028: 21213295
+      Skyfalltyrant_Attack_029: -1499663881
+      Skyfalltyrant_Attack_030: 1757898729
+      Skyfalltyrant_Attack_031: -984334612
+      Skyfalltyrant_Dead_000: 268880295
+      Skyfalltyrant_Dead_001: -902078035
+      Skyfalltyrant_Dead_002: -1502005224
+      Skyfalltyrant_Dead_003: 1746465215
+      Skyfalltyrant_Dead_004: 634256389
+      Skyfalltyrant_Dead_005: -150824876
+      Skyfalltyrant_Dead_006: 476696004
+      Skyfalltyrant_Dead_007: -1136572020
+      Skyfalltyrant_Dead_008: 902618048
+      Skyfalltyrant_Dead_009: 1824360660
+      Skyfalltyrant_Dead_010: -1915613397
+      Skyfalltyrant_Default_000: -1648543559
+      Skyfalltyrant_Default_001: 1377301811
+      Skyfalltyrant_Default_002: -1428131070
+      Skyfalltyrant_Default_003: 1800955312
+      Skyfalltyrant_Default_004: -2042415246
+      Skyfalltyrant_Default_005: -892580327
+      Skyfalltyrant_Default_006: 2144940183
+      Skyfalltyrant_Default_007: 1102353752
+      Skyfalltyrant_Default_008: -415730376
+      Skyfalltyrant_Default_009: -240431877
+      Skyfalltyrant_Default_010: -1226206021
+      Skyfalltyrant_Default_011: 1015600179
+      Skyfalltyrant_Default_012: 1464627618
+      Skyfalltyrant_Default_013: 972936720
+      Skyfalltyrant_Move_000: 1772371982
+      Skyfalltyrant_Move_001: 1310269432
+      Skyfalltyrant_Move_002: -835453962
+      Skyfalltyrant_Move_003: 988579353
+      Skyfalltyrant_Move_004: 1398166164
+      Skyfalltyrant_Move_005: -1592830737
+      Skyfalltyrant_Move_006: 846259880
+      Skyfalltyrant_Move_007: 1255323489
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

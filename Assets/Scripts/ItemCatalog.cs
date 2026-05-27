@@ -36,7 +36,7 @@ public static class ItemCatalog
             ItemData.Defense(
                 "iron_bulwark",
                 "Iron Bulwark",
-                "HP +300 / 被ダメージ -8%",
+                "HP +300 / 被ダメージ -8% / 戦闘開始時に最大HP12%のシールド",
                 "ItemIcons/artifact_f1_bigshield",
                 300,
                 0f,
@@ -45,7 +45,7 @@ public static class ItemCatalog
             ItemData.Defense(
                 "frostguard_plate",
                 "Frostguard Plate",
-                "HP +220 / 被ダメージ -12%",
+                "HP +220 / 被ダメージ -12% / 被弾時に攻撃者を鈍化",
                 "ItemIcons/artifact_boss_frostarmor",
                 220,
                 0f,
@@ -54,7 +54,7 @@ public static class ItemCatalog
             ItemData.Defense(
                 "eternal_heart",
                 "Eternal Heart",
-                "HP +500",
+                "HP +500 / 戦闘中に継続回復",
                 "ItemIcons/artifact_f5_eternalheart",
                 500,
                 0f,
@@ -63,7 +63,7 @@ public static class ItemCatalog
             ItemData.Defense(
                 "iridium_scale",
                 "Iridium Scale",
-                "最大HP +18% / 被ダメージ -5%",
+                "最大HP +18% / 被ダメージ -5% / 回復とシールドを強化",
                 "ItemIcons/artifact_f5_irridiumscale",
                 0,
                 0.18f,
@@ -72,7 +72,7 @@ public static class ItemCatalog
             ItemData.Defense(
                 "phalanx_aegis",
                 "Phalanx Aegis",
-                "HP +250 / 被ダメージ -10%",
+                "HP +250 / 被ダメージ -10% / 周囲の味方を守る",
                 "ItemIcons/artifact_f1_shieldofphalanx",
                 250,
                 0f,
@@ -81,7 +81,7 @@ public static class ItemCatalog
             ItemData.Offense(
                 "spine_cleaver",
                 "Spine Cleaver",
-                "攻撃力 +30",
+                "攻撃力 +30 / 通常攻撃で対象の軽減を下げる",
                 "ItemIcons/artifact_f3_spinecleaver",
                 30,
                 0f,
@@ -90,7 +90,7 @@ public static class ItemCatalog
             ItemData.Offense(
                 "skywind_glaives",
                 "Skywind Glaives",
-                "攻撃速度 +18%",
+                "攻撃速度 +18% / 4回ごとに追加の風刃",
                 "ItemIcons/artifact_f1_skywindglaives",
                 0,
                 0f,
@@ -99,7 +99,7 @@ public static class ItemCatalog
             ItemData.Offense(
                 "godhammer",
                 "Godhammer",
-                "攻撃力 +45 / 攻撃速度 +8%",
+                "攻撃力 +45 / 攻撃速度 +8% / 5回ごとにスタン",
                 "ItemIcons/artifact_f5_godhammer",
                 45,
                 0f,
@@ -108,7 +108,7 @@ public static class ItemCatalog
             ItemData.Offense(
                 "adamantine_claws",
                 "Adamantine Claws",
-                "攻撃力 +25%",
+                "攻撃力 +25% / 同じ敵を攻撃し続けると火力上昇",
                 "ItemIcons/artifact_f5_adamantineclaws",
                 0,
                 0.25f,
@@ -117,7 +117,7 @@ public static class ItemCatalog
             ItemData.Offense(
                 "rage_chakram",
                 "Rage Chakram",
-                "攻撃力 +15 / 攻撃速度 +22%",
+                "攻撃力 +15 / 攻撃速度 +22% / 撃破時に攻撃速度上昇",
                 "ItemIcons/artifact_f4_ragechackram",
                 15,
                 0f,
@@ -126,7 +126,7 @@ public static class ItemCatalog
             ItemData.Skill(
                 "unbounded_amulet",
                 "Unbounded Amulet",
-                "秘力 +15% / 通常攻撃マナ +12",
+                "秘力 +15% / 通常攻撃マナ +12 / スキル後に追加マナ",
                 "ItemIcons/artifact_f2_unboundedenergyamulet",
                 0.15f,
                 12,
@@ -136,7 +136,7 @@ public static class ItemCatalog
             ItemData.Skill(
                 "ykir_staff",
                 "Ykir Staff",
-                "秘力 +25%",
+                "秘力 +25% / 初回スキル強化",
                 "ItemIcons/artifact_f3_staffofykir",
                 0.25f,
                 0,
@@ -146,7 +146,7 @@ public static class ItemCatalog
             ItemData.Skill(
                 "thunderclap_scepter",
                 "Thunderclap Scepter",
-                "秘力 +18% / 被弾マナ +8",
+                "秘力 +18% / 被弾マナ +8 / 被弾回数で小雷撃",
                 "ItemIcons/artifact_f3_thunderclap",
                 0.18f,
                 0,
@@ -156,7 +156,7 @@ public static class ItemCatalog
             ItemData.Skill(
                 "repair_staff",
                 "Repair Staff",
-                "秘力 +20% / 通常攻撃マナ +8",
+                "秘力 +20% / 通常攻撃マナ +8 / スキル時に追加回復",
                 "ItemIcons/artifact_f3_repairstaff",
                 0.20f,
                 8,
@@ -166,7 +166,7 @@ public static class ItemCatalog
             ItemData.Skill(
                 "darkstone_ring",
                 "Darkstone Ring",
-                "秘力 +10% / 必要マナ -20",
+                "秘力 +10% / 必要マナ -20 / 戦闘開始時MP獲得",
                 "ItemIcons/artifact_f4_darkstonering",
                 0.10f,
                 0,

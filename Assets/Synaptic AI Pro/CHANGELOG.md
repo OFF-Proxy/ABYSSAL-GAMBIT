@@ -5,6 +5,35 @@ All notable changes to Synaptic AI Pro for Unity will be documented in this file
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.2.23] - 2026-05-22
+
+### Fixed (ESC-0107: `run_csharp` returned `result: null` for almost every snippet)
+- **Return-value capture**: `Mono.CSharp.Evaluator.Run` discards return values, so `return X;` snippets always reported null. New approach: detect the last top-level `return` keyword (depth-aware: skips braces, parens, brackets, strings, comments) and rewrite `[prefix...] return X;` → `[prefix...] SynapticPro.NexusCSharpEval.__SetResult(X);`. Run the rewritten statements, then read the static sink back into the response. Captures values from `foreach (...) { ... } return Y;` (with braces), `if (...) { ... } return X;`, multi-statement bodies with multiplication (`var x = 5; return x * 2;`), and the simple `return "hello";` case.
+- **Bare-expression mode preserved**: snippets without `;` still go through `Evaluator.Evaluate` directly.
+- **`Debug.Log` output capture**: `Application.logMessageReceived` is now subscribed while a `Run` call is in progress so `Debug.Log` / `LogWarning` / `LogError` lines are mirrored into the `output` field. Previously only `Console.Out` was captured, which Unity's logging doesn't route through.
+
+### Fixed (ESC-0108: HTTP server WebSocket dies after ~30s)
+- `http-server.js` heartbeat replaced `ws.ping()/pong` with last-message-seen timestamps. Mono `ClientWebSocket` doesn't auto-pong protocol-level pings (unlike .NET 5+), so the Node side terminated the link every interval. New `UNITY_STALE_TIMEOUT_MS` (default 60s) only closes when no inbound frame arrives — Unity already emits heartbeat / operation-response traffic, so live connections stay open.
+
+### Fixed (HTTP server died on macOS/Linux during domain reload)
+- Replaced `Process.Start` with piped stdout/stderr with a `nohup node ... >log 2>&1 </dev/null &` detach. The previous pipe wiring caused node to hit SIGPIPE on the next write after Unity's C# domain reloaded, killing the HTTP server every recompile.
+
+### Fixed (Auto-reconnect didn't engage on fresh installs)
+- `enableMCP` default flipped from `false` to `true`. Unity is always a CLIENT of the MCP server (port 8090), so the opt-in master switch was a UX trap — Auto Reconnect checkbox couldn't take effect until users found `Tools > Synaptic Pro > MCP Server: Start`.
+- Manual `AI Reconnect` and the new `Auto Reconnect` toggle in Setup → AI Connection also force `enableMCP = true` so the next domain reload doesn't revert.
+- Successful `ConnectToMCPServer` persists `enableMCP=true`.
+
+### Fixed (Port-mapping JSON corruption infinite loop)
+- `NexusProjectPortManager.LoadMapping` recovery now deletes `.backup` before `File.Move` (Windows otherwise threw on existing target, the silent catch left the corrupt file in place, and the next frame parsed it again — Console flooded at frame rate). Also writes a fresh empty mapping immediately so subsequent readers see valid JSON.
+
+### Added
+- **Setup Window → AI Connection tab → Connection Controls Bar**: live MCP connection status, `AI Reconnect` button (silent), `Auto Reconnect` checkbox, `Discord` shortcut. Surfaces the Tools-menu items where users already troubleshoot. `MCP Server: Start/Stop` stays in the menu (advanced).
+
+### Limitations
+- `Mono.CSharp.Evaluator` (Unity 2022+ Mono build) does not parse generic TYPE instantiation: `new List<int>()`, `new Dictionary<K, V>()`, `new HashSet<T>()` silently return `result: null`. Workarounds: use arrays (`new int[] {1, 2, 3}`), `System.Collections.ArrayList`, or generic METHOD calls which DO work (`FindObjectsByType<GameObject>(...)`, `GetComponent<T>()`).
+
+---
+
 ## [1.2.22] - 2026-05-21 — Emergency Hotfix
 
 ### Critical Fix

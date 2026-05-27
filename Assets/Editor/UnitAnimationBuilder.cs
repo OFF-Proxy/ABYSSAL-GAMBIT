@@ -21,6 +21,7 @@ public static class UnitAnimationBuilder
     private const string Team2OutlineMaterialPath = "Assets/Materials/UnitOutlineTeam2.mat";
     private const string EntityDatabasePath = "Assets/Resources/Entity Database.asset";
     private const string OutlineShaderName = "AutoChess/SpriteOutline";
+    private const string ReferenceUnitFolder = "reference/duelyst/app/resources/units";
 
     private static readonly Dictionary<string, string> PlistAnimationPrefixes = new Dictionary<string, string>
     {
@@ -60,7 +61,28 @@ public static class UnitAnimationBuilder
         new PlistAtlasAnimationSpec("Tier2general", "f6_tier2general", "T3", 3, 4, "Assets/Prefabs/Unit/T2/Crystal.prefab", 290, 1400, 1f, 1f, 1.12f),
         new PlistAtlasAnimationSpec("Snowchasermk", "f6_snowchasermk2", "T4", 4, 4, "Assets/Prefabs/Unit/T3/Decepticleprime.prefab", 360, 2200, 1.02f, 1.05f, 1.3f),
         new PlistAtlasAnimationSpec("Solfist", "boss_solfist", "T4", 4, 1, "Assets/Prefabs/Unit/T3/Skindogehai.prefab", 320, 2850, 0.9f, 0.9f, 1.18f),
-        new PlistAtlasAnimationSpec("Maehvmk", "f4_maehvmk2", "T4", 4, 4, "Assets/Prefabs/Unit/T3/Decepticleprime.prefab", 390, 2100, 1f, 1f, 1.15f)
+        new PlistAtlasAnimationSpec("Maehvmk", "f4_maehvmk2", "T4", 4, 4, "Assets/Prefabs/Unit/T3/Decepticleprime.prefab", 390, 2100, 1f, 1f, 1.15f),
+        new PlistAtlasAnimationSpec("Archdeacon", "f1_archdeacon", "T1", 1, 4, "Assets/Prefabs/Unit/T1/Andromeda.prefab", 55, 620, 0.65f, 0.95f, 1.02f),
+        new PlistAtlasAnimationSpec("Backlinearcher", "f1_backlinearcher", "T1", 1, 4, "Assets/Prefabs/Unit/T1/Andromeda.prefab", 85, 580, 0.8f, 1f, 1.02f),
+        new PlistAtlasAnimationSpec("Auroralioness", "f1_auroralioness", "T1", 1, 1, "Assets/Prefabs/Unit/T1/Christmas.prefab", 75, 880, 0.78f, 1.1f, 1.08f),
+        new PlistAtlasAnimationSpec("Azuritelion", "f1_azuritelion", "T1", 1, 1, "Assets/Prefabs/Unit/T1/Borealjuggernaut.prefab", 65, 980, 0.72f, 1f, 1.1f),
+        new PlistAtlasAnimationSpec("Sandpanther", "boss_sandpanther", "T2", 2, 1, "Assets/Prefabs/Unit/T2/Serpenti.prefab", 155, 1300, 0.82f, 1.15f, 1.1f),
+        new PlistAtlasAnimationSpec("Protector", "boss_protector", "T2", 2, 1, "Assets/Prefabs/Unit/T2/Decepticle.prefab", 120, 1650, 0.68f, 0.95f, 1.16f),
+        new PlistAtlasAnimationSpec("Taskmaster", "boss_taskmaster", "T2", 2, 1, "Assets/Prefabs/Unit/T2/Umbra.prefab", 170, 1400, 0.76f, 1.05f, 1.12f),
+        new PlistAtlasAnimationSpec("Kane", "boss_kane", "T3", 3, 1, "Assets/Prefabs/Unit/T2/Protector.prefab", 240, 2100, 0.7f, 1f, 1.18f),
+        new PlistAtlasAnimationSpec("Malyk", "boss_malyk", "T3", 3, 4, "Assets/Prefabs/Unit/T2/Cindera.prefab", 310, 1500, 0.68f, 1f, 1.12f),
+        new PlistAtlasAnimationSpec("Paragon", "boss_paragon", "T3", 3, 1, "Assets/Prefabs/Unit/T2/Protector.prefab", 210, 2300, 0.7f, 0.95f, 1.18f),
+        new PlistAtlasAnimationSpec("Wujin", "boss_wujin", "T4", 4, 1, "Assets/Prefabs/Unit/T3/Shadowlord.prefab", 380, 2700, 0.74f, 1.1f, 1.2f),
+        new PlistAtlasAnimationSpec("Wraith", "boss_wraith", "T4", 4, 4, "Assets/Prefabs/Unit/T3/Malyk.prefab", 420, 2200, 0.7f, 1.05f, 1.16f),
+        new PlistAtlasAnimationSpec("Altgeneraltier2", "f6_altgeneraltier2", "T1", 1, 1, "Assets/Prefabs/Unit/T1/Chaosknight.prefab", 72, 860, 0.78f, 1.02f, 0.82f),
+        new PlistAtlasAnimationSpec("Ilenamk2", "f6_ilenamk2", "T3", 3, 4, "Assets/Prefabs/Unit/T2/Cindera.prefab", 300, 1500, 0.76f, 1.02f, 0.82f),
+        new PlistAtlasAnimationSpec("Embergeneral", "f3_tier2general", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Solfist.prefab", 640, 4300, 0.76f, 1.02f, 0.72f),
+        new PlistAtlasAnimationSpec("Plaguegeneral", "f5_tier2general", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Wujin.prefab", 610, 4600, 0.72f, 0.98f, 0.74f),
+        new PlistAtlasAnimationSpec("Skyfalltyrant", "boss_skyfalltyrant", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Solfist.prefab", 520, 4200, 0.64f, 0.9f, 1.28f),
+        new PlistAtlasAnimationSpec("Kron", "boss_kron", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Solfist.prefab", 560, 4500, 0.6f, 0.85f, 1.3f),
+        new PlistAtlasAnimationSpec("Gol", "boss_gol", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Solfist.prefab", 500, 5000, 0.55f, 0.8f, 1.32f),
+        new PlistAtlasAnimationSpec("Invader", "boss_invader", "T5", 5, 4, "Assets/Prefabs/Unit/T4/Maehvmk.prefab", 620, 3600, 0.62f, 1f, 1.22f),
+        new PlistAtlasAnimationSpec("Legion", "boss_legion", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Wujin.prefab", 580, 4000, 0.68f, 1.05f, 1.24f)
     };
 
     [MenuItem("Tools/AutoChess/Build Listed Unit Animations")]
@@ -216,6 +238,9 @@ public static class UnitAnimationBuilder
         UnitAnimationSpec spec = new UnitAnimationSpec(atlasSpec);
         Directory.CreateDirectory(spec.AnimationFolder);
 
+        if (!EnsurePlistAtlasFiles(atlasSpec))
+            return false;
+
         if (!EnsurePrefabAsset(atlasSpec))
             return false;
 
@@ -365,6 +390,40 @@ public static class UnitAnimationBuilder
         }
 
         return result;
+    }
+
+    private static bool EnsurePlistAtlasFiles(PlistAtlasAnimationSpec spec)
+    {
+        Directory.CreateDirectory(spec.SpriteFolder);
+
+        bool copiedAny = false;
+        if (!EnsureReferenceFileCopied(spec, ".png", spec.AtlasPath, ref copiedAny))
+            return false;
+
+        if (!EnsureReferenceFileCopied(spec, ".plist", spec.PlistPath, ref copiedAny))
+            return false;
+
+        if (copiedAny)
+            AssetDatabase.Refresh();
+
+        return true;
+    }
+
+    private static bool EnsureReferenceFileCopied(PlistAtlasAnimationSpec spec, string extension, string destinationPath, ref bool copiedAny)
+    {
+        if (File.Exists(destinationPath))
+            return true;
+
+        string sourcePath = Path.Combine(ReferenceUnitFolder, spec.SourcePrefix + extension).Replace("\\", "/");
+        if (!File.Exists(sourcePath))
+        {
+            Debug.LogWarning($"{spec.UnitName} source file not found: {sourcePath}");
+            return false;
+        }
+
+        File.Copy(sourcePath, destinationPath, false);
+        copiedAny = true;
+        return true;
     }
 
     private static PlistAtlasAnimationSpec GetPlistAtlasSpec(string unitName)
@@ -1142,14 +1201,23 @@ public static class UnitAnimationBuilder
             Sprite icon = LoadIconForSpec(spec) ?? existingEntry.icon;
             Sprite frame = LoadFrameForSpec(spec) ?? existingEntry.frame ?? fallbackFrame;
 
-            entries.Add(new EntitiesDatabaseSO.EntityData
+            EntitiesDatabaseSO.EntityData syncedEntry = new EntitiesDatabaseSO.EntityData
             {
                 prefab = entityPrefab,
                 name = spec.UnitName,
                 icon = icon,
                 cost = spec.Cost,
-                frame = frame
-            });
+                frame = frame,
+                synergy1 = existingEntry.synergy1,
+                synergy2 = existingEntry.synergy2,
+                synergy3 = existingEntry.synergy3
+            };
+
+            List<SynergyType> synergies = SynergyManager.GetSynergiesForEntityData(syncedEntry);
+            syncedEntry.synergy1 = synergies.Count > 0 ? synergies[0] : SynergyType.None;
+            syncedEntry.synergy2 = synergies.Count > 1 ? synergies[1] : SynergyType.None;
+            syncedEntry.synergy3 = synergies.Count > 2 ? synergies[2] : SynergyType.None;
+            entries.Add(syncedEntry);
         }
 
         database.allEntities = entries;
@@ -1282,7 +1350,8 @@ public static class UnitAnimationBuilder
             string.Equals(unitName, "Cindera", StringComparison.OrdinalIgnoreCase) ||
             string.Equals(unitName, "Spelleater", StringComparison.OrdinalIgnoreCase) ||
             string.Equals(unitName, "Decepticleprime", StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(unitName, "Tier2general", StringComparison.OrdinalIgnoreCase))
+            string.Equals(unitName, "Tier2general", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(unitName, "Ilenamk2", StringComparison.OrdinalIgnoreCase))
         {
             return 4;
         }

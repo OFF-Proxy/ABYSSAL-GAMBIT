@@ -20,6 +20,12 @@ public class EntitiesDatabaseSO : ScriptableObject
         public int cost;
         // ショップカードに表示するコスト別フレーム画像です。
         public Sprite frame;
+        // ユニットが持つ1つ目のシナジーです。Noneなら未設定として扱います。
+        public SynergyType synergy1;
+        // ユニットが持つ2つ目のシナジーです。Noneなら未設定として扱います。
+        public SynergyType synergy2;
+        // 一部ユニットだけが持つ3つ目のシナジーです。Noneなら未設定として扱います。
+        public SynergyType synergy3;
     }
 
     // ゲームで使える全ユニットの一覧です。

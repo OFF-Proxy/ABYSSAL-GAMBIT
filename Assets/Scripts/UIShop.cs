@@ -28,6 +28,9 @@ public class UIShop : MonoBehaviour
     private int refreshCost = 2;
     private int expCost = 4;
     private int expAmount = 4;
+    private ExpPurchaseMode expPurchaseMode = ExpPurchaseMode.Single;
+    private Button expModeButton;
+    private TextMeshProUGUI expModeButtonText;
 
     // ショップに出る可能性がある最大コストです。後でコスト5まで増やす想定です。
     private const int MaxShopCost = 5;
@@ -66,6 +69,8 @@ public class UIShop : MonoBehaviour
 
         // Inspectorで参照が抜けていても動くよう、必要なUIを探して補完します。
         EnsureExpControls();
+        EnsureExpModeToggle();
+        EnsureShopButtonTweens();
         NormalizeShopTextLayout();
         EnsureSellPreviewText();
         CacheSellModeHiddenObjects();
@@ -87,6 +92,7 @@ public class UIShop : MonoBehaviour
         Refresh();
         LocalizationManager.ApplyStaticTextTranslations();
         NormalizeShopTextLayout();
+        PlayShopButtonAppearTweens();
     }
 
     // ショップ破棄時にイベント購読を解除します。
@@ -119,7 +125,15 @@ public class UIShop : MonoBehaviour
                 allCards[i].gameObject.SetActive(true);
 
             // 現在レベルの排出率に従って、カードにユニットを設定します。
-            allCards[i].Setup(GetRandomEntityForCurrentLevel(), this);
+            EntitiesDatabaseSO.EntityData entityData = GetRandomEntityForCurrentLevel();
+            if (entityData.prefab == null)
+            {
+                allCards[i].gameObject.SetActive(false);
+                continue;
+            }
+
+            allCards[i].Setup(entityData, this);
+            allCards[i].PlayAppearAnimation(i * 0.035f);
         }
 
         // 引き直したカードの中にスターアップ可能なユニットがあれば光らせます。
@@ -130,6 +144,15 @@ public class UIShop : MonoBehaviour
     private EntitiesDatabaseSO.EntityData GetRandomEntityForCurrentLevel()
     {
         int targetCost = RollShopCostForCurrentLevel();
+        if (TryGetRandomAvailableEntity(targetCost, out EntitiesDatabaseSO.EntityData entityData))
+            return entityData;
+
+        return default(EntitiesDatabaseSO.EntityData);
+    }
+
+    // 指定コストを優先しつつ、ショップに出せるユニットを1体選びます。
+    private bool TryGetRandomAvailableEntity(int targetCost, out EntitiesDatabaseSO.EntityData entityData)
+    {
         List<EntitiesDatabaseSO.EntityData> candidates = GetEntitiesByCost(targetCost);
 
         // まだ該当コストのユニットが未実装なら、近いコストのユニットで代用します。
@@ -144,9 +167,13 @@ public class UIShop : MonoBehaviour
             candidates = cachedDb.allEntities.Where(IsShopEntityUnlocked).ToList();
 
         if (candidates.Count == 0)
-            candidates = cachedDb.allEntities;
+        {
+            entityData = default(EntitiesDatabaseSO.EntityData);
+            return false;
+        }
 
-        return candidates[Random.Range(0, candidates.Count)];
+        entityData = candidates[Random.Range(0, candidates.Count)];
+        return entityData.prefab != null;
     }
 
     // プレイヤーレベルに応じた確率表から、今回出すユニットのコストを抽選します。
@@ -257,8 +284,12 @@ public class UIShop : MonoBehaviour
         if (sellModeActive || PlayerData.Instance == null)
             return;
 
+        bool bulkToNextLevel = expPurchaseMode == ExpPurchaseMode.BulkToNextLevel;
+        if (bulkToNextLevel && !PlayerData.Instance.CanBulkBuyExpToNextLevel(expAmount, expCost))
+            return;
+
         // PlayerData側で所持金と最大レベルを確認し、成功したらSEを鳴らします。
-        if (PlayerData.Instance.TryBuyExp(expAmount, expCost))
+        if (PlayerData.Instance.TryBuyExp(expAmount, expCost, bulkToNextLevel))
             AttackEffectPlayer.PlayUiSfx("exp_buy");
     }
 
@@ -296,14 +327,22 @@ public class UIShop : MonoBehaviour
         }
 
         if (expButton != null)
-            expButton.interactable = PlayerData.Instance.CanBuyExp(expCost);
+        {
+            expButton.interactable = expPurchaseMode == ExpPurchaseMode.BulkToNextLevel
+                ? PlayerData.Instance.CanBulkBuyExpToNextLevel(expAmount, expCost)
+                : PlayerData.Instance.CanBuyExp(expCost);
+        }
 
         NormalizeShopTextLayout();
+        RefreshExpModeToggle();
+        RefreshExpButtonCostText();
     }
 
     // 現在ショップに表示されているカードが、買うとスターアップできるかを調べて強調します。
     private void UpdateUpgradeHighlights()
     {
+        ReplaceBlockedStarThreeCards();
+
         for (int i = 0; i < allCards.Count; i++)
         {
             UICard card = allCards[i];
@@ -311,6 +350,33 @@ public class UIShop : MonoBehaviour
                 continue;
 
             card.SetUpgradeReady(GameManager.Instance.GetUpgradePreviewStarWithPurchase(card.EntityName));
+        }
+    }
+
+    // ★3を所有しているユニットが表示中なら、そのカードだけ別候補へ差し替えます。
+    private void ReplaceBlockedStarThreeCards()
+    {
+        if (GameManager.Instance == null || cachedDb == null || cachedDb.allEntities == null)
+            return;
+
+        for (int i = 0; i < allCards.Count; i++)
+        {
+            UICard card = allCards[i];
+            if (card == null || !card.gameObject.activeSelf || !card.HasData)
+                continue;
+
+            if (GameManager.Instance.IsEntityUnlockedForShop(card.EntityData))
+                continue;
+
+            if (TryGetRandomAvailableEntity(card.EntityCost, out EntitiesDatabaseSO.EntityData replacementData))
+            {
+                card.Setup(replacementData, this);
+                card.PlayAppearAnimation(i * 0.025f);
+            }
+            else
+            {
+                card.gameObject.SetActive(false);
+            }
         }
     }
 
@@ -427,6 +493,8 @@ public class UIShop : MonoBehaviour
         UpdateUpgradeHighlights();
         LocalizationManager.ApplyStaticTextTranslations();
         NormalizeShopTextLayout();
+        RefreshExpModeToggle();
+        RefreshExpButtonCostText();
     }
 
     // EXPボタンやレベル/EXP表示の参照を探し、ボタンイベントを登録します。
@@ -463,6 +531,160 @@ public class UIShop : MonoBehaviour
             if (levelText == null)
                 levelText = FindTextMeshProByNameOrText("PlayerLevel", "Lv", "LV", "Level");
         }
+    }
+
+    // 通常の4EXP購入と、次レベルまでの一括購入を切り替える小さなボタンを作ります。
+    private void EnsureExpModeToggle()
+    {
+        if (expButton == null)
+            EnsureExpControls();
+
+        if (expModeButton != null || expButton == null)
+            return;
+
+        Transform existing = expButton.transform.Find("ExpPurchaseModeButton");
+        if (existing != null)
+        {
+            expModeButton = existing.GetComponent<Button>();
+            expModeButtonText = existing.GetComponentInChildren<TextMeshProUGUI>(true);
+        }
+        else
+        {
+            GameObject modeObject = new GameObject("ExpPurchaseModeButton", typeof(RectTransform), typeof(Image), typeof(Button));
+            modeObject.transform.SetParent(expButton.transform, false);
+
+            RectTransform modeRect = modeObject.GetComponent<RectTransform>();
+            modeRect.anchorMin = new Vector2(1f, 1f);
+            modeRect.anchorMax = new Vector2(1f, 1f);
+            modeRect.pivot = new Vector2(1f, 1f);
+            modeRect.anchoredPosition = new Vector2(-7f, -5f);
+            modeRect.sizeDelta = new Vector2(58f, 24f);
+
+            Image modeImage = modeObject.GetComponent<Image>();
+            modeImage.color = new Color(0.02f, 0.12f, 0.16f, 0.82f);
+            modeImage.raycastTarget = true;
+
+            expModeButton = modeObject.GetComponent<Button>();
+
+            GameObject textObject = new GameObject("Text", typeof(RectTransform), typeof(TextMeshProUGUI));
+            textObject.transform.SetParent(modeObject.transform, false);
+
+            RectTransform textRect = textObject.GetComponent<RectTransform>();
+            textRect.anchorMin = Vector2.zero;
+            textRect.anchorMax = Vector2.one;
+            textRect.offsetMin = new Vector2(2f, 1f);
+            textRect.offsetMax = new Vector2(-2f, -1f);
+
+            expModeButtonText = textObject.GetComponent<TextMeshProUGUI>();
+            expModeButtonText.alignment = TextAlignmentOptions.Center;
+            expModeButtonText.fontStyle = FontStyles.Bold;
+            expModeButtonText.fontSize = 13f;
+            expModeButtonText.enableAutoSizing = true;
+            expModeButtonText.fontSizeMin = 8f;
+            expModeButtonText.fontSizeMax = 13f;
+            expModeButtonText.enableWordWrapping = false;
+            expModeButtonText.raycastTarget = false;
+        }
+
+        if (expModeButton != null)
+        {
+            expModeButton.onClick.RemoveListener(ToggleExpPurchaseMode);
+            expModeButton.onClick.AddListener(ToggleExpPurchaseMode);
+            if (expModeButton.GetComponent<TweenButtonFeedback>() == null)
+                expModeButton.gameObject.AddComponent<TweenButtonFeedback>();
+        }
+
+        RefreshExpModeToggle();
+    }
+
+    // EXP購入モードを、+4購入と一括レベルアップで切り替えます。
+    private void ToggleExpPurchaseMode()
+    {
+        expPurchaseMode = expPurchaseMode == ExpPurchaseMode.Single
+            ? ExpPurchaseMode.BulkToNextLevel
+            : ExpPurchaseMode.Single;
+
+        Refresh();
+        AttackEffectPlayer.PlayUiSfx("sfx_ui_select");
+    }
+
+    // 現在のEXP購入モードを、切替ボタンに短く表示します。
+    private void RefreshExpModeToggle()
+    {
+        EnsureExpModeToggle();
+        if (expModeButtonText == null)
+            return;
+
+        LocalizationManager.ApplyFont(expModeButtonText);
+        expModeButtonText.text = expPurchaseMode == ExpPurchaseMode.BulkToNextLevel
+            ? (LocalizationManager.IsJapanese ? "一括" : "Bulk")
+            : "+4";
+
+        if (expModeButton != null)
+            expModeButton.interactable = PlayerData.Instance != null && PlayerData.Instance.Level < PlayerData.Instance.MaxLevel;
+    }
+
+    // 一括モードでは、EXPボタン右側のコスト表示を実際に使う金額へ合わせます。
+    private void RefreshExpButtonCostText()
+    {
+        if (expButton == null || PlayerData.Instance == null)
+            return;
+
+        int displayCost = expPurchaseMode == ExpPurchaseMode.BulkToNextLevel
+            ? PlayerData.Instance.GetBulkExpCostToNextLevel(expAmount, expCost)
+            : expCost;
+
+        TextMeshProUGUI[] texts = expButton.GetComponentsInChildren<TextMeshProUGUI>(true);
+        for (int i = 0; i < texts.Length; i++)
+        {
+            TextMeshProUGUI text = texts[i];
+            if (text == null || text == expModeButtonText)
+                continue;
+
+            string value = (text.text ?? string.Empty).Trim();
+            if (!int.TryParse(value, out _))
+                continue;
+
+            text.text = displayCost.ToString();
+            ConfigureButtonCostText(text);
+        }
+    }
+
+    // EXP、リロール、モード切替ボタンに共通のDOTween押下演出を追加します。
+    private void EnsureShopButtonTweens()
+    {
+        EnsureTweenButton(GameObject.Find("LevelUpButton"));
+        EnsureTweenButton(GameObject.Find("RerollButton"));
+        if (expModeButton != null)
+            EnsureTweenButton(expModeButton.gameObject);
+    }
+
+    private void EnsureTweenButton(GameObject buttonObject)
+    {
+        if (buttonObject == null)
+            return;
+
+        if (buttonObject.GetComponent<TweenButtonFeedback>() == null)
+            buttonObject.AddComponent<TweenButtonFeedback>();
+    }
+
+    // ショップ左側のボタンを、生成直後にふわっと表示します。
+    private void PlayShopButtonAppearTweens()
+    {
+        PlayButtonAppear(GameObject.Find("LevelUpButton"), 0.02f);
+        PlayButtonAppear(GameObject.Find("RerollButton"), 0.08f);
+        if (expModeButton != null)
+            PlayButtonAppear(expModeButton.gameObject, 0.12f);
+    }
+
+    private void PlayButtonAppear(GameObject buttonObject, float delay)
+    {
+        if (buttonObject == null)
+            return;
+
+        TweenButtonFeedback feedback = buttonObject.GetComponent<TweenButtonFeedback>();
+        if (feedback != null)
+            feedback.PlayAppear(delay);
     }
 
     // ショップ左側のレベル/EXP/リロール周りは画像に対して文字枠がタイトなので、
@@ -518,6 +740,9 @@ public class UIShop : MonoBehaviour
         {
             TextMeshProUGUI text = texts[i];
             if (text == null)
+                continue;
+
+            if (expModeButton != null && text.transform.IsChildOf(expModeButton.transform))
                 continue;
 
             LocalizationManager.ApplyFont(text);
@@ -600,6 +825,12 @@ public class UIShop : MonoBehaviour
         }
 
         return null;
+    }
+
+    private enum ExpPurchaseMode
+    {
+        Single,
+        BulkToNextLevel
     }
 
     // 売却プレビュー中に隠すUIを一覧化します。

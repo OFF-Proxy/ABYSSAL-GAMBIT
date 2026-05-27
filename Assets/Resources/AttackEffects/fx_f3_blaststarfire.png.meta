@@ -1,0 +1,642 @@
+fileFormatVersion: 2
+guid: 0a41e0033946d08498388e77bbf78d7f
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 53
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6e95f9cb9aa688960800000000000000
+      internalID: 7604445248061659622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_001
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 134
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b25f735953eb9b1b0800000000000000
+      internalID: -5640267920958819029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_002
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 215
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 97e73320c531bab30800000000000000
+      internalID: 4299551555150118521
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_003
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 296
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee899f373e675cd60800000000000000
+      internalID: 7909859039821535470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_004
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 377
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1cd89315afbfa960800000000000000
+      internalID: 7615516210626092062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_005
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 458
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b50f2d4c299e3f180800000000000000
+      internalID: -9082659206899503013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_006
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 539
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a7c12e9b25a263dd0800000000000000
+      internalID: -2506769607790814086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_007
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 620
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0573cb1c93240e480800000000000000
+      internalID: -8872018450088970416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_008
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 701
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 13509a6b0a108b990800000000000000
+      internalID: -7370139000420891343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_009
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 782
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5861b4ba721d627b0800000000000000
+      internalID: -5249278347345979771
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_010
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 863
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 569dd184adb835710800000000000000
+      internalID: 1680840855568374117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_011
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 944
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 57c134202cc1f7470800000000000000
+      internalID: 8394459850029079669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_012
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 53
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a81ef608caba8c0c0800000000000000
+      internalID: -4555202265707716214
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_013
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 134
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 83de902fb18c2fce0800000000000000
+      internalID: -1372814914044170952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_014
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 215
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 970535e9c76fdda90800000000000000
+      internalID: -7287397606922956679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_015
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 296
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ae6395d6fe9d7440800000000000000
+      internalID: 4935275549650284201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_016
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 377
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee986b33e91f75a20800000000000000
+      internalID: 3051172934341528046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_017
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 458
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3c4b330dbab0dd640800000000000000
+      internalID: 5106250385068373187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_018
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 539
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 254e75e75922c7bf0800000000000000
+      internalID: -325347047612357550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_019
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 620
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1f4901e86113f5fd0800000000000000
+      internalID: -2351106507521616655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_020
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 701
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b18605c25f9759fb0800000000000000
+      internalID: -4641669747018012645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_021
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 782
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 480a164170148d510800000000000000
+      internalID: 1574079568428507268
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_022
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 863
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 63008748628b970a0800000000000000
+      internalID: -6883268079888367562
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_f3_blaststarfire_023
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 944
+        width: 480
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 32df482947351e270800000000000000
+      internalID: 8277989350223183139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      fx_f3_blaststarfire_000: 7604445248061659622
+      fx_f3_blaststarfire_001: -5640267920958819029
+      fx_f3_blaststarfire_002: 4299551555150118521
+      fx_f3_blaststarfire_003: 7909859039821535470
+      fx_f3_blaststarfire_004: 7615516210626092062
+      fx_f3_blaststarfire_005: -9082659206899503013
+      fx_f3_blaststarfire_006: -2506769607790814086
+      fx_f3_blaststarfire_007: -8872018450088970416
+      fx_f3_blaststarfire_008: -7370139000420891343
+      fx_f3_blaststarfire_009: -5249278347345979771
+      fx_f3_blaststarfire_010: 1680840855568374117
+      fx_f3_blaststarfire_011: 8394459850029079669
+      fx_f3_blaststarfire_012: -4555202265707716214
+      fx_f3_blaststarfire_013: -1372814914044170952
+      fx_f3_blaststarfire_014: -7287397606922956679
+      fx_f3_blaststarfire_015: 4935275549650284201
+      fx_f3_blaststarfire_016: 3051172934341528046
+      fx_f3_blaststarfire_017: 5106250385068373187
+      fx_f3_blaststarfire_018: -325347047612357550
+      fx_f3_blaststarfire_019: -2351106507521616655
+      fx_f3_blaststarfire_020: -4641669747018012645
+      fx_f3_blaststarfire_021: 1574079568428507268
+      fx_f3_blaststarfire_022: -6883268079888367562
+      fx_f3_blaststarfire_023: 8277989350223183139
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

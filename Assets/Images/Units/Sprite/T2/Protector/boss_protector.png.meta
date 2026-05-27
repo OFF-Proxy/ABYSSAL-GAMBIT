@@ -1,0 +1,1192 @@
+fileFormatVersion: 2
+guid: 5c719b9ab211071459d338839ec53291
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Protector_Default_000
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2f1dd6a134ebde40ab436dcca72e6db
+      internalID: 144987764
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Default_001
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6c864099aef2db4ab3954bb45b3f318
+      internalID: 1163638565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Default_002
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d603a079c3312b4db672eff40c18fb1
+      internalID: -576682469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Default_003
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 544fd4707e785e5449995aabf1b79b93
+      internalID: -1686105619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Default_004
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fd3370b03723674d861330bced279ac
+      internalID: -1399303355
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Default_005
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c7c3532ed3ee4924c80946ca5450f923
+      internalID: -1726664136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Default_006
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdb37b8dba3c15f449e8564eded673bf
+      internalID: -88413711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Default_007
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2a52151a0e74e642854827461325a55
+      internalID: -1212055488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Default_008
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 882710ffce0d5dc478d71eef97a1be0f
+      internalID: 458470126
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Default_009
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d820e7e29df4e944b92147fa336d423c
+      internalID: 1779383964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Default_010
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3572be9295f15042bd697c2f55bdc42
+      internalID: 500564929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Default_011
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dd7cf5d57e3a95044b870c1190624871
+      internalID: 1281307075
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Default_012
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98994a7823994fe45adb64cbb4468ab4
+      internalID: 1718860269
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Default_013
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39dc4d52f157ae047a9b82712f4ed6ca
+      internalID: 1196521937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Move_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12a3ca6e813d777428960d2aa7be0abe
+      internalID: -978251283
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Move_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58ed485b22f013a4fabc51fff313df62
+      internalID: 1386341431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Move_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e8a2c41e6e387647ae8abd8ca9d434c
+      internalID: 1543176471
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Move_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8419d23b2f098b4da3352964080a1a0
+      internalID: -1244121311
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8a7e3941c42cb048920c79366cea59e
+      internalID: 2102478481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c3b51315a3486c44aeb4c0faa4442f6
+      internalID: 1632371504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Move_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f6c283b4bad30a44c8644fe27d916d09
+      internalID: -1238227517
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Move_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c52aab77dfc107a4194bee34e232b078
+      internalID: 406003890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4ac166fbbf52ae46b0ad0e471f4091e
+      internalID: -1308471200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47b04aadf87791049aa1cb5b46df2b97
+      internalID: 491369962
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b5f9be2284ca28459cb3188f5a16fc3
+      internalID: -2107234804
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3721d8e86f7254c4da9c5910056f4f6a
+      internalID: -1184756912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44861cd55a6bf2742bbb870b3ef287d1
+      internalID: 324291712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e77a053ca6df75a438ede7eb06ea2d7c
+      internalID: -892402317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 300b181d14c94a84a9e752e413ca1eea
+      internalID: 1436440213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6be48648d59c11245aee0f8d62bef579
+      internalID: -36466788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c9e5bd5383f7414c8ebcc7f4f95d642
+      internalID: 1682691635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e406e69cfcfe18f4c850833fb696f3d4
+      internalID: 1161117246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fda299ef927d0c440a760cf4f1b31e72
+      internalID: -1876776715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdb5cf44cf5003d40ae2afa16c2c264b
+      internalID: 899579069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe2ee4e1b840b90468187bfa9758513d
+      internalID: 1437774415
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e964e881d03595740803635622beef3e
+      internalID: 272978401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 211a498dd6a24bf44805ad76ca52f2de
+      internalID: -1852957313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f170155de0547ed4da12867e735b6b5b
+      internalID: -968909709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 296
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4c6eb7df1ca0ae44a47439fabc1d46e
+      internalID: 59170718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46b468a100332804da5d6cd9c47704ca
+      internalID: 147731545
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a4c480a30eb7374d97f755e8829b096
+      internalID: 1761599069
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5715e27f3dcabe645a8eb7b5f6160909
+      internalID: -401831172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 296
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a272aeff348e8b843b6955c4b612fd76
+      internalID: 1351030061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e530e26989309f44da51ccfa92fd1b14
+      internalID: 657177030
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b97f6c17665ceb46b69a72f93e7d8d3
+      internalID: 1219048622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2c43ab75cbce0b4490c17c235d37d36
+      internalID: -1031031340
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 321062e80f0715b42a7c398ed05902a0
+      internalID: 901351128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b838cd513b9c93e44881d580d7bcdb87
+      internalID: -1810757227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Protector_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d26e4b8648dc42342ababbae1d27a1ef
+      internalID: -1521120738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Protector_Attack_000: -1308471200
+      Protector_Attack_001: 491369962
+      Protector_Attack_002: -2107234804
+      Protector_Attack_003: -1184756912
+      Protector_Attack_004: 324291712
+      Protector_Attack_005: -892402317
+      Protector_Attack_006: 1436440213
+      Protector_Attack_007: -36466788
+      Protector_Attack_008: 1682691635
+      Protector_Attack_009: 1161117246
+      Protector_Attack_010: -1876776715
+      Protector_Attack_011: 899579069
+      Protector_Attack_012: 1437774415
+      Protector_Attack_013: 272978401
+      Protector_Attack_014: -1852957313
+      Protector_Attack_015: -968909709
+      Protector_Attack_016: 59170718
+      Protector_Attack_017: 147731545
+      Protector_Dead_000: 1761599069
+      Protector_Dead_001: -401831172
+      Protector_Dead_002: 1351030061
+      Protector_Dead_003: 657177030
+      Protector_Dead_004: 1219048622
+      Protector_Dead_005: -1031031340
+      Protector_Dead_006: 901351128
+      Protector_Dead_007: -1810757227
+      Protector_Dead_008: -1521120738
+      Protector_Default_000: 144987764
+      Protector_Default_001: 1163638565
+      Protector_Default_002: -576682469
+      Protector_Default_003: -1686105619
+      Protector_Default_004: -1399303355
+      Protector_Default_005: -1726664136
+      Protector_Default_006: -88413711
+      Protector_Default_007: -1212055488
+      Protector_Default_008: 458470126
+      Protector_Default_009: 1779383964
+      Protector_Default_010: 500564929
+      Protector_Default_011: 1281307075
+      Protector_Default_012: 1718860269
+      Protector_Default_013: 1196521937
+      Protector_Move_000: -978251283
+      Protector_Move_001: 1386341431
+      Protector_Move_002: 1543176471
+      Protector_Move_003: -1244121311
+      Protector_Move_004: 2102478481
+      Protector_Move_005: 1632371504
+      Protector_Move_006: -1238227517
+      Protector_Move_007: 406003890
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

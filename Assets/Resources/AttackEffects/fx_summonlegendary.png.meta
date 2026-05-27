@@ -1,0 +1,686 @@
+fileFormatVersion: 2
+guid: aa33d0df54c854a49a3fe5e5d625f6c2
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: fx_summonlegendary_000
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f62cf7fab2d4376b0800000000000000
+      internalID: -5299807486461623697
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_001
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 937ca583db0dd2550800000000000000
+      internalID: 6137791378288723769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_002
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e8982a30cf8b6f620800000000000000
+      internalID: 2807634810244336014
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_003
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66b5ee180cd0aae10800000000000000
+      internalID: 2209593687643413350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_004
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df161aaed162c1870800000000000000
+      internalID: 8654834493831602685
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_005
+      rect:
+        serializedVersion: 2
+        x: 724
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 681aec90dd65cb330800000000000000
+      internalID: 3727950098908225926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_006
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8e19379dd9400e0c0800000000000000
+      internalID: -4548630547639594520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_007
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a33086702ecb37940800000000000000
+      internalID: 5292781666063352634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_008
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e40f69e8b80b5a7a0800000000000000
+      internalID: -6366488384779128754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_009
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9373ebcb5d1b21a00800000000000000
+      internalID: 725838021512804153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_010
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4c9a6beeb5eec900800000000000000
+      internalID: 706754799699926090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_011
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fa55efdc9f6567e20800000000000000
+      internalID: 3347959003899385263
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_012
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 293c472ed343f6df0800000000000000
+      internalID: -184871619301948526
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_013
+      rect:
+        serializedVersion: 2
+        x: 905
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: dbd6de9334a0b3440800000000000000
+      internalID: 4916534702055976381
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_014
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d18987e20c2e94060800000000000000
+      internalID: 6938326015982213149
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_015
+      rect:
+        serializedVersion: 2
+        x: 362
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5c45b660a619c6d20800000000000000
+      internalID: 3273150913751766213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_016
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c6586699051edd4d0800000000000000
+      internalID: -3108080431528508052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_017
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d82638935514b45d0800000000000000
+      internalID: -3077294086084664691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_018
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9c0abe3f819e93920800000000000000
+      internalID: 2970661722608345289
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_019
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fc8edbe5091975280800000000000000
+      internalID: -9054608476554270513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_020
+      rect:
+        serializedVersion: 2
+        x: 181
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 81119fd2740b43910800000000000000
+      internalID: 1816270369497616664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_021
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 120
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f050e9a0516a9e10800000000000000
+      internalID: 2205181966626607353
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_022
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 301
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0a392a53133f7afb0800000000000000
+      internalID: -4636469898675842144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_023
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 482
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 77fac65efcdaeb970800000000000000
+      internalID: 8772640232583245687
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_024
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 663
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 3d5dae93bd5524910800000000000000
+      internalID: 1820111599468991955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_summonlegendary_025
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 844
+        width: 180
+        height: 180
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 00be47a4869769d60800000000000000
+      internalID: 7896632485473479424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      fx_summonlegendary_000: -5299807486461623697
+      fx_summonlegendary_001: 6137791378288723769
+      fx_summonlegendary_002: 2807634810244336014
+      fx_summonlegendary_003: 2209593687643413350
+      fx_summonlegendary_004: 8654834493831602685
+      fx_summonlegendary_005: 3727950098908225926
+      fx_summonlegendary_006: -4548630547639594520
+      fx_summonlegendary_007: 5292781666063352634
+      fx_summonlegendary_008: -6366488384779128754
+      fx_summonlegendary_009: 725838021512804153
+      fx_summonlegendary_010: 706754799699926090
+      fx_summonlegendary_011: 3347959003899385263
+      fx_summonlegendary_012: -184871619301948526
+      fx_summonlegendary_013: 4916534702055976381
+      fx_summonlegendary_014: 6938326015982213149
+      fx_summonlegendary_015: 3273150913751766213
+      fx_summonlegendary_016: -3108080431528508052
+      fx_summonlegendary_017: -3077294086084664691
+      fx_summonlegendary_018: 2970661722608345289
+      fx_summonlegendary_019: -9054608476554270513
+      fx_summonlegendary_020: 1816270369497616664
+      fx_summonlegendary_021: 2205181966626607353
+      fx_summonlegendary_022: -4636469898675842144
+      fx_summonlegendary_023: 8772640232583245687
+      fx_summonlegendary_024: 1820111599468991955
+      fx_summonlegendary_025: 7896632485473479424
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

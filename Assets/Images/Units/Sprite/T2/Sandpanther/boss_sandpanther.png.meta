@@ -1,0 +1,1522 @@
+fileFormatVersion: 2
+guid: 4d2f5f0f207bfdb4382ad99652d6c09a
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Sandpanther_Default_000
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8188bf6dcbef5b44193436f35a4a2c12
+      internalID: -1513865788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Default_001
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9859d71f77ff0ca4baa3047a0466bcc6
+      internalID: 1396593469
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Default_002
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9fe65849647e1ec4584d78b5f0469f31
+      internalID: 1313382165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Default_003
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e79b1f5f12a24c47a0604e9e4cd7ff1
+      internalID: -1818835446
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Default_004
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b31f8ada3e458124d8e2f3bc18adde83
+      internalID: 1439844332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Default_005
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45ff60e7810723f4290298f5563039fb
+      internalID: -1274806205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Default_006
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f81e139cd3c94e746a52f709831064c3
+      internalID: -442352520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Default_007
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7139ee2996f217444bf3bbaa860aa45e
+      internalID: -1344862978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Default_008
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56769b7f0a5d5354f9f9da723104c35f
+      internalID: 1664487417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Default_009
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9ba3d1c1deaf884f88a540264288c3a
+      internalID: 842072343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Default_010
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 08a31eeb7154dfe4083fc08a88443e9c
+      internalID: -201343577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Default_011
+      rect:
+        serializedVersion: 2
+        x: 605
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5b0ac15c4634bb54a8bb2e0cdc1e5c0e
+      internalID: -1351828398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Default_012
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4825ab17badfd594f95a873a9cc647e1
+      internalID: 2094319573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Default_013
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da1b67871c2064a49aeb2ee13d92e318
+      internalID: -826728930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Move_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6fac813986824e41ab585ee9ffd2f5c
+      internalID: 310048212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Move_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e78d9601533da384ab9572dc005d3f44
+      internalID: 974332969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Move_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e01db21a3625e44c82cb9c6dca24950
+      internalID: -116265892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Move_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cd80449bddb87447acd65d713358f9f
+      internalID: -616453622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33e82616ed5d92d45adf58aed7f77009
+      internalID: -1416170067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 81b46266d61fe854cbaa68152e97fd68
+      internalID: 861423339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Move_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b75eecd40f6c0149ac09a707e0dfac5
+      internalID: 2071287566
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Move_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c3169eef1d75b55418929d9281fc9653
+      internalID: -459813952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95905632da5c3d24a8a8d9d8bad26f99
+      internalID: -448732495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b243567dc3042b242b05bea600edebec
+      internalID: 1688544769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ec32550d34cfa5449fb26dcd522279c
+      internalID: -1171440048
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 049c3355e9aebed4a885fb049ac4747c
+      internalID: -174284043
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5d27467fbdfc62449b930d61803b3e5
+      internalID: -1016396666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 1089
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a72162d99f1129418c8b1e64f925ffc
+      internalID: -601427466
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e70c8ae86f091a14996d991a73158c90
+      internalID: 548136578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a4518bb6051fe443b6a86d0bc47be52
+      internalID: 801914254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15e4f7873eda00245a8e94ffc8cd8062
+      internalID: -1052588053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 783aa7b39ac0086478d8b4cd057a21a6
+      internalID: 281058489
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e28b7807d0be1ba4e8fbf8e6b37a93fd
+      internalID: -992480794
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8da0bebd971b2e447adc35be4141793c
+      internalID: -1761637450
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bd3c4cf5dab374340bf75a69425b86e4
+      internalID: -1783230506
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 968
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50e1c50f229ef8c46836be06e056cf0f
+      internalID: 1426986499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ab0feb1b6a6ca041b9dc19f3b0f884d
+      internalID: 1293212708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a88259460d9ae92459ea720b71bf0003
+      internalID: -1954530140
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed21767982116404fbb81fe808177bee
+      internalID: -1277276139
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b0f04b304369e7542a1ee928b2602980
+      internalID: -1347937134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fd81ff13c4351c4781b379c1dc6a8d8
+      internalID: -412878889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f282c8204c0ab814ab13db6c8fa7fe0b
+      internalID: 153231029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f749daef57d723c4ea542d14616a1f4c
+      internalID: -427805706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 847
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f533a6dfba3554a43bd55abb6bba8fbe
+      internalID: 723677465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce7d4b2fe05cace4884bf8556fcb6859
+      internalID: 1050713132
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_023
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6c11094f2845ea145929d4f45d66718f
+      internalID: -696827488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_024
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c59f6d506f29a26479ad019e2af1af99
+      internalID: -1555882397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Attack_025
+      rect:
+        serializedVersion: 2
+        x: 726
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 40cd1a7b1ac6e6844bfb3d6cc3aa332d
+      internalID: 1558594525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 728eddc301cdd6642ac1bdc08a2c9279
+      internalID: -1697560895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7620d4df7d3f8954f85f5d80f9f7df98
+      internalID: -1561322680
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4dc16627a7b5b9489015e20708a2b31
+      internalID: -2044245124
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ac66dd47c736ab4588ff133ff082497
+      internalID: -1197092945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7703a333b8871c438b1b75ec63d2946
+      internalID: -1524162431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 022bf429421b4a248bdd2cb303b9b7ef
+      internalID: 2021331628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 484
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76c12dc58a3a14a44b78d296264198f2
+      internalID: 96926725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbc957827ad9cf445bff0a81983bbe42
+      internalID: 944014846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 178
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 333b284a1d265484ebbdf4ca3f2f6255
+      internalID: -1449595389
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 299
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fe97b595e861d442984d6932ff47879
+      internalID: -190340767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 420
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24fbb4736027c9a4c8aa8bec9b51c570
+      internalID: 1079118105
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 541
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebb7376f8b894d24fbc9d0068574e2c1
+      internalID: 1776545853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 662
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e416016150e65b64d8d9e36f69539df9
+      internalID: 10250244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 783
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0cc3c7e4979c8b64db4479b8d17b86c9
+      internalID: -271259291
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 363
+        y: 904
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd5848638ac62d24caf2075af783780a
+      internalID: 596356104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Sandpanther_Dead_015
+      rect:
+        serializedVersion: 2
+        x: 242
+        y: 57
+        width: 120
+        height: 120
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55512a26eccf2b149865ff990298e48d
+      internalID: -876917262
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Sandpanther_Attack_000: -448732495
+      Sandpanther_Attack_001: 1688544769
+      Sandpanther_Attack_002: -1171440048
+      Sandpanther_Attack_003: -174284043
+      Sandpanther_Attack_004: -1016396666
+      Sandpanther_Attack_005: -601427466
+      Sandpanther_Attack_006: 548136578
+      Sandpanther_Attack_007: 801914254
+      Sandpanther_Attack_008: -1052588053
+      Sandpanther_Attack_009: 281058489
+      Sandpanther_Attack_010: -992480794
+      Sandpanther_Attack_011: -1761637450
+      Sandpanther_Attack_012: -1783230506
+      Sandpanther_Attack_013: 1426986499
+      Sandpanther_Attack_014: 1293212708
+      Sandpanther_Attack_015: -1954530140
+      Sandpanther_Attack_016: -1277276139
+      Sandpanther_Attack_017: -1347937134
+      Sandpanther_Attack_018: -412878889
+      Sandpanther_Attack_019: 153231029
+      Sandpanther_Attack_020: -427805706
+      Sandpanther_Attack_021: 723677465
+      Sandpanther_Attack_022: 1050713132
+      Sandpanther_Attack_023: -696827488
+      Sandpanther_Attack_024: -1555882397
+      Sandpanther_Attack_025: 1558594525
+      Sandpanther_Dead_000: -1697560895
+      Sandpanther_Dead_001: -1561322680
+      Sandpanther_Dead_002: -2044245124
+      Sandpanther_Dead_003: -1197092945
+      Sandpanther_Dead_004: -1524162431
+      Sandpanther_Dead_005: 2021331628
+      Sandpanther_Dead_006: 96926725
+      Sandpanther_Dead_007: 944014846
+      Sandpanther_Dead_008: -1449595389
+      Sandpanther_Dead_009: -190340767
+      Sandpanther_Dead_010: 1079118105
+      Sandpanther_Dead_011: 1776545853
+      Sandpanther_Dead_012: 10250244
+      Sandpanther_Dead_013: -271259291
+      Sandpanther_Dead_014: 596356104
+      Sandpanther_Dead_015: -876917262
+      Sandpanther_Default_000: -1513865788
+      Sandpanther_Default_001: 1396593469
+      Sandpanther_Default_002: 1313382165
+      Sandpanther_Default_003: -1818835446
+      Sandpanther_Default_004: 1439844332
+      Sandpanther_Default_005: -1274806205
+      Sandpanther_Default_006: -442352520
+      Sandpanther_Default_007: -1344862978
+      Sandpanther_Default_008: 1664487417
+      Sandpanther_Default_009: 842072343
+      Sandpanther_Default_010: -201343577
+      Sandpanther_Default_011: -1351828398
+      Sandpanther_Default_012: 2094319573
+      Sandpanther_Default_013: -826728930
+      Sandpanther_Move_000: 310048212
+      Sandpanther_Move_001: 974332969
+      Sandpanther_Move_002: -116265892
+      Sandpanther_Move_003: -616453622
+      Sandpanther_Move_004: -1416170067
+      Sandpanther_Move_005: 861423339
+      Sandpanther_Move_006: 2071287566
+      Sandpanther_Move_007: -459813952
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

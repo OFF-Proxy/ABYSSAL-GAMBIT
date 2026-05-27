@@ -18,118 +18,358 @@ MonoBehaviour:
     icon: {fileID: 21300000, guid: f716736282b3dc245a49341b29a06d7b, type: 3}
     cost: 1
     frame: {fileID: 21300000, guid: fc58bd6248e9aad419ecf863d7d76c71, type: 3}
+    synergy1: 2
+    synergy2: 12
+    synergy3: 0
   - prefab: {fileID: 2953903513167013644, guid: 58356648fad2e5a4d8e5fa3b48cd050a, type: 3}
     name: Antiswarm
     icon: {fileID: 21300000, guid: f6b015b6942da0140a438bdac6f267f1, type: 3}
     cost: 1
     frame: {fileID: 21300000, guid: fc58bd6248e9aad419ecf863d7d76c71, type: 3}
+    synergy1: 5
+    synergy2: 17
+    synergy3: 0
   - prefab: {fileID: 6613316975242978447, guid: 48fa2368a05cf3245a208d2af50680fd, type: 3}
     name: Borealjuggernaut
     icon: {fileID: 21300000, guid: 89aed13195a12fa45b2f4d57c0b00086, type: 3}
     cost: 1
     frame: {fileID: 21300000, guid: fc58bd6248e9aad419ecf863d7d76c71, type: 3}
+    synergy1: 4
+    synergy2: 11
+    synergy3: 0
   - prefab: {fileID: 5832427703238336652, guid: b4937cfed77d61d44a8b67ba79e2b7f9, type: 3}
     name: Chaosknight
     icon: {fileID: 21300000, guid: e1331a7a89f65224ab91288d7c779648, type: 3}
     cost: 1
     frame: {fileID: 21300000, guid: fc58bd6248e9aad419ecf863d7d76c71, type: 3}
+    synergy1: 6
+    synergy2: 13
+    synergy3: 0
   - prefab: {fileID: 6585033867036117283, guid: 6db3403421b581d4fbff13c8e2ac065a, type: 3}
     name: Christmas
     icon: {fileID: 21300000, guid: 444a8bb8c8e1aed43805016a4aa495e2, type: 3}
     cost: 1
     frame: {fileID: 21300000, guid: fc58bd6248e9aad419ecf863d7d76c71, type: 3}
+    synergy1: 1
+    synergy2: 15
+    synergy3: 0
   - prefab: {fileID: 9101000000000000001, guid: 84741ac75d04cac4ab89d049ac066b27, type: 3}
     name: vampire
     icon: {fileID: 21300000, guid: 9e26dd0f9a688c343a5c31d7d99382dd, type: 3}
     cost: 1
     frame: {fileID: 21300000, guid: fc58bd6248e9aad419ecf863d7d76c71, type: 3}
+    synergy1: 3
+    synergy2: 8
+    synergy3: 13
   - prefab: {fileID: 4618557763955632736, guid: 3726578e5879766439292ae9ada7f85f, type: 3}
     name: valiant
     icon: {fileID: 21300000, guid: 5a0361d213d6c894787b67d6a44e16a9, type: 3}
     cost: 1
     frame: {fileID: 21300000, guid: fc58bd6248e9aad419ecf863d7d76c71, type: 3}
+    synergy1: 4
+    synergy2: 14
+    synergy3: 0
   - prefab: {fileID: 6613316975242978447, guid: 1dff8ec22f5821d4797d731d242305b2, type: 3}
     name: Candypanda
     icon: {fileID: 21300000, guid: 95fe0e27cb192f641b43740eefe4337c, type: 3}
     cost: 2
     frame: {fileID: 21300000, guid: c1bcf420ee70c8248ae719530cbad24b, type: 3}
+    synergy1: 5
+    synergy2: 14
+    synergy3: 0
   - prefab: {fileID: 6613316975242978447, guid: e34de6c178e20674584ff12f1f7997cf, type: 3}
     name: City
     icon: {fileID: 21300000, guid: f96d5ad591fea06478886cf73a76c1e8, type: 3}
     cost: 2
     frame: {fileID: 21300000, guid: c1bcf420ee70c8248ae719530cbad24b, type: 3}
+    synergy1: 7
+    synergy2: 18
+    synergy3: 0
   - prefab: {fileID: -7965642443339072857, guid: d03539f1f63016e4c9540401dee580c7, type: 3}
     name: Crystal
     icon: {fileID: 21300000, guid: 098ec614ba2ef6d4eba01dd49714e793, type: 3}
     cost: 2
     frame: {fileID: 21300000, guid: c1bcf420ee70c8248ae719530cbad24b, type: 3}
+    synergy1: 3
+    synergy2: 11
+    synergy3: 0
   - prefab: {fileID: -7965642443339072857, guid: b0fd0a94c663cd24f973cbdd558a07f1, type: 3}
     name: Cindera
     icon: {fileID: 21300000, guid: d3135311d372cb8499acb0f136fb1e5c, type: 3}
     cost: 2
     frame: {fileID: 21300000, guid: c1bcf420ee70c8248ae719530cbad24b, type: 3}
+    synergy1: 3
+    synergy2: 10
+    synergy3: 12
   - prefab: {fileID: 5832427703238336652, guid: 00d62937818ba1c4ea69a5623b87d9b2, type: 3}
     name: Decepticle
     icon: {fileID: 21300000, guid: 7282a3be6276d2f4a95de20305bf6eaa, type: 3}
     cost: 2
     frame: {fileID: 21300000, guid: c1bcf420ee70c8248ae719530cbad24b, type: 3}
+    synergy1: 7
+    synergy2: 18
+    synergy3: 0
   - prefab: {fileID: 6613316975242978447, guid: cd85d23c94b6e2549a1e71b942b9c2c9, type: 3}
     name: Umbra
     icon: {fileID: 21300000, guid: b9b18991cbe287b41a5dc1c04b15630b, type: 3}
     cost: 2
     frame: {fileID: 21300000, guid: c1bcf420ee70c8248ae719530cbad24b, type: 3}
+    synergy1: 5
+    synergy2: 8
+    synergy3: 13
   - prefab: {fileID: -7965642443339072857, guid: 6ab3697aec0486f4ebfca29dcc465e3f, type: 3}
     name: Spelleater
     icon: {fileID: 21300000, guid: 598266ba849a8924f8f07924c81f756f, type: 3}
     cost: 2
     frame: {fileID: 21300000, guid: c1bcf420ee70c8248ae719530cbad24b, type: 3}
+    synergy1: 3
+    synergy2: 13
+    synergy3: 0
   - prefab: {fileID: 5832427703238336652, guid: d6a7cccd9948b8a419cc2c2b0668aa8a, type: 3}
     name: Serpenti
     icon: {fileID: 21300000, guid: 9dd15d76a7b64de45b63c200fce8ff19, type: 3}
     cost: 2
     frame: {fileID: 21300000, guid: c1bcf420ee70c8248ae719530cbad24b, type: 3}
+    synergy1: 5
+    synergy2: 6
+    synergy3: 15
   - prefab: {fileID: 5832427703238336652, guid: 6a2fa8f30c792bd46a0f49fa8ad9a736, type: 3}
     name: Skindogehai
     icon: {fileID: 21300000, guid: 9701969448623bf49a067ff2391679fa, type: 3}
     cost: 3
     frame: {fileID: 21300000, guid: 017a6ebc78e247945b96f6e1540c96c1, type: 3}
+    synergy1: 6
+    synergy2: 5
+    synergy3: 15
   - prefab: {fileID: -7965642443339072857, guid: 91c55280fb5187245a8b08220d7dfb65, type: 3}
     name: Decepticleprime
     icon: {fileID: 21300000, guid: cca3a4b91d7a9074faca4490613c302b, type: 3}
     cost: 3
     frame: {fileID: 21300000, guid: 017a6ebc78e247945b96f6e1540c96c1, type: 3}
+    synergy1: 7
+    synergy2: 2
+    synergy3: 12
   - prefab: {fileID: 5832427703238336652, guid: 9efa2028d4d6be648bf8df74516d46f0, type: 3}
     name: Decepticlechassis
     icon: {fileID: 21300000, guid: 007e5de1bd21b5744a980182706aee87, type: 3}
     cost: 3
     frame: {fileID: 21300000, guid: 017a6ebc78e247945b96f6e1540c96c1, type: 3}
+    synergy1: 7
+    synergy2: 4
+    synergy3: 18
   - prefab: {fileID: 6613316975242978447, guid: 55418a3b3d246ba42b4a856cd7c399db, type: 3}
     name: Wolfpunch
     icon: {fileID: 21300000, guid: 477cf5d4e4d626e46aa7e4c2846671c7, type: 3}
     cost: 3
     frame: {fileID: 21300000, guid: 017a6ebc78e247945b96f6e1540c96c1, type: 3}
+    synergy1: 5
+    synergy2: 4
+    synergy3: 0
   - prefab: {fileID: 5832427703238336652, guid: 54e3b680b0f75c84383737d39541f3cf, type: 3}
     name: Shadowlord
     icon: {fileID: 21300000, guid: 77b26a9dbc0b3094f879f4ed8a86bb93, type: 3}
     cost: 3
     frame: {fileID: 21300000, guid: 017a6ebc78e247945b96f6e1540c96c1, type: 3}
+    synergy1: 6
+    synergy2: 8
+    synergy3: 13
   - prefab: {fileID: -7965642443339072857, guid: bf4f5e86dc62d3945bfbc971ebbbfca8, type: 3}
     name: Tier2general
     icon: {fileID: 21300000, guid: 4a91379ec1edd1a42b95831ae9e305dd, type: 3}
     cost: 3
     frame: {fileID: 21300000, guid: 017a6ebc78e247945b96f6e1540c96c1, type: 3}
+    synergy1: 1
+    synergy2: 16
+    synergy3: 0
   - prefab: {fileID: -7965642443339072857, guid: 01f969e593bd8ee4abcaace3912a2631, type: 3}
     name: Snowchasermk
     icon: {fileID: 21300000, guid: bbe4dace21fc30c479375fba0f926fec, type: 3}
     cost: 4
     frame: {fileID: 21300000, guid: 2019fb18b05be0147bdd61c65474e03f, type: 3}
+    synergy1: 11
+    synergy2: 14
+    synergy3: 0
   - prefab: {fileID: 5832427703238336652, guid: 93920b86bf98a9943bc176c6691235e2, type: 3}
     name: Solfist
     icon: {fileID: 21300000, guid: ce4db6393ff64a943b3e6c0972d9e0b8, type: 3}
     cost: 4
     frame: {fileID: 21300000, guid: 2019fb18b05be0147bdd61c65474e03f, type: 3}
+    synergy1: 10
+    synergy2: 1
+    synergy3: 14
   - prefab: {fileID: -7965642443339072857, guid: 1c9d8e9b291f12845863527af6dc51d8, type: 3}
     name: Maehvmk
     icon: {fileID: 21300000, guid: ff1134b2e1231cd49a8b240b172bb007, type: 3}
     cost: 4
     frame: {fileID: 21300000, guid: 2019fb18b05be0147bdd61c65474e03f, type: 3}
+    synergy1: 7
+    synergy2: 3
+    synergy3: 12
+  - prefab: {fileID: -7965642443339072857, guid: 326b54f8bc909b74f97484a53f62088a, type: 3}
+    name: Archdeacon
+    icon: {fileID: -1368449839, guid: c68dffbadf90ac14fb9f075f449e93c8, type: 3}
+    cost: 1
+    frame: {fileID: 21300000, guid: fc58bd6248e9aad419ecf863d7d76c71, type: 3}
+    synergy1: 14
+    synergy2: 3
+    synergy3: 16
+  - prefab: {fileID: -7965642443339072857, guid: be1e308603bd97c40929461802c01860, type: 3}
+    name: Backlinearcher
+    icon: {fileID: 419524334, guid: bc7b10b3d648c0a42a1b61913dd8013a, type: 3}
+    cost: 1
+    frame: {fileID: 21300000, guid: fc58bd6248e9aad419ecf863d7d76c71, type: 3}
+    synergy1: 2
+    synergy2: 0
+    synergy3: 0
+  - prefab: {fileID: 6585033867036117283, guid: 8133b270e3a21804299718a66a3b11c9, type: 3}
+    name: Auroralioness
+    icon: {fileID: 1665906557, guid: 6fe8f020835ce534597e1dad40d8f97a, type: 3}
+    cost: 1
+    frame: {fileID: 21300000, guid: fc58bd6248e9aad419ecf863d7d76c71, type: 3}
+    synergy1: 14
+    synergy2: 16
+    synergy3: 0
+  - prefab: {fileID: 6613316975242978447, guid: 4e2772e73102976458c2620b3e98b5e0, type: 3}
+    name: Azuritelion
+    icon: {fileID: -1430862360, guid: 61942beddbc74354ab83c20c2272a071, type: 3}
+    cost: 1
+    frame: {fileID: 21300000, guid: fc58bd6248e9aad419ecf863d7d76c71, type: 3}
+    synergy1: 5
+    synergy2: 11
+    synergy3: 4
+  - prefab: {fileID: 5832427703238336652, guid: 6d291901cd5ed024cbc638f9f292bac8, type: 3}
+    name: Sandpanther
+    icon: {fileID: -1513865788, guid: 4d2f5f0f207bfdb4382ad99652d6c09a, type: 3}
+    cost: 2
+    frame: {fileID: 21300000, guid: c1bcf420ee70c8248ae719530cbad24b, type: 3}
+    synergy1: 6
+    synergy2: 5
+    synergy3: 0
+  - prefab: {fileID: 5832427703238336652, guid: f23c0a9dfb34ddf45b8f46d4dc7a1bcb, type: 3}
+    name: Protector
+    icon: {fileID: 144987764, guid: 5c719b9ab211071459d338839ec53291, type: 3}
+    cost: 2
+    frame: {fileID: 21300000, guid: c1bcf420ee70c8248ae719530cbad24b, type: 3}
+    synergy1: 4
+    synergy2: 16
+    synergy3: 0
+  - prefab: {fileID: 6613316975242978447, guid: 22332477cbba73443bd479f14e790409, type: 3}
+    name: Taskmaster
+    icon: {fileID: 311467469, guid: 756eab279884bc04087d677af6d4eb99, type: 3}
+    cost: 2
+    frame: {fileID: 21300000, guid: c1bcf420ee70c8248ae719530cbad24b, type: 3}
+    synergy1: 1
+    synergy2: 6
+    synergy3: 15
+  - prefab: {fileID: 5832427703238336652, guid: 8974e1ffa7d1379478a0971c037007a0, type: 3}
+    name: Kane
+    icon: {fileID: -234016779, guid: 4de5431632885e647933b1d4ca860126, type: 3}
+    cost: 3
+    frame: {fileID: 21300000, guid: 017a6ebc78e247945b96f6e1540c96c1, type: 3}
+    synergy1: 7
+    synergy2: 12
+    synergy3: 0
+  - prefab: {fileID: -7965642443339072857, guid: 2413696f3d2e6a845b86230c6cf008d4, type: 3}
+    name: Malyk
+    icon: {fileID: 1001643678, guid: ac01c195e0e16b14093799271231f496, type: 3}
+    cost: 3
+    frame: {fileID: 21300000, guid: 017a6ebc78e247945b96f6e1540c96c1, type: 3}
+    synergy1: 3
+    synergy2: 8
+    synergy3: 13
+  - prefab: {fileID: 5832427703238336652, guid: f99817503bfdbf348b6848f8c0ce416b, type: 3}
+    name: Paragon
+    icon: {fileID: 1492123654, guid: dac67078b36f2ca4182ca3e03aa8e63b, type: 3}
+    cost: 3
+    frame: {fileID: 21300000, guid: 017a6ebc78e247945b96f6e1540c96c1, type: 3}
+    synergy1: 4
+    synergy2: 14
+    synergy3: 16
+  - prefab: {fileID: 5832427703238336652, guid: 74ebd0542c4d5444692b621a809e2c8c, type: 3}
+    name: Wujin
+    icon: {fileID: -377440120, guid: 4a249ba932383864aab0cabe43f036d2, type: 3}
+    cost: 4
+    frame: {fileID: 21300000, guid: 2019fb18b05be0147bdd61c65474e03f, type: 3}
+    synergy1: 1
+    synergy2: 10
+    synergy3: 16
+  - prefab: {fileID: -7965642443339072857, guid: b04b074177de1e14ab8d63fcf804b076, type: 3}
+    name: Wraith
+    icon: {fileID: 201797827, guid: c2a518717c8539c498ac23ffeb54bc7e, type: 3}
+    cost: 4
+    frame: {fileID: 21300000, guid: 2019fb18b05be0147bdd61c65474e03f, type: 3}
+    synergy1: 8
+    synergy2: 13
+    synergy3: 11
+  - prefab: {fileID: 5832427703238336652, guid: 7e1a3f5fc82d9c9418a9b657d7b3e7cf, type: 3}
+    name: Altgeneraltier2
+    icon: {fileID: -536552550, guid: 5dfe3d82b58e04c4f839b7a1270cb81e, type: 3}
+    cost: 1
+    frame: {fileID: 21300000, guid: fc58bd6248e9aad419ecf863d7d76c71, type: 3}
+    synergy1: 11
+    synergy2: 10
+    synergy3: 0
+  - prefab: {fileID: -7965642443339072857, guid: 5aa56292ff0a9f9438ce3c5ac086dd2e, type: 3}
+    name: Ilenamk2
+    icon: {fileID: -895702740, guid: 8ae5c24ae6d8ee9418ec276c4bf79ebe, type: 3}
+    cost: 3
+    frame: {fileID: 21300000, guid: 017a6ebc78e247945b96f6e1540c96c1, type: 3}
+    synergy1: 11
+    synergy2: 3
+    synergy3: 14
+  - prefab: {fileID: 5832427703238336652, guid: 2b9449ee3b47f0b42a4745fe3ea3b16e, type: 3}
+    name: Embergeneral
+    icon: {fileID: -545661267, guid: 69d2dd37ba7a3b54b8cd9f4eb1824392, type: 3}
+    cost: 5
+    frame: {fileID: 21300000, guid: e30fd38610d51094bac670dadb813590, type: 3}
+    synergy1: 10
+    synergy2: 1
+    synergy3: 16
+  - prefab: {fileID: 5832427703238336652, guid: b9f5e3b80a8eac54abcfa0cd10bdec6b, type: 3}
+    name: Plaguegeneral
+    icon: {fileID: 141336872, guid: b2a32bf128ff89a47b3cddad00d6feaa, type: 3}
+    cost: 5
+    frame: {fileID: 21300000, guid: e30fd38610d51094bac670dadb813590, type: 3}
+    synergy1: 18
+    synergy2: 15
+    synergy3: 10
+  - prefab: {fileID: 5832427703238336652, guid: 0b8dedb71b6d0934ea3f79d11b873a7c, type: 3}
+    name: Skyfalltyrant
+    icon: {fileID: -1648543559, guid: f703ac644d99d014b96faa98cc6a161d, type: 3}
+    cost: 5
+    frame: {fileID: 21300000, guid: e30fd38610d51094bac670dadb813590, type: 3}
+    synergy1: 9
+    synergy2: 10
+    synergy3: 0
+  - prefab: {fileID: 5832427703238336652, guid: 7e99835cf44970848b80babd3ac537ed, type: 3}
+    name: Kron
+    icon: {fileID: 172418148, guid: b23d8eee93afe354faf5eaa5a987435e, type: 3}
+    cost: 5
+    frame: {fileID: 21300000, guid: e30fd38610d51094bac670dadb813590, type: 3}
+    synergy1: 9
+    synergy2: 7
+    synergy3: 12
+  - prefab: {fileID: 5832427703238336652, guid: afd877b608f2eec4cb60f58d6f8075c0, type: 3}
+    name: Gol
+    icon: {fileID: -1875519936, guid: c36514c8adc0f1c4985889b91e114936, type: 3}
+    cost: 5
+    frame: {fileID: 21300000, guid: e30fd38610d51094bac670dadb813590, type: 3}
+    synergy1: 4
+    synergy2: 18
+    synergy3: 0
+  - prefab: {fileID: -7965642443339072857, guid: 36c22cb20f83f2042914e6a09a36678a, type: 3}
+    name: Invader
+    icon: {fileID: 1985641018, guid: 95eddedc50fb7834695d896fda6b74d9, type: 3}
+    cost: 5
+    frame: {fileID: 21300000, guid: e30fd38610d51094bac670dadb813590, type: 3}
+    synergy1: 7
+    synergy2: 13
+    synergy3: 18
+  - prefab: {fileID: 5832427703238336652, guid: 13afc76e95afe5344a80f0418a1c59dd, type: 3}
+    name: Legion
+    icon: {fileID: -449272718, guid: 98f1ef932f4a1974ca65c1f86c973754, type: 3}
+    cost: 5
+    frame: {fileID: 21300000, guid: e30fd38610d51094bac670dadb813590, type: 3}
+    synergy1: 9
+    synergy2: 1
+    synergy3: 15

@@ -1,0 +1,2270 @@
+fileFormatVersion: 2
+guid: 5dfe3d82b58e04c4f839b7a1270cb81e
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Altgeneraltier2_Default_000
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a65c4c2fa4eb30943a283e355b7cf3fd
+      internalID: -536552550
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Default_001
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4cecf6a8ca798644f9359945718468f5
+      internalID: -1411613908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Default_002
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4f817e7cf6174945aaedeb69006086f
+      internalID: -281324498
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Default_003
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b8918a725c3a024ca3af0380c4f141d
+      internalID: -67244221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Default_004
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d5efc878471a524d874718ebbadce7e
+      internalID: -2121260442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Default_005
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4dc4fbdda76ef0b44a585ef8e6114845
+      internalID: -214674060
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Default_006
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f66686fc6198a6488fe1d322c50890b
+      internalID: -1026253076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Default_007
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2807b936742b5984d8396d7f8f4d3943
+      internalID: 1346853468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Default_008
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e55347a145d13945ba90b2e66e22a0e
+      internalID: 1283115923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Default_009
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fbf0c859f653604ba8bc93aa70e4f2a
+      internalID: -1564190825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Default_010
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9880f40522464a4b96dd17c0fb8a942
+      internalID: 10226854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Default_011
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ae5629a555bd424ba5bbed8b415321a
+      internalID: 475679580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Default_012
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7d5e1d36a8c5fb45b16654a35fce838
+      internalID: 734710499
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Default_013
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30a441455bf51634e8d05c6b03b5d6bf
+      internalID: -1584398556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Move_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2ec47b0cdd68a94cbc417fc577dab00
+      internalID: -206331949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Move_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 677a557a2dd247f44a1ac590a9093db9
+      internalID: -1039902686
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Move_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 100e97ad3b1f5094e957847f05387fcf
+      internalID: 1762467080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Move_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9647bbb839c7f3e429bced00c33aea05
+      internalID: 2099175248
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b628a1d357b67a54c9777d3fd04a289c
+      internalID: 1941888507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ea9da53ba6902ad4db168e142cecf39a
+      internalID: 1367448639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Move_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2d5662f54869d6468a98817700c278e
+      internalID: 1513003539
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Move_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a57d624e981b2db4198085ba3e92df27
+      internalID: 86539541
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6482ce64e4ab33246b0e6011905c0b15
+      internalID: -227775241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2b2836b201875c489ba8525d0d93975
+      internalID: 2005462908
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d079411ca0cd52459a9f2434e49b249
+      internalID: -786380451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2aa94fe57b429ed499e0f0b373316065
+      internalID: 1131177031
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ebf85949c73955419d5c7fdb0585be0
+      internalID: 2079021716
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e91dd57d1d75d34086b8f51f6dbc478
+      internalID: -1952523414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb3367a80bddea04aacde78b99d43ed5
+      internalID: -858238416
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb7269e37f45a9e4f9047f695c02b7cc
+      internalID: 686313829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f2ad246795d5404e97d0515e45814b9
+      internalID: -2129863807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d6fdfad0571da24381f4f56681e730e
+      internalID: 1410117175
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db69bb94961d97348984b445bfbad2a4
+      internalID: 1330232051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0b0cb5af384509459b40022e20d9df1
+      internalID: 996972971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ce10906d50932b429493de4bbf87223
+      internalID: -309516320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfd699655e8e09847b19dbe7de630b4f
+      internalID: -967939572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d458c97c3eea684496897988c67ece9
+      internalID: -1871715689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3276b1ceb0d2e31458cdc3a610e4d64e
+      internalID: -1816515324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e69e07e560c722499cdf14a94768742
+      internalID: 1288808732
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62f627e2f5b0dbd4c8987b5848ebd4cd
+      internalID: -1414519751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 743a87ae1fbb1e9409f907ff66491e47
+      internalID: 2025781164
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcb305d32ea568d45979daa2fbc0fbf4
+      internalID: -1391265171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b8886c3930ea4674281f2d1d6ff4c2b2
+      internalID: 4710384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 656a21e9d599b7b49909af4433956923
+      internalID: 1973782293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ea941417798bb94abc9ab697b7c0824
+      internalID: 1045810467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_023
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a26e1bc0023a6274899ec9ed4c9e0d5b
+      internalID: -1784648098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_024
+      rect:
+        serializedVersion: 2
+        x: 846
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 347ed30f4b4ccf64189514975bca00f8
+      internalID: -508300789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_025
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b6d53091cca07d4b87d2426924764c6
+      internalID: 1200699122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_026
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87c3d225c6ad4fc43956d1d5c0bb4ccf
+      internalID: 726159751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_027
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61b5c015cc2ae6f449d2fee7baeb8758
+      internalID: 1442149261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_028
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e2a2ba60a9927414ba8ac5cd88e5954f
+      internalID: 695737731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Attack_029
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6fcd5d4088c169946a11a76cb630e1f4
+      internalID: -579730797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_000
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91acf3d832fb28b45a7773fcaf2ae165
+      internalID: 1246415861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_001
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48eacde15da6b464fa80416ac0740912
+      internalID: 1430662614
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_002
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 070a7dea93aaf974ab8651ac650f6225
+      internalID: -483750827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_003
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56cbeebecd5c23445acfc07ec012b53c
+      internalID: -41558208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_004
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f1202ee99363a1c44b0651124298b6aa
+      internalID: -1955727174
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_005
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f19f861efcd76a24189bea0f7968d58c
+      internalID: -911333666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_006
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 692b5027e52ba58468e62409bb90bc64
+      internalID: 2053590581
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_007
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c131391a982edbf41b609ae2dbd29150
+      internalID: 948563437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_008
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec173435300192e4c9fe40f4c7aaee83
+      internalID: 1005920245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_009
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4c62151727fec854ab7115814f8efdd8
+      internalID: 143753488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_010
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1848075fc3d7e54e9fa9eb7e92aef4d
+      internalID: 315399230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_011
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da2fd33c672211e49af0bad60abd032c
+      internalID: -1430965774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_012
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e74374adc2e4dcd4ab426608cbecb5a4
+      internalID: -1684156508
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_013
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b6dc7b6551cc3a42bba98c8568c5ed0
+      internalID: 1127830061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_014
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04ccef7efa5d83b4296266050b9c40cb
+      internalID: 1397775437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_015
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a06470d8c71166d479084fde0f2a02dd
+      internalID: 1076998861
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_016
+      rect:
+        serializedVersion: 2
+        x: 987
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7f771303a8a051418640ad8615dfe21
+      internalID: 1556540801
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_017
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7e973661270a194293dec6d498ec18d
+      internalID: 47633845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_018
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0a2edfac3ac9ae47be2ee6da267b1dd
+      internalID: 1731226625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_019
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04b2ce3ddea271d439cdf3e81a81c253
+      internalID: 1209283251
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_020
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4da95b3dcea52bf4998b182a1b9fc01f
+      internalID: 157161324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_021
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04e17806e1bc54542b3e6ac5ced2a198
+      internalID: -1421208056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_022
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed2fe43c1235c894ab9dbf319cfec41f
+      internalID: -2070827708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_023
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a322cdc0dc0e72c488d3bfc3b618b326
+      internalID: -403727084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_024
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ce167d618361ea4bb0d4d9304555270
+      internalID: 92759316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_025
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0f20e17f2ee7b64a911fe30c0969887
+      internalID: -859998917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Ability_026
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: adac46c215eb10145bd20aa031ccf39d
+      internalID: -1808982215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d005efa31d632046a8d35a0d9344c6d
+      internalID: 2138642501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 423
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 165f6c50a8630f54b9bb33b78bef40af
+      internalID: -226259304
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a40b2f97b77b82f4e963fc3912f1d645
+      internalID: -872489826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96d995e96e586a9489a9560efb36264e
+      internalID: -2006416516
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61f51c7b0b382a04b9a52b7d46434c39
+      internalID: -60645363
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 498
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82404d31ba053c2488b65a8c880ff0d6
+      internalID: 789955339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 639
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bbaa50fbd7ce6574aa8ca7d98b1f490c
+      internalID: 362655688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 780
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a432cbf794fa6e847bcbc2d8a9f2e735
+      internalID: 1375577154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 921
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a3e7a6c727156e469ce1eaeae09c518
+      internalID: 917339758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1062
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dbd5605c4f7a53648a8ab78038baa1b4
+      internalID: -1510370130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1203
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf905e3429ca5f945b5c8adfd63fcd30
+      internalID: 1901847610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1344
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: effb9e78e3354f344b7afcc7fd4676d0
+      internalID: -1466910973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1485
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac4125553b4449e47842f7db92346bd3
+      internalID: -2028323621
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1626
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5830a424c6c18c742b42d97c472c860f
+      internalID: -596171061
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1767
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 28fa37e3310b0a74cb75f48bb42e6671
+      internalID: 1134788862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Dead_015
+      rect:
+        serializedVersion: 2
+        x: 282
+        y: 1908
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d5995f035e8ede49aaa766a7e0289ad
+      internalID: -18580226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Dead_016
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 75
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4255b1360d2cbb943b32d0690589b5ba
+      internalID: 1760122891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Dead_017
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 216
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c5f6c2a8fc3d5f48a430384f23cb079
+      internalID: -1587244208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Altgeneraltier2_Dead_018
+      rect:
+        serializedVersion: 2
+        x: 141
+        y: 357
+        width: 140
+        height: 140
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70fa54e278798634d86d3d36ea45fbbb
+      internalID: 299140483
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Altgeneraltier2_Ability_000: 1246415861
+      Altgeneraltier2_Ability_001: 1430662614
+      Altgeneraltier2_Ability_002: -483750827
+      Altgeneraltier2_Ability_003: -41558208
+      Altgeneraltier2_Ability_004: -1955727174
+      Altgeneraltier2_Ability_005: -911333666
+      Altgeneraltier2_Ability_006: 2053590581
+      Altgeneraltier2_Ability_007: 948563437
+      Altgeneraltier2_Ability_008: 1005920245
+      Altgeneraltier2_Ability_009: 143753488
+      Altgeneraltier2_Ability_010: 315399230
+      Altgeneraltier2_Ability_011: -1430965774
+      Altgeneraltier2_Ability_012: -1684156508
+      Altgeneraltier2_Ability_013: 1127830061
+      Altgeneraltier2_Ability_014: 1397775437
+      Altgeneraltier2_Ability_015: 1076998861
+      Altgeneraltier2_Ability_016: 1556540801
+      Altgeneraltier2_Ability_017: 47633845
+      Altgeneraltier2_Ability_018: 1731226625
+      Altgeneraltier2_Ability_019: 1209283251
+      Altgeneraltier2_Ability_020: 157161324
+      Altgeneraltier2_Ability_021: -1421208056
+      Altgeneraltier2_Ability_022: -2070827708
+      Altgeneraltier2_Ability_023: -403727084
+      Altgeneraltier2_Ability_024: 92759316
+      Altgeneraltier2_Ability_025: -859998917
+      Altgeneraltier2_Ability_026: -1808982215
+      Altgeneraltier2_Attack_000: -227775241
+      Altgeneraltier2_Attack_001: 2005462908
+      Altgeneraltier2_Attack_002: -786380451
+      Altgeneraltier2_Attack_003: 1131177031
+      Altgeneraltier2_Attack_004: 2079021716
+      Altgeneraltier2_Attack_005: -1952523414
+      Altgeneraltier2_Attack_006: -858238416
+      Altgeneraltier2_Attack_007: 686313829
+      Altgeneraltier2_Attack_008: -2129863807
+      Altgeneraltier2_Attack_009: 1410117175
+      Altgeneraltier2_Attack_010: 1330232051
+      Altgeneraltier2_Attack_011: 996972971
+      Altgeneraltier2_Attack_012: -309516320
+      Altgeneraltier2_Attack_013: -967939572
+      Altgeneraltier2_Attack_014: -1871715689
+      Altgeneraltier2_Attack_015: -1816515324
+      Altgeneraltier2_Attack_016: 1288808732
+      Altgeneraltier2_Attack_017: -1414519751
+      Altgeneraltier2_Attack_018: 2025781164
+      Altgeneraltier2_Attack_019: -1391265171
+      Altgeneraltier2_Attack_020: 4710384
+      Altgeneraltier2_Attack_021: 1973782293
+      Altgeneraltier2_Attack_022: 1045810467
+      Altgeneraltier2_Attack_023: -1784648098
+      Altgeneraltier2_Attack_024: -508300789
+      Altgeneraltier2_Attack_025: 1200699122
+      Altgeneraltier2_Attack_026: 726159751
+      Altgeneraltier2_Attack_027: 1442149261
+      Altgeneraltier2_Attack_028: 695737731
+      Altgeneraltier2_Attack_029: -579730797
+      Altgeneraltier2_Dead_000: 2138642501
+      Altgeneraltier2_Dead_001: -226259304
+      Altgeneraltier2_Dead_002: -872489826
+      Altgeneraltier2_Dead_003: -2006416516
+      Altgeneraltier2_Dead_004: -60645363
+      Altgeneraltier2_Dead_005: 789955339
+      Altgeneraltier2_Dead_006: 362655688
+      Altgeneraltier2_Dead_007: 1375577154
+      Altgeneraltier2_Dead_008: 917339758
+      Altgeneraltier2_Dead_009: -1510370130
+      Altgeneraltier2_Dead_010: 1901847610
+      Altgeneraltier2_Dead_011: -1466910973
+      Altgeneraltier2_Dead_012: -2028323621
+      Altgeneraltier2_Dead_013: -596171061
+      Altgeneraltier2_Dead_014: 1134788862
+      Altgeneraltier2_Dead_015: -18580226
+      Altgeneraltier2_Dead_016: 1760122891
+      Altgeneraltier2_Dead_017: -1587244208
+      Altgeneraltier2_Dead_018: 299140483
+      Altgeneraltier2_Default_000: -536552550
+      Altgeneraltier2_Default_001: -1411613908
+      Altgeneraltier2_Default_002: -281324498
+      Altgeneraltier2_Default_003: -67244221
+      Altgeneraltier2_Default_004: -2121260442
+      Altgeneraltier2_Default_005: -214674060
+      Altgeneraltier2_Default_006: -1026253076
+      Altgeneraltier2_Default_007: 1346853468
+      Altgeneraltier2_Default_008: 1283115923
+      Altgeneraltier2_Default_009: -1564190825
+      Altgeneraltier2_Default_010: 10226854
+      Altgeneraltier2_Default_011: 475679580
+      Altgeneraltier2_Default_012: 734710499
+      Altgeneraltier2_Default_013: -1584398556
+      Altgeneraltier2_Move_000: -206331949
+      Altgeneraltier2_Move_001: -1039902686
+      Altgeneraltier2_Move_002: 1762467080
+      Altgeneraltier2_Move_003: 2099175248
+      Altgeneraltier2_Move_004: 1941888507
+      Altgeneraltier2_Move_005: 1367448639
+      Altgeneraltier2_Move_006: 1513003539
+      Altgeneraltier2_Move_007: 86539541
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

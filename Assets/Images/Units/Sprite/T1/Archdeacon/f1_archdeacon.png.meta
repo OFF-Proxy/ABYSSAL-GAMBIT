@@ -1,0 +1,1610 @@
+fileFormatVersion: 2
+guid: c68dffbadf90ac14fb9f075f449e93c8
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Archdeacon_Default_000
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ffdc2c7674895e499f58f93f8628e93
+      internalID: -1368449839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Default_001
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 068604bf5cddd6e4f9b7975478371f01
+      internalID: -53751455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Default_002
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fed26952263673740830e4aa58794ad4
+      internalID: 1836501612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Default_003
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cf96a42cedc93a449a4b27c15badb66d
+      internalID: 1710578514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Default_004
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bad0920934041864590bda9eb8a77fb1
+      internalID: -2015179554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Default_005
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffafe3fde88d6964e9aa8efade6a58ed
+      internalID: 806583670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Default_006
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a3d4c368ec4d4846a70ab12ae6aad3f
+      internalID: -1124932920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Default_007
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d12a8f52ee90db4fbd000a83ca20b7c
+      internalID: -784225889
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Default_008
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c32a195878c7b9f4cbd51297dc371cf4
+      internalID: -1957012006
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Default_009
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 62431ed3753b308408b939ba0d5c5342
+      internalID: -1774260879
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Default_010
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3649c82e56d65d041a6e68f7eca518b2
+      internalID: -1747697327
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Default_011
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9a280b33da0e3542a1ca3285dc0b740
+      internalID: 1556618754
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Default_012
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73646d2a53ef78941b2733509502c93c
+      internalID: 1832772402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Default_013
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d6d3d271176a5dd45961c3aa53e3bec4
+      internalID: 1208970396
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Move_000
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99726d6676d84cb43ad680900a93d35f
+      internalID: 138528613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Move_001
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da27f76b3838d0548bbff6e11fc5245d
+      internalID: -1440080829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Move_002
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8d7a1c6f94a37e4783f48bedfb96efa
+      internalID: 224938578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Move_003
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f439ea4cb150ef43a6302d1476ab781
+      internalID: 363199706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 42ea0ac453daa9e449eef2951e69622f
+      internalID: 1447801668
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24abcf113b78d0f499eb462ae23ecdd7
+      internalID: -990268046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Move_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b43fa0ae2f796d499eddfa3d357e061
+      internalID: -354087954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Move_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3add16d94f3c734fb2b9ea4c39f2241
+      internalID: -1276496004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Move_008
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d7b22ad08bf6cda4481de144b1d18c5a
+      internalID: 1542102094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Move_009
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 990af1cb9505eaa4e904327746d1ab3d
+      internalID: 1966364206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Move_010
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc48f475847e6164fafa9a50d2b36d8a
+      internalID: -1283235785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65187e3ada694314eab74346876c1d7e
+      internalID: -324149027
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b750dd63df5b0c0418a63faf9b88fbbc
+      internalID: 350266662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 931187055cbfbc345ba5513ffa1c5211
+      internalID: 495110846
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 862977aa0480cc44390fb03aa8b8c3e2
+      internalID: -1247352907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6801e56586612743aacc565fa0fc7f4
+      internalID: 942457058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a55365b582465a479cf9d43b0c8a7a6
+      internalID: 176078601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1fa0eb8dd599c5488e2e4130ced2b07
+      internalID: -1953787855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce17fff681a1e114db4b0dfd9d614328
+      internalID: -535398836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe38a8ac20f271e41b3bcbcad66296a4
+      internalID: -1722681087
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f1ae68863523484d94c90592727fffa
+      internalID: -137085892
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff67ba50dd8b3a54190a93f18df19bc0
+      internalID: -1810296893
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64257b9a4640eeb46879f31988ba2651
+      internalID: 967977372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b24fef853d2df4a43965ec50e7fdc753
+      internalID: 2130803885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3329d05c0f6c44643b3e2bc687163693
+      internalID: 2013472144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3c89fd9325ac42d4797252766dc0e8fc
+      internalID: -967107912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 04b902e7589795e4d860af592a760603
+      internalID: 1819129662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a36a798c600477747bc02dc9a86821a4
+      internalID: -360035651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0110ed829d9ec184188960c186556db5
+      internalID: 63939980
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba64359f1b092a144a3eccb241543f34
+      internalID: 236082990
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a52d0eb4bdc55d4c899d6f065c2c246
+      internalID: 1141391062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d9b0ed51ab7d31948bfba42b3da661ea
+      internalID: 279802624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ef3c90d89a4dc74db210b4188ed6321
+      internalID: 2122731220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1196f0960cc2384884daee490c193bb
+      internalID: -1097377045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_023
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3935c6018430b554399159f6975ffea1
+      internalID: 629549401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_024
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff4e3201ffb03694ca6616c5b31bde42
+      internalID: 1916387019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Attack_025
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 789e77302a577674a9041cfc2b6e0186
+      internalID: -661312639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e6367d8ab273b742a2a37e13f95bc83
+      internalID: 1259311372
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb819a1cc06b99e4cb2ea186818914d2
+      internalID: -1125690633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fca52b54046210c41916408e1ea9e507
+      internalID: 1165918495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6657f3fc9fb86c34a9ae04c0f1aae2ec
+      internalID: 881086114
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b9c54ec214daef4ba5d87ecdf5c340e
+      internalID: -750247509
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 791fcd9a1ff82db4ea70110fc243453b
+      internalID: 270756000
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c29b8069dd40f434d8e593b81cb11ca3
+      internalID: -841201631
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01a3b68596fc16b4a835b9af810318f8
+      internalID: 1399535675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fee7740b02f9ba449767a543e4328e4
+      internalID: 974603404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acc7dafcae2d327448799d392202da95
+      internalID: -745141570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 27d1bbc73e3665744a21bbc3b65b198b
+      internalID: -555354218
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d7fa5d0efa30714a934321f45ec7cba
+      internalID: -1765875749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f041441806e86d45beb33e7e0f6b66e
+      internalID: 2038615902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51e6f35856c4c7142b7bf2a11c6e4c99
+      internalID: -2119283681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d14b1b2ecb5efed4c8c8fc615d964ea2
+      internalID: -747682948
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Dead_015
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 437b9b24db25c9b4083f5ca18f3877ea
+      internalID: -2054131463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Archdeacon_Dead_016
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46ba2bdfd36180a47adb651376e4f578
+      internalID: -2011601427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Archdeacon_Attack_000: -324149027
+      Archdeacon_Attack_001: 350266662
+      Archdeacon_Attack_002: 495110846
+      Archdeacon_Attack_003: -1247352907
+      Archdeacon_Attack_004: 942457058
+      Archdeacon_Attack_005: 176078601
+      Archdeacon_Attack_006: -1953787855
+      Archdeacon_Attack_007: -535398836
+      Archdeacon_Attack_008: -1722681087
+      Archdeacon_Attack_009: -137085892
+      Archdeacon_Attack_010: -1810296893
+      Archdeacon_Attack_011: 967977372
+      Archdeacon_Attack_012: 2130803885
+      Archdeacon_Attack_013: 2013472144
+      Archdeacon_Attack_014: -967107912
+      Archdeacon_Attack_015: 1819129662
+      Archdeacon_Attack_016: -360035651
+      Archdeacon_Attack_017: 63939980
+      Archdeacon_Attack_018: 236082990
+      Archdeacon_Attack_019: 1141391062
+      Archdeacon_Attack_020: 279802624
+      Archdeacon_Attack_021: 2122731220
+      Archdeacon_Attack_022: -1097377045
+      Archdeacon_Attack_023: 629549401
+      Archdeacon_Attack_024: 1916387019
+      Archdeacon_Attack_025: -661312639
+      Archdeacon_Dead_000: 1259311372
+      Archdeacon_Dead_001: -1125690633
+      Archdeacon_Dead_002: 1165918495
+      Archdeacon_Dead_003: 881086114
+      Archdeacon_Dead_004: -750247509
+      Archdeacon_Dead_005: 270756000
+      Archdeacon_Dead_006: -841201631
+      Archdeacon_Dead_007: 1399535675
+      Archdeacon_Dead_008: 974603404
+      Archdeacon_Dead_009: -745141570
+      Archdeacon_Dead_010: -555354218
+      Archdeacon_Dead_011: -1765875749
+      Archdeacon_Dead_012: 2038615902
+      Archdeacon_Dead_013: -2119283681
+      Archdeacon_Dead_014: -747682948
+      Archdeacon_Dead_015: -2054131463
+      Archdeacon_Dead_016: -2011601427
+      Archdeacon_Default_000: -1368449839
+      Archdeacon_Default_001: -53751455
+      Archdeacon_Default_002: 1836501612
+      Archdeacon_Default_003: 1710578514
+      Archdeacon_Default_004: -2015179554
+      Archdeacon_Default_005: 806583670
+      Archdeacon_Default_006: -1124932920
+      Archdeacon_Default_007: -784225889
+      Archdeacon_Default_008: -1957012006
+      Archdeacon_Default_009: -1774260879
+      Archdeacon_Default_010: -1747697327
+      Archdeacon_Default_011: 1556618754
+      Archdeacon_Default_012: 1832772402
+      Archdeacon_Default_013: 1208970396
+      Archdeacon_Move_000: 138528613
+      Archdeacon_Move_001: -1440080829
+      Archdeacon_Move_002: 224938578
+      Archdeacon_Move_003: 363199706
+      Archdeacon_Move_004: 1447801668
+      Archdeacon_Move_005: -990268046
+      Archdeacon_Move_006: -354087954
+      Archdeacon_Move_007: -1276496004
+      Archdeacon_Move_008: 1542102094
+      Archdeacon_Move_009: 1966364206
+      Archdeacon_Move_010: -1283235785
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

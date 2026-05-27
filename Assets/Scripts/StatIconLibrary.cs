@@ -117,6 +117,8 @@ public static class StatIconLibrary
         AddLine(lines, itemData.manaOnAttackBonus != 0, StatIconKind.Focus, LocalizationManager.IsJapanese ? $"攻撃時マナ +{itemData.manaOnAttackBonus}" : $"Mana on Attack +{itemData.manaOnAttackBonus}");
         AddLine(lines, itemData.manaOnDamageTakenBonus != 0, StatIconKind.Focus, LocalizationManager.IsJapanese ? $"被弾時マナ +{itemData.manaOnDamageTakenBonus}" : $"Mana on Hit +{itemData.manaOnDamageTakenBonus}");
         AddLine(lines, itemData.maxManaReduction != 0, StatIconKind.Focus, LocalizationManager.IsJapanese ? $"必要マナ -{itemData.maxManaReduction}" : $"Max Mana -{itemData.maxManaReduction}");
+        string specialEffectText = LocalizationManager.GetItemSpecialEffectText(itemData);
+        AddLine(lines, !string.IsNullOrEmpty(specialEffectText), GetItemSpecialEffectIcon(itemData), specialEffectText);
         return lines;
     }
 
@@ -157,6 +159,34 @@ public static class StatIconLibrary
     {
         if (condition)
             lines.Add(new StatIconLine(iconKind, text));
+    }
+
+    // 追加効果の内容に近いアイコンを選び、説明文だけが浮かないようにします。
+    private static StatIconKind GetItemSpecialEffectIcon(ItemData itemData)
+    {
+        if (itemData == null)
+            return StatIconKind.Focus;
+
+        switch (itemData.id)
+        {
+            case "frostguard_plate":
+            case "godhammer":
+            case "rage_chakram":
+                return StatIconKind.AttackSpeed;
+            case "eternal_heart":
+            case "iridium_scale":
+            case "repair_staff":
+                return StatIconKind.Health;
+            case "spine_cleaver":
+            case "skywind_glaives":
+            case "adamantine_claws":
+                return StatIconKind.AttackPower;
+            case "iron_bulwark":
+            case "phalanx_aegis":
+                return StatIconKind.DamageReduction;
+            default:
+                return StatIconKind.Focus;
+        }
     }
 
     // Resources.Loadで使う拡張子なしのパスを返します。
