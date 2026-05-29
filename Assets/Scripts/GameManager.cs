@@ -123,6 +123,8 @@ public class GameManager : Manager<GameManager>
     private int pendingResultScore;
     private string pendingResultBreakdown = string.Empty;
     private bool pendingResultIsChapterClear;
+    private int pendingResultBestScore;
+    private bool pendingResultIsNewRecord;
     // チャプター総括用：各ステージのスコアとタイムを蓄積します。
     private readonly List<int> chapterStageScores = new List<int>();
     private readonly List<float> chapterStageTimes = new List<float>();
@@ -2178,9 +2180,22 @@ public class GameManager : Manager<GameManager>
     {
         if (clearedDef != null)
         {
-            if (clearedDef.IsBossWave) stageScoreBossClears++;
-            else if (clearedDef.IsMidBossWave) stageScoreMidBossClears++;
-            else if (!clearedDef.IsEventRound) stageScoreCombatClears++;
+            bool ja = LocalizationManager.IsJapanese;
+            if (clearedDef.IsBossWave)
+            {
+                stageScoreBossClears++;
+                ScorePopupUI.EnsureExists().Show(1000, ja ? "章ボス撃破!" : "Chapter Boss!", new Color(1f, 0.78f, 0.42f));
+            }
+            else if (clearedDef.IsMidBossWave)
+            {
+                stageScoreMidBossClears++;
+                ScorePopupUI.EnsureExists().Show(300, ja ? "中ボス撃破!" : "Mid-Boss!", new Color(1f, 0.86f, 0.55f));
+            }
+            else if (!clearedDef.IsEventRound)
+            {
+                stageScoreCombatClears++;
+                ScorePopupUI.EnsureExists().Show(100, ja ? "戦闘クリア!" : "Wave Clear!");
+            }
         }
 
         int clearedStage = clearedDef != null && clearedDef.StageIndex > 0
@@ -2247,11 +2262,23 @@ public class GameManager : Manager<GameManager>
                 chapterTotalScore += chapterStageScores[i];
             float chapterTotalTime = Time.unscaledTime - chapterStartTime;
 
+            // R1-score: ベストスコア/タイムを永続化し、自己新かどうかをリザルト表示へ渡します。
+            int previousBest = 0;
+            bool isNewRecord = false;
+            if (SaveManager.Instance != null)
+            {
+                AutoChessBossRush.Save.ChapterRecord rec = SaveManager.Instance.GetChapter(currentChapter);
+                previousBest = rec != null ? rec.bestScore : 0;
+                isNewRecord = SaveManager.Instance.RecordChapterResult(currentChapter, chapterTotalScore, chapterTotalTime, true);
+            }
+
             pendingResultStage = stageNumber;
             pendingResultTime = chapterTotalTime;
             pendingResultScore = chapterTotalScore;
             pendingResultBreakdown = BuildChapterBreakdown(stageNumber, stageTotalScore, elapsed);
             pendingResultIsChapterClear = true;
+            pendingResultBestScore = Mathf.Max(previousBest, chapterTotalScore);
+            pendingResultIsNewRecord = isNewRecord;
             hasPendingStageResult = true;
         }
         else
@@ -2261,6 +2288,8 @@ public class GameManager : Manager<GameManager>
             pendingResultScore = stageTotalScore;
             pendingResultBreakdown = BuildStageBreakdown(stageScoreCombatClears, stageScoreMidBossClears, stageScoreBossClears, star2, star3, speedBonus);
             pendingResultIsChapterClear = false;
+            pendingResultBestScore = 0;
+            pendingResultIsNewRecord = false;
             hasPendingStageResult = true;
         }
     }
@@ -2328,7 +2357,9 @@ public class GameManager : Manager<GameManager>
             pendingResultTime,
             pendingResultScore,
             pendingResultBreakdown,
-            pendingResultIsChapterClear);
+            pendingResultIsChapterClear,
+            pendingResultBestScore,
+            pendingResultIsNewRecord);
         hasPendingStageResult = false;
     }
 

@@ -18,6 +18,9 @@ public class ResultPanelUI : MonoBehaviour
     private TextMeshProUGUI timeValue;
     private TextMeshProUGUI scoreLabel;
     private TextMeshProUGUI scoreValue;
+    private TextMeshProUGUI bestLabel;
+    private TextMeshProUGUI bestValue;
+    private TextMeshProUGUI newRecordBadge;
     private TextMeshProUGUI breakdownText;
     private Button continueButton;
     private TextMeshProUGUI continueText;
@@ -76,7 +79,8 @@ public class ResultPanelUI : MonoBehaviour
     }
 
     // ステージクリアのリザルトを表示します。chapter最終ステージなら isChapterClear=true。
-    public void ShowStageResult(int stageNumber, float seconds, int score, string breakdown, bool isChapterClear)
+    // bestScore/isNewRecord は章クリア時のみ意味があります（章未クリアではゼロ/false）。
+    public void ShowStageResult(int stageNumber, float seconds, int score, string breakdown, bool isChapterClear, int bestScore = 0, bool isNewRecord = false)
     {
         BuildIfNeeded();
         bool ja = LocalizationManager.IsJapanese;
@@ -86,6 +90,9 @@ public class ResultPanelUI : MonoBehaviour
         LocalizationManager.ApplyFont(timeValue);
         LocalizationManager.ApplyFont(scoreLabel);
         LocalizationManager.ApplyFont(scoreValue);
+        LocalizationManager.ApplyFont(bestLabel);
+        LocalizationManager.ApplyFont(bestValue);
+        LocalizationManager.ApplyFont(newRecordBadge);
         LocalizationManager.ApplyFont(breakdownText);
         LocalizationManager.ApplyFont(continueText);
 
@@ -99,6 +106,25 @@ public class ResultPanelUI : MonoBehaviour
         timeValue.text = FormatTime(seconds);
         scoreLabel.text = ja ? "スコア" : "Score";
         scoreValue.text = score.ToString("N0");
+
+        // 章クリア時のみベスト行と NEW RECORD バッジを出します。ステージ単位のクリアでは隠します。
+        bool showBest = isChapterClear;
+        if (bestLabel != null) bestLabel.gameObject.SetActive(showBest);
+        if (bestValue != null) bestValue.gameObject.SetActive(showBest);
+        if (showBest)
+        {
+            bestLabel.text = ja ? "ベスト" : "Best";
+            bestValue.text = bestScore > 0 ? bestScore.ToString("N0") : "—";
+        }
+
+        if (newRecordBadge != null)
+        {
+            bool showBadge = isChapterClear && isNewRecord;
+            newRecordBadge.gameObject.SetActive(showBadge);
+            if (showBadge)
+                newRecordBadge.text = ja ? "★ 自己ベスト更新!" : "★ NEW RECORD!";
+        }
+
         breakdownText.text = breakdown ?? string.Empty;
         continueText.text = ja ? "次へ" : "Continue";
 
@@ -182,7 +208,7 @@ public class ResultPanelUI : MonoBehaviour
         panelRect = panelObj.GetComponent<RectTransform>();
         panelRect.anchorMin = panelRect.anchorMax = new Vector2(0.5f, 0.5f);
         panelRect.pivot = new Vector2(0.5f, 0.5f);
-        panelRect.sizeDelta = new Vector2(540f, 520f);
+        panelRect.sizeDelta = new Vector2(540f, 580f);
         Image panelBg = panelObj.GetComponent<Image>();
         panelBg.color = new Color(0.02f, 0.06f, 0.10f, 0.97f);
         panelGroup = panelObj.GetComponent<CanvasGroup>();
@@ -214,6 +240,16 @@ public class ResultPanelUI : MonoBehaviour
         scoreValue = CreateText("ScoreValue", panelRect, new Vector2(1f, 1f), new Vector2(-36f, -180f), new Vector2(280f, 34f), 28f, FontStyles.Bold, new Color(1f, 0.92f, 0.55f));
         scoreValue.alignment = TextAlignmentOptions.MidlineRight;
 
+        // ベストスコア行（章クリア時のみ表示）
+        bestLabel = CreateText("BestLabel", panelRect, new Vector2(0f, 1f), new Vector2(36f, -222f), new Vector2(200f, 22f), 14f, FontStyles.Normal, new Color(0.74f, 0.84f, 0.96f, 0.85f));
+        bestLabel.alignment = TextAlignmentOptions.MidlineLeft;
+        bestValue = CreateText("BestValue", panelRect, new Vector2(1f, 1f), new Vector2(-36f, -222f), new Vector2(240f, 22f), 18f, FontStyles.Bold, new Color(0.94f, 0.96f, 1f, 0.95f));
+        bestValue.alignment = TextAlignmentOptions.MidlineRight;
+
+        // NEW RECORD バッジ（章クリア+自己新時のみ表示）
+        newRecordBadge = CreateText("NewRecord", panelRect, new Vector2(0.5f, 1f), new Vector2(0f, -250f), new Vector2(360f, 22f), 16f, FontStyles.Bold, new Color(1f, 0.55f, 0.35f));
+        newRecordBadge.alignment = TextAlignmentOptions.Center;
+
         // 区切り線
         GameObject sepObj = new GameObject("Separator", typeof(RectTransform), typeof(Image));
         sepObj.transform.SetParent(panelRect, false);
@@ -221,11 +257,11 @@ public class ResultPanelUI : MonoBehaviour
         sepRect.anchorMin = new Vector2(0f, 1f);
         sepRect.anchorMax = new Vector2(1f, 1f);
         sepRect.pivot = new Vector2(0.5f, 1f);
-        sepRect.anchoredPosition = new Vector2(0f, -226f);
+        sepRect.anchoredPosition = new Vector2(0f, -278f);
         sepRect.sizeDelta = new Vector2(-72f, 2f);
         sepObj.GetComponent<Image>().color = new Color(0.4f, 0.6f, 0.78f, 0.4f);
 
-        breakdownText = CreateText("Breakdown", panelRect, new Vector2(0.5f, 1f), new Vector2(0f, -240f), new Vector2(480f, 200f), 14f, FontStyles.Normal, new Color(0.88f, 0.94f, 1f));
+        breakdownText = CreateText("Breakdown", panelRect, new Vector2(0.5f, 1f), new Vector2(0f, -292f), new Vector2(480f, 220f), 14f, FontStyles.Normal, new Color(0.88f, 0.94f, 1f));
         breakdownText.alignment = TextAlignmentOptions.TopLeft;
         breakdownText.enableWordWrapping = true;
         breakdownText.lineSpacing = 3f;
@@ -247,6 +283,9 @@ public class ResultPanelUI : MonoBehaviour
         if (timeValue != null) LocalizationManager.ApplyFont(timeValue);
         if (scoreLabel != null) LocalizationManager.ApplyFont(scoreLabel);
         if (scoreValue != null) LocalizationManager.ApplyFont(scoreValue);
+        if (bestLabel != null) LocalizationManager.ApplyFont(bestLabel);
+        if (bestValue != null) LocalizationManager.ApplyFont(bestValue);
+        if (newRecordBadge != null) LocalizationManager.ApplyFont(newRecordBadge);
         if (breakdownText != null) LocalizationManager.ApplyFont(breakdownText);
         if (continueText != null) LocalizationManager.ApplyFont(continueText);
     }
