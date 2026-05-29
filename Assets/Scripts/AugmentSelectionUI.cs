@@ -203,6 +203,11 @@ public class AugmentSelectionUI : MonoBehaviour
             return;
 
         isOpen = open;
+        // 連続イベント（例: Silver → 即 Gold）で前回の閉じる Tween の OnComplete が
+        // 再表示後に発火してパネルを隠してしまう事故を防ぐため、必ず既存 Tween を kill する。
+        panelGroup.DOKill();
+        panelRect.DOKill();
+
         if (open)
         {
             previousTimeScale = Time.timeScale;
@@ -220,6 +225,8 @@ public class AugmentSelectionUI : MonoBehaviour
             panelGroup.DOFade(0f, 0.16f).SetUpdate(true);
             panelRect.DOScale(0.94f, 0.16f).SetUpdate(true).OnComplete(() =>
             {
+                // 閉じ Tween 完了時、その間に再オープンされていたら hide しない。
+                if (isOpen) return;
                 panelRect.gameObject.SetActive(false);
                 if (dimObject != null) dimObject.SetActive(false);
             });

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 using System;
 using System.Linq;
@@ -2709,13 +2710,29 @@ public class GameManager : Manager<GameManager>
             lastPos += step;
             tileObject.transform.position = lastPos;
             tileObject.transform.localRotation = Quaternion.identity;
-            tileObject.transform.localScale = template.localScale;
+            Vector3 finalScale = template.localScale;
+            tileObject.transform.localScale = finalScale;
 
             Tile tile = tileObject.GetComponent<Tile>();
             if (tile == null)
                 tile = tileObject.AddComponent<Tile>();
             if (GridManager.Instance != null)
                 GridManager.Instance.ConfigureBenchTile(tile, team);
+
+            // ベンチ拡張オーグメント取得時、新タイルがふわっと弾けて生えてくる演出（DOTween）。
+            // ゲーム本体は augment 選択中で Time.timeScale=0 のため、SetUpdate(true) でリアル時間で進める。
+            tileObject.transform.localScale = Vector3.zero;
+            tileObject.transform.DOScale(finalScale, 0.36f).SetEase(Ease.OutBack).SetUpdate(true);
+            SpriteRenderer[] tileRenderers = tileObject.GetComponentsInChildren<SpriteRenderer>(true);
+            for (int rIndex = 0; rIndex < tileRenderers.Length; rIndex++)
+            {
+                SpriteRenderer renderer = tileRenderers[rIndex];
+                if (renderer == null) continue;
+                Color baseColor = renderer.color;
+                Color startColor = baseColor; startColor.a = 0f;
+                renderer.color = startColor;
+                renderer.DOFade(baseColor.a, 0.36f).SetUpdate(true);
+            }
         }
     }
 

@@ -400,6 +400,9 @@ public class UIShop : MonoBehaviour
             ? $"{PlayerData.Instance.Money}  <size=66%><color=#9ED9FF>+{incomePreview}</color></size>"
             : PlayerData.Instance.Money.ToString();
 
+        // 所持金の下に、次の利子段階までの進捗ゲージを表示します。
+        RefreshInterestGauge();
+
         if (levelText != null)
         {
             levelText.enableWordWrapping = false;
@@ -437,6 +440,119 @@ public class UIShop : MonoBehaviour
         RefreshExpModeToggle();
         RefreshExpButtonCostText();
         RefreshRerollButtonCostText();
+    }
+
+    // 利子ゲージ（次の +1 利子までの進捗を所持金表示の真下に出します）。
+    private GameObject interestGaugeRoot;
+    private Image interestGaugeFill;
+    private TextMeshProUGUI interestGaugeText;
+
+    private void RefreshInterestGauge()
+    {
+        if (PlayerData.Instance == null || money == null) return;
+        EnsureInterestGauge();
+        if (interestGaugeRoot == null) return;
+
+        int step = Mathf.Max(1, PlayerData.Instance.interestPerGold);
+        int cap = Mathf.Max(0, PlayerData.Instance.interestCap);
+        int current = PlayerData.Instance.CurrentInterest;
+        bool maxed = current >= cap;
+
+        float fill;
+        string label;
+        if (maxed)
+        {
+            fill = 1f;
+            label = LocalizationManager.IsJapanese ? $"利子 MAX (+{cap})" : $"Interest MAX (+{cap})";
+        }
+        else
+        {
+            int progress = PlayerData.Instance.Money - current * step;
+            int remaining = Mathf.Max(0, step - progress);
+            fill = Mathf.Clamp01((float)progress / step);
+            label = LocalizationManager.IsJapanese
+                ? $"利子+1 まで {remaining}g  (+{current})"
+                : $"+1 in {remaining}g  (+{current})";
+        }
+
+        if (interestGaugeFill != null) interestGaugeFill.fillAmount = fill;
+        if (interestGaugeText != null)
+        {
+            LocalizationManager.ApplyFont(interestGaugeText);
+            interestGaugeText.text = label;
+            interestGaugeText.color = maxed ? new Color(1f, 0.85f, 0.35f, 1f) : new Color(0.85f, 0.96f, 1f, 0.95f);
+        }
+    }
+
+    private void EnsureInterestGauge()
+    {
+        if (interestGaugeRoot != null) return;
+        if (money == null) return;
+
+        RectTransform moneyRect = money.rectTransform;
+        if (moneyRect == null) return;
+
+        GameObject root = new GameObject("InterestGauge", typeof(RectTransform));
+        root.transform.SetParent(moneyRect.parent, false);
+
+        RectTransform rootRect = root.GetComponent<RectTransform>();
+        rootRect.anchorMin = moneyRect.anchorMin;
+        rootRect.anchorMax = moneyRect.anchorMax;
+        rootRect.pivot = new Vector2(moneyRect.pivot.x, 1f);
+        // money のすぐ下に置くため、moneyの anchoredPosition を基準にずらします。
+        Vector2 moneyPos = moneyRect.anchoredPosition;
+        Vector2 moneySize = moneyRect.sizeDelta;
+        rootRect.anchoredPosition = new Vector2(moneyPos.x, moneyPos.y - moneySize.y * 0.5f - 4f);
+        rootRect.sizeDelta = new Vector2(Mathf.Max(120f, moneySize.x), 16f);
+
+        // 背景バー
+        GameObject bg = new GameObject("Bg", typeof(RectTransform), typeof(Image));
+        bg.transform.SetParent(root.transform, false);
+        RectTransform bgRect = bg.GetComponent<RectTransform>();
+        bgRect.anchorMin = new Vector2(0f, 0.5f);
+        bgRect.anchorMax = new Vector2(1f, 0.5f);
+        bgRect.pivot = new Vector2(0.5f, 0.5f);
+        bgRect.anchoredPosition = new Vector2(0f, -4f);
+        bgRect.sizeDelta = new Vector2(-6f, 6f);
+        Image bgImage = bg.GetComponent<Image>();
+        bgImage.color = new Color(0.05f, 0.08f, 0.12f, 0.85f);
+        bgImage.raycastTarget = false;
+
+        // 進捗フィル
+        GameObject fillObj = new GameObject("Fill", typeof(RectTransform), typeof(Image));
+        fillObj.transform.SetParent(bg.transform, false);
+        RectTransform fillRect = fillObj.GetComponent<RectTransform>();
+        fillRect.anchorMin = Vector2.zero;
+        fillRect.anchorMax = Vector2.one;
+        fillRect.offsetMin = new Vector2(1f, 1f);
+        fillRect.offsetMax = new Vector2(-1f, -1f);
+        interestGaugeFill = fillObj.GetComponent<Image>();
+        interestGaugeFill.color = new Color(0.95f, 0.78f, 0.25f, 0.96f);
+        interestGaugeFill.type = Image.Type.Filled;
+        interestGaugeFill.fillMethod = Image.FillMethod.Horizontal;
+        interestGaugeFill.fillOrigin = (int)Image.OriginHorizontal.Left;
+        interestGaugeFill.fillAmount = 0f;
+        interestGaugeFill.raycastTarget = false;
+
+        // ラベル
+        GameObject label = new GameObject("Label", typeof(RectTransform), typeof(TextMeshProUGUI));
+        label.transform.SetParent(root.transform, false);
+        RectTransform labelRect = label.GetComponent<RectTransform>();
+        labelRect.anchorMin = new Vector2(0f, 1f);
+        labelRect.anchorMax = new Vector2(1f, 1f);
+        labelRect.pivot = new Vector2(0.5f, 1f);
+        labelRect.anchoredPosition = new Vector2(0f, 0f);
+        labelRect.sizeDelta = new Vector2(-6f, 11f);
+        interestGaugeText = label.GetComponent<TextMeshProUGUI>();
+        interestGaugeText.fontSize = 10f;
+        interestGaugeText.fontStyle = FontStyles.Bold;
+        interestGaugeText.alignment = TextAlignmentOptions.Center;
+        interestGaugeText.color = new Color(0.85f, 0.96f, 1f, 0.95f);
+        interestGaugeText.enableWordWrapping = false;
+        interestGaugeText.raycastTarget = false;
+        LocalizationManager.ApplyFont(interestGaugeText);
+
+        interestGaugeRoot = root;
     }
 
     // リロールボタンのコスト数字を、有効コスト（0/1/通常値）に書き換えます。
