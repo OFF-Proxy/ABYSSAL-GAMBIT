@@ -6,6 +6,7 @@ using System;
 using System.Linq;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using AutoChessBossRush.Save;
 
 // ゲーム全体の進行を管理する中心クラスです。
 // 購入ユニットの生成、ベンチ管理、盤面配置、入れ替え、売却、スターアップ、戦闘開始/終了を担当します。
@@ -183,6 +184,10 @@ public class GameManager : Manager<GameManager>
     // シーン開始時に、カメラの現在倍率をズーム目標値として保存します。
     private void Start()
     {
+        // 永続化層を最優先で起動し、章進捗・所持ボス仲間・ベストスコアにアクセス可能にします。
+        // R1-meta / R1-score の保存呼び出し（章クリア時の RecordChapterResult / AddBossAlly）は
+        // 各タスクで該当箇所に埋め込みます。
+        SaveManager.EnsureExists();
         InitializeWaveDefinitions();
         MaxAvailableShopCost = Mathf.Clamp(baseMaxShopCost, 1, maxShopCostCap);
         // ステージ追跡を初期化します（最初のラウンドのステージ番号で開始）。
