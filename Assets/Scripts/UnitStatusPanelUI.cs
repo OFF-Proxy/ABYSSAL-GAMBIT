@@ -646,81 +646,72 @@ public class UnitStatusPanelUI : MonoBehaviour
     }
 
     // スキルの効果量を、現在ステータスと装備アイテム込みで説明します。
+    // 専用スキル文（複合効果を持つ ~28 ユニット用）を優先し、それ以外は skillType ベースの
+    // 汎用文（残り ~18 ユニット用）を返します。どちらの経路にも AppendExtraSkillText の
+    // パッシブ補足を最後に乗せるため、生成漏れは発生しません。
     private string BuildSkillText(BaseEntity entity)
     {
-        string dedicatedText = BuildDedicatedLegendarySkillText(entity);
-        if (!string.IsNullOrEmpty(dedicatedText))
-            return dedicatedText;
+        if (entity == null) return string.Empty;
 
-        string baseText;
-        if (LocalizationManager.IsJapanese)
+        string baseText = BuildDedicatedLegendarySkillText(entity);
+        if (string.IsNullOrEmpty(baseText))
+            baseText = BuildGenericSkillText(entity, LocalizationManager.IsJapanese);
+
+        return AppendExtraSkillText(entity, baseText);
+    }
+
+    // skillType と現在ステータスから、汎用スキル文（実数値入り）を生成します。
+    // 専用文を持たないユニットでもプレイヤーに正確な効果量が伝わるよう、ヘルパー
+    // (GetSelfHealAmount / GetAllyHealAmount / GetShieldAmount / GetBoostAmount /
+    // GetSlowAmount / GetAreaDamage / GetPowerStrikeDamage) を使って算出します。
+    private string BuildGenericSkillText(BaseEntity entity, bool japanese)
+    {
+        if (japanese)
         {
             switch (entity.skillType)
             {
                 case UnitSkillType.SelfHeal:
-                    baseText = $"マナ最大時、自身のHPを{GetSelfHealAmount(entity)}回復する。";
-                    break;
+                    return $"マナ最大時、自身のHPを{GetSelfHealAmount(entity)}回復する。";
                 case UnitSkillType.AllyHeal:
-                    baseText = $"最も傷ついた味方のHPを{GetAllyHealAmount(entity)}回復する。";
-                    break;
+                    return $"最も傷ついた味方のHPを{GetAllyHealAmount(entity)}回復する。";
                 case UnitSkillType.Shield:
-                    baseText = $"{GetSkillDuration(entity, entity.skillShieldDuration, true):0.#}秒間、HP{GetShieldAmount(entity)}分の白いシールドを得る。";
-                    break;
+                    return $"{GetSkillDuration(entity, entity.skillShieldDuration, true):0.#}秒間、HP{GetShieldAmount(entity)}分の白いシールドを得る。";
                 case UnitSkillType.AttackSpeedBoost:
-                    baseText = $"{GetSkillDuration(entity, entity.skillBuffDuration, true):0.#}秒間、攻撃速度を{FormatPercent(GetBoostAmount(entity, entity.skillAttackSpeedBoostMultiplier))}上げる。";
-                    break;
+                    return $"{GetSkillDuration(entity, entity.skillBuffDuration, true):0.#}秒間、攻撃速度を{FormatPercent(GetBoostAmount(entity, entity.skillAttackSpeedBoostMultiplier))}上げる。";
                 case UnitSkillType.Stun:
-                    baseText = $"対象を{GetSkillDuration(entity, entity.skillStunDuration, false):0.#}秒間スタンさせる。";
-                    break;
+                    return $"対象を{GetSkillDuration(entity, entity.skillStunDuration, false):0.#}秒間スタンさせる。";
                 case UnitSkillType.Slow:
-                    baseText = $"{GetSkillDuration(entity, entity.skillSlowDuration, true):0.#}秒間、対象の攻撃速度を{FormatPercent(GetSlowAmount(entity))}下げる。";
-                    break;
+                    return $"{GetSkillDuration(entity, entity.skillSlowDuration, true):0.#}秒間、対象の攻撃速度を{FormatPercent(GetSlowAmount(entity))}下げる。";
                 case UnitSkillType.DamageBoost:
-                    baseText = $"{GetSkillDuration(entity, entity.skillBuffDuration, true):0.#}秒間、通常攻撃ダメージを{FormatPercent(GetBoostAmount(entity, entity.skillDamageBoostMultiplier))}上げる。";
-                    break;
+                    return $"{GetSkillDuration(entity, entity.skillBuffDuration, true):0.#}秒間、通常攻撃ダメージを{FormatPercent(GetBoostAmount(entity, entity.skillDamageBoostMultiplier))}上げる。";
                 case UnitSkillType.AreaDamage:
-                    baseText = $"対象の周囲{entity.skillAreaRadius:0.#}マスに{GetAreaDamage(entity)}ダメージを与える。";
-                    break;
+                    return $"対象の周囲{entity.skillAreaRadius:0.#}マスに{GetAreaDamage(entity)}ダメージを与える。";
                 default:
-                    baseText = $"次の攻撃で{GetPowerStrikeDamage(entity)}ダメージを与える。";
-                    break;
+                    return $"次の攻撃で{GetPowerStrikeDamage(entity)}ダメージを与える。";
             }
-
-            return AppendExtraSkillText(entity, baseText);
         }
 
         switch (entity.skillType)
         {
             case UnitSkillType.SelfHeal:
-                baseText = $"Restores {GetSelfHealAmount(entity)} HP to itself when MP is full.";
-                break;
+                return $"Restores {GetSelfHealAmount(entity)} HP to itself when MP is full.";
             case UnitSkillType.AllyHeal:
-                baseText = $"Restores {GetAllyHealAmount(entity)} HP to the most damaged ally.";
-                break;
+                return $"Restores {GetAllyHealAmount(entity)} HP to the most damaged ally.";
             case UnitSkillType.Shield:
-                baseText = $"Gains a white shield for {GetShieldAmount(entity)} HP during {GetSkillDuration(entity, entity.skillShieldDuration, true):0.#}s.";
-                break;
+                return $"Gains a white shield for {GetShieldAmount(entity)} HP during {GetSkillDuration(entity, entity.skillShieldDuration, true):0.#}s.";
             case UnitSkillType.AttackSpeedBoost:
-                baseText = $"Increases attack speed by {FormatPercent(GetBoostAmount(entity, entity.skillAttackSpeedBoostMultiplier))} for {GetSkillDuration(entity, entity.skillBuffDuration, true):0.#}s.";
-                break;
+                return $"Increases attack speed by {FormatPercent(GetBoostAmount(entity, entity.skillAttackSpeedBoostMultiplier))} for {GetSkillDuration(entity, entity.skillBuffDuration, true):0.#}s.";
             case UnitSkillType.Stun:
-                baseText = $"Stops the target for {GetSkillDuration(entity, entity.skillStunDuration, false):0.#}s.";
-                break;
+                return $"Stops the target for {GetSkillDuration(entity, entity.skillStunDuration, false):0.#}s.";
             case UnitSkillType.Slow:
-                baseText = $"Lowers target attack speed by {FormatPercent(GetSlowAmount(entity))} for {GetSkillDuration(entity, entity.skillSlowDuration, true):0.#}s.";
-                break;
+                return $"Lowers target attack speed by {FormatPercent(GetSlowAmount(entity))} for {GetSkillDuration(entity, entity.skillSlowDuration, true):0.#}s.";
             case UnitSkillType.DamageBoost:
-                baseText = $"Increases normal attack damage by {FormatPercent(GetBoostAmount(entity, entity.skillDamageBoostMultiplier))} for {GetSkillDuration(entity, entity.skillBuffDuration, true):0.#}s.";
-                break;
+                return $"Increases normal attack damage by {FormatPercent(GetBoostAmount(entity, entity.skillDamageBoostMultiplier))} for {GetSkillDuration(entity, entity.skillBuffDuration, true):0.#}s.";
             case UnitSkillType.AreaDamage:
-                baseText = $"Deals {GetAreaDamage(entity)} damage around the target within {entity.skillAreaRadius:0.#} cells.";
-                break;
+                return $"Deals {GetAreaDamage(entity)} damage around the target within {entity.skillAreaRadius:0.#} cells.";
             default:
-                baseText = $"Next attack deals {GetPowerStrikeDamage(entity)} damage.";
-                break;
+                return $"Next attack deals {GetPowerStrikeDamage(entity)} damage.";
         }
-
-        return AppendExtraSkillText(entity, baseText);
     }
 
     // 専用スキルは、汎用スキル説明ではなく固有効果を表示します。
@@ -1155,6 +1146,10 @@ public class UnitStatusPanelUI : MonoBehaviour
     {
         StringBuilder builder = new StringBuilder(baseText);
         string id = GetNormalizedUnitId(entity);
+        // 専用文が既にこのパッシブを含んでいる場合は、二重表示を避けるためここでは何も足さない。
+        // ※ snowchasermk と maehvmk の追加文は専用文に無い情報（範囲・スロー）なので残す。
+        if (id == "solfist" || id == "shadowlord" || id == "skindogehai")
+            return baseText;
         bool japanese = LocalizationManager.IsJapanese;
 
         if (id == "city")
