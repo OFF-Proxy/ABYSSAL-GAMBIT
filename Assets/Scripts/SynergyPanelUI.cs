@@ -22,6 +22,9 @@ public class SynergyPanelUI : MonoBehaviour
     private readonly List<TextMeshProUGUI> rowCountTexts = new List<TextMeshProUGUI>();
     private readonly List<TextMeshProUGUI> rowTexts = new List<TextMeshProUGUI>();
     private readonly List<SynergyPanelRowClickTarget> rowClickTargets = new List<SynergyPanelRowClickTarget>();
+    private readonly List<GameObject> rowAugmentBadges = new List<GameObject>();
+    private readonly List<TextMeshProUGUI> rowAugmentBadgeTexts = new List<TextMeshProUGUI>();
+    private static Sprite augmentBadgeSprite;
 
     public static SynergyPanelUI EnsureExists()
     {
@@ -130,50 +133,95 @@ public class SynergyPanelUI : MonoBehaviour
             return;
         }
 
-        int visibleRow = 0;
+        // 発動中→未発動 の順、それぞれの中でユニット数の多い順に並べます。
         IReadOnlyList<SynergyType> orderedTypes = SynergyManager.OrderedSynergyTypes;
+        List<(SynergyType type, int count)> active = new List<(SynergyType, int)>();
+        List<(SynergyType type, int count)> inactive = new List<(SynergyType, int)>();
         for (int i = 0; i < orderedTypes.Count; i++)
         {
             SynergyType type = orderedTypes[i];
             int count = manager.GetSynergyCount(type);
             if (count <= 0)
                 continue;
+            if (manager.GetSynergyTier(type) > 0)
+                active.Add((type, count));
+            else
+                inactive.Add((type, count));
+        }
+        active.Sort((a, b) => b.count.CompareTo(a.count));
+        inactive.Sort((a, b) => b.count.CompareTo(a.count));
 
-            EnsureRowExists(visibleRow);
-            rowObjects[visibleRow].SetActive(true);
-            rowClickTargets[visibleRow].Bind(type);
+        int visibleRow = 0;
+        for (int section = 0; section < 2; section++)
+        {
+            List<(SynergyType type, int count)> list = section == 0 ? active : inactive;
+            for (int j = 0; j < list.Count; j++)
+            {
+                SynergyType type = list[j].type;
+                int count = list[j].count;
+                EnsureRowExists(visibleRow);
+                rowObjects[visibleRow].SetActive(true);
+                rowClickTargets[visibleRow].Bind(type);
 
-            Color synergyColor = SynergyIconLibrary.GetColor(type);
-            rowBackgrounds[visibleRow].color = manager.GetSynergyTier(type) > 0
-                ? new Color(0.82f, 0.96f, 1f, 0.86f)
-                : new Color(0.55f, 0.7f, 0.78f, 0.58f);
-            rowIcons[visibleRow].sprite = SynergyIconLibrary.GetSprite(type);
-            rowIcons[visibleRow].color = synergyColor;
-            rowIcons[visibleRow].preserveAspect = true;
+                Color synergyColor = SynergyIconLibrary.GetColor(type);
+                rowBackgrounds[visibleRow].color = manager.GetSynergyTier(type) > 0
+                    ? new Color(0.82f, 0.96f, 1f, 0.86f)
+                    : new Color(0.55f, 0.7f, 0.78f, 0.58f);
+                rowIcons[visibleRow].sprite = SynergyIconLibrary.GetSprite(type);
+                rowIcons[visibleRow].color = synergyColor;
+                rowIcons[visibleRow].preserveAspect = true;
 
-            rowCountBackgrounds[visibleRow].color = manager.GetSynergyTier(type) > 0
-                ? new Color(synergyColor.r * 0.6f, synergyColor.g * 0.6f, synergyColor.b * 0.6f, 0.92f)
-                : new Color(0.08f, 0.09f, 0.1f, 0.9f);
+                rowCountBackgrounds[visibleRow].color = manager.GetSynergyTier(type) > 0
+                    ? new Color(synergyColor.r * 0.6f, synergyColor.g * 0.6f, synergyColor.b * 0.6f, 0.92f)
+                    : new Color(0.08f, 0.09f, 0.1f, 0.9f);
 
-            rowCountTexts[visibleRow].text = count.ToString();
-            rowCountTexts[visibleRow].color = Color.white;
-            LocalizationManager.ApplyFont(rowCountTexts[visibleRow]);
+                rowCountTexts[visibleRow].text = count.ToString();
+                rowCountTexts[visibleRow].color = Color.white;
+                LocalizationManager.ApplyFont(rowCountTexts[visibleRow]);
 
-            LocalizationManager.ApplyFont(rowTexts[visibleRow]);
-            rowTexts[visibleRow].text = BuildCompactLine(manager, type, count);
-            rowTexts[visibleRow].color = manager.GetSynergyTier(type) > 0
-                ? new Color(0.95f, 1f, 0.82f, 1f)
-                : new Color(0.82f, 0.94f, 1f, 1f);
+                LocalizationManager.ApplyFont(rowTexts[visibleRow]);
+                rowTexts[visibleRow].text = BuildCompactLine(manager, type, count);
+                rowTexts[visibleRow].color = manager.GetSynergyTier(type) > 0
+                    ? new Color(0.95f, 1f, 0.82f, 1f)
+                    : new Color(0.82f, 0.94f, 1f, 1f);
 
-            visibleRow++;
+                // オーグメントで上乗せされている分を「+N」バッジで可視化します。
+                int augmentBonus = GetAugmentBonusForSynergy(type);
+                if (rowAugmentBadges[visibleRow] != null)
+                {
+                    bool showBadge = augmentBonus > 0;
+                    rowAugmentBadges[visibleRow].SetActive(showBadge);
+                    if (showBadge && rowAugmentBadgeTexts[visibleRow] != null)
+                    {
+                        LocalizationManager.ApplyFont(rowAugmentBadgeTexts[visibleRow]);
+                        rowAugmentBadgeTexts[visibleRow].text = $"+{augmentBonus}";
+                    }
+                }
+
+                visibleRow++;
+            }
         }
 
         for (int i = visibleRow; i < rowObjects.Count; i++)
             rowObjects[i].SetActive(false);
 
-        SetNoSynergyMessage(visibleRow == 0
-            ? (LocalizationManager.IsJapanese ? "シナジーなし" : "No synergies")
-            : string.Empty);
+        // ヘッダー行: prism_all_synergy が有効なら全シナジーが上乗せされていることを明示します。
+        string headerMessage = string.Empty;
+        if (visibleRow == 0)
+        {
+            headerMessage = LocalizationManager.IsJapanese ? "シナジーなし" : "No synergies";
+        }
+        else if (GameManager.Instance != null && GameManager.Instance.HasAugment("prism_all_synergy"))
+        {
+            headerMessage = LocalizationManager.IsJapanese ? "★ 全シナジー +1 重ね掛け" : "★ All synergies doubled";
+        }
+        SetNoSynergyMessage(headerMessage);
+        if (noSynergyText != null)
+        {
+            noSynergyText.color = visibleRow == 0
+                ? new Color(0.84f, 1f, 1f, 1f)
+                : new Color(0.78f, 0.55f, 1f, 1f);
+        }
     }
 
     // 表示行を1つ作ります。各行は「アイコン + 現在数 + 名前/次段階」の小さな表示です。
@@ -289,14 +337,67 @@ public class SynergyPanelUI : MonoBehaviour
         text.raycastTarget = false;
         text.lineSpacing = -8f;
 
+        // オーグメント由来の上乗せを表す小さなバッジ（+1, +2 …）。
+        GameObject badgeObject = new GameObject("AugmentBonusBadge", typeof(RectTransform), typeof(Image));
+        badgeObject.transform.SetParent(rowObject.transform, false);
+        RectTransform badgeRect = badgeObject.GetComponent<RectTransform>();
+        badgeRect.anchorMin = new Vector2(0f, 0.5f);
+        badgeRect.anchorMax = new Vector2(0f, 0.5f);
+        badgeRect.pivot = new Vector2(0.5f, 0.5f);
+        badgeRect.anchoredPosition = new Vector2(46f, 12f);
+        badgeRect.sizeDelta = new Vector2(20f, 13f);
+
+        Image badgeBg = badgeObject.GetComponent<Image>();
+        badgeBg.sprite = augmentBadgeSprite;
+        badgeBg.color = new Color(0.78f, 0.55f, 1f, 1f);
+        badgeBg.preserveAspect = true;
+        badgeBg.raycastTarget = false;
+        if (augmentBadgeSprite == null)
+            badgeBg.type = Image.Type.Simple;
+
+        GameObject badgeTextObject = new GameObject("Value", typeof(RectTransform), typeof(TextMeshProUGUI));
+        badgeTextObject.transform.SetParent(badgeObject.transform, false);
+        RectTransform badgeTextRect = badgeTextObject.GetComponent<RectTransform>();
+        badgeTextRect.anchorMin = Vector2.zero;
+        badgeTextRect.anchorMax = Vector2.one;
+        badgeTextRect.offsetMin = Vector2.zero;
+        badgeTextRect.offsetMax = Vector2.zero;
+        TextMeshProUGUI badgeText = badgeTextObject.GetComponent<TextMeshProUGUI>();
+        LocalizationManager.ApplyFont(badgeText);
+        badgeText.fontSize = 10f;
+        badgeText.fontStyle = FontStyles.Bold;
+        badgeText.alignment = TextAlignmentOptions.Center;
+        badgeText.color = Color.white;
+        badgeText.raycastTarget = false;
+        badgeObject.SetActive(false);
+
         rowObjects.Add(rowObject);
         rowBackgrounds.Add(rowBackground);
         rowIcons.Add(icon);
         rowCountBackgrounds.Add(countBackground);
         rowCountTexts.Add(countText);
         rowTexts.Add(text);
+        rowAugmentBadges.Add(badgeObject);
+        rowAugmentBadgeTexts.Add(badgeText);
         rowClickTargets.Add(rowObject.GetComponent<SynergyPanelRowClickTarget>());
         rowObject.SetActive(false);
+    }
+
+    // 指定シナジーに対し、オーグメントで上乗せされている離散カウントを返します。
+    // emblem 系（Warrior/Ranger/Arcanist）と、戦闘中限定のランダムシナジー追加が対象です。
+    // prism_all_synergy（全シナジー +1 重ね掛け）は表示中の合計値自体に既に乗っているため、ヘッダー帯で別途示します。
+    private int GetAugmentBonusForSynergy(SynergyType type)
+    {
+        GameManager gm = GameManager.Instance;
+        if (gm == null) return 0;
+        int bonus = 0;
+        if (type == SynergyType.Warrior) bonus += gm.AugmentSynergyBonusWarrior;
+        else if (type == SynergyType.Ranger) bonus += gm.AugmentSynergyBonusRanger;
+        else if (type == SynergyType.Arcanist) bonus += gm.AugmentSynergyBonusArcanist;
+        int random;
+        if (gm.AdditionalSynergyBonusThisCombat.TryGetValue(type, out random))
+            bonus += random;
+        return Mathf.Max(0, bonus);
     }
 
     // 行の右側に出す短い表示文を作ります。長文効果は詳細パネル側へ任せます。
@@ -331,9 +432,6 @@ public class SynergyPanelUI : MonoBehaviour
 
     private static void LoadSprites()
     {
-        if (rowBackgroundSprite != null && iconCardBackgroundSprite != null && iconMaskSprite != null)
-            return;
-
         if (rowBackgroundSprite == null)
             rowBackgroundSprite = LoadUiSprite("UI/ItemBench/synergy_panel_background");
 
@@ -342,6 +440,9 @@ public class SynergyPanelUI : MonoBehaviour
 
         if (iconMaskSprite == null)
             iconMaskSprite = LoadUiSprite("UI/ItemBench/synergy_icon_mask");
+
+        if (augmentBadgeSprite == null)
+            augmentBadgeSprite = LoadUiSprite("UI/Augment/badge_counter");
     }
 
     private static Sprite LoadUiSprite(string resourcePath)

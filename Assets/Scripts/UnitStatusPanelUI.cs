@@ -731,136 +731,423 @@ public class UnitStatusPanelUI : MonoBehaviour
 
         string id = GetNormalizedUnitId(entity);
         bool japanese = LocalizationManager.IsJapanese;
-        string starNote = japanese
-            ? "★3時は範囲・効果量・ダメージが大幅に上がる。"
-            : "At star 3, range, effect amount, and damage rise dramatically.";
-
-        if (japanese)
-        {
-            switch (id)
-            {
-                case "archdeacon":
-                    return "最も傷ついた味方を回復し、シールドを付与する。対象周囲の味方も少し回復し、短時間だけ被ダメージ軽減を得る。";
-                case "backlinearcher":
-                    return "対象と同じ横列の敵へ貫通矢を放つ。主対象に大きめの攻撃力ダメージを与え、巻き込んだ敵の移動速度を短時間下げる。";
-                case "auroralioness":
-                    return "自分中心に極光を広げ、周囲の味方へシールドと攻撃速度上昇を付与する。";
-                case "azuritelion":
-                    return "対象の近くへ飛び込み、周囲の敵へ氷ダメージを与える。命中した敵は攻撃速度が下がり、凍結蓄積を受ける。";
-                case "altgeneraltier2":
-                    return "遠距離から火と氷を同時に撃ち、対象周囲に秘力ダメージを与える。命中した敵に燃焼と攻撃速度低下を付与する。";
-                case "sandpanther":
-                    return "HP割合が低い敵、いなければ最も遠い敵へ飛び込む。瀕死の敵には追加ダメージを与え、発動後しばらく狙われにくくなる。";
-                case "protector":
-                    return "自分と最も傷ついた味方へシールドを張る。対象周囲の味方は短時間、被ダメージ軽減を得る。";
-                case "taskmaster":
-                    return "鞭で対象にダメージを与えてスタンさせる。周囲の味方は短時間、攻撃速度が上がる。";
-                case "kane":
-                    return "機械砲台を起動し、複数回の雷撃をランダムな敵へ放つ。雷撃は近くの敵へ連鎖する。";
-                case "malyk":
-                    return "対象周囲の敵から魂を吸い、秘力ダメージと与ダメージ低下を与える。吸い取った力で最も傷ついた味方を回復する。";
-                case "paragon":
-                    return "周囲の味方へシールドと被ダメージ軽減を付与する。近くの敵には神聖な反撃ダメージを与える。";
-                case "ilenamk2":
-                    return "対象周囲に氷晶の格子を展開し、範囲内の敵へ秘力ダメージと攻撃速度低下、凍結蓄積を与える。範囲内の味方には小シールドを付与する。";
-                case "wujin":
-                    return "自分中心に帝炎の陣を作る。範囲内の敵へ炎ダメージと燃焼を与え、範囲内の味方の攻撃速度を上げる。";
-                case "wraith":
-                    return "対象周囲に霊の吹雪を発生させ、秘力ダメージ、攻撃速度低下、与ダメージ低下を与える。";
-                case "snowchasermk":
-                    return "最も傷ついた味方を回復し、シールドを付与する。もう1体の味方にも回復を中継し、回復対象の近くの敵を鈍化させる。";
-                case "solfist":
-                    return "対象へ強烈な拳を叩き込み、短時間スタンさせる。周囲の敵には爆発ダメージと燃焼を与える。";
-                case "maehvmk":
-                    return "遠距離から雷磁レールを放ち、対象に秘力ダメージと短いスタンを与える。雷撃は近くの敵へ連鎖する。";
-                case "decepticleprime":
-                    return "遠距離から照準砲を連射する。命中した敵に攻撃力ダメージを与え、短時間だけ被ダメージ軽減を下げる。砲撃は近くの敵へ照準を移す。";
-                case "tier2general":
-                    return "対象へ氷の斬撃を放ち、攻撃速度低下と凍結蓄積を与える。周囲の味方は攻撃速度と被ダメージ軽減を得る。";
-                case "shadowlord":
-                    return "最も遠い敵へ飛び込み、大ダメージを与える。発動後、短時間だけ敵から狙われにくくなる。";
-                case "skindogehai":
-                    return "最も遠い敵へ飛び込み、大ダメージと短いスタンを与える。後衛を崩す暗殺スキル。";
-                case "embergeneral":
-                    return $"味方全体へ5秒間の号令を出し、攻撃速度とMP獲得量を上げる。周囲1マスの味方はさらに被ダメージ軽減を得る。発動時、自身にシールドを付与。\n{starNote}";
-                case "kron":
-                    return $"敵味方全体のHP割合を見て効果が変わる。味方が劣勢なら全体回復、敵が瀕死なら全体処刑ダメージ、それ以外なら味方にシールドを付与し敵に小ダメージ。\n{starNote}";
-                case "invader":
-                    return $"5秒間、ランダムな敵へ落雷を繰り返す。雷撃は近くの敵へ1回連鎖し、撃破すると追加落雷が発生する。秘力が高いほど雷撃回数が伸びる。\n{starNote}";
-                case "gol":
-                    return $"対象付近に黒穴を作り、周囲の敵を吸い寄せながら継続ダメージを与える。終了時に爆発し、与えたダメージの一部をシールドに変える。\n{starNote}";
-                case "legion":
-                    return $"Taskmasterの亡霊を複数召喚する。亡霊は一定時間で消え、死亡時に周囲の敵へスロウを与える。召喚体はシナジーカウント対象外。\n{starNote}";
-                case "plaguegeneral":
-                    return $"咆哮で敵全体にダメージを与え、攻撃力・移動速度・攻撃速度を下げる。近くの敵はさらに短時間スタンする。\n{starNote}";
-                case "skyfalltyrant":
-                    return $"6秒間暴走し、通常攻撃を止めて前方へ火炎を吐き続ける。炎に巻き込まれた敵へ範囲ダメージと燃焼を与える。\n{starNote}";
-                default:
-                    return string.Empty;
-            }
-        }
-
+        // 固有スキルは実数値を含む専用ビルダーで生成します（数値は各 Execute メソッドと同じ式）。
+        // 全28固有ユニットを網羅し、未知IDは空文字を返します。
         switch (id)
         {
-            case "archdeacon":
-                return "Heals the most damaged ally and grants a shield. Nearby allies receive a smaller heal and brief damage reduction.";
-            case "backlinearcher":
-                return "Fires a piercing volley through the target row. The main target takes heavy attack damage, and clipped enemies are briefly slowed.";
-            case "auroralioness":
-                return "Spreads aurora light around itself, shielding nearby allies and increasing their attack speed.";
-            case "azuritelion":
-                return "Pounces near the target, dealing frost damage around it. Hit enemies lose attack speed and gain frost stacks.";
-            case "altgeneraltier2":
-                return "Fires flame and frost from range, dealing focus damage around the target. Hit enemies burn and lose attack speed.";
-            case "sandpanther":
-                return "Ambushes the lowest-health enemy, or the farthest enemy if none is wounded. Deals extra damage to weakened targets and becomes briefly untargetable.";
-            case "protector":
-                return "Links a shield to itself and the most damaged ally. Allies near the linked target gain brief damage reduction.";
-            case "taskmaster":
-                return "Whips the target for damage and a stun. Nearby allies gain attack speed for a short time.";
-            case "kane":
-                return "Deploys storm-turret fire, launching several lightning shots at random enemies. Bolts chain to nearby enemies.";
-            case "malyk":
-                return "Drains souls around the target, dealing focus damage and lowering enemy damage dealt. The drained force heals the most damaged ally.";
-            case "paragon":
-                return "Grants shields and damage reduction to nearby allies, then pulses holy retaliatory damage into nearby enemies.";
-            case "ilenamk2":
-                return "Creates a crystal lattice around the target, dealing focus damage, slowing attack speed, and adding frost stacks. Allies inside gain a small shield.";
-            case "wujin":
-                return "Creates an imperial pyre around itself. Enemies inside take fire damage and burn, while allies inside gain attack speed.";
-            case "wraith":
-                return "Calls a grave blizzard around the target, dealing focus damage while lowering attack speed and damage dealt.";
-            case "snowchasermk":
-                return "Heals and shields the most damaged ally, then relays a smaller heal to another ally. Enemies near the healed ally are slowed.";
-            case "solfist":
-                return "Slams the target with a solar fist, briefly stunning it. Nearby enemies take explosive damage and burn.";
-            case "maehvmk":
-                return "Fires a ranged rail arc, dealing focus damage and a short stun. The lightning chains to nearby enemies.";
-            case "decepticleprime":
-                return "Fires a ranged prism battery. Hits deal attack damage and briefly lower enemy damage reduction, then retarget nearby enemies.";
-            case "tier2general":
-                return "Strikes the target with glacial force, lowering attack speed and adding frost stacks. Nearby allies gain attack speed and damage reduction.";
-            case "shadowlord":
-                return "Leaps to the farthest enemy, dealing heavy damage. It becomes briefly harder to target after the strike.";
-            case "skindogehai":
-                return "Leaps to the farthest enemy, dealing heavy damage and a short stun. Built to collapse the backline.";
-            case "embergeneral":
-                return $"Commands all allies for 5s, increasing attack speed and MP gain. Allies within 1 cell gain extra damage reduction. Also grants itself a shield.\n{starNote}";
-            case "kron":
-                return $"Judges team HP ratios. If allies are losing, heals all allies. If enemies are low, executes all enemies. Otherwise shields allies and deals light damage to enemies.\n{starNote}";
-            case "invader":
-                return $"Calls lightning for 5s, repeatedly striking random enemies. Each bolt chains once to a nearby enemy, and kills trigger an extra bolt. Focus increases strike count.\n{starNote}";
-            case "gol":
-                return $"Creates a black hole near the target, pulling enemies inward while dealing repeated damage. It ends with an explosion and converts part of the damage dealt into a shield.\n{starNote}";
-            case "legion":
-                return $"Summons several Taskmaster ghosts. They expire after a short time and slow nearby enemies when they die. Summons do not count for synergies.\n{starNote}";
-            case "plaguegeneral":
-                return $"Roars at all enemies, dealing damage and lowering attack power, movement speed, and attack speed. Nearby enemies are also briefly stunned.\n{starNote}";
-            case "skyfalltyrant":
-                return $"Rampages for 6s, stopping normal attacks and breathing fire forward. Enemies caught in the flames take area damage and burn.\n{starNote}";
-            default:
-                return string.Empty;
+            case "archdeacon": return BuildArchdeaconSkillText(entity, japanese);
+            case "backlinearcher": return BuildBacklineArcherSkillText(entity, japanese);
+            case "auroralioness": return BuildAuroralionessSkillText(entity, japanese);
+            case "azuritelion": return BuildAzuriteLionSkillText(entity, japanese);
+            case "altgeneraltier2": return BuildAltgeneralSkillText(entity, japanese);
+            case "sandpanther": return BuildSandpantherSkillText(entity, japanese);
+            case "protector": return BuildProtectorSkillText(entity, japanese);
+            case "taskmaster": return BuildTaskmasterSkillText(entity, japanese);
+            case "kane": return BuildKaneSkillText(entity, japanese);
+            case "malyk": return BuildMalykSkillText(entity, japanese);
+            case "paragon": return BuildParagonSkillText(entity, japanese);
+            case "ilenamk2": return BuildIlenaSkillText(entity, japanese);
+            case "wujin": return BuildWujinSkillText(entity, japanese);
+            case "wraith": return BuildWraithSkillText(entity, japanese);
+            case "snowchasermk": return BuildSnowchaserSkillText(entity, japanese);
+            case "solfist": return BuildSolfistSkillText(entity, japanese);
+            case "maehvmk": return BuildMaehvSkillText(entity, japanese);
+            case "decepticleprime": return BuildDecepticleprimeSkillText(entity, japanese);
+            case "tier2general": return BuildTier2GeneralSkillText(entity, japanese);
+            case "shadowlord": return BuildShadowlordSkillText(entity, japanese);
+            case "skindogehai": return BuildSkindogehaiSkillText(entity, japanese);
+            case "embergeneral": return BuildEmbergeneralSkillText(entity, japanese);
+            case "kron": return BuildKronSkillText(entity, japanese);
+            case "invader": return BuildInvaderSkillText(entity, japanese);
+            case "gol": return BuildGolSkillText(entity, japanese);
+            case "legion": return BuildLegionSkillText(entity, japanese);
+            case "plaguegeneral": return BuildPlaguegeneralSkillText(entity, japanese);
+            case "skyfalltyrant": return BuildSkyfalltyrantSkillText(entity, japanese);
+            default: return string.Empty;
         }
+    }
+
+    // 固有スキルの説明で使う、★3で大きく上がることを示す補足文です。
+    private string StarNote(bool japanese) => japanese
+        ? "★3で範囲・効果量・ダメージが大幅に上がる。"
+        : "Star 3 greatly increases range, effect, and damage.";
+
+    // 伝説級スキルの倍率・範囲・効果時間（BaseEntity の GetLegendary* と同じ係数）。
+    private float GetLegendaryMagnitude(BaseEntity e)
+    {
+        float starMult = e.StarLevel >= 3 ? 6.5f : e.StarLevel >= 2 ? 2.1f : 1f;
+        return starMult * Mathf.Max(0.1f, 1f + GetFocusBonus(e));
+    }
+
+    private float GetLegendaryRadius(BaseEntity e, float baseRadius)
+    {
+        float mult = e.StarLevel >= 3 ? 3.4f : e.StarLevel >= 2 ? 1.55f : 1f;
+        return baseRadius * mult;
+    }
+
+    private float GetLegendaryDuration(BaseEntity e, float baseDuration)
+    {
+        float mult = e.StarLevel >= 3 ? 1.75f : e.StarLevel >= 2 ? 1.25f : 1f;
+        return baseDuration * mult;
+    }
+
+    // --- コスト1〜3固有スキルの説明文（数値は各 Execute メソッドと同じ式）。 ---
+
+    // 出典: BaseEntity.ExecuteArchdeaconHolyEdict
+    private string BuildArchdeaconSkillText(BaseEntity entity, bool japanese)
+    {
+        int heal = GetAllyHealAmount(entity);
+        int heal2 = Mathf.Max(1, Mathf.RoundToInt(heal * 0.45f));
+        int shield = Mathf.Max(1, Mathf.RoundToInt(entity.MaxHealth * 0.11f * GetSkillEffectMultiplier(entity, true)));
+        int shield2 = Mathf.Max(1, Mathf.RoundToInt(shield * 0.55f));
+        float duration = GetSkillDuration(entity, 3.8f, true);
+        string dr = FormatPercent(0.06f * GetSkillEffectMultiplier(entity, false));
+        float radius = Mathf.Max(2.1f, entity.skillAreaRadius);
+        return japanese
+            ? $"最も傷ついた味方をHP{heal}回復＋シールド{shield}付与。周囲・半径{radius:0.#}マスの味方も{heal2}回復・シールド{shield2}を得て、{duration:0.#}秒間 被ダメージ軽減+{dr}。"
+            : $"Heals the most damaged ally for {heal} HP and shields {shield}. Allies within {radius:0.#} cells also heal {heal2}, shield {shield2}, and gain +{dr} damage reduction for {duration:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteBacklineArcherPiercingVolley
+    private string BuildBacklineArcherSkillText(BaseEntity entity, bool japanese)
+    {
+        int main = Mathf.Max(1, Mathf.RoundToInt(entity.baseDamage * 1.65f * GetSkillEffectMultiplier(entity, true)));
+        int splash = Mathf.Max(1, Mathf.RoundToInt(main * 0.62f));
+        float slowDuration = GetSkillDuration(entity, 1.8f, false);
+        return japanese
+            ? $"対象と同じ横列を貫く矢を放つ。主対象に{main}、巻き込んだ敵に{splash}の攻撃ダメージを与え、{slowDuration:0.#}秒間 移動速度-12%。"
+            : $"Fires a piercing arrow down the target's row, dealing {main} to the main target and {splash} attack damage to others, slowing their move speed by 12% for {slowDuration:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteAuroralionessGuard
+    private string BuildAuroralionessSkillText(BaseEntity entity, bool japanese)
+    {
+        int selfShield = GetShieldAmount(entity);
+        int allyShield = Mathf.Max(1, Mathf.RoundToInt(selfShield * 0.62f));
+        float duration = GetSkillDuration(entity, 4.2f, true);
+        string asBoost = FormatPercent(0.10f * GetSkillEffectMultiplier(entity, false));
+        float radius = Mathf.Max(1.8f, entity.skillAreaRadius);
+        return japanese
+            ? $"自分中心・半径{radius:0.#}マスの味方へシールド付与（自身{selfShield}／味方{allyShield}）し、{duration:0.#}秒間 攻撃速度+{asBoost}。"
+            : $"Shields allies within {radius:0.#} cells (self {selfShield} / allies {allyShield}) and grants +{asBoost} attack speed for {duration:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteAzuriteLionFrostPounce
+    private string BuildAzuriteLionSkillText(BaseEntity entity, bool japanese)
+    {
+        int dmg = GetPowerStrikeDamage(entity);
+        int splash = Mathf.Max(1, Mathf.RoundToInt(dmg * 0.52f));
+        string slow = FormatPercent(GetSlowAmount(entity));
+        float slowDuration = GetSkillDuration(entity, 2.4f, true);
+        float radius = Mathf.Max(1.35f, entity.skillAreaRadius);
+        return japanese
+            ? $"対象付近へ飛び込み、主対象に{dmg}・周囲半径{radius:0.#}マスの敵に{splash}の氷ダメージ。命中した敵を{slowDuration:0.#}秒間 攻撃速度-{slow}＋凍結蓄積。"
+            : $"Pounces in, dealing {dmg} to the target and {splash} frost damage within {radius:0.#} cells, applying -{slow} attack speed for {slowDuration:0.#}s plus frost stacks.";
+    }
+
+    // 出典: BaseEntity.ExecuteAltgeneralTwinElement
+    private string BuildAltgeneralSkillText(BaseEntity entity, bool japanese)
+    {
+        int area = GetAreaDamage(entity);
+        int burn = Mathf.Max(1, Mathf.RoundToInt(area * 0.18f));
+        float burnDuration = GetSkillDuration(entity, 3f, true);
+        string slow = FormatPercent(GetSlowAmount(entity));
+        float slowDuration = GetSkillDuration(entity, 2.2f, true);
+        float radius = Mathf.Max(1.75f, entity.skillAreaRadius);
+        return japanese
+            ? $"遠距離から火と氷を放ち、対象周囲・半径{radius:0.#}マスの敵へ{area}の秘力ダメージ。燃焼{burn}（{burnDuration:0.#}秒）と攻撃速度-{slow}（{slowDuration:0.#}秒）。"
+            : $"Fires flame and frost, dealing {area} focus damage within {radius:0.#} cells, plus {burn} burn over {burnDuration:0.#}s and -{slow} attack speed for {slowDuration:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteSandpantherAmbush
+    private string BuildSandpantherSkillText(BaseEntity entity, bool japanese)
+    {
+        int dmg = Mathf.Max(1, Mathf.RoundToInt(entity.baseDamage * 1.8f * GetSkillEffectMultiplier(entity, true)));
+        int execDmg = Mathf.Max(1, Mathf.RoundToInt(dmg * 1.35f));
+        return japanese
+            ? $"HPの低い敵（いなければ最も遠い敵）へ飛び込み{dmg}の攻撃ダメージ。HP45%以下の敵には{execDmg}。発動後しばらく狙われにくくなる。"
+            : $"Leaps to the lowest-HP enemy (or the farthest), dealing {dmg} attack damage, or {execDmg} to targets below 45% HP. Becomes briefly untargetable after.";
+    }
+
+    // 出典: BaseEntity.ExecuteProtectorBulwarkLink
+    private string BuildProtectorSkillText(BaseEntity entity, bool japanese)
+    {
+        int shield = GetShieldAmount(entity);
+        float duration = GetSkillDuration(entity, entity.skillShieldDuration, true);
+        string dr = FormatPercent(0.12f * GetSkillEffectMultiplier(entity, false));
+        float radius = Mathf.Max(1.9f, entity.skillAreaRadius);
+        return japanese
+            ? $"自身と最も傷ついた味方へ{shield}のシールドを{duration:0.#}秒付与。対象周囲・半径{radius:0.#}マスの味方は被ダメージ軽減+{dr}。"
+            : $"Shields itself and the most damaged ally for {shield} ({duration:0.#}s). Allies within {radius:0.#} cells gain +{dr} damage reduction.";
+    }
+
+    // 出典: BaseEntity.ExecuteTaskmasterWhipCommand
+    private string BuildTaskmasterSkillText(BaseEntity entity, bool japanese)
+    {
+        int dmg = Mathf.Max(1, Mathf.RoundToInt(entity.baseDamage * 1.35f * GetSkillEffectMultiplier(entity, true)));
+        float stun = GetSkillDuration(entity, entity.skillStunDuration, false);
+        float duration = GetSkillDuration(entity, 3f, false);
+        string asBoost = FormatPercent(Mathf.Max(0f, (1.18f + 0.04f * GetSkillEffectMultiplier(entity, false)) - 1f));
+        return japanese
+            ? $"対象に{dmg}の攻撃ダメージ＋{stun:0.#}秒スタン。周囲2.2マスの味方は{duration:0.#}秒間 攻撃速度+{asBoost}。"
+            : $"Whips the target for {dmg} attack damage and a {stun:0.#}s stun. Allies within 2.2 cells gain +{asBoost} attack speed for {duration:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteKaneStormTurret
+    private string BuildKaneSkillText(BaseEntity entity, bool japanese)
+    {
+        int shots = entity.StarLevel >= 3 ? 5 : entity.StarLevel >= 2 ? 4 : 3;
+        int perShot = GetAreaDamage(entity);
+        int chain = Mathf.Max(1, Mathf.RoundToInt(perShot * 0.45f));
+        return japanese
+            ? $"機械砲台から{shots}発の雷撃をランダムな敵へ放つ。各{perShot}の秘力ダメージを与え、近くの敵へ{chain}が連鎖する。"
+            : $"Fires {shots} lightning shots at random enemies for {perShot} focus damage each, chaining {chain} to a nearby enemy.";
+    }
+
+    // 出典: BaseEntity.ExecuteMalykSoulDrain
+    private string BuildMalykSkillText(BaseEntity entity, bool japanese)
+    {
+        int dmg = GetAreaDamage(entity);
+        int nonTarget = Mathf.Max(1, Mathf.RoundToInt(dmg * 0.68f));
+        float duration = GetSkillDuration(entity, 3f, true);
+        float radius = Mathf.Max(2f, entity.skillAreaRadius);
+        return japanese
+            ? $"対象周囲・半径{radius:0.#}マスの敵から魂を吸う。対象に{dmg}・周囲に{nonTarget}の秘力ダメージと与ダメージ-12%（{duration:0.#}秒）。与ダメージの32%を最も傷ついた味方へ回復。"
+            : $"Drains souls within {radius:0.#} cells, dealing {dmg} to the target and {nonTarget} focus damage to others with -12% damage dealt for {duration:0.#}s. Heals the most damaged ally for 32% of the damage dealt.";
+    }
+
+    // 出典: BaseEntity.ExecuteParagonAegis
+    private string BuildParagonSkillText(BaseEntity entity, bool japanese)
+    {
+        int shield = GetShieldAmount(entity);
+        int pulse = Mathf.Max(1, Mathf.RoundToInt(entity.baseDamage * 1.2f * GetSkillEffectMultiplier(entity, true)));
+        float duration = GetSkillDuration(entity, entity.skillShieldDuration, true);
+        string dr = FormatPercent(0.10f * GetSkillEffectMultiplier(entity, false));
+        float radius = Mathf.Max(2.25f, entity.skillAreaRadius);
+        return japanese
+            ? $"周囲・半径{radius:0.#}マスの味方へ{shield}のシールドと被ダメージ軽減+{dr}（{duration:0.#}秒）。近くの敵へ{pulse}の神聖反撃ダメージ。"
+            : $"Grants allies within {radius:0.#} cells a {shield} shield and +{dr} damage reduction ({duration:0.#}s), then pulses {pulse} holy damage to nearby enemies.";
+    }
+
+    // 出典: BaseEntity.ExecuteIlenaCrystalLattice
+    private string BuildIlenaSkillText(BaseEntity entity, bool japanese)
+    {
+        int area = GetAreaDamage(entity);
+        int allyShield = Mathf.Max(1, Mathf.RoundToInt(GetShieldAmount(entity) * 0.45f));
+        float shieldDuration = GetSkillDuration(entity, 3f, true);
+        string slow = FormatPercent(GetSlowAmount(entity));
+        float slowDuration = GetSkillDuration(entity, 2.8f, true);
+        float radius = Mathf.Max(2.4f, entity.skillAreaRadius);
+        return japanese
+            ? $"対象周囲・半径{radius:0.#}マスに氷晶格子を展開。敵へ{area}の秘力ダメージ＋攻撃速度-{slow}（{slowDuration:0.#}秒）＋凍結蓄積。範囲内の味方へ{allyShield}のシールド（{shieldDuration:0.#}秒）。"
+            : $"Forms a crystal lattice within {radius:0.#} cells, dealing {area} focus damage with -{slow} attack speed ({slowDuration:0.#}s) and frost stacks. Allies inside gain a {allyShield} shield ({shieldDuration:0.#}s).";
+    }
+
+    // 出典: BaseEntity.ExecuteDecepticleprimePrismBattery
+    private string BuildDecepticleprimeSkillText(BaseEntity entity, bool japanese)
+    {
+        int shots = entity.StarLevel >= 3 ? 5 : entity.StarLevel >= 2 ? 4 : 3;
+        int baseDmg = Mathf.Max(1, Mathf.RoundToInt(entity.baseDamage * 1.35f * GetSkillEffectMultiplier(entity, true)));
+        return japanese
+            ? $"{shots}連射の照準砲。初弾{baseDmg}の攻撃ダメージ（弾ごとに約8%減衰）。命中した敵は被ダメージ軽減-6%、砲撃は近くの敵へ照準を移す。"
+            : $"Fires {shots} prism shots; the first deals {baseDmg} attack damage (each shot about 8% less). Hits lower enemy damage reduction by 6% and retarget nearby enemies.";
+    }
+
+    // 出典: BaseEntity.ExecuteTier2GeneralGlacialCommand
+    private string BuildTier2GeneralSkillText(BaseEntity entity, bool japanese)
+    {
+        int dmg = Mathf.Max(1, Mathf.RoundToInt(entity.baseDamage * 1.55f * GetSkillEffectMultiplier(entity, true)));
+        float duration = GetSkillDuration(entity, 3.2f, true);
+        string slow = FormatPercent(GetSlowAmount(entity));
+        string asBoost = FormatPercent(Mathf.Max(0f, (1.12f + 0.03f * GetSkillEffectMultiplier(entity, false)) - 1f));
+        string dr = FormatPercent(0.06f);
+        return japanese
+            ? $"対象へ{dmg}の攻撃ダメージと攻撃速度-{slow}＋凍結蓄積（{duration:0.#}秒）。周囲2.2マスの味方は攻撃速度+{asBoost}・被ダメージ軽減+{dr}。"
+            : $"Strikes for {dmg} attack damage with -{slow} attack speed and frost stacks ({duration:0.#}s). Allies within 2.2 cells gain +{asBoost} attack speed and +{dr} damage reduction.";
+    }
+
+    // 出典: BaseEntity.ExecuteAssassinLeapStrike (shadowlord)
+    private string BuildShadowlordSkillText(BaseEntity entity, bool japanese)
+    {
+        int dmg = GetPowerStrikeDamage(entity);
+        return japanese
+            ? $"最も遠い敵へ飛び込み{dmg}の大ダメージを与える。発動後0.75秒は敵から狙われにくくなる。"
+            : $"Leaps to the farthest enemy for {dmg} heavy damage, becoming untargetable for 0.75s afterward.";
+    }
+
+    // 出典: BaseEntity.ExecuteAssassinLeapStrike (skindogehai)
+    private string BuildSkindogehaiSkillText(BaseEntity entity, bool japanese)
+    {
+        int dmg = GetPowerStrikeDamage(entity);
+        float stun = GetSkillDuration(entity, entity.skillStunDuration, false);
+        return japanese
+            ? $"最も遠い敵へ飛び込み{dmg}の大ダメージ＋{stun:0.#}秒スタン。発動後0.55秒は狙われにくくなる。"
+            : $"Leaps to the farthest enemy for {dmg} damage and a {stun:0.#}s stun, becoming untargetable for 0.55s afterward.";
+    }
+
+    // --- コスト5（伝説級）固有スキルの説明文。 ---
+
+    // 出典: BaseEntity.ExecuteEmbergeneralRoyalCommand
+    private string BuildEmbergeneralSkillText(BaseEntity entity, bool japanese)
+    {
+        float mag = GetLegendaryMagnitude(entity);
+        float duration = GetLegendaryDuration(entity, 5f);
+        string asBoost = FormatPercent(entity.StarLevel >= 3 ? 1.25f : 0.20f * mag);
+        string manaBoost = FormatPercent(entity.StarLevel >= 3 ? 1.50f : 0.20f * mag);
+        string guardDr = FormatPercent(entity.StarLevel >= 3 ? 0.60f : 0.15f * mag);
+        float guardRadius = GetLegendaryRadius(entity, 1.15f);
+        int selfShield = Mathf.Max(1, Mathf.RoundToInt(entity.MaxHealth * (entity.StarLevel >= 3 ? 1.35f : 0.22f * mag)));
+        return japanese
+            ? $"味方全体へ{duration:0.#}秒の号令。攻撃速度+{asBoost}・MP獲得+{manaBoost}。半径{guardRadius:0.#}マスの味方はさらに被ダメージ軽減+{guardDr}。自身に{selfShield}のシールド。\n{StarNote(true)}"
+            : $"Commands all allies for {duration:0.#}s: +{asBoost} attack speed and +{manaBoost} MP gain. Allies within {guardRadius:0.#} cells also gain +{guardDr} damage reduction. Shields itself for {selfShield}.\n{StarNote(false)}";
+    }
+
+    // 出典: BaseEntity.ExecuteKronJudgementScale
+    private string BuildKronSkillText(BaseEntity entity, bool japanese)
+    {
+        float mag = GetLegendaryMagnitude(entity);
+        int healAmount = Mathf.Max(1, Mathf.RoundToInt(entity.MaxHealth * (entity.StarLevel >= 3 ? 0.85f : 0.18f * mag)));
+        int healShield = Mathf.Max(1, Mathf.RoundToInt(entity.MaxHealth * (entity.StarLevel >= 3 ? 0.45f : 0.08f * mag)));
+        string execPct = FormatPercent(entity.StarLevel >= 3 ? 0.95f : 0.18f * mag);
+        int balanceShield = Mathf.Max(1, Mathf.RoundToInt(entity.MaxHealth * (entity.StarLevel >= 3 ? 0.65f : 0.11f * mag)));
+        return japanese
+            ? $"敵味方のHP状況で効果が変化。味方劣勢→全体回復{healAmount}＋シールド{healShield}。敵が瀕死→敵全体へ最大HPの{execPct}の処刑ダメージ。それ以外→味方へシールド{balanceShield}＋敵に小ダメージ。\n{StarNote(true)}"
+            : $"Effect shifts with team HP. Allies losing → heal all for {healAmount} + {healShield} shield. Enemies low → execute all for {execPct} of their max HP. Otherwise → shield allies for {balanceShield} + light enemy damage.\n{StarNote(false)}";
+    }
+
+    // 出典: BaseEntity.ExecuteInvaderThunderGodCoroutine
+    private string BuildInvaderSkillText(BaseEntity entity, bool japanese)
+    {
+        float mag = GetLegendaryMagnitude(entity);
+        float starMult = entity.StarLevel >= 3 ? 3.0f : entity.StarLevel >= 2 ? 1.45f : 1f;
+        int strikes = Mathf.Max(1, Mathf.RoundToInt((10f + Mathf.Max(0f, GetFocusBonus(entity)) * 4f) * starMult));
+        int strikeDmg = Mathf.Max(1, Mathf.RoundToInt((entity.SkillBasePower * 1.45f + entity.baseDamage * 0.5f) * mag));
+        return japanese
+            ? $"ランダムな敵へ落雷を約{strikes}回。1撃{strikeDmg}の秘力ダメージを与え、近くの敵へ連鎖し、撃破すると追加落雷が発生する。\n{StarNote(true)}"
+            : $"Strikes random enemies about {strikes} times for {strikeDmg} focus damage each, chaining to nearby enemies and triggering an extra bolt on kills.\n{StarNote(false)}";
+    }
+
+    // 出典: BaseEntity.ExecuteGolBlackHoleCoroutine
+    private string BuildGolSkillText(BaseEntity entity, bool japanese)
+    {
+        float mag = GetLegendaryMagnitude(entity);
+        float duration = entity.StarLevel >= 3 ? 6f : 4f;
+        float tick = entity.StarLevel >= 3 ? 0.28f : 0.5f;
+        int ticks = Mathf.Max(1, Mathf.RoundToInt(duration / tick));
+        int tickDmg = Mathf.Max(1, Mathf.RoundToInt((entity.SkillBasePower * 0.9f + entity.baseDamage * 0.35f) * mag));
+        int explosion = Mathf.Max(1, Mathf.RoundToInt((entity.SkillBasePower * 2.2f + entity.baseDamage) * mag));
+        float radius = GetLegendaryRadius(entity, 1.75f);
+        return japanese
+            ? $"対象付近・半径{radius:0.#}マスに{duration:0.#}秒の黒穴を展開。敵を吸い寄せ、1ティック{tickDmg}の継続ダメージ（約{ticks}回）。終了時に{explosion}の爆発を起こし、与ダメージの一部をシールド化。\n{StarNote(true)}"
+            : $"Opens a black hole within {radius:0.#} cells for {duration:0.#}s, pulling enemies in and dealing {tickDmg} per tick (about {ticks} ticks). Ends with a {explosion} explosion and converts part of the damage into a shield.\n{StarNote(false)}";
+    }
+
+    // 出典: BaseEntity.ExecuteLegionDeadMarch
+    private string BuildLegionSkillText(BaseEntity entity, bool japanese)
+    {
+        string summons = entity.StarLevel >= 3 ? "8" : entity.StarLevel >= 2 ? "5" : (japanese ? "2〜4" : "2-4");
+        float lifetime = entity.StarLevel >= 3 ? 16f : 8f;
+        return japanese
+            ? $"Taskmasterの亡霊を{summons}体召喚（{lifetime:0.#}秒で消滅）。亡霊は死亡時に周囲の敵へ攻撃速度-28%・移動速度低下のスロウを与える。召喚体はシナジー対象外。\n{StarNote(true)}"
+            : $"Summons {summons} Taskmaster ghosts (expire after {lifetime:0.#}s). On death they slow nearby enemies (-28% attack speed and reduced move speed). Summons don't count for synergies.\n{StarNote(false)}";
+    }
+
+    // 出典: BaseEntity.ExecutePlaguegeneralRoar
+    private string BuildPlaguegeneralSkillText(BaseEntity entity, bool japanese)
+    {
+        float mag = GetLegendaryMagnitude(entity);
+        float duration = GetLegendaryDuration(entity, 2f);
+        int dmg = Mathf.Max(1, Mathf.RoundToInt((entity.SkillBasePower * 1.15f + entity.baseDamage * 0.5f) * mag));
+        string dmgDown = FormatPercent(entity.StarLevel >= 3 ? 0.55f : 0.20f * mag);
+        string moveDown = FormatPercent(entity.StarLevel >= 3 ? 0.75f : 0.40f);
+        string asDown = FormatPercent(1f - (entity.StarLevel >= 3 ? 0.45f : 0.78f));
+        float stun = entity.StarLevel >= 3 ? 2.2f : 0.75f;
+        float stunRadius = GetLegendaryRadius(entity, 1.65f);
+        return japanese
+            ? $"咆哮で敵全体へ{dmg}のダメージ。{duration:0.#}秒間 与ダメージ-{dmgDown}・移動速度-{moveDown}・攻撃速度-{asDown}。半径{stunRadius:0.#}マスの敵は{stun:0.#}秒スタン。\n{StarNote(true)}"
+            : $"Roars at all enemies for {dmg} damage. For {duration:0.#}s they suffer -{dmgDown} damage dealt, -{moveDown} move speed, -{asDown} attack speed. Enemies within {stunRadius:0.#} cells are stunned {stun:0.#}s.\n{StarNote(false)}";
+    }
+
+    // 出典: BaseEntity.ExecuteSkyfallDragonRampageCoroutine
+    private string BuildSkyfalltyrantSkillText(BaseEntity entity, bool japanese)
+    {
+        float mag = GetLegendaryMagnitude(entity);
+        float duration = entity.StarLevel >= 3 ? 10f : 6f;
+        float tick = entity.StarLevel >= 3 ? 0.25f : 0.45f;
+        int ticks = Mathf.Max(1, Mathf.RoundToInt(duration / tick));
+        int tickDmg = Mathf.Max(1, Mathf.RoundToInt((entity.baseDamage * 1.25f + entity.SkillBasePower * 0.75f) * mag));
+        int burn = Mathf.Max(1, Mathf.RoundToInt(tickDmg * 0.18f));
+        float coneRange = GetLegendaryRadius(entity, 3.2f);
+        return japanese
+            ? $"{duration:0.#}秒間暴走し、通常攻撃を止めて前方・射程{coneRange:0.#}マスへ火炎を吐き続ける。1ティック{tickDmg}＋燃焼{burn}（約{ticks}回）。\n{StarNote(true)}"
+            : $"Rampages for {duration:0.#}s, stopping normal attacks to breathe fire up to {coneRange:0.#} cells ahead. {tickDmg} per tick plus {burn} burn (about {ticks} ticks).\n{StarNote(false)}";
+    }
+
+    // --- コスト4ボス固有スキルの説明文。数値は BaseEntity の各 Execute メソッドと同じ式で算出する。 ---
+
+    // 出典: BaseEntity.ExecuteWujinImperialPyre
+    private string BuildWujinSkillText(BaseEntity entity, bool japanese)
+    {
+        int aoe = GetAreaDamage(entity);
+        int burn = Mathf.Max(1, Mathf.RoundToInt(aoe * 0.16f));
+        float duration = GetSkillDuration(entity, 3.5f, true);
+        float radius = Mathf.Max(2.3f, entity.skillAreaRadius);
+        string asBoost = FormatPercent(Mathf.Max(0f, (1.16f + 0.04f * GetSkillEffectMultiplier(entity, false)) - 1f));
+        return japanese
+            ? $"自分中心・半径{radius:0.#}マスの敵へ{aoe}の範囲ダメージ。命中した敵は{duration:0.#}秒かけて燃焼{burn}ダメージを受ける。範囲内の味方は攻撃速度+{asBoost}（{duration:0.#}秒）。"
+            : $"Deals {aoe} area damage to enemies within {radius:0.#} cells of itself. Hit enemies burn for {burn} over {duration:0.#}s. Allies inside gain +{asBoost} attack speed for {duration:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteWraithGraveBlizzard
+    private string BuildWraithSkillText(BaseEntity entity, bool japanese)
+    {
+        int aoe = GetAreaDamage(entity);
+        float radius = Mathf.Max(2.5f, entity.skillAreaRadius);
+        float duration = GetSkillDuration(entity, 3.2f, true);
+        string slow = FormatPercent(GetSlowAmount(entity));
+        return japanese
+            ? $"対象周囲・半径{radius:0.#}マスの敵へ{aoe}の秘力ダメージ。{duration:0.#}秒間、攻撃速度-{slow}・与ダメージ-10%を付与する。"
+            : $"Deals {aoe} focus damage to enemies within {radius:0.#} cells of the target. For {duration:0.#}s they suffer -{slow} attack speed and deal 10% less damage.";
+    }
+
+    // 出典: BaseEntity.ExecuteSnowchaserRelay
+    private string BuildSnowchaserSkillText(BaseEntity entity, bool japanese)
+    {
+        int heal = GetAllyHealAmount(entity);
+        int shield = Mathf.Max(1, Mathf.RoundToInt(GetShieldAmount(entity) * 0.42f));
+        int heal2 = Mathf.Max(1, Mathf.RoundToInt(heal * 0.65f));
+        int shield2 = Mathf.Max(1, Mathf.RoundToInt(shield * 0.7f));
+        float radius = Mathf.Max(2.6f, entity.skillAreaRadius);
+        float duration = GetSkillDuration(entity, 2.5f, true);
+        string slow = FormatPercent(GetSlowAmount(entity));
+        return japanese
+            ? $"最も傷ついた味方をHP{heal}回復＋シールド{shield}付与。もう1体の味方にも{heal2}回復・シールド{shield2}を中継する。回復対象の周囲・半径{radius:0.#}マスの敵を{duration:0.#}秒間 攻撃速度-{slow}。"
+            : $"Heals the most damaged ally for {heal} HP and grants a {shield} shield. Relays {heal2} heal and a {shield2} shield to another ally. Enemies within {radius:0.#} cells of the healed ally lose {slow} attack speed for {duration:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteSolfistSolarCombo
+    private string BuildSolfistSkillText(BaseEntity entity, bool japanese)
+    {
+        int main = Mathf.Max(1, Mathf.RoundToInt(entity.baseDamage * 1.55f * GetSkillEffectMultiplier(entity, true)));
+        int area = GetAreaDamage(entity);
+        int burn = Mathf.Max(1, Mathf.RoundToInt(area * 0.18f));
+        float radius = Mathf.Max(2.1f, entity.skillAreaRadius);
+        float stun = GetSkillDuration(entity, 0.55f, false);
+        float burnDur = GetSkillDuration(entity, 3f, true);
+        return japanese
+            ? $"対象に{main}の攻撃ダメージ＋{stun:0.#}秒スタン。対象周囲・半径{radius:0.#}マスの敵へ{area}ダメージと燃焼{burn}（{burnDur:0.#}秒）。"
+            : $"Strikes the target for {main} attack damage and a {stun:0.#}s stun. Enemies within {radius:0.#} cells take {area} damage plus {burn} burn over {burnDur:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteMaehvRailArc
+    private string BuildMaehvSkillText(BaseEntity entity, bool japanese)
+    {
+        int dmg = GetAreaDamage(entity);
+        int chain = entity.StarLevel >= 3 ? 4 : entity.StarLevel >= 2 ? 3 : 2;
+        float stun = GetSkillDuration(entity, 0.55f, false);
+        return japanese
+            ? $"最大{chain}体に連鎖する雷撃。初撃{dmg}の秘力ダメージ（連鎖ごとに72%へ減衰）＋{stun:0.#}秒スタンを与える。"
+            : $"A lightning arc chaining to up to {chain} enemies. The first hit deals {dmg} focus damage (each chain drops to 72%) and a {stun:0.#}s stun.";
     }
 
     // ユニット固有の追加効果やパッシブを、基本スキル説明に追記します。

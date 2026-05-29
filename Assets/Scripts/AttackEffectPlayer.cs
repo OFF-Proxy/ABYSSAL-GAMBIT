@@ -92,6 +92,11 @@ public class AttackEffectPlayer : MonoBehaviour
     // SE用とBGM用のAudioSourceです。BGMはループ再生します。
     private AudioSource sfxSource;
     private AudioSource bgmSource;
+
+    // OptionsPanelUIから設定される音量倍率です。マスター音量は AudioListener.volume が担当します。
+    private const float BaseBgmVolume = 0.26f;
+    public static float SfxVolumeMultiplier = 1f;
+    public static float BgmVolumeMultiplier = 1f;
     private Coroutine cameraShakeCoroutine;
     private Camera cameraShakeTarget;
     private Vector3 cameraShakeOriginalPosition;
@@ -2033,8 +2038,25 @@ public class AttackEffectPlayer : MonoBehaviour
             bgmSource.playOnAwake = false;
             bgmSource.loop = true;
             bgmSource.spatialBlend = 0f;
-            bgmSource.volume = 0.26f;
+            bgmSource.volume = BaseBgmVolume * BgmVolumeMultiplier;
         }
+        else
+        {
+            bgmSource.volume = BaseBgmVolume * BgmVolumeMultiplier;
+        }
+    }
+
+    // OptionsPanelUI から音量倍率を更新します。
+    public static void SetSfxVolume(float value)
+    {
+        SfxVolumeMultiplier = Mathf.Clamp01(value);
+    }
+
+    public static void SetBgmVolume(float value)
+    {
+        BgmVolumeMultiplier = Mathf.Clamp01(value);
+        if (instance != null && instance.bgmSource != null)
+            instance.bgmSource.volume = BaseBgmVolume * BgmVolumeMultiplier;
     }
 
     // BGM候補から見つかったものを再生します。見つからなければ簡易生成BGMを使います。
@@ -2067,7 +2089,7 @@ public class AttackEffectPlayer : MonoBehaviour
             clip = GetGeneratedSfxClip(clipName);
 
         if (clip != null)
-            sfxSource.PlayOneShot(clip, volume);
+            sfxSource.PlayOneShot(clip, volume * SfxVolumeMultiplier);
     }
 
     // SE名ごとに、Resources内で探す候補パスを返します。

@@ -164,7 +164,19 @@ public class SynergyManager : MonoBehaviour
 
     public int GetSynergyCount(SynergyType type)
     {
-        return synergyCounts.TryGetValue(type, out int count) ? count : 0;
+        int count = synergyCounts.TryGetValue(type, out int c) ? c : 0;
+        // オーグメント由来のエンブレム加算（プレイヤーチーム表示用のシナジーカウントにのみ反映）。
+        if (GameManager.Instance != null)
+        {
+            if (type == SynergyType.Warrior) count += GameManager.Instance.AugmentSynergyBonusWarrior;
+            else if (type == SynergyType.Ranger) count += GameManager.Instance.AugmentSynergyBonusRanger;
+            else if (type == SynergyType.Arcanist) count += GameManager.Instance.AugmentSynergyBonusArcanist;
+            // 戦闘中限定のランダムシナジー +1（silver_extra_synergy_count / gold_duplicate_synergy）。
+            int rnd;
+            if (GameManager.Instance.AdditionalSynergyBonusThisCombat.TryGetValue(type, out rnd))
+                count += rnd;
+        }
+        return count;
     }
 
     public int GetSynergyCountForTeam(SynergyType type, Team team)
@@ -779,6 +791,17 @@ public class SynergyManager : MonoBehaviour
 
         activeSummons.Add(summon);
         AttackEffectPlayer.PlaySynergyEffect(SynergyType.Summoner, summon.transform.position, large ? 1.35f : 1f);
+
+        // prism_summon_master: 召喚体を +1（追加分は小サイズ）
+        if (GameManager.Instance.HasAugment("prism_summon_master"))
+        {
+            BaseEntity extra = GameManager.Instance.SpawnTemporarySummonFromSynergy(false);
+            if (extra != null)
+            {
+                activeSummons.Add(extra);
+                AttackEffectPlayer.PlaySynergyEffect(SynergyType.Summoner, extra.transform.position, 1f);
+            }
+        }
     }
 
     private void NotifySummonDeath(BaseEntity summon)
@@ -899,6 +922,9 @@ public class SynergyManager : MonoBehaviour
         if (counts == null || tiers == null || GameManager.Instance == null)
             return;
 
+        // prism_all_synergy: プレイヤーチームのみ、各ユニットの所持シナジーに +1 重ね掛けします。
+        bool perUnitDouble = team == Team.Team1 && GameManager.Instance.HasAugment("prism_all_synergy");
+
         HashSet<string> countedUnitIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         List<BaseEntity> boardUnits = GameManager.Instance.GetBoardEntitiesForSynergy(team);
         for (int i = 0; i < boardUnits.Count; i++)
@@ -918,7 +944,7 @@ public class SynergyManager : MonoBehaviour
                 if (type == SynergyType.None)
                     continue;
 
-                counts[type]++;
+                counts[type] += perUnitDouble ? 2 : 1;
             }
         }
 

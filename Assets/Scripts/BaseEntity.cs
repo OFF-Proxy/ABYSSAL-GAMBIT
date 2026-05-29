@@ -371,6 +371,17 @@ public class BaseEntity : MonoBehaviour
             SetSynergies(SynergyType.None, SynergyType.None, SynergyType.None);
     }
 
+    // オーグメント由来の召喚体ステータス倍率（HP/与ダメ）を、生成直後に基準値へ乗せ直します。
+    public void ApplyAugmentSummonStatMultipliers(float hpMultiplier, float damageMultiplier)
+    {
+        if (!IsSummonedUnit) return;
+        if (hpMultiplier > 0f && !Mathf.Approximately(hpMultiplier, 1f))
+            originalBaseHealth = Mathf.Max(1, Mathf.RoundToInt(originalBaseHealth * hpMultiplier));
+        if (damageMultiplier > 0f && !Mathf.Approximately(damageMultiplier, 1f))
+            originalBaseDamage = Mathf.Max(1, Mathf.RoundToInt(originalBaseDamage * damageMultiplier));
+        ApplyCurrentStats(true);
+    }
+
     // スキルやシナジー検証用の敵ダミーにします。敵として狙われますが、自分からは攻撃せず盤面を歩き回ります。
     public void ConfigureDebugTrainingDummy(int health, float moveSpeed)
     {
@@ -447,6 +458,12 @@ public class BaseEntity : MonoBehaviour
     // 盤面に配置された時のセットアップです。
     public void Setup(Team team, Node currentNode)
     {
+        if (currentNode == null)
+        {
+            Debug.LogError($"{name} setup failed: currentNode is null.");
+            return;
+        }
+
         EnsureComponentReferences();
         RestoreAnimatorControllerIfMissing();
         CaptureBaseStats();
@@ -503,6 +520,12 @@ public class BaseEntity : MonoBehaviour
     // GameManagerのイベントを購読し、ラウンド開始/終了や死亡通知を受け取れるようにします。
     protected void Start()
     {
+        if (GameManager.Instance == null)
+        {
+            Debug.LogWarning($"{name} could not subscribe to round events because GameManager was not found.");
+            return;
+        }
+
         GameManager.Instance.OnRoundStart += OnRoundStart;
         GameManager.Instance.OnRoundEnd += OnRoundEnd;
         GameManager.Instance.OnUnitDied += OnUnitDied;
@@ -787,6 +810,10 @@ public class BaseEntity : MonoBehaviour
 
         ApplyIncomingHitItemEffects(source, Mathf.Max(0, amount));
 
+        // オーグメント on-hit procs (通常攻撃ヒット時のみ、ソース側で発動)
+        if (source != null && numberKind == CombatNumberKind.AttackDamage)
+            source.TryApplyAugmentOnHitProcs(this);
+
         // まずシールドで受け止め、残った分だけHPを減らします。
         int remainingDamage = Mathf.Max(0, amount);
         int displayedDamage = 0;
@@ -858,6 +885,27 @@ public class BaseEntity : MonoBehaviour
             && SynergyManager.Instance.IsSynergyActiveForTeam(SynergyType.Frenzy, myTeam, 4))
             multiplier += Mathf.Clamp01(1f - HealthRatio) * 0.35f;
 
+        // === オーグメント由来の与ダメージ補正（プレイヤー側のみ） ===
+        if (myTeam == Team.Team1 && GameManager.Instance != null)
+        {
+            // gold_low_hp_dmg: HPが低いほど与ダメ上昇（最大+20%）
+            if (GameManager.Instance.HasAugment("gold_low_hp_dmg"))
+                multiplier += Mathf.Clamp01(1f - HealthRatio) * 0.20f;
+            // silver_gold_attack: 所持金10ごとに+1%（上限+10%）
+            if (GameManager.Instance.HasAugment("silver_gold_attack") && PlayerData.Instance != null)
+                multiplier += Mathf.Clamp(PlayerData.Instance.Money * 0.001f, 0f, 0.10f);
+            // silver_dupe_dmg: 同名ユニットを2体以上所持で +5%
+            if (GameManager.Instance.HasAugment("silver_dupe_dmg") && GameManager.Instance.CountOwnedUnitsByUnitId(UnitId) >= 2)
+                multiplier += 0.05f;
+            // prism_king_blessed: 盤面で最高コストの味方なら +50% 与ダメ
+            if (GameManager.Instance.HasAugment("prism_king_blessed") && GameManager.Instance.IsHighestCostOnBoard(this))
+                multiplier += 0.50f;
+            // silver_same_cost_bond: 同じコストの味方が盤面に2体以上いれば +3% 与ダメ
+            if (GameManager.Instance.HasAugment("silver_same_cost_bond")
+                && GameManager.Instance.CountSameCostBoardAllies(BaseCost) >= 2)
+                multiplier += 0.03f;
+        }
+
         return Mathf.Max(1, Mathf.RoundToInt(amount * multiplier));
     }
 
@@ -884,6 +932,40 @@ public class BaseEntity : MonoBehaviour
             machineEmergencyRepairUsed = true;
             HealFromSynergy(Mathf.Max(1, Mathf.RoundToInt(MaxHealth * 0.15f)));
         }
+    }
+
+    // オーグメント on-hit proc（ソース側）: 通常攻撃ヒット時に確率で発動します。
+    private void TryApplyAugmentOnHitProcs(BaseEntity target)
+    {
+        if (target == null || target.dead || myTeam != Team.Team1 || GameManager.Instance == null)
+            return;
+        if (GameManager.Instance.HasAugment("silver_slow_proc") && UnityEngine.Random.value < 0.05f)
+            target.ApplyAttackSpeedSlow(0.7f, 2f);
+        if (GameManager.Instance.HasAugment("silver_burn_proc") && UnityEngine.Random.value < 0.05f)
+            target.ApplyInfernoBurnFromSynergy(this, Mathf.Max(2, Mathf.RoundToInt(GetCurrentDamage() * 0.10f)), 3f);
+        if (GameManager.Instance.HasAugment("silver_zap_proc") && UnityEngine.Random.value < 0.05f)
+            target.TakeDamage(Mathf.Max(2, Mathf.RoundToInt(GetCurrentDamage() * 0.30f)), this, CombatNumberKind.FocusDamage);
+        if (GameManager.Instance.HasAugment("silver_stun_proc") && UnityEngine.Random.value < 0.05f)
+            target.ApplyStun(1f);
+    }
+
+    // === オーグメント用の復活 ===
+    // チャプター内で silver_revive_3 を消化済みか、ユニットごとに記録します。
+    public bool SilverAugmentReviveUsed { get; set; }
+
+    // オーグメントによる復活。HP比率を指定して蘇生します。
+    public void AugmentReviveAtRatio(float hpRatio)
+    {
+        if (!dead)
+            return;
+        int hp = Mathf.Max(1, Mathf.RoundToInt(MaxHealth * Mathf.Clamp(hpRatio, 0.05f, 1f)));
+        baseHealth = hp;
+        dead = false;
+        canAttack = true;
+        if (healthbar != null)
+            healthbar.UpdateBar(baseHealth);
+        SetAnimatorBool("walking", false);
+        AttackEffectPlayer.PlayUiSfx("unit_buy");
     }
 
     // 被弾した瞬間に反応するアイテム効果です。シールドで防いだ場合でも「攻撃を受けた」として扱います。
@@ -1082,9 +1164,18 @@ public class BaseEntity : MonoBehaviour
         if (SynergyManager.Instance != null && SynergyManager.Instance.TryReviveWraith(this))
             return;
 
+        // オーグメント由来の復活（silver_revive_3 / prism_one_revive）。
+        if (GameManager.Instance != null && GameManager.Instance.TryConsumeAugmentReviveForUnit(this))
+            return;
+
         dead = true;
         ApplySummonedDeathSlow();
         SynergyManager.Instance?.NotifyUnitDeath(this, lastDamageSource);
+
+        // prism_kill_heal / prism_warrior_kill_buff: 敵が倒れた瞬間に、撃破者がプレイヤー側ならフックを叩きます。
+        if (myTeam == Team.Team2 && lastDamageSource != null && lastDamageSource.myTeam == Team.Team1
+            && GameManager.Instance != null)
+            GameManager.Instance.NotifyEnemyKilledByPlayer(this, lastDamageSource);
         AttackEffectPlayer.PlayDeath(this);
         SetTarget(null);
         ClearMovementReservation();
@@ -2154,7 +2245,7 @@ public class BaseEntity : MonoBehaviour
         }
     }
 
-    // Maehv専用スキルです。レール砲のような雷撃を撃ち、近くの敵へ連鎖します。
+    // Maehv skill: fires a railgun-like lightning arc that chains to nearby enemies.
     private void ExecuteMaehvRailArc(BaseEntity target)
     {
         target = GetValidSkillTarget(target);
@@ -4152,12 +4243,41 @@ public class BaseEntity : MonoBehaviour
         int manaDamageBonus = equippedItems.Sum(item => item != null ? item.manaOnDamageTakenBonus : 0);
         int maxManaReduction = equippedItems.Sum(item => item != null ? item.maxManaReduction : 0);
 
-        baseDamage = Mathf.Max(1, Mathf.RoundToInt((originalBaseDamage * starDamageHealthMultiplier + itemDamageFlat) * itemDamageMultiplier));
-        maxHealth = Mathf.Max(1, Mathf.RoundToInt((originalBaseHealth * starDamageHealthMultiplier + itemHealthFlat) * itemHealthMultiplier));
+        // オーグメント由来のチームバフ（プレイヤー側のみ）。乗算で乗せ、被ダメ軽減は加算。
+        float teamDamageMul = 1f;
+        float teamHealthMul = 1f;
+        float teamAttackSpeedMul = 1f;
+        float teamMoveSpeedMul = 1f;
+        float teamDamageReduction = 0f;
+        if (myTeam == Team.Team1 && GameManager.Instance != null)
+        {
+            teamDamageMul = 1f + GameManager.Instance.TeamAttackBonusPercent;
+            teamHealthMul = 1f + GameManager.Instance.TeamHPBonusPercent;
+            teamAttackSpeedMul = 1f + GameManager.Instance.TeamAttackSpeedBonusPercent;
+            teamMoveSpeedMul = 1f + GameManager.Instance.TeamMoveSpeedBonusPercent;
+            teamDamageReduction = GameManager.Instance.TeamDamageReductionBonus;
+            // prism_dark_pact: 与ダメ+15%、被ダメ+15%
+            if (GameManager.Instance.HasAugment("prism_dark_pact"))
+            {
+                teamDamageMul += 0.15f;
+                teamDamageReduction -= 0.15f; // 被ダメ+15% = 軽減-15%
+            }
+            // silver_cost1_hp: コスト1ユニットは最大HP +10%
+            if (GameManager.Instance.HasAugment("silver_cost1_hp") && BaseCost == 1)
+                teamHealthMul += 0.10f;
+        }
+
+        baseDamage = Mathf.Max(1, Mathf.RoundToInt(((originalBaseDamage * starDamageHealthMultiplier + itemDamageFlat) * itemDamageMultiplier) * teamDamageMul));
+        maxHealth = Mathf.Max(1, Mathf.RoundToInt(((originalBaseHealth * starDamageHealthMultiplier + itemHealthFlat) * itemHealthMultiplier) * teamHealthMul));
         range = Mathf.Max(1, originalRange);
-        attackSpeed = originalAttackSpeed * GetStarAttackSpeedMultiplier(StarLevel) * itemAttackSpeedMultiplier;
-        movementSpeed = originalMovementSpeed * GetStarMovementSpeedMultiplier(StarLevel);
-        baseDamageReduction = Mathf.Clamp(originalBaseDamageReduction + GetStarDamageReductionBonus(StarLevel), 0f, 0.75f);
+        // silver_range_archer: Ranger シナジーを持つユニットは射程 +1
+        if (myTeam == Team.Team1 && GameManager.Instance != null
+            && GameManager.Instance.HasAugment("silver_range_archer")
+            && HasSynergy(SynergyType.Ranger))
+            range += 1;
+        attackSpeed = originalAttackSpeed * GetStarAttackSpeedMultiplier(StarLevel) * itemAttackSpeedMultiplier * teamAttackSpeedMul;
+        movementSpeed = originalMovementSpeed * GetStarMovementSpeedMultiplier(StarLevel) * teamMoveSpeedMul;
+        baseDamageReduction = Mathf.Clamp(originalBaseDamageReduction + GetStarDamageReductionBonus(StarLevel) + teamDamageReduction, -0.5f, 0.75f);
         manaOnAttack = Mathf.Max(0, originalManaOnAttack + manaAttackBonus);
         manaOnDamageTaken = Mathf.Max(0, originalManaOnDamageTaken + manaDamageBonus);
         maxMana = Mathf.Max(20, originalMaxMana - maxManaReduction);
@@ -4187,7 +4307,19 @@ public class BaseEntity : MonoBehaviour
                 ? 0.10f
                 : 0f;
         reduction -= GetActiveSpineCleaverShred();
-        return Mathf.Clamp(baseDamageReduction + reduction, 0f, 0.75f);
+
+        // === オーグメント由来の被ダメ軽減（プレイヤー側のみ） ===
+        if (myTeam == Team.Team1 && GameManager.Instance != null)
+        {
+            // gold_low_hp_dr: HP30%以下で被ダメ軽減+15%
+            if (GameManager.Instance.HasAugment("gold_low_hp_dr") && HealthRatio <= 0.30f)
+                reduction += 0.15f;
+            // prism_king_blessed: 盤面で最高コストの味方なら被ダメ軽減+50%
+            if (GameManager.Instance.HasAugment("prism_king_blessed") && GameManager.Instance.IsHighestCostOnBoard(this))
+                reduction += 0.50f;
+        }
+
+        return Mathf.Clamp(baseDamageReduction + reduction, 0f, 0.85f);
     }
 
     // 装備中かどうかをIDで確認します。

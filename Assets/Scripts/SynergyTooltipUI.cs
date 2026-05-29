@@ -417,7 +417,7 @@ public class SynergyTooltipUI : MonoBehaviour
                 return ja ? "HP50%以下で1戦闘1回、3秒間軽減 +25%" : "Once per battle below 50% HP, gain +25% reduction for 3s.";
             case SynergyType.Ranger:
                 if (required == 2) return ja ? "射手の攻撃速度 +10%" : "Rangers gain +10% attack speed.";
-                if (required == 4) return ja ? "同じ敵を攻撃し続けると与ダメージ上昇" : "Repeated attacks on one target increase damage.";
+                if (required == 4) return ja ? "同じ敵を攻撃し続けると与ダメージ上昇（1スタック+3%, 最大+15%）" : "Repeated attacks on one target add +3% damage per stack, up to +15%.";
                 return ja ? "通常攻撃が20%で追加ダメージ" : "Basic attacks have a 20% chance for bonus damage.";
             case SynergyType.Arcanist:
                 if (required == 2) return ja ? "魔導の秘力 +15%" : "Arcanists gain +15% focus.";
@@ -439,7 +439,7 @@ public class SynergyTooltipUI : MonoBehaviour
                 if (required == 4) return ja ? "HP30%以下で1戦闘1回、最大HP15%回復" : "Once per battle below 30% HP, heal 15% max HP.";
                 return ja ? "死亡時、周囲1マスの味方に最大HP10%のシールド" : "On death, shield nearby allies for 10% of their max HP.";
             case SynergyType.Wraith:
-                if (required == 2) return ja ? "死亡時、周囲1マスの敵を2秒スロウ" : "On death, slow nearby enemies for 2s.";
+                if (required == 2) return ja ? "死亡時、周囲1マスの敵を2秒間 攻撃速度-35%スロウ" : "On death, slow nearby enemies' attack speed by 35% for 2s.";
                 if (required == 4) return ja ? "死亡時、近くの味方1体のMPを20回復" : "On death, restore 20 MP to a nearby ally.";
                 return ja ? "最初に倒れた亡霊が1戦闘1回、HP30%で復活" : "The first fallen Wraith revives once at 30% HP.";
             case SynergyType.Apex:
@@ -447,40 +447,40 @@ public class SynergyTooltipUI : MonoBehaviour
                 if (required == 2) return ja ? "覇者の秘力 +20%、被ダメージ軽減 +8%" : "Apex units gain +20% focus and 8% damage reduction.";
                 return ja ? "戦闘開始時、覇者に最大HP8%のシールド" : "Combat start: Apex units gain an 8% max HP shield.";
             case SynergyType.Inferno:
-                if (required == 2) return ja ? "通常攻撃かスキルでダメージを与えた敵に、3秒間燃焼を付与します。" : "Basic attacks and skills burn damaged enemies for 3 seconds.";
-                if (required == 4) return ja ? "燃焼中の敵が倒れると爆発し、周囲1マスの敵にダメージを与えます。" : "Burning enemies explode on death, damaging nearby enemies.";
-                return ja ? "戦闘開始から10秒後、敵全体へ炎の雨を降らせます。" : "After 10 seconds, fire rain strikes all enemies.";
+                if (required == 2) return ja ? "通常攻撃かスキルでダメージを与えた敵に燃焼を付与（毎秒 与ダメージ12%+秘力2.5%、3秒間）。" : "Burns damaged enemies for 3s (per second: 12% of damage dealt + 2.5% focus).";
+                if (required == 4) return ja ? "燃焼中の敵が倒れると爆発し、周囲1マスの敵へ最大HPの8%ダメージ。" : "Burning enemies explode on death, dealing 8% of max HP to nearby enemies.";
+                return ja ? "戦闘開始10秒後、敵全体へ炎の雨（各 最大HPの7%ダメージ）。" : "After 10s, fire rain hits all enemies for 7% of their max HP.";
             case SynergyType.Frost:
                 if (required == 2) return ja ? "攻撃時、20%の確率で敵を2秒間スロウします。" : "Attacks have a 20% chance to slow enemies for 2 seconds.";
-                if (required == 4) return ja ? "スロウ中の敵を攻撃し続けると凍結値が溜まり、短時間凍結します。" : "Repeated hits on slowed enemies build freeze and briefly stun.";
-                return ja ? "戦闘開始時、敵全体を3秒スロウし、最も攻撃力の高い敵を2秒凍結します。" : "Combat start: slow all enemies and freeze the highest attack enemy.";
+                if (required == 4) return ja ? "スロウ中の敵を攻撃し続けると凍結が溜まり、3スタックで1秒凍結（スタン）。" : "Hits on slowed enemies build freeze; 3 stacks cause a 1s freeze.";
+                return ja ? "戦闘開始時、敵全体を攻撃速度-32%で3秒スロウし、最も攻撃力の高い敵を2秒凍結。" : "Combat start: -32% attack speed to all enemies (3s); freeze the highest-attack enemy for 2s.";
             case SynergyType.Storm:
-                if (required == 2) return ja ? "4回攻撃するたび、ランダムな敵1体に雷撃を放ちます。" : "Every 4 attacks, strike a random enemy with lightning.";
-                if (required == 4) return ja ? "雷撃が近くの敵1体へ連鎖します。" : "Lightning chains once to a nearby enemy.";
+                if (required == 2) return ja ? "4回攻撃するたび、ランダムな敵1体へ雷撃（秘力55%+攻撃力40%）。" : "Every 4 attacks, strike a random enemy for 55% focus + 40% attack damage.";
+                if (required == 4) return ja ? "雷撃が近くの敵1体へ連鎖（雷撃ダメージの65%）。" : "Lightning chains once to a nearby enemy for 65% of the strike.";
                 return ja ? "スキル発動時、敵3体に雷撃を放ちます。" : "On skill cast, lightning strikes 3 enemies.";
             case SynergyType.Abyss:
                 if (required == 2) return ja ? "戦闘開始時、敵全体の与ダメージを8秒間10%下げます。" : "Combat start: enemies deal 10% less damage for 8 seconds.";
-                if (required == 4) return ja ? "敵がスキルを使うたび、その敵に最大HP割合ダメージを与えます。" : "Enemy casts punish the caster with max HP damage.";
-                return ja ? "戦闘中1回、味方が大きく削られた時に敵全体へ深淵の呪いを付与します。" : "Once per battle at low team HP, curse all enemies.";
+                if (required == 4) return ja ? "敵がスキルを使うたび、その敵に最大HPの4.5%ダメージ。" : "When an enemy casts, it takes 4.5% of its max HP as damage.";
+                return ja ? "チームHP28%以下で1戦闘1回、敵全体へ呪い（与ダメージ-18%・攻撃速度-38%・移動-30%・MP獲得-50%、5秒）。" : "Once per battle at ≤28% team HP, curse all enemies (-18% damage, -38% attack speed, -30% move, -50% MP gain for 5s).";
             case SynergyType.Divine:
-                if (required == 2) return ja ? "戦闘開始時、HP割合が最も低い味方に復活加護を付与します。" : "Combat start: grant a revive ward to the lowest HP ally.";
-                if (required == 4) return ja ? "復活加護で蘇生した時、周囲の味方も回復します。" : "When the ward revives, nearby allies are healed.";
-                return ja ? "戦闘中1回、味方全体が大きく削られた時に全体回復とシールドを付与します。" : "Once per battle, heavy team damage triggers team heal and shields.";
+                if (required == 2) return ja ? "戦闘開始時、HP割合が最も低い味方にHP12%で復活する加護を付与。" : "Combat start: grant the lowest-HP ally a ward that revives at 12% HP.";
+                if (required == 4) return ja ? "加護の復活値が25%に強化。復活時、自身にシールド最大HP10%、周囲の味方を最大HP8%回復。" : "Ward revives at 25% HP; on revive, gain a 10% max HP shield and heal nearby allies for 8% max HP.";
+                return ja ? "チームHP38%以下で1戦闘1回、味方全体を最大HP16%回復＋シールド最大HP10%（5秒）。" : "Once per battle at ≤38% team HP, heal all allies 16% max HP + a 10% max HP shield (5s).";
             case SynergyType.Frenzy:
-                if (required == 2) return ja ? "味方が1体倒れるたび、狂乱ユニットの攻撃速度が上がります。" : "Each allied death grants Frenzy units attack speed.";
-                if (required == 4) return ja ? "狂乱ユニットはHPが低いほど与ダメージが上がります。" : "Frenzy units deal more damage at lower HP.";
-                return ja ? "戦闘中1回、味方死亡時に狂乱ユニットが5秒間暴走します。" : "Once per battle, allied death sends Frenzy units rampaging.";
+                if (required == 2) return ja ? "味方が1体倒れるたび、狂乱ユニットの攻撃速度+10%（加算）。" : "Each allied death grants Frenzy units +10% attack speed (stacking).";
+                if (required == 4) return ja ? "狂乱ユニットはHPが低いほど与ダメージ上昇（最大+35%）。" : "Frenzy units deal up to +35% damage as HP drops.";
+                return ja ? "1戦闘1回、味方死亡時に狂乱ユニットが5秒暴走（攻撃速度×1.55・与ダメージ+22%・被ダメージ軽減-20%）。" : "Once per battle, an allied death sends Frenzy units rampaging for 5s (×1.55 attack speed, +22% damage, -20% damage reduction).";
             case SynergyType.Royal:
-                if (required == 1) return ja ? "最もコストが高い味方1体を王に指定し、攻防を強化します。" : "The highest cost ally becomes king and gains power.";
-                if (required == 2) return ja ? "王の周囲1マスの味方が、王の護衛として強化されます。" : "Nearby allies become the king's guard and gain stats.";
-                return ja ? "王が生きている間、味方全体が強化されます。王が倒れると弱体化します。" : "While the king lives, all allies are buffed. If the king falls, the team weakens.";
+                if (required == 1) return ja ? "最もコストが高い味方を王に指定し、与ダメージ+12%＋シールド最大HP8%。" : "The highest-cost ally becomes king: +12% damage and an 8% max HP shield.";
+                if (required == 2) return ja ? "王の周囲1.35マスの味方は護衛となり、与ダメージ+8%・被ダメージ軽減+6%。" : "Allies within 1.35 cells of the king gain +8% damage and +6% damage reduction.";
+                return ja ? "味方全体に与ダメージ+8%・秘力+8%・被ダメージ軽減+4%。王が倒れると全体が与ダメージ-15%・移動-15%（60秒）。" : "All allies gain +8% damage, +8% focus, +4% damage reduction. If the king falls, the team suffers -15% damage and -15% move speed for 60s.";
             case SynergyType.Summoner:
                 if (required == 2) return ja ? "戦闘開始時、小型召喚体を1体呼び出します。" : "Combat start: summon a small minion.";
-                if (required == 4) return ja ? "召喚体が死亡すると、近くの敵へ小ダメージとスロウを与えます。" : "Summons damage and slow nearby enemies on death.";
+                if (required == 4) return ja ? "召喚体が死亡すると、近くの敵へ最大HP4%ダメージ＋攻撃速度-30%（2秒）。" : "When a summon dies, nearby enemies take 4% max HP damage and -30% attack speed (2s).";
                 return ja ? "戦闘中1回、召喚体が全滅した時に大型召喚体を呼びます。" : "Once per battle, if all summons die, call a large summon.";
             case SynergyType.Alchemy:
                 if (required == 2) return ja ? "Waveクリア時、20%の確率で追加コインを得ます。" : "Wave clear: 20% chance to gain extra gold.";
-                if (required == 4) return ja ? "Waveクリア時、一定確率でランダムアイテムを獲得します。" : "Wave clear: chance to gain a random item.";
+                if (required == 4) return ja ? "Waveクリア時、18%の確率でランダムアイテムを獲得します。" : "Wave clear: 18% chance to gain a random item.";
                 return ja ? "ボスWaveクリア時、追加アイテムを1つ生成します。" : "Boss wave clear: create one extra item.";
             default:
                 return string.Empty;

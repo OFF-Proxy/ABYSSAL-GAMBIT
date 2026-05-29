@@ -63,6 +63,19 @@ public class GridManager : Manager<GridManager>
         // Manager<T>のSingleton登録を先に済ませます。
         base.Awake();
 
+        if (terrainGrid == null)
+        {
+            Debug.LogError("GridManager terrainGrid is not assigned. Board setup was skipped.");
+            graph = new Graph();
+            startPositionPerTeam = new Dictionary<Team, int>
+            {
+                { Team.Team1, 0 },
+                { Team.Team2, 0 }
+            };
+            enabled = false;
+            return;
+        }
+
         // terrainGrid配下のTileコンポーネントを盤面として扱います。
         allTiles = terrainGrid.GetComponentsInChildren<Tile>().ToList();
 

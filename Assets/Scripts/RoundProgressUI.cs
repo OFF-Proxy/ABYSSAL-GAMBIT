@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using DG.Tweening;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -14,6 +15,10 @@ public class RoundProgressUI : MonoBehaviour
     public Sprite currentWaveSprite;
     public Sprite clearedWaveSprite;
     public Sprite bossWaveSprite;
+    public Sprite eventWaveSprite;
+
+    // ラウンド種別（ステージ表示用）。
+    public enum RoundKind { Combat, Event, MidBoss, Boss }
 
     // 生成したUI部品を保持して、ウェーブ数が変わっても再利用します。
     RectTransform rootRect;
@@ -26,6 +31,15 @@ public class RoundProgressUI : MonoBehaviour
     bool lastGameOver;
     bool lastAllClear;
     List<bool> lastBossWaveFlags = new List<bool>();
+
+    // ステージ表示モードのキャッシュ。SetStageProgress 経由で更新します。
+    int lastStage;
+    int lastRoundInStage;
+    readonly List<RoundKind> lastStageRounds = new List<RoundKind>();
+    bool lastUsedStageMode;
+    bool animatingTransition;
+    CanvasGroup iconsCanvasGroup;
+    Sequence stageTransitionSequence;
 
     private const float RootTopMargin = 8f;
     private const float RootMinWidth = 260f;
@@ -143,6 +157,7 @@ public class RoundProgressUI : MonoBehaviour
         currentWaveSprite = CreateCircleSprite("RoundIcon_Normal");
         clearedWaveSprite = CreateCircleSprite("RoundIcon_Clear");
         bossWaveSprite = CreateDiamondSprite("RoundIcon_Boss");
+        eventWaveSprite = CreateSquareSprite("RoundIcon_Event");
     }
 
     // タイトル文字とアイコン置き場が無ければ作ります。
@@ -377,7 +392,9 @@ public class RoundProgressUI : MonoBehaviour
     private void RefreshLanguage()
     {
         LocalizationManager.ApplyFont(titleText);
-        if (lastTotalWaves > 0)
+        if (lastUsedStageMode && lastStageRounds.Count > 0)
+            ApplyStageProgress(lastStage, lastRoundInStage, lastStageRounds, lastGameOver, lastAllClear);
+        else if (lastTotalWaves > 0)
             SetProgress(lastNextWaveIndex, lastTotalWaves, lastGameOver, lastAllClear, new List<bool>(lastBossWaveFlags));
     }
 
@@ -395,5 +412,198 @@ public class RoundProgressUI : MonoBehaviour
 
         for (int i = 0; i < bossWaveFlags.Count; i++)
             lastBossWaveFlags.Add(bossWaveFlags[i]);
+    }
+
+    // === ステージ表示モード（雑魚機能P5）===
+    // ステージ単位の進捗を表示します。ステージが変わった瞬間にDOTweenで切替アニメーションを再生します。
+    public void SetStageProgress(int stage, int roundInStage, IReadOnlyList<RoundKind> stageRounds, bool gameOver, bool allClear)
+    {
+        EnsureUiParts();
+        int total = stageRounds != null ? stageRounds.Count : 0;
+        EnsureIconCount(total);
+
+        bool stageChanged = lastUsedStageMode && lastStage > 0 && stage != lastStage && !gameOver && !allClear;
+        lastUsedStageMode = true;
+
+        CacheStageProgress(stage, roundInStage, stageRounds, gameOver, allClear);
+
+        if (stageChanged && !animatingTransition && iconsRect != null)
+            AnimateStageTransition(stage, roundInStage, stageRounds, gameOver, allClear);
+        else
+            ApplyStageProgress(stage, roundInStage, stageRounds, gameOver, allClear);
+    }
+
+    // ステージのアイコン列と見出しを実際に描画します（アニメーションなし）。
+    private void ApplyStageProgress(int stage, int roundInStage, IReadOnlyList<RoundKind> stageRounds, bool gameOver, bool allClear)
+    {
+        int total = stageRounds != null ? stageRounds.Count : 0;
+        if (total <= 0)
+        {
+            titleText.text = string.Empty;
+            for (int i = 0; i < waveIcons.Count; i++)
+                waveIcons[i].gameObject.SetActive(false);
+            return;
+        }
+
+        ResizeForWaveCount(total);
+        bool ja = LocalizationManager.IsJapanese;
+
+        if (gameOver)
+        {
+            titleText.text = ja ? "ゲームオーバー" : "GAME OVER";
+        }
+        else if (allClear)
+        {
+            titleText.text = ja ? $"ステージ {stage} クリア" : $"STAGE {stage} CLEAR";
+        }
+        else
+        {
+            int curIdx0 = Mathf.Clamp(roundInStage - 1, 0, total - 1);
+            RoundKind curKind = stageRounds[curIdx0];
+            string prefix;
+            if (curKind == RoundKind.Boss) prefix = ja ? "章ボス " : "BOSS ";
+            else if (curKind == RoundKind.MidBoss) prefix = ja ? "中ボス " : "MID-BOSS ";
+            else if (curKind == RoundKind.Event) prefix = ja ? "イベント " : "EVENT ";
+            else prefix = ja ? "ラウンド " : "ROUND ";
+            titleText.text = $"{prefix}{stage}-{roundInStage}";
+        }
+
+        int clamped = Mathf.Clamp(roundInStage - 1, 0, total - 1);
+        for (int i = 0; i < waveIcons.Count; i++)
+        {
+            bool show = i < total;
+            Image icon = waveIcons[i];
+            icon.gameObject.SetActive(show);
+            if (!show)
+                continue;
+            bool cleared = !gameOver && (allClear || i < clamped);
+            bool current = !allClear && !gameOver && i == clamped;
+            RoundKind kind = stageRounds[i];
+            icon.sprite = GetWaveIconSpriteByKind(kind, cleared);
+            icon.color = GetIconColorByKind(kind, cleared, current, gameOver);
+            SetIconSize(icon, GetIconSize(total, current, kind == RoundKind.Boss || kind == RoundKind.MidBoss));
+        }
+    }
+
+    // ステージが変わった瞬間に、左へスライド+フェードアウト → 中身を差し替え → 右からスライドインで戻します。
+    private void AnimateStageTransition(int stage, int roundInStage, IReadOnlyList<RoundKind> stageRounds, bool gameOver, bool allClear)
+    {
+        animatingTransition = true;
+        EnsureIconsCanvasGroup();
+        if (stageTransitionSequence != null && stageTransitionSequence.IsActive())
+            stageTransitionSequence.Kill();
+
+        Vector2 startPos = iconsRect.anchoredPosition;
+        float slide = 70f;
+
+        stageTransitionSequence = DOTween.Sequence();
+        stageTransitionSequence.SetTarget(this);
+        stageTransitionSequence.SetUpdate(true);
+        // 旧ステージのアイコンを左へ流しながら消します。
+        stageTransitionSequence.Append(iconsCanvasGroup.DOFade(0f, 0.18f));
+        stageTransitionSequence.Join(iconsRect.DOAnchorPosX(startPos.x - slide, 0.22f).SetEase(Ease.InQuad));
+        // 中身を新ステージに差し替えて、開始位置を右側へ。
+        stageTransitionSequence.AppendCallback(() =>
+        {
+            ApplyStageProgress(stage, roundInStage, stageRounds, gameOver, allClear);
+            iconsRect.anchoredPosition = new Vector2(startPos.x + slide, startPos.y);
+            // タイトルも軽く弾ませて目立たせます。
+            if (titleText != null)
+            {
+                titleText.transform.localScale = Vector3.one;
+                titleText.transform.DOScale(1.08f, 0.18f).SetUpdate(true).SetEase(Ease.OutQuad)
+                    .OnComplete(() => titleText.transform.DOScale(1f, 0.14f).SetUpdate(true).SetEase(Ease.InOutQuad));
+            }
+        });
+        // 新ステージのアイコンを右からスライドイン＋フェードイン。
+        stageTransitionSequence.Append(iconsCanvasGroup.DOFade(1f, 0.22f));
+        stageTransitionSequence.Join(iconsRect.DOAnchorPosX(startPos.x, 0.32f).SetEase(Ease.OutBack));
+        stageTransitionSequence.OnComplete(() =>
+        {
+            animatingTransition = false;
+            if (iconsRect != null)
+                iconsRect.anchoredPosition = startPos;
+            if (iconsCanvasGroup != null)
+                iconsCanvasGroup.alpha = 1f;
+        });
+        stageTransitionSequence.OnKill(() =>
+        {
+            animatingTransition = false;
+            if (iconsCanvasGroup != null)
+                iconsCanvasGroup.alpha = 1f;
+        });
+    }
+
+    private void EnsureIconsCanvasGroup()
+    {
+        if (iconsCanvasGroup != null || iconsRect == null)
+            return;
+        iconsCanvasGroup = iconsRect.GetComponent<CanvasGroup>();
+        if (iconsCanvasGroup == null)
+            iconsCanvasGroup = iconsRect.gameObject.AddComponent<CanvasGroup>();
+    }
+
+    private void CacheStageProgress(int stage, int roundInStage, IReadOnlyList<RoundKind> stageRounds, bool gameOver, bool allClear)
+    {
+        lastStage = stage;
+        lastRoundInStage = roundInStage;
+        lastStageRounds.Clear();
+        if (stageRounds != null)
+        {
+            for (int i = 0; i < stageRounds.Count; i++)
+                lastStageRounds.Add(stageRounds[i]);
+        }
+        lastGameOver = gameOver;
+        lastAllClear = allClear;
+    }
+
+    // ラウンド種別と通過済みかでアイコン形状を選びます。
+    private Sprite GetWaveIconSpriteByKind(RoundKind kind, bool cleared)
+    {
+        if (cleared)
+            return clearedWaveSprite;
+        if (kind == RoundKind.Boss || kind == RoundKind.MidBoss)
+            return bossWaveSprite != null ? bossWaveSprite : currentWaveSprite;
+        if (kind == RoundKind.Event)
+            return eventWaveSprite != null ? eventWaveSprite : currentWaveSprite;
+        return currentWaveSprite;
+    }
+
+    // ラウンド種別と進行状態でアイコン色を選びます。中ボス/章ボス/イベントを視覚的に区別します。
+    private Color GetIconColorByKind(RoundKind kind, bool cleared, bool current, bool gameOver)
+    {
+        if (gameOver)
+            return new Color(1f, 0.25f, 0.25f, 0.55f);
+        if (cleared)
+            return new Color(0.55f, 1f, 0.45f, 1f);
+        if (kind == RoundKind.Boss)
+            return current ? new Color(1f, 0.42f, 0.18f, 1f) : new Color(1f, 0.24f, 0.5f, 0.78f);
+        if (kind == RoundKind.MidBoss)
+            return current ? new Color(1f, 0.78f, 0.2f, 1f) : new Color(1f, 0.62f, 0.32f, 0.78f);
+        if (kind == RoundKind.Event)
+            return current ? new Color(0.45f, 0.95f, 1f, 1f) : new Color(0.45f, 0.85f, 1f, 0.62f);
+        if (current)
+            return new Color(0.95f, 1f, 1f, 1f);
+        return new Color(0.55f, 0.7f, 0.8f, 0.42f);
+    }
+
+    // イベント用の小さな正方形アイコンを作ります。
+    private Sprite CreateSquareSprite(string spriteName)
+    {
+        const int size = 64;
+        Texture2D texture = new Texture2D(size, size, TextureFormat.RGBA32, false);
+        texture.name = spriteName;
+        texture.filterMode = FilterMode.Bilinear;
+        int inset = 14;
+        for (int y = 0; y < size; y++)
+        {
+            for (int x = 0; x < size; x++)
+            {
+                bool inside = x >= inset && x < size - inset && y >= inset && y < size - inset;
+                texture.SetPixel(x, y, inside ? Color.white : Color.clear);
+            }
+        }
+        texture.Apply();
+        return Sprite.Create(texture, new Rect(0f, 0f, size, size), new Vector2(0.5f, 0.5f), 100f);
     }
 }

@@ -38,6 +38,9 @@ public class Draggable : MonoBehaviour
     // 他のスクリプトから、今このユニットがドラッグ中かを確認できます。
     public bool IsDragging = false;
 
+    // 現在ドラッグ中のユニット数（保留リロール等の判定に使います）。
+    public static int ActiveDragCount;
+
     // オブジェクト生成直後に、必要な参照と旧イベント設定を整えます。
     private void Awake()
     {
@@ -80,6 +83,7 @@ public class Draggable : MonoBehaviour
         // ドラッグ中は他のユニットやタイルより前面に表示します。
         spriteRenderer.sortingOrder = 20;
         IsDragging = true;
+        ActiveDragCount++;
         releasePlayedSound = false;
         ItemTooltipUI.Hide();
         UnitStatusPanelUI.Hide();
@@ -168,7 +172,12 @@ public class Draggable : MonoBehaviour
             UIShop.Instance.HideSellPreview();
 
         IsDragging = false;
+        ActiveDragCount = Mathf.Max(0, ActiveDragCount - 1);
         pointerDown = false;
+
+        // ドラッグ中に保留されていたショップの無料リロールを、ここで安全に消化します。
+        if (ActiveDragCount == 0 && UIShop.Instance != null)
+            UIShop.Instance.ConsumePendingFreeReroll();
     }
 
     // UnityのOnMouseイベントから、クリック候補として押下位置を記録します。
