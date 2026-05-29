@@ -100,6 +100,18 @@ public class GameManager : Manager<GameManager>
     };
     readonly HashSet<string> unlockedBossRewardUnitIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
 
+    // R1-meta: 章ボス（章クリアで永続 roster に加わるユニット）の定義。BuildChapterRounds と整合します。
+    // 章1の章ボス = 4-10 で出てくる "Legion"。章を増やす際はここに追加します。
+    private static readonly Dictionary<int, string> ChapterBossUnitIds = new Dictionary<int, string>
+    {
+        { 1, "Legion" },
+    };
+
+    public static string GetChapterBossUnitId(int chapter)
+    {
+        return ChapterBossUnitIds.TryGetValue(chapter, out string id) ? id : null;
+    }
+
     // ショップに出る最大コスト（E1）。序盤はコスト3まで。ボス撃破やイベントで段階的に解放します。
     public int baseMaxShopCost = 3;
     public int maxShopCostCap = 5;
@@ -214,6 +226,9 @@ public class GameManager : Manager<GameManager>
 
         // 手詰まり防止に、開始時にランダムなコスト1ユニットを1体付与します。
         GrantStartingUnit();
+
+        // R1-meta: 過去章で倒したボス仲間がいれば、章開始時に編成画面を出します。
+        TryShowChapterRoster();
 
         // 最初のラウンドがイベントなら消化します。
         TryStartEventRound();
@@ -2270,6 +2285,11 @@ public class GameManager : Manager<GameManager>
                 AutoChessBossRush.Save.ChapterRecord rec = SaveManager.Instance.GetChapter(currentChapter);
                 previousBest = rec != null ? rec.bestScore : 0;
                 isNewRecord = SaveManager.Instance.RecordChapterResult(currentChapter, chapterTotalScore, chapterTotalTime, true);
+
+                // R1-meta: 章ボスを永続 roster に追加。次章以降の章開始時編成画面で連れて行けます。
+                string chapterBossUnitId = GetChapterBossUnitId(currentChapter);
+                if (!string.IsNullOrEmpty(chapterBossUnitId))
+                    SaveManager.Instance.AddBossAlly(chapterBossUnitId, 1);
             }
 
             pendingResultStage = stageNumber;
@@ -2517,6 +2537,58 @@ public class GameManager : Manager<GameManager>
         TryStartEventRound();
         // ボス報酬選択を終えたタイミングで、保留中のステージリザルトを表示します。
         TryShowPendingStageResult();
+    }
+
+    // R1-meta: 過去章で倒したボス仲間が SaveManager に居れば、章開始時の編成画面を開きます。
+    // 居なければ何もしません（初回プレイ）。1 体選ぶか「連れて行かない」を押すと閉じます。
+    private void TryShowChapterRoster()
+    {
+        if (SaveManager.Instance == null)
+            return;
+
+        IReadOnlyList<AutoChessBossRush.Save.BossAllyRecord> allies = SaveManager.Instance.BossAllies;
+        if (allies == null || allies.Count == 0)
+            return;
+
+        if (entitiesDatabase == null || entitiesDatabase.allEntities == null)
+            return;
+
+        List<EntitiesDatabaseSO.EntityData> options = new List<EntitiesDatabaseSO.EntityData>();
+        for (int i = 0; i < allies.Count; i++)
+        {
+            string unitId = allies[i].unitId;
+            if (string.IsNullOrEmpty(unitId)) continue;
+            EntitiesDatabaseSO.EntityData data = entitiesDatabase.allEntities.FirstOrDefault(d =>
+                d.prefab != null && string.Equals(d.name, unitId, StringComparison.OrdinalIgnoreCase));
+            if (data.prefab != null)
+                options.Add(data);
+        }
+
+        if (options.Count == 0)
+            return;
+
+        ChapterRosterUI.EnsureExists().Show(options, OnChapterRosterSelected);
+    }
+
+    // 章編成画面で選択結果を受け取ります。引数が default（unitId 空）の場合は「連れて行かない」。
+    private void OnChapterRosterSelected(EntitiesDatabaseSO.EntityData selected)
+    {
+        if (string.IsNullOrEmpty(selected.name))
+            return;
+
+        if (!HasBenchSpace && !CanCompleteUpgradeWithPurchase(selected.name))
+        {
+            Debug.LogWarning($"Chapter roster: bench is full, cannot add {selected.name}.");
+            return;
+        }
+
+        BaseEntity ally = CreateBenchEntity(selected, 1);
+        if (ally != null)
+        {
+            ResolveUpgradesFor(ally, UpgradeScope.AllOwned);
+            AttackEffectPlayer.PlayUiSfx("unit_buy");
+            OnRosterChanged?.Invoke();
+        }
     }
 
     // ボス報酬候補として使う3体のEntityDataをデータベースから集めます。
