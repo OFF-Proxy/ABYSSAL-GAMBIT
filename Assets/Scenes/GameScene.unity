@@ -1205,10 +1205,22 @@ MonoBehaviour:
   benchParent: {fileID: 0}
   team1BenchTilesParent: {fileID: 9100000000002}
   team2BenchTilesParent: {fileID: 9100000000004}
+  itemBenchTilesParent: {fileID: 0}
+  itemBenchParent: {fileID: 0}
   benchSlotCount: 8
   benchStartPosition: {x: -6.5, y: -3.5, z: 0}
   benchSlotSpacing: 1
   benchPickRadius: 0.9
+  itemBenchColumns: 2
+  itemBenchRows: 8
+  itemBenchColumnSpacing: 0.96
+  itemBenchRowSpacing: 0.96
+  itemBenchGapFromUnitBench: 1.45
+  itemBenchLeftEdgeMargin: 0.75
+  itemBenchPickRadius: 0.68
+  itemIconScale: {x: 1.25, y: 1.25, z: 1}
+  useCanvasItemBench: 1
+  spawnDebugItemsOnStart: 0
   boardCamera: {fileID: 0}
   enableMouseWheelZoom: 1
   mouseWheelZoomSpeed: 4
@@ -1223,6 +1235,15 @@ MonoBehaviour:
   cameraBoundsPadding: {x: 0.05, y: 0.05}
   enableMiddleMousePan: 1
   middleMousePanSpeed: 1
+  includeDebugTrainingWave: 0
+  enableDebugTrainingWaveHotkey: 1
+  debugTrainingWaveHotkey: 289
+  debugTrainingDummyHealth: 300000
+  debugTrainingDummyMoveSpeed: 0.95
+  baseMaxShopCost: 3
+  maxShopCostCap: 5
+  eventBonusGold: 8
+  currentChapter: 1
 --- !u!4 &196159100
 Transform:
   m_ObjectHideFlags: 0
@@ -1250,6 +1271,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1815ff427111d96498108ba0f68f3d2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  startingMoney: 4
+  baseRoundIncome: 5
+  interestPerGold: 10
+  interestCap: 5
 --- !u!1 &198356382 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 594098466144756787, guid: bdca401dc08af29468c95636f9520936, type: 3}
@@ -10972,6 +10997,7 @@ MonoBehaviour:
   blockedPlacementTileColor: {r: 1, g: 0.72, b: 0.72, a: 1}
   playerBenchTileColor: {r: 1, g: 1, b: 1, a: 1}
   enemyBenchTileColor: {r: 1, g: 0.62, b: 0.62, a: 1}
+  itemBenchTileColor: {r: 0.78, g: 0.86, b: 1, a: 1}
   validHoverColor: {r: 0.75, g: 1, b: 0.9, a: 1}
   invalidHoverColor: {r: 1, g: 0.35, b: 0.35, a: 1}
   tilePickRadius: 0.72

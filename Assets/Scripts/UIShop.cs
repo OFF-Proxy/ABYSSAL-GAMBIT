@@ -79,6 +79,13 @@ public class UIShop : MonoBehaviour
     // GameManagerやPlayerDataが準備された後、カード生成とイベント登録を行います。
     private void Start()
     {
+        if (GameManager.Instance == null || PlayerData.Instance == null)
+        {
+            Debug.LogError("UIShop requires GameManager and PlayerData in the scene.");
+            enabled = false;
+            return;
+        }
+
         // GameManagerが持っているユニットデータベースをショップ側で使いやすいように保存します。
         cachedDb = GameManager.Instance.entitiesDatabase;
 
@@ -112,32 +119,104 @@ public class UIShop : MonoBehaviour
     }
 
     // ショップカードを全て引き直します。リロール時やゲーム開始時に使います。
+    // ウェーブクリア時の無料リロール用。ドラッグ中なら保留して、ドラッグ終了時に消化します。
+    private bool pendingFreeReroll;
+    // gold_free_reroll が「毎ラウンド1回ぶん無料」を提供するための使用済みフラグ。
+    private bool goldFreeRerollUsedThisRound;
+    // gold_free_reroll の未使用ぶんを次ラウンドへ繰り越したストックです。
+    private int goldFreeRerollStacks;
+
+    public void RequestFreeRerollOrPending()
+    {
+        // 前ラウンドで gold_free_reroll の無料分を使い損ねた場合、その分をスタックへ繰り越します。
+        GameManager gmAtClear = GameManager.Instance;
+        if (gmAtClear != null
+            && gmAtClear.HasAugment("gold_free_reroll")
+            && !gmAtClear.HasAugment("prism_free_reroll_all")
+            && !goldFreeRerollUsedThisRound)
+        {
+            goldFreeRerollStacks++;
+        }
+        // 新しいラウンドの開始タイミング → gold_free_reroll の使用済みフラグをリセット。
+        goldFreeRerollUsedThisRound = false;
+        if (Draggable.ActiveDragCount > 0)
+        {
+            pendingFreeReroll = true;
+            return;
+        }
+        GenerateCard();
+        RefreshRerollButtonCostText();
+    }
+
+    public void ConsumePendingFreeReroll()
+    {
+        if (!pendingFreeReroll)
+            return;
+        pendingFreeReroll = false;
+        GenerateCard();
+        RefreshRerollButtonCostText();
+    }
+
+    // 現在の augment 所持状況に基づいた、リロールの実コストを返します。
+    public int GetEffectiveRefreshCost()
+    {
+        GameManager gm = GameManager.Instance;
+        if (gm == null) return refreshCost;
+        if (gm.HasAugment("prism_free_reroll_all")) return 0;
+        if (goldFreeRerollStacks > 0) return 0;
+        if (gm.HasAugment("gold_free_reroll") && !goldFreeRerollUsedThisRound) return 0;
+        int cost = refreshCost - (gm.HasAugment("silver_reroll_cost") ? 1 : 0);
+        return Mathf.Max(0, cost);
+    }
+
+    // 現在保持している gold_free_reroll の繰り越しストック数（ボタン右上に表示します）。
+    public int GoldFreeRerollStacks => goldFreeRerollStacks;
+
     public void GenerateCard()
     {
         // データベースが空ならカードを作れないので、ここで処理を止めます。
         if (cachedDb == null || cachedDb.allEntities == null || cachedDb.allEntities.Count == 0)
             return;
 
+        // gold_guaranteed_high_cost: 必ず1枚はコスト3以上を含めます。
+        bool guaranteeHigh = GameManager.Instance != null && GameManager.Instance.HasAugment("gold_guaranteed_high_cost");
+        int highCostsRolled = 0;
         for(int i = 0; i < allCards.Count; i++)
         {
             // 前回購入で非表示になったカードも、リロール時には再表示します。
             if (!allCards[i].gameObject.activeSelf)
                 allCards[i].gameObject.SetActive(true);
 
-            // 現在レベルの排出率に従って、カードにユニットを設定します。
-            EntitiesDatabaseSO.EntityData entityData = GetRandomEntityForCurrentLevel();
+            EntitiesDatabaseSO.EntityData entityData;
+            if (guaranteeHigh && i == allCards.Count - 1 && highCostsRolled == 0)
+                entityData = TryGetForcedHighCostEntity(3);
+            else
+                entityData = GetRandomEntityForCurrentLevel();
+
             if (entityData.prefab == null)
             {
                 allCards[i].gameObject.SetActive(false);
                 continue;
             }
 
+            if (entityData.cost >= 3) highCostsRolled++;
             allCards[i].Setup(entityData, this);
             allCards[i].PlayAppearAnimation(i * 0.035f);
         }
 
         // 引き直したカードの中にスターアップ可能なユニットがあれば光らせます。
         UpdateUpgradeHighlights();
+    }
+
+    // 指定コスト以上のショップ解放済みユニットからランダムに1体返します。なければフォールバックします。
+    private EntitiesDatabaseSO.EntityData TryGetForcedHighCostEntity(int minCost)
+    {
+        List<EntitiesDatabaseSO.EntityData> candidates = cachedDb.allEntities
+            .Where(e => e.prefab != null && e.cost >= minCost && IsShopEntityUnlocked(e))
+            .ToList();
+        if (candidates.Count > 0)
+            return candidates[Random.Range(0, candidates.Count)];
+        return GetRandomEntityForCurrentLevel();
     }
 
     // 現在レベルの排出率に従って、ショップに出すユニットを1体選びます。
@@ -181,10 +260,16 @@ public class UIShop : MonoBehaviour
     {
         int level = PlayerData.Instance != null ? PlayerData.Instance.Level : 1;
         int row = Mathf.Clamp(level, 1, ShopOddsByLevel.GetLength(0)) - 1;
+
+        // 進行で解放された最大コストまでに抽選を制限します（序盤はコスト3まで）。
+        int gate = MaxShopCost;
+        if (GameManager.Instance != null)
+            gate = Mathf.Clamp(GameManager.Instance.MaxAvailableShopCost, 1, MaxShopCost);
+
         int totalWeight = 0;
 
-        // 対象レベルの全コスト確率を合計して、抽選の母数にします。
-        for (int costIndex = 0; costIndex < MaxShopCost; costIndex++)
+        // 解放済みコストの確率を合計して、抽選の母数にします。
+        for (int costIndex = 0; costIndex < gate; costIndex++)
             totalWeight += ShopOddsByLevel[row, costIndex];
 
         if (totalWeight <= 0)
@@ -193,7 +278,7 @@ public class UIShop : MonoBehaviour
         // 0から合計値までの乱数を取り、どのコスト範囲に入ったかで決めます。
         int roll = Random.Range(0, totalWeight);
         int cumulative = 0;
-        for (int costIndex = 0; costIndex < MaxShopCost; costIndex++)
+        for (int costIndex = 0; costIndex < gate; costIndex++)
         {
             cumulative += ShopOddsByLevel[row, costIndex];
             if (roll < cumulative)
@@ -268,14 +353,25 @@ public class UIShop : MonoBehaviour
         if (sellModeActive)
             return;
 
-        //Decrease money 
-        if(PlayerData.Instance.CanAfford(refreshCost))
+        int cost = GetEffectiveRefreshCost();
+        if (PlayerData.Instance == null || !PlayerData.Instance.CanAfford(cost))
+            return;
+
+        // 無料リロールの消費順は「prism 永続 → 繰越スタック → 今ラウンドの gold_free_reroll」。
+        if (cost == 0 && GameManager.Instance != null
+            && !GameManager.Instance.HasAugment("prism_free_reroll_all"))
         {
-            // リロール代を払い、ショップカードを引き直します。
-            PlayerData.Instance.SpendMoney(refreshCost);
-            GenerateCard();
-            AttackEffectPlayer.PlayUiSfx("shop_reroll");
+            if (goldFreeRerollStacks > 0)
+                goldFreeRerollStacks--;
+            else if (GameManager.Instance.HasAugment("gold_free_reroll") && !goldFreeRerollUsedThisRound)
+                goldFreeRerollUsedThisRound = true;
         }
+
+        if (cost > 0)
+            PlayerData.Instance.SpendMoney(cost);
+        GenerateCard();
+        AttackEffectPlayer.PlayUiSfx("shop_reroll");
+        RefreshRerollButtonCostText();
     }
 
     // EXP購入ボタンを押した時の処理です。
@@ -298,7 +394,14 @@ public class UIShop : MonoBehaviour
     {
         LocalizationManager.ApplyFont(money);
         LocalizationManager.ApplyFont(expText);
-        money.text = PlayerData.Instance.Money.ToString();
+        // 所持金表示の右側に、次のウェーブクリアで得られる収入予測（基本+利子）を小さく出します。
+        int incomePreview = PlayerData.Instance.PreviewNextIncome;
+        money.text = incomePreview > 0
+            ? $"{PlayerData.Instance.Money}  <size=66%><color=#9ED9FF>+{incomePreview}</color></size>"
+            : PlayerData.Instance.Money.ToString();
+
+        // 所持金の下に、次の利子段階までの進捗ゲージを表示します。
+        RefreshInterestGauge();
 
         if (levelText != null)
         {
@@ -336,6 +439,232 @@ public class UIShop : MonoBehaviour
         NormalizeShopTextLayout();
         RefreshExpModeToggle();
         RefreshExpButtonCostText();
+        RefreshRerollButtonCostText();
+    }
+
+    // 利子ゲージ（次の +1 利子までの進捗を所持金表示の真下に出します）。
+    private GameObject interestGaugeRoot;
+    private Image interestGaugeFill;
+    private TextMeshProUGUI interestGaugeText;
+
+    private void RefreshInterestGauge()
+    {
+        if (PlayerData.Instance == null || money == null) return;
+        EnsureInterestGauge();
+        if (interestGaugeRoot == null) return;
+
+        int step = Mathf.Max(1, PlayerData.Instance.interestPerGold);
+        int cap = Mathf.Max(0, PlayerData.Instance.interestCap);
+        int current = PlayerData.Instance.CurrentInterest;
+        bool maxed = current >= cap;
+
+        float fill;
+        string label;
+        if (maxed)
+        {
+            fill = 1f;
+            label = LocalizationManager.IsJapanese ? $"利子 MAX (+{cap})" : $"Interest MAX (+{cap})";
+        }
+        else
+        {
+            int progress = PlayerData.Instance.Money - current * step;
+            int remaining = Mathf.Max(0, step - progress);
+            fill = Mathf.Clamp01((float)progress / step);
+            label = LocalizationManager.IsJapanese
+                ? $"利子+1 まで {remaining}g  (+{current})"
+                : $"+1 in {remaining}g  (+{current})";
+        }
+
+        if (interestGaugeFill != null) interestGaugeFill.fillAmount = fill;
+        if (interestGaugeText != null)
+        {
+            LocalizationManager.ApplyFont(interestGaugeText);
+            interestGaugeText.text = label;
+            interestGaugeText.color = maxed ? new Color(1f, 0.85f, 0.35f, 1f) : new Color(0.85f, 0.96f, 1f, 0.95f);
+        }
+    }
+
+    private void EnsureInterestGauge()
+    {
+        if (interestGaugeRoot != null) return;
+        if (money == null) return;
+
+        RectTransform moneyRect = money.rectTransform;
+        if (moneyRect == null) return;
+
+        GameObject root = new GameObject("InterestGauge", typeof(RectTransform));
+        root.transform.SetParent(moneyRect.parent, false);
+
+        RectTransform rootRect = root.GetComponent<RectTransform>();
+        rootRect.anchorMin = moneyRect.anchorMin;
+        rootRect.anchorMax = moneyRect.anchorMax;
+        rootRect.pivot = new Vector2(moneyRect.pivot.x, 1f);
+        // money のすぐ下に置くため、moneyの anchoredPosition を基準にずらします。
+        Vector2 moneyPos = moneyRect.anchoredPosition;
+        Vector2 moneySize = moneyRect.sizeDelta;
+        rootRect.anchoredPosition = new Vector2(moneyPos.x, moneyPos.y - moneySize.y * 0.5f - 4f);
+        rootRect.sizeDelta = new Vector2(Mathf.Max(120f, moneySize.x), 16f);
+
+        // 背景バー
+        GameObject bg = new GameObject("Bg", typeof(RectTransform), typeof(Image));
+        bg.transform.SetParent(root.transform, false);
+        RectTransform bgRect = bg.GetComponent<RectTransform>();
+        bgRect.anchorMin = new Vector2(0f, 0.5f);
+        bgRect.anchorMax = new Vector2(1f, 0.5f);
+        bgRect.pivot = new Vector2(0.5f, 0.5f);
+        bgRect.anchoredPosition = new Vector2(0f, -4f);
+        bgRect.sizeDelta = new Vector2(-6f, 6f);
+        Image bgImage = bg.GetComponent<Image>();
+        bgImage.color = new Color(0.05f, 0.08f, 0.12f, 0.85f);
+        bgImage.raycastTarget = false;
+
+        // 進捗フィル
+        GameObject fillObj = new GameObject("Fill", typeof(RectTransform), typeof(Image));
+        fillObj.transform.SetParent(bg.transform, false);
+        RectTransform fillRect = fillObj.GetComponent<RectTransform>();
+        fillRect.anchorMin = Vector2.zero;
+        fillRect.anchorMax = Vector2.one;
+        fillRect.offsetMin = new Vector2(1f, 1f);
+        fillRect.offsetMax = new Vector2(-1f, -1f);
+        interestGaugeFill = fillObj.GetComponent<Image>();
+        interestGaugeFill.color = new Color(0.95f, 0.78f, 0.25f, 0.96f);
+        interestGaugeFill.type = Image.Type.Filled;
+        interestGaugeFill.fillMethod = Image.FillMethod.Horizontal;
+        interestGaugeFill.fillOrigin = (int)Image.OriginHorizontal.Left;
+        interestGaugeFill.fillAmount = 0f;
+        interestGaugeFill.raycastTarget = false;
+
+        // ラベル
+        GameObject label = new GameObject("Label", typeof(RectTransform), typeof(TextMeshProUGUI));
+        label.transform.SetParent(root.transform, false);
+        RectTransform labelRect = label.GetComponent<RectTransform>();
+        labelRect.anchorMin = new Vector2(0f, 1f);
+        labelRect.anchorMax = new Vector2(1f, 1f);
+        labelRect.pivot = new Vector2(0.5f, 1f);
+        labelRect.anchoredPosition = new Vector2(0f, 0f);
+        labelRect.sizeDelta = new Vector2(-6f, 11f);
+        interestGaugeText = label.GetComponent<TextMeshProUGUI>();
+        interestGaugeText.fontSize = 10f;
+        interestGaugeText.fontStyle = FontStyles.Bold;
+        interestGaugeText.alignment = TextAlignmentOptions.Center;
+        interestGaugeText.color = new Color(0.85f, 0.96f, 1f, 0.95f);
+        interestGaugeText.enableWordWrapping = false;
+        interestGaugeText.raycastTarget = false;
+        LocalizationManager.ApplyFont(interestGaugeText);
+
+        interestGaugeRoot = root;
+    }
+
+    // リロールボタンのコスト数字を、有効コスト（0/1/通常値）に書き換えます。
+    // 0 の場合は「無料/FREE」と表示。さらに gold_free_reroll の繰越スタック数を端に表示します。
+    private TextMeshProUGUI rerollCostText;
+    private GameObject rerollStackBadge;
+    private TextMeshProUGUI rerollStackBadgeText;
+    private Image rerollStackBadgeIcon;
+
+    public void RefreshRerollButtonCostText()
+    {
+        GameObject buttonObject = GameObject.Find("RerollButton");
+        if (buttonObject == null) return;
+
+        EnsureRerollCostTextReference(buttonObject);
+        int cost = GetEffectiveRefreshCost();
+
+        if (rerollCostText != null)
+        {
+            LocalizationManager.ApplyFont(rerollCostText);
+            if (cost <= 0)
+            {
+                rerollCostText.text = LocalizationManager.IsJapanese ? "無料" : "FREE";
+                rerollCostText.color = new Color(0.6f, 1f, 0.45f, 1f);
+                rerollCostText.fontStyle = FontStyles.Bold;
+            }
+            else
+            {
+                rerollCostText.text = cost.ToString();
+                rerollCostText.color = Color.white;
+                rerollCostText.fontStyle = FontStyles.Bold;
+            }
+        }
+
+        EnsureRerollStackBadge(buttonObject);
+        bool showBadge = goldFreeRerollStacks > 0;
+        if (rerollStackBadge != null)
+            rerollStackBadge.SetActive(showBadge);
+        if (showBadge && rerollStackBadgeText != null)
+        {
+            LocalizationManager.ApplyFont(rerollStackBadgeText);
+            rerollStackBadgeText.text = $"x{goldFreeRerollStacks}";
+        }
+    }
+
+    private void EnsureRerollCostTextReference(GameObject buttonObject)
+    {
+        if (rerollCostText != null && rerollCostText.gameObject.activeInHierarchy)
+            return;
+
+        TextMeshProUGUI[] texts = buttonObject.GetComponentsInChildren<TextMeshProUGUI>(true);
+        for (int i = 0; i < texts.Length; i++)
+        {
+            TextMeshProUGUI text = texts[i];
+            if (text == null) continue;
+            // モード切替ボタンの内部テキストは無視（リロールには存在しないが念のため）。
+            string raw = (text.text ?? string.Empty).Trim();
+            // 既にコスト数字 or FREE 文字列が入っている方を採用
+            if (int.TryParse(raw, out _) || raw == "FREE" || raw == "無料")
+            {
+                rerollCostText = text;
+                break;
+            }
+        }
+    }
+
+    private void EnsureRerollStackBadge(GameObject buttonObject)
+    {
+        if (rerollStackBadge != null) return;
+
+        Transform existing = buttonObject.transform.Find("FreeRerollStackBadge");
+        if (existing != null)
+        {
+            rerollStackBadge = existing.gameObject;
+            rerollStackBadgeIcon = existing.GetComponent<Image>();
+            rerollStackBadgeText = existing.GetComponentInChildren<TextMeshProUGUI>(true);
+            return;
+        }
+
+        GameObject badge = new GameObject("FreeRerollStackBadge", typeof(RectTransform), typeof(Image));
+        badge.transform.SetParent(buttonObject.transform, false);
+        RectTransform rect = badge.GetComponent<RectTransform>();
+        rect.anchorMin = new Vector2(1f, 1f);
+        rect.anchorMax = new Vector2(1f, 1f);
+        rect.pivot = new Vector2(1f, 1f);
+        rect.anchoredPosition = new Vector2(-4f, -4f);
+        rect.sizeDelta = new Vector2(38f, 26f);
+
+        rerollStackBadgeIcon = badge.GetComponent<Image>();
+        Sprite badgeSprite = Resources.Load<Sprite>("UI/Augment/badge_counter");
+        rerollStackBadgeIcon.sprite = badgeSprite;
+        rerollStackBadgeIcon.color = new Color(0.35f, 0.78f, 1f, 0.96f);
+        rerollStackBadgeIcon.raycastTarget = false;
+        rerollStackBadgeIcon.preserveAspect = true;
+
+        GameObject textObject = new GameObject("Count", typeof(RectTransform), typeof(TextMeshProUGUI));
+        textObject.transform.SetParent(badge.transform, false);
+        RectTransform textRect = textObject.GetComponent<RectTransform>();
+        textRect.anchorMin = Vector2.zero;
+        textRect.anchorMax = Vector2.one;
+        textRect.offsetMin = Vector2.zero;
+        textRect.offsetMax = Vector2.zero;
+        rerollStackBadgeText = textObject.GetComponent<TextMeshProUGUI>();
+        rerollStackBadgeText.alignment = TextAlignmentOptions.Center;
+        rerollStackBadgeText.fontStyle = FontStyles.Bold;
+        rerollStackBadgeText.fontSize = 16f;
+        rerollStackBadgeText.color = Color.white;
+        rerollStackBadgeText.raycastTarget = false;
+        LocalizationManager.ApplyFont(rerollStackBadgeText);
+
+        rerollStackBadge = badge;
+        rerollStackBadge.SetActive(false);
     }
 
     // 現在ショップに表示されているカードが、買うとスターアップできるかを調べて強調します。
@@ -752,7 +1081,7 @@ public class UIShop : MonoBehaviour
             text.alignment = TextAlignmentOptions.Center;
 
             string value = (text.text ?? string.Empty).Trim();
-            bool isCostText = int.TryParse(value, out _);
+            bool isCostText = int.TryParse(value, out _) || value == "FREE" || value == "無料";
             if (isCostText)
             {
                 ConfigureButtonCostText(text);

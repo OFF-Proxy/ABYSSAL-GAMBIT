@@ -159,7 +159,8 @@ public class LocalizationManager : MonoBehaviour
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
 
         Button optionButton = CreateButton("OptionButton", canvasObject.transform, new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(1f, 1f), new Vector2(-12f, -12f), new Vector2(126f, 34f), out optionButtonText);
-        optionButton.onClick.AddListener(ToggleOptionPanel);
+        // 詳細オプションUIを開きます（音量・言語・速度・再挑戦を統合）。
+        optionButton.onClick.AddListener(() => OptionsPanelUI.EnsureExists().Toggle());
 
         GameObject panelObject = new GameObject("OptionPanel", typeof(RectTransform), typeof(Image));
         panelObject.transform.SetParent(canvasObject.transform, false);
@@ -225,7 +226,21 @@ public class LocalizationManager : MonoBehaviour
 
     private void ToggleLanguage()
     {
-        currentLanguage = currentLanguage == GameLanguage.Japanese ? GameLanguage.English : GameLanguage.Japanese;
+        SetLanguageInternal(currentLanguage == GameLanguage.Japanese ? GameLanguage.English : GameLanguage.Japanese);
+    }
+
+    // オプションUIなどから明示的に言語を指定できる入口です。
+    public static void SetLanguage(GameLanguage lang)
+    {
+        EnsureExists().SetLanguageInternal(lang);
+    }
+
+    private void SetLanguageInternal(GameLanguage lang)
+    {
+        if (currentLanguage == lang)
+            return;
+
+        currentLanguage = lang;
         PlayerPrefs.SetString("GameLanguage", currentLanguage == GameLanguage.Japanese ? "ja" : "en");
         PlayerPrefs.Save();
 

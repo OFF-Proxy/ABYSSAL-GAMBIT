@@ -19,13 +19,26 @@ public class PlayerData : Manager<PlayerData>
     // UI更新が必要な時に呼ぶ通知です。
     public System.Action OnUpdate;
 
+    // --- 経済（TFT式の収入ループ）。インスペクタで調整できます。 ---
+    [Header("Economy")]
+    // 新しい挑戦を始める時の所持金です。
+    public int startingMoney = 4;
+    // ウェーブクリアごとの基本収入です。
+    public int baseRoundIncome = 5;
+    // 利子は所持金がこの額ごとに+1されます（10なら10ゴールドごとに+1）。
+    public int interestPerGold = 10;
+    // 利子の上限です。
+    public int interestCap = 5;
+
+    // 現在の所持金から得られる利子額です（次の収入で加算されます）。
+    public int CurrentInterest => Mathf.Clamp(Money / Mathf.Max(1, interestPerGold), 0, interestCap);
+    // 次のウェーブクリアで得られる収入の予測値です。
+    public int PreviewNextIncome => baseRoundIncome + CurrentInterest;
+
     // ゲーム開始時の初期値を設定します。
     private void Start()
     {
-        Money = 999;
-        Level = 1;
-        Exp = 0;
-        OnUpdate?.Invoke();
+        ResetEconomyForNewRun();
     }
 
     // 指定した金額を払えるか確認します。
@@ -164,6 +177,39 @@ public class PlayerData : Manager<PlayerData>
                 return 68;
             default:
                 return 0;
+        }
+    }
+
+    // ウェーブクリア時の収入（基本＋利子）を付与し、内訳を返します。PvEなので連勝ボーナスはありません。
+    public RoundIncome GrantWaveClearIncome()
+    {
+        int interest = CurrentInterest; // 付与前の所持金で利子を計算します（TFT準拠）。
+        int total = baseRoundIncome + interest;
+        Money += total;
+        OnUpdate?.Invoke();
+        return new RoundIncome(baseRoundIncome, interest);
+    }
+
+    // 新しい挑戦の開始時に、所持金・レベル・経験値をリセットします。
+    public void ResetEconomyForNewRun()
+    {
+        Money = startingMoney;
+        Level = 1;
+        Exp = 0;
+        OnUpdate?.Invoke();
+    }
+
+    // ウェーブクリア収入の内訳です。UI表示やログに使います。
+    public readonly struct RoundIncome
+    {
+        public readonly int Base;
+        public readonly int Interest;
+        public int Total => Base + Interest;
+
+        public RoundIncome(int baseIncome, int interest)
+        {
+            Base = baseIncome;
+            Interest = interest;
         }
     }
 }
