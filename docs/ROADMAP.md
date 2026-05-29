@@ -80,5 +80,12 @@
   - [DESIGN_R1-meta.md](DESIGN_R1-meta.md) — ボス仲間化の永続roster＋章前編成UI。既存 `SelectBossReward`/`unlockedBossRewardUnitIds`（ラン内）を永続へ拡張。**差別化の核**。
   - [DESIGN_R1-score.md](DESIGN_R1-score.md) — 既存 `QueueStageResult` を明文化＋ベスト保存＋ライブ加点ポップアップ＋リザルトのベスト併記。
   - 注: 「複数チャプター」は単なる量産でなく、**ボス仲間化メタ進行＋物語**として再定義（RELEASE_PLAN の R1-meta / R2-chapters）。
+- 2026-05-30: **R1 クリティカルパス3本を実装**（Claude）。Save 抽象化 → 章ベスト保存＋ポップアップ → ボス仲間 roster までを一気通貫で繋いだ。
+  - `Assets/Scripts/Save/`（`ISaveStore` / `LocalJsonSaveStore` / `SaveManager` / `SaveData`）追加。`Application.persistentDataPath/save.json` に原子的書き込み、破損時は `save.corrupt.json` へ退避。`SaveManager.EnsureExists()` を `GameManager.Start` の最上段で起動。
+  - `ScorePopupUI` 新規。`TrackStageProgress` 内で戦闘/中ボス/章ボスのクリア時に「+100 / +300 / +1000」を即時フロート表示（JA/EN、stacking）。
+  - `QueueStageResult` の `isChapterClear` 分岐で `SaveManager.RecordChapterResult(currentChapter, totalScore, totalTime, true)` を呼び、戻り値の `isNewRecord` と `previousBest` を `pendingResult*` 経由で `ResultPanelUI.ShowStageResult` へ伝搬。`ResultPanelUI` を再レイアウト（panel 高さ 520→580）し、章クリア時のみベスト行と「★ NEW RECORD!」バッジを表示。
+  - `GameManager.ChapterBossUnitIds`（chapter→unitId map、章1=`Legion`）を導入し、章クリアで `SaveManager.AddBossAlly` を呼ぶように。
+  - `ChapterRosterUI` 新規（`BossRewardSelectionUI` ベースに「連れて行かない」スキップボタンを追加）。`GameManager.Start` で `TryShowChapterRoster` を `GrantStartingUnit` 直後に呼び、`BossAllies` 非空のときのみ展開→選択時 `CreateBenchEntity(data, 1)` でベンチに★1配置。
+  - 永続化テスト観点: 章1クリア→再起動で `Legion` が roster に残り、開始時に選択するとベンチに加わる。ベスト/タイムも保持。
 - E1 残（ポリッシュ）: ①複数チャプター、②イベントの**選択UI化**、③旧定性スキル文フォールバックの剪定。雑魚機能 P6（難易度調整）はプレイテスト後の反復作業。
 - 残課題メモ: UnitStatusPanelUI の旧定性スキル文（JA/EN switch）は現状フォールバックとして残置（到達しない）。後で剪定する。
