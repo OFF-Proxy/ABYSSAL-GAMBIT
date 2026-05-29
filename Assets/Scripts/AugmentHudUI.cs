@@ -20,9 +20,9 @@ public class AugmentHudUI : MonoBehaviour
     private Transform tileRoot;
     private readonly List<AugmentHudTile> tiles = new List<AugmentHudTile>();
 
-    private const float TileSize = 58f;
-    private const float TileSpacing = 6f;
-    private const int TilesPerRow = 8;
+    private const float TileSize = 78f;
+    private const float TileSpacing = 8f;
+    private const int TilesPerRow = 6;
 
     public static AugmentHudUI EnsureExists()
     {
@@ -123,7 +123,7 @@ public class AugmentHudUI : MonoBehaviour
 
         Image background = panelObject.GetComponent<Image>();
         background.sprite = panelSprite;
-        background.color = new Color(0.04f, 0.06f, 0.08f, 0.82f);
+        background.color = new Color(0.08f, 0.10f, 0.14f, 0.88f);
         background.type = panelSprite != null ? Image.Type.Sliced : Image.Type.Simple;
         background.raycastTarget = true;
 
@@ -136,7 +136,7 @@ public class AugmentHudUI : MonoBehaviour
         headerRect.anchoredPosition = new Vector2(0f, -5f);
         headerRect.sizeDelta = new Vector2(0f, 16f);
         headerText = headerObject.GetComponent<TextMeshProUGUI>();
-        headerText.fontSize = 12f;
+        headerText.fontSize = 14f;
         headerText.fontStyle = FontStyles.Bold;
         headerText.alignment = TextAlignmentOptions.Center;
         headerText.color = new Color(0.78f, 0.92f, 1f, 1f);
@@ -289,7 +289,7 @@ public class AugmentHudTile : MonoBehaviour, IPointerClickHandler, IPointerEnter
         iconRect.anchorMin = new Vector2(0.5f, 0.5f);
         iconRect.anchorMax = new Vector2(0.5f, 0.5f);
         iconRect.pivot = new Vector2(0.5f, 0.5f);
-        iconRect.sizeDelta = new Vector2(36f, 36f);
+        iconRect.sizeDelta = new Vector2(48f, 48f);
         kindIcon = iconObject.GetComponent<Image>();
         kindIcon.preserveAspect = true;
         kindIcon.raycastTarget = false;

@@ -161,8 +161,8 @@ public static class AugmentCatalog
             "5% chance on hit to release a small lightning strike."));
         list.Add(new AugmentDefinition("silver_team_heal", AugmentTier.Silver, AugmentEffectKind.Combat,
             "救護の手", "First Aid",
-            "戦闘開始時、最も傷ついた味方を最大HPの10%回復します。",
-            "Combat start: heal the most damaged ally for 10% max HP."));
+            "戦闘開始時、味方全員に最大HPの10%ぶんのシールドを付与します。",
+            "At combat start, grant each ally a shield equal to 10% of their max HP."));
         list.Add(new AugmentDefinition("silver_reroll_cost", AugmentTier.Silver, AugmentEffectKind.Economy,
             "節約家", "Thrift",
             "リロールのコストが -1 されます。",

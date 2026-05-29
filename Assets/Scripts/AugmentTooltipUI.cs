@@ -98,8 +98,8 @@ public class AugmentTooltipUI : MonoBehaviour
         kindRect.anchorMin = new Vector2(0f, 1f);
         kindRect.anchorMax = new Vector2(0f, 1f);
         kindRect.pivot = new Vector2(0f, 1f);
-        kindRect.anchoredPosition = new Vector2(10f, -10f);
-        kindRect.sizeDelta = new Vector2(22f, 22f);
+        kindRect.anchoredPosition = new Vector2(12f, -8f);
+        kindRect.sizeDelta = new Vector2(28f, 28f);
         kindIconImage = kindObject.GetComponent<Image>();
         kindIconImage.preserveAspect = true;
         kindIconImage.raycastTarget = false;
@@ -111,7 +111,7 @@ public class AugmentTooltipUI : MonoBehaviour
         titleRect.anchorMax = new Vector2(1f, 1f);
         titleRect.pivot = new Vector2(0.5f, 1f);
         titleRect.anchoredPosition = new Vector2(0f, -10f);
-        titleRect.sizeDelta = new Vector2(-44f, 24f);
+        titleRect.sizeDelta = new Vector2(-56f, 28f);
         titleText = titleObject.GetComponent<TextMeshProUGUI>();
         titleText.alignment = TextAlignmentOptions.Center;
         titleText.fontStyle = FontStyles.Bold;

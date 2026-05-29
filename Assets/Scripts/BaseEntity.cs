@@ -4228,6 +4228,12 @@ public class BaseEntity : MonoBehaviour
         baseStatsCaptured = true;
     }
 
+    // オーグメント取得など、外部要因で派生ステータスを作り直す必要がある時に呼びます。
+    public void RefreshDerivedStats(bool refillHealth = false)
+    {
+        ApplyCurrentStats(refillHealth);
+    }
+
     // スターと装備アイテムを合わせた現在ステータスを作り直します。
     private void ApplyCurrentStats(bool refillHealth)
     {

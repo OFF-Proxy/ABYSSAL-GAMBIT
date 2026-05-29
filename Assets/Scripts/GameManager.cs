@@ -1803,24 +1803,25 @@ public class GameManager : Manager<GameManager>
             for (int i = 0; i < team2Entities.Count; i++)
             {
                 BaseEntity e = team2Entities[i];
-                if (e != null) e.ApplyStun(1.5f);
+                if (e == null || e.IsDead || !e.IsOnBoard)
+                    continue;
+
+                e.ApplyStun(1.5f);
             }
         }
 
-        // silver_team_heal: 戦闘開始時、最も傷ついた味方を最大HPの10%回復。
+        // silver_team_heal: 戦闘開始時、盤面の味方全員へ最大HPの10%シールド。
         if (HasAugment("silver_team_heal"))
         {
-            BaseEntity lowest = null;
-            float lowestRatio = 1f;
             for (int i = 0; i < team1Entities.Count; i++)
             {
                 BaseEntity e = team1Entities[i];
-                if (e == null || e.MaxHealth <= 0) continue;
-                float ratio = (float)e.CurrentHealth / e.MaxHealth;
-                if (ratio < lowestRatio) { lowestRatio = ratio; lowest = e; }
+                if (e == null || e.IsDead || e.IsSummonedUnit || !e.IsOnBoard)
+                    continue;
+
+                int shield = Mathf.Max(1, Mathf.RoundToInt(e.MaxHealth * 0.10f));
+                e.ApplyShieldFromSynergy(shield, 30f);
             }
-            if (lowest != null && lowestRatio < 1f)
-                lowest.HealFromSynergy(Mathf.Max(1, Mathf.RoundToInt(lowest.MaxHealth * 0.10f)));
         }
 
         // silver_first_attack: 戦闘開始から3秒間、味方全体の与ダメージ+15%。
@@ -1829,7 +1830,10 @@ public class GameManager : Manager<GameManager>
             for (int i = 0; i < team1Entities.Count; i++)
             {
                 BaseEntity e = team1Entities[i];
-                if (e != null) e.ApplyTimedSynergyDamageDealtBonus(0.15f, 3f);
+                if (e == null || e.IsDead || e.IsSummonedUnit || !e.IsOnBoard)
+                    continue;
+
+                e.ApplyTimedSynergyDamageDealtBonus(0.15f, 3f);
             }
         }
 
@@ -1886,8 +1890,12 @@ public class GameManager : Manager<GameManager>
         // ランダムな敵から targets 体抽選
         List<BaseEntity> alive = new List<BaseEntity>();
         for (int i = 0; i < team2Entities.Count; i++)
-            if (team2Entities[i] != null && team2Entities[i].CurrentHealth > 0)
-                alive.Add(team2Entities[i]);
+        {
+            BaseEntity entity = team2Entities[i];
+            if (entity != null && !entity.IsDead && entity.IsOnBoard && entity.CurrentHealth > 0)
+                alive.Add(entity);
+        }
+
         for (int t = 0; t < targets && alive.Count > 0; t++)
         {
             int idx = UnityEngine.Random.Range(0, alive.Count);
@@ -1966,7 +1974,13 @@ public class GameManager : Manager<GameManager>
     // 戦闘開始時、保留中の戦士キルバフを盤面の該当戦士に与ダメージ%バフとして付与します。
     private void ApplyPrismWarriorKillBuffAtBattleStart()
     {
-        if (!HasAugment("prism_warrior_kill_buff") || warriorKillBuffPendingByUnitId.Count == 0)
+        if (!HasAugment("prism_warrior_kill_buff"))
+        {
+            warriorKillBuffPendingByUnitId.Clear();
+            return;
+        }
+
+        if (warriorKillBuffPendingByUnitId.Count == 0)
             return;
 
         for (int i = 0; i < team1Entities.Count; i++)
@@ -1994,7 +2008,10 @@ public class GameManager : Manager<GameManager>
         for (int i = 0; i < team1Entities.Count; i++)
         {
             BaseEntity e = team1Entities[i];
-            if (e != null) e.ApplyAttackSpeedBoostFromSynergy(1f + bonus, duration);
+            if (e == null || e.IsDead || e.IsSummonedUnit || !e.IsOnBoard)
+                continue;
+
+            e.ApplyAttackSpeedBoostFromSynergy(1f + bonus, duration);
         }
     }
 
@@ -2025,9 +2042,33 @@ public class GameManager : Manager<GameManager>
         // オーグメントラウンドを消化済みとして進めます。
         currentWaveIndex++;
         UpdateRoundProgressUi();
+        // 取得したステータス系オーグメントを、既に所持している盤面・ベンチユニットへ即時反映します。
+        RefreshAllOwnedUnitDerivedStats();
         OnRosterChanged?.Invoke();
         // 連続イベントの可能性に備えて続行。
         TryStartEventRound();
+    }
+
+    // 盤面・ベンチの所有ユニットに、現在のチームバフやシナジー設定を反映し直します。
+    private void RefreshAllOwnedUnitDerivedStats()
+    {
+        for (int i = 0; i < team1Entities.Count; i++)
+        {
+            BaseEntity e = team1Entities[i];
+            if (e == null || e.IsSummonedUnit)
+                continue;
+
+            e.RefreshDerivedStats(false);
+        }
+
+        for (int i = 0; i < benchEntities.Count; i++)
+        {
+            BaseEntity e = benchEntities[i];
+            if (e == null)
+                continue;
+
+            e.RefreshDerivedStats(false);
+        }
     }
 
     // 選んだオーグメントの効果を適用します。即時付与系と永続フィールド変更系はここで反映し、
@@ -2113,7 +2154,7 @@ public class GameManager : Manager<GameManager>
                 MaxAvailableShopCost = maxShopCostCap;
                 break;
             case "prism_score_multiplier":
-                ScoreMultiplier *= 1.3f;
+                ScoreMultiplier = Mathf.Min(ScoreMultiplier * 1.3f, 5f);
                 break;
 
             default:

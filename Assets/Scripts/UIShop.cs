@@ -523,7 +523,7 @@ public class UIShop : MonoBehaviour
         rect.anchorMax = new Vector2(1f, 1f);
         rect.pivot = new Vector2(1f, 1f);
         rect.anchoredPosition = new Vector2(-4f, -4f);
-        rect.sizeDelta = new Vector2(30f, 30f);
+        rect.sizeDelta = new Vector2(38f, 26f);
 
         rerollStackBadgeIcon = badge.GetComponent<Image>();
         Sprite badgeSprite = Resources.Load<Sprite>("UI/Augment/badge_counter");
@@ -542,7 +542,7 @@ public class UIShop : MonoBehaviour
         rerollStackBadgeText = textObject.GetComponent<TextMeshProUGUI>();
         rerollStackBadgeText.alignment = TextAlignmentOptions.Center;
         rerollStackBadgeText.fontStyle = FontStyles.Bold;
-        rerollStackBadgeText.fontSize = 14f;
+        rerollStackBadgeText.fontSize = 16f;
         rerollStackBadgeText.color = Color.white;
         rerollStackBadgeText.raycastTarget = false;
         LocalizationManager.ApplyFont(rerollStackBadgeText);

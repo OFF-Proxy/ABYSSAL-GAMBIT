@@ -344,12 +344,12 @@ public class SynergyPanelUI : MonoBehaviour
         badgeRect.anchorMin = new Vector2(0f, 0.5f);
         badgeRect.anchorMax = new Vector2(0f, 0.5f);
         badgeRect.pivot = new Vector2(0.5f, 0.5f);
-        badgeRect.anchoredPosition = new Vector2(46f, 12f);
-        badgeRect.sizeDelta = new Vector2(20f, 13f);
+        badgeRect.anchoredPosition = new Vector2(54f, 14f);
+        badgeRect.sizeDelta = new Vector2(26f, 18f);
 
         Image badgeBg = badgeObject.GetComponent<Image>();
         badgeBg.sprite = augmentBadgeSprite;
-        badgeBg.color = new Color(0.78f, 0.55f, 1f, 1f);
+        badgeBg.color = new Color(0.85f, 0.55f, 1f, 1f);
         badgeBg.preserveAspect = true;
         badgeBg.raycastTarget = false;
         if (augmentBadgeSprite == null)
@@ -364,7 +364,7 @@ public class SynergyPanelUI : MonoBehaviour
         badgeTextRect.offsetMax = Vector2.zero;
         TextMeshProUGUI badgeText = badgeTextObject.GetComponent<TextMeshProUGUI>();
         LocalizationManager.ApplyFont(badgeText);
-        badgeText.fontSize = 10f;
+        badgeText.fontSize = 12f;
         badgeText.fontStyle = FontStyles.Bold;
         badgeText.alignment = TextAlignmentOptions.Center;
         badgeText.color = Color.white;
