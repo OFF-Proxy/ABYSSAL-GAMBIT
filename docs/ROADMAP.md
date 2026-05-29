@@ -74,5 +74,11 @@
   - **無料リロールのスタック化**: `gold_free_reroll` を消費しなかった場合、ラウンドクリア時に `goldFreeRerollStacks++`。リロールボタン右上に reference の `icon_cooldown_counter`（`badge_counter`）でストック数バッジ `x N` を表示。消費順は「prism 永続 → スタック → 今ラウンドの gold_free_reroll」。
   - **シナジーパネル**: 各シナジー行に「+N」バッジを追加（emblem 系 + 戦闘中ランダム上乗せ分）。`prism_all_synergy` が有効なときはヘッダーに「★ 全シナジー +1 重ね掛け」を紫表示。
   - **デバッグアイテム配布の停止**: シーン上 `GameManager.spawnDebugItemsOnStart` を `False` に保存 → ゲーム開始時のアイテムベンチは空。
+- 2026-05-29: **ビジョン確定 & リリース計画策定**（Claude）。プラットフォーム＝**Steam 買い切り**、ソーシャル＝**ランキング中心の軽い繋がり**、形態＝**アドベンチャー進行型（数十章＋ボス仲間化メタ進行＋東方風ボス掛け合い）**を正面から作ると確定。市場調査と差別化方針は [MARKET_POSITIONING.md](MARKET_POSITIONING.md)、リリース工程と task-id は [RELEASE_PLAN.md](RELEASE_PLAN.md) に集約。
+- 2026-05-29: **クリティカルパス設計書3本を起票**（Claude）。実装順は R1-persist → R1-meta → R1-score。
+  - [DESIGN_R1-persist.md](DESIGN_R1-persist.md) — 永続化層（ISaveStore/LocalJsonSaveStore/SaveManager）。章進捗・所持ボス仲間・ベストスコアを保存、Steam差し替え可能に。**最初に実装**。
+  - [DESIGN_R1-meta.md](DESIGN_R1-meta.md) — ボス仲間化の永続roster＋章前編成UI。既存 `SelectBossReward`/`unlockedBossRewardUnitIds`（ラン内）を永続へ拡張。**差別化の核**。
+  - [DESIGN_R1-score.md](DESIGN_R1-score.md) — 既存 `QueueStageResult` を明文化＋ベスト保存＋ライブ加点ポップアップ＋リザルトのベスト併記。
+  - 注: 「複数チャプター」は単なる量産でなく、**ボス仲間化メタ進行＋物語**として再定義（RELEASE_PLAN の R1-meta / R2-chapters）。
 - E1 残（ポリッシュ）: ①複数チャプター、②イベントの**選択UI化**、③旧定性スキル文フォールバックの剪定。雑魚機能 P6（難易度調整）はプレイテスト後の反復作業。
 - 残課題メモ: UnitStatusPanelUI の旧定性スキル文（JA/EN switch）は現状フォールバックとして残置（到達しない）。後で剪定する。
