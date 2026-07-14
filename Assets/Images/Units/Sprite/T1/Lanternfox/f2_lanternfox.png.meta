@@ -1,0 +1,1258 @@
+fileFormatVersion: 2
+guid: ab5991dc0c230104fa410452e0b33456
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Lanternfox_Default_000
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93bc65001ed50444cab9be2b7200a1b7
+      internalID: 816563743
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Default_001
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 14b599467c1502c498755dc3fc0e6b18
+      internalID: -944388160
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Default_002
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 968482fba9f3540489eeb9d476e6df39
+      internalID: 883262648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Default_003
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2aff6dba3849f0498a83f433622474f
+      internalID: -1068976136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Default_004
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 296
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b655a864ecf5c444fb84bb0dd191de12
+      internalID: 1851030391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Default_005
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c046a673605b0740ac8deda30adfab2
+      internalID: 975762104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Default_006
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0c9d100e3b80234097fb640162a1ba8
+      internalID: 98958878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Default_007
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d0b069cb544b96438315c7e304f1766
+      internalID: -353885479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Default_008
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38ca50aa37e68874e972c650bf2400db
+      internalID: 754106601
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Default_009
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df69955b1b9e98a4486224e329ef3521
+      internalID: -632049842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Default_010
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba9972b4da490664eab7c4cbb4db7ec7
+      internalID: -404697617
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Default_011
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ce73c40d3247c242b59f124e87c76f5
+      internalID: -1790864811
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Default_012
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: daa93c7b61323294a9a3511a28d8ccc2
+      internalID: 1199937591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Default_013
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24cb94b6a0c1dc64f8aa9006b8f2b155
+      internalID: 738058520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Move_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39845a6891fb7a34a924122465a37d22
+      internalID: -1466696118
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Move_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c4bb10eac4757642a853a58e34d9117
+      internalID: -170777437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Move_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 82cb5c1c6d8246e4eba4e6f44bac6903
+      internalID: 1539109420
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Move_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a6459c6f9018aa469691d84caa7ecfe
+      internalID: -1393485785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41058d67a2c50c547911f85ef84286c1
+      internalID: 1082903234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 930a8d24479e63a4e98ebbf93f3dbb9f
+      internalID: -1665559916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Move_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 970046a43f5dd5148a92f55ef64a91d7
+      internalID: 2107351825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Move_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5200014956464fa4c9e4d80562740992
+      internalID: -778762578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1c9353010e80064c81f6306836890d8
+      internalID: -2010233796
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39c23024b3504ac478aec07a801445ec
+      internalID: -218028393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb40743aef33bf943a631e3ea0e47d11
+      internalID: -1133797688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfdd9227bb9e91646b332d40300385c6
+      internalID: -1240285857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09b4f6198b54173448f1a49c55df75ea
+      internalID: -1158129783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cb053861d55adb4fa1f23801671864a
+      internalID: 127706669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6bd44a9bd7e0853498faa7139c6bc63d
+      internalID: 1457875807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 296
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6cda5dc6bc45add468279410e2e443c5
+      internalID: 2144475125
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad0b42640cf6a0e4690c668cbd410822
+      internalID: 1646315479
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aaca0bf179c673c48b1e98e77e5f5343
+      internalID: -1446449774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebe59778135aa394fa02c099a38ab481
+      internalID: -909715570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35a5b26f44c07234296ca37ef4b0438a
+      internalID: 472926286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89a8ee4891044814b8afcb58b09eb31b
+      internalID: 810122213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58162d49acfec9143bcd2f5da847a8b1
+      internalID: -451670906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfe81555480a7d04ea95c9cb0a7ff04f
+      internalID: -878816018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6ec7f37218f1f0547a499fbed1cb66e8
+      internalID: -808738711
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e08727765f8b2c1469875144e2b9ab8a
+      internalID: -161860589
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54fa79daee025ca4e8e83098c5716d9e
+      internalID: -899578731
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65606bb8db4beb643ba05ab8f279b6ac
+      internalID: -1513495797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 296
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ace0ea18157353c4dac7f723b4a5751f
+      internalID: 1938062681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35d1d2da2fceff34daa0d8f3f30c6fd0
+      internalID: -1415329661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a300d7260fc7e1438f9f3dadcec44e8
+      internalID: -1987716677
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d0782c51e1849742bcb980c7ac563a6
+      internalID: 1118588609
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3a54f00d86a99064da83c25384570d20
+      internalID: -1668023234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49d0f3b0d5e9274408651d5d9d45970a
+      internalID: 1021169944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55756297f3f59b44f885c32ddde92709
+      internalID: -787008104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b9998e0a7f2ba445a685abc71dcac57
+      internalID: -2004608502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fafc401d3087ae448bc10d63adaece2
+      internalID: -1308432037
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a01ca9d4e6471f9409713b017ab6bb30
+      internalID: -1755591973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lanternfox_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f3229a082dddd94a8f6713c6d6fb9e3
+      internalID: 1949095644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Lanternfox_Attack_000: -2010233796
+      Lanternfox_Attack_001: -218028393
+      Lanternfox_Attack_002: -1133797688
+      Lanternfox_Attack_003: -1240285857
+      Lanternfox_Attack_004: -1158129783
+      Lanternfox_Attack_005: 127706669
+      Lanternfox_Attack_006: 1457875807
+      Lanternfox_Attack_007: 2144475125
+      Lanternfox_Attack_008: 1646315479
+      Lanternfox_Attack_009: -1446449774
+      Lanternfox_Attack_010: -909715570
+      Lanternfox_Attack_011: 472926286
+      Lanternfox_Attack_012: 810122213
+      Lanternfox_Attack_013: -451670906
+      Lanternfox_Attack_014: -878816018
+      Lanternfox_Attack_015: -808738711
+      Lanternfox_Dead_000: -161860589
+      Lanternfox_Dead_001: -899578731
+      Lanternfox_Dead_002: -1513495797
+      Lanternfox_Dead_003: 1938062681
+      Lanternfox_Dead_004: -1415329661
+      Lanternfox_Dead_005: -1987716677
+      Lanternfox_Dead_006: 1118588609
+      Lanternfox_Dead_007: -1668023234
+      Lanternfox_Dead_008: 1021169944
+      Lanternfox_Dead_009: -787008104
+      Lanternfox_Dead_010: -2004608502
+      Lanternfox_Dead_011: -1308432037
+      Lanternfox_Dead_012: -1755591973
+      Lanternfox_Dead_013: 1949095644
+      Lanternfox_Default_000: 816563743
+      Lanternfox_Default_001: -944388160
+      Lanternfox_Default_002: 883262648
+      Lanternfox_Default_003: -1068976136
+      Lanternfox_Default_004: 1851030391
+      Lanternfox_Default_005: 975762104
+      Lanternfox_Default_006: 98958878
+      Lanternfox_Default_007: -353885479
+      Lanternfox_Default_008: 754106601
+      Lanternfox_Default_009: -632049842
+      Lanternfox_Default_010: -404697617
+      Lanternfox_Default_011: -1790864811
+      Lanternfox_Default_012: 1199937591
+      Lanternfox_Default_013: 738058520
+      Lanternfox_Move_000: -1466696118
+      Lanternfox_Move_001: -170777437
+      Lanternfox_Move_002: 1539109420
+      Lanternfox_Move_003: -1393485785
+      Lanternfox_Move_004: 1082903234
+      Lanternfox_Move_005: -1665559916
+      Lanternfox_Move_006: 2107351825
+      Lanternfox_Move_007: -778762578
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

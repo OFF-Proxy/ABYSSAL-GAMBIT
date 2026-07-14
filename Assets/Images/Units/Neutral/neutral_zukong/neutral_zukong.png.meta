@@ -1,0 +1,1984 @@
+fileFormatVersion: 2
+guid: 300660e13573f0d429c52db9a7aada26
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: neutral_zukong_Default_000
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bb16aeb23de6964fae39e3d483d252e
+      internalID: -922413319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Default_001
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 514ca9dac9135094ea71261b5c984ab2
+      internalID: 305283742
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Default_002
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e06d72b9ac9c3740837fa981a9ef86d
+      internalID: 1615729704
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Default_003
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a06bedb3767bbc14f806fbcd1ff7206e
+      internalID: -288947929
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Default_004
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2d75f9099363de41bcbfa42dc4f233f
+      internalID: 1654766176
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Default_005
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0ed07ca9614eade49bafd5b6fbfaaed9
+      internalID: 514016676
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Default_006
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34c48da492a18324f988d4697295efc1
+      internalID: -1116758926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Default_007
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51b7085bbcedbe4478ba74821fe259f2
+      internalID: -1450403488
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Default_008
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ca5e09127bec454abe998240ef534a6
+      internalID: -1333893867
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Default_009
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8475dfe89ce74a4cb76abbf068c2611
+      internalID: 1236767222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Default_010
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d6554c7bc0f11d44885b09886ce04d4
+      internalID: 1221565751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Default_011
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b715240823c9fcb4ca27bdae1abf3813
+      internalID: -2029381280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Default_012
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ae5ff5936300a646b137804eba88542
+      internalID: 1741578215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Default_013
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc3103fff639a3843bd79589069b6632
+      internalID: 1075433780
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Move_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63e41df66ed880a4f9f83b7fba99b1ff
+      internalID: -2002738032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Move_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13eea2b0831369b4f8910ae320a7b167
+      internalID: 2140534708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Move_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 654b188094fd4da47a58431ca03ceb5f
+      internalID: 1737205142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Move_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7987b5ea5d74ac489f2b018ce5dfb7f
+      internalID: 757516553
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fd9caa945ff39140b93d025e7b06ade
+      internalID: -595529536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb06139152db3f44883f2f0ef6903747
+      internalID: -1544138986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Move_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0497a69e6aa23454d9ced661d5c508ba
+      internalID: -32389814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Move_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a12486d7996e464fa5a8d0d184faf88
+      internalID: 1378501679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76f33f4a7ab93ca4c9d664a5da9b1f3b
+      internalID: -489773923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 1010
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c7a65cf36adb7f46b49bd0a8c278f1c
+      internalID: 881456511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 1010
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de369cc56f8606544928b2c1c309a73d
+      internalID: -2009213049
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 1010
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d2f3aa9ecf7ab04f8303ad9c14fa7e0
+      internalID: -1413598244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 1010
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9428dd790b1fac34192ef450b2e45601
+      internalID: -529370437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 230abc8621f2e65419a8fc9a2e91c5d4
+      internalID: 1652841335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6aee9b41fd5ee3a42b112b00c4276413
+      internalID: 1286461519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6dd9a41bda1b7514c83003ca7707cfc7
+      internalID: -1630174232
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fac124f06f932124a8d37f88335d35ec
+      internalID: -1770067604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2918d0f75d4bf4242be5fdf7412afbd6
+      internalID: 975777561
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3929740fb0d19e14c8e21fae3927cde6
+      internalID: 612288979
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a90962212ef979449b9d122ea6b99e6
+      internalID: 15268574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2986a86674a6a042a86f19029dc769f
+      internalID: 373248745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c0368bbe192f72c479bdd5d49707c6ad
+      internalID: -994480417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d16b57d72db07094fa9bb143df646017
+      internalID: 1278302461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8cb9587ac88509947b620f53dfa8cf17
+      internalID: -2081937414
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aad1069793d0dce43a8ad871e79bc793
+      internalID: 246266546
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d121946741fdcef499e9a0eebc364acd
+      internalID: 1295837467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58d5a320345dce242ae152a97e3f9ae4
+      internalID: 2077640639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5fb52590583982489377df382eab6f3
+      internalID: 221186662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a21299d41b7776641b39550bbfbd86b9
+      internalID: 118894709
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 78801d197d59d6b41a7e70bec3aa138b
+      internalID: -1645263579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c734e15634ced5b48abc4d444d23f8e5
+      internalID: -831551557
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_023
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ed6902692a86914a8ab2b7ebd4c8211
+      internalID: 910250540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_024
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aea3ac5289f1acb4b844330fae32d534
+      internalID: -1721672433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_025
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5da53487afc7f0499445a8565c73399
+      internalID: 1373400520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_026
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e9a6d4056c8ec345b27da209c62590a
+      internalID: 1091432094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_027
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ee85ae998969024288434a19dee05f6
+      internalID: -1039483833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_028
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18c3d21fcfe27e84a87149419a1df8a7
+      internalID: -178842398
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_029
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f34e646870c9304cbabb0325412ffa8
+      internalID: -131167749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_030
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f6deece6befff14b9bd608526ed690a
+      internalID: -1308668513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Attack_031
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d722e7996231eb44be1ffd04457a8a2
+      internalID: 385786708
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 34dd5d1de2baf284e84f8baef08306b7
+      internalID: -188949136
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a41668e035c64cb49ac4f758aee92e99
+      internalID: -1250710514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 464aa77cca51e3446b5d56a18cbfe136
+      internalID: 1986148574
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ef85505023e3fd4f894e80df7d859da
+      internalID: -1714441628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8e0fe89e0aeb44e4c94001a9425826e8
+      internalID: -1018734624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4990f9e5e9641464a93b33c1b629b425
+      internalID: -751131837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 1010
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1e160ca933a16d4fb7766d17ab4a1aa
+      internalID: -1336227244
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a171c01f36174174f9f34a5da5b2690f
+      internalID: -1463737696
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4a5d652f3439c746b859f514c42bf49
+      internalID: 72660583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20f3a428f53ef9a448c698aaa1407c76
+      internalID: -1727604133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9c34775e8a0f12479f7055f874b3e66
+      internalID: 1674206074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4672b9f186699eb46945624f6a22cf7f
+      internalID: 660239540
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 088092e3e0c3d9c4f9fbbb1bbf2979fd
+      internalID: 272054766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d4854752b97e6947aff1f87abccd388
+      internalID: -735272806
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65f72701b29f2ae46bb944abeed1cbcc
+      internalID: -312466315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_015
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12f878c7ef7a9344bbd1a7bb705d1a55
+      internalID: -971101413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_016
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2760f527389992e4e9bc465d4bf3bf38
+      internalID: -853312613
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_017
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 586d9af5e305a0c4d916c905e34a2950
+      internalID: 2026554280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_018
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 113f29813a374fe4a90e3838da858efb
+      internalID: -361136159
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_019
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c62436a0d413b640bc846aef1b0751a
+      internalID: -678649790
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_020
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e07e7b6bf0a5f04cb126daf96803dfa
+      internalID: 470323417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_021
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91009969c27b8d84a81a7f126eac9513
+      internalID: 259677749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_022
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3953a9a4f38b887458c40d097fa621c3
+      internalID: -1865819970
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_023
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2af1586aa5085c346a8586d201b63ac5
+      internalID: -1488536162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_024
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c245024995949714b959991f9a728c6b
+      internalID: 960463451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_025
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4754dd2d7808b4747984909b7657c691
+      internalID: -253559625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_026
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba8c062529e98874babfd343ace4307c
+      internalID: -457562688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_027
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9b2feab69bf2fc4eb0f878d6e34a855
+      internalID: 152065786
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_028
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ad512588f7128243ba7ebc0e129949b
+      internalID: -2005069852
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_029
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfe6b3573d3a41b4f92bbea40c0f4ad6
+      internalID: -519056313
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_zukong_Dead_030
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2eda862c9e7a9a4b8912b1ad48054a6
+      internalID: 1048267605
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      neutral_zukong_Attack_000: -489773923
+      neutral_zukong_Attack_001: 881456511
+      neutral_zukong_Attack_002: -2009213049
+      neutral_zukong_Attack_003: -1413598244
+      neutral_zukong_Attack_004: -529370437
+      neutral_zukong_Attack_005: 1652841335
+      neutral_zukong_Attack_006: 1286461519
+      neutral_zukong_Attack_007: -1630174232
+      neutral_zukong_Attack_008: -1770067604
+      neutral_zukong_Attack_009: 975777561
+      neutral_zukong_Attack_010: 612288979
+      neutral_zukong_Attack_011: 15268574
+      neutral_zukong_Attack_012: 373248745
+      neutral_zukong_Attack_013: -994480417
+      neutral_zukong_Attack_014: 1278302461
+      neutral_zukong_Attack_015: -2081937414
+      neutral_zukong_Attack_016: 246266546
+      neutral_zukong_Attack_017: 1295837467
+      neutral_zukong_Attack_018: 2077640639
+      neutral_zukong_Attack_019: 221186662
+      neutral_zukong_Attack_020: 118894709
+      neutral_zukong_Attack_021: -1645263579
+      neutral_zukong_Attack_022: -831551557
+      neutral_zukong_Attack_023: 910250540
+      neutral_zukong_Attack_024: -1721672433
+      neutral_zukong_Attack_025: 1373400520
+      neutral_zukong_Attack_026: 1091432094
+      neutral_zukong_Attack_027: -1039483833
+      neutral_zukong_Attack_028: -178842398
+      neutral_zukong_Attack_029: -131167749
+      neutral_zukong_Attack_030: -1308668513
+      neutral_zukong_Attack_031: 385786708
+      neutral_zukong_Dead_000: -188949136
+      neutral_zukong_Dead_001: -1250710514
+      neutral_zukong_Dead_002: 1986148574
+      neutral_zukong_Dead_003: -1714441628
+      neutral_zukong_Dead_004: -1018734624
+      neutral_zukong_Dead_005: -751131837
+      neutral_zukong_Dead_006: -1336227244
+      neutral_zukong_Dead_007: -1463737696
+      neutral_zukong_Dead_008: 72660583
+      neutral_zukong_Dead_009: -1727604133
+      neutral_zukong_Dead_010: 1674206074
+      neutral_zukong_Dead_011: 660239540
+      neutral_zukong_Dead_012: 272054766
+      neutral_zukong_Dead_013: -735272806
+      neutral_zukong_Dead_014: -312466315
+      neutral_zukong_Dead_015: -971101413
+      neutral_zukong_Dead_016: -853312613
+      neutral_zukong_Dead_017: 2026554280
+      neutral_zukong_Dead_018: -361136159
+      neutral_zukong_Dead_019: -678649790
+      neutral_zukong_Dead_020: 470323417
+      neutral_zukong_Dead_021: 259677749
+      neutral_zukong_Dead_022: -1865819970
+      neutral_zukong_Dead_023: -1488536162
+      neutral_zukong_Dead_024: 960463451
+      neutral_zukong_Dead_025: -253559625
+      neutral_zukong_Dead_026: -457562688
+      neutral_zukong_Dead_027: 152065786
+      neutral_zukong_Dead_028: -2005069852
+      neutral_zukong_Dead_029: -519056313
+      neutral_zukong_Dead_030: 1048267605
+      neutral_zukong_Default_000: -922413319
+      neutral_zukong_Default_001: 305283742
+      neutral_zukong_Default_002: 1615729704
+      neutral_zukong_Default_003: -288947929
+      neutral_zukong_Default_004: 1654766176
+      neutral_zukong_Default_005: 514016676
+      neutral_zukong_Default_006: -1116758926
+      neutral_zukong_Default_007: -1450403488
+      neutral_zukong_Default_008: -1333893867
+      neutral_zukong_Default_009: 1236767222
+      neutral_zukong_Default_010: 1221565751
+      neutral_zukong_Default_011: -2029381280
+      neutral_zukong_Default_012: 1741578215
+      neutral_zukong_Default_013: 1075433780
+      neutral_zukong_Move_000: -2002738032
+      neutral_zukong_Move_001: 2140534708
+      neutral_zukong_Move_002: 1737205142
+      neutral_zukong_Move_003: 757516553
+      neutral_zukong_Move_004: -595529536
+      neutral_zukong_Move_005: -1544138986
+      neutral_zukong_Move_006: -32389814
+      neutral_zukong_Move_007: 1378501679
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

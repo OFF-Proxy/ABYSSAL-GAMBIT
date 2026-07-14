@@ -5,5 +5,6 @@ namespace AutoChessBossRush.Save
         SaveData Load();
         void Save(SaveData data);
         bool Exists();
+        void Delete();
     }
 }

@@ -1,0 +1,1456 @@
+fileFormatVersion: 2
+guid: aa9a0ed0629d78b40979f7798f12e738
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Veteransilithar_Default_000
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 767e7f06f31aa494cb1224a1e4a20a2c
+      internalID: -218921946
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Default_001
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 032d4bca866ae4545b0756ce7713f5be
+      internalID: 212516062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Default_002
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4fc196141e105c948b781c585852cb7b
+      internalID: -787243616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Default_003
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 076632de3e16e7a4287a237f7330739f
+      internalID: -237363194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Default_004
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 76fadf39e2c4c474f9e7e283194d8e3f
+      internalID: -2071365721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Default_005
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73be0963c9e1e5144a25fecc9c89ab34
+      internalID: 1500902090
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Default_006
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca851efc85d2bdb49a3eb1d7828dd76d
+      internalID: 1709900209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Default_007
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c72ae1912d7a0749a286ebe93aaafc7
+      internalID: 1756499440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Default_008
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 196350525fd24934b8faf8f1a9bf49f6
+      internalID: 512886461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Default_009
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 296
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 550817c7077ac0d419be7a38e71836d0
+      internalID: 312625778
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Default_010
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fc344d6b14566349b36204537eafb59
+      internalID: 125379750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Default_011
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9499b66f2ca5f974c9e7a3b2cbf45f23
+      internalID: 1953621143
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Default_012
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9a115dfea6fbd74ba85921df09faad3
+      internalID: 1347420594
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Default_013
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c42b1c826099e1d4299f614e34160775
+      internalID: 1752533699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Move_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ac56e9a0b8a0e946910ddfca52d582e
+      internalID: -1371025442
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Move_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 288a5a3df5fcb28459f93f9692e351ff
+      internalID: 1112906029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Move_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0662a55eb06419647a265dc7a0f9be16
+      internalID: 1418186530
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Move_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca2d5cf3b2325ca419b2c43238ec0048
+      internalID: 1637255409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e6ae6bbfddb67f4e9757e167d0fb0c4
+      internalID: 1564200208
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d848b99d70e06354f9f4acb990955a39
+      internalID: 1958810172
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Move_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7814d32c98ba01d4ca2942fa9f80681c
+      internalID: 541889975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Move_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a24ba742039285e49888129139c37800
+      internalID: -870600684
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 453cc2ddc0a54274aba8269fcb66fffe
+      internalID: -158314154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fabe5b59a3b760f4e8e8ac4742f582e9
+      internalID: -568588373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b55373fe398c3942b1e1e1104987809
+      internalID: 111326752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4a93a7879734e24492467285e7761f2
+      internalID: -1932358097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8222a8116cecd254281fd696fc89d676
+      internalID: 968330923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 619eefd894f77b94e997136d363a7a57
+      internalID: -547601646
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c9f04d863ca00354887e6a25db7f379c
+      internalID: -990581422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 110e36a6c22852b448c4a9b4a8d9d748
+      internalID: 362655855
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bfd19d22404abbd4fbc511b65c8e5f43
+      internalID: -997601787
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 296
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d76dc4880bd0d94298cda74cc881fe0
+      internalID: -667221535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45eff300de823fd4fa5a23ba201da15a
+      internalID: 708048496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6323a21042b9bf4ea595da24c3ed86d
+      internalID: -883096322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bf0e8ecf06a44cd4791a380f863e22da
+      internalID: -1884882532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d5c36e145a4c30a4baec0de118e46d2e
+      internalID: -991549542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2e95e7ccb854b1468fecf558bd30e85
+      internalID: 886399478
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4316743952595f5438e08f4a7c39533a
+      internalID: 506376689
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d06a868f88cdbb54dbb75fc674f1902a
+      internalID: 751571863
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a5625a6c09485c40a20019b7f034572
+      internalID: 1889140507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e09c4e2aa31e8c429ea2fcdfdcb9a33
+      internalID: -1818390464
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d25f67a033ef034aac3ab1fa855eadd
+      internalID: 526112785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 45764388d978d4a4bb3fc0bd92dfd510
+      internalID: 1086562319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 296
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a5302c0ec3e5df4fa0f5bd9045b5f5e
+      internalID: -1596815719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d4f56d24611ed744a22936a6eb47ade
+      internalID: -1028542682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_023
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6d0054519b82a44aaebedae957cd473
+      internalID: -877352699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Attack_024
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: caa8bca945e73964a87dcac80055e68a
+      internalID: -326745766
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53bdd6cd69251b64fba183dc1db8b44f
+      internalID: -1532613723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91c6dc02c385df54c83acd9ab1cc2789
+      internalID: 946339086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e45116b29b30a8a4e9b124f67a124330
+      internalID: -205044130
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f5b80fe8fbbf4d48a8e4e041ed51b5e
+      internalID: 1577081807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2e6c4c497f852a74cbf3e0b6172fbd12
+      internalID: -28958752
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c15deec436e74f43b59c7e56bbe0b99
+      internalID: -3200496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 31845ccceecdbb44899d32edc676a1b4
+      internalID: -1000201515
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 13b4c89cad0f35f43a0f22272ebb4c25
+      internalID: -1534828774
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 296
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b783c08dfae342d449272130d6191b65
+      internalID: 1940816409
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 33f247e5beb3244449183f5df71c7a32
+      internalID: 611777287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc9b116cdb7d73c43945254bbbd2653c
+      internalID: -349336642
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4f123528d39a5a24a8a64bc4a2d9b3d3
+      internalID: 195191529
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c1749210f5ccd145915f085f9bb915c
+      internalID: -110768467
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Veteransilithar_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b847dd9e64c0af046b9e782055b7671f
+      internalID: -1843853070
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Veteransilithar_Attack_000: -158314154
+      Veteransilithar_Attack_001: -568588373
+      Veteransilithar_Attack_002: 111326752
+      Veteransilithar_Attack_003: -1932358097
+      Veteransilithar_Attack_004: 968330923
+      Veteransilithar_Attack_005: -547601646
+      Veteransilithar_Attack_006: -990581422
+      Veteransilithar_Attack_007: 362655855
+      Veteransilithar_Attack_008: -997601787
+      Veteransilithar_Attack_009: -667221535
+      Veteransilithar_Attack_010: 708048496
+      Veteransilithar_Attack_011: -883096322
+      Veteransilithar_Attack_012: -1884882532
+      Veteransilithar_Attack_013: -991549542
+      Veteransilithar_Attack_014: 886399478
+      Veteransilithar_Attack_015: 506376689
+      Veteransilithar_Attack_016: 751571863
+      Veteransilithar_Attack_017: 1889140507
+      Veteransilithar_Attack_018: -1818390464
+      Veteransilithar_Attack_019: 526112785
+      Veteransilithar_Attack_020: 1086562319
+      Veteransilithar_Attack_021: -1596815719
+      Veteransilithar_Attack_022: -1028542682
+      Veteransilithar_Attack_023: -877352699
+      Veteransilithar_Attack_024: -326745766
+      Veteransilithar_Dead_000: -1532613723
+      Veteransilithar_Dead_001: 946339086
+      Veteransilithar_Dead_002: -205044130
+      Veteransilithar_Dead_003: 1577081807
+      Veteransilithar_Dead_004: -28958752
+      Veteransilithar_Dead_005: -3200496
+      Veteransilithar_Dead_006: -1000201515
+      Veteransilithar_Dead_007: -1534828774
+      Veteransilithar_Dead_008: 1940816409
+      Veteransilithar_Dead_009: 611777287
+      Veteransilithar_Dead_010: -349336642
+      Veteransilithar_Dead_011: 195191529
+      Veteransilithar_Dead_012: -110768467
+      Veteransilithar_Dead_013: -1843853070
+      Veteransilithar_Default_000: -218921946
+      Veteransilithar_Default_001: 212516062
+      Veteransilithar_Default_002: -787243616
+      Veteransilithar_Default_003: -237363194
+      Veteransilithar_Default_004: -2071365721
+      Veteransilithar_Default_005: 1500902090
+      Veteransilithar_Default_006: 1709900209
+      Veteransilithar_Default_007: 1756499440
+      Veteransilithar_Default_008: 512886461
+      Veteransilithar_Default_009: 312625778
+      Veteransilithar_Default_010: 125379750
+      Veteransilithar_Default_011: 1953621143
+      Veteransilithar_Default_012: 1347420594
+      Veteransilithar_Default_013: 1752533699
+      Veteransilithar_Move_000: -1371025442
+      Veteransilithar_Move_001: 1112906029
+      Veteransilithar_Move_002: 1418186530
+      Veteransilithar_Move_003: 1637255409
+      Veteransilithar_Move_004: 1564200208
+      Veteransilithar_Move_005: 1958810172
+      Veteransilithar_Move_006: 541889975
+      Veteransilithar_Move_007: -870600684
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

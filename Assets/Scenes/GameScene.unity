@@ -1240,6 +1240,7 @@ MonoBehaviour:
   debugTrainingWaveHotkey: 289
   debugTrainingDummyHealth: 300000
   debugTrainingDummyMoveSpeed: 0.95
+  showLobbyOnBoot: 1
   baseMaxShopCost: 3
   maxShopCostCap: 5
   eventBonusGold: 8
@@ -1608,13 +1609,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 1
+  m_RaycastTarget: 0
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3303838b67145d945988cf27156f8fe1, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 47fb94fbaa2eb9f4a8ae1de1977c3cd7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1800,7 +1801,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 74748ec596d4ad34092fb179cfea6999, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 78a3133188237af4086382601454e869, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -3863,7 +3864,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 0292348b467566c43ad3aae1c0a41e04, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b42b56ab676e4830af2d9207d4e0557a, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -9271,7 +9272,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3c1fe9fd360a53a4796b096edbbef6aa, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 78a3133188237af4086382601454e869, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

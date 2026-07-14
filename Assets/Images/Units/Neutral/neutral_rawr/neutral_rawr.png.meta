@@ -1,0 +1,1742 @@
+fileFormatVersion: 2
+guid: c8f6719be0ab08147a852ff998a33d6f
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: neutral_rawr_Default_000
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a17976471f93ef14fad8e61d62bf89b5
+      internalID: -2140069010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Default_001
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09ba866d60325a6449ca4be4fc405669
+      internalID: 1575335821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Default_002
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4660352524f451047836e6faa70ed60a
+      internalID: 1468088575
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Default_003
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30aebd703341a5a4aa621dbd7ba157c7
+      internalID: -796842271
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Default_004
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e8def3ea52b15d94ea9ede3e9df5d069
+      internalID: 1651305820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Default_005
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bbb3a4198b42094d954c878f51d5a41
+      internalID: 1643616667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Default_006
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36a5302906f59d54187882cc5e771372
+      internalID: -784105833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Default_007
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a03a0ffa8764755479d2c01066ac1fa0
+      internalID: 1081136391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Default_008
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a8ebef1d9af7a5f42bd1809ea15933e1
+      internalID: -1751733917
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Default_009
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d2dff0ed2e42eb4c9f66051de0cf444
+      internalID: 1482772854
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Default_010
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9827a03a109b2e7478a08855c636ae1e
+      internalID: 1929907947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Default_011
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32308f48a9512854983ca34cb1e055b0
+      internalID: 1372941675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Default_012
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8610e90841e6b141a00483c6ab893f3
+      internalID: -1033238393
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Default_013
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79e14d10202ad164992584b4fb32bd47
+      internalID: -1404947933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Move_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 91d786e32dbd30b41b380af5dc382f98
+      internalID: 1972080543
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Move_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab794d90eb5a37e4f8c3862056b31819
+      internalID: 598271570
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Move_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36325bc98f3d7624ca6683d8b6daad87
+      internalID: 2112487736
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Move_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc38c24dc5f07e94cbe638b0fb9884c8
+      internalID: 440768240
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d9f3eb9550143f499ee40cb54d4b236
+      internalID: -1634029384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e8903e5d0e394341bf7ef549cf02387
+      internalID: -1094981922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Move_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8167a14a2cd4aa143ad5a568fe76ca21
+      internalID: 273869234
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5327376c83c06b0409b3480c732eb3ba
+      internalID: -1720932202
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bad425e2b07bb3a44a480df4bb70ed57
+      internalID: 34979339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24c25fa9f7d48fd458123f86f3feda1f
+      internalID: -843295317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5f910fd27bbe4b04daf1c7206e137461
+      internalID: 1748425633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1fdb7c5a5043fb4383113859c58956b
+      internalID: 1576395795
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e35742676b3ba6143922fe253ee19ab1
+      internalID: -1885375612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cb5a5fe40971c0d428816040b5605f78
+      internalID: -367532723
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f8c856806d5edd468f2bc91b17b602e
+      internalID: 2048090432
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fab08e02844e097479b0d6871bb7d069
+      internalID: 228504169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06d9c0bce0f8f7c4e83801be36043819
+      internalID: 1874498523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0ab1e08cd910444a9ea9cacb1496070
+      internalID: 1088504302
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 695a9689a7e94df4d99aa7832db98c35
+      internalID: -2142325465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 1310
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ae850dc8b042b34aac3502be727488c
+      internalID: -61282693
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2edf5c066b36a5b4290604b3e708c5e3
+      internalID: -1598775544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a6dba6217ccf804b80e4f6bdda87531
+      internalID: -91736769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5404a3064d23d304abc9ad557104d923
+      internalID: 1233625976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fcfe97dc093ddb042a798e1a0ce63067
+      internalID: -336525807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 11b608a20399b774dbd03bd92f8a379c
+      internalID: 1977209814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a7d07c55fd6d224d861a39021df9135
+      internalID: 1094188909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 1179
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fa2a2182abda2824ab31c26a04dc29cf
+      internalID: -175922701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07695a89f0bef2d4c9223087346449cf
+      internalID: 217986848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 950c717a623521f43a6df7b5b57fc76b
+      internalID: -1886265905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec1c4091d590e5949b7f66b78ebd8f2b
+      internalID: 1206312438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_023
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 331961afed48dc143bfe40acbacea92d
+      internalID: 999421413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_024
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36e134c3a504fdc459a894dc547968d9
+      internalID: 615521401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Attack_025
+      rect:
+        serializedVersion: 2
+        x: 1048
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1daa327c0b17bc84881bc5b1a3dd3b90
+      internalID: -360438665
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 017198af29cea604da271478c3fd17d7
+      internalID: 494346551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1151195d754f9204d9b2a4237c627d59
+      internalID: -994229292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1981654888dff774e8088bd7483f9893
+      internalID: 1006867671
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b12de864899bde2439355c6c3c3511b6
+      internalID: 1094167083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f593e8e40bd7a0e40b5c942e4a95897e
+      internalID: -1085901201
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: edcf214ef58b6c547ba8bc39005f9b2e
+      internalID: 404528586
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 366d0873d8f580a408042ca5d0367943
+      internalID: -1977512681
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 1441
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 435fc8a216c681245b0819529cafbb1f
+      internalID: 1293121645
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d50da823533ec444a2538bc72041930
+      internalID: -491529343
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da016f520dae6e843a189c0c332afaa8
+      internalID: -1156242275
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 295093612b3ef004ea2bb9bd6c79b8b7
+      internalID: -1588263272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 443e409ce21d4cb448b35fc0da303914
+      internalID: 2128923315
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ac5e43d68bc95f4baf81b3037d0ed03
+      internalID: -1326016514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb6f65d70e6f4f744aba45a781f52ace
+      internalID: -1004294445
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9d9c3c51ea89e04b957e566a8e6d663
+      internalID: -2018358122
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_015
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc1d3615e8ec1d64b99da0462ad061dd
+      internalID: -591204862
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_016
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8cd3372376b341e49a4945989588dd86
+      internalID: -1240560773
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_017
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e3e2c0e310fe88141a20ed49a618f815
+      internalID: -2014594952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_018
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b960ae478a67c12478a2277d3b4cc457
+      internalID: -1761556817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_019
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b05d3a0028c4cfe458998db3c4c385ff
+      internalID: -576494224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_020
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 894
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6e95de9b6bee06c4fbed301982b18fc4
+      internalID: -1373074317
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_021
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 108
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8498ea03cad52174ca19fb624c962ebe
+      internalID: -225348484
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_022
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 239
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 46e808f3eb972234e8cd72353d2a5686
+      internalID: -1069983249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_023
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 370
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc2b39a35c79195459cad9266449703c
+      internalID: -2068936109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_024
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 501
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a12c39987b8bf2640ba95103c14a00b0
+      internalID: 618448833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_025
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 632
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6b65c41e7e007d8419cddc1032decfa2
+      internalID: -2059882969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: neutral_rawr_Dead_026
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 763
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e666f9dd1d55cc74695c2698cff0d0b2
+      internalID: 1420397397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      neutral_rawr_Attack_000: -1720932202
+      neutral_rawr_Attack_001: 34979339
+      neutral_rawr_Attack_002: -843295317
+      neutral_rawr_Attack_003: 1748425633
+      neutral_rawr_Attack_004: 1576395795
+      neutral_rawr_Attack_005: -1885375612
+      neutral_rawr_Attack_006: -367532723
+      neutral_rawr_Attack_007: 2048090432
+      neutral_rawr_Attack_008: 228504169
+      neutral_rawr_Attack_009: 1874498523
+      neutral_rawr_Attack_010: 1088504302
+      neutral_rawr_Attack_011: -2142325465
+      neutral_rawr_Attack_012: -61282693
+      neutral_rawr_Attack_013: -1598775544
+      neutral_rawr_Attack_014: -91736769
+      neutral_rawr_Attack_015: 1233625976
+      neutral_rawr_Attack_016: -336525807
+      neutral_rawr_Attack_017: 1977209814
+      neutral_rawr_Attack_018: 1094188909
+      neutral_rawr_Attack_019: -175922701
+      neutral_rawr_Attack_020: 217986848
+      neutral_rawr_Attack_021: -1886265905
+      neutral_rawr_Attack_022: 1206312438
+      neutral_rawr_Attack_023: 999421413
+      neutral_rawr_Attack_024: 615521401
+      neutral_rawr_Attack_025: -360438665
+      neutral_rawr_Dead_000: 494346551
+      neutral_rawr_Dead_001: -994229292
+      neutral_rawr_Dead_002: 1006867671
+      neutral_rawr_Dead_003: 1094167083
+      neutral_rawr_Dead_004: -1085901201
+      neutral_rawr_Dead_005: 404528586
+      neutral_rawr_Dead_006: -1977512681
+      neutral_rawr_Dead_007: 1293121645
+      neutral_rawr_Dead_008: -491529343
+      neutral_rawr_Dead_009: -1156242275
+      neutral_rawr_Dead_010: -1588263272
+      neutral_rawr_Dead_011: 2128923315
+      neutral_rawr_Dead_012: -1326016514
+      neutral_rawr_Dead_013: -1004294445
+      neutral_rawr_Dead_014: -2018358122
+      neutral_rawr_Dead_015: -591204862
+      neutral_rawr_Dead_016: -1240560773
+      neutral_rawr_Dead_017: -2014594952
+      neutral_rawr_Dead_018: -1761556817
+      neutral_rawr_Dead_019: -576494224
+      neutral_rawr_Dead_020: -1373074317
+      neutral_rawr_Dead_021: -225348484
+      neutral_rawr_Dead_022: -1069983249
+      neutral_rawr_Dead_023: -2068936109
+      neutral_rawr_Dead_024: 618448833
+      neutral_rawr_Dead_025: -2059882969
+      neutral_rawr_Dead_026: 1420397397
+      neutral_rawr_Default_000: -2140069010
+      neutral_rawr_Default_001: 1575335821
+      neutral_rawr_Default_002: 1468088575
+      neutral_rawr_Default_003: -796842271
+      neutral_rawr_Default_004: 1651305820
+      neutral_rawr_Default_005: 1643616667
+      neutral_rawr_Default_006: -784105833
+      neutral_rawr_Default_007: 1081136391
+      neutral_rawr_Default_008: -1751733917
+      neutral_rawr_Default_009: 1482772854
+      neutral_rawr_Default_010: 1929907947
+      neutral_rawr_Default_011: 1372941675
+      neutral_rawr_Default_012: -1033238393
+      neutral_rawr_Default_013: -1404947933
+      neutral_rawr_Move_000: 1972080543
+      neutral_rawr_Move_001: 598271570
+      neutral_rawr_Move_002: 2112487736
+      neutral_rawr_Move_003: 440768240
+      neutral_rawr_Move_004: -1634029384
+      neutral_rawr_Move_005: -1094981922
+      neutral_rawr_Move_006: 273869234
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

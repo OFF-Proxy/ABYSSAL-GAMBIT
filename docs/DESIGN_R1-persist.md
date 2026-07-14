@@ -1,4 +1,5 @@
 # R1-persist: 永続化層（セーブ/ロード）の抽象化
+> **状態: ✅ 実装済み（2026-05-30, レビュー承認）** — Save 抽象化層は本番稼働。
 
 > 設計: Claude / 実装: Codex・Claude Code / 2026-05-29
 > 関連: [RELEASE_PLAN.md](RELEASE_PLAN.md) §2 M1, [MARKET_POSITIONING.md](MARKET_POSITIONING.md) §2
@@ -102,3 +103,22 @@ public class SaveManager
 
 ## 未決事項（Codex への質問）
 - セーブスロットは1つでよいか（複数プロフィール不要か）。MVP は**単一スロット**前提で設計。要否あれば QUESTIONS.md へ。
+
+---
+
+## Review (2026-05-29, Claude) — ✅ 承認
+
+実装コミット `4270dfdf feat(R1-persist)`。設計どおり、堅実。
+
+**良い点**
+- `ISaveStore` / `LocalJsonSaveStore` / `SaveManager` / `SaveData` を設計どおり分離。namespace `AutoChessBossRush.Save` で整理。
+- **原子的書き込み**（`tmp`→`File.Replace`/`Move`）と**破損隔離**（`save.corrupt.json`）を実装。Load 失敗時も新規 SaveData で起動継続 → 受け入れ基準④を満たす。
+- `RuntimeInitializeOnLoadMethod` で自動 Bootstrap、かつ `Awake` の二重防止・`DontDestroyOnLoad`。`EnsureExists` 慣習も踏襲。
+- `SetStore(ISaveStore)` を用意 → **Steam クラウドへの差し替え点が明確**。ROADMAP の「後から差し替え可能に」と一致。
+- `RecordChapterResult` の自己新判定（高スコア優先・同点はタイム短い方）まで実装済み。
+
+**設計どおりでない/気づき（軽微、ブロッカーではない）**
+- 設計の素の `RecordChapterResult` は void だったが、実装は `bool`（isNewRecord）を返す形に拡張。R1-score がこの戻り値を使うので**良い改善**。設計書も追認。
+- `version` のマイグレーション分岐は未実装（現状 version=1 のみで不要）。将来スキーマ変更時に追加でよい。
+
+**受け入れ基準**: ①〜⑤ 充足（コードレビュー上）。実機での再起動保持は R1-meta/score の動作確認時に併せて確認。

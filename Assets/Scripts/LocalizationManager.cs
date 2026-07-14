@@ -50,6 +50,32 @@ public class LocalizationManager : MonoBehaviour
         { "Skindogehai", "スキンドゲハイ" },
         { "Decepticleprime", "デセプティクルプライム" },
         { "Decepticlechassis", "デセプティクルシャーシ" },
+        // ヒーロー専用3体（DESIGN_R3-hero-units）。内部IDは Hero* だが表示はアルディン/カガチ/ヴェスナ。
+        { "HeroAldin", "アルディン" },
+        { "HeroKagachi", "カガチ" },
+        { "HeroVesna", "ヴェスナ" },
+        { "HeroZiran", "ジラーン" },
+        { "HeroBrome", "ブローム" },
+        { "HeroReva", "レヴァ" },
+        { "HeroShidai", "シダイ" },
+        { "HeroKara", "カーラ" },
+        { "HeroIlena", "イレーナ" },
+        // 将系ヒーロー（陣営将）の日本語名。
+        { "Magmarvaath", "ヴァース" },
+        { "Magmarstarhorn", "スターホーン" },
+        { "Magmarragnora", "ラグノラ" },
+        { "Abyssallilithe", "リリス" },
+        { "Abyssalcassyva", "キャシヴァ" },
+        { "Abyssalmaehv", "アビサルメーヴ" },
+        { "Vetruvianzirix", "ジリックス" },
+        { "Vetruviansajj", "サージ" },
+        { "Vetruvianscion", "サイオン" },
+        { "Arcana", "アルカナ" },
+        // Songhai 追加4体（陣営7体化）。
+        { "Lanternfox", "ランタンフォックス" },
+        { "Onyxjaguar", "オニキスジャガー" },
+        { "Keshraifanblade", "ケシュライ・ファンブレード" },
+        { "Firewyrm", "ファイアワーム" },
         { "Wolfpunch", "ウルフパンチ" },
         { "Shadowlord", "シャドウロード" },
         { "Tier2general", "ティアツージェネラル" },
@@ -68,6 +94,11 @@ public class LocalizationManager : MonoBehaviour
         { "Paragon", "パラゴン" },
         { "Wujin", "ウージン" },
         { "Wraith", "レイス" },
+        { "Grymbeast", "グリムビースト" },
+        { "Cinderwraith", "シンダーレイス" },
+        { "Draugarlord", "ドラウガーロード" },
+        { "Kingsguard", "キングスガード" },
+        { "Dissonance", "ディソナンス" },
         { "Altgeneraltier2", "アルトジェネラル" },
         { "Ilenamk2", "イレーナ" },
         { "Embergeneral", "エンバージェネラル" },
@@ -76,7 +107,43 @@ public class LocalizationManager : MonoBehaviour
         { "Kron", "クロン" },
         { "Gol", "ゴル" },
         { "Invader", "インベーダー" },
-        { "Legion", "レギオン" }
+        { "Legion", "レギオン" },
+        { "Caliber", "キャリバー・O" },
+        // 20章化の中立ボス（CLAUDE_HANDOFF_CHAPTER20_BOSSES.md）。
+        { "neutral_rook", "ルーク" },
+        { "neutral_sister", "シスター" },
+        { "neutral_mechaz0rwing", "メカゾール・ウィング" },
+        { "neutral_mechaz0rsword", "メカゾール・ソード" },
+        { "neutral_mechaz0rsuper", "超合体メカゾール" },
+        { "neutral_mechaz0rhelm", "メカゾール・ヘルム" },
+        { "neutral_mechaz0rchassis", "メカゾール・シャーシ" },
+        { "neutral_mechaz0rcannon", "メカゾール・キャノン" },
+        { "neutral_hydrax", "ハイドラックス" },
+        // 雑魚（弱い中立）
+        { "neutral_z0r", "ゾール" },
+        { "neutral_nip", "ニップ" },
+        { "neutral_goldenmantella", "ゴールデンマンテラ" },
+        { "neutral_ion", "イオン" },
+        { "neutral_grincher", "グリンチャー" },
+        { "neutral_aer", "エアー" },
+        { "neutral_soboro", "ソボロ" },
+        // 中ボス用 中立
+        { "neutral_beastmaster", "ビーストマスター" },
+        { "neutral_gnasher", "ナッシャー" },
+        { "neutral_rawr", "ラァー" },
+        { "neutral_rok", "ロック" },
+        { "neutral_silverbeak", "シルバービーク" },
+        { "neutral_zukong", "ズーコン" },
+        // 中ボス用 各陣営の非将
+        { "Silitharelder", "シリザー・エルダー" },
+        { "Makantorwarbeast", "マカンター・ウォービースト" },
+        { "Veteransilithar", "ベテラン・シリザー" },
+        { "Gloomchaser", "グルームチェイサー" },
+        { "Abyssalcrawler", "アビサルクロウラー" },
+        { "Pax", "パクス" },
+        { "Rae", "レイ" },
+        { "Starfirescarab", "スターファイア・スカラベ" },
+        { "Pyromancer", "パイロマンサー" }
     };
 
     private static readonly Dictionary<string, string> ItemNameJa = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase)
@@ -153,7 +220,7 @@ public class LocalizationManager : MonoBehaviour
         canvasObject.transform.SetParent(transform, false);
         canvas = canvasObject.GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 60000;
+        canvas.sortingOrder = 25000; // 16bit short上限(32767)内。
 
         CanvasScaler scaler = canvasObject.GetComponent<CanvasScaler>();
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
@@ -353,7 +420,8 @@ public class LocalizationManager : MonoBehaviour
 
     public static string FormatLevel(int level)
     {
-        return IsJapanese ? $"レベル {level}" : $"Lv {level}";
+        // 経済パネル内でコンパクトに収めるため短縮表記に統一（Lv N）。
+        return $"Lv {level}";
     }
 
     public static string FormatSellValue(int value)
@@ -411,6 +479,20 @@ public class LocalizationManager : MonoBehaviour
                     return "召喚";
                 case SynergyType.Alchemy:
                     return "錬金";
+                case SynergyType.Finality:
+                    return "終焉";
+                case SynergyType.Lyonar:
+                    return "ライオネル";
+                case SynergyType.Songhai:
+                    return "ソンガイ";
+                case SynergyType.Magmar:
+                    return "マグマー";
+                case SynergyType.Vetruvian:
+                    return "ヴェトルヴィアン";
+                case SynergyType.Abyssian:
+                    return "アビサル";
+                case SynergyType.Vanar:
+                    return "ヴァナー";
                 default:
                     return "なし";
             }
@@ -454,6 +536,20 @@ public class LocalizationManager : MonoBehaviour
                 return "Summoner";
             case SynergyType.Alchemy:
                 return "Alchemy";
+            case SynergyType.Finality:
+                return "Finality";
+            case SynergyType.Lyonar:
+                return "Lyonar";
+            case SynergyType.Songhai:
+                return "Songhai";
+            case SynergyType.Magmar:
+                return "Magmar";
+            case SynergyType.Vetruvian:
+                return "Vetruvian";
+            case SynergyType.Abyssian:
+                return "Abyssian";
+            case SynergyType.Vanar:
+                return "Vanar";
             default:
                 return "None";
         }
@@ -478,9 +574,66 @@ public class LocalizationManager : MonoBehaviour
     {
         string cleanName = CleanUnitName(rawName);
         if (!IsJapanese)
+        {
+            // ヒーローは内部IDが Hero* のため、英語表示は接頭辞を外した名前にする。
+            if (cleanName.Equals("HeroAldin", System.StringComparison.OrdinalIgnoreCase)) return "Aldin";
+            if (cleanName.Equals("HeroKagachi", System.StringComparison.OrdinalIgnoreCase)) return "Kagachi";
+            if (cleanName.Equals("HeroVesna", System.StringComparison.OrdinalIgnoreCase)) return "Vesna";
             return cleanName;
+        }
 
         return UnitNameJa.TryGetValue(cleanName, out string localizedName) ? localizedName : cleanName;
+    }
+
+    // R1-collection: 図鑑ボスの短い紹介文（ロア）。JA/EN。未登録は空文字。
+    public static string BossFlavor(string rawName)
+    {
+        string id = CleanUnitName(rawName).ToLowerInvariant();
+        bool ja = IsJapanese;
+        switch (id)
+        {
+            case "snowchasermk":
+                return ja ? "雪原を駆ける斥候の長。極寒の地で群れを率い、狙った獲物を決して逃さない。"
+                          : "A scout-captain of the snowfields who leads the pack and never lets prey escape.";
+            case "solfist":
+                return ja ? "太陽の力を拳に宿す格闘家。陽光のごとき連撃で敵を焼き尽くす。"
+                          : "A martial artist who channels the sun into burning, relentless combos.";
+            case "maehvmk":
+                return ja ? "雷と磁力を操る処刑人。レールを伝う電撃で戦場を切り裂く。"
+                          : "An executioner of lightning and magnetism who rends the field with rail-borne arcs.";
+            case "wujin":
+                return ja ? "炎を統べる老師。ひとたび陣を敷けば、大地そのものが燃え上がる。"
+                          : "An old master of flame whose formations set the very earth ablaze.";
+            case "wraith":
+                return ja ? "墓所をさまよう亡霊。吹雪とともに、静かで冷たい死を運ぶ。"
+                          : "A wraith of the tombs that carries silent, frozen death on the blizzard.";
+            case "legion":
+                return ja ? "無数の死者を従える指揮官。倒れても、その行進が止まることはない。"
+                          : "A commander of countless dead whose march never falters, even in defeat.";
+            case "kron":
+                return ja ? "罪と罰を量る天秤の番人。裁きは万人に等しく下される。"
+                          : "A keeper of the scales who weighs sin and metes judgement equally to all.";
+            case "gol":
+                return ja ? "黒い穴を呼び出す術者。すべてを呑み込む虚無を意のままに操る。"
+                          : "A summoner of black holes who bends all-devouring void to his will.";
+            case "invader":
+                return ja ? "天より降りたつ侵略者。雷光をまとい、戦場へ顕現する。"
+                          : "An invader from the heavens who manifests on the field wreathed in thunder.";
+            case "embergeneral":
+                return ja ? "王国の焔を背負う将軍。号令ひとつで、兵は炎と化す。"
+                          : "A general bearing the kingdom's flame; at his word, soldiers become fire.";
+            case "plaguegeneral":
+                return ja ? "終末を告げる疫病の将。その咆哮は、触れるものすべてに腐敗を撒く。"
+                          : "A plague-general heralding the end, his roar spreading decay to all it touches.";
+            case "skyfalltyrant":
+                return ja ? "空を統べる竜の暴君。熱の暴走によって天地もろとも焦がす。"
+                          : "A dragon tyrant of the skies who scorches heaven and earth in a heat rampage.";
+            case "arcana":
+                return ja ? "終焉を記す禁書の化身。あらゆる魔を統べる、最後にして最強の敵。"
+                          : "The incarnation of a forbidden tome of endings — the final, mightiest foe.";
+            default:
+                return string.Empty;
+        }
     }
 
     public static string CleanUnitName(string rawName)

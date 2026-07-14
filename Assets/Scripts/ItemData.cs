@@ -23,6 +23,8 @@ public class ItemData
     public string description;
     public ItemCategory category;
     public string iconResourcePath;
+    // 取り外し機などの特殊ツール用。装備ではなく専用処理を行う（消費されない）。
+    public bool isRemover;
 
     public int healthFlat;
     public float healthPercent;
@@ -127,6 +129,20 @@ public class ItemData
     private static int GetFrameGroupPriority(string value)
     {
         return IsActiveFrame(value) ? 1 : 0;
+    }
+
+    // アイテム取り外し機（特殊ツール）。装備中の味方に重ねるとアイテムを外してベンチへ戻す。消費されない。
+    public static ItemData Remover()
+    {
+        return new ItemData
+        {
+            id = "tool_item_remover",
+            displayName = "アイテム取り外し機",
+            description = "アイテムを装備した味方ユニットに重ねると、そのユニットのアイテムを外してアイテムベンチへ戻します。何度でも使えます。",
+            category = ItemCategory.Skill,
+            iconResourcePath = "ItemIcons/artifact_f3_repairstaff",
+            isRemover = true
+        };
     }
 
     // HPを増やすアイテムを作るための補助関数です。

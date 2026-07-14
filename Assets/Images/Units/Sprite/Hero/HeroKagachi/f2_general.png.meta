@@ -1,0 +1,2116 @@
+fileFormatVersion: 2
+guid: 22e2e249d69a4474aa90f1d5d2a981dc
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: HeroKagachi_Default_000
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c0b2ea6e84ef0c4c800593a735439bb
+      internalID: -2103075067
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Default_001
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19fa8926608db514498a7d282429b2be
+      internalID: 1911615821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Default_002
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a181a10fc8703e24a8da297bffd26ace
+      internalID: 861196195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Default_003
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1181d1198d57a7e419f2f56d8db32eb6
+      internalID: -256423096
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Default_004
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 12fdb504131f0c24a9d72f9b54920048
+      internalID: -1374427845
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Default_005
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0bf393878522754690466da648225ec
+      internalID: -1008603987
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Default_006
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 70c2d5acc58714f44908d82bbc233eb3
+      internalID: 1246101192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Default_007
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d7c445536692334489ba137156ab611
+      internalID: -1686136147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Default_008
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 98b42408650016442b81d6000a58f228
+      internalID: -1121674927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Default_009
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 443edb1c7d9eecc4ca44859a7d433af3
+      internalID: -1252634056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Default_010
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a8b7aa7fe4972e44a63dd96f43f55a2
+      internalID: -591132079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Default_011
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ebdcc3ae7c0927d4da717913d0184e13
+      internalID: -472592691
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Default_012
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 296
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0593d1c46853d34383d5b81e55e0003
+      internalID: 1777513163
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Default_013
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 86106f8cc44225a4ca962732b9a329f0
+      internalID: 79618595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Move_000
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 296
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7b0595c153122cd4d8d0762d9a97b3a1
+      internalID: 1509722694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Move_001
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b53ba6b600fbb1d4f9db96d93abe3939
+      internalID: 1531414719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Move_002
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4a09e148d0983648b2997a2721b92cf
+      internalID: 752369969
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Move_003
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd2728665ebc3f0489331e089be6668f
+      internalID: -1307169705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Move_004
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ad3f6685f083f34da19ffa565a20665
+      internalID: -1364231417
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Move_005
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7a727e6808657c342b687267970aeb1d
+      internalID: -776527024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Move_006
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8a35e2e037e2d134b939fb0b9d4ebf32
+      internalID: -723362931
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Move_007
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 226323dbf6a792648881095c86c2cd96
+      internalID: 588668653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 58a7761ec50d67049877f7b277ee4319
+      internalID: 937005767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: abfea5d47af0fa84191e38a6aa0174bb
+      internalID: 945575018
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 20880d9b557928d44b4c1aba96cc004e
+      internalID: -1039097054
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0600f9620bac87d499c3e16eef975c51
+      internalID: 1360151435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 888c65aaea75a614ba81bcb088eb03ad
+      internalID: 1195457769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be4ea01fda6bdc04ca9eb30d2f5102bd
+      internalID: 623101964
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 296
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5f016f791a881d41af007cc53b6165a
+      internalID: -1773625934
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77455a510f39e614eb14127b38a79aea
+      internalID: 1559583502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bab3814d4e45abc4289f34ff27e3de14
+      internalID: 276247579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 30449ffcaad4fd742bfb175b85da9855
+      internalID: 620957447
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ceff3e0e4d7f5a41b95fc01be889cd0
+      internalID: -65761397
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bff905b840827d46b9171980dc9855e
+      internalID: -136227033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da3769996e52ce246978f60a06efae96
+      internalID: -1617677423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4bb7c51e655c5346ae420e94b4620dd
+      internalID: -531096346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 366f558f99642cf4fa0f20f5b0e3ab71
+      internalID: -577404770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0b4cad5329ea044ea7c3e32dde8ee88
+      internalID: 258155898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0463abd380fcada46ba2173587ebb14a
+      internalID: -1076875266
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 243
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c0afe95c9f34574c9a510dd96db250f
+      internalID: 772793905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_000
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 49acff0365353444284a763fe6060e2d
+      internalID: 796297062
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_001
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdea63f8eccd4f64a94d8cd151f8969d
+      internalID: 1994191822
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_002
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0282d19b9e44f724eb871c563d0c78ad
+      internalID: -252010148
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_003
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b7de5ac64bab066479edcd30d0e02208
+      internalID: 239010229
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_004
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 296
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5efa2409d6236c44ca60846d15139320
+      internalID: -134630943
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_005
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 243820301fa6c5d46be63a0602ec3dfb
+      internalID: 1312211301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_006
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 80a1ee2691c55814eaa1e9fe0dee6f62
+      internalID: 79885351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_007
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c03cb5049f9d7e4281dd840f65cb536
+      internalID: -671707880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_008
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f2eb1c4dd1bfda74bb7700e620ee7b68
+      internalID: -1941539013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_009
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25f37ab1ce3fcd447a43581cdcc68ffb
+      internalID: 492586712
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_010
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dce7c992000fb2043839bcbf47b63745
+      internalID: -1504998998
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_011
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90402c73f9b9d0944bc78ce4e5948ceb
+      internalID: -1468414848
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_012
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00866d0be3a9dac47805730b7865c8bc
+      internalID: 145481002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_013
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1175dad7f0c2e3943b345f5badfa6200
+      internalID: -1251444833
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_014
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 452f31a3d676d884d8bd7e6b980a1c82
+      internalID: 627209905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_015
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 658941371937ad54ba109f97d585bf7c
+      internalID: 235838165
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_016
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29795910f618dea4390e84abdbe61a8e
+      internalID: -348813161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_017
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48c205532df10474aac11994a9100103
+      internalID: -1219978194
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_018
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 296
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5bd1e50d5c0027545845aebbdbb8c686
+      internalID: 360546768
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_019
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 039e5ede98816fc4eba12c48c83b8390
+      internalID: 827930835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_020
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 15fa621153b70aa478e6d10f0060740c
+      internalID: -468171197
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_021
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f6451bd2ada82049a3d2fe856d9fb70
+      internalID: 485245231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_022
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8df095d4942b0b4a8d58df18ed913bc
+      internalID: -1558086382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_023
+      rect:
+        serializedVersion: 2
+        x: 405
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b55582d7083801849b11e26b80a7aac8
+      internalID: 1451597098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_024
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ecf9b8f854cae074f87a1d0dc482417d
+      internalID: 2002451956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_025
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 883cb8b23a60d36459291f0d416d3fef
+      internalID: 499242246
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_026
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50716fada328b684d8480719d680c3be
+      internalID: 1630886247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_027
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51a0c18169edac44db79d6e0143de060
+      internalID: -80398225
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_028
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 84322a915e45f8e44bc05f74ce515845
+      internalID: 785955413
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_029
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92acfc89fa4d0be44a80786d379ff19c
+      internalID: 581944877
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_030
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9c0f097aed3ae84e918dc3fe38da52c
+      internalID: -1631365968
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_031
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2dda7d569f0bd6844a7d79c1c74f9897
+      internalID: 5549579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_032
+      rect:
+        serializedVersion: 2
+        x: 567
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 474b2a84c3dcf814fbe9479012c3a226
+      internalID: -1206540230
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_033
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 296
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 16ccd81639af4bc4ab838260e8216279
+      internalID: 49565986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_034
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4a84557aae89b3c44889d94918c0f0b5
+      internalID: 233960507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_035
+      rect:
+        serializedVersion: 2
+        x: 486
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96dd31c5eaeba3248bf694eb7cc276a6
+      internalID: -64891364
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Ability_036
+      rect:
+        serializedVersion: 2
+        x: 324
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ba8d4612070f63e4bb8e844685d989e7
+      internalID: -444718448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f062c4dce8978ee4c947acb09ece6163
+      internalID: 863625880
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8df04a47d3ec08f49a33c367a70d1680
+      internalID: 1354357106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 620
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7cb991f12d9085418f2fae6ed29bf7d
+      internalID: -1501864591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 701
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c870d772c6a79a74da942df64bb3f34a
+      internalID: -1822640819
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 782
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b0b2328e5dd7a34ba3261c8298d1589
+      internalID: -1636681141
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 863
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 597cd3bc9360af1408ee5d7201f602f6
+      internalID: -668118536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 162
+        y: 944
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4afa011cea21f7e49adedd7b60d6e763
+      internalID: -1362486823
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 53
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab88fdf5b3f1b4f4bb1e71b114a41034
+      internalID: 1859485559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 134
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc334a58758458340bf6831e798612be
+      internalID: 1521275812
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 215
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fad0bd4bdb0c45445a532199eb038e44
+      internalID: 417452473
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 296
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 203a780ff929afb4cbb6eb1a0e224419
+      internalID: -1769507911
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 377
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32666458d27c9bf459851c714ac35b95
+      internalID: 1122413231
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 458
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5eb5ef5b003714144a5cff9a3733578e
+      internalID: 774714886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroKagachi_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 81
+        y: 539
+        width: 80
+        height: 80
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af29744112f2d0849814a1ed8c1426c5
+      internalID: 1718603438
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      HeroKagachi_Ability_000: 796297062
+      HeroKagachi_Ability_001: 1994191822
+      HeroKagachi_Ability_002: -252010148
+      HeroKagachi_Ability_003: 239010229
+      HeroKagachi_Ability_004: -134630943
+      HeroKagachi_Ability_005: 1312211301
+      HeroKagachi_Ability_006: 79885351
+      HeroKagachi_Ability_007: -671707880
+      HeroKagachi_Ability_008: -1941539013
+      HeroKagachi_Ability_009: 492586712
+      HeroKagachi_Ability_010: -1504998998
+      HeroKagachi_Ability_011: -1468414848
+      HeroKagachi_Ability_012: 145481002
+      HeroKagachi_Ability_013: -1251444833
+      HeroKagachi_Ability_014: 627209905
+      HeroKagachi_Ability_015: 235838165
+      HeroKagachi_Ability_016: -348813161
+      HeroKagachi_Ability_017: -1219978194
+      HeroKagachi_Ability_018: 360546768
+      HeroKagachi_Ability_019: 827930835
+      HeroKagachi_Ability_020: -468171197
+      HeroKagachi_Ability_021: 485245231
+      HeroKagachi_Ability_022: -1558086382
+      HeroKagachi_Ability_023: 1451597098
+      HeroKagachi_Ability_024: 2002451956
+      HeroKagachi_Ability_025: 499242246
+      HeroKagachi_Ability_026: 1630886247
+      HeroKagachi_Ability_027: -80398225
+      HeroKagachi_Ability_028: 785955413
+      HeroKagachi_Ability_029: 581944877
+      HeroKagachi_Ability_030: -1631365968
+      HeroKagachi_Ability_031: 5549579
+      HeroKagachi_Ability_032: -1206540230
+      HeroKagachi_Ability_033: 49565986
+      HeroKagachi_Ability_034: 233960507
+      HeroKagachi_Ability_035: -64891364
+      HeroKagachi_Ability_036: -444718448
+      HeroKagachi_Attack_000: 937005767
+      HeroKagachi_Attack_001: 945575018
+      HeroKagachi_Attack_002: -1039097054
+      HeroKagachi_Attack_003: 1360151435
+      HeroKagachi_Attack_004: 1195457769
+      HeroKagachi_Attack_005: 623101964
+      HeroKagachi_Attack_006: -1773625934
+      HeroKagachi_Attack_007: 1559583502
+      HeroKagachi_Attack_008: 276247579
+      HeroKagachi_Attack_009: 620957447
+      HeroKagachi_Attack_010: -65761397
+      HeroKagachi_Attack_011: -136227033
+      HeroKagachi_Attack_012: -1617677423
+      HeroKagachi_Attack_013: -531096346
+      HeroKagachi_Attack_014: -577404770
+      HeroKagachi_Attack_015: 258155898
+      HeroKagachi_Attack_016: -1076875266
+      HeroKagachi_Attack_017: 772793905
+      HeroKagachi_Dead_000: 863625880
+      HeroKagachi_Dead_001: 1354357106
+      HeroKagachi_Dead_002: -1501864591
+      HeroKagachi_Dead_003: -1822640819
+      HeroKagachi_Dead_004: -1636681141
+      HeroKagachi_Dead_005: -668118536
+      HeroKagachi_Dead_006: -1362486823
+      HeroKagachi_Dead_007: 1859485559
+      HeroKagachi_Dead_008: 1521275812
+      HeroKagachi_Dead_009: 417452473
+      HeroKagachi_Dead_010: -1769507911
+      HeroKagachi_Dead_011: 1122413231
+      HeroKagachi_Dead_012: 774714886
+      HeroKagachi_Dead_013: 1718603438
+      HeroKagachi_Default_000: -2103075067
+      HeroKagachi_Default_001: 1911615821
+      HeroKagachi_Default_002: 861196195
+      HeroKagachi_Default_003: -256423096
+      HeroKagachi_Default_004: -1374427845
+      HeroKagachi_Default_005: -1008603987
+      HeroKagachi_Default_006: 1246101192
+      HeroKagachi_Default_007: -1686136147
+      HeroKagachi_Default_008: -1121674927
+      HeroKagachi_Default_009: -1252634056
+      HeroKagachi_Default_010: -591132079
+      HeroKagachi_Default_011: -472592691
+      HeroKagachi_Default_012: 1777513163
+      HeroKagachi_Default_013: 79618595
+      HeroKagachi_Move_000: 1509722694
+      HeroKagachi_Move_001: 1531414719
+      HeroKagachi_Move_002: 752369969
+      HeroKagachi_Move_003: -1307169705
+      HeroKagachi_Move_004: -1364231417
+      HeroKagachi_Move_005: -776527024
+      HeroKagachi_Move_006: -723362931
+      HeroKagachi_Move_007: 588668653
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

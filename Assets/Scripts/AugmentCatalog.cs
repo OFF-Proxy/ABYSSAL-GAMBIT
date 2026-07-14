@@ -9,7 +9,7 @@ public enum AugmentEffectKind
 {
     Stat,         // 全体・部分のステータス強化
     Synergy,      // シナジーカウント追加（エンブレム的）
-    Economy,      // 収入・利子・コイン
+    Economy,      // 収入・利子・マナ
     Item,         // アイテム入手・アイテム関連
     Combat,       // 戦闘中のproc・on-hit・特殊効果
     Special       // 特殊（コスト解放・復活・タイムストップ等）
@@ -39,7 +39,7 @@ public class AugmentDefinition
     }
 }
 
-// オーグメント一覧。シルバー30種類、ゴールド25種類、プリズム25種類の計80種類です。
+// オーグメント一覧。シルバー30種類、マナ25種類、プリズム25種類の計80種類です。
 // 効果の本実装は次フェーズ。ここではデータカタログのみを提供します。
 public static class AugmentCatalog
 {
@@ -90,15 +90,15 @@ public static class AugmentCatalog
         list.Add(new AugmentDefinition("silver_income_1", AugmentTier.Silver, AugmentEffectKind.Economy,
             "収入アップ I", "Income I",
             "毎ラウンドのクリア収入が +1 されます。",
-            "Gain +1 gold every wave clear."));
+            "Gain +1 mana every wave clear."));
         list.Add(new AugmentDefinition("silver_interest_cap_1", AugmentTier.Silver, AugmentEffectKind.Economy,
             "利子の達人 I", "Interest Cap I",
             "利子の上限が +2 されます。",
             "Increase interest cap by +2."));
         list.Add(new AugmentDefinition("silver_coins_8", AugmentTier.Silver, AugmentEffectKind.Economy,
             "小銭の祝福", "Coin Pouch",
-            "選択時に 8 ゴールドを獲得します。",
-            "Instantly gain 8 gold."));
+            "選択時に 8 マナを獲得します。",
+            "Instantly gain 8 mana."));
         list.Add(new AugmentDefinition("silver_random_item", AugmentTier.Silver, AugmentEffectKind.Item,
             "アイテム発掘", "Item Find",
             "選択時にランダムなアイテムを 1 個入手します。",
@@ -170,7 +170,7 @@ public static class AugmentCatalog
         list.Add(new AugmentDefinition("silver_gold_attack", AugmentTier.Silver, AugmentEffectKind.Combat,
             "資本家の特権", "Capitalist",
             "所持金 10 ごとに 与ダメージ +1%（上限 +10%）。",
-            "+1% damage per 10 gold (cap +10%)."));
+            "+1% damage per 10 mana (cap +10%)."));
         list.Add(new AugmentDefinition("silver_extra_synergy_count", AugmentTier.Silver, AugmentEffectKind.Synergy,
             "連携の証", "Bond Sign",
             "好きなシナジー1種が +1 ユニット分多くカウントされます（戦闘開始時にランダム）。",
@@ -200,9 +200,9 @@ public static class AugmentCatalog
             "ウェーブクリア時のアイテムドロップ率 +10%。",
             "+10% wave clear item drop chance."));
         list.Add(new AugmentDefinition("silver_extra_coin", AugmentTier.Silver, AugmentEffectKind.Economy,
-            "コインの輝き", "Coin Shine",
-            "ウェーブクリア時に追加で +2 ゴールド。",
-            "Wave clear: extra +2 gold."));
+            "マナの輝き", "Coin Shine",
+            "ウェーブクリア時に追加で +2 マナ。",
+            "Wave clear: extra +2 mana."));
         list.Add(new AugmentDefinition("silver_first_attack", AugmentTier.Silver, AugmentEffectKind.Combat,
             "先制の達人", "First Strike",
             "戦闘開始から 3 秒間、味方全体の与ダメージ +15%。",
@@ -214,15 +214,15 @@ public static class AugmentCatalog
         list.Add(new AugmentDefinition("gold_income_2", AugmentTier.Gold, AugmentEffectKind.Economy,
             "収入アップ II", "Income II",
             "毎ラウンドのクリア収入が +2 されます。",
-            "Gain +2 gold every wave clear."));
+            "Gain +2 mana every wave clear."));
         list.Add(new AugmentDefinition("gold_interest_cap_2", AugmentTier.Gold, AugmentEffectKind.Economy,
             "利子の達人 II", "Interest Cap II",
             "利子の上限が +3 されます。",
             "Increase interest cap by +3."));
         list.Add(new AugmentDefinition("gold_coins_20", AugmentTier.Gold, AugmentEffectKind.Economy,
             "金鉱発見", "Goldmine",
-            "選択時に 20 ゴールドを獲得します。",
-            "Instantly gain 20 gold."));
+            "選択時に 20 マナを獲得します。",
+            "Instantly gain 20 mana."));
         list.Add(new AugmentDefinition("gold_random_items_2", AugmentTier.Gold, AugmentEffectKind.Item,
             "アイテム工房", "Item Workshop",
             "選択時にランダムなアイテムを 2 個入手します。",
@@ -293,8 +293,8 @@ public static class AugmentCatalog
             "After each reroll, at least 1 card is cost 3+."));
         list.Add(new AugmentDefinition("gold_better_interest", AugmentTier.Gold, AugmentEffectKind.Economy,
             "金庫の番人", "Vault Keeper",
-            "利子計算が 8 ゴールドごとになります。",
-            "Interest is granted per 8 gold instead of 10."));
+            "利子計算が 8 マナごとになります。",
+            "Interest is granted per 8 mana instead of 10."));
         list.Add(new AugmentDefinition("gold_exp_2", AugmentTier.Gold, AugmentEffectKind.Economy,
             "エクスペリエンス", "Experience",
             "ウェーブクリア時のEXP獲得 +2。",
@@ -318,15 +318,15 @@ public static class AugmentCatalog
         list.Add(new AugmentDefinition("prism_income_5", AugmentTier.Prism, AugmentEffectKind.Economy,
             "収入の女神", "Goddess of Wealth",
             "毎ラウンドのクリア収入が +5 されます。",
-            "Gain +5 gold every wave clear."));
+            "Gain +5 mana every wave clear."));
         list.Add(new AugmentDefinition("prism_interest_godly", AugmentTier.Prism, AugmentEffectKind.Economy,
             "無限利子", "Infinite Interest",
-            "利子の上限 +5、かつ利子は 5 ゴールドごとに計算されます。",
-            "Interest cap +5, and interest is granted per 5 gold."));
+            "利子の上限 +5、かつ利子は 5 マナごとに計算されます。",
+            "Interest cap +5, and interest is granted per 5 mana."));
         list.Add(new AugmentDefinition("prism_coins_50", AugmentTier.Prism, AugmentEffectKind.Economy,
             "黄金時代", "Golden Age",
-            "選択時に 50 ゴールドを獲得します。",
-            "Instantly gain 50 gold."));
+            "選択時に 50 マナを獲得します。",
+            "Instantly gain 50 mana."));
         list.Add(new AugmentDefinition("prism_items_3", AugmentTier.Prism, AugmentEffectKind.Item,
             "アーティファクトの庇護", "Artifact Protection",
             "選択時にランダムなアイテムを 3 個入手します。",

@@ -53,6 +53,7 @@ public class GridManager : Manager<GridManager>
 
     // Nodeが盤面の何列目かをキャッシュします。手動配置できる列の判定に使います。
     Dictionary<Node, int> columnByNode = new Dictionary<Node, int>();
+    Dictionary<Node, int> rowByNode = new Dictionary<Node, int>();
 
     // すでに色設定を済ませたベンチタイルを覚えて、同じ処理を何度も走らせないようにします。
     HashSet<Tile> configuredBenchTiles = new HashSet<Tile>();
@@ -76,6 +77,10 @@ public class GridManager : Manager<GridManager>
             return;
         }
 
+        // ③④ 章ごとの盤面形状: グラフ構築の前に、章に応じて四隅タイルを非活性化する（丸/角丸）。
+        // 非活性タイルは下の GetComponentsInChildren<Tile>()(非アクティブ除外)に入らず、グラフ・配置・パスから自然に外れる。
+        ApplyChapterBoardShape();
+
         // terrainGrid配下のTileコンポーネントを盤面として扱います。
         allTiles = terrainGrid.GetComponentsInChildren<Tile>().ToList();
 
@@ -90,6 +95,57 @@ public class GridManager : Manager<GridManager>
         startPositionPerTeam = new Dictionary<Team, int>();
         startPositionPerTeam.Add(Team.Team1, 0);
         startPositionPerTeam.Add(Team.Team2, graph.Nodes.Count -1);
+    }
+
+    // ③④ 章ごとの盤面形状: 章テーマに応じて四隅を斜めに削り、丸/角丸の輪郭にする。
+    // 非活性化されたタイルはグラフ・配置・パスから外れる。敵スポーンは列内フォールバックで吸収される。
+    private void ApplyChapterBoardShape()
+    {
+        int chapter = GameManager.PendingStartChapter > 0 ? GameManager.PendingStartChapter : 1;
+        int cut = ChapterBackground.GetBoardCornerCut(chapter);
+
+        // 非アクティブも含め全タイルを取得し、まず全部アクティブへ戻す（シーン再利用・前章のマスク解除）。
+        Tile[] all = terrainGrid.GetComponentsInChildren<Tile>(true);
+        foreach (Tile t in all)
+            if (!t.gameObject.activeSelf) t.gameObject.SetActive(true);
+        if (cut <= 0) return;
+
+        // 盤面の列(x)・行(y)の代表値を集めて格子インデックスを作る。
+        List<float> colX = new List<float>();
+        List<float> rowY = new List<float>();
+        foreach (Tile t in all)
+        {
+            Vector3 p = t.transform.position;
+            if (!colX.Exists(v => Mathf.Abs(v - p.x) < 0.2f)) colX.Add(p.x);
+            if (!rowY.Exists(v => Mathf.Abs(v - p.y) < 0.2f)) rowY.Add(p.y);
+        }
+        colX.Sort();
+        rowY.Sort();
+        int nc = colX.Count, nr = rowY.Count;
+        if (nc < 3 || nr < 3) return; // 小さすぎる盤面は削らない。
+
+        // 各タイルの端からの距離（列・行）を合算し、cut 未満なら四隅の三角として非活性化。
+        foreach (Tile t in all)
+        {
+            Vector3 p = t.transform.position;
+            int ci = NearestIndex(colX, p.x);
+            int ri = NearestIndex(rowY, p.y);
+            int cornerDist = Mathf.Min(ci, nc - 1 - ci) + Mathf.Min(ri, nr - 1 - ri);
+            if (cornerDist < cut)
+                t.gameObject.SetActive(false);
+        }
+    }
+
+    // ソート済みリストの中で value に最も近い要素のインデックスを返す。
+    private static int NearestIndex(List<float> sorted, float value)
+    {
+        int best = 0; float bestD = float.MaxValue;
+        for (int i = 0; i < sorted.Count; i++)
+        {
+            float d = Mathf.Abs(sorted[i] - value);
+            if (d < bestD) { bestD = d; best = i; }
+        }
+        return best;
     }
 
     // 指定チームが使える、まだ誰もいないNodeを1つ返します。
@@ -163,16 +219,19 @@ public class GridManager : Manager<GridManager>
         return graph.Neighbors(to);
     }
 
-    // 指定Nodeを中心に、rangeInTilesマス分の円形範囲内にあるNodeを返します。
+    // 指定Nodeを中心に、rangeInTilesマス分の範囲内にあるNodeを返します。
+    // 距離はグリッド距離（チェビシェフ=max(|dx|,|dy|)）。移動グラフの隣接定義(縦横斜め1マス)と一致させ、
+    // メレー(range1)の攻撃足場に斜め隣接マスも含める（直交マスだけだと斜めで詰まって周回する）。
     public List<Node> GetNodesInRange(Node center, float rangeInTiles)
     {
         if (center == null || graph == null)
             return new List<Node>();
 
-        // 少し余裕を足して、ちょうど境界線上のマスが取りこぼされにくいようにします。
         float range = Mathf.Max(0f, rangeInTiles) + 0.05f;
         return graph.Nodes
-            .Where(node => node != null && Vector3.Distance(node.worldPosition, center.worldPosition) <= range)
+            .Where(node => node != null
+                && Mathf.Max(Mathf.Abs(node.worldPosition.x - center.worldPosition.x),
+                             Mathf.Abs(node.worldPosition.y - center.worldPosition.y)) <= range)
             .ToList();
     }
 
@@ -350,6 +409,7 @@ public class GridManager : Manager<GridManager>
     private void InitializeNodeColumns()
     {
         columnByNode.Clear();
+        rowByNode.Clear();
 
         // x座標が近いNodeを同じ列としてまとめます。
         List<float> columns = new List<float>();
@@ -359,8 +419,28 @@ public class GridManager : Manager<GridManager>
                 columns.Add(node.worldPosition.x);
         }
 
+        // y座標が近いNodeを同じ行としてまとめます（フォーメーション判定の取り違え防止）。
+        List<float> rows = new List<float>();
+        foreach (Node node in graph.Nodes.OrderBy(node => node.worldPosition.y))
+        {
+            if (!rows.Any(y => Mathf.Abs(y - node.worldPosition.y) <= 0.05f))
+                rows.Add(node.worldPosition.y);
+        }
+
         for (int i = 0; i < graph.Nodes.Count; i++)
+        {
             columnByNode[graph.Nodes[i]] = GetClosestColumn(columns, graph.Nodes[i].worldPosition.x);
+            rowByNode[graph.Nodes[i]] = GetClosestColumn(rows, graph.Nodes[i].worldPosition.y);
+        }
+    }
+
+    // フォーメーション判定などで使う、安定した盤面の列/行インデックス（x/yの丸めではなくクラスタ）。
+    public int GetBoardColumn(Node node) => GetColumnIndex(node);
+    public int GetBoardRow(Node node)
+    {
+        if (node != null && rowByNode.TryGetValue(node, out int row))
+            return row;
+        return -1;
     }
 
     // 盤面タイルに通常色、配置不可色、ホバー色を設定します。
@@ -372,7 +452,17 @@ public class GridManager : Manager<GridManager>
         {
             Node node = GetNodeForTile(allTiles[i]);
             bool canPlaceTeam1 = IsDeploymentNode(Team.Team1, node);
-            Color baseColor = canPlaceTeam1 ? playerTileColor : blockedPlacementTileColor;
+            // Duelyst風に落ち着かせる：味方タイルは半透明の白、敵陣は薄いピンクの半透明ハイライトに。
+            Color baseColor;
+            if (canPlaceTeam1)
+            {
+                baseColor = playerTileColor;
+                baseColor.a *= 0.5f;
+            }
+            else
+            {
+                baseColor = new Color(1f, 0.80f, 0.82f, blockedPlacementTileColor.a * 0.38f);
+            }
             allTiles[i].Configure(hoverSprite, baseColor, validHoverColor, invalidHoverColor);
         }
     }

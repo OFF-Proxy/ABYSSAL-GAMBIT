@@ -27,6 +27,18 @@ public class SynergyManager : MonoBehaviour
     private Coroutine infernoRainCoroutine;
     private BaseEntity royalKing;
 
+    // 戦闘開始時のシナジー編成スナップショット。死亡してもシナジーが減らないように、
+    // 戦闘中の CountSynergiesForTeam は盤面実態ではなくこの記録から数えます。
+    // 編成中（戦闘外）は従来どおりリアルタイムに盤面から集計します。
+    private struct CombatSynergyEntry
+    {
+        public string UnitKey;            // LocalizationManager.CleanUnitName 後の id（同名重複の除外キー）
+        public List<SynergyType> Synergies;
+    }
+    private bool combatSynergySnapshotActive;
+    private readonly List<CombatSynergyEntry> team1CombatSnapshot = new List<CombatSynergyEntry>();
+    private readonly List<CombatSynergyEntry> team2CombatSnapshot = new List<CombatSynergyEntry>();
+
     private static readonly SynergyType[] CountedSynergies =
     {
         SynergyType.Warrior,
@@ -46,7 +58,15 @@ public class SynergyManager : MonoBehaviour
         SynergyType.Frenzy,
         SynergyType.Royal,
         SynergyType.Summoner,
-        SynergyType.Alchemy
+        SynergyType.Alchemy,
+        SynergyType.Finality,
+        // 陣営シナジー（実ユニットに割当済み）。辞書キー漏れによる KeyNotFoundException を防ぐため必ず含める。
+        SynergyType.Lyonar,
+        SynergyType.Songhai,
+        SynergyType.Magmar,
+        SynergyType.Vetruvian,
+        SynergyType.Abyssian,
+        SynergyType.Vanar
     };
 
     public static IReadOnlyList<SynergyType> OrderedSynergyTypes => CountedSynergies;
@@ -165,18 +185,23 @@ public class SynergyManager : MonoBehaviour
     public int GetSynergyCount(SynergyType type)
     {
         int count = synergyCounts.TryGetValue(type, out int c) ? c : 0;
-        // オーグメント由来のエンブレム加算（プレイヤーチーム表示用のシナジーカウントにのみ反映）。
-        if (GameManager.Instance != null)
-        {
-            if (type == SynergyType.Warrior) count += GameManager.Instance.AugmentSynergyBonusWarrior;
-            else if (type == SynergyType.Ranger) count += GameManager.Instance.AugmentSynergyBonusRanger;
-            else if (type == SynergyType.Arcanist) count += GameManager.Instance.AugmentSynergyBonusArcanist;
-            // 戦闘中限定のランダムシナジー +1（silver_extra_synergy_count / gold_duplicate_synergy）。
-            int rnd;
-            if (GameManager.Instance.AdditionalSynergyBonusThisCombat.TryGetValue(type, out rnd))
-                count += rnd;
-        }
-        return count;
+        return count + PlayerSynergyAugmentBonus(type);
+    }
+
+    // プレイヤーチームのシナジーカウントへ加算されるオーグメント由来のボーナス。
+    // エンブレム（戦士/狙撃/秘術の真髄など）＋戦闘中限定のランダム+1（silver_extra_synergy_count / gold_duplicate_synergy）。
+    // 表示用カウント(GetSynergyCount)と発動段階の計算(CountSynergiesForTeam)で“同じ値”を使うために共通化する。
+    // ※以前は発動段階が生カウントのみで計算され、オーグメントで表示が増えても効果が発動しない不具合があった。
+    private int PlayerSynergyAugmentBonus(SynergyType type)
+    {
+        if (GameManager.Instance == null) return 0;
+        int bonus = 0;
+        if (type == SynergyType.Warrior) bonus += GameManager.Instance.AugmentSynergyBonusWarrior;
+        else if (type == SynergyType.Ranger) bonus += GameManager.Instance.AugmentSynergyBonusRanger;
+        else if (type == SynergyType.Arcanist) bonus += GameManager.Instance.AugmentSynergyBonusArcanist;
+        if (GameManager.Instance.AdditionalSynergyBonusThisCombat.TryGetValue(type, out int rnd))
+            bonus += rnd;
+        return bonus;
     }
 
     public int GetSynergyCountForTeam(SynergyType type, Team team)
@@ -223,6 +248,11 @@ public class SynergyManager : MonoBehaviour
         divineTeamRescueUsedThisBattle = false;
         frenzyRampageUsedThisBattle = false;
         summonerLargeSummonUsedThisBattle = false;
+
+        // D-2: 戦闘開始時の編成をスナップショットし、戦闘中の死亡でカウントが落ちないように固定します。
+        // ClearBattleSynergyState() より後ろで取らないと、戦闘間の繰越状態と紛れる可能性があるためここで実施します。
+        BeginCombatSynergySnapshot();
+        RecalculateSynergies();
 
         if (GameManager.Instance == null)
             return;
@@ -275,6 +305,77 @@ public class SynergyManager : MonoBehaviour
 
             if (applyPlayerOnlyBattleSynergies && ally.HasSynergy(SynergyType.Royal) && IsSynergyActive(SynergyType.Royal, 1))
                 ApplyRoyalKingIfNeeded(allies);
+
+            // === 陣営シナジー（発動段階 1/3/5/7/10。加算式で段階的に強化、10は決定打） ===
+            // 各陣営：主人公が同陣営なら効果を hs 倍に増幅（FactionHeroScale, Team1のみ）。
+            // Lyonar＝守護の聖光：被ダメ減＋シールド。
+            if (ally.HasSynergy(SynergyType.Lyonar))
+            {
+                float hs = FactionHeroScale(SynergyType.Lyonar, team);
+                if (IsSynergyActiveForTeam(SynergyType.Lyonar, team, 1)) ally.AddSynergyDamageReductionBonus(0.08f * hs);
+                if (IsSynergyActiveForTeam(SynergyType.Lyonar, team, 3)) { ally.AddSynergyDamageReductionBonus(0.08f * hs); ally.ApplyShieldFromSynergy(Mathf.Max(1, Mathf.RoundToInt(ally.MaxHealth * 0.08f * hs)), 600f); }
+                if (IsSynergyActiveForTeam(SynergyType.Lyonar, team, 5)) { ally.AddSynergyDamageReductionBonus(0.08f * hs); ally.ApplyShieldFromSynergy(Mathf.Max(1, Mathf.RoundToInt(ally.MaxHealth * 0.12f * hs)), 600f); }
+                if (IsSynergyActiveForTeam(SynergyType.Lyonar, team, 7)) { ally.AddSynergyDamageReductionBonus(0.10f * hs); ally.ApplyShieldFromSynergy(Mathf.Max(1, Mathf.RoundToInt(ally.MaxHealth * 0.2f * hs)), 600f); }
+            }
+            // Songhai＝影の速攻：攻撃速度特化。
+            if (ally.HasSynergy(SynergyType.Songhai))
+            {
+                float hs = FactionHeroScale(SynergyType.Songhai, team);
+                if (IsSynergyActiveForTeam(SynergyType.Songhai, team, 1)) ally.AddSynergyAttackSpeedBonus(0.10f * hs);
+                if (IsSynergyActiveForTeam(SynergyType.Songhai, team, 3)) ally.AddSynergyAttackSpeedBonus(0.14f * hs);
+                if (IsSynergyActiveForTeam(SynergyType.Songhai, team, 5)) { ally.AddSynergyAttackSpeedBonus(0.16f * hs); ally.synergyDamageDealtBonus += 0.15f * hs; }
+                if (IsSynergyActiveForTeam(SynergyType.Songhai, team, 7)) { ally.AddSynergyAttackSpeedBonus(0.25f * hs); ally.synergyDamageDealtBonus += 0.25f * hs; }
+            }
+            // Magmar＝原始の猛攻：与ダメ特化。
+            if (ally.HasSynergy(SynergyType.Magmar))
+            {
+                float hs = FactionHeroScale(SynergyType.Magmar, team);
+                if (IsSynergyActiveForTeam(SynergyType.Magmar, team, 1)) ally.synergyDamageDealtBonus += 0.12f * hs;
+                if (IsSynergyActiveForTeam(SynergyType.Magmar, team, 3)) ally.synergyDamageDealtBonus += 0.14f * hs;
+                if (IsSynergyActiveForTeam(SynergyType.Magmar, team, 5)) { ally.synergyDamageDealtBonus += 0.18f * hs; ally.AddSynergyAttackSpeedBonus(0.12f * hs); }
+                if (IsSynergyActiveForTeam(SynergyType.Magmar, team, 7)) { ally.synergyDamageDealtBonus += 0.3f * hs; ally.AddSynergyAttackSpeedBonus(0.15f * hs); }
+            }
+            // Vetruvian＝機巧と太陽：スキル威力＋マナ。
+            if (ally.HasSynergy(SynergyType.Vetruvian))
+            {
+                float hs = FactionHeroScale(SynergyType.Vetruvian, team);
+                if (IsSynergyActiveForTeam(SynergyType.Vetruvian, team, 1)) ally.AddSynergyPowerBonus(0.15f * hs);
+                if (IsSynergyActiveForTeam(SynergyType.Vetruvian, team, 3)) { ally.AddSynergyPowerBonus(0.15f * hs); ally.GainManaFromSynergy(Mathf.RoundToInt(30 * hs)); }
+                if (IsSynergyActiveForTeam(SynergyType.Vetruvian, team, 5)) { ally.AddSynergyPowerBonus(0.2f * hs); ally.GainManaFromSynergy(Mathf.RoundToInt(30 * hs)); }
+                if (IsSynergyActiveForTeam(SynergyType.Vetruvian, team, 7)) { ally.AddSynergyPowerBonus(0.35f * hs); ally.GainManaFromSynergy(Mathf.RoundToInt(50 * hs)); }
+            }
+            // Abyssian＝死闘：与ダメ＋被ダメ減。
+            if (ally.HasSynergy(SynergyType.Abyssian))
+            {
+                float hs = FactionHeroScale(SynergyType.Abyssian, team);
+                if (IsSynergyActiveForTeam(SynergyType.Abyssian, team, 1)) ally.synergyDamageDealtBonus += 0.12f * hs;
+                if (IsSynergyActiveForTeam(SynergyType.Abyssian, team, 3)) { ally.synergyDamageDealtBonus += 0.1f * hs; ally.AddSynergyDamageReductionBonus(0.06f * hs); }
+                if (IsSynergyActiveForTeam(SynergyType.Abyssian, team, 5)) { ally.synergyDamageDealtBonus += 0.14f * hs; ally.AddSynergyDamageReductionBonus(0.08f * hs); }
+                if (IsSynergyActiveForTeam(SynergyType.Abyssian, team, 7)) { ally.synergyDamageDealtBonus += 0.24f * hs; ally.AddSynergyDamageReductionBonus(0.12f * hs); }
+            }
+            // Vanar＝氷の堅守：被ダメ減＋スキル威力。
+            if (ally.HasSynergy(SynergyType.Vanar))
+            {
+                float hs = FactionHeroScale(SynergyType.Vanar, team);
+                if (IsSynergyActiveForTeam(SynergyType.Vanar, team, 1)) ally.AddSynergyDamageReductionBonus(0.10f * hs);
+                if (IsSynergyActiveForTeam(SynergyType.Vanar, team, 3)) { ally.AddSynergyDamageReductionBonus(0.08f * hs); ally.AddSynergyPowerBonus(0.15f * hs); }
+                if (IsSynergyActiveForTeam(SynergyType.Vanar, team, 5)) { ally.AddSynergyDamageReductionBonus(0.1f * hs); ally.AddSynergyPowerBonus(0.2f * hs); }
+                if (IsSynergyActiveForTeam(SynergyType.Vanar, team, 7)) { ally.AddSynergyDamageReductionBonus(0.12f * hs); ally.AddSynergyPowerBonus(0.3f * hs); }
+            }
+            // 全陣営共通：発動段階10＝決定打。全能力を爆発的に強化（ほぼ確定クリア）。
+            // 敵が10到達で理不尽にならないよう、この超強化はプレイヤー側のみ。
+            foreach (SynergyType ft in applyPlayerOnlyBattleSynergies ? new[] { SynergyType.Lyonar, SynergyType.Songhai, SynergyType.Magmar, SynergyType.Vetruvian, SynergyType.Abyssian, SynergyType.Vanar } : System.Array.Empty<SynergyType>())
+            {
+                if (ally.HasSynergy(ft) && IsSynergyActiveForTeam(ft, team, 10))
+                {
+                    ally.synergyDamageDealtBonus += 2.0f;          // 与ダメ+200%
+                    ally.AddSynergyDamageReductionBonus(0.5f);     // 被ダメ-50%
+                    ally.AddSynergyAttackSpeedBonus(1.0f);         // 攻撃速度+100%
+                    ally.AddSynergyPowerBonus(1.0f);               // スキル威力+100%
+                    ally.ApplyShieldFromSynergy(Mathf.Max(1, Mathf.RoundToInt(ally.MaxHealth * 1.0f)), 600f); // 最大HP相当シールド
+                    break; // 複数陣営10でも1回ぶんで十分強力。
+                }
+            }
         }
 
         if (IsSynergyActiveForTeam(SynergyType.Guardian, team, 2))
@@ -308,6 +409,9 @@ public class SynergyManager : MonoBehaviour
         }
 
         ClearActiveSummons();
+        // D-2: 戦闘間に持ち越さないようにシナジースナップショットも解除します。
+        // 戦闘外（編成）では従来どおり盤面実態からのリアルタイム集計に戻ります。
+        EndCombatSynergySnapshot();
         BaseEntity[] entities = FindObjectsOfType<BaseEntity>(true);
         for (int i = 0; i < entities.Length; i++)
         {
@@ -917,6 +1021,8 @@ public class SynergyManager : MonoBehaviour
     }
 
     // 指定チームの盤面ユニットだけを、同名重複なしでシナジーカウントします。
+    // 戦闘中（combatSynergySnapshotActive）は、戦闘開始時に取った編成スナップショットを使い、
+    // 死亡しても数が減らないようにします。戦闘外は従来どおり盤面からリアルタイムに数えます。
     private void CountSynergiesForTeam(Team team, Dictionary<SynergyType, int> counts, Dictionary<SynergyType, int> tiers)
     {
         if (counts == null || tiers == null || GameManager.Instance == null)
@@ -925,6 +1031,80 @@ public class SynergyManager : MonoBehaviour
         // prism_all_synergy: プレイヤーチームのみ、各ユニットの所持シナジーに +1 重ね掛けします。
         bool perUnitDouble = team == Team.Team1 && GameManager.Instance.HasAugment("prism_all_synergy");
 
+        if (combatSynergySnapshotActive)
+        {
+            List<CombatSynergyEntry> snapshot = team == Team.Team1 ? team1CombatSnapshot : team2CombatSnapshot;
+            for (int i = 0; i < snapshot.Count; i++)
+            {
+                List<SynergyType> unitSynergies = snapshot[i].Synergies;
+                if (unitSynergies == null)
+                    continue;
+                for (int synergyIndex = 0; synergyIndex < unitSynergies.Count; synergyIndex++)
+                {
+                    SynergyType type = unitSynergies[synergyIndex];
+                    if (type == SynergyType.None)
+                        continue;
+                    counts[type] += perUnitDouble ? 2 : 1;
+                }
+            }
+        }
+        else
+        {
+            HashSet<string> countedUnitIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+            List<BaseEntity> boardUnits = GameManager.Instance.GetBoardEntitiesForSynergy(team);
+            for (int i = 0; i < boardUnits.Count; i++)
+            {
+                BaseEntity entity = boardUnits[i];
+                if (entity == null || entity.Team != team || !entity.IsOnBoard || entity.IsDead || entity.IsSummonedUnit)
+                    continue;
+
+                string unitKey = LocalizationManager.CleanUnitName(entity.UnitId);
+                if (!countedUnitIds.Add(unitKey))
+                    continue;
+
+                List<SynergyType> unitSynergies = entity.GetSynergyTypes();
+                for (int synergyIndex = 0; synergyIndex < unitSynergies.Count; synergyIndex++)
+                {
+                    SynergyType type = unitSynergies[synergyIndex];
+                    if (type == SynergyType.None)
+                        continue;
+
+                    counts[type] += perUnitDouble ? 2 : 1;
+                }
+            }
+        }
+
+        for (int i = 0; i < CountedSynergies.Length; i++)
+        {
+            SynergyType type = CountedSynergies[i];
+            // プレイヤーチームは、表示カウント(GetSynergyCount)と同じくオーグメント加算込みで発動段階を決める
+            //（エンブレム＋戦闘中ランダム+1）。これで「表示は4なのに効果が未発動」を解消。
+            int effective = counts[type] + (team == Team.Team1 ? PlayerSynergyAugmentBonus(type) : 0);
+            // R3-factions: 陣営シナジーの「1体目(1〜2体)」は主人公が同陣営の時だけ発動させる。
+            // 主人公が同陣営でないなら 1〜2体を 0 扱いにし、3体から（=従来の3段階目から）発動する。Team1のみ。
+            if (team == Team.Team1 && IsFactionSynergy(type) && effective > 0 && effective <= 2
+                && (GameManager.Instance == null || !GameManager.Instance.ActiveHeroHasSynergy(type)))
+                effective = 0;
+            tiers[type] = ResolveTier(type, effective);
+        }
+    }
+
+    // 戦闘開始直前に、両チームの盤面ユニットからシナジー編成をスナップショットして固定します。
+    // 召喚体・死亡ユニットは対象外（戦闘前の盤面状態のみ）。同名重複は除外。
+    private void BeginCombatSynergySnapshot()
+    {
+        team1CombatSnapshot.Clear();
+        team2CombatSnapshot.Clear();
+        if (GameManager.Instance != null)
+        {
+            SnapshotTeamInto(Team.Team1, team1CombatSnapshot);
+            SnapshotTeamInto(Team.Team2, team2CombatSnapshot);
+        }
+        combatSynergySnapshotActive = true;
+    }
+
+    private void SnapshotTeamInto(Team team, List<CombatSynergyEntry> dest)
+    {
         HashSet<string> countedUnitIds = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
         List<BaseEntity> boardUnits = GameManager.Instance.GetBoardEntitiesForSynergy(team);
         for (int i = 0; i < boardUnits.Count; i++)
@@ -937,26 +1117,50 @@ public class SynergyManager : MonoBehaviour
             if (!countedUnitIds.Add(unitKey))
                 continue;
 
-            List<SynergyType> unitSynergies = entity.GetSynergyTypes();
-            for (int synergyIndex = 0; synergyIndex < unitSynergies.Count; synergyIndex++)
+            // GetSynergyTypes() を毎フレーム呼ぶ実装でも、スナップショット時点のコピーを保持します。
+            dest.Add(new CombatSynergyEntry
             {
-                SynergyType type = unitSynergies[synergyIndex];
-                if (type == SynergyType.None)
-                    continue;
-
-                counts[type] += perUnitDouble ? 2 : 1;
-            }
+                UnitKey = unitKey,
+                Synergies = new List<SynergyType>(entity.GetSynergyTypes())
+            });
         }
+    }
 
-        for (int i = 0; i < CountedSynergies.Length; i++)
-        {
-            SynergyType type = CountedSynergies[i];
-            tiers[type] = ResolveTier(type, counts[type]);
-        }
+    private void EndCombatSynergySnapshot()
+    {
+        combatSynergySnapshotActive = false;
+        team1CombatSnapshot.Clear();
+        team2CombatSnapshot.Clear();
+    }
+
+    // 陣営シナジーか（発動段階 1/3/5/7/10 の特別カーブ）。
+    public static bool IsFactionSynergy(SynergyType type)
+    {
+        return type == SynergyType.Lyonar || type == SynergyType.Songhai || type == SynergyType.Magmar
+            || type == SynergyType.Vetruvian || type == SynergyType.Abyssian || type == SynergyType.Vanar;
+    }
+
+    // R3-factions: 主人公が同陣営の時、その陣営シナジー効果を強化する倍率。Team1のみ。
+    public const float FactionHeroBonusScale = 1.5f;
+    private float FactionHeroScale(SynergyType type, Team team)
+    {
+        return (team == Team.Team1 && GameManager.Instance != null && GameManager.Instance.ActiveHeroHasSynergy(type))
+            ? FactionHeroBonusScale : 1f;
     }
 
     private int ResolveTier(SynergyType type, int count)
     {
+        // 陣営シナジーは 1/3/5/7/10 で段階発動。10は決定打。
+        if (IsFactionSynergy(type))
+        {
+            if (count >= 10) return 10;
+            if (count >= 7) return 7;
+            if (count >= 5) return 5;
+            if (count >= 3) return 3;
+            if (count >= 1) return 1;
+            return 0;
+        }
+
         if (type == SynergyType.Apex)
         {
             if (count >= 3)
@@ -982,6 +1186,10 @@ public class SynergyManager : MonoBehaviour
         if (type == SynergyType.Shadow)
             return count >= 4 ? 4 : count >= 2 ? 2 : 0;
 
+        // 終焉はアルカナ専用。1体で常時発動。
+        if (type == SynergyType.Finality)
+            return count >= 1 ? 1 : 0;
+
         if (count >= 6)
             return 6;
         if (count >= 4)
@@ -993,6 +1201,16 @@ public class SynergyManager : MonoBehaviour
 
     private int GetNextRequiredCount(SynergyType type, int tier)
     {
+        if (IsFactionSynergy(type))
+        {
+            if (tier >= 10) return 10;
+            if (tier >= 7) return 10;
+            if (tier >= 5) return 7;
+            if (tier >= 3) return 5;
+            if (tier >= 1) return 3;
+            return 1;
+        }
+
         if (type == SynergyType.Apex)
         {
             if (tier >= 3)
@@ -1017,6 +1235,10 @@ public class SynergyManager : MonoBehaviour
 
         if (type == SynergyType.Shadow)
             return tier >= 4 ? 4 : tier >= 2 ? 4 : 2;
+
+        // 終焉は1体で発動済み。次の閾値も1のまま（実質1/1表示）。
+        if (type == SynergyType.Finality)
+            return 1;
 
         if (tier >= 6)
             return 6;
@@ -1052,6 +1274,12 @@ public class SynergyManager : MonoBehaviour
             if (tier >= 4)
                 active.Add(GetTierSummary(type, 4));
         }
+        else if (IsFactionSynergy(type))
+        {
+            int[] th = { 1, 3, 5, 7, 10 };
+            for (int i = 0; i < th.Length; i++)
+                if (tier >= th[i]) active.Add(GetTierSummary(type, th[i]));
+        }
         else
         {
             if (tier >= 2)
@@ -1062,7 +1290,12 @@ public class SynergyManager : MonoBehaviour
                 active.Add(GetTierSummary(type, 6));
         }
 
-        return ja ? $"発動中: {string.Join(" / ", active)}" : $"Active: {string.Join(" / ", active)}";
+        string body = ja ? $"発動中: {string.Join(" / ", active)}" : $"Active: {string.Join(" / ", active)}";
+        if (IsFactionSynergy(type))
+            body += ja
+                ? "\n※1体目は主人公が同陣営の時のみ発動（3体以上は不問）。主人公が同陣営なら効果+50%。"
+                : "\n* 1st tier needs a same-faction hero (3+ always works). Same-faction hero: +50% effect.";
+        return body;
     }
 
     private string GetTierSummary(SynergyType type, int requiredCount)
@@ -1141,6 +1374,45 @@ public class SynergyManager : MonoBehaviour
                 if (requiredCount == 2) return ja ? "Wave報酬コイン" : "Wave coin chance";
                 if (requiredCount == 4) return ja ? "Wave報酬アイテム抽選" : "Wave item chance";
                 return ja ? "ボス後追加アイテム" : "Boss reward item";
+            case SynergyType.Finality:
+                return ja ? "BloodMage1体ごとにスキル+15%＆マナ回収増" : "+15% skill power & mana per BloodMage";
+            // 陣営シナジー（発動段階 1/3/5/7/10。10は決定打）。
+            case SynergyType.Lyonar: // 守護の聖光（被ダメ減＋シールド）
+                if (requiredCount == 1) return ja ? "被ダメ-8%（主人公が同陣営のみ）" : "DR -8% (faction hero only)";
+                if (requiredCount == 3) return ja ? "被ダメ-16%＋開幕シールド" : "DR -16% + shield";
+                if (requiredCount == 5) return ja ? "被ダメ-24%＋シールド大" : "DR -24% + big shield";
+                if (requiredCount == 7) return ja ? "被ダメ-34%＋シールド特大" : "DR -34% + huge shield";
+                return ja ? "聖光の加護：全能力激増＝ほぼ無敵" : "Divine blessing: massive all-stats";
+            case SynergyType.Songhai: // 影の速攻（攻撃速度）
+                if (requiredCount == 1) return ja ? "攻撃速度+10%（主人公が同陣営のみ）" : "ATKSPD +10% (faction hero only)";
+                if (requiredCount == 3) return ja ? "攻撃速度+24%" : "ATKSPD +24%";
+                if (requiredCount == 5) return ja ? "攻速+与ダメ強化" : "ATKSPD + DMG";
+                if (requiredCount == 7) return ja ? "圧倒的手数" : "Overwhelming flurry";
+                return ja ? "神速：全能力激増＝ほぼ確定" : "Godspeed: massive all-stats";
+            case SynergyType.Magmar: // 原始の猛攻（与ダメ）
+                if (requiredCount == 1) return ja ? "与ダメ+12%（主人公が同陣営のみ）" : "DMG +12% (faction hero only)";
+                if (requiredCount == 3) return ja ? "与ダメ+26%" : "DMG +26%";
+                if (requiredCount == 5) return ja ? "与ダメ＋攻速" : "DMG + ATKSPD";
+                if (requiredCount == 7) return ja ? "獣性解放" : "Unleashed fury";
+                return ja ? "原初の覇王：全能力激増＝ほぼ確定" : "Primal apex: massive all-stats";
+            case SynergyType.Vetruvian: // 機巧と太陽（スキル威力＋マナ）
+                if (requiredCount == 1) return ja ? "スキル威力+15%（主人公が同陣営のみ）" : "Skill +15% (faction hero only)";
+                if (requiredCount == 3) return ja ? "スキル威力+28%＋開幕マナ" : "Skill +28% + mana";
+                if (requiredCount == 5) return ja ? "スキル威力大＋マナ" : "Big skill + mana";
+                if (requiredCount == 7) return ja ? "灼熱の術式" : "Blazing artifice";
+                return ja ? "太陽の威光：全能力激増＝ほぼ確定" : "Solar majesty: massive all-stats";
+            case SynergyType.Abyssian: // 死闘（与ダメ＋被ダメ減）
+                if (requiredCount == 1) return ja ? "与ダメ+12%（主人公が同陣営のみ）" : "DMG +12% (faction hero only)";
+                if (requiredCount == 3) return ja ? "与ダメ+22%＋被ダメ-6%" : "DMG +22% + DR -6%";
+                if (requiredCount == 5) return ja ? "与ダメ＋耐久" : "DMG + bulk";
+                if (requiredCount == 7) return ja ? "不死の死闘" : "Undying struggle";
+                return ja ? "深淵の支配：全能力激増＝ほぼ確定" : "Abyssal dominion: massive all-stats";
+            case SynergyType.Vanar: // 氷の堅守（被ダメ減＋スキル威力）
+                if (requiredCount == 1) return ja ? "被ダメ-10%（主人公が同陣営のみ）" : "DR -10% (faction hero only)";
+                if (requiredCount == 3) return ja ? "被ダメ-18%＋スキル威力" : "DR -18% + skill";
+                if (requiredCount == 5) return ja ? "耐久＋スキル威力大" : "Bulk + big skill";
+                if (requiredCount == 7) return ja ? "凍てつく要塞" : "Frozen fortress";
+                return ja ? "永久氷河：全能力激増＝ほぼ確定" : "Eternal glacier: massive all-stats";
             default:
                 return string.Empty;
         }
@@ -1279,6 +1551,18 @@ public class SynergyManager : MonoBehaviour
             case "paragon": first = SynergyType.Guardian; second = SynergyType.Divine; third = SynergyType.Royal; return;
             case "wujin": first = SynergyType.Warrior; second = SynergyType.Inferno; third = SynergyType.Royal; return;
             case "wraith": first = SynergyType.Wraith; second = SynergyType.Abyss; third = SynergyType.Frost; return;
+            // Magmar(f5) 将3体。陣営シナジー Magmar ＋テーマ2種。
+            case "magmarvaath": first = SynergyType.Magmar; second = SynergyType.Frenzy; third = SynergyType.Inferno; return;
+            case "magmarstarhorn": first = SynergyType.Magmar; second = SynergyType.Storm; third = SynergyType.Warrior; return;
+            case "magmarragnora": first = SynergyType.Magmar; second = SynergyType.Inferno; third = SynergyType.Summoner; return;
+            // Abyssian(f4) 将3体。陣営シナジー Abyssian ＋テーマ2種。
+            case "abyssallilithe": first = SynergyType.Abyssian; second = SynergyType.Abyss; third = SynergyType.Summoner; return;
+            case "abyssalcassyva": first = SynergyType.Abyssian; second = SynergyType.Wraith; third = SynergyType.Abyss; return;
+            case "abyssalmaehv": first = SynergyType.Abyssian; second = SynergyType.Abyss; third = SynergyType.Frenzy; return;
+            // Vetruvian(f3) 将3体。陣営シナジー Vetruvian ＋テーマ2種。
+            case "vetruvianzirix": first = SynergyType.Vetruvian; second = SynergyType.Machine; third = SynergyType.Royal; return;
+            case "vetruviansajj": first = SynergyType.Vetruvian; second = SynergyType.Arcanist; third = SynergyType.Storm; return;
+            case "vetruvianscion": first = SynergyType.Vetruvian; second = SynergyType.Divine; third = SynergyType.Arcanist; return;
             case "altgeneraltier2": first = SynergyType.Frost; second = SynergyType.Inferno; return;
             case "ilenamk2": first = SynergyType.Frost; second = SynergyType.Arcanist; third = SynergyType.Divine; return;
             case "embergeneral": first = SynergyType.Inferno; second = SynergyType.Warrior; third = SynergyType.Royal; return;
@@ -1288,6 +1572,54 @@ public class SynergyManager : MonoBehaviour
             case "gol": first = SynergyType.Guardian; second = SynergyType.Alchemy; return;
             case "invader": first = SynergyType.Machine; second = SynergyType.Abyss; third = SynergyType.Alchemy; return;
             case "legion": first = SynergyType.Apex; second = SynergyType.Warrior; third = SynergyType.Frenzy; return;
+            // cost4 追加5体（DESIGN_cost4-units.md）
+            case "grymbeast": first = SynergyType.Shadow; second = SynergyType.Beast; third = SynergyType.Abyss; return;
+            case "cinderwraith": first = SynergyType.Inferno; second = SynergyType.Wraith; third = SynergyType.Frenzy; return;
+            case "draugarlord": first = SynergyType.Frost; second = SynergyType.Machine; third = SynergyType.Guardian; return;
+            case "kingsguard": first = SynergyType.Divine; second = SynergyType.Royal; third = SynergyType.Guardian; return;
+            case "dissonance": first = SynergyType.Arcanist; second = SynergyType.Storm; third = SynergyType.Summoner; return;
+            // 章1ボス Caliber-O（Lyonar 聖騎士将）。
+            case "caliber": first = SynergyType.Divine; second = SynergyType.Royal; third = SynergyType.Warrior; return;
+            // Songhai 追加4体（陣営を7体に拡充）。陣営=Songhai＋テーマ2種。
+            case "lanternfox": first = SynergyType.Songhai; second = SynergyType.Ranger; third = SynergyType.Arcanist; return;
+            case "onyxjaguar": first = SynergyType.Songhai; second = SynergyType.Beast; third = SynergyType.Shadow; return;
+            case "keshraifanblade": first = SynergyType.Songhai; second = SynergyType.Warrior; third = SynergyType.Shadow; return;
+            case "firewyrm": first = SynergyType.Songhai; second = SynergyType.Inferno; third = SynergyType.Beast; return;
+            // ヒーロー専用3体（DESIGN_R3-hero-units）。Aldin=聖騎士守護 / Kagachi=アサシン / Vesna=蒼炎。
+            // 基本3ヒーローにも陣営シナジーを付与（既存1つと入替）。Aldin:Royal→Lyonar / Kagachi:Wraith→Songhai / Vesna:Arcanist→Vanar。
+            case "heroaldin": first = SynergyType.Lyonar; second = SynergyType.Divine; third = SynergyType.Guardian; return;
+            case "herokagachi": first = SynergyType.Songhai; second = SynergyType.Shadow; third = SynergyType.Frenzy; return;
+            case "herovesna": first = SynergyType.Vanar; second = SynergyType.Inferno; third = SynergyType.Frost; return;
+            // 追加ヒーロー6体（各陣営 alt/3rd 将）。陣営シナジー＋テーマ2種。
+            case "heroziran": first = SynergyType.Lyonar; second = SynergyType.Divine; third = SynergyType.Guardian; return;
+            case "herobrome": first = SynergyType.Lyonar; second = SynergyType.Warrior; third = SynergyType.Royal; return;
+            case "heroreva": first = SynergyType.Songhai; second = SynergyType.Ranger; third = SynergyType.Shadow; return;
+            case "heroshidai": first = SynergyType.Songhai; second = SynergyType.Shadow; third = SynergyType.Frenzy; return;
+            case "herokara": first = SynergyType.Vanar; second = SynergyType.Frost; third = SynergyType.Guardian; return;
+            case "heroilena": first = SynergyType.Vanar; second = SynergyType.Frost; third = SynergyType.Arcanist; return;
+            // === 仲間化できる中ボス（勧誘候補）の個性付け（R3-midboss-synergy）。各体ユニークな組み合わせ。===
+            // 中立コア5（cost3）。
+            case "neutral_beastmaster": first = SynergyType.Beast; second = SynergyType.Summoner; third = SynergyType.Guardian; return;
+            case "neutral_gnasher":     first = SynergyType.Beast; second = SynergyType.Frenzy; third = SynergyType.Shadow; return;
+            case "neutral_rawr":        first = SynergyType.Beast; second = SynergyType.Warrior; third = SynergyType.Royal; return;
+            case "neutral_rok":         first = SynergyType.Guardian; second = SynergyType.Storm; third = SynergyType.Machine; return;
+            case "neutral_zukong":      first = SynergyType.Warrior; second = SynergyType.Storm; third = SynergyType.Frenzy; return;
+            // 中立リカラー変種5（色＝追加テーマ）。
+            case "neutral_beastmaster_crimson": first = SynergyType.Beast; second = SynergyType.Inferno; third = SynergyType.Frenzy; return;
+            case "neutral_gnasher_ice":         first = SynergyType.Beast; second = SynergyType.Frost; third = SynergyType.Shadow; return;
+            case "neutral_rok_steelblue":       first = SynergyType.Guardian; second = SynergyType.Frost; third = SynergyType.Machine; return;
+            case "neutral_rok_gold":            first = SynergyType.Guardian; second = SynergyType.Divine; third = SynergyType.Royal; return;
+            case "neutral_rok_mossgreen":       first = SynergyType.Guardian; second = SynergyType.Beast; third = SynergyType.Alchemy; return;
+            // 陣営勧誘候補（cost4）。陣営シナジー＋テーマ2種で個性化。
+            case "silitharelder":    first = SynergyType.Magmar; second = SynergyType.Beast; third = SynergyType.Guardian; return;
+            case "veteransilithar":  first = SynergyType.Magmar; second = SynergyType.Beast; third = SynergyType.Warrior; return;
+            case "makantorwarbeast": first = SynergyType.Magmar; second = SynergyType.Beast; third = SynergyType.Frenzy; return;
+            case "gloomchaser":      first = SynergyType.Abyssian; second = SynergyType.Shadow; third = SynergyType.Ranger; return;
+            case "abyssalcrawler":   first = SynergyType.Abyssian; second = SynergyType.Shadow; third = SynergyType.Wraith; return;
+            case "rae":              first = SynergyType.Vetruvian; second = SynergyType.Arcanist; third = SynergyType.Ranger; return;
+            case "starfirescarab":   first = SynergyType.Vetruvian; second = SynergyType.Machine; third = SynergyType.Arcanist; return;
+            case "pax":              first = SynergyType.Vetruvian; second = SynergyType.Machine; third = SynergyType.Guardian; return;
+            case "pyromancer":       first = SynergyType.Inferno; second = SynergyType.Arcanist; third = SynergyType.Storm; return;
             default:
                 bool ranged = prefab != null && prefab.range >= 4;
                 first = ranged ? SynergyType.Ranger : SynergyType.Warrior;

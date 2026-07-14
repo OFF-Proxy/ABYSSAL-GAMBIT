@@ -1,4 +1,5 @@
 # R1-meta: 章をまたぐボス仲間化・永続roster（差別化の核）
+> **状態: ✅ 実装済み（2026-05-30, レビュー承認）** — 残: 実機で章1クリア→再起動→編成→開始を1周確認 / R3-balance でボス仲間の初期★・減衰調整。
 
 > 設計: Claude / 実装: Codex・Claude Code / 2026-05-29
 > 依存: **R1-persist（先に実装）** / 関連: [MARKET_POSITIONING.md](MARKET_POSITIONING.md) §2①, [RELEASE_PLAN.md](RELEASE_PLAN.md)
@@ -69,3 +70,26 @@ private readonly List<string> selectedBossAlliesForRun = new List<string>(); // 
 ## 未決事項（Codex への質問）
 - 持ち帰り育成（章を跨いでボス仲間の★や装備を成長させる）は MVP に入れるか? → **MVP は star=1 固定・成長なし**を推奨（スコープ管理）。やり込み軸として将来 `DESIGN_R*-ally-growth.md` で別途。
 - `maxBossAlliesPerRun` の初期値（1 で開始し、章進行やオーグメントで増やす案）。要相談。
+
+---
+
+## Review (2026-05-29, Claude) — ✅ 承認（balance フラグ付き）
+
+実装コミット `bd61b787 feat(R1-meta)`。差別化の核がエンドツーエンドで通った。
+
+**良い点 / 検証結果**
+- `ChapterBossUnitIds = { 1: "Legion" }` + `GetChapterBossUnitId(chapter)` で章→章ボスを定義。`BuildChapter1Rounds` の 4-10 ボス（`new WaveEnemyPlacement("Legion", ...)`）と一致。
+- **ループ成立をコードで検証**: `Legion` は Entity Database に **prefab 付き・cost 5** で存在し、`IsLegionOnlySummonData`（Taskmaster/Zyx のみ）の除外対象でもない → `TryShowChapterRoster` の `data.prefab != null` フィルタを通過し、編成画面に確実に出る。
+- 章クリア時（`QueueStageResult` の `isChapterClear` 経路）に `AddBossAlly(chapterBossUnitId, 1)`。`Start()` で `GrantStartingUnit()` → `TryShowChapterRoster()` の順で前段に編成画面。
+- `OnChapterRosterSelected` はベンチ満杯チェック（`HasBenchSpace`）あり → 受け入れ基準⑤OK。「連れて行かない」(`default`/空名)も処理。
+- 既存 `SelectBossReward`（ラン内報酬）は無改変で共存 → デグレなし（受け入れ基準④）。
+- `ChapterRosterUI` は `EnsureExists`/Localization/JA-EN/`OnLanguageChanged` 対応と既存 UI 慣習を踏襲。INFO ボタンで `UnitStatusPanelUI.ShowPreview` も。
+
+**⚠️ balance フラグ（バグではない・R3-balance 送り）**
+- 章ボス Legion は **cost 5** の強ユニット。これを★1とはいえ章開始時に無料配置できると、特に章1リプレイで明確に強すぎる可能性。→ **RELEASE_PLAN R3-balance** で「ボス仲間の初期★/ステータス減衰/コスト相当のハンデ」を検討。MVP の機能検証としては問題なし。
+
+**気づき（軽微）**
+- 現状チャプターは1章のみ。よって編成画面は「章1クリア後に章1を再挑戦」する時に Legion を提示する形でループを体験できる（想定どおり）。複数章は R2-chapters で。
+- `maxBossAlliesPerRun`（上限1）はUI/ロジックとも1体運用。将来拡張時は複数選択UIへ。
+
+**受け入れ基準**: ①〜⑥ 充足（コードレビュー上）。実機で「章1クリア→再起動→編成にLegion→連れて行く」を1度通すと完全確認。

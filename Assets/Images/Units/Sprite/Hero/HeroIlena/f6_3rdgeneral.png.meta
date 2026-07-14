@@ -1,0 +1,2292 @@
+fileFormatVersion: 2
+guid: 15070bac3a2525241914a6724dc15d22
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: HeroIlena_Default_000
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6acab30a3d7409a4d9899a72fba2d1b7
+      internalID: -25991925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Default_001
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1eb04912a7b091d48a9a09aded2180b0
+      internalID: -1362476807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Default_002
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2148f0c448556004a82a379ec730c460
+      internalID: -1932561904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Default_003
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32743372c12d1bd47810f5ea8b65f6fd
+      internalID: -1159280128
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Default_004
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1b77ef0860e1a0b4b8db09e0dcbcb0e0
+      internalID: -428932247
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Default_005
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 488e74fdbe76eec4a8c7716e66bd7f52
+      internalID: -1866222109
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Default_006
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d49b55167e41c99428bf6cc2e9fc1565
+      internalID: 783926714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Default_007
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 380c4c163f112834893b9808478070ae
+      internalID: -640635944
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Default_008
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3865366d3bd20a049b120a468dee2dd3
+      internalID: -917120959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Default_009
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7be4f87da266659448d0f39d65fa1af5
+      internalID: -2127090813
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Default_010
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d213eab7cd11e54dbe7d4fcc1552b41
+      internalID: -997029797
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Default_011
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1f2dfa6f556dff54caaf385d86965ac1
+      internalID: -25223044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Default_012
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c2dbd520f5435a4e8f76d1b7e16c736
+      internalID: 1320109147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Default_013
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 121d5e7ee9624e544a66f990b9c759ec
+      internalID: 231914636
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Default_014
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: feb1c8f3aaa4da24395cece1074b44d9
+      internalID: 965052254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Default_015
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5adacf7161ce8974282759df33313d23
+      internalID: 187470406
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Move_000
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f87a470d8ed03d94ca2cee20a673a0c8
+      internalID: -1804101939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Move_001
+      rect:
+        serializedVersion: 2
+        x: 1010
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2eb6c4233f57013409e90147f43c4e17
+      internalID: -1259327890
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Move_002
+      rect:
+        serializedVersion: 2
+        x: 1010
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 260f6960b6a551949b5fcfc056f8ef3e
+      internalID: 668784753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Move_003
+      rect:
+        serializedVersion: 2
+        x: 1010
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36651e5ce16807641955517c8fde53a0
+      internalID: -1397959108
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Move_004
+      rect:
+        serializedVersion: 2
+        x: 1010
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a5e5e85b63deb8e4ea7ef593f02d0971
+      internalID: -1065460035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Move_005
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a863684f9ad3d794a8e3ce3fcb90bcf7
+      internalID: 1606129245
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Move_006
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6a84d5f202fe94489a3fef648588e03
+      internalID: 42774940
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Move_007
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da8b102a097db3f40ad2e636485aa9cb
+      internalID: -314843419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f9760c1e280e96f48a41ab4899782495
+      internalID: 140821864
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41ae12a0a76514a4b88644a41d17f2ca
+      internalID: -135066536
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3d4a83eaf73ac3847a159fa6faee49d8
+      internalID: -1857954836
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 527b6e0e5fa856e4497421c0404a87c6
+      internalID: 448815316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 29ccb3020087e9045977c6b395a58bc9
+      internalID: -1174152622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 871f84c859ec0524599e3ed407c8df5a
+      internalID: 1274951548
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fa0c449e4191b94bb8e8bd130cb97ca
+      internalID: -438211727
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 36ca8efd2e650f24bbda70835a4c4666
+      internalID: 447019767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cecce505690f7354981450f354874f63
+      internalID: -117609430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 44aa7fb25911a984fb4027ed17b654ac
+      internalID: -968799653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 105ea7317a85562428ea1c76b597a458
+      internalID: 2027538555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2044a2858b4e6834d9b5c60508838c12
+      internalID: -474206341
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ea64f1d507509a4dbe1ca93047f2157
+      internalID: -351929079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d8f83b490584b6b4fb6f4ec79f0943c0
+      internalID: -832577749
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a4f69de0c09dd546886322c27acc935
+      internalID: 423415906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89404a382f3dc7844865a33aaf20a7e9
+      internalID: 1659840116
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 808
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6db19384073141428b0f0eb4cda73e3
+      internalID: -719088520
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6af4f80c1c973d40b810d25e90bbd18
+      internalID: 1623015973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f60faa12e74deb24b87ea01dab29ab1d
+      internalID: -1953647184
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 07c18caa7ab8aa04aa387f3481470a56
+      internalID: -1956068459
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: db96ae593f68bbc4d8e5ccfaff73cd51
+      internalID: 583746524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c39b39d9c36e4d4d9dfeac1562bcdb9
+      internalID: -1225989648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 004e18786815a4f4daedd454183e98f0
+      internalID: 1906453510
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_023
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1186a2799c488f40b0d18b23281ab3c
+      internalID: 952366052
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_024
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d8c6503a288d334e8969ca43c142681
+      internalID: -1766016223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Attack_025
+      rect:
+        serializedVersion: 2
+        x: 707
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0096a402ae66b6149b4db84ccf55df77
+      internalID: 1687849955
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_000
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 768f782359c2a9b46bca4252be85e4b0
+      internalID: 2005730699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_001
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fbe03596da326d1409ab2b4848e9e666
+      internalID: -454831590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_002
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d061fedf05dd62b4696e633d0d1a1b17
+      internalID: 1900545735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_003
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8cadf91a4f365e4891c583f8a53f9f0
+      internalID: 831509670
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_004
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a71ac0cb750bf494c9034be5099e51f9
+      internalID: 1214876937
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_005
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a83c1938fc0f75149a0cfc494c2c8838
+      internalID: -1614097532
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_006
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aa056c67773e560459e3cf80a6ee5c70
+      internalID: -1557360226
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_007
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2eb7c6c79c12f94dafd5812eb18a5ed
+      internalID: 687593423
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_008
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e80283fcdb14d8843a431b62b5b74d8d
+      internalID: 1387053927
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_009
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00ee1414e488f8142b1c9f00df392a4c
+      internalID: 1427443593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_010
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 987fca738a3b2c248950ac5282a65fff
+      internalID: 903738373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_011
+      rect:
+        serializedVersion: 2
+        x: 1010
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18968a34abdb6ed40ae5b0000a41836f
+      internalID: 2131481167
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_012
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab522572f8264e34da4b45544e2adfce
+      internalID: -2098177152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_013
+      rect:
+        serializedVersion: 2
+        x: 505
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d544ccb411df5904bbee56be7277c364
+      internalID: 1203489200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_014
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4c2cac42367f06448aab4e629b7bf59
+      internalID: -11345481
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_015
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e36c50e9e9782864d83f59828f7d4056
+      internalID: 1411809449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_016
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc0565e571c01854badc9039087c255b
+      internalID: -1832248777
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_017
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 92f464f3bb8d8234f9d79fe9aaddeb22
+      internalID: 434181663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_018
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c70765f858ffb274e8e2191054c77d11
+      internalID: -1868143814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_019
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 25876b1343f9c1344adc1cbb3c12095e
+      internalID: -110464391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_020
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d29cd0fdf10ae9409bdd1c6f3783d1b
+      internalID: -117842604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_021
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a23480f865044af4ea14c0db4a2ee439
+      internalID: -639957402
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_022
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 963c1d1c1e3f2544588ab4a7c3e0a7a1
+      internalID: 1403968273
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_023
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e50114d6ce8a227418988cde7eb91ffb
+      internalID: -1187154912
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_024
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f88b7eeea8c35f947a7b7c08a5d15df6
+      internalID: 79225392
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_025
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e060dbb5e19a7284f9aea95523ce4bb1
+      internalID: 1338192793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_026
+      rect:
+        serializedVersion: 2
+        x: 404
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a44be728e5cee6647aaff29e0ba082db
+      internalID: -510987265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Ability_027
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b4815872f22bf940a2ef55098a942bb
+      internalID: -1108601722
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 909
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96b0400937d93194e8f54ed52bf41828
+      internalID: 1832196818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94c003fcbf52ccd48ba0b2746dee2503
+      internalID: 849299104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3895a9853c834c94eb13fdc540527d1a
+      internalID: 1021074470
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 38dac82305b93af478a3586bd509a8ff
+      internalID: 1267683265
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b2a4884c0346da42b082c5b9e7ccdee
+      internalID: -1253484763
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93f47edd552b063409a49efed887dfbb
+      internalID: 1233343725
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 303
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 485a8c0c0045bcc4682401dd5eebef9d
+      internalID: -781656097
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4ecbb7e0d009f540907a0c3f0d80644
+      internalID: -322960984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fb4245d54e8d3942a0e798a19b5e845
+      internalID: 536125909
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83c9916b8d11dc24f888cb0a200feb16
+      internalID: -1348050751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de070fb82bd23bc4589fd6f6f3c069a0
+      internalID: -183049331
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 419
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74a4f5f6091ef9b46b00d7852a1d999d
+      internalID: 126315975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 520
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c738ea16c85c6d549b47619207dd974a
+      internalID: -206488619
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 621
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0aac341f85e6e34496210d419c6d685
+      internalID: 522249507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 722
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f53095e3364487547b3deaf44cbb6300
+      internalID: -1076428705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_015
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 823
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d2950f74b33fc5c4f9c4ca0290d79f5c
+      internalID: 1374512984
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_016
+      rect:
+        serializedVersion: 2
+        x: 202
+        y: 924
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfac7c31f0fee3242aa21537b30b60cd
+      internalID: -1671146761
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_017
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 15
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 986a2d3d5becc0f46b698ced6bde841f
+      internalID: 194576456
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_018
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 116
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 352ee35042488e24fa1f9e8611fea722
+      internalID: 1162350441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_019
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 217
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d1c52338355efbe4780b6270d2774d7a
+      internalID: -1498317236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroIlena_Dead_020
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 318
+        width: 100
+        height: 100
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ad645cd0957d1194f97b7a278646cad7
+      internalID: 563924728
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      HeroIlena_Ability_000: 2005730699
+      HeroIlena_Ability_001: -454831590
+      HeroIlena_Ability_002: 1900545735
+      HeroIlena_Ability_003: 831509670
+      HeroIlena_Ability_004: 1214876937
+      HeroIlena_Ability_005: -1614097532
+      HeroIlena_Ability_006: -1557360226
+      HeroIlena_Ability_007: 687593423
+      HeroIlena_Ability_008: 1387053927
+      HeroIlena_Ability_009: 1427443593
+      HeroIlena_Ability_010: 903738373
+      HeroIlena_Ability_011: 2131481167
+      HeroIlena_Ability_012: -2098177152
+      HeroIlena_Ability_013: 1203489200
+      HeroIlena_Ability_014: -11345481
+      HeroIlena_Ability_015: 1411809449
+      HeroIlena_Ability_016: -1832248777
+      HeroIlena_Ability_017: 434181663
+      HeroIlena_Ability_018: -1868143814
+      HeroIlena_Ability_019: -110464391
+      HeroIlena_Ability_020: -117842604
+      HeroIlena_Ability_021: -639957402
+      HeroIlena_Ability_022: 1403968273
+      HeroIlena_Ability_023: -1187154912
+      HeroIlena_Ability_024: 79225392
+      HeroIlena_Ability_025: 1338192793
+      HeroIlena_Ability_026: -510987265
+      HeroIlena_Ability_027: -1108601722
+      HeroIlena_Attack_000: 140821864
+      HeroIlena_Attack_001: -135066536
+      HeroIlena_Attack_002: -1857954836
+      HeroIlena_Attack_003: 448815316
+      HeroIlena_Attack_004: -1174152622
+      HeroIlena_Attack_005: 1274951548
+      HeroIlena_Attack_006: -438211727
+      HeroIlena_Attack_007: 447019767
+      HeroIlena_Attack_008: -117609430
+      HeroIlena_Attack_009: -968799653
+      HeroIlena_Attack_010: 2027538555
+      HeroIlena_Attack_011: -474206341
+      HeroIlena_Attack_012: -351929079
+      HeroIlena_Attack_013: -832577749
+      HeroIlena_Attack_014: 423415906
+      HeroIlena_Attack_015: 1659840116
+      HeroIlena_Attack_016: -719088520
+      HeroIlena_Attack_017: 1623015973
+      HeroIlena_Attack_018: -1953647184
+      HeroIlena_Attack_019: -1956068459
+      HeroIlena_Attack_020: 583746524
+      HeroIlena_Attack_021: -1225989648
+      HeroIlena_Attack_022: 1906453510
+      HeroIlena_Attack_023: 952366052
+      HeroIlena_Attack_024: -1766016223
+      HeroIlena_Attack_025: 1687849955
+      HeroIlena_Dead_000: 1832196818
+      HeroIlena_Dead_001: 849299104
+      HeroIlena_Dead_002: 1021074470
+      HeroIlena_Dead_003: 1267683265
+      HeroIlena_Dead_004: -1253484763
+      HeroIlena_Dead_005: 1233343725
+      HeroIlena_Dead_006: -781656097
+      HeroIlena_Dead_007: -322960984
+      HeroIlena_Dead_008: 536125909
+      HeroIlena_Dead_009: -1348050751
+      HeroIlena_Dead_010: -183049331
+      HeroIlena_Dead_011: 126315975
+      HeroIlena_Dead_012: -206488619
+      HeroIlena_Dead_013: 522249507
+      HeroIlena_Dead_014: -1076428705
+      HeroIlena_Dead_015: 1374512984
+      HeroIlena_Dead_016: -1671146761
+      HeroIlena_Dead_017: 194576456
+      HeroIlena_Dead_018: 1162350441
+      HeroIlena_Dead_019: -1498317236
+      HeroIlena_Dead_020: 563924728
+      HeroIlena_Default_000: -25991925
+      HeroIlena_Default_001: -1362476807
+      HeroIlena_Default_002: -1932561904
+      HeroIlena_Default_003: -1159280128
+      HeroIlena_Default_004: -428932247
+      HeroIlena_Default_005: -1866222109
+      HeroIlena_Default_006: 783926714
+      HeroIlena_Default_007: -640635944
+      HeroIlena_Default_008: -917120959
+      HeroIlena_Default_009: -2127090813
+      HeroIlena_Default_010: -997029797
+      HeroIlena_Default_011: -25223044
+      HeroIlena_Default_012: 1320109147
+      HeroIlena_Default_013: 231914636
+      HeroIlena_Default_014: 965052254
+      HeroIlena_Default_015: 187470406
+      HeroIlena_Move_000: -1804101939
+      HeroIlena_Move_001: -1259327890
+      HeroIlena_Move_002: 668784753
+      HeroIlena_Move_003: -1397959108
+      HeroIlena_Move_004: -1065460035
+      HeroIlena_Move_005: 1606129245
+      HeroIlena_Move_006: 42774940
+      HeroIlena_Move_007: -314843419
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

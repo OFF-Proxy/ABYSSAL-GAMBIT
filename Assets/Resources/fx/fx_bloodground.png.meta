@@ -1,0 +1,906 @@
+fileFormatVersion: 2
+guid: 7e72616d1a25e5e48885da67eec1b1e7
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: fx_bloodground_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4
+        width: 38
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7f51ba83a53f4d360800000000000000
+      internalID: 7193642073640867319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground2_000
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 132
+        width: 34
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0eb039034f244cc70800000000000000
+      internalID: 8990384372692749280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground3_000
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 77
+        width: 42
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f12b1b331043cbd10800000000000000
+      internalID: 2142644702488408607
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground4_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 83
+        width: 46
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4d6e49c21c8cc9420800000000000000
+      internalID: 2638204213734467284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground_001
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 56
+        width: 38
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9ab1d99ba47d1aad0800000000000000
+      internalID: -2692634386249213015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground2_001
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 107
+        width: 34
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6f8fb025f4c50bd10800000000000000
+      internalID: 2139311318749673718
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground3_001
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 108
+        width: 42
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 64e6feac701c7e5d0800000000000000
+      internalID: -3033243584797118906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground4_001
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 199
+        width: 46
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a22a44754f318d800800000000000000
+      internalID: 637281287429988906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground_002
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 35
+        width: 38
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 022dd4e6d96a14410800000000000000
+      internalID: 1459630949335421472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground2_002
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 27
+        width: 34
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3fca2789aab8c920800000000000000
+      internalID: 3010861588177145661
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground3_002
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 139
+        width: 42
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8cc5f4f78a1af3800800000000000000
+      internalID: 594371420898680008
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground4_002
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 228
+        width: 46
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b9f2fe571c52179f0800000000000000
+      internalID: -472554973059666021
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground_003
+      rect:
+        serializedVersion: 2
+        x: 90
+        y: 14
+        width: 38
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4c6ed3734236142f0800000000000000
+      internalID: -990401435848022332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground2_003
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 52
+        width: 34
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76aa6a10a2065f1a0800000000000000
+      internalID: -6776404330776450457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground3_003
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 15
+        width: 42
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 285932b022cb642c0800000000000000
+      internalID: -4447660727579994750
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground4_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 25
+        width: 46
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 897f6851174099670800000000000000
+      internalID: 8545866651651209112
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground_004
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 236
+        width: 38
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c71116ebab3b25260800000000000000
+      internalID: 7084922778446532988
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground2_004
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 2
+        width: 34
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 123e31f89bc5ea100800000000000000
+      internalID: 121136192024732449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground3_004
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 46
+        width: 42
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 09e8588fc2325f320800000000000000
+      internalID: 2591015836676624016
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground4_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 54
+        width: 46
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61816267b9dea6400800000000000000
+      internalID: 318327975640963094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground_005
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 215
+        width: 38
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b962e8ad126db5260800000000000000
+      internalID: 7087493879486621339
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground2_005
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 232
+        width: 34
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d18ac9080fe227370800000000000000
+      internalID: 8318763072191506461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground3_005
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 77
+        width: 42
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c5ba4a5e200fba180800000000000000
+      internalID: -9102918326565950628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground4_005
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 170
+        width: 46
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ffeb8753f58783f90800000000000000
+      internalID: -6973691672668881153
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground_006
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 194
+        width: 38
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf58e2455b93a8020800000000000000
+      internalID: 2344750006963963387
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground2_006
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 207
+        width: 34
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bb4a676a7024a3ac0800000000000000
+      internalID: -3874711928773892933
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground3_006
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 108
+        width: 42
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: df24a56ae076b80e0800000000000000
+      internalID: -2266604674832776451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground4_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 112
+        width: 46
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9f591ac1cedbb85a0800000000000000
+      internalID: -6517907213898377735
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground_007
+      rect:
+        serializedVersion: 2
+        x: 94
+        y: 173
+        width: 38
+        height: 20
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ea2e6851f812a43d0800000000000000
+      internalID: -3221725685004967250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground2_007
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 182
+        width: 34
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d84ab222bf597dd0800000000000000
+      internalID: -2487852100454037287
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground3_007
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 139
+        width: 42
+        height: 30
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0046010b756117e20800000000000000
+      internalID: 3346480563984819200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground4_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 141
+        width: 46
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f28fffb5dd2674de0800000000000000
+      internalID: -1349000860503377873
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground2_008
+      rect:
+        serializedVersion: 2
+        x: 133
+        y: 157
+        width: 34
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e9cfb27176f061070800000000000000
+      internalID: 8076659917180370078
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground4_008
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 170
+        width: 46
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 84cb6a03d75b74860800000000000000
+      internalID: 7514174052582734920
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground4_009
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 199
+        width: 46
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: abd7eec2e7abd89a0800000000000000
+      internalID: -6229117658501055046
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: fx_bloodground4_010
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 228
+        width: 46
+        height: 28
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5550ca0f3724e45e0800000000000000
+      internalID: -1923526925114145451
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      fx_bloodground2_000: 8990384372692749280
+      fx_bloodground2_001: 2139311318749673718
+      fx_bloodground2_002: 3010861588177145661
+      fx_bloodground2_003: -6776404330776450457
+      fx_bloodground2_004: 121136192024732449
+      fx_bloodground2_005: 8318763072191506461
+      fx_bloodground2_006: -3874711928773892933
+      fx_bloodground2_007: -2487852100454037287
+      fx_bloodground2_008: 8076659917180370078
+      fx_bloodground3_000: 2142644702488408607
+      fx_bloodground3_001: -3033243584797118906
+      fx_bloodground3_002: 594371420898680008
+      fx_bloodground3_003: -4447660727579994750
+      fx_bloodground3_004: 2591015836676624016
+      fx_bloodground3_005: -9102918326565950628
+      fx_bloodground3_006: -2266604674832776451
+      fx_bloodground3_007: 3346480563984819200
+      fx_bloodground4_000: 2638204213734467284
+      fx_bloodground4_001: 637281287429988906
+      fx_bloodground4_002: -472554973059666021
+      fx_bloodground4_003: 8545866651651209112
+      fx_bloodground4_004: 318327975640963094
+      fx_bloodground4_005: -6973691672668881153
+      fx_bloodground4_006: -6517907213898377735
+      fx_bloodground4_007: -1349000860503377873
+      fx_bloodground4_008: 7514174052582734920
+      fx_bloodground4_009: -6229117658501055046
+      fx_bloodground4_010: -1923526925114145451
+      fx_bloodground_000: 7193642073640867319
+      fx_bloodground_001: -2692634386249213015
+      fx_bloodground_002: 1459630949335421472
+      fx_bloodground_003: -990401435848022332
+      fx_bloodground_004: 7084922778446532988
+      fx_bloodground_005: 7087493879486621339
+      fx_bloodground_006: 2344750006963963387
+      fx_bloodground_007: -3221725685004967250
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

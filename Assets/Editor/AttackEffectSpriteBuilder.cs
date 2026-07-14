@@ -10,8 +10,8 @@ using UnityEngine;
 
 public static class AttackEffectSpriteBuilder
 {
-    private const string SourceRoot = "Assets/Resources/AttackEffects";
-    private const string LegacyGeneratedRoot = "Assets/Resources/AttackEffects/Generated";
+    private const string SourceRoot = "Assets/Resources/fx";
+    private const string LegacyGeneratedRoot = "Assets/Resources/fx/Generated";
     private const float SpritePixelsPerUnit = 100f;
 
     private static readonly string[] EffectNames =
@@ -38,7 +38,15 @@ public static class AttackEffectSpriteBuilder
         "fx_f4_voidpulse",
         "fx_summonlegendary",
         "fx_f4_nethersummoning",
-        "fx_f3_blaststarfire"
+        "fx_f3_blaststarfire",
+        // ボス登場演出用に追加スライス（土煙=煙2、風=つむじ風、毒沼=地面プール(緑tintで使用)）。
+        "fx_smoke",
+        "fx_smoke2",
+        "fx_tornadoswirl",
+        "fx_bloodground",
+        // R3-chest-room: 宝箱（殴って開ける報酬チェスト）。閉じた箱のidleフレームを使う。
+        "item_treasurechest",
+        "item_treasurechest_festive"
     };
 
     private static readonly HashSet<string> AlreadyUprightRotatedEffects = new HashSet<string>(StringComparer.OrdinalIgnoreCase)

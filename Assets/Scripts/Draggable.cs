@@ -186,6 +186,10 @@ public class Draggable : MonoBehaviour
         if (!Input.GetMouseButtonDown(0))
             return;
 
+        // UI（オーグメント/オプション等のモーダル）上のクリックは盤面に貫通させない。
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return;
+
         pointerDown = true;
         pointerMovedBeyondClick = false;
         mouseDownScreenPosition = Input.mousePosition;
@@ -218,6 +222,12 @@ public class Draggable : MonoBehaviour
 
         if (pointerDown && !pointerMovedBeyondClick)
         {
+            // 念のため、離した瞬間にUI上ならユニット詳細を開かない。
+            if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            {
+                pointerDown = false;
+                return;
+            }
             BaseEntity entity = GetComponent<BaseEntity>();
             if (entity != null)
                 UnitStatusPanelUI.Show(entity);
@@ -268,7 +278,8 @@ public class Draggable : MonoBehaviour
         bool sold = GameManager.Instance.TrySellEntity(thisEntity);
         if (sold)
         {
-            AttackEffectPlayer.PlayUiSfx("unit_sell");
+            // 売却SEは専用音源 Assets/Resources/sfx/Sell.mp3 を使用（cue名 "Sell" → default解決で "sfx/Sell"）。
+            AttackEffectPlayer.PlayUiSfx("Sell");
             releasePlayedSound = true;
         }
 

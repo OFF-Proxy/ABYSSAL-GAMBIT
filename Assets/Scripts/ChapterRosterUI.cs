@@ -10,7 +10,7 @@ using AutoChessBossRush.Save;
 // 1 体選ぶか「連れて行かない」を押すと閉じ、選択結果を GameManager に返します。
 public class ChapterRosterUI : MonoBehaviour
 {
-    private const int SortingOrder = 60010;
+    private const int SortingOrder = 25010; // 16bit short上限(32767)内。
 
     public static ChapterRosterUI Instance { get; private set; }
 
@@ -56,16 +56,13 @@ public class ChapterRosterUI : MonoBehaviour
             return existing;
         }
 
-        Canvas canvas = FindObjectOfType<Canvas>();
-        if (canvas == null)
-        {
-            GameObject canvasObject = new GameObject("Canvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
-            canvas = canvasObject.GetComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        }
-
-        GameObject uiObject = new GameObject("ChapterRosterUI", typeof(RectTransform), typeof(Image), typeof(ChapterRosterUI));
-        uiObject.transform.SetParent(canvas.transform, false);
+        // 独立ルートの ScreenSpaceOverlay Canvas として生成（FindObjectOfType<Canvas> の子にすると
+        // ホバー中の AugmentTooltipUI Canvas を親にして点滅・進行不能になるバグを回避）。
+        GameObject uiObject = new GameObject("ChapterRosterUI", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(Image), typeof(ChapterRosterUI));
+        Canvas rootCanvas = uiObject.GetComponent<Canvas>();
+        rootCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        rootCanvas.sortingOrder = SortingOrder;
+        uiObject.GetComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
 
         RectTransform rectTransform = uiObject.GetComponent<RectTransform>();
         rectTransform.anchorMin = Vector2.zero;
@@ -143,7 +140,7 @@ public class ChapterRosterUI : MonoBehaviour
         layoutElement.preferredHeight = 290f;
 
         Image frameImage = optionObject.GetComponent<Image>();
-        frameImage.sprite = entityData.frame;
+        UnitCardVisual.ApplyProceduralFrame(frameImage, entityData.cost); // R5: AI枠撤去→プログラム枠。
         frameImage.color = new Color(0.62f, 0.85f, 1f, 1f);
         frameImage.preserveAspect = false;
 
@@ -222,10 +219,10 @@ public class ChapterRosterUI : MonoBehaviour
         iconRect.offsetMax = Vector2.zero;
 
         Image iconImage = iconObject.GetComponent<Image>();
-        iconImage.sprite = entityData.icon;
         iconImage.color = Color.white;
-        iconImage.preserveAspect = true;
         iconImage.raycastTarget = false;
+        // R5: AIキャラ絵をやめ、ユニットのドット絵（盤外実体ミラー・盤面と非連動）を表示。
+        iconObject.AddComponent<UnitCardPreview>().Bind(entityData);
     }
 
     private void CreateOptionText(Transform parent, EntitiesDatabaseSO.EntityData entityData)

@@ -8,7 +8,7 @@ using UnityEngine.UI;
 // 既存のItemInstanceは所持データとして残し、見た目と入力だけをUIで扱います。
 public class ItemBenchCanvasUI : MonoBehaviour
 {
-    private const int CanvasSortingOrder = 48040;
+    private const int CanvasSortingOrder = 13040; // 16bit short上限(32767)内。
     private const float SynergySideWidth = 142f;
     private const float SlotSize = 78f;
     private const float SlotSpacing = 80f;
@@ -109,7 +109,10 @@ public class ItemBenchCanvasUI : MonoBehaviour
         panelRect.sizeDelta = new Vector2(SynergySideWidth + SlotSize + 18f, SlotSpacing * 8f + 8f);
 
         Image panelImage = panelObject.GetComponent<Image>();
-        panelImage.color = Color.clear;
+        // Duelyst流の左ドック地：明るい枠素材ではなく「暗い半透明の角丸」で統一（rgba(1,0,37,0.75)相当）。
+        panelImage.sprite = Resources.GetBuiltinResource<Sprite>("UI/Skin/UISprite.psd");
+        panelImage.type = Image.Type.Sliced;
+        panelImage.color = new Color(0.02f, 0.01f, 0.16f, 0.6f);
         panelImage.raycastTarget = false;
 
         GameObject slotRootObject = new GameObject("Slots", typeof(RectTransform));

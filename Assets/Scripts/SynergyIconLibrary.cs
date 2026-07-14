@@ -73,6 +73,20 @@ public static class SynergyIconLibrary
                 return new Color(0.35f, 1f, 0.62f, 1f);
             case SynergyType.Alchemy:
                 return new Color(0.55f, 1f, 0.25f, 1f);
+            case SynergyType.Finality:
+                return new Color(0.85f, 0.1f, 0.18f, 1f); // 血の深紅
+            case SynergyType.Lyonar:
+                return new Color(1f, 0.85f, 0.3f, 1f);
+            case SynergyType.Songhai:
+                return new Color(1f, 0.35f, 0.3f, 1f);
+            case SynergyType.Magmar:
+                return new Color(1f, 0.6f, 0.2f, 1f);
+            case SynergyType.Vetruvian:
+                return new Color(0.95f, 0.78f, 0.35f, 1f);
+            case SynergyType.Abyssian:
+                return new Color(0.7f, 0.3f, 0.9f, 1f);
+            case SynergyType.Vanar:
+                return new Color(0.5f, 0.85f, 1f, 1f);
             default:
                 return Color.white;
         }
@@ -122,54 +136,33 @@ public static class SynergyIconLibrary
                 return "SUM";
             case SynergyType.Alchemy:
                 return "ALC";
+            case SynergyType.Finality:
+                return "FIN";
+            case SynergyType.Lyonar:
+                return "LYO";
+            case SynergyType.Songhai:
+                return "SON";
+            case SynergyType.Magmar:
+                return "MAG";
+            case SynergyType.Vetruvian:
+                return "VET";
+            case SynergyType.Abyssian:
+                return "ABS";
+            case SynergyType.Vanar:
+                return "VAN";
             default:
                 return string.Empty;
         }
     }
 
     // Resources.Loadで使う拡張子なしパスを返します。
+    // 規約: 各シナジーは Resources/SynergyIcons/<シナジー名を小文字>.png を1枚ずつ持つ。
+    // 新シナジー追加時は同名PNGを SynergyIcons に入れるだけで自動表示される
+    // （アイコンは reference/duelyst/app/resources/runes のルーンをスライスして割り当てる）。
     private static string GetResourcePath(SynergyType type)
     {
-        switch (type)
-        {
-            case SynergyType.Warrior:
-                return IconRoot + "warrior";
-            case SynergyType.Ranger:
-                return IconRoot + "ranger";
-            case SynergyType.Arcanist:
-                return IconRoot + "arcanist";
-            case SynergyType.Guardian:
-                return IconRoot + "guardian";
-            case SynergyType.Beast:
-                return IconRoot + "beast";
-            case SynergyType.Shadow:
-                return IconRoot + "shadow";
-            case SynergyType.Machine:
-                return IconRoot + "machine";
-            case SynergyType.Wraith:
-                return IconRoot + "wraith";
-            case SynergyType.Apex:
-                return IconRoot + "apex";
-            case SynergyType.Inferno:
-                return IconRoot + "inferno";
-            case SynergyType.Frost:
-                return IconRoot + "frost";
-            case SynergyType.Storm:
-                return IconRoot + "storm";
-            case SynergyType.Abyss:
-                return IconRoot + "abyss";
-            case SynergyType.Divine:
-                return IconRoot + "divine";
-            case SynergyType.Frenzy:
-                return IconRoot + "frenzy";
-            case SynergyType.Royal:
-                return IconRoot + "royal";
-            case SynergyType.Summoner:
-                return IconRoot + "summoner";
-            case SynergyType.Alchemy:
-                return IconRoot + "alchemy";
-            default:
-                return string.Empty;
-        }
+        if (type == SynergyType.None)
+            return string.Empty;
+        return IconRoot + type.ToString().ToLowerInvariant();
     }
 }

@@ -45,7 +45,7 @@ public class ResultPanelUI : MonoBehaviour
         GameObject go = new GameObject("ResultPanelUI", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(ResultPanelUI));
         Canvas canvas = go.GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 60500;
+        canvas.sortingOrder = 25500; // 16bit short上限(32767)内。
         CanvasScaler scaler = go.GetComponent<CanvasScaler>();
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
 
@@ -83,6 +83,7 @@ public class ResultPanelUI : MonoBehaviour
     public void ShowStageResult(int stageNumber, float seconds, int score, string breakdown, bool isChapterClear, int bestScore = 0, bool isNewRecord = false)
     {
         BuildIfNeeded();
+        resultIsChapterClear = isChapterClear;
         bool ja = LocalizationManager.IsJapanese;
         LocalizationManager.ApplyFont(titleText);
         LocalizationManager.ApplyFont(subtitleText);
@@ -96,6 +97,8 @@ public class ResultPanelUI : MonoBehaviour
         LocalizationManager.ApplyFont(breakdownText);
         LocalizationManager.ApplyFont(continueText);
 
+        resultIsGameOver = false;
+        titleText.color = new Color(1f, 0.92f, 0.55f); // クリアは金（ゲームオーバーで赤に変えた後の復帰用）
         titleText.text = isChapterClear
             ? (ja ? "チャプタークリア！" : "CHAPTER CLEAR!")
             : (ja ? $"ステージ {stageNumber} クリア！" : $"STAGE {stageNumber} CLEAR!");
@@ -126,7 +129,42 @@ public class ResultPanelUI : MonoBehaviour
         }
 
         breakdownText.text = breakdown ?? string.Empty;
-        continueText.text = ja ? "次へ" : "Continue";
+        continueText.text = isChapterClear
+            ? (ja ? "ロビーへ戻る" : "Return to Lobby")
+            : (ja ? "次へ" : "Continue");
+
+        SetOpen(true);
+    }
+
+    // ゲームオーバー時のリザルト。閉じるとロビーへ戻る。
+    public void ShowGameOver(int score, float seconds, string subtitle)
+    {
+        BuildIfNeeded();
+        resultIsChapterClear = false;
+        resultIsGameOver = true;
+        bool ja = LocalizationManager.IsJapanese;
+        LocalizationManager.ApplyFont(titleText);
+        LocalizationManager.ApplyFont(subtitleText);
+        LocalizationManager.ApplyFont(timeLabel);
+        LocalizationManager.ApplyFont(timeValue);
+        LocalizationManager.ApplyFont(scoreLabel);
+        LocalizationManager.ApplyFont(scoreValue);
+        LocalizationManager.ApplyFont(breakdownText);
+        LocalizationManager.ApplyFont(continueText);
+
+        titleText.color = new Color(1f, 0.42f, 0.38f); // ゲームオーバーは赤
+        titleText.text = ja ? "ゲームオーバー" : "GAME OVER";
+        subtitleText.text = string.IsNullOrEmpty(subtitle) ? (ja ? "味方が全滅した" : "Your team was defeated") : subtitle;
+        timeLabel.text = ja ? "到達タイム" : "Time";
+        timeValue.text = FormatTime(seconds);
+        scoreLabel.text = ja ? "スコア" : "Score";
+        scoreValue.text = score.ToString("N0");
+
+        if (bestLabel != null) bestLabel.gameObject.SetActive(false);
+        if (bestValue != null) bestValue.gameObject.SetActive(false);
+        if (newRecordBadge != null) newRecordBadge.gameObject.SetActive(false);
+        breakdownText.text = string.Empty;
+        continueText.text = ja ? "ロビーへ戻る" : "Return to Lobby";
 
         SetOpen(true);
     }
@@ -146,7 +184,7 @@ public class ResultPanelUI : MonoBehaviour
             panelRect.localScale = Vector3.one;
         }
         if (!open)
-            Time.timeScale = previousTimeScale;
+            Time.timeScale = OptionsPanelUI.DesiredGameSpeed; // チャプター全体で倍速を維持
     }
 
     private void SetOpen(bool open)
@@ -176,7 +214,7 @@ public class ResultPanelUI : MonoBehaviour
         }
         else
         {
-            Time.timeScale = previousTimeScale;
+            Time.timeScale = OptionsPanelUI.DesiredGameSpeed; // チャプター全体で倍速を維持
             panelGroup.DOFade(0f, 0.18f).SetUpdate(true);
             panelRect.DOScale(0.94f, 0.18f).SetUpdate(true).OnComplete(() =>
             {
@@ -186,7 +224,35 @@ public class ResultPanelUI : MonoBehaviour
         }
     }
 
-    private void OnContinueClicked() { Hide(); }
+    private bool resultIsChapterClear;
+    private bool resultIsGameOver;
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+    // オートプレイ(debug)用：リザルトが開いているか・結果種別の参照と、続行（ロビー復帰）の自動押下。
+    public bool IsResultOpen => isOpen;
+    public bool LastResultWasChapterClear => resultIsChapterClear;
+    public bool LastResultWasGameOver => resultIsGameOver;
+    public bool DebugContinue()
+    {
+        if (!isOpen) return false;
+        OnContinueClicked();
+        return true;
+    }
+#endif
+
+    private void OnContinueClicked()
+    {
+        // 章クリア／ゲームオーバーのリザルトを閉じたらロビー（LobbyScene）へ戻る。
+        if ((resultIsChapterClear || resultIsGameOver) && GameManager.Instance != null)
+        {
+            resultIsChapterClear = false;
+            resultIsGameOver = false;
+            Time.timeScale = 1f;
+            GameManager.Instance.RequestReturnToLobby();
+            return;
+        }
+        Hide();
+    }
 
     private void BuildUi()
     {
@@ -210,18 +276,30 @@ public class ResultPanelUI : MonoBehaviour
         panelRect.pivot = new Vector2(0.5f, 0.5f);
         panelRect.sizeDelta = new Vector2(540f, 580f);
         Image panelBg = panelObj.GetComponent<Image>();
-        panelBg.color = new Color(0.02f, 0.06f, 0.10f, 0.97f);
+        // 9-slice の素材パネル。素材が無ければ従来のベタ塗りにフォールバック。
+        Sprite resultPanelSprite = Resources.Load<Sprite>("UI/Panels/result_panel");
+        if (resultPanelSprite != null)
+        {
+            panelBg.sprite = resultPanelSprite;
+            panelBg.type = Image.Type.Sliced;
+            panelBg.color = new Color(0.72f, 0.78f, 0.92f, 1f);
+        }
+        else
+        {
+            panelBg.color = new Color(0.02f, 0.06f, 0.10f, 0.97f);
+        }
         panelGroup = panelObj.GetComponent<CanvasGroup>();
 
-        GameObject borderObj = new GameObject("InnerBorder", typeof(RectTransform), typeof(Image));
+        // テキストの視認性のため、枠の内側に半透明の暗幕を敷く（外周の枠デザインは残す）。
+        GameObject borderObj = new GameObject("InnerFill", typeof(RectTransform), typeof(Image));
         borderObj.transform.SetParent(panelRect, false);
         RectTransform borderRect = borderObj.GetComponent<RectTransform>();
         borderRect.anchorMin = Vector2.zero;
         borderRect.anchorMax = Vector2.one;
-        borderRect.sizeDelta = new Vector2(-14f, -14f);
+        borderRect.sizeDelta = new Vector2(-46f, -56f);
         borderRect.anchoredPosition = Vector2.zero;
         Image borderImage = borderObj.GetComponent<Image>();
-        borderImage.color = new Color(1f, 0.85f, 0.35f, 0.45f);
+        borderImage.color = new Color(0.03f, 0.06f, 0.11f, 0.72f);
         borderImage.raycastTarget = false;
 
         titleText = CreateText("Title", panelRect, new Vector2(0.5f, 1f), new Vector2(0f, -36f), new Vector2(500f, 40f), 30f, FontStyles.Bold, new Color(1f, 0.92f, 0.55f));

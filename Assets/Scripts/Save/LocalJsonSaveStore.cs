@@ -6,26 +6,38 @@ namespace AutoChessBossRush.Save
 {
     public class LocalJsonSaveStore : ISaveStore
     {
-        private const string FileName = "save.json";
+        private const string DefaultFileName = "save.json";
         private const string TempSuffix = ".tmp";
-        private const string CorruptName = "save.corrupt.json";
 
         private readonly string filePath;
         private readonly string tempPath;
         private readonly string corruptPath;
 
-        public LocalJsonSaveStore() : this(Application.persistentDataPath)
+        public LocalJsonSaveStore() : this(Application.persistentDataPath, DefaultFileName)
         {
         }
 
-        public LocalJsonSaveStore(string baseDirectory)
+        public LocalJsonSaveStore(string baseDirectory) : this(baseDirectory, DefaultFileName)
         {
-            filePath = Path.Combine(baseDirectory, FileName);
+        }
+
+        // セーブスロット対応：ファイル名を指定して別ファイルに保存できる（例: save_0.json）。
+        public LocalJsonSaveStore(string baseDirectory, string fileName)
+        {
+            filePath = Path.Combine(baseDirectory, fileName);
             tempPath = filePath + TempSuffix;
-            corruptPath = Path.Combine(baseDirectory, CorruptName);
+            corruptPath = filePath + ".corrupt";
         }
 
         public bool Exists() => File.Exists(filePath);
+
+        // セーブスロット削除：本体・一時・破損退避ファイルを消す。
+        public void Delete()
+        {
+            try { if (File.Exists(filePath)) File.Delete(filePath); } catch (Exception e) { Debug.LogWarning($"[SaveStore] Delete failed: {e.Message}"); }
+            try { if (File.Exists(tempPath)) File.Delete(tempPath); } catch { }
+            try { if (File.Exists(corruptPath)) File.Delete(corruptPath); } catch { }
+        }
 
         public SaveData Load()
         {

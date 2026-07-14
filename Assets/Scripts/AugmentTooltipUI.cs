@@ -18,6 +18,8 @@ public class AugmentTooltipUI : MonoBehaviour
     public static void Show(AugmentDefinition augment, Vector2 screenPosition)
     {
         if (augment == null) return;
+        // HUD設定でツールチップOFFなら表示しない。
+        if (!SettingsStore.GetHud("tooltip")) return;
         EnsureExists();
         instance.gameObject.SetActive(true);
         instance.ApplyContent(augment);
@@ -55,7 +57,7 @@ public class AugmentTooltipUI : MonoBehaviour
         Canvas canvas = GetComponent<Canvas>();
         if (canvas == null) canvas = gameObject.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 49500;
+        canvas.sortingOrder = 14500; // 16bit short上限(32767)内。
 
         CanvasScaler scaler = GetComponent<CanvasScaler>();
         if (scaler == null) scaler = gameObject.AddComponent<CanvasScaler>();

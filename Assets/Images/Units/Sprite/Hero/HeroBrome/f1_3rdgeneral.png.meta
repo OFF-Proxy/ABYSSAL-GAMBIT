@@ -1,0 +1,2006 @@
+fileFormatVersion: 2
+guid: 381d250363f6323418289f2ea4aaffd7
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: HeroBrome_Default_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 215
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24699214a5c60bc40ad89660e5745ef2
+      internalID: -58900866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Default_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 346
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e731c6b90f9f376499b82ce194ecd7d6
+      internalID: -54513518
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Default_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 477
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2bfe9e346e51834887dddb315975798
+      internalID: -160732319
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Default_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 608
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 97a948d9a5c41074f8958a5780499a41
+      internalID: 412485572
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Default_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 739
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d229eefbf11bea4ab5b2acec4a22f51
+      internalID: 1692816053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Default_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 870
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55e84555cf973494c80b4724b3ed1e13
+      internalID: 2122039866
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Default_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1001
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed343f6209cb3984cbb8f333ad092e4f
+      internalID: 1651256352
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Default_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1132
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c6e27eae5a3bdcb479780f6d64ce05d2
+      internalID: 218399916
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Default_008
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1263
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39c5a518965dbb84dad3b9b18dd58092
+      internalID: -190175497
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Default_009
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1394
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 65a2b5a7b9197c94d9c552356ad30610
+      internalID: 1310195658
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Default_010
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1525
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09128ea19cb605f4fb46d88f6abd08ce
+      internalID: 1859781652
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Default_011
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1656
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dc409f5af2718b8499f2d354918ba25a
+      internalID: 466966578
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Default_012
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1787
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: add3f6d52744cb843bb576d31dff534d
+      internalID: 2130756454
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Default_013
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1918
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b6b8bd0f5b4846443b744eced006fad4
+      internalID: 2088132384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Move_000
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 1263
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f301efb30b080e540bd741a0028503cd
+      internalID: 1102296971
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Move_001
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 1394
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee67182147a35924b920e25ac6c26e10
+      internalID: 401658881
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Move_002
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 1525
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e0142082af10b534b8b8e405abf36bbd
+      internalID: 854896209
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Move_003
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 1656
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a9761ad1044ef8c46a3b75cc50caa208
+      internalID: 1164474457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Move_004
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 1787
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e1405741cfe98d74295ec44f942fb9a0
+      internalID: 378373737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Move_005
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 1918
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6838119c563955145a1648e06ae5b197
+      internalID: 748616612
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Move_006
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 84
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 90766e14fac8628428b719f1557ca3b7
+      internalID: -1464136827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Move_007
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 215
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f37d0a1da99e2fc44b47b3bf62ffc7da
+      internalID: 2049902603
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Move_008
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 346
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b6a28222f6e0da4a86c5c6645655d36
+      internalID: 149310044
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Move_009
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 477
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b4dd3a348daf76f46aa3641dcfe4dcf3
+      internalID: -477056171
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 393
+        y: 739
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5fd8d60649dd4b44aae6c742cbc15adc
+      internalID: -1154258765
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 1525
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3ebc073c50f0ec647976ebffbe8762e7
+      internalID: -148392382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 1656
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e52476e2915bb0e45acf0232d8558bfc
+      internalID: -1781929869
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 1787
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: acca530684ee248429aa4f5121591ccc
+      internalID: 652810690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 917
+        y: 1918
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bad87a1560ea3cd408138fe229e9bef2
+      internalID: -360092669
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 84
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e2d5da7931073445a0d9d2107c27dfd
+      internalID: -268226059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 215
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 54b738ffba8cdfd49868f087acc16da1
+      internalID: -455212699
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 346
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: def176a5042139844931efed24d9f467
+      internalID: 484518511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 477
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6f504a07a8955db479a082792121775f
+      internalID: 1952922053
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 608
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e961a3cc58dc2514ba09de9981fc6a6b
+      internalID: 1135290628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 739
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d89594f36f095f459559af9ac74c177
+      internalID: 787853930
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 870
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fae89d8ade1cb3e48b5449a8d2f255cc
+      internalID: -326368741
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 1001
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e134eda9a9a2054a9a91d5fa8da5b73
+      internalID: 144066902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 1132
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f037e6f6c04a8944a7f6036a34a8ee8
+      internalID: 781500514
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 1263
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2ff189940caed3c4bba102b0f3558513
+      internalID: 65572826
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 1394
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 85a2e207c31f1df46bac0947874ca694
+      internalID: 496779938
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 1525
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8034023da9371fe4bb3721eb2e99d904
+      internalID: -500912033
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 1656
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d829e271d832c944b239cbc31dd58ca
+      internalID: 214701682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 1787
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c1209804c6dc3f4f8871e4e3b55b1a1
+      internalID: -1662692788
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 786
+        y: 1918
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f315e07d76f8ee44a2f9a7f1e305402
+      internalID: 1241971827
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_020
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 84
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9744b6083710a3e448b13d3448b4ec0d
+      internalID: -1237141994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_021
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 215
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19cb37fe8bc2fbf4bad9852652a84743
+      internalID: 1993561767
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_022
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 346
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ddd29fa26f1cd8c4f80a7b6532cb367a
+      internalID: -2135077185
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_023
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 477
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 74ad5b7a5efa12a429d435bec0b49be1
+      internalID: 279423976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_024
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 608
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a1703dbb35c6f8f4fae7f509edfc5b4e
+      internalID: -461895324
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_025
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 739
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0bde3794a56b0ef4299bd0cf9d16557c
+      internalID: -1067229015
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_026
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 870
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95bb7393d841a174e9185f09e7674670
+      internalID: 1868533376
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_027
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 1001
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: af92a7674ebb0cd4bb2372cb45c27fd3
+      internalID: 598533493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_028
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 1132
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f32beb0ecfde57d4eb79098f46a14c56
+      internalID: 1300573181
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_029
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 1263
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 934ee04f2479f8848bac781f3dc8f516
+      internalID: -1588222028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_030
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 1394
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 10974002ec843d7448ec6d6008219230
+      internalID: 1886134791
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Attack_031
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 1525
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8fd3cbcdc99480d438995c9c3d1b7752
+      internalID: -648515816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Ability_000
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 739
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c4bee479c61868e47842faeb2cefc88b
+      internalID: -1604241591
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Ability_001
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 870
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 332cec5a2566653479061775ec2f8397
+      internalID: 790096976
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Ability_002
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 1001
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e63cc0bfa2603d46884ff2a04dd2b5b
+      internalID: -850875647
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Ability_003
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 1132
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 48d5668a907487b4fbc44affff6251ac
+      internalID: -2069152111
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Ability_004
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 1263
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aaa84dced66530144ab416b9341e6a08
+      internalID: -964348744
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Ability_005
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 1394
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dfa0bc2d9b4ba2c4fadc92328367ff7e
+      internalID: -1310987461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Ability_006
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 1525
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b0f05c685ed7ea48863268053ee8573
+      internalID: -1828195875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Ability_007
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 1656
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9e834f938ab556c49aa5d06959d52d39
+      internalID: -1990415963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Ability_008
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 1787
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77643f1f240844647955e3efa89e7014
+      internalID: -744690384
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Ability_009
+      rect:
+        serializedVersion: 2
+        x: 262
+        y: 1918
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 372e111e7347f42489f8571760ff94fe
+      internalID: 202710558
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Ability_010
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 84
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fd90971441927dc46a18a4a85fa8f092
+      internalID: -188973460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Ability_011
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 870
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df4d3e363e6e281459c594088cdcc776
+      internalID: 394830323
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Ability_012
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 1001
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe56bf830a4dc6f448c8073cb8f29778
+      internalID: -703364404
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Ability_013
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 1132
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 978b796970ed32a48a8a2265f349a75d
+      internalID: -1989531051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Ability_014
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 1263
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87dea34757f5c8f45a04fa2d1c0a949e
+      internalID: -1371243651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Ability_015
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 1394
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fdca4aaeb7da4184a92aa2b1423b11d8
+      internalID: -779898162
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Ability_016
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 1525
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb439be42762dd746adb1f9912186314
+      internalID: -1157470770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Ability_017
+      rect:
+        serializedVersion: 2
+        x: 131
+        y: 1656
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50704950709e8fe47935cb34b910e9d0
+      internalID: 457788382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 1656
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2452adfd49e1e1c41983c94976ca815f
+      internalID: 1798741596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 1787
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7033036e82e6b294dac777098fe7735a
+      internalID: -1198692662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 655
+        y: 1918
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 709e4dfcbed43f142b75c30e8029dda2
+      internalID: -1128455726
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 84
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3970b1c20be388d4c9a6fc61f065420f
+      internalID: -1506487468
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 215
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43f114595c8573243b281bfe7d970ffb
+      internalID: -2025915759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 346
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9a8221b4cc69a3a4991520a122556aad
+      internalID: -518101682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 477
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79d60980d6123e54e9969eec0c8df433
+      internalID: 1783485200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 608
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d35c236476131e4ca94c8d7413fd8a6
+      internalID: 1865234872
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 739
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dca667021bafc5a4f8ada8013cf0c4b1
+      internalID: 436230600
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 870
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2948bf4063d50d84fa16bbfd6b05a9f1
+      internalID: 1460879377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 1001
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbb7ee3a218029344b13b21e506c1a4a
+      internalID: -1274084337
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroBrome_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 524
+        y: 1132
+        width: 130
+        height: 130
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e3cafa15479ed1458875c8191539504
+      internalID: -928702835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      HeroBrome_Ability_000: -1604241591
+      HeroBrome_Ability_001: 790096976
+      HeroBrome_Ability_002: -850875647
+      HeroBrome_Ability_003: -2069152111
+      HeroBrome_Ability_004: -964348744
+      HeroBrome_Ability_005: -1310987461
+      HeroBrome_Ability_006: -1828195875
+      HeroBrome_Ability_007: -1990415963
+      HeroBrome_Ability_008: -744690384
+      HeroBrome_Ability_009: 202710558
+      HeroBrome_Ability_010: -188973460
+      HeroBrome_Ability_011: 394830323
+      HeroBrome_Ability_012: -703364404
+      HeroBrome_Ability_013: -1989531051
+      HeroBrome_Ability_014: -1371243651
+      HeroBrome_Ability_015: -779898162
+      HeroBrome_Ability_016: -1157470770
+      HeroBrome_Ability_017: 457788382
+      HeroBrome_Attack_000: -1154258765
+      HeroBrome_Attack_001: -148392382
+      HeroBrome_Attack_002: -1781929869
+      HeroBrome_Attack_003: 652810690
+      HeroBrome_Attack_004: -360092669
+      HeroBrome_Attack_005: -268226059
+      HeroBrome_Attack_006: -455212699
+      HeroBrome_Attack_007: 484518511
+      HeroBrome_Attack_008: 1952922053
+      HeroBrome_Attack_009: 1135290628
+      HeroBrome_Attack_010: 787853930
+      HeroBrome_Attack_011: -326368741
+      HeroBrome_Attack_012: 144066902
+      HeroBrome_Attack_013: 781500514
+      HeroBrome_Attack_014: 65572826
+      HeroBrome_Attack_015: 496779938
+      HeroBrome_Attack_016: -500912033
+      HeroBrome_Attack_017: 214701682
+      HeroBrome_Attack_018: -1662692788
+      HeroBrome_Attack_019: 1241971827
+      HeroBrome_Attack_020: -1237141994
+      HeroBrome_Attack_021: 1993561767
+      HeroBrome_Attack_022: -2135077185
+      HeroBrome_Attack_023: 279423976
+      HeroBrome_Attack_024: -461895324
+      HeroBrome_Attack_025: -1067229015
+      HeroBrome_Attack_026: 1868533376
+      HeroBrome_Attack_027: 598533493
+      HeroBrome_Attack_028: 1300573181
+      HeroBrome_Attack_029: -1588222028
+      HeroBrome_Attack_030: 1886134791
+      HeroBrome_Attack_031: -648515816
+      HeroBrome_Dead_000: 1798741596
+      HeroBrome_Dead_001: -1198692662
+      HeroBrome_Dead_002: -1128455726
+      HeroBrome_Dead_003: -1506487468
+      HeroBrome_Dead_004: -2025915759
+      HeroBrome_Dead_005: -518101682
+      HeroBrome_Dead_006: 1783485200
+      HeroBrome_Dead_007: 1865234872
+      HeroBrome_Dead_008: 436230600
+      HeroBrome_Dead_009: 1460879377
+      HeroBrome_Dead_010: -1274084337
+      HeroBrome_Dead_011: -928702835
+      HeroBrome_Default_000: -58900866
+      HeroBrome_Default_001: -54513518
+      HeroBrome_Default_002: -160732319
+      HeroBrome_Default_003: 412485572
+      HeroBrome_Default_004: 1692816053
+      HeroBrome_Default_005: 2122039866
+      HeroBrome_Default_006: 1651256352
+      HeroBrome_Default_007: 218399916
+      HeroBrome_Default_008: -190175497
+      HeroBrome_Default_009: 1310195658
+      HeroBrome_Default_010: 1859781652
+      HeroBrome_Default_011: 466966578
+      HeroBrome_Default_012: 2130756454
+      HeroBrome_Default_013: 2088132384
+      HeroBrome_Move_000: 1102296971
+      HeroBrome_Move_001: 401658881
+      HeroBrome_Move_002: 854896209
+      HeroBrome_Move_003: 1164474457
+      HeroBrome_Move_004: 378373737
+      HeroBrome_Move_005: 748616612
+      HeroBrome_Move_006: -1464136827
+      HeroBrome_Move_007: 2049902603
+      HeroBrome_Move_008: 149310044
+      HeroBrome_Move_009: -477056171
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

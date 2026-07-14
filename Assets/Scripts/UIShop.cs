@@ -74,6 +74,7 @@ public class UIShop : MonoBehaviour
         NormalizeShopTextLayout();
         EnsureSellPreviewText();
         CacheSellModeHiddenObjects();
+        EnsureShopChrome();
     }
 
     // GameManagerやPlayerDataが準備された後、カード生成とイベント登録を行います。
@@ -139,6 +140,13 @@ public class UIShop : MonoBehaviour
         }
         // 新しいラウンドの開始タイミング → gold_free_reroll の使用済みフラグをリセット。
         goldFreeRerollUsedThisRound = false;
+        // ショップ固定中はウェーブ間の自動リロールを行わず、同じ品揃えを次ラウンドへ持ち越します。
+        if (shopLocked)
+        {
+            pendingFreeReroll = false;
+            RefreshRerollButtonCostText();
+            return;
+        }
         if (Draggable.ActiveDragCount > 0)
         {
             pendingFreeReroll = true;
@@ -153,7 +161,20 @@ public class UIShop : MonoBehaviour
         if (!pendingFreeReroll)
             return;
         pendingFreeReroll = false;
+        // 固定中はドラッグ終了後もリロールしない（品揃え維持）。
+        if (shopLocked)
+        {
+            RefreshRerollButtonCostText();
+            return;
+        }
         GenerateCard();
+        RefreshRerollButtonCostText();
+    }
+
+    // R3-hero-depth: 無料リロールの在庫を付与する（ヴェスナの開始ボーナス等）。
+    public void GrantFreeRerollStack(int count = 1)
+    {
+        goldFreeRerollStacks += Mathf.Max(1, count);
         RefreshRerollButtonCostText();
     }
 
@@ -338,9 +359,9 @@ public class UIShop : MonoBehaviour
         //We should check if we have the money!
         if(PlayerData.Instance.CanAfford(cardData.cost))
         {
-            // お金を払ってカードを消し、GameManagerに購入ユニット生成を任せます。
+            // お金を払い、スロットは「円＋空六角形」の購入済み表示にする（非表示にはしない）。
             PlayerData.Instance.SpendMoney(cardData.cost);
-            card.gameObject.SetActive(false);
+            card.ShowPurchasedEmpty();
             GameManager.Instance.OnEntityBought(cardData);
             AttackEffectPlayer.PlayUiSfx("unit_buy");
             UpdateUpgradeHighlights();
@@ -370,6 +391,12 @@ public class UIShop : MonoBehaviour
         if (cost > 0)
             PlayerData.Instance.SpendMoney(cost);
         GenerateCard();
+        // 手動リロールで品揃えが入れ替わるため、ロックは自動解除します。
+        if (shopLocked)
+        {
+            shopLocked = false;
+            RefreshLockVisual();
+        }
         AttackEffectPlayer.PlayUiSfx("shop_reroll");
         RefreshRerollButtonCostText();
     }
@@ -377,6 +404,10 @@ public class UIShop : MonoBehaviour
     // EXP購入ボタンを押した時の処理です。
     public void OnExpClick()
     {
+        // 章導入演出（プロローグ/VN）中は経験値購入も無効。
+        if (GameManager.IsStoryIntroBlocking())
+            return;
+
         if (sellModeActive || PlayerData.Instance == null)
             return;
 
@@ -399,6 +430,9 @@ public class UIShop : MonoBehaviour
         money.text = incomePreview > 0
             ? $"{PlayerData.Instance.Money}  <size=66%><color=#9ED9FF>+{incomePreview}</color></size>"
             : PlayerData.Instance.Money.ToString();
+
+        // コイン表示をクリックすると、収入内訳パネルを開けるようにします。
+        CoinIncomePanelUI.AttachToCoinDisplay(money);
 
         // 所持金の下に、次の利子段階までの進捗ゲージを表示します。
         RefreshInterestGauge();
@@ -440,6 +474,11 @@ public class UIShop : MonoBehaviour
         RefreshExpModeToggle();
         RefreshExpButtonCostText();
         RefreshRerollButtonCostText();
+
+        // カードの丸背景(card_background)を購入可否で更新（マナ増減に追従）。
+        if (allCards != null)
+            for (int i = 0; i < allCards.Count; i++)
+                if (allCards[i] != null) allCards[i].RefreshCardBackground();
     }
 
     // 利子ゲージ（次の +1 利子までの進捗を所持金表示の真下に出します）。
@@ -824,6 +863,405 @@ public class UIShop : MonoBehaviour
         NormalizeShopTextLayout();
         RefreshExpModeToggle();
         RefreshExpButtonCostText();
+        RefreshLockVisual();
+    }
+
+    // ===== R5-shop-duelyst: ショップの見た目（脱ShopBoard）＋ロックトグル =====
+    // ロック中はウェーブ間の自動リロールをスキップし、同じ品揃えを次ラウンドへ持ち越します。
+    private bool shopLocked;
+    private GameObject shopLockButton;
+    private Image shopLockIcon;
+    private TextMeshProUGUI shopLockLabel;
+
+    // 現在ショップが固定中か（外部参照用）。
+    public bool IsShopLocked => shopLocked;
+
+    // 旧AIの ShopBoard を Duelyst の下部バー素材へ差し替え、盤面のクリック/ドラッグを遮らないようにします。
+    // （シーン側でも差し替え済みですが、未再取り込み時のフォールバックとして実行時にも保証します。）
+    private void EnsureShopChrome()
+    {
+        // R5-P7: 旧AI盤(ShopBoard)＝下地は非表示に（下地透明）。参考画像のように盤面をしっかり見せ、
+        // ユニットは「足元のひし形足場」に立つ表現へ（UICard 側）。帯やプレートは敷かない。
+        GameObject board = GameObject.Find("ShopBoard");
+        if (board != null)
+        {
+            Image img = board.GetComponent<Image>();
+            if (img != null)
+            {
+                img.enabled = false;
+                img.raycastTarget = false;
+            }
+        }
+        EnsureLockToggle();
+        ApplyShopArc();
+        ApplyControlLayout();
+    }
+
+    // R5-P8: 操作系を参考画像準拠に再配置（左下=経済クラスタ / 右下=リロール＋FIGHT）。1回のみ。
+    // 座標は Canvas 基準解像度 1920x1080 のアンカー相対px。
+    private bool controlLayoutApplied;
+    private void ApplyControlLayout()
+    {
+        if (controlLayoutApplied) return;
+
+        // --- 左下：経済クラスタ（マナ残高 / レベル / 経験値 / Ex購入）---
+        // 通貨ジェムは money の兄弟（ManaGemスプライト）を掴む。
+        // ※GameObject.Find("coin") はスロットの別"coin"を誤取得する（中央に取り残される原因だった）ため使わない。
+        GameObject gem = FindCurrencyGem();
+        // 所持マナのアイコンは、数字なしの icon_mana（青い六角形）へ差し替え。
+        if (gem != null)
+        {
+            Image gemImg = gem.GetComponent<Image>();
+            Sprite manaHex = Resources.Load<Sprite>("UI/Duelyst/icon_mana");
+            if (gemImg != null && manaHex != null) { gemImg.sprite = manaHex; gemImg.preserveAspect = true; }
+        }
+        MoveToBottomLeft(gem, GameHudLayout.ManaGemPos, GameHudLayout.ManaGemSize); // マナジェム表示。
+        MoveToBottomLeft(money != null ? money.gameObject : null, GameHudLayout.MoneyPos);
+        // レベル / 経験値（マナの下段）
+        MoveToBottomLeft(levelText != null ? levelText.gameObject : null, GameHudLayout.LevelPos);
+        MoveToBottomLeft(expText != null ? expText.gameObject : null, GameHudLayout.ExpPos);
+        // 経験値購入（Exボタン）
+        MoveToBottomLeft(GameObject.Find("LevelUpButton"), GameHudLayout.ExpButtonPos, GameHudLayout.ExpButtonSize);
+
+        // --- 右下：アクション（FIGHTの上にリロールを段積み。中央寄せしたショップ枠と重ならない最右へ）---
+        RestyleFightButton();
+        MoveToBottomRight(GameObject.Find("RerollButton"), GameHudLayout.RerollPos, GameHudLayout.RerollSize);
+
+        // リロール/Exボタン内の「ジェム＋コスト数字」が重ならないよう横並びに整える。
+        FixButtonCostLayout(GameObject.Find("RerollButton"));
+        FixButtonCostLayout(GameObject.Find("LevelUpButton"));
+        // 左下の経済クラスタ（マナ/レベル/経験値/利子）背面にパネルを敷いて読みやすく。
+        EnsureEconomyPanel();
+
+        controlLayoutApplied = true;
+    }
+
+    // ボタン内の coin(ジェム) と cost(数字) を右側に横並び配置（重なり防止）。ラベルは左寄せ。
+    private static void FixButtonCostLayout(GameObject button)
+    {
+        if (button == null) return;
+        Transform coin = button.transform.Find("coin");
+        if (coin != null)
+        {
+            RectTransform c = coin as RectTransform;
+            c.anchorMin = c.anchorMax = new Vector2(0.5f, 0.5f);
+            c.anchoredPosition = new Vector2(40f, 0f);
+            c.sizeDelta = new Vector2(24f, 24f);
+        }
+        Transform cost = button.transform.Find("cost");
+        if (cost != null)
+        {
+            RectTransform t = cost as RectTransform;
+            t.anchorMin = t.anchorMax = new Vector2(0.5f, 0.5f);
+            t.anchoredPosition = new Vector2(68f, 0f);
+            TextMeshProUGUI tmp = cost.GetComponent<TextMeshProUGUI>();
+            if (tmp != null) tmp.alignment = TextAlignmentOptions.Left;
+        }
+    }
+
+    // 左下の経済クラスタ背面に Duelyst パネルを1枚敷く（読みやすさ用）。
+    private GameObject economyPanel;
+    private void EnsureEconomyPanel()
+    {
+        if (economyPanel != null) return;
+        Transform canvasT = money != null ? money.transform.parent : null;
+        if (canvasT == null) return;
+
+        GameObject panel = new GameObject("EconomyPanel", typeof(RectTransform), typeof(Image));
+        panel.transform.SetParent(canvasT, false);
+        RectTransform rt = panel.GetComponent<RectTransform>();
+        rt.anchorMin = rt.anchorMax = new Vector2(0f, 0f);
+        rt.pivot = new Vector2(0.5f, 0.5f);
+        rt.sizeDelta = GameHudLayout.EconomyPanelSize;
+        rt.anchoredPosition = GameHudLayout.EconomyPanelPos; // マナ/レベル/経験値/Ex購入 を内包。
+
+        Image img = panel.GetComponent<Image>();
+        // Duelyst流：パネル背景は画像素材ではなく「暗い半透明の角丸」（CSS: rgba(1,0,37,0.75)）。
+        // 明るい枠素材を貼るより馴染む。内蔵の角丸9スライスを濃紺75%で敷く。
+        img.sprite = Resources.GetBuiltinResource<Sprite>("UI/Skin/UISprite.psd");
+        img.type = Image.Type.Sliced;
+        img.color = new Color(0.02f, 0.01f, 0.16f, 0.8f);
+        img.raycastTarget = false;
+        panel.transform.SetAsFirstSibling(); // 経済テキストより背面へ。
+        economyPanel = panel;
+    }
+
+    // 通貨ジェム＝money の兄弟で ManaGem スプライトを使う Image（スロットのコイン等と混同しない）。
+    private GameObject FindCurrencyGem()
+    {
+        if (money == null || money.transform.parent == null) return null;
+        foreach (Transform ch in money.transform.parent)
+        {
+            if (ch == money.transform) continue;
+            Image im = ch.GetComponent<Image>();
+            if (im != null && im.sprite != null && im.sprite.name == "ManaGem")
+                return ch.gameObject;
+        }
+        return null;
+    }
+
+    private static void MoveToBottomLeft(GameObject go, Vector2 pos, Vector2 size = default)
+    {
+        if (go == null) return;
+        RectTransform rt = go.transform as RectTransform;
+        if (rt == null) return;
+        rt.anchorMin = rt.anchorMax = new Vector2(0f, 0f);
+        rt.anchoredPosition = pos;
+        if (size != default) rt.sizeDelta = size;
+    }
+
+    private static void MoveToBottomRight(GameObject go, Vector2 pos, Vector2 size = default)
+    {
+        if (go == null) return;
+        RectTransform rt = go.transform as RectTransform;
+        if (rt == null) return;
+        rt.anchorMin = rt.anchorMax = new Vector2(1f, 0f);
+        rt.anchoredPosition = pos;
+        if (size != default) rt.sizeDelta = size;
+    }
+
+    private void RestyleFightButton()
+    {
+        StyleFightButton(GameObject.Find("FIGHT"), true);
+    }
+
+    // FIGHT(戦闘開始)ボタンを Duelyst の金ターンボタン＋白ラベルにする。
+    // ゲーム側(GameManager.EnsureFightButtonPresentation)からも呼べるよう public static。
+    // ラベルは「シーン常駐のレガシーText」を使う（ゲーム側の再設定で消えないよう）＝再生成に強い。
+    public static void StyleFightButton(GameObject fight, bool reposition = true)
+    {
+        if (fight == null) return;
+
+        if (reposition)
+        {
+            RectTransform rt = fight.transform as RectTransform;
+            if (rt != null)
+            {
+                rt.anchorMin = rt.anchorMax = new Vector2(1f, 0f);
+                rt.anchoredPosition = GameHudLayout.FightPos;
+                rt.sizeDelta = GameHudLayout.FightSize;
+            }
+        }
+
+        Image img = fight.GetComponent<Image>();
+        if (img != null)
+        {
+            Sprite skin = Resources.Load<Sprite>("UI/Duelyst/button_end_turn_mine");
+            if (skin != null) { img.sprite = skin; img.type = Image.Type.Simple; }
+            img.color = Color.white;
+        }
+
+        // ラベル: まずシーン常駐のレガシーText("Text (Legacy)")を活用（消えにくい）。
+        Transform legacyT = fight.transform.Find("Text (Legacy)");
+        UnityEngine.UI.Text legacy = legacyT != null ? legacyT.GetComponent<UnityEngine.UI.Text>() : null;
+        if (legacy != null)
+        {
+            legacyT.gameObject.SetActive(true);
+            legacy.text = "FIGHT";
+            legacy.color = new Color(1f, 0.98f, 0.9f, 1f);
+            legacy.alignment = TextAnchor.MiddleCenter;
+            legacy.fontStyle = FontStyle.Bold;
+            legacy.raycastTarget = false;
+            RectTransform lr = legacy.rectTransform;
+            lr.anchorMin = Vector2.zero;
+            lr.anchorMax = Vector2.one;
+            lr.offsetMin = Vector2.zero;
+            lr.offsetMax = Vector2.zero;
+            return;
+        }
+
+        // フォールバック: TMPラベルを用意。
+        Transform lbl = fight.transform.Find("FightLabel");
+        TextMeshProUGUI tmp;
+        if (lbl == null)
+        {
+            GameObject go = new GameObject("FightLabel", typeof(RectTransform), typeof(TextMeshProUGUI));
+            go.transform.SetParent(fight.transform, false);
+            RectTransform lr = go.GetComponent<RectTransform>();
+            lr.anchorMin = Vector2.zero;
+            lr.anchorMax = Vector2.one;
+            lr.offsetMin = Vector2.zero;
+            lr.offsetMax = Vector2.zero;
+            tmp = go.GetComponent<TextMeshProUGUI>();
+        }
+        else tmp = lbl.GetComponent<TextMeshProUGUI>();
+
+        if (tmp != null)
+        {
+            tmp.text = "FIGHT";
+            tmp.alignment = TextAlignmentOptions.Center;
+            tmp.fontStyle = FontStyles.Bold;
+            tmp.enableWordWrapping = false;
+            tmp.enableAutoSizing = true;
+            tmp.fontSizeMin = 24f;
+            tmp.fontSizeMax = 38f;
+            tmp.color = new Color(1f, 0.98f, 0.9f, 1f);
+            tmp.outlineWidth = 0.25f;
+            tmp.outlineColor = new Color(0.02f, 0.05f, 0.1f, 0.95f);
+            tmp.raycastTarget = false;
+            LocalizationManager.ApplyFont(tmp);
+        }
+    }
+
+    // 5枠を「画面中央寄せ＋間隔圧縮＋緩い弧（谷型）」に整える。
+    // 元は中心が右(≈1172)・幅が広く、左右の操作系と重なるため、中央(960)へ寄せて間隔を詰める。
+    private bool shopArcApplied;
+    public float shopArcDepth = GameHudLayout.ShopArcDepth;
+    public float shopSlotSpacing = GameHudLayout.ShopSlotSpacing; // 枠間隔（px）。GameHudLayoutで一元管理。
+    private void ApplyShopArc()
+    {
+        if (shopArcApplied) return;
+        GameObject slotParent = GameObject.Find("ShopSlotParent");
+        if (slotParent == null) return;
+        RectTransform sprt = slotParent.transform as RectTransform;
+
+        var slots = new System.Collections.Generic.List<RectTransform>();
+        foreach (Transform ch in slotParent.transform)
+        {
+            RectTransform rt = ch as RectTransform;
+            if (rt != null) slots.Add(rt);
+        }
+        if (slots.Count < 2) return;
+
+        slots.Sort((a, b) => a.position.x.CompareTo(b.position.x)); // 左→右（ワールド基準）
+        int n = slots.Count;
+        // 枠のアンカー種別に依存しないよう「ワールド差分」で中央寄せ＋圧縮する。
+        // 画面中心＝Screen.width/2、canvas単位→ワールドは scaleFactor 倍（Overlay/ScreenSpace想定）。
+        Canvas rootCanvas = GetComponentInParent<Canvas>();
+        if (rootCanvas != null) rootCanvas = rootCanvas.rootCanvas;
+        float sf = rootCanvas != null ? rootCanvas.scaleFactor : 1f;
+        if (sf <= 0f) sf = 1f;
+        float centerWorldX = Screen.width * 0.5f;
+        for (int i = 0; i < n; i++)
+        {
+            float t = ((float)i / (n - 1)) * 2f - 1f; // -1..1
+            float arc = -shopArcDepth * (1f - t * t);  // 中央が最も低い（谷型）
+            float targetWorldX = centerWorldX + (i - (n - 1) / 2f) * shopSlotSpacing * sf;
+            float dxAnchored = (targetWorldX - slots[i].position.x) / sf; // ワールド差→canvas単位
+            float baseY = slots[i].anchoredPosition.y;
+            slots[i].anchoredPosition = new Vector2(slots[i].anchoredPosition.x + dxAnchored, baseY + arc + GameHudLayout.ShopSlotRaise);
+        }
+        shopArcApplied = true;
+    }
+
+    // 対象テキストの背面に status_panel プレートを1枚敷きます（無ければ生成）。
+    // offsetMin/Max で対象の矩形を padding ぶん広げて複製するため、アンカー形態（固定/ストレッチ）に依存しません。
+    private void EnsureStatusPlate(RectTransform target, string plateName, Vector2 padding)
+    {
+        if (target == null || target.parent == null) return;
+        Transform parent = target.parent;
+        if (parent.Find(plateName) != null) return;
+
+        GameObject plate = new GameObject(plateName, typeof(RectTransform), typeof(Image));
+        plate.transform.SetParent(parent, false);
+        RectTransform rt = plate.GetComponent<RectTransform>();
+        rt.anchorMin = target.anchorMin;
+        rt.anchorMax = target.anchorMax;
+        rt.pivot = target.pivot;
+        rt.offsetMin = target.offsetMin - padding;
+        rt.offsetMax = target.offsetMax + padding;
+
+        Image img = plate.GetComponent<Image>();
+        Sprite s = Resources.Load<Sprite>("UI/Duelyst/status_panel");
+        if (s != null)
+        {
+            img.sprite = s;
+            img.type = Image.Type.Simple;
+        }
+        img.raycastTarget = false;
+        img.color = new Color(1f, 1f, 1f, 0.92f);
+
+        // テキストより先に描画＝背面へ回す。
+        plate.transform.SetSiblingIndex(target.GetSiblingIndex());
+    }
+
+    // リロールボタンの上に「固定（ロック）」トグルを生成します。既存の無料リロールバッジと同じ流儀。
+    private void EnsureLockToggle()
+    {
+        if (shopLockButton != null) return;
+        GameObject reroll = GameObject.Find("RerollButton");
+        if (reroll == null) return;
+
+        Transform existing = reroll.transform.Find("ShopLockButton");
+        if (existing != null)
+        {
+            shopLockButton = existing.gameObject;
+            shopLockIcon = existing.GetComponent<Image>();
+            shopLockLabel = existing.GetComponentInChildren<TextMeshProUGUI>(true);
+        }
+        else
+        {
+            GameObject go = new GameObject("ShopLockButton", typeof(RectTransform), typeof(Image), typeof(Button));
+            go.transform.SetParent(reroll.transform, false);
+            RectTransform rt = go.GetComponent<RectTransform>();
+            // リロールボタンの真上に、はみ出さない小さめトグルとして配置します。
+            rt.anchorMin = new Vector2(0.5f, 1f);
+            rt.anchorMax = new Vector2(0.5f, 1f);
+            rt.pivot = new Vector2(0.5f, 0f);
+            rt.anchoredPosition = new Vector2(0f, 8f);
+            rt.sizeDelta = new Vector2(104f, 34f);
+
+            shopLockIcon = go.GetComponent<Image>();
+            Sprite skin = Resources.Load<Sprite>("UI/Duelyst/button_confirm");
+            if (skin != null)
+            {
+                shopLockIcon.sprite = skin;
+                shopLockIcon.type = Image.Type.Simple;
+            }
+            shopLockIcon.raycastTarget = true;
+
+            GameObject label = new GameObject("Label", typeof(RectTransform), typeof(TextMeshProUGUI));
+            label.transform.SetParent(go.transform, false);
+            RectTransform lrt = label.GetComponent<RectTransform>();
+            lrt.anchorMin = Vector2.zero;
+            lrt.anchorMax = Vector2.one;
+            lrt.offsetMin = Vector2.zero;
+            lrt.offsetMax = Vector2.zero;
+            shopLockLabel = label.GetComponent<TextMeshProUGUI>();
+            shopLockLabel.alignment = TextAlignmentOptions.Center;
+            shopLockLabel.fontStyle = FontStyles.Bold;
+            shopLockLabel.fontSize = 16f;
+            shopLockLabel.enableWordWrapping = false;
+            shopLockLabel.raycastTarget = false;
+            LocalizationManager.ApplyFont(shopLockLabel);
+
+            Button btn = go.GetComponent<Button>();
+            btn.onClick.AddListener(ToggleShopLock);
+            shopLockButton = go;
+        }
+        RefreshLockVisual();
+    }
+
+    // 固定トグルの切り替え。売却プレビュー中は誤操作を防ぐため無効。
+    public void ToggleShopLock()
+    {
+        if (sellModeActive) return;
+        shopLocked = !shopLocked;
+        AttackEffectPlayer.PlayUiSfx("shop_reroll");
+        RefreshLockVisual();
+    }
+
+    // ロック状態に応じてラベル文言・色を更新します（JA/EN）。
+    private void RefreshLockVisual()
+    {
+        if (shopLockLabel != null)
+        {
+            LocalizationManager.ApplyFont(shopLockLabel);
+            if (shopLocked)
+            {
+                shopLockLabel.text = LocalizationManager.IsJapanese ? "固定中" : "LOCKED";
+                shopLockLabel.color = new Color(1f, 0.85f, 0.3f, 1f);
+            }
+            else
+            {
+                shopLockLabel.text = LocalizationManager.IsJapanese ? "固定" : "LOCK";
+                shopLockLabel.color = new Color(0.85f, 0.92f, 1f, 0.85f);
+            }
+        }
+        if (shopLockIcon != null)
+            shopLockIcon.color = shopLocked
+                ? new Color(1f, 1f, 1f, 1f)
+                : new Color(1f, 1f, 1f, 0.55f);
     }
 
     // EXPボタンやレベル/EXP表示の参照を探し、ボタンイベントを登録します。

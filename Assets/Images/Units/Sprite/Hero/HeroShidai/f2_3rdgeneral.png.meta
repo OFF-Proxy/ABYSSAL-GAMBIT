@@ -1,0 +1,2006 @@
+fileFormatVersion: 2
+guid: 1f9289896dbac6d40a2b0601f330662c
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: HeroShidai_Default_000
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0dc8906e8a4aa7247842d4f9baf879c7
+      internalID: 835404024
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Default_001
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae33ff1187208f748a24d65f30d79105
+      internalID: -1385376463
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Default_002
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6425218d21da43e4ba8649409e824643
+      internalID: -606695694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Default_003
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dcd1c2bd4d354574a8133b74337e5e53
+      internalID: -1298566076
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Default_004
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 020fede6c3d17fc4a9e325cacff73fd1
+      internalID: -1393679870
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Default_005
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 395
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0f103d6a36c5fa24a80998b03463326a
+      internalID: -983251494
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Default_006
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 521
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9776979a537196842b512682e3111b94
+      internalID: -1984335292
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Default_007
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 647
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c2140eec1136cf4ea49782afdee7e6e
+      internalID: -361183675
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Default_008
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 647
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f94885a39aa5f0e4789b5439aa526a43
+      internalID: 1141113051
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Default_009
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 647
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f95f01f0137f4334798adbae6e32f907
+      internalID: 187281583
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Default_010
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 647
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 89d40d99cc1c51b45b33e5dcb5ca9b17
+      internalID: 1553736902
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Default_011
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 647
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1250ae9262871f747ba7f567883c0e66
+      internalID: -2019636272
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Default_012
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 521
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 148efefa4f1f9be4eb45ac24bbeef396
+      internalID: 681884196
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Default_013
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 395
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1aa9d092fcc860c42b9cbffca16b289c
+      internalID: 1182832818
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Move_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 17
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37fae6fc8ac987f409e7c6f40cd5dfea
+      internalID: 227122119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Move_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 143
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 32a462940c8a86146ad70ecfa0b3d496
+      internalID: -1855303853
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Move_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d56331137e29ea4a8a1488b43a01b82
+      internalID: -1862522891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Move_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 395
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e21b9baefa607c1429c9033109f00185
+      internalID: -1626287013
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 521
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1400b4b5b57a21f40b49700ab5aa7f55
+      internalID: -209630195
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 647
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da87b98837704e14a904cf416a8e8d7c
+      internalID: 2103765486
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Move_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 773
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4ee17e680a2b8af47944948e3a40a57d
+      internalID: -1893862220
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Move_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f8d38ba92ec2bf440b3edd271060f63c
+      internalID: 1220732792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d8be5bc256e05c46af93540da3f0a52
+      internalID: -882065974
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 17
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a0d95370609249b4fa13902d1d5b6a5a
+      internalID: -439327730
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 143
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b2e0c84a14039f4ca56498598b317e2
+      internalID: 964856005
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51da3d5dd3a41e54e9550e027cba074b
+      internalID: 261342077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 395
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0af7fa89f6ce58449921bd733161561
+      internalID: 1091867655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 521
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95d2ae8c1adb52f48acad50eaa0249e4
+      internalID: -1346830746
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 647
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6a66994eb48ce79458d4935b28318eb0
+      internalID: 1091491094
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 773
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 24eacf8df74e8b1468ec2c6e9abc5388
+      internalID: 1445859986
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 1134
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 26c62379b2dc1ee448f1a245fc8ae826
+      internalID: -556312950
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 17
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7730bc9db0843b341b988ab690f088ef
+      internalID: 1149496564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 143
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d817a093cf36934c91f8c627dc4f96d
+      internalID: 1316467625
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b76040391562484b9ef2233da22e029
+      internalID: 1944262737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 395
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e53b7c119a49f194bbae4e10f3600be4
+      internalID: -1518562425
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 521
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9058b630fb6f0a64b8b84c8fa8db7998
+      internalID: 1318618047
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 647
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b82817a081d396446a9393fbb30f7217
+      internalID: 10141074
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 773
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0db34c37be280f48907e9db28d77fbf
+      internalID: -23163772
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 1008
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac0c32bd81b28f04182974f65f3a93fd
+      internalID: 754367362
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 17
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f4ede0f386dfc0c4d81e3c5c74d8ea45
+      internalID: 1894350653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 143
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c2fb63d4a3cc634c930824c97553550
+      internalID: -1788285039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8058faaf54b7444582a97b272ded5e0
+      internalID: 91512029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_000
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3e0a5b8ca75bd374b90752c646538de5
+      internalID: -1818610370
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_001
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ca3da7dbe56dfc94787540036855336f
+      internalID: 639802335
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_002
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 17
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 39fd4f59b2853cb4683b38e89c631abf
+      internalID: 1020709227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_003
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 143
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 832e4e920e7db1c4cb6eb1cd08c338e2
+      internalID: -896648556
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_004
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb38d273b8318f64fb3b8bad4d285274
+      internalID: -87459637
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_005
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 395
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f634366098257447b98b0f3b911ba3c
+      internalID: 1952505427
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_006
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 773
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8b2461080f84728459970bde80dcb5c3
+      internalID: -1994362895
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_007
+      rect:
+        serializedVersion: 2
+        x: 882
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e4c5e571eb733e4baa2f7f1c0eef59b
+      internalID: -1574334178
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_008
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 17
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d9d57ae871bddf4b94ab7e8a2e3a61e
+      internalID: 1089981569
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_009
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 143
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 95b3bb3bb294ddd489a98e4f92860ebe
+      internalID: -78426017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_010
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d77a493c93a20814db661138b95cd73a
+      internalID: -1137365982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_011
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 395
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bc2c873cc6065744091ddfbf9314cb1f
+      internalID: -742997294
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_012
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 521
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 64eb88a4c1ecac441acc9133ffd5f41d
+      internalID: 854280496
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_013
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 647
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4216f9523448fe4ca7cf9fe0f7ae7ab
+      internalID: 1401032039
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_014
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 821bd49a4c9f0ad4489f216b7a067da7
+      internalID: 593891679
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_015
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 600f354223f74f146aaef948c6c07515
+      internalID: 914731662
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_016
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 395
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cde9f34ef7e697d41bd8c0f8fa62190a
+      internalID: 1206006753
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_017
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 521
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 79a32d2f3734ff54b9d51931606cf811
+      internalID: -421058559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_018
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 647
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: df27f2f7535425a478f272ed574af257
+      internalID: -1655375286
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_019
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 773
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2502d0b04be7ef5418b20aadabd597f3
+      internalID: -1944888351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_020
+      rect:
+        serializedVersion: 2
+        x: 1260
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 737571d8c713151459c4afdd75e7044f
+      internalID: -654974959
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_021
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 773
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ff85cfff3e030f242b9e1a1af0557864
+      internalID: -2061884299
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_022
+      rect:
+        serializedVersion: 2
+        x: 756
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da269adb51939ff4ab9ba5945a4da259
+      internalID: -33460549
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_023
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 17
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5d6582024b87734e82f394755b98635
+      internalID: -512797203
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_024
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 143
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3531e8c4d477b9c47ac2b5131ca22f8b
+      internalID: -2138429104
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Ability_025
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 380801faab91f074eb0b999f3d733865
+      internalID: 842615368
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 630
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1c282e240c1c24046a820a2a64078409
+      internalID: 140801285
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 521
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41db05ef8e484cc488d753ab9eee8172
+      internalID: 2005502221
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 647
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d460c143900b4b140b52982ef8de3b4f
+      internalID: -1568149089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 773
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 008577f4e8ecb9e4ca9fe3874f440846
+      internalID: 1769582886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 504
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 51617721d90935d41902224488fe7677
+      internalID: 1832178593
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 17
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b356745104d3ba468bf33ae911ebd0f
+      internalID: -1863168525
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 143
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d769b991a42f494448c1f653b78bf944
+      internalID: -768173524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 87d8833aa650180449113c7ae7457ac5
+      internalID: 1477951672
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 395
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23aad43b6816bc2488a5e18778252534
+      internalID: 1271880579
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 521
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0dc2edba9d286314e9ed2f49595fdf98
+      internalID: 695657914
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 647
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 19fd4df5a038a35408fb3782c91fc1ec
+      internalID: 295466995
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 773
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b1b150ed99a76548b0614a19e6cbb4c
+      internalID: 1477692820
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 378
+        y: 899
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3563025d9f932f7498516c8927c2e71f
+      internalID: 276725377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 17
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b9bddad9c50984841b3862de45de69af
+      internalID: 913722186
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 143
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 99ca740e9ab3be545aac39df9989c9f7
+      internalID: -753132644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Dead_015
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 269
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c957160be8cc1cb4ea8ef47c33a537e7
+      internalID: -15033993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Dead_016
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 395
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e480ab64356dd2341ae8632ac2ddae9c
+      internalID: 788703084
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: HeroShidai_Dead_017
+      rect:
+        serializedVersion: 2
+        x: 252
+        y: 521
+        width: 125
+        height: 125
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c1d81cdad5c5b1b41a69a49df68a045a
+      internalID: -548288573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      HeroShidai_Ability_000: -1818610370
+      HeroShidai_Ability_001: 639802335
+      HeroShidai_Ability_002: 1020709227
+      HeroShidai_Ability_003: -896648556
+      HeroShidai_Ability_004: -87459637
+      HeroShidai_Ability_005: 1952505427
+      HeroShidai_Ability_006: -1994362895
+      HeroShidai_Ability_007: -1574334178
+      HeroShidai_Ability_008: 1089981569
+      HeroShidai_Ability_009: -78426017
+      HeroShidai_Ability_010: -1137365982
+      HeroShidai_Ability_011: -742997294
+      HeroShidai_Ability_012: 854280496
+      HeroShidai_Ability_013: 1401032039
+      HeroShidai_Ability_014: 593891679
+      HeroShidai_Ability_015: 914731662
+      HeroShidai_Ability_016: 1206006753
+      HeroShidai_Ability_017: -421058559
+      HeroShidai_Ability_018: -1655375286
+      HeroShidai_Ability_019: -1944888351
+      HeroShidai_Ability_020: -654974959
+      HeroShidai_Ability_021: -2061884299
+      HeroShidai_Ability_022: -33460549
+      HeroShidai_Ability_023: -512797203
+      HeroShidai_Ability_024: -2138429104
+      HeroShidai_Ability_025: 842615368
+      HeroShidai_Attack_000: -882065974
+      HeroShidai_Attack_001: -439327730
+      HeroShidai_Attack_002: 964856005
+      HeroShidai_Attack_003: 261342077
+      HeroShidai_Attack_004: 1091867655
+      HeroShidai_Attack_005: -1346830746
+      HeroShidai_Attack_006: 1091491094
+      HeroShidai_Attack_007: 1445859986
+      HeroShidai_Attack_008: -556312950
+      HeroShidai_Attack_009: 1149496564
+      HeroShidai_Attack_010: 1316467625
+      HeroShidai_Attack_011: 1944262737
+      HeroShidai_Attack_012: -1518562425
+      HeroShidai_Attack_013: 1318618047
+      HeroShidai_Attack_014: 10141074
+      HeroShidai_Attack_015: -23163772
+      HeroShidai_Attack_016: 754367362
+      HeroShidai_Attack_017: 1894350653
+      HeroShidai_Attack_018: -1788285039
+      HeroShidai_Attack_019: 91512029
+      HeroShidai_Dead_000: 140801285
+      HeroShidai_Dead_001: 2005502221
+      HeroShidai_Dead_002: -1568149089
+      HeroShidai_Dead_003: 1769582886
+      HeroShidai_Dead_004: 1832178593
+      HeroShidai_Dead_005: -1863168525
+      HeroShidai_Dead_006: -768173524
+      HeroShidai_Dead_007: 1477951672
+      HeroShidai_Dead_008: 1271880579
+      HeroShidai_Dead_009: 695657914
+      HeroShidai_Dead_010: 295466995
+      HeroShidai_Dead_011: 1477692820
+      HeroShidai_Dead_012: 276725377
+      HeroShidai_Dead_013: 913722186
+      HeroShidai_Dead_014: -753132644
+      HeroShidai_Dead_015: -15033993
+      HeroShidai_Dead_016: 788703084
+      HeroShidai_Dead_017: -548288573
+      HeroShidai_Default_000: 835404024
+      HeroShidai_Default_001: -1385376463
+      HeroShidai_Default_002: -606695694
+      HeroShidai_Default_003: -1298566076
+      HeroShidai_Default_004: -1393679870
+      HeroShidai_Default_005: -983251494
+      HeroShidai_Default_006: -1984335292
+      HeroShidai_Default_007: -361183675
+      HeroShidai_Default_008: 1141113051
+      HeroShidai_Default_009: 187281583
+      HeroShidai_Default_010: 1553736902
+      HeroShidai_Default_011: -2019636272
+      HeroShidai_Default_012: 681884196
+      HeroShidai_Default_013: 1182832818
+      HeroShidai_Move_000: 227122119
+      HeroShidai_Move_001: -1855303853
+      HeroShidai_Move_002: -1862522891
+      HeroShidai_Move_003: -1626287013
+      HeroShidai_Move_004: -209630195
+      HeroShidai_Move_005: 2103765486
+      HeroShidai_Move_006: -1893862220
+      HeroShidai_Move_007: 1220732792
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

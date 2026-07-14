@@ -1,0 +1,1478 @@
+fileFormatVersion: 2
+guid: f1e6d163ba24d7740a27430d13593459
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 0
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Grymbeast_Default_000
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 773
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60ed24415c7f65c4fb8edd6417abda75
+      internalID: 1543134977
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Default_001
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 889
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c75210ab540177743951e3b1bf30341e
+      internalID: 940159701
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Default_002
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 1005
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9ee7e4dc998e9734bbf3af00c2a0cf1d
+      internalID: 1617314839
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Default_003
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 1121
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1f6dfc9e5cbd874f88729cbc27a050b
+      internalID: 174976694
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Default_004
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 1121
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e7acdbf8ff456c42baa189009ee00a8
+      internalID: -1297183258
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Default_005
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 1121
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 63c4a9009a3bd8f49a8f5817a1d24b1f
+      internalID: 877208320
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Default_006
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 1121
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d14e43a127149046bec38880c0a1a82
+      internalID: -870887921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Default_007
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 1121
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f235eda72514d524ca6fca80b67e1021
+      internalID: -1935811210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Default_008
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 1005
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b633837e0bceac540b3239bee8c9c9e7
+      internalID: 670661769
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Default_009
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 889
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab0c6deb360c7834380cffdd463504c8
+      internalID: 1838012706
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Default_010
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 773
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 43cdc4eb511c6af49a5d2e4a75aaaf69
+      internalID: 47744147
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Default_011
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 773
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a98d1d7001d22634b89d681bf8bc3a6c
+      internalID: 845413394
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Default_012
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 773
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aed795cf735a05d4e9c146e146187335
+      internalID: 875582567
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Default_013
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 773
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5911c5b7714e8974d8bb33e5723fcd4d
+      internalID: -1238930624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Move_000
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1121
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 55e5ea79e1e154345a6e74a767e4bdc9
+      internalID: -1585246952
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Move_001
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1237
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 56f223f0dc6e3394dac3b45c3a1120d9
+      internalID: 1133757886
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Move_002
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1353
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 734a5a2c7ef1c1242a7a6a9d65e42129
+      internalID: -850092080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Move_003
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1469
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbade50d8e200af47ab313266aa504d3
+      internalID: 170300465
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Move_004
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1585
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d456fcbc1fe25840808786c6c377adc
+      internalID: -253930513
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Move_005
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1701
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6beda2cbb95ce674e8f8ba0c28043709
+      internalID: 686657441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Move_006
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1817
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0a35c581bc87ace4894eb2faf7e7e850
+      internalID: 1459939444
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Move_007
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1933
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ccb3eb374e380d44db67d3fc29e8f427
+      internalID: 446104755
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_000
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 193
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5921378ac370cc4ba796a61125825d2
+      internalID: -2018198422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_001
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 541
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7192a7e3a54d47c4da82bc54b04805c6
+      internalID: 1054480859
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_002
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 657
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 676f5a392a77bbf428fffeaa09c93950
+      internalID: -371272250
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_003
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 773
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dad2f32b3d63e974687b55ba0e2fcc91
+      internalID: 1854942884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_004
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 889
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 578de1efbaebecc4ca634cf57ddc59f9
+      internalID: 157570161
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_005
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 1005
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f94afd8439a9024ea25345dd25085ba
+      internalID: -1696230956
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_006
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 1121
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3da8ae26e08408841ac4b69842e5e076
+      internalID: -96593200
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_007
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 1237
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1ccb96eff1759040896fa5c8d23931d
+      internalID: 169922424
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_008
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 1353
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b60d1cad17ba32546b27c0d8ad052666
+      internalID: 1496831274
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_009
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 1469
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0b6c8fdc75ec9394193714c2ce3b8152
+      internalID: 1540760206
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_010
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 1585
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: dea18969b6060a549a2bb2d7c6383a86
+      internalID: -2054901925
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_011
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 1701
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: da64a1e97bb6dc344a3b2ee521468682
+      internalID: 925578056
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_012
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 1817
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f0c2d0e3262f08e45b127a19c2fceb82
+      internalID: -1825310828
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_013
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 1933
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f91d57994f917e045bb423a6c4ff4c28
+      internalID: -1745647366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_014
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 77
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37bf68eb04dc1e34e94c31a1b05feecc
+      internalID: 599667770
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_015
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 193
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4413d4bca5f36a04cac0a15c846ad1a9
+      internalID: -1520540166
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_016
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 309
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 457c32ef3e529af4a832f9d8ca9c8ca6
+      internalID: 285547921
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_017
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 425
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 873ce58c795f1ee4898b4265f9880810
+      internalID: 1300028032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_018
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 541
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 83c78729d5d5cc245ac35bbc3a1ed8e8
+      internalID: -173417673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Attack_019
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 657
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9706984cf208b524f8b30495b3bd3baf
+      internalID: 1502333842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_000
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 193
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 495099cfb56cfe246b96c16f25298a63
+      internalID: -1368375565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_001
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 1237
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e07248e8c43e47646ad49e7d27da7dac
+      internalID: -1309153418
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_002
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 1353
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b904982290fef14438d17c3956a4bef6
+      internalID: 1596202460
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_003
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 1469
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b1676aa4c17b834687fb9bbd831f6d6
+      internalID: 1862758435
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_004
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 1585
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 349511e35517c3742bb7d9ac210a752f
+      internalID: -492848310
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_005
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 1701
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73364bb77d4f08447a3749f60bfce7aa
+      internalID: -909919745
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_006
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 1817
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7707975bd65200f4b9cef86af932e62c
+      internalID: -1287824210
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_007
+      rect:
+        serializedVersion: 2
+        x: 232
+        y: 1933
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3d601d9fb784e0449bcf8d79972836b
+      internalID: 1040259264
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_008
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 77
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5cf01ff26344b54f9a1b8bfc93b8e1e
+      internalID: -1662520493
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_009
+      rect:
+        serializedVersion: 2
+        x: 348
+        y: 425
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d555bdcd809521429799fb0b20ec568
+      internalID: 981117002
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_010
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 309
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 448a3ce4efd8e1d44bf9c75ca5cda10e
+      internalID: 419884900
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_011
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 425
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 01ab9aeb3a38d684ebbb92d14d4b5f6e
+      internalID: -713399935
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_012
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 541
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d3f5a59cd4257df479c1ea4aa8b51a1e
+      internalID: -337417155
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_013
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 657
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c9108d4f60e11a42b7c3645028ee9e1
+      internalID: -422463939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_014
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 773
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 37e5d26164414cd4690af5e492b74561
+      internalID: 1621197798
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_015
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 889
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d4f2a474af2c617449ce16a38e4f561b
+      internalID: 1946734703
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_016
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 1005
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cbb838221a407d64fb6bd802370f274b
+      internalID: 1774655373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_017
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 1121
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 06ce3b7db115d1145b3c6c5660bb939f
+      internalID: 980191236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_018
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 1237
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 120cd9b83e602804798ae59dec3441b0
+      internalID: 1153455907
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Grymbeast_Dead_019
+      rect:
+        serializedVersion: 2
+        x: 116
+        y: 1353
+        width: 115
+        height: 115
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c2e94f6ae8a2124cb6c5baae3f86dbe
+      internalID: 1608578973
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      Grymbeast_Attack_000: -2018198422
+      Grymbeast_Attack_001: 1054480859
+      Grymbeast_Attack_002: -371272250
+      Grymbeast_Attack_003: 1854942884
+      Grymbeast_Attack_004: 157570161
+      Grymbeast_Attack_005: -1696230956
+      Grymbeast_Attack_006: -96593200
+      Grymbeast_Attack_007: 169922424
+      Grymbeast_Attack_008: 1496831274
+      Grymbeast_Attack_009: 1540760206
+      Grymbeast_Attack_010: -2054901925
+      Grymbeast_Attack_011: 925578056
+      Grymbeast_Attack_012: -1825310828
+      Grymbeast_Attack_013: -1745647366
+      Grymbeast_Attack_014: 599667770
+      Grymbeast_Attack_015: -1520540166
+      Grymbeast_Attack_016: 285547921
+      Grymbeast_Attack_017: 1300028032
+      Grymbeast_Attack_018: -173417673
+      Grymbeast_Attack_019: 1502333842
+      Grymbeast_Dead_000: -1368375565
+      Grymbeast_Dead_001: -1309153418
+      Grymbeast_Dead_002: 1596202460
+      Grymbeast_Dead_003: 1862758435
+      Grymbeast_Dead_004: -492848310
+      Grymbeast_Dead_005: -909919745
+      Grymbeast_Dead_006: -1287824210
+      Grymbeast_Dead_007: 1040259264
+      Grymbeast_Dead_008: -1662520493
+      Grymbeast_Dead_009: 981117002
+      Grymbeast_Dead_010: 419884900
+      Grymbeast_Dead_011: -713399935
+      Grymbeast_Dead_012: -337417155
+      Grymbeast_Dead_013: -422463939
+      Grymbeast_Dead_014: 1621197798
+      Grymbeast_Dead_015: 1946734703
+      Grymbeast_Dead_016: 1774655373
+      Grymbeast_Dead_017: 980191236
+      Grymbeast_Dead_018: 1153455907
+      Grymbeast_Dead_019: 1608578973
+      Grymbeast_Default_000: 1543134977
+      Grymbeast_Default_001: 940159701
+      Grymbeast_Default_002: 1617314839
+      Grymbeast_Default_003: 174976694
+      Grymbeast_Default_004: -1297183258
+      Grymbeast_Default_005: 877208320
+      Grymbeast_Default_006: -870887921
+      Grymbeast_Default_007: -1935811210
+      Grymbeast_Default_008: 670661769
+      Grymbeast_Default_009: 1838012706
+      Grymbeast_Default_010: 47744147
+      Grymbeast_Default_011: 845413394
+      Grymbeast_Default_012: 875582567
+      Grymbeast_Default_013: -1238930624
+      Grymbeast_Move_000: -1585246952
+      Grymbeast_Move_001: 1133757886
+      Grymbeast_Move_002: -850092080
+      Grymbeast_Move_003: 170300465
+      Grymbeast_Move_004: -253930513
+      Grymbeast_Move_005: 686657441
+      Grymbeast_Move_006: 1459939444
+      Grymbeast_Move_007: 446104755
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

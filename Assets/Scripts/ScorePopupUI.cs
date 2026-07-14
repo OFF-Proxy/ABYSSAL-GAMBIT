@@ -34,7 +34,7 @@ public class ScorePopupUI : MonoBehaviour
         GameObject root = new GameObject("ScorePopupUI", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(ScorePopupUI));
         Canvas canvas = root.GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 49500;
+        canvas.sortingOrder = 14500; // 16bit short上限(32767)内。
         CanvasScaler scaler = root.GetComponent<CanvasScaler>();
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
         GraphicRaycaster raycaster = root.GetComponent<GraphicRaycaster>();
