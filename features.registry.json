@@ -1,0 +1,266 @@
+[
+  {
+    "name": "チャプターモード（全20章）",
+    "description": "4ステージ×33ラウンドの章を進行するメインモード。通常戦・中ボス・章ボス・イベント回で構成され、章N-1クリアで章Nが解放される。",
+    "capabilities": {
+      "can": ["章1〜20のプレイ", "章ごとの難度スケールと章ボス（Caliber/rook/sister/Magmar・Abyssian・Vetruvian将/Mechaz0r連章/hydrax/Arcana）", "章ごとの動的背景・盤面形状（角丸）", "章スケールの開始リソース付与（後半章は初期Lv/資金増）"],
+      "cannot": ["章の追加DLC・エンドレスモードは未実装", "章の途中セーブ（中断再開）は不可＝章は一気にプレイする", "難易度選択（イージー/ハード）は未実装"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/GameManager.cs", "Assets/Scripts/RoundProgressUI.cs", "Assets/Scripts/ChapterBackground.cs"],
+    "usage_example": "ロビー→プレイ→チャプター選択→出撃準備→クエスト出発！"
+  },
+  {
+    "name": "セーブスロット",
+    "description": "3枠のセーブデータ。はじめから/つづきから、上書き・削除に対応。章進捗・ボス仲間・ベスト記録・設定を保持する。",
+    "capabilities": {
+      "can": ["3スロットの作成/上書き/削除（確認ダイアログ付き）", "章進捗・恒久ボス仲間・ベストスコア/タイム・ヒーロー選択・ストーリー既読の永続化", "再起動後の復元（save_0..2.json、破損時は退避ファイル生成）"],
+      "cannot": ["スロット4枠以上は不可", "Steamクラウドセーブ未対応（ローカルのみ）", "スロット間のデータコピー/移動は不可", "章の途中状態は保存されない"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/Save/SaveManager.cs", "Assets/Scripts/Save/SaveData.cs", "Assets/Scripts/Save/LocalJsonSaveStore.cs", "Assets/Scripts/LobbyUI.cs"],
+    "usage_example": "タイトル→はじめから→スロット選択→（新規なら）ヒーロー選択→メインロビー"
+  },
+  {
+    "name": "ヒーロー（主人公）システム",
+    "description": "9体（基本3+追加6）から主人公を選ぶ。盤面枠を消費せず、ラン内で成長し、1戦1回自動復活する。仲間化した章ボスも主人公に採用できる。",
+    "capabilities": {
+      "can": ["セーブ作成時の3択+進行で追加6体解放（計9体）", "編成フェーズ中のヒーロー変更（オプション/育成画面から）", "ラン内Lv（ウェーブクリアでXP）→自動★アップ（Lv5→★2/Lv10→★3）", "HP40%で1戦1回自動復活（使い切り後の再死亡は味方弱体）", "章ボスを主人公として採用（該当章クリアで解放）"],
+      "cannot": ["ヒーローの売却・ベンチ送りは不可", "戦闘中のヒーロー変更は不可", "同時に2体のヒーローは出せない", "ヒーローはショップに出ない・敵としても出ない"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/GameManager.cs", "Assets/Scripts/LobbyUI.cs", "Assets/Scripts/HeroChangeUI.cs", "Assets/Scripts/BaseEntity.cs"],
+    "usage_example": "新規セーブ→アルディン/カガチ/ヴェスナから選択→ラン開始時に自動で盤面に登場"
+  },
+  {
+    "name": "ヒーロー必殺（アルト）",
+    "description": "1戦1回のアクティブスキル。ヒーロー別の効果+ラン開始時の強化2択+全画面カットイン演出。",
+    "capabilities": {
+      "can": ["戦闘中に右下ボタンで発動（1戦1回）", "ヒーロー別効果（聖盾/修羅/蒼炎など）とラン開始時のアップグレード2択", "ホバーで効果数値のツールチップ表示", "カットイン演出（スキップ不可だが約1.1秒で短い）"],
+      "cannot": ["1戦で2回以上の使用は不可", "編成フェーズ中の使用は不可", "アップグレードのラン途中変更は不可"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/HeroUltButtonUI.cs", "Assets/Scripts/HeroUltUpgradeUI.cs", "Assets/Scripts/HeroUltCutInUI.cs", "Assets/Scripts/GameManager.cs"],
+    "usage_example": "戦闘開始→右下の必殺ボタンをクリック→カットイン→効果発動"
+  },
+  {
+    "name": "ヒーロー育成（熟練度+手動強化）",
+    "description": "セーブをまたぐヒーローの永続成長。プレイで貯まる熟練度（Lv50上限）と、ポイント消費の手動強化Lvの二本立て。",
+    "capabilities": {
+      "can": ["熟練度: 章クリア/敗北でXP獲得、Lv50まで+1%/Lvのステ倍率", "手動強化: 章クリア10+章×5pt等で獲得、+3%/Lv（上限15）", "育成画面でロスター表示（未解放はシルエット+解放条件）"],
+      "cannot": ["育成のリセット・振り直しは不可", "ポイントのヒーロー間移動は不可", "熟練度はセーブスロット単位（アカウント共通ではない）"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/LobbyUI.cs", "Assets/Scripts/Save/SaveManager.cs", "Assets/Scripts/GameManager.cs"],
+    "usage_example": "メインロビー→ヒーロー育成→ポイントを消費して強化"
+  },
+  {
+    "name": "ショップ（ユニット購入）",
+    "description": "マナ（通貨）でユニット購入・リロール・XP購入を行う下部UI。Duelyst風のひし形足場カードにユニットのドット絵が動く。",
+    "capabilities": {
+      "can": ["5枠からの購入/ベンチ送り", "リロール（2マナ、無料リロールのスタック保持あり）", "ショップロック（品揃えを次ラウンドへ持ち越し）", "XP購入でレベル=配置上限アップ", "ユニット売却（ショップへドラッグ）", "同一ユニット3体で自動★アップ", "コスト解放ゲート（初期3→ボス撃破で最大5）"],
+      "cannot": ["特定ユニットの指名購入（ピン留め）は不可", "売却額のプレビューはカードに常時表示されない", "ショップ枠数の拡張は不可（5枠固定）"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/UIShop.cs", "Assets/Scripts/UICard.cs", "Assets/Scripts/GameHudLayout.cs", "Assets/Scripts/GameManager.cs"],
+    "usage_example": "編成フェーズ→カードをクリックで購入→盤面へドラッグ配置"
+  },
+  {
+    "name": "経済（収入と利子）",
+    "description": "TFT式の利子経済。ウェーブクリア収入=基本5+利子（所持10ごとに+1、上限+5）。連勝ボーナスはPvEのため無し。",
+    "capabilities": {
+      "can": ["利子を意識した資金管理", "コイン表示クリックで収入内訳パネル（基本/利子/次回収入+ゲージ）", "イベント回・中ボス報酬・敵ドロップでの臨時収入"],
+      "cannot": ["連勝/連敗ボーナスは存在しない（仕様）", "利子上限の変更は不可（オーグメント除く）", "所持マナの他スロットへの持ち越しは不可"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/PlayerData.cs", "Assets/Scripts/CoinIncomePanelUI.cs", "Assets/Scripts/GameManager.cs"],
+    "usage_example": "所持50マナでウェーブクリア→基本5+利子5=10マナ獲得"
+  },
+  {
+    "name": "オーグメント",
+    "description": "特定ラウンドで3択提示されるラン内パッシブ強化。80種（Silver30/Gold25/Prism25）。",
+    "capabilities": {
+      "can": ["章内の決まったラウンドでティア別3択（カード別リロール付き）", "右上HUDで獲得済み一覧+ホバーで説明", "経済/シナジー/召喚/ベンチ拡張など多彩な効果"],
+      "cannot": ["獲得後の付け替え・売却は不可", "3択のスキップで後から再選択は不可", "同一オーグメントの重複獲得は不可"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/AugmentCatalog.cs", "Assets/Scripts/AugmentSelectionUI.cs", "Assets/Scripts/AugmentHudUI.cs", "Assets/Scripts/GameManager.cs"],
+    "usage_example": "2-3到達→Silverオーグメント3択→1つ選択→右上HUDに追加"
+  },
+  {
+    "name": "シナジー（25種+陣営ゲート）",
+    "description": "ユニット系統ボーナス。テーマ19種+陣営6種。陣営は主人公ゲート（1〜2体は同陣営主人公のみ発動、3体以上で不問、同陣営なら効果1.5倍）。",
+    "capabilities": {
+      "can": ["左パネルで発動状況・段階の確認", "ツールチップで実数値の効果説明", "オーグメントによるシナジー数加算（表示・発動両方に反映）"],
+      "cannot": ["シナジーの付け替え（ユニット固有で固定）", "敵チームへの陣営ゲート適用は無し（敵は無条件発動）", "シナジー効果の任意OFFは不可"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/SynergyManager.cs", "Assets/Scripts/SynergyType.cs", "Assets/Scripts/SynergyPanelUI.cs", "Assets/Scripts/SynergyTooltipUI.cs"],
+    "usage_example": "戦士3体配置→シナジーパネルに戦士(3)が点灯→戦闘開始で効果適用"
+  },
+  {
+    "name": "アイテム装備",
+    "description": "ユニットに最大3枠のアイテム装備。中ボス報酬3択・チェスト部屋などで入手。取り外し機で何度でも外せる。",
+    "capabilities": {
+      "can": ["アイテムベンチからユニットへドラッグ装備（3枠）", "取り外し機（消費されないツール）で装備を全て外してベンチへ戻す", "ホバーで効果ツールチップ"],
+      "cannot": ["アイテムの合成（2つを組み合わせて上位化）は未実装", "アイテムの売却は不可", "敵ユニットへの装備は不可"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/ItemCatalog.cs", "Assets/Scripts/ItemInstance.cs", "Assets/Scripts/ItemBenchCanvasUI.cs", "Assets/Scripts/GameManager.cs"],
+    "usage_example": "アイテム3択で入手→左のアイテムベンチからユニットへドラッグ"
+  },
+  {
+    "name": "陣形（フォーメーション）",
+    "description": "配置形状で発動する戦闘開始バフ。汎用4種（突撃/鉄壁/方陣/楔）+主人公専用の6マス陣形。編成中に成立マスが光る。",
+    "capabilities": {
+      "can": ["横3/縦3/2×2/斜め3の汎用陣形+ヒーロー固有形の同時成立", "編成中のライブプレビュー（マーカー色分け）とガイドポップアップ（上部トグルボタン）", "成立時は戦闘開始で時限バフ+発動エフェクト"],
+      "cannot": ["陣形効果の数値カスタムは不可", "敵陣マス・戦闘中の移動位置では判定されない（自陣の配置時のみ）", "汎用陣形の種類追加はゲーム内からは不可"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/GameManager.cs", "Assets/Scripts/FormationHintUI.cs", "Assets/Scripts/GridManager.cs"],
+    "usage_example": "自陣で横一列に3体並べる→マスが橙に光る→FIGHTで突撃バフ"
+  },
+  {
+    "name": "ボス仲間化（メタ進行の核）",
+    "description": "中ボス=戦った3体から1体選んで章内解放+ベンチ配置。章ボス=撃破で恒久解放され、次章以降ショップに出現・図鑑に登録・主人公にも採用可能。",
+    "capabilities": {
+      "can": ["中ボス戦(2-10/3-10/4-8)後の3択仲間化（1体ベンチ配置+章内ショップ解放）", "章ボス撃破で恒久解放（BossAlly）→以降の全ランでショップ出現", "再クリアでアフィニティLv上昇（+ステ倍率と節目パッシブ）", "章クリア時の解放/強化バナー演出"],
+      "cannot": ["戦っていないボスの仲間化は不可（候補は必ず戦った敵から）", "恒久仲間の削除・リセットは不可", "中ボス仲間の次章持ち越しは不可（章内限定）"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/GameManager.cs", "Assets/Scripts/BossRewardSelectionUI.cs", "Assets/Scripts/Save/SaveManager.cs", "Assets/Scripts/BossUnlockBannerUI.cs"],
+    "usage_example": "2-10でボス3体を撃破→3択から1体を仲間に→ベンチに★1で参加"
+  },
+  {
+    "name": "ノード進路選択",
+    "description": "章ボス直前（旧4-7/4-8/4-9）が3ノード提示になり、2つ選んで1つ破棄するSlay the Spire風の進路選択。",
+    "capabilities": {
+      "can": ["精鋭（高難度・良報酬）/標準（仲間化）/補給（低難度・大量マナ）の3アーキタイプから逐次2選択", "全20章で対応"],
+      "cannot": ["3つ全てのプレイは不可（必ず1つ破棄）", "選択のやり直しは不可", "ノード内容の事前詳細プレビューは概要表示のみ"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/NodeSelectionUI.cs", "Assets/Scripts/GameManager.cs"],
+    "usage_example": "4-6クリア→ノード3枚提示→精鋭を選択→戦闘→残り2枚から補給を選択"
+  },
+  {
+    "name": "チェスト部屋（宝箱ラウンド)",
+    "description": "アイテムイベント回が「30秒以内に宝箱を殴って開ける」ボーナス部屋になる。コイン箱複数+最奥にアイテム箱。",
+    "capabilities": {
+      "can": ["コイン箱=削るごとにコイン+開封ボーナス（1箱計10）", "アイテム箱=開封でアイテム3択", "上部HUDに残り秒数表示（残5秒で赤）", "時間切れは獲得済み分のみ持ち越し"],
+      "cannot": ["制限時間の延長は不可", "時間切れ後の未開封分の回収は不可", "宝箱からの反撃は無い（サンドバッグ）"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/GameManager.cs", "Assets/Scripts/BaseEntity.cs", "Assets/Scripts/ChestRoomHudUI.cs"],
+    "usage_example": "2-8到達→FIGHT→30秒で宝箱を攻撃して開ける"
+  },
+  {
+    "name": "強化マス",
+    "description": "3-5の報酬。攻撃/防御/秘力から種別を選び、自陣マスをクリックして設置。章内永続・累積で、そのマスのユニットが戦闘開始時に強化される。",
+    "capabilities": {
+      "can": ["攻(与ダメ+攻速)/防(被ダメ減+シールド)/秘力(マナ促進+スキル威力)の3種から選択", "自陣マスへのクリック設置と色付きマーカー常設", "章内の複数設置（累積）"],
+      "cannot": ["敵陣マスへの設置は不可", "設置後の移動・撤去は不可", "次章への持ち越しは不可", "コア戦では出現しない"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/BuffTileRewardUI.cs", "Assets/Scripts/GameManager.cs"],
+    "usage_example": "3-5クリア→秘力を選択→自陣の前列マスをクリックして設置"
+  },
+  {
+    "name": "コア破壊モード（コア戦）",
+    "description": "章モードとは別の拠点破壊モード。敵味方にコアがあり、敵コア破壊=勝利/自コア破壊=敗北。波が自動進行する。",
+    "capabilities": {
+      "can": ["無限ウェーブの自動進行（戦闘終了→5秒→編成40秒→次波。FIGHTで早期開始可）", "コアHPの波持ち越し（回復しない）", "5波クリアごとに章ボスを1体恒久解放（図鑑・章モードと連動）", "上部HUDで両コアHP+フェーズ表示"],
+      "cannot": ["ウェーブ選択・途中セーブは不可", "コアの修理・移動は不可", "強化マス・ノード選択・ストーリーはコア戦に無い", "明確なクリア（エンディング）は無い（敗北まで続く）"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/GameManager.cs", "Assets/Scripts/CoreModeHudUI.cs", "Assets/Scripts/BaseEntity.cs"],
+    "usage_example": "メインロビー→プレイ→コア戦カード→1波目のみ手動FIGHT"
+  },
+  {
+    "name": "ストーリー（VN・掛け合い）",
+    "description": "章プロローグ、オープニングVN、ボス戦前の掛け合い（VN風）、中ボスの非ブロッキング字幕、幕間、エンディング（主人公別の締め）。",
+    "capabilities": {
+      "can": ["章ボス戦前のフル会話（クリック送り・スキップ可）", "中ボスは戦闘を止めない字幕（ChatterSubtitle）", "幕間イベント（INT_01合流/INT_08犬化/INT_12/INT_13→エンディング連鎖）各1回", "カガチ: ch8踏破で犬化スキン解放（出撃姿トグル）", "既読管理（storyFlags、スロット単位）"],
+      "cannot": ["既読の回想ビューアは未実装", "会話ログ（バックログ）は無い", "ストーリーのスキップ設定（一括OFF）は無い", "コア戦にストーリーは無い"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/HeroBossDialogueUI.cs", "Assets/Scripts/InterludeUI.cs", "Assets/Scripts/InterludeScript.cs", "Assets/Scripts/ChapterPrologueUI.cs", "Assets/Scripts/ChatterSubtitleUI.cs", "Assets/Scripts/DialogArt.cs"],
+    "usage_example": "4-10のFIGHT→ボスとヒーローの掛け合い→クリックで進めて戦闘へ"
+  },
+  {
+    "name": "図鑑（ボスコレクション）",
+    "description": "仲間化した章ボスの図鑑。待機アニメのグリッド表示+全画面詳細ビュー（育成/ステータス/スキル/紹介文/モーション再生）。",
+    "capabilities": {
+      "can": ["解放済み=待機アニメ表示、未解放=シルエット+???", "詳細ビューでモーション巡回再生（待機→移動→攻撃→スキル→死亡をクリックで切替）", "ホイールで拡大（1〜3倍）・アイコン全画面表示", "‹›で所持ボス間ナビ、育成Lv・節目パッシブの確認"],
+      "cannot": ["通常ユニット（非ボス）の図鑑は未実装", "図鑑からの直接編成・出撃は不可", "実績・コンプ報酬は無い"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/LobbyUI.cs", "Assets/Scripts/UnitStatusPanelUI.cs"],
+    "usage_example": "メインロビー→図鑑→解放済みボスをクリック→詳細ビュー"
+  },
+  {
+    "name": "コレクションハブ（ショップ選抜）",
+    "description": "ランに連れて行くユニットをコスト別にON/OFFする編成ハブ。恒久プール（cost1-2/スターターcost3/恒久仲間ボス）のみ管理対象。",
+    "capabilities": {
+      "can": ["コスト別スクロールでユニットのショップ出現をON/OFF", "コスト毎の最低数保証（1:9/2:8/3:7/4:6/5:5、割る操作は拒否+赤フラッシュ）"],
+      "cannot": ["章内限定の一時仲間（中ボス勧誘候補）は表示・管理できない", "最低数を下回る絞り込みは不可（★3量産防止の仕様）", "ユニットの恒久削除は不可"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/CollectionHubUI.cs", "Assets/Scripts/GameManager.cs", "Assets/Scripts/Save/SaveManager.cs"],
+    "usage_example": "出撃準備→ショップに出すユニットを選ぶ→不要ユニットをOFF"
+  },
+  {
+    "name": "スコア・リザルト・記録",
+    "description": "プレイ中のライブ加点ポップアップと、章クリア時のベストスコア/タイム保存・NEW RECORD表示。敗北時もリザルト→ロビー復帰。",
+    "capabilities": {
+      "can": ["戦闘/中ボス/章ボスクリアの即時加点表示（+100/+300/+1000）", "章ごとのベストスコア/タイムのスロット保存と章選択カードでの併記", "ゲームオーバー時のリザルト（到達ラウンド表示）とロビー復帰"],
+      "cannot": ["オンラインランキング・他人との比較は未実装（ローカルのみ）", "リプレイ保存は無い", "スコア詳細の内訳履歴は見られない"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/ResultPanelUI.cs", "Assets/Scripts/ScorePopupUI.cs", "Assets/Scripts/GameManager.cs", "Assets/Scripts/Save/SaveManager.cs"],
+    "usage_example": "章クリア→リザルトに今回/ベスト併記→★NEW RECORD!"
+  },
+  {
+    "name": "設定（オプション）",
+    "description": "音量/言語(JA-EN)/ゲーム速度/HUD表示切替/キーコンフィグ/解像度・品質。再起動後も保持。倍速は章をまたいで維持される。",
+    "capabilities": {
+      "can": ["BGM/SFX音量、日本語/英語切替、ゲーム速度（倍速）", "HUD個別表示切替（シナジー/ラウンド/コイン/ツールチップ）", "キー再割当（オプション開閉/デバッグ等）", "ゲーム中のオプションから「ロビーへ戻る」「再挑戦」"],
+      "cannot": ["ゲームパッド・コントローラ操作は未対応（マウス+キーボードのみ）", "カラーブラインド等のアクセシビリティ設定は未実装", "言語はJA/EN以外未対応"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/OptionsPanelUI.cs", "Assets/Scripts/SettingsPanelUI.cs", "Assets/Scripts/SettingsStore.cs", "Assets/Scripts/HudSettingsApplier.cs"],
+    "usage_example": "Esc→オプション→言語をENに切替→全UIが英語化"
+  },
+  {
+    "name": "盤面ギミック",
+    "description": "章進行で登場する盤面演出。転がる巨大物（ch3以降の中ボス戦）、章別の盤面形状（角丸）、章ボスの範囲攻撃ギミック。",
+    "capabilities": {
+      "can": ["転がる巨大物: 1行を転がり敵味方に最大HP30%ダメ+スタン（ch3+の中ボス戦、章が進むと回数増）", "章ボス戦: 予兆付き範囲攻撃が味方を狙う", "丸型プラットフォーム章では盤面四隅が使用不可（角丸）"],
+      "cannot": ["ギミックのOFF設定は無い", "コア戦・ch1-2の中ボス戦に巨大物は出ない", "ギミックダメージの無効化手段は無い（回避=配置と操作）"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/RollingHazard.cs", "Assets/Scripts/GameManager.cs", "Assets/Scripts/ChapterBackground.cs", "Assets/Scripts/GridManager.cs"],
+    "usage_example": "ch3の中ボス戦→警告→巨大物が1行を横断→避けた配置が有利"
+  },
+  {
+    "name": "ユニット詳細パネル",
+    "description": "ユニットクリックで開く右側パネル。実数値のスキル説明（JA/EN自動生成）・ステータス・装備を表示。",
+    "capabilities": {
+      "can": ["全ユニットの固有スキル名+実数値説明（★・シナジー補正込みで表示と実値が一致）", "HP/攻撃/攻速/射程/マナ/被ダメ軽減の確認", "装備アイテムの確認"],
+      "cannot": ["パネルからの直接操作（売却・装備変更）は不可", "敵ユニットの詳細も閲覧可能だが装備欄は無い", "DPS実測などの戦闘統計は未実装"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/UnitStatusPanelUI.cs", "Assets/Scripts/BaseEntity.cs"],
+    "usage_example": "盤面のユニットをクリック→右にパネル→スキルの実数値を確認"
+  },
+  {
+    "name": "デバッグ機能（開発ビルド専用）",
+    "description": "F8で開くデバッグメニューとオートプレイハーネス。製品ビルドには含まれない（#if UNITY_EDITOR || DEVELOPMENT_BUILD）。",
+    "capabilities": {
+      "can": ["ラウンドジャンプ/即勝利/味方・敵無敵/報酬強制表示/熟練度XP付与/章クリア扱い", "AutoPlayHarness: ボットの自動周回・進行不能/例外検出・敗因分析（AutoPlayDumps/へ出力）"],
+      "cannot": ["製品（リリース）ビルドでは使用不可＝一般ユーザーからの「チートメニュー」報告は該当しない", "オンライン要素が無いため外部チート対策は対象外"]
+    },
+    "platform": ["PC"],
+    "related_files": ["Assets/Scripts/Debug/AutoPlayHarness.cs", "Assets/Scripts/GameManager.cs"],
+    "usage_example": "開発ビルドでF8→Round Jump→4-10→即勝利で章クリア演出を確認"
+  }
+]
