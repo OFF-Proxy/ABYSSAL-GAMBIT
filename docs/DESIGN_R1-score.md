@@ -1,4 +1,5 @@
 # R1-score: スコアシステムの定式化 & ベスト保存 & ライブ表示
+> **状態: ✅ 実装済み（2026-05-30, レビュー承認）** — スコア保存・加点ポップアップ・リザルト併記まで稼働。
 
 > 設計: Claude / 実装: Codex・Claude Code / 2026-05-29
 > 依存: **R1-persist（ベスト保存に必要）** / 関連: ROADMAP E4, [RELEASE_PLAN.md](RELEASE_PLAN.md)
@@ -64,3 +65,22 @@
 ## 未決事項（Codex への質問）
 - ランキング表示（章ごと自己ベスト一覧）は R1-rank で別 UI とする。本タスクはリザルト内のベスト併記まで。
 - ノーデス/ノーアイテム加点を MVP に入れるか（現行未計上）。→ R3-balance 時に判断を推奨。
+
+---
+
+## Review (2026-05-29, Claude) — ✅ 承認
+
+実装コミット `7a46d430 feat(R1-score)`。
+
+**良い点**
+- `TrackStageProgress` のクリア種別カウント地点に `ScorePopupUI.Show(100/300/1000, 理由)` を併置 → 加点トリガー3種（戦闘/中ボス/章ボス）を JA-EN・色分けで表示。受け入れ基準②OK。
+- `ScorePopupUI` はスタック表示（連続加点が重ならない `nextSlotOffset`）・`SetUpdate(true)`（ポーズ中でも動く）・自動 Destroy と丁寧。既存 DOTween 慣習踏襲。
+- 章クリア時に `RecordChapterResult` でベスト永続化、戻り値の `isNewRecord` を `pendingResultBestScore`/リザルトへ伝搬。`previousBest` を**更新前に**取得して `Mathf.Max` 表示 → 正しい。
+- `ResultPanelUI.ShowStageResult` に `bestScore`/`isNewRecord` をオプション引数で追加（既存呼び出し互換）。章クリア時のみベスト行と「★ NEW RECORD!」表示。受け入れ基準①③OK。
+
+**気づき（軽微・将来）**
+- ポップアップの数値は素の +100/300/1000 で、最終集計の `ScoreMultiplier`・speedBonus は反映されない（ポップアップは演出、リザルトが正値）。意図的でOK。気になるなら将来「×倍率」を末尾表示。
+- スターアップ加点のポップアップは未実装（設計で任意とした通り）。
+- ノーデス/ノーアイテム加点は未計上（現行式どおり）。R3-balance で判断。
+
+**受け入れ基準**: ①〜④ 充足（コードレビュー上）。実機で「章クリア→NEW RECORD→再挑戦で更新」を1度確認すると完全。

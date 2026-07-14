@@ -35,7 +35,7 @@ namespace SynapticPro
 
         // Tabs
         private int selectedTab = 0;
-        private string[] tabNames = new string[] { "AI Connection", "HTTP Server", "Help" };
+        private string[] tabNames = new string[] { "AI Connection", "HTTP Server", "Diagnostics", "Help" };
 
         // MCP Settings
         private int mcpPort = 8090;
@@ -451,8 +451,107 @@ namespace SynapticPro
                     DrawHTTPServerTab();
                     break;
                 case 2:
+                    DrawDiagnosticsTab();
+                    break;
+                case 3:
                     DrawHelpTab();
                     break;
+            }
+        }
+
+        /// <summary>
+        /// v1.2.24: Diagnostics タブ。旧 Tools/Synaptic Pro 配下に散在していた
+        /// MCP Server Start/Stop, Auto Reconnect トグル, Port Mapping,
+        /// Cinemachine 検出, Shader 更新, Changelog Pref リセット等を統合。
+        /// メニュー項目を削減してトップを見やすくする目的。
+        /// </summary>
+        private void DrawDiagnosticsTab()
+        {
+            EditorGUILayout.LabelField("接続診断 / Connection", EditorStyles.boldLabel);
+            EditorGUILayout.HelpBox(
+                "AI クライアントとの接続を確認・修復します。Synaptic Code から HTTP 接続している場合は HTTP Server タブを使用してください。\n" +
+                "Check and repair the connection to AI clients. If you connect from Synaptic Code via HTTP, use the HTTP Server tab instead.",
+                MessageType.None);
+            EditorGUILayout.Space(4);
+
+            EditorGUILayout.BeginHorizontal();
+            if (GUILayout.Button("AI Connection Status", GUILayout.Height(28)))
+            {
+                SynapticPro.NexusEditorMCPService.ShowMCPStatus();
+            }
+            if (GUILayout.Button("AI Reconnect", GUILayout.Height(28)))
+            {
+                SynapticPro.NexusEditorMCPService.QuickReconnect();
+            }
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.Space(4);
+
+            // Auto Reconnect toggle (1クリックで切替、key は NexusEditorMCPService と一致)
+            bool currentAuto = EditorPrefs.GetBool("NexusMCP_AutoReconnect", true);
+            bool newAuto = EditorGUILayout.ToggleLeft("Auto Reconnect (接続切断時に自動再接続 / auto-reconnect on drop)", currentAuto);
+            if (newAuto != currentAuto)
+            {
+                if (newAuto) SynapticPro.NexusEditorMCPService.EnableAutoReconnect();
+                else SynapticPro.NexusEditorMCPService.DisableAutoReconnect();
+            }
+
+            EditorGUILayout.Space(10);
+
+            // MCP Server toggle (高度機能)
+            EditorGUILayout.LabelField("MCP Server (高度機能 / Advanced)", EditorStyles.boldLabel);
+            EditorGUILayout.HelpBox(
+                "Unity 側で MCP サーバーを起動する必要がある特殊なケース向けの高度機能です。通常のユーザーは触る必要はありません。\n" +
+                "Advanced feature for special cases that require running an MCP server on the Unity side. Normal users do not need to touch this.",
+                MessageType.Warning);
+            EditorGUILayout.Space(4);
+
+            bool mcpEnabled = EditorPrefs.GetBool("NexusMCP_Enabled", true);
+            EditorGUILayout.BeginHorizontal();
+            using (new EditorGUI.DisabledScope(mcpEnabled))
+            {
+                if (GUILayout.Button(mcpEnabled ? "▶ MCP Running" : "▶ Start MCP", GUILayout.Height(28)))
+                {
+                    SynapticPro.NexusEditorMCPService.StartMCP();
+                }
+            }
+            using (new EditorGUI.DisabledScope(!mcpEnabled))
+            {
+                if (GUILayout.Button(mcpEnabled ? "⏹ Stop MCP" : "⏹ MCP Stopped", GUILayout.Height(28)))
+                {
+                    SynapticPro.NexusEditorMCPService.StopMCP();
+                }
+            }
+            EditorGUILayout.EndHorizontal();
+
+            EditorGUILayout.Space(10);
+
+            // Project tools
+            EditorGUILayout.LabelField("プロジェクト診断 / Project Diagnostics", EditorStyles.boldLabel);
+            EditorGUILayout.Space(4);
+
+            if (GUILayout.Button("Show Port Mapping", GUILayout.Height(24)))
+            {
+                SynapticPro.NexusProjectPortManager.ShowPortMapping();
+            }
+            if (GUILayout.Button("Detect Cinemachine Version", GUILayout.Height(24)))
+            {
+                SynapticPro.CinemachineVersionDetector.DetectAndSetSymbols();
+            }
+            if (GUILayout.Button("Update Shaders for Pipeline", GUILayout.Height(24)))
+            {
+                Synaptic.Editor.ShaderPipelineManager.UpdateShadersForCurrentPipeline();
+            }
+
+            EditorGUILayout.Space(10);
+
+            // Misc
+            EditorGUILayout.LabelField("その他 / Misc", EditorStyles.boldLabel);
+            EditorGUILayout.Space(4);
+
+            if (GUILayout.Button("Reset Changelog Preference", GUILayout.Height(24)))
+            {
+                SynapticPro.NexusChangelogWindow.ResetPreference();
             }
         }
         
@@ -582,6 +681,12 @@ namespace SynapticPro
             // MCP Server: Start/Stop stays in the Tools menu (advanced; the
             // typical workflow is to let Claude Desktop spawn the server).
             DrawConnectionControlsBar();
+
+            // ─── Windows path-with-spaces workaround (ESC-0107/0110 系) ───
+            // Synaptic AI Pro のインストール先パスが "Assets\Synaptic AI Pro" のように
+            // 空白を含む場合、Windsurf / Codex desktop 等の MCP クライアントが
+            // 接続に失敗するため、空白なし junction を 1 クリックで作成して回避する
+            DrawWindowsJunctionWorkaround();
 
             // One-click startup
             EditorGUILayout.BeginVertical(EditorStyles.helpBox);
@@ -714,6 +819,19 @@ namespace SynapticPro
                 }
 
                 EditorGUILayout.Space(10);
+
+                // ESC-0162: Synaptic Code users connect through the HTTP Server
+                // tab, NOT through this Complete MCP Setup button. The two
+                // entry points sit next to each other so users frequently
+                // press the wrong one and end up registering an MCP server
+                // they don't need. Surface a one-line hint just above the
+                // button so the distinction is obvious before they click.
+                EditorGUILayout.HelpBox(
+                    "Synaptic Code をお使いの場合はこのボタンは押さず、HTTP Server タブから接続してください。\n" +
+                    "Claude Desktop / Cursor / VS Code MCP 等の MCP クライアントを使う場合のみこのボタンを使用します。",
+                    MessageType.Info);
+
+                EditorGUILayout.Space(4);
 
                 // MCP Setup button
                 var oldColor = GUI.backgroundColor;
@@ -1470,7 +1588,11 @@ namespace SynapticPro
                     // Windows: detached from Unity's Job Object via CreateProcessW
                     // with CREATE_BREAKAWAY_FROM_JOB. Process.Start inherits the
                     // Job and gets killed on assembly reload — see ESC-0095.
-                    string logDir = Path.Combine(mcpServerPath, "logs");
+                    // ESC-FIX (2026-06-24): write log to <Project>/Library/Synaptic AI Pro/logs/
+                    // instead of Assets/, otherwise Unity's AssetDatabase imports the live log
+                    // file repeatedly (and Hot Reload's PollAssetChanges amplifies the loop).
+                    // Reported by greatgateisland@gmail.com.
+                    string logDir = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "Library", "Synaptic AI Pro", "logs"));
                     try { Directory.CreateDirectory(logDir); } catch { }
                     string logFile = Path.Combine(logDir, "http-server.log");
 
@@ -1525,7 +1647,10 @@ namespace SynapticPro
                     // Fix: launch via `sh -c "nohup node ... >log 2>&1 &"` so
                     // the child is fully detached from Unity's pipes and
                     // process group, mirroring the Windows detached path.
-                    string logDir = Path.Combine(mcpServerPath, "logs");
+                    // ESC-FIX (2026-06-24): write log to <Project>/Library/Synaptic AI Pro/logs/
+                    // instead of Assets/, otherwise Unity's AssetDatabase + Hot Reload trigger
+                    // an import loop on the live log file. Reported by greatgateisland@gmail.com.
+                    string logDir = Path.GetFullPath(Path.Combine(Application.dataPath, "..", "Library", "Synaptic AI Pro", "logs"));
                     try { Directory.CreateDirectory(logDir); } catch { }
                     string logFile = Path.Combine(logDir, "http-server.log");
 
@@ -2048,10 +2173,13 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
             }
         }
         
-        // Helper method to get appropriate server path based on selected AI client
+        // Helper method to get appropriate server path based on selected AI client.
+        // Windows でパスにスペースが含まれる場合は junction (空白なしのパス) を優先する。
+        // これは Windsurf / Codex desktop 等の MCP クライアントが args 配列内の
+        // 空白入りパスを正しく扱えない事象 (ESC 報告複数) への根本対処。
         private string GetServerScriptPath()
         {
-            var mcpServerPath = FindMCPServerPath();
+            var mcpServerPath = GetEffectiveMCPServerPath();
 
             if (selectedAIClient == AIClientType.TokenSuperSaveMode)
             {
@@ -2073,6 +2201,220 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
                 // Full mode: 246 tools
                 return Path.Combine(mcpServerPath, "index.js");
             }
+        }
+
+        // ───────── Windows path-with-spaces junction workaround ─────────
+        //
+        // 背景: Unity プロジェクトの Assets 配下にインストールされる Synaptic AI Pro
+        // のフォルダ名は "Synaptic AI Pro" (スペース2つ含む)。Claude Desktop は
+        // mcp config の args 配列を spawn(argsArray, {shell:false}) で正しく
+        // 渡せるためスペース入りパスでも動作するが、Windsurf / Codex desktop 等の
+        // 新興 MCP クライアントは内部で args を join して shell 経由 spawn する
+        // 実装になっており、空白でコマンドが分割されて起動失敗する。
+        //
+        // 根本対処はクライアント側の実装修正だが、こちらでは Windows 環境で
+        // %LOCALAPPDATA%\Synaptic\MCPServer のような空白なしパスに junction を
+        // 作成し、MCP config 生成時にそのパスを使うことで全クライアントに対応する。
+
+        // junction の保存先 (Windows 限定)
+        private string GetJunctionTargetPath()
+        {
+            var localAppData = Environment.GetFolderPath(Environment.SpecialFolder.LocalApplicationData);
+            return Path.Combine(localAppData, "Synaptic", "MCPServer");
+        }
+
+        // 現環境で junction 救済が必要か (Win かつパスに空白含む)
+        private bool ShouldOfferJunction()
+        {
+            if (Application.platform != RuntimePlatform.WindowsEditor) return false;
+            var raw = FindMCPServerPath();
+            return !string.IsNullOrEmpty(raw) && raw.Contains(' ');
+        }
+
+        // junction が既にあって target に向いているか
+        private bool IsJunctionInstalled()
+        {
+            try
+            {
+                var junctionPath = GetJunctionTargetPath();
+                if (!Directory.Exists(junctionPath)) return false;
+                // junction なら中身に index-supersave.js があるはず
+                return File.Exists(Path.Combine(junctionPath, "index-supersave.js"))
+                    || File.Exists(Path.Combine(junctionPath, "index.js"));
+            }
+            catch { return false; }
+        }
+
+        // junction を新規作成 (PowerShell New-Item -ItemType Junction、管理者権限不要)
+        private bool CreateJunction(out string error)
+        {
+            error = null;
+            try
+            {
+                var src = FindMCPServerPath();
+                var dst = GetJunctionTargetPath();
+                var parentDir = Path.GetDirectoryName(dst);
+                if (!Directory.Exists(parentDir)) Directory.CreateDirectory(parentDir);
+
+                // 既存があれば消す。
+                // BUG FIX (2026-06-22): 旧実装は `Directory.Delete(dst, false)` のみで、
+                // 壊れた junction (target 側に中身が見える状態) を「中身あり」と判定して
+                // IOException で skip し、その後の New-Item -Force でも上書きできず、
+                // 何度 Complete MCP Setup を押しても再生成されないバグがあった。
+                if (Directory.Exists(dst))
+                {
+                    bool isReparse = false;
+                    try { isReparse = (File.GetAttributes(dst) & FileAttributes.ReparsePoint) != 0; }
+                    catch { /* 取得失敗時は通常 dir として扱う */ }
+
+                    if (isReparse)
+                    {
+                        // junction は中身を消さず junction 本体だけ削除する必要がある。
+                        // .NET の Directory.Delete だと junction 中身を辿ろうとして失敗するケース
+                        // があるので、cmd.exe の rmdir に直接やらせる方が確実。
+                        try { Directory.Delete(dst, false); }
+                        catch
+                        {
+                            var rmPsi = new System.Diagnostics.ProcessStartInfo {
+                                FileName = "cmd.exe",
+                                Arguments = $"/c rmdir \"{dst}\"",
+                                UseShellExecute = false,
+                                CreateNoWindow = true,
+                                RedirectStandardOutput = true,
+                                RedirectStandardError = true,
+                            };
+                            using (var p = System.Diagnostics.Process.Start(rmPsi)) p.WaitForExit(5000);
+                        }
+                    }
+                    else
+                    {
+                        // 通常ディレクトリ (まれ。手動で誰かが mkdir したか、過去の事故等) は
+                        // 中身ごと消す。当 path はビルド成果物ではなく junction 専用なので安全。
+                        try { Directory.Delete(dst, true); } catch { /* best-effort */ }
+                    }
+                }
+
+                var psCmd = $"New-Item -ItemType Junction -Path '{dst}' -Target '{src}' -Force | Out-Null";
+                var psi = new System.Diagnostics.ProcessStartInfo
+                {
+                    FileName = "powershell.exe",
+                    Arguments = $"-NoProfile -NonInteractive -ExecutionPolicy Bypass -Command \"{psCmd}\"",
+                    UseShellExecute = false,
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                    CreateNoWindow = true,
+                };
+                using (var proc = System.Diagnostics.Process.Start(psi))
+                {
+                    proc.WaitForExit(10000);
+                    if (proc.ExitCode != 0)
+                    {
+                        error = proc.StandardError.ReadToEnd().Trim();
+                        if (string.IsNullOrEmpty(error)) error = $"PowerShell exit {proc.ExitCode}";
+                        return false;
+                    }
+                }
+                return Directory.Exists(dst);
+            }
+            catch (Exception ex)
+            {
+                error = ex.Message;
+                return false;
+            }
+        }
+
+        // Setup が config 生成時に使うべき MCPServer パス。junction が使えるなら
+        // それを返し、無ければ通常パス (空白入りの可能性あり) を返す。
+        private string GetEffectiveMCPServerPath()
+        {
+            if (Application.platform == RuntimePlatform.WindowsEditor && IsJunctionInstalled())
+            {
+                return GetJunctionTargetPath();
+            }
+            return FindMCPServerPath();
+        }
+
+        // Windows でパスにスペースがある時に表示する 1-tap 救済 UI
+        private void DrawWindowsJunctionWorkaround()
+        {
+            if (!ShouldOfferJunction()) return;
+
+            var installed = IsJunctionInstalled();
+            var junctionPath = GetJunctionTargetPath();
+
+            EditorGUILayout.Space(4);
+            EditorGUILayout.BeginVertical(EditorStyles.helpBox);
+
+            if (installed)
+            {
+                // 既に作成済み — 状態表示のみ
+                var oldColor = GUI.color;
+                GUI.color = new Color(0.6f, 1f, 0.7f);
+                EditorGUILayout.LabelField("✓ Windows Path Fix: Active", EditorStyles.boldLabel);
+                GUI.color = oldColor;
+                EditorGUILayout.LabelField(
+                    "MCP configs will use the space-free junction path. This works\n" +
+                    "with Windsurf, Codex desktop, OpenCode, and any other client.\n" +
+                    $"Junction: {junctionPath}",
+                    EditorStyles.wordWrappedMiniLabel);
+
+                if (GUILayout.Button("Re-create Junction", GUILayout.Height(22)))
+                {
+                    if (CreateJunction(out var err))
+                    {
+                        EditorUtility.DisplayDialog("Synaptic AI Pro", "Junction re-created successfully.", "OK");
+                    }
+                    else
+                    {
+                        EditorUtility.DisplayDialog("Synaptic AI Pro", $"Failed to re-create junction:\n{err}", "OK");
+                    }
+                }
+            }
+            else
+            {
+                // 未作成 — 説明 + 作成ボタン
+                var oldColor = GUI.color;
+                GUI.color = new Color(1f, 0.85f, 0.5f);
+                EditorGUILayout.LabelField("⚠ Windows: Project Path Contains Spaces", EditorStyles.boldLabel);
+                GUI.color = oldColor;
+
+                EditorGUILayout.LabelField(
+                    "Your project path includes a space (\"Synaptic AI Pro\" folder).\n" +
+                    "Most MCP clients (Claude Desktop) handle this fine, but some\n" +
+                    "newer clients (Windsurf, Codex desktop, OpenCode) fail to spawn\n" +
+                    "Node.js when the args path contains spaces.\n\n" +
+                    "Click below to create a space-free shortcut (junction) at:\n" +
+                    $"  {junctionPath}\n\n" +
+                    "After that, all generated MCP configs will use this path and\n" +
+                    "every client will connect reliably. The junction is created\n" +
+                    "without admin privileges and takes no extra disk space.",
+                    EditorStyles.wordWrappedMiniLabel);
+
+                EditorGUILayout.Space(4);
+                var oldBg = GUI.backgroundColor;
+                GUI.backgroundColor = new Color(0.6f, 0.9f, 0.6f);
+                if (GUILayout.Button("⚡  One-Click: Create Junction for Windows MCP Clients", GUILayout.Height(28)))
+                {
+                    if (CreateJunction(out var err))
+                    {
+                        EditorUtility.DisplayDialog(
+                            "Synaptic AI Pro",
+                            "Junction created.\n\nNow press \"Complete MCP Setup\" or any per-client setup button below — the new configs will use the space-free path automatically.",
+                            "OK");
+                    }
+                    else
+                    {
+                        EditorUtility.DisplayDialog(
+                            "Synaptic AI Pro",
+                            $"Failed to create junction:\n{err}\n\nManual fallback: open PowerShell and run:\n  New-Item -ItemType Junction -Path '{junctionPath}' -Target '{FindMCPServerPath()}'",
+                            "OK");
+                    }
+                }
+                GUI.backgroundColor = oldBg;
+            }
+
+            EditorGUILayout.EndVertical();
+            EditorGUILayout.Space(6);
         }
 
         // Update package.json "type" field based on selected server
@@ -2396,7 +2738,11 @@ Sandbox may block localhost connections. Use escalation if curl commands fail.
             }
         }
         
-        private string DetectClaudeConfigPath()
+        // 2026-06-27: 公開 static 化。NexusEditorMCPService.UpdateClaudeDesktopConfigForPort
+        // が独自実装で MS Store パスを見逃していた問題 (AssetStore review 指摘) を解消するため
+        // 検出ロジックを 1 箇所に集約。class 名は `NexusMCPSetupWindow` なので外部呼出は
+        // `NexusMCPSetupWindow.DetectClaudeConfigPath()` で叩く。
+        public static string DetectClaudeConfigPath()
         {
             if (Application.platform == RuntimePlatform.OSXEditor)
             {

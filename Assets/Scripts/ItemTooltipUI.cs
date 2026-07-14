@@ -24,19 +24,22 @@ public class ItemTooltipUI : MonoBehaviour
     private Tween panelTween;
 
     private readonly Vector2 panelSize = new Vector2(360f, 540f);
-    private readonly Vector2 pointerOffset = new Vector2(18f, 18f);
 
     // アイテム情報を表示します。マウス位置の少し右上に出し、画面外にはみ出さないようにします。
     public static void Show(ItemData itemData, Vector2 screenPosition)
     {
         if (itemData == null)
             return;
+        // HUD設定でツールチップOFFなら表示しない。
+        if (!SettingsStore.GetHud("tooltip"))
+            return;
 
-        SynergyTooltipUI.Hide();
         EnsureInstance();
+        SynergyTooltipUI.Hide();
+        CoinIncomePanelUI.Hide();
         instance.currentItem = itemData;
         instance.ApplyItem(itemData);
-        instance.MoveNearPointer(screenPosition);
+        instance.MoveToFixedPosition();
         instance.gameObject.SetActive(true);
         instance.PlayPanelAppear();
     }
@@ -64,10 +67,17 @@ public class ItemTooltipUI : MonoBehaviour
         tooltipObject.SetActive(false);
     }
 
-    // 右クリックかEscで説明を閉じます。
+    // 右クリック/Esc、またはパネル外の左クリックで説明を閉じます。
     private void Update()
     {
         if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
+        {
+            Hide();
+            return;
+        }
+
+        if (Input.GetMouseButtonDown(0) &&
+            (panelRect == null || !RectTransformUtility.RectangleContainsScreenPoint(panelRect, Input.mousePosition, null)))
             Hide();
     }
 
@@ -78,7 +88,7 @@ public class ItemTooltipUI : MonoBehaviour
 
         canvas = gameObject.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 50000;
+        canvas.sortingOrder = 15000; // 16bit short上限(32767)内。
 
         CanvasScaler scaler = gameObject.AddComponent<CanvasScaler>();
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
@@ -241,13 +251,12 @@ public class ItemTooltipUI : MonoBehaviour
             ApplyItem(currentItem);
     }
 
-    // マウス付近に置きつつ、右端や上端からはみ出さない位置へ補正します。
-    private void MoveNearPointer(Vector2 screenPosition)
+    // シナジーパネルの右隣・上寄せに固定表示します（pivot=(0,0) なので左下角座標）。
+    private void MoveToFixedPosition()
     {
-        Vector2 targetPosition = screenPosition + pointerOffset;
-        targetPosition.x = Mathf.Clamp(targetPosition.x, 8f, Mathf.Max(8f, Screen.width - panelSize.x - 8f));
-        targetPosition.y = Mathf.Clamp(targetPosition.y, 8f, Mathf.Max(8f, Screen.height - panelSize.y - 8f));
-        panelRect.anchoredPosition = targetPosition;
+        float x = TooltipLayout.FixedPanelX;
+        float y = Mathf.Max(8f, Screen.height - TooltipLayout.FixedPanelTopMargin - panelSize.y);
+        panelRect.anchoredPosition = new Vector2(x, y);
     }
 
     private static void LoadSprites()

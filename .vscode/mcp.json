@@ -1,0 +1,12 @@
+{
+  "servers": {
+    "unity-synaptic": {
+      "type": "stdio",
+      "command": "C:/Program Files/nodejs/node.exe",
+      "args": [
+        "C:/Users/offof/AppData/Local/Synaptic/MCPServer/index-supersave.js"
+      ],
+      "cwd": "C:/Users/offof/AutoChessBossRush/Assets/Synaptic AI Pro/MCPServer"
+    }
+  }
+}

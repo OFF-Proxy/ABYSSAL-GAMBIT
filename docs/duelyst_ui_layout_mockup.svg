@@ -1,0 +1,250 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1920" height="1080" viewBox="0 0 1920 1080">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#6ec5c3"/>
+      <stop offset="0.38" stop-color="#116b91"/>
+      <stop offset="1" stop-color="#051827"/>
+    </linearGradient>
+    <radialGradient id="arenaFill" cx="50%" cy="45%" r="58%">
+      <stop offset="0" stop-color="#0f6f95" stop-opacity="0.95"/>
+      <stop offset="0.72" stop-color="#0b365e" stop-opacity="0.98"/>
+      <stop offset="1" stop-color="#04111d"/>
+    </radialGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f6d97a"/>
+      <stop offset="0.52" stop-color="#d17c1c"/>
+      <stop offset="1" stop-color="#5d2a09"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#0d2d3d" stop-opacity="0.94"/>
+      <stop offset="1" stop-color="#031018" stop-opacity="0.96"/>
+    </linearGradient>
+    <linearGradient id="shopBar" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#052736" stop-opacity="0"/>
+      <stop offset="0.2" stop-color="#052736" stop-opacity="0.68"/>
+      <stop offset="1" stop-color="#02070b" stop-opacity="0.97"/>
+    </linearGradient>
+    <filter id="softGlow" x="-40%" y="-40%" width="180%" height="180%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+    <style>
+      .label{font-family:"Yu Gothic","Meiryo",sans-serif;font-weight:700;fill:#eafcff}
+      .small{font-size:22px}
+      .mid{font-size:28px}
+      .tiny{font-size:16px}
+      .note{font-family:"Yu Gothic","Meiryo",sans-serif;font-size:18px;fill:#b9e9ff}
+      .panelStroke{stroke:#2eeaff;stroke-width:3;stroke-opacity:.55}
+      .goldStroke{stroke:#e6a43c;stroke-width:7;stroke-opacity:.9}
+    </style>
+  </defs>
+
+  <rect width="1920" height="1080" fill="url(#bg)"/>
+  <path d="M0 880 C210 760 220 485 85 310 C40 250 18 188 40 115 C82 184 135 235 220 245 C174 310 188 435 260 505 C188 575 170 710 230 825 C148 860 70 880 0 910Z" fill="#082234" opacity=".52"/>
+  <path d="M1920 200 C1800 330 1778 510 1860 655 C1785 705 1740 802 1775 960 C1835 930 1885 898 1920 860Z" fill="#061a29" opacity=".6"/>
+
+  <!-- top player/opponent chrome -->
+  <g transform="translate(125,42)">
+    <path d="M0 40 L45 0 L110 18 L120 90 L58 118 L0 86Z" fill="#152535" stroke="#75e8ff" stroke-width="3"/>
+    <rect x="40" y="76" width="48" height="52" rx="4" fill="#d32134"/>
+    <text x="64" y="113" class="label mid" text-anchor="middle">4</text>
+    <text x="140" y="32" class="label small">YOU</text>
+    <text x="140" y="64" class="note">Lv 7 / 8 units</text>
+    <g transform="translate(142,78)">
+      <circle cx="0" cy="0" r="13" fill="#26c9ee"/><circle cx="32" cy="0" r="13" fill="#26c9ee"/>
+      <circle cx="64" cy="0" r="13" fill="#26c9ee"/><circle cx="96" cy="0" r="13" fill="#26c9ee"/>
+      <circle cx="128" cy="0" r="13" fill="#244354"/><text x="178" y="8" class="label small">4/5</text>
+    </g>
+  </g>
+  <g transform="translate(1490,42)">
+    <text x="0" y="36" class="label small">CHAPTER BOSS</text>
+    <text x="0" y="68" class="note">Wave 6 / 9</text>
+    <path d="M270 40 L225 0 L160 18 L150 90 L212 118 L270 86Z" fill="#28323a" stroke="#d7e0e8" stroke-width="3" opacity=".8"/>
+    <rect x="182" y="76" width="48" height="52" rx="4" fill="#d32134"/>
+    <text x="206" y="113" class="label mid" text-anchor="middle">13</text>
+  </g>
+
+  <!-- round progress -->
+  <g transform="translate(720,22)">
+    <rect width="480" height="82" rx="4" fill="url(#panel)" opacity=".92"/>
+    <text x="240" y="30" class="label small" text-anchor="middle">ウェーブ 6 / 9</text>
+    <g transform="translate(92,54)">
+      <circle cx="0" cy="0" r="12" fill="#77ff7a"/><circle cx="42" cy="0" r="12" fill="#77ff7a"/>
+      <circle cx="84" cy="0" r="12" fill="#77ff7a"/><circle cx="126" cy="0" r="12" fill="#77ff7a"/>
+      <circle cx="168" cy="0" r="12" fill="#77ff7a"/>
+      <circle cx="210" cy="0" r="13" fill="#ffffff" stroke="#6fefff" stroke-width="2"/>
+      <path d="M252 -13 L265 0 L252 13 L239 0Z" fill="#ff4b8b"/>
+      <circle cx="294" cy="0" r="12" fill="#50636e"/><circle cx="336" cy="0" r="12" fill="#50636e"/>
+    </g>
+  </g>
+
+  <!-- central arena -->
+  <ellipse cx="960" cy="440" rx="685" ry="340" fill="none" class="goldStroke"/>
+  <ellipse cx="960" cy="450" rx="632" ry="298" fill="url(#arenaFill)" stroke="#6bd5ff" stroke-width="8" opacity=".96"/>
+  <ellipse cx="960" cy="450" rx="540" ry="250" fill="none" stroke="#58bde0" stroke-width="2" opacity=".35"/>
+  <path d="M420 365 C680 250 1260 250 1500 365" fill="none" stroke="#fff8c8" stroke-width="22" opacity=".34"/>
+
+  <!-- grid -->
+  <g transform="translate(575,212) skewX(-8)">
+    <rect x="0" y="0" width="770" height="470" rx="10" fill="#041723" opacity=".14"/>
+    <g opacity=".96">
+      <script type="application/ecmascript"><![CDATA[]]></script>
+      <rect x="0" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/>
+      <rect x="76" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/>
+      <rect x="152" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/>
+      <rect x="228" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/>
+      <rect x="304" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/>
+      <rect x="380" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/>
+      <rect x="456" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/>
+      <rect x="532" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/>
+      <rect x="608" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/>
+      <rect x="684" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/>
+    </g>
+    <g>
+      <!-- rows drawn manually for reliability -->
+      <g transform="translate(0,58)">
+        <rect x="0" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="76" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="152" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="228" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="304" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="380" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="456" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="532" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="608" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="684" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/>
+      </g>
+      <g transform="translate(0,116)">
+        <rect x="0" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="76" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="152" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="228" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="304" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="380" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="456" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="532" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="608" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="684" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/>
+      </g>
+      <g transform="translate(0,174)">
+        <rect x="0" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="76" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="152" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="228" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="304" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="380" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="456" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="532" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="608" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="684" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/>
+      </g>
+      <g transform="translate(0,232)">
+        <rect x="0" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="76" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="152" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="228" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="304" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="380" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="456" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="532" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="608" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="684" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/>
+      </g>
+      <g transform="translate(0,290)">
+        <rect x="0" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="76" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="152" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="228" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="304" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="380" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="456" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="532" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="608" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="684" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/>
+      </g>
+      <g transform="translate(0,348)">
+        <rect x="0" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="76" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="152" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="228" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="304" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="380" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="456" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="532" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="608" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="684" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/>
+      </g>
+      <g transform="translate(0,406)">
+        <rect x="0" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="76" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="152" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="228" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="304" y="0" width="68" height="50" rx="7" fill="#d9fff4" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="380" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="456" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="532" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="608" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/><rect x="684" y="0" width="68" height="50" rx="7" fill="#ffd2d2" opacity=".7" stroke="#083c47" stroke-width="3"/>
+      </g>
+    </g>
+  </g>
+  <text x="960" y="190" class="note" text-anchor="middle">中央盤面: 8x10 + 敵陣ハイライトを薄く</text>
+
+  <!-- unit silhouettes -->
+  <g filter="url(#softGlow)">
+    <circle cx="740" cy="450" r="28" fill="#22ff75"/><path d="M720 478 L742 408 L762 478Z" fill="#013a2a"/>
+    <circle cx="960" cy="415" r="32" fill="#22ff75"/><path d="M940 448 L968 372 L987 448Z" fill="#013a2a"/>
+    <circle cx="1145" cy="415" r="34" fill="#ff4a4a"/><path d="M1120 452 L1148 370 L1175 452Z" fill="#3a0101"/>
+    <circle cx="1280" cy="505" r="34" fill="#ff4a4a"/><path d="M1258 542 L1284 460 L1304 542Z" fill="#3a0101"/>
+  </g>
+
+  <!-- left dock item + synergy -->
+  <g transform="translate(18,145)">
+    <path d="M0 0 L110 0 L126 28 L126 740 L0 740Z" fill="url(#panel)" class="panelStroke"/>
+    <text x="62" y="34" class="label tiny" text-anchor="middle">アイテム</text>
+    <g transform="translate(24,58)">
+      <rect width="66" height="66" rx="8" fill="#0c1e25" stroke="#72e6ff" stroke-width="2" opacity=".9"/>
+      <rect y="82" width="66" height="66" rx="8" fill="#0c1e25" stroke="#72e6ff" stroke-width="2" opacity=".9"/>
+      <rect y="164" width="66" height="66" rx="8" fill="#0c1e25" stroke="#72e6ff" stroke-width="2" opacity=".9"/>
+      <rect y="246" width="66" height="66" rx="8" fill="#0c1e25" stroke="#72e6ff" stroke-width="2" opacity=".9"/>
+      <rect y="328" width="66" height="66" rx="8" fill="#0c1e25" stroke="#72e6ff" stroke-width="2" opacity=".9"/>
+      <rect y="410" width="66" height="66" rx="8" fill="#0c1e25" stroke="#72e6ff" stroke-width="2" opacity=".9"/>
+      <rect y="492" width="66" height="66" rx="8" fill="#0c1e25" stroke="#72e6ff" stroke-width="2" opacity=".9"/>
+      <rect y="574" width="66" height="66" rx="8" fill="#0c1e25" stroke="#72e6ff" stroke-width="2" opacity=".9"/>
+      <circle cx="33" cy="33" r="22" fill="#2cffb5"/><circle cx="33" cy="115" r="22" fill="#b253ff"/><circle cx="33" cy="197" r="22" fill="#ffe174"/>
+    </g>
+    <rect x="104" y="316" width="34" height="62" rx="6" fill="#062b38" stroke="#35e7ff" stroke-width="2"/>
+    <text x="121" y="356" class="label small" text-anchor="middle">&gt;</text>
+  </g>
+  <g transform="translate(132,172)">
+    <rect width="250" height="285" rx="5" fill="url(#panel)" opacity=".82" stroke="#2eeaff" stroke-width="2" stroke-opacity=".38"/>
+    <text x="18" y="28" class="label small">シナジー</text>
+    <g transform="translate(16,55)">
+      <rect width="206" height="42" rx="8" fill="#0b2f3f" stroke="#78e9ff" opacity=".88"/>
+      <circle cx="22" cy="21" r="15" fill="#ff5a3f"/><text x="52" y="28" class="label tiny">戦士 2/4</text>
+      <rect y="52" width="206" height="42" rx="8" fill="#0b2f3f" stroke="#78e9ff" opacity=".72"/>
+      <circle cx="22" cy="73" r="15" fill="#67d3ff"/><text x="52" y="80" class="label tiny">射手 1/2</text>
+      <rect y="104" width="206" height="42" rx="8" fill="#0b2f3f" stroke="#78e9ff" opacity=".72"/>
+      <circle cx="22" cy="125" r="15" fill="#b978ff"/><text x="52" y="132" class="label tiny">魔導 1/2</text>
+    </g>
+    <text x="14" y="265" class="note">クリックで効果詳細</text>
+  </g>
+
+  <!-- right unit detail dock -->
+  <g transform="translate(1545,128)">
+    <rect width="350" height="720" rx="4" fill="url(#panel)" stroke="#2cff64" stroke-width="4"/>
+    <rect x="18" y="18" width="314" height="150" rx="4" fill="#04131d" stroke="#48eaff" stroke-opacity=".35"/>
+    <text x="28" y="46" class="label small">選択ユニット詳細</text>
+    <rect x="38" y="62" width="155" height="88" rx="6" fill="#1b5365"/>
+    <text x="210" y="88" class="label tiny">ALLY</text>
+    <text x="210" y="122" class="label mid">Christmas</text>
+    <rect x="22" y="190" width="306" height="22" fill="#20e248"/><text x="175" y="207" class="label tiny" text-anchor="middle">HP 1380 / 1380</text>
+    <rect x="22" y="222" width="306" height="18" fill="#1389e9"/><text x="175" y="237" class="label tiny" text-anchor="middle">MP 0 / 85</text>
+    <text x="28" y="282" class="label tiny">体力 / 攻撃力 / 射程 / 速度 / 軽減</text>
+    <text x="28" y="338" class="label tiny">シナジー: 戦士 / 獣 / 炎獄</text>
+    <rect x="24" y="372" width="300" height="132" fill="#062736" opacity=".75"/>
+    <text x="36" y="402" class="label small">スキル: 竜熱暴走</text>
+    <text x="36" y="435" class="note">対象方向へ火炎放射。範囲内に継続ダメージ。</text>
+    <text x="28" y="552" class="label small">装備アイテム 3/3</text>
+    <rect x="30" y="580" width="52" height="52" fill="#051017" stroke="#98f6ff"/><rect x="95" y="580" width="52" height="52" fill="#051017" stroke="#98f6ff"/><rect x="160" y="580" width="52" height="52" fill="#051017" stroke="#98f6ff"/>
+  </g>
+
+  <!-- bottom shop / hand -->
+  <rect x="0" y="790" width="1920" height="290" fill="url(#shopBar)"/>
+  <g transform="translate(230,818)">
+    <path d="M0 30 L42 0 L285 0 L326 42 L326 238 L0 238Z" fill="url(#panel)" class="panelStroke"/>
+    <text x="24" y="45" class="label small">レベル 7</text>
+    <text x="200" y="45" class="label tiny">6 / 60</text>
+    <rect x="22" y="68" width="235" height="55" rx="8" fill="#063445" stroke="#38efff" stroke-width="3"/>
+    <text x="55" y="106" class="label mid">Exp+4</text>
+    <circle cx="190" cy="96" r="13" fill="#e7b13b"/><text x="218" y="106" class="label mid">4</text>
+    <rect x="22" y="135" width="235" height="55" rx="8" fill="#063445" stroke="#38efff" stroke-width="3"/>
+    <text x="55" y="172" class="label mid">リロール</text>
+    <circle cx="190" cy="162" r="13" fill="#e7b13b"/><text x="218" y="172" class="label mid">2</text>
+  </g>
+
+  <g transform="translate(530,822)">
+    <text x="430" y="-12" class="label small" text-anchor="middle">ショップ = Duelystの手札列として見せる</text>
+    <g transform="translate(0,56)">
+      <g transform="translate(0,20)">
+        <path d="M95 40 L190 85 L95 130 L0 85Z" fill="#193848" stroke="#8ff7ff" stroke-width="3"/>
+        <circle cx="95" cy="58" r="42" fill="#3dd8ff" opacity=".35"/>
+        <text x="95" y="156" class="label tiny" text-anchor="middle">ユニット</text>
+        <text x="155" y="156" class="label tiny">1</text>
+      </g>
+      <g transform="translate(205,0)">
+        <path d="M95 40 L190 85 L95 130 L0 85Z" fill="#193848" stroke="#8ff7ff" stroke-width="3"/>
+        <circle cx="95" cy="58" r="42" fill="#89ff79" opacity=".35"/>
+        <text x="95" y="156" class="label tiny" text-anchor="middle">ユニット</text>
+        <text x="155" y="156" class="label tiny">2</text>
+      </g>
+      <g transform="translate(410,-16)">
+        <path d="M95 40 L190 85 L95 130 L0 85Z" fill="#193848" stroke="#8ff7ff" stroke-width="3"/>
+        <circle cx="95" cy="58" r="42" fill="#ffdf57" opacity=".35"/>
+        <text x="95" y="156" class="label tiny" text-anchor="middle">ユニット</text>
+        <text x="155" y="156" class="label tiny">3</text>
+      </g>
+      <g transform="translate(615,0)">
+        <path d="M95 40 L190 85 L95 130 L0 85Z" fill="#193848" stroke="#8ff7ff" stroke-width="3"/>
+        <circle cx="95" cy="58" r="42" fill="#d05fff" opacity=".35"/>
+        <text x="95" y="156" class="label tiny" text-anchor="middle">ユニット</text>
+        <text x="155" y="156" class="label tiny">4</text>
+      </g>
+      <g transform="translate(820,20)">
+        <path d="M95 40 L190 85 L95 130 L0 85Z" fill="#193848" stroke="#8ff7ff" stroke-width="3"/>
+        <circle cx="95" cy="58" r="42" fill="#ff8943" opacity=".35"/>
+        <text x="95" y="156" class="label tiny" text-anchor="middle">ユニット</text>
+        <text x="155" y="156" class="label tiny">5</text>
+      </g>
+    </g>
+  </g>
+
+  <g transform="translate(1530,840)">
+    <rect x="40" y="0" width="250" height="72" rx="18" fill="#061d27" stroke="#fbec37" stroke-width="7" filter="url(#softGlow)"/>
+    <text x="165" y="48" class="label mid" text-anchor="middle">FIGHT</text>
+    <rect x="78" y="90" width="176" height="48" rx="6" fill="#073545" stroke="#4af2ff" stroke-width="3"/>
+    <text x="166" y="122" class="label small" text-anchor="middle">リロール</text>
+  </g>
+
+  <text x="960" y="1048" class="note" text-anchor="middle">完成想定ワイヤー: 素材はDuelyst由来、AI絵なし。実装時は既存機能をこの配置へ寄せる。</text>
+</svg>

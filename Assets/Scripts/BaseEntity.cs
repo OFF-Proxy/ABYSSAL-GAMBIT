@@ -60,6 +60,9 @@ public class BaseEntity : MonoBehaviour
     // ユニットの基本ステータスです。購入後にコストやスターで再調整されます。
     public int baseDamage = 1;
     public int baseHealth = 3;
+    // R3-hero-scale: ヒーロー育成スケール（HP/攻撃の乗算）。ボス育成と違い毎回 set し直す方式で
+    // ApplyCurrentStats 内で乗算するため、複数回適用しても複利化しない（1.0で無効）。
+    public float heroScaleMultiplier = 1f;
     [Range(1, 5)]
     public int range = 1;
     public float attackSpeed = 1f; //Attacks per second
@@ -107,6 +110,9 @@ public class BaseEntity : MonoBehaviour
     public float adjacentAttackDamageMultiplier = 0.55f;
     public float adjacentAttackRadius = 1.2f;
 
+    // STORY: 形態ペナルティ（攻撃力/最大HPに乗算）。章8の犬化カガチなど「弱体形態」用。既定1.0。
+    public float formPenalty = 1f;
+
     // 攻撃アニメーション全体の何割あたりでダメージ判定を出すかです。
     [Range(0.05f, 0.95f)]
     public float attackImpactNormalizedTime = 0.55f;
@@ -124,8 +130,14 @@ public class BaseEntity : MonoBehaviour
     // AI処理でよく使う状態確認用プロパティです。
     protected bool HasEnemy => currentTarget != null;
     protected bool IsInRange => IsTargetInRange(currentTarget);
+    // 攻撃/スキルのモーション再生中かどうか。再生中は移動・再ターゲットを止め、必ずモーションを最後まで再生します。
+    protected bool IsAttackMotionPlaying => attackCoroutine != null;
     protected bool moving;
     protected Node destination;
+    // 直前に離れたNode。斜め2マスを往復し続ける「引っ掛かり」を防ぐため、原則すぐには戻らない。
+    protected Node previousNode;
+    // 目標とする攻撃足場。安定化のため保持し、占有マスを迂回しながらここへ向かう。
+    protected Node moveGoal;
     protected HealthBar healthbar;
 
     protected bool dead = false;
@@ -174,6 +186,9 @@ public class BaseEntity : MonoBehaviour
     private int originalManaOnAttack;
     private int originalManaOnDamageTaken;
     private Vector3 originalScale;
+    // 敵としての中ボス個体だけに乗せる強化倍率（射程/ステータス）。仲間化後のアライ（別個体生成）には乗らない。
+    private float enemyBossStatMul = 1f;
+    private float enemyBossRangeMul = 1f;
     private readonly List<ItemData> equippedItems = new List<ItemData>();
     private Coroutine attackCoroutine;
     private Coroutine shieldCoroutine;
@@ -203,6 +218,7 @@ public class BaseEntity : MonoBehaviour
     private bool machineEmergencyRepairUsed;
     private Coroutine infernoBurnCoroutine;
     private Coroutine skyfallRampageCoroutine;
+    private Coroutine citySupplyDroneCoroutine;
     private Coroutine temporarySummonLifetimeCoroutine;
     private readonly List<Coroutine> burnDamageCoroutines = new List<Coroutine>();
     private bool movementLockedBySkill;
@@ -380,6 +396,135 @@ public class BaseEntity : MonoBehaviour
         if (damageMultiplier > 0f && !Mathf.Approximately(damageMultiplier, 1f))
             originalBaseDamage = Mathf.Max(1, Mathf.RoundToInt(originalBaseDamage * damageMultiplier));
         ApplyCurrentStats(true);
+    }
+
+    // R1-collection: ボス育成（アフィニティ）の永続ステータス倍率を適用する。HP・攻撃力を同率で底上げ。
+    public void ApplyBossAffinityMultiplier(float multiplier)
+    {
+        if (multiplier <= 0f || Mathf.Approximately(multiplier, 1f)) return;
+        originalBaseHealth = Mathf.Max(1, Mathf.RoundToInt(originalBaseHealth * multiplier));
+        originalBaseDamage = Mathf.Max(1, Mathf.RoundToInt(originalBaseDamage * multiplier));
+        ApplyCurrentStats(true);
+    }
+
+    // R2-coremode: 拠点コアか。コアは移動も通常攻撃もしないが被ターゲット・被ダメ可能。死亡で勝敗判定。
+    public bool IsCore { get; private set; }
+
+    // この実体を拠点コアとして設定する（Setup 後に呼ぶ）。高HP・無移動・シナジー無し。
+    public void ConfigureAsCore(int health)
+    {
+        IsCore = true;
+        SetSynergies(SynergyType.None, SynergyType.None, SynergyType.None);
+        originalBaseHealth = Mathf.Max(1, health);
+        originalBaseDamage = 1;
+        originalMovementSpeed = 0f;
+        ApplyCurrentStats(true);
+        transform.localScale = Vector3.one * 1.5f;
+    }
+
+    // ====== R3-chest-room: 殴って開ける宝箱（サンドバッグ）。移動も攻撃もせず、被弾でコイン、HP0で開封。 ======
+    public bool IsChest { get; private set; }
+    private bool chestIsItem;                 // true=アイテム箱（HP0で3択）/ false=コイン箱。
+    private const int ChestCoinSegments = 6;  // HPを6分割。各セグメント割れで1コイン（最大5）＋HP0開封で+5＝計10。
+    private int chestCoinsDropped;
+    private System.Action onChestCoinDrop;    // 1コイン分の付与（GMが+1コイン）。
+    private System.Action onChestOpened;      // 開封時（GMがコイン箱=+5/アイテム箱=3択）。
+    private bool chestOpened;
+
+    public void ConfigureAsChest(int hp, bool itemChest, System.Action coinDrop, System.Action opened)
+    {
+        IsChest = true;
+        chestIsItem = itemChest;
+        onChestCoinDrop = coinDrop;
+        onChestOpened = opened;
+        chestCoinsDropped = 0;
+        chestOpened = false;
+        SetSynergies(SynergyType.None, SynergyType.None, SynergyType.None);
+        originalBaseHealth = Mathf.Max(1, hp);
+        originalBaseDamage = 1;
+        originalMovementSpeed = 0f;
+        originalAttackSpeed = 0f;
+        canAttack = false;
+        ApplyCurrentStats(true);
+        SetTarget(null);
+        transform.localScale = Vector3.one * 1.2f;
+        // 流用プレハブのAnimatorがスプライトを上書きするのを止め、宝箱スプライトを表示できるようにする。
+        if (animator != null) animator.enabled = false;
+    }
+
+    // 宝箱のフレーム。idle=閉じてキラめく（HP0までループ）。open=開封アニメ（HP0で1回再生）。
+    private Sprite[] chestIdleFrames;
+    private Sprite[] chestOpenFrames;
+    public void SetChestFrames(Sprite[] idle, Sprite[] open)
+    {
+        chestIdleFrames = idle;
+        chestOpenFrames = open;
+        if (idle != null && idle.Length > 0 && spriteRender != null)
+            spriteRender.sprite = idle[0];
+        if (idle != null && idle.Length > 1)
+            StartCoroutine(ChestIdleRoutine());
+    }
+
+    // 閉じた宝箱のキラめきをループ（開封 or 死亡まで）。
+    private System.Collections.IEnumerator ChestIdleRoutine()
+    {
+        int i = 0;
+        var wait = new WaitForSeconds(0.09f);
+        while (!chestOpened && !dead && IsChest && chestIdleFrames != null && chestIdleFrames.Length > 1)
+        {
+            if (spriteRender != null) spriteRender.sprite = chestIdleFrames[i % chestIdleFrames.Length];
+            i++;
+            yield return wait;
+        }
+    }
+
+    // 開封アニメを1回再生（HP0で OpenChestOnce から起動）。GameObjectが消えるまでの間だけ進む。
+    private System.Collections.IEnumerator ChestOpenRoutine()
+    {
+        var wait = new WaitForSeconds(0.05f);
+        // 即時despawnでも「開いた」絵が見えるよう、まず最終フレームを表示。
+        if (chestOpenFrames != null && chestOpenFrames.Length > 0 && spriteRender != null)
+            spriteRender.sprite = chestOpenFrames[chestOpenFrames.Length - 1];
+        if (chestOpenFrames != null)
+            for (int i = 0; i < chestOpenFrames.Length; i++)
+            {
+                if (spriteRender != null) spriteRender.sprite = chestOpenFrames[i];
+                yield return wait;
+            }
+    }
+
+    // 被弾でHPが減るたびに、跨いだセグメントぶんコインを落とす（揺れ＋SE）。コイン箱のみ。
+    private void HandleChestDamage()
+    {
+        if (!IsChest || chestIsItem) return;
+        int lostSegments = Mathf.FloorToInt((float)(MaxHealth - baseHealth) / Mathf.Max(1f, MaxHealth / (float)ChestCoinSegments));
+        int target = Mathf.Clamp(lostSegments, 0, ChestCoinSegments - 1); // 最大5（6個目=HP0は開封側）。
+        while (chestCoinsDropped < target)
+        {
+            chestCoinsDropped++;
+            onChestCoinDrop?.Invoke();
+            ShakeChest(0.14f, 0.05f);
+            AttackEffectPlayer.PlayUiSfx("sfx_gold_reward_1");
+        }
+    }
+
+    // 開封：コイン箱=+5コイン、アイテム箱=3択。1回だけ。
+    private void OpenChestOnce()
+    {
+        if (!IsChest || chestOpened) return;
+        chestOpened = true;
+        ShakeChest(0.22f, 0.09f);
+        AttackEffectPlayer.PlayUiSfx("sfx_gold_reward_2");
+        if (animator != null) animator.enabled = false; // 開封絵がジャガーノートに上書きされないように。
+        if (chestOpenFrames != null && chestOpenFrames.Length > 0)
+            StartCoroutine(ChestOpenRoutine());
+        onChestOpened?.Invoke();
+    }
+
+    private void ShakeChest(float dur, float strength)
+    {
+        transform.DOKill();
+        transform.DOShakePosition(dur, new Vector3(strength, strength * 0.6f, 0f), 16, 90, false, true).SetUpdate(false);
     }
 
     // スキルやシナジー検証用の敵ダミーにします。敵として狙われますが、自分からは攻撃せず盤面を歩き回ります。
@@ -588,6 +733,32 @@ public class BaseEntity : MonoBehaviour
         movementLockedBySkill = false;
         canAttack = true;
         SetAnimatorBool("walking", false);
+
+        // アルカナのスキル回数・持続BloodMage・フィナーレは戦闘ごとにリセットし、次ラウンドへ持ち越しません。
+        ResetArcanaCombatState();
+    }
+
+    // アルカナ専用の戦闘状態リセット。詠唱カウントを0に戻し、残っているBloodMageとフィナーレを片付けます。
+    private void ResetArcanaCombatState()
+    {
+        arcanaSkillCastCount = 0;
+
+        if (arcanaFinaleCoroutine != null)
+        {
+            StopCoroutine(arcanaFinaleCoroutine);
+            arcanaFinaleCoroutine = null;
+        }
+
+        for (int i = 0; i < arcanaActiveBloodMages.Count; i++)
+        {
+            if (arcanaActiveBloodMages[i] != null)
+                AttackEffectPlayer.EndBloodMage(arcanaActiveBloodMages[i]);
+        }
+        arcanaActiveBloodMages.Clear();
+
+        // フィナーレ中に戦闘が終わった場合に備え、本体スケールと再生速度を正規の値へ戻します。
+        SetAnimatorPlaybackSpeed(1f);
+        ApplyStarVisualScale();
     }
 
     // 誰かが死んだ時、今狙っていた相手ならターゲットを外します。
@@ -738,27 +909,44 @@ public class BaseEntity : MonoBehaviour
 
         if(!moving)
         {
-            // ターゲット周囲で、空いていて自分から近いNodeを候補にします。
             destination = null;
-            List<Node> candidates = GridManager.Instance.GetNodesInRange(currentTarget.CurrentNode, range)
-                .Where(node => node != currentTarget.CurrentNode && !node.IsOccupied)
-                .OrderBy(node => Vector3.Distance(node.worldPosition, this.transform.position))
-                .ToList();
+            GridManager grid = GridManager.Instance;
+            Node targetNode = currentTarget.CurrentNode;
+            if (grid == null || targetNode == null)
+                return;
 
-            for(int i = 0; i < candidates.Count;i++)
+            // 既に射程内なら移動不要。
+            if (IsInRange) { ClearMovementReservation(); return; }
+
+            // 目標足場(moveGoal)を保持して安定化させる。毎着地での再選択による「ウロウロ」を防ぐ。
+            // 無効化条件：占有された／ターゲットが射程外へ離れた／到達不能になった。
+            bool goalValid = moveGoal != null && !moveGoal.IsOccupied
+                && Mathf.Max(Mathf.Abs(moveGoal.worldPosition.x - targetNode.worldPosition.x),
+                             Mathf.Abs(moveGoal.worldPosition.y - targetNode.worldPosition.y)) <= range + 0.05f;
+            if (goalValid)
             {
-                var path = GridManager.Instance.GetPath(currentNode, candidates[i]);
-                if (path == null || path.Count <= 1)
-                    continue;
-
-                if (path[1].IsOccupied)
-                    continue;
-
-                // 次に移動するマスを予約して、他ユニットが同じマスへ向かわないようにします。
-                path[1].SetOccupied(true);
-                destination = path[1];
-                break;
+                List<Node> vp = grid.GetPath(currentNode, moveGoal);
+                if (vp == null || vp.Count <= 1) goalValid = false;
             }
+            if (!goalValid)
+                moveGoal = PickAttackGoal(grid, targetNode);
+
+            if (moveGoal == null)
+            {
+                // どの攻撃足場にも到達できない（敵を味方が囲み切っている等）。無駄に動かず待機する。
+                SetAnimatorBool("walking", false);
+                return;
+            }
+
+            // moveGoal までの経路の次の1マスへ。占有マスは GetPath が自動で迂回する（遠回りしてでも向かう）。
+            List<Node> path = grid.GetPath(currentNode, moveGoal);
+            if (path == null || path.Count <= 1) { moveGoal = null; SetAnimatorBool("walking", false); return; }
+            Node step = path[1];
+            if (step.IsOccupied) { SetAnimatorBool("walking", false); return; } // 一時的に塞がれている→待機（往復しない）
+
+            // 次に移動するマスを予約して、他ユニットが同じマスへ向かわないようにします。
+            step.SetOccupied(true);
+            destination = step;
         }
 
         if (destination == null)
@@ -769,8 +957,29 @@ public class BaseEntity : MonoBehaviour
         {
             //Free previous node
             currentNode.SetOccupied(false);
+            previousNode = currentNode; // 来た方向を記録して、すぐ戻らないようにする。
             SetCurrentNode(destination);
         }
+    }
+
+    // ターゲットの射程内マスのうち、現在地から最短経路で到達できる空きマスを選びます。
+    // 到達できる足場が無い（敵を味方が囲み切っている等）場合は null（＝待機）。
+    private Node PickAttackGoal(GridManager grid, Node targetNode)
+    {
+        List<Node> inRange = grid.GetNodesInRange(targetNode, range);
+        Node best = null; int bestSteps = int.MaxValue; float bestDist = float.MaxValue;
+        for (int i = 0; i < inRange.Count; i++)
+        {
+            Node n = inRange[i];
+            if (n == null || n == targetNode || n.IsOccupied) continue;
+            List<Node> p = grid.GetPath(currentNode, n);
+            if (p == null || p.Count <= 1) continue; // 到達不能
+            int steps = p.Count;
+            float d = Vector3.Distance(n.worldPosition, targetNode.worldPosition);
+            if (steps < bestSteps || (steps == bestSteps && d < bestDist))
+            { bestSteps = steps; bestDist = d; best = n; }
+        }
+        return best;
     }
 
     // 現在いるNodeを更新します。移動完了時に呼びます。
@@ -797,6 +1006,15 @@ public class BaseEntity : MonoBehaviour
         if (dead)
             return;
 
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+        // デバッグ無敵：味方/敵ユニットの被ダメージを無効化（DebugMenu のトグル）。
+        if (GameManager.Instance != null)
+        {
+            if (Team == Team.Team1 && GameManager.Instance.DebugPlayerInvincible) return;
+            if (Team == Team.Team2 && GameManager.Instance.DebugEnemyInvincible) return;
+        }
+#endif
+
         amount = ApplyRoundDamageMultiplier(amount, source);
         if (source != null)
         {
@@ -812,7 +1030,10 @@ public class BaseEntity : MonoBehaviour
 
         // オーグメント on-hit procs (通常攻撃ヒット時のみ、ソース側で発動)
         if (source != null && numberKind == CombatNumberKind.AttackDamage)
+        {
             source.TryApplyAugmentOnHitProcs(this);
+            source.TryApplyUnitOnHitProcs(this);
+        }
 
         // まずシールドで受け止め、残った分だけHPを減らします。
         int remainingDamage = Mathf.Max(0, amount);
@@ -845,6 +1066,8 @@ public class BaseEntity : MonoBehaviour
             GainMana(manaOnDamageTaken);
         if (healthbar != null)
             healthbar.UpdateBar(baseHealth);
+
+        if (IsChest) HandleChestDamage(); // 被弾でコインを落とす（コイン箱）。
 
         if (baseHealth > 0)
         {
@@ -947,6 +1170,49 @@ public class BaseEntity : MonoBehaviour
             target.TakeDamage(Mathf.Max(2, Mathf.RoundToInt(GetCurrentDamage() * 0.30f)), this, CombatNumberKind.FocusDamage);
         if (GameManager.Instance.HasAugment("silver_stun_proc") && UnityEngine.Random.value < 0.05f)
             target.ApplyStun(1f);
+    }
+
+    // 固有ユニットの on-hit 効果（ソース側）。通常攻撃ヒット時に発動します。
+    // 現状は Serpenti の Venom Frenzy が発動中なら、攻撃ごとに毒（Inferno DoT を流用）を付与します。
+    private float serpentiVenomFrenzyUntil;
+    private int serpentiVenomTickDamage;
+    private float serpentiVenomDotDuration;
+
+    private void TryApplyUnitOnHitProcs(BaseEntity target)
+    {
+        if (target == null || target.dead)
+            return;
+
+        if (Time.time < serpentiVenomFrenzyUntil && serpentiVenomTickDamage > 0)
+        {
+            target.ApplyInfernoBurnFromSynergy(this, serpentiVenomTickDamage, Mathf.Max(0.5f, serpentiVenomDotDuration));
+        }
+    }
+
+    // 一定時間、対象が受けるダメージを増幅（Vulnerable）。
+    // 内部実装は synergyDamageReductionBonus に負の値を加えることで、被ダメージ式 (1 - 軽減) を実質増幅させます。
+    public void ApplyVulnerable(float increasePercent, float duration)
+    {
+        if (Mathf.Abs(increasePercent) <= 0.001f || duration <= 0f)
+            return;
+        ApplyTimedSynergyDamageReductionBonus(-Mathf.Abs(increasePercent), duration);
+    }
+
+    // 一定時間、対象の与ダメージを減衰（Weaken）。
+    // ApplyTimedSynergyDamageDealtBonus にマイナスを渡すラッパー。
+    public void ApplyWeaken(float decreasePercent, float duration)
+    {
+        if (Mathf.Abs(decreasePercent) <= 0.001f || duration <= 0f)
+            return;
+        ApplyTimedSynergyDamageDealtBonus(-Mathf.Abs(decreasePercent), duration);
+    }
+
+    // Serpenti の Venom Frenzy を起動: 持続時間中、通常攻撃ヒットごとに対象へ毒 DoT を付与します。
+    public void ActivateSerpentiVenomFrenzy(int tickDamage, float dotDuration, float frenzyDuration)
+    {
+        serpentiVenomTickDamage = Mathf.Max(1, tickDamage);
+        serpentiVenomDotDuration = Mathf.Max(0.5f, dotDuration);
+        serpentiVenomFrenzyUntil = Time.time + Mathf.Max(0.1f, frenzyDuration);
     }
 
     // === オーグメント用の復活 ===
@@ -1164,11 +1430,16 @@ public class BaseEntity : MonoBehaviour
         if (SynergyManager.Instance != null && SynergyManager.Instance.TryReviveWraith(this))
             return;
 
+        // R3-hero-depth: 主人公は将。ヒーローは1戦1回まで自動復活（復活後の再死亡で味方弱体）。
+        if (GameManager.Instance != null && GameManager.Instance.TryConsumeHeroReviveForUnit(this))
+            return;
+
         // オーグメント由来の復活（silver_revive_3 / prism_one_revive）。
         if (GameManager.Instance != null && GameManager.Instance.TryConsumeAugmentReviveForUnit(this))
             return;
 
         dead = true;
+        if (IsChest) OpenChestOnce(); // HP0で開封（コイン箱=+5/アイテム箱=3択）。
         ApplySummonedDeathSlow();
         SynergyManager.Instance?.NotifyUnitDeath(this, lastDamageSource);
 
@@ -1252,6 +1523,16 @@ public class BaseEntity : MonoBehaviour
         if (skillAttack)
             ResetMana();
 
+        // アルカナのスキルは専用シーケンス：Ability を最後まで再生 → 最後の数コマで溜め → 魔法陣と共にダメージ。
+        if (skillAttack && HasAnimationClip("Ability") && NormalizeUnitId(UnitId) == "arcana")
+        {
+            yield return ArcanaChargedSkillCoroutine(targetAtCast);
+            attackCoroutine = null;
+            if (!dead)
+                canAttack = true;
+            yield break;
+        }
+
         // 攻撃速度から1回の攻撃にかける時間を決め、アニメーション再生速度も合わせます。
         waitBetweenAttack = GetAttackDuration();
         bool useAbilityAnimation = skillAttack && HasAnimationClip("Ability") && HasAnimatorParameter("ability", AnimatorControllerParameterType.Trigger);
@@ -1283,6 +1564,171 @@ public class BaseEntity : MonoBehaviour
             canAttack = true;
     }
 
+    // アルカナ専用のスキル再生です。Ability を必ず最後まで再生し、最後の数コマで「溜め」を作ってからダメージを出します。
+    private IEnumerator ArcanaChargedSkillCoroutine(BaseEntity targetAtCast)
+    {
+        FaceTarget(targetAtCast);
+
+        // 周期: 1〜3回目=Ability(溜め)→持続BloodMage設置 / 4回目=SpecialMove発動→フィナーレ。
+        int upcomingPhase = (arcanaSkillCastCount % 4) + 1;
+
+        if (upcomingPhase >= 4)
+        {
+            Vector3 arcanaBaseScale = transform.localScale;
+
+            // 4回目: 必殺モーション SpecialMove を再生してからフィナーレ効果へ。
+            // normalizedTime を見て Charge(等倍)→Activate(拡大＋低速＋放射光) を制御し、Special を抜けた瞬間に等倍へ戻します。
+            if (HasAnimationClip("Special") && HasAnimatorParameter("special", AnimatorControllerParameterType.Trigger))
+            {
+                yield return ArcanaSpecialMotionCoroutine(targetAtCast, arcanaBaseScale);
+            }
+            else
+            {
+                BeginActionAnimation(true, 1f);
+                yield return new WaitForSeconds(0.5f);
+                if (!dead)
+                    ExecuteSkillEffect(targetAtCast);
+            }
+
+            // フィナーレ中はユニットを拘束（IsAttackMotionPlaying のまま待機し、再詠唱・移動を防ぐ）。
+            while (arcanaFinaleCoroutine != null && !dead)
+                yield return null;
+
+            // 念のため等倍・通常速度へ戻してから終了します。
+            transform.localScale = arcanaBaseScale;
+            SetAnimatorPlaybackSpeed(1f);
+            EndActionAnimation();
+            yield break;
+        }
+
+        // 1〜3回目: Ability を最後まで再生 → 溜め → 効果（持続BloodMage設置）。
+        float abilityLength = GetAnimationClipLength("Ability");
+        if (abilityLength <= 0.05f)
+            abilityLength = 1.2f;
+        float targetDuration = Mathf.Clamp(GetAttackDuration(), 0.85f, 1.6f);
+        float playbackSpeed = Mathf.Clamp(abilityLength / targetDuration, 0.2f, 8f);
+
+        BeginActionAnimation(true, playbackSpeed);
+        yield return new WaitForSeconds(targetDuration);
+
+        // 最後の数コマをループさせ、約0.4秒の溜めを作ります。
+        yield return ArcanaHoldChargeCoroutine(0.4f);
+
+        if (!dead)
+            ExecuteSkillEffect(targetAtCast);
+
+        EndActionAnimation();
+    }
+
+    // 4回目フィナーレの SpecialMove 再生制御です。normalizedTime を監視して、
+    // Charge(前半)=等倍・通常速度 / Activate(後半)=拡大＋低速（終盤はさらに低速＋放射光の延長）にします。
+    // Special を抜けた瞬間に等倍へ戻すので、直後に一回り大きい別モーションが見える不具合を防ぎます。
+    private IEnumerator ArcanaSpecialMotionCoroutine(BaseEntity targetAtCast, Vector3 baseScale)
+    {
+        SetAnimatorBool("walking", false);
+        SetAnimatorBool("attacking", false);
+        SetAnimatorBool("abilitying", false);
+        SetAnimatorPlaybackSpeed(1f);
+        SetAnimatorTrigger("special");
+
+        bool effectFired = false;
+        bool lightSpawned = false;
+        bool everEntered = false;
+        float elapsed = 0f;
+        const float timeout = 14f; // 低速再生でも収まる安全上限
+
+        while (elapsed < timeout && !dead)
+        {
+            elapsed += Time.deltaTime;
+            if (!CanUseAnimator())
+                break;
+
+            AnimatorStateInfo info = animator.GetCurrentAnimatorStateInfo(0);
+            bool inSpecial = info.IsName("Special");
+            if (inSpecial)
+                everEntered = true;
+
+            // Special へ遷移するまでは待機します。
+            if (!everEntered)
+            {
+                yield return null;
+                continue;
+            }
+
+            float t = inSpecial ? Mathf.Clamp01(info.normalizedTime) : 1f;
+
+            if (inSpecial && t < 0.5f)
+            {
+                // Charge: 本体は元々大きく描かれているので等倍・通常速度。
+                transform.localScale = baseScale;
+                SetAnimatorPlaybackSpeed(1f);
+            }
+            else
+            {
+                // Activate: リング込みで本体が小さいので拡大。全体をやや低速にして目立たせます。
+                transform.localScale = baseScale * ArcanaSpecialScaleCompensation;
+
+                if (!effectFired)
+                {
+                    effectFired = true;
+                    if (!dead)
+                        ExecuteSkillEffect(targetAtCast); // → フィナーレ起動（吸い込み・明転）
+                }
+
+                if (t >= 0.85f)
+                {
+                    // 最後の数コマは特にゆっくり。放射状の光をスプライト外へ延長して締めます。
+                    SetAnimatorPlaybackSpeed(0.3f);
+                    if (!lightSpawned)
+                    {
+                        lightSpawned = true;
+                        AttackEffectPlayer.PlayArcanaActivateLightRays(this, 1.6f);
+                    }
+                }
+                else
+                {
+                    SetAnimatorPlaybackSpeed(0.65f);
+                }
+            }
+
+            // Special を抜けた（Idle 等へ遷移した）瞬間に終了し、拡大したまま他モーションを見せないようにします。
+            if (everEntered && !inSpecial && effectFired)
+                break;
+            if (inSpecial && t >= 0.995f)
+                break;
+
+            yield return null;
+        }
+
+        transform.localScale = baseScale;
+        SetAnimatorPlaybackSpeed(1f);
+    }
+
+    // Ability の終盤コマ(0.9〜1.0)を小刻みに往復させ、力を溜める「溜め」を表現します。
+    private IEnumerator ArcanaHoldChargeCoroutine(float duration)
+    {
+        if (!CanUseAnimator())
+        {
+            yield return new WaitForSeconds(Mathf.Max(0f, duration));
+            yield break;
+        }
+
+        float elapsed = 0f;
+        while (elapsed < duration && !dead)
+        {
+            // 0→1→0 を繰り返し、最後の数コマがフルフルと震える溜めにします。
+            float wobble = Mathf.PingPong(elapsed * 7f, 1f);
+            float normalized = Mathf.Lerp(0.9f, 0.999f, wobble);
+            animator.speed = 0f;
+            animator.Play("Ability", 0, normalized);
+            animator.Update(0f);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        animator.speed = 1f;
+    }
+
     // 通常攻撃のダメージ、エフェクト、マナ獲得を処理します。
     private void ExecuteNormalAttack(BaseEntity targetAtCast)
     {
@@ -1304,6 +1750,9 @@ public class BaseEntity : MonoBehaviour
     {
         if (this == null || dead || targetAtCast == null || targetAtCast.dead)
             return;
+
+        // 着弾の SE と属性色スパーク（アーキタイプ別）。通常攻撃にも個性と手応えを足します。
+        AttackEffectPlayer.PlayUnitAttackImpact(this, targetAtCast.transform.position);
 
         ApplyPreDamageNormalAttackItemEffects(targetAtCast);
         int damage = ApplyNormalAttackDamageItemEffects(targetAtCast, GetCurrentDamage());
@@ -1516,7 +1965,10 @@ public class BaseEntity : MonoBehaviour
         try
         {
             if (TryExecuteDedicatedSkill(targetAtCast))
+            {
+                ApplyBossSignature(targetAtCast); // boss-skill-progression: 解放ボスのシグネチャ効果（Lv1常時／育成で拡張）。
                 return;
+            }
 
             switch (skillType)
             {
@@ -1741,9 +2193,459 @@ public class BaseEntity : MonoBehaviour
 
                 skyfallRampageCoroutine = StartCoroutine(ExecuteSkyfallDragonRampageCoroutine(targetAtCast));
                 return true;
+            // --- DESIGN_skill_overhaul.md: 17体の固有スキル ---
+            case "andromeda":
+                ExecuteAndromedaStardustBarrage(targetAtCast);
+                return true;
+            case "antiswarm":
+                ExecuteAntiswarmSwarmCall();
+                return true;
+            case "borealjuggernaut":
+                ExecuteBorealjuggernautFrostguardBastion();
+                return true;
+            case "chaosknight":
+                ExecuteChaosknightChaosBrand(targetAtCast);
+                return true;
+            case "christmas":
+                ExecuteChristmasFestiveRally();
+                return true;
+            case "vampire":
+                ExecuteVampireSoulpiercer(targetAtCast);
+                return true;
+            case "valiant":
+                ExecuteValiantAegisSmite(targetAtCast);
+                return true;
+            case "candypanda":
+                ExecuteCandypandaSugarFeast();
+                return true;
+            case "city":
+                if (citySupplyDroneCoroutine != null)
+                    StopCoroutine(citySupplyDroneCoroutine);
+                citySupplyDroneCoroutine = StartCoroutine(ExecuteCitySupplyDroneCoroutine());
+                return true;
+            case "crystal":
+                ExecuteCrystalCrystalWard(targetAtCast);
+                return true;
+            case "cindera":
+                ExecuteCinderaEmberSight(targetAtCast);
+                return true;
+            case "decepticle":
+                ExecuteDecepticleAssaultMode();
+                return true;
+            case "umbra":
+                ExecuteUmbraUmbralDevour();
+                return true;
+            case "spelleater":
+                ExecuteSpelleaterSpellEater(targetAtCast);
+                return true;
+            case "serpenti":
+                ExecuteSerpentiVenomFrenzy();
+                return true;
+            case "decepticlechassis":
+                ExecuteDecepticlechassisArmorReassembly();
+                return true;
+            case "wolfpunch":
+                ExecuteWolfpunchAlphaStrike(targetAtCast);
+                return true;
+            case "arcana":
+                ExecuteArcanaTomeOfFinality(targetAtCast);
+                return true;
+            // --- skill-fill: 章ボスの固有スキル（強撃→固有化, DESIGN_skill-fill.md） ---
+            case "caliber":
+                ExecuteCaliberEndfallSweep();
+                return true;
+            case "neutral_rook":
+                ExecuteRookStasisGate();
+                return true;
+            case "neutral_sister":
+                ExecuteSisterRequiemDirge();
+                return true;
+            // --- skill-fill: 勧誘可能な中立ユニットの固有スキル ---
+            case "neutral_beastmaster":
+                ExecuteBeastmasterBeastRoar();
+                return true;
+            case "neutral_gnasher":
+                ExecuteGnasherGnash(targetAtCast);
+                return true;
+            case "neutral_rawr":
+                ExecuteRawrIntimidate();
+                return true;
+            case "neutral_rok":
+                ExecuteRokBoulderToss(targetAtCast);
+                return true;
+            case "neutral_zukong":
+                ExecuteZukongStaffFlurry();
+                return true;
+            // --- skill-fill: Songhai新4体の固有スキル ---
+            case "lanternfox":
+                ExecuteLanternfoxLanternGuide();
+                return true;
+            case "onyxjaguar":
+                ExecuteOnyxjaguarOnyxPounce(targetAtCast);
+                return true;
+            case "keshraifanblade":
+                ExecuteKeshraiFanBladeDance(targetAtCast);
+                return true;
+            case "firewyrm":
+                ExecuteFirewyrmFireBreath(targetAtCast);
+                return true;
+            // --- skill-fill: 後半章ボス（Magmar/Abyssian/Vetruvian/Mecha/Hydrax） ---
+            case "magmarvaath": ExecuteMagmarvaathMagmaEruption(targetAtCast); return true;
+            case "magmarstarhorn": ExecuteMagmarstarhornCharge(targetAtCast); return true;
+            case "magmarragnora": ExecuteMagmarragnoraSearingRegen(); return true;
+            case "abyssallilithe": ExecuteAbyssallilitheLifebloomDrain(targetAtCast); return true;
+            case "abyssalcassyva": ExecuteAbyssalcassyvaShadowSwarm(); return true;
+            case "abyssalmaehv": ExecuteAbyssalmaehvAbyssArc(); return true;
+            case "vetruvianzirix": ExecuteVetruvianzirixSandbladeStorm(); return true;
+            case "vetruviansajj": ExecuteVetruviansajjSolarSigil(targetAtCast); return true;
+            case "vetruvianscion": ExecuteVetruvianscionErosionPierce(targetAtCast); return true;
+            case "neutral_mechaz0rwing": ExecuteMechaWingStrikeGlide(); return true;
+            case "neutral_mechaz0rsword": ExecuteMechaSwordSteelFlurry(targetAtCast); return true;
+            case "neutral_mechaz0rsuper": ExecuteMechaSuperOverdrive(); return true;
+            case "neutral_mechaz0rhelm": ExecuteMechaHelmAegisField(); return true;
+            case "neutral_mechaz0rchassis": ExecuteMechaChassisBulwarkCannons(targetAtCast); return true;
+            case "neutral_mechaz0rcannon": ExecuteMechaCannonFullSalvo(targetAtCast); return true;
+            case "neutral_hydrax": ExecuteHydraxTorrentMaw(targetAtCast); return true;
+            // --- cost4 追加5体の固有スキル（DESIGN_cost4-units.md） ---
+            case "grymbeast":
+                ExecuteGrymbeastShadowMaul(targetAtCast);
+                return true;
+            case "cinderwraith":
+                ExecuteCinderwraithPyreFrenzy();
+                return true;
+            case "draugarlord":
+                ExecuteDraugarlordGlacialSalvo(targetAtCast);
+                return true;
+            case "kingsguard":
+                ExecuteKingsguardAegisDecree();
+                return true;
+            case "dissonance":
+                ExecuteDissonanceArcCacophony(targetAtCast);
+                return true;
+            // --- ヒーロー専用3体（DESIGN_R3-hero-units） ---
+            case "heroaldin":
+                ExecuteAldinSacredWall();
+                return true;
+            case "herokagachi":
+                ExecuteKagachiAfterimageSlash(targetAtCast);
+                return true;
+            case "herovesna":
+                ExecuteVesnaAzureLance(targetAtCast);
+                return true;
             default:
                 return false;
         }
+    }
+
+    // ヒーロー Aldin（聖騎士・守護）専用スキル「聖壁」。自分と周囲の味方へシールド＋小回復＋被ダメ軽減を配る。
+    private void ExecuteAldinSacredWall()
+    {
+        int shieldAmount = GetSkillShieldAmount();
+        int healAmount = Mathf.RoundToInt(GetSkillAllyHealAmount() * 0.6f);
+        float duration = GetSkillDuration(4.0f, true);
+        float radius = Mathf.Max(1.7f, skillAreaRadius);
+
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Divine, transform.position, 1.15f);
+        AttackEffectPlayer.PlayAreaIndicator(this, transform.position, radius, 0.85f, 0.9f);
+
+        List<BaseEntity> allies = GetActiveAllies(true);
+        for (int i = 0; i < allies.Count; i++)
+        {
+            BaseEntity ally = allies[i];
+            if (Vector3.Distance(ally.transform.position, transform.position) > radius)
+                continue;
+            bool self = ally == this;
+            ally.ApplyShield(self ? shieldAmount : Mathf.RoundToInt(shieldAmount * 0.6f), duration);
+            if (healAmount > 0)
+                ally.HealSelf(self ? healAmount : Mathf.RoundToInt(healAmount * 0.5f));
+            ally.ApplyTimedSynergyDamageReductionBonus(0.08f * GetSkillEffectMultiplier(false), duration);
+        }
+    }
+
+    // ヒーロー Kagachi（アサシン）専用スキル「残影斬」。最遠の敵へ瞬時に踏み込み2連斬（★3で3連）、直後に短時間の自己加速。
+    private void ExecuteKagachiAfterimageSlash(BaseEntity targetAtCast)
+    {
+        BaseEntity target = GetFarthestEnemy() ?? GetValidSkillTarget(targetAtCast);
+        if (target == null || target.dead)
+            return;
+
+        BlinkToTargetSide(target);
+        SetTarget(target);
+        FaceTarget(target);
+        untargetableUntil = Time.time + GetSkillDuration(0.5f, false);
+
+        int hitDamage = Mathf.Max(1, Mathf.RoundToInt(CalculateSingleTargetSkillDamage() * 0.62f));
+        int hits = StarLevel >= 3 ? 3 : 2;
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Shadow, target.transform.position, 1.0f);
+        for (int h = 0; h < hits; h++)
+        {
+            if (target == null || target.dead)
+                break;
+            DealLegendarySkillDamage(target, hitDamage, CombatNumberKind.AttackDamage);
+            SynergyManager.Instance?.NotifySkillDamageHit(this, target, hitDamage);
+        }
+        // 自己加速（アサシンの手数）。
+        ApplyAttackSpeedBoostFromSynergy(1f + 0.30f * GetSkillEffectMultiplier(false), GetSkillDuration(3f, true));
+    }
+
+    // ヒーロー Vesna（蒼魔・蒼炎）専用スキル「蒼炎槍」。対象中心に青い炎のAoE＋燃焼。遠隔なので効果はキャスター周囲でなく対象中心。
+    private void ExecuteVesnaAzureLance(BaseEntity targetAtCast)
+    {
+        BaseEntity target = GetValidSkillTarget(targetAtCast);
+        if (target == null)
+            return;
+
+        int damage = CalculateAreaSkillDamage();
+        float radius = Mathf.Max(1.7f, skillAreaRadius);
+        FaceTarget(target);
+        // 青い炎の演出（暫定: Frost=青 と Inferno=炎 を重ねて「蒼炎」に見せる。TODO: 専用の青炎VFXへ差し替え）。
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Frost, target.transform.position, 1.1f);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Inferno, target.transform.position + Vector3.up * 0.1f, 0.85f);
+        AttackEffectPlayer.PlayAreaIndicator(this, target.transform.position, radius, 0.8f, 0.9f);
+
+        List<BaseEntity> enemies = GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            BaseEntity enemy = enemies[i];
+            if (Vector3.Distance(enemy.transform.position, target.transform.position) > radius)
+                continue;
+            DealLegendarySkillDamage(enemy, enemy == target ? damage : Mathf.RoundToInt(damage * 0.6f), CombatNumberKind.FocusDamage);
+            enemy.ApplyInfernoBurnFromSynergy(this, Mathf.RoundToInt(damage * 0.20f), GetSkillDuration(3f, true));
+        }
+    }
+
+    // アルカナのスキル詠唱回数。1〜3回目で持続BloodMageを設置し、4回目でフィナーレへ。
+    private int arcanaSkillCastCount = 0;
+    // 1〜3回目で設置した、まだ盤面に残っている持続BloodMageの実体です。4回目に end で消します。
+    private readonly List<GameObject> arcanaActiveBloodMages = new List<GameObject>();
+    // フィナーレ進行中のコルーチン。詠唱モーション側はこれが終わるまでユニットを拘束します。
+    private Coroutine arcanaFinaleCoroutine;
+    // SpecialMove_Activate は魔法陣リング込みで本体が一回り小さく描かれるため、その間だけ本体を拡大して見た目を揃える補正倍率。
+    private const float ArcanaSpecialScaleCompensation = 1.5f;
+
+    // アルカナ（最終ボス）専用スキル「終焉の書」です。
+    // 1〜3回目: 攻撃対象の位置に持続BloodMageを設置（弱い継続ダメ＋ゆっくり吸引、戦闘終了まで残る）。
+    // 4回目: 既存BloodMageを消し、SpecialMove発動＋明転＋盤面全体BloodMageで吸い込み3.5秒の大ダメージ（★3は吸込時に全滅）。
+    private void ExecuteArcanaTomeOfFinality(BaseEntity targetAtCast)
+    {
+        arcanaSkillCastCount++;
+        int phase = ((arcanaSkillCastCount - 1) % 4) + 1; // 1,2,3,4 の周期
+
+        if (phase < 4)
+        {
+            SpawnArcanaPersistentBloodMage(targetAtCast);
+            // Arcanist: 次の詠唱へ繋ぐための小さなマナ回収。
+            GainManaFromSynergy(18);
+            return;
+        }
+
+        // 4回目: フィナーレを起動（詠唱コルーチンが arcanaFinaleCoroutine の完了を待ちます）。
+        // 終焉シナジーの倍率は、BloodMageを消す前のこの時点で確定させます。
+        float finalityBonus = ArcanaFinalityBonus();
+        if (arcanaFinaleCoroutine != null)
+            StopCoroutine(arcanaFinaleCoroutine);
+        arcanaFinaleCoroutine = StartCoroutine(ExecuteArcanaFinaleCoroutine(finalityBonus));
+        GainManaFromSynergy(Mathf.RoundToInt(45 * finalityBonus));
+    }
+
+    // 終焉シナジー: 盤面に残るBloodMageの数に応じてアルカナのスキルを強化します（1体ごと +15%）。
+    // アルカナだけが持つ専用シナジー。1体で常時発動し、BloodMageを積むほど火力とマナ回収が伸びます。
+    private float ArcanaFinalityBonus()
+    {
+        if (!HasSynergy(SynergyType.Finality))
+            return 1f;
+        if (SynergyManager.Instance != null && !SynergyManager.Instance.IsSynergyActiveForTeam(SynergyType.Finality, myTeam, 1))
+            return 1f;
+        return 1f + 0.15f * arcanaActiveBloodMages.Count;
+    }
+
+    // 1〜3回目: 攻撃対象の位置に持続BloodMageを置き、近くの敵を弱く継続ダメージ＋ゆっくり吸引します。
+    private void SpawnArcanaPersistentBloodMage(BaseEntity targetAtCast)
+    {
+        Vector3 center = (targetAtCast != null && !targetAtCast.dead)
+            ? targetAtCast.transform.position
+            : (currentTarget != null && !currentTarget.dead ? currentTarget.transform.position : transform.position);
+        center.z -= 0.02f;
+
+        Color blood = new Color(0.85f, 0.07f, 0.1f, 1f);
+        AttackEffectPlayer.PlayArcanaBloodCircle(center, 1.2f, false);
+        AttackEffectPlayer.PlayCue("synergy_abyss", 0.5f);
+
+        GameObject visual = AttackEffectPlayer.SpawnBloodMage(center, 1.6f, blood, 84);
+        if (visual == null)
+            return;
+
+        arcanaActiveBloodMages.Add(visual);
+        // 毎秒 CalculateAreaSkillDamage の約12%の弱い継続ダメ。半径2マス・ゆっくり吸引。
+        // 終焉シナジーで、盤面のBloodMageが増えるほど後から置いた分も強くなります。
+        int damagePerSecond = Mathf.Max(1, Mathf.RoundToInt(CalculateAreaSkillDamage() * 0.12f * ArcanaFinalityBonus()));
+        StartCoroutine(ArcanaBloodMagePullDamageCoroutine(visual, center, 2f, damagePerSecond));
+    }
+
+    // 持続BloodMage本体。visualが残っていて戦闘中の間、半径内の敵をゆっくり吸引しつつ継続ダメージを与えます。
+    private IEnumerator ArcanaBloodMagePullDamageCoroutine(GameObject visual, Vector3 center, float radius, int damagePerSecond)
+    {
+        const float tickInterval = 0.5f;
+        int perTick = Mathf.Max(1, Mathf.RoundToInt(damagePerSecond * tickInterval));
+        const float pullStep = 0.6f; // ゆっくり（マス/秒の目安）
+        float sinceTick = 0f;
+
+        while (visual != null && !dead && IsInActiveRound())
+        {
+            List<BaseEntity> enemies = GetActiveEnemies();
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                BaseEntity enemy = enemies[i];
+                if (enemy == null || enemy.dead || !enemy.IsOnBoard)
+                    continue;
+                if (Vector3.Distance(enemy.transform.position, center) > radius)
+                    continue;
+
+                Vector3 next = Vector3.MoveTowards(enemy.transform.position, center, pullStep * Time.deltaTime);
+                enemy.transform.position = new Vector3(next.x, next.y, enemy.transform.position.z);
+            }
+
+            sinceTick += Time.deltaTime;
+            if (sinceTick >= tickInterval)
+            {
+                sinceTick -= tickInterval;
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    BaseEntity enemy = enemies[i];
+                    if (enemy == null || enemy.dead || !enemy.IsOnBoard)
+                        continue;
+                    if (Vector3.Distance(enemy.transform.position, center) > radius)
+                        continue;
+
+                    DealLegendarySkillDamage(enemy, perTick, CombatNumberKind.FocusDamage);
+                }
+            }
+
+            yield return null;
+        }
+    }
+
+    // 4回目フィナーレ本体。明転・BGMダック・スプライト発光・盤面全体BloodMageによる吸引大ダメージを順に行います。
+    // finalityBonus は BloodMage を消す前に確定させた終焉シナジー倍率です。
+    private IEnumerator ExecuteArcanaFinaleCoroutine(float finalityBonus)
+    {
+        bool star3 = StarLevel >= 3;
+
+        // 既存の持続BloodMageを end で締めます。
+        for (int i = 0; i < arcanaActiveBloodMages.Count; i++)
+            AttackEffectPlayer.EndBloodMage(arcanaActiveBloodMages[i]);
+        arcanaActiveBloodMages.Clear();
+
+        // スプライト発光＋足元の血の魔法陣＋カメラ揺れで溜めを見せます。
+        AttackEffectPlayer.PlayArcanaSpriteGlow(this, 2.4f, 0.9f);
+        AttackEffectPlayer.PlayArcanaBloodCircle(transform.position, 2.6f, true);
+        AttackEffectPlayer.ShakeCamera(0.5f, 0.12f);
+        AttackEffectPlayer.PlayCue("synergy_abyss", 0.85f);
+
+        // 画面明転（白）＋BGMフェードアウト。
+        AttackEffectPlayer.FadeBgm(0f, 0.35f);
+        AttackEffectPlayer.FlashScreen(new Color(1f, 1f, 1f, 0.92f), 0.18f, 0.14f, 0.7f);
+
+        yield return new WaitForSeconds(0.35f);
+
+        // 盤面全体を覆うBloodMageを中央に出現させ、全敵を吸い込みます。
+        Vector3 boardCenter = GetArcanaFinaleCenter();
+        Color blood = new Color(0.8f, 0.05f, 0.08f, 1f);
+        GameObject boardMage = AttackEffectPlayer.SpawnBloodMage(boardCenter, 6f, blood, 120);
+        AttackEffectPlayer.PlayCue("skill_area", 0.9f);
+
+        const float duration = 3.5f;
+        const float pullStep = 3.2f; // 速い吸引
+        const float tickInterval = 0.35f;
+        int areaDamage = CalculateAreaSkillDamage();
+        int perTick = Mathf.Max(1, Mathf.RoundToInt(areaDamage * (star3 ? 0.6f : 0.32f) * finalityBonus));
+        float elapsed = 0f;
+        float sinceTick = 0f;
+        float sinceShake = 0f;
+        bool annihilated = false;
+
+        while (elapsed < duration && !dead && IsInActiveRound())
+        {
+            elapsed += Time.deltaTime;
+
+            // 画面を揺らし続けます。
+            sinceShake += Time.deltaTime;
+            if (sinceShake >= 0.3f)
+            {
+                sinceShake = 0f;
+                AttackEffectPlayer.ShakeCamera(0.28f, 0.08f);
+            }
+
+            List<BaseEntity> enemies = GetActiveEnemies();
+            for (int i = 0; i < enemies.Count; i++)
+            {
+                BaseEntity enemy = enemies[i];
+                if (enemy == null || enemy.dead || !enemy.IsOnBoard)
+                    continue;
+                Vector3 next = Vector3.MoveTowards(enemy.transform.position, boardCenter, pullStep * Time.deltaTime);
+                enemy.transform.position = new Vector3(next.x, next.y, enemy.transform.position.z);
+            }
+
+            // ★3: 吸い込んで中央に集まったタイミングで全滅させます。
+            if (star3 && !annihilated && elapsed >= 1.0f)
+            {
+                annihilated = true;
+                AttackEffectPlayer.FlashScreen(new Color(0.9f, 0.05f, 0.08f, 0.85f), 0.1f, 0.06f, 0.5f);
+                AttackEffectPlayer.ShakeCamera(0.5f, 0.2f);
+                for (int i = 0; i < enemies.Count; i++)
+                {
+                    BaseEntity enemy = enemies[i];
+                    if (enemy == null || enemy.dead || !enemy.IsOnBoard)
+                        continue;
+                    // 確実に消滅させるため最大HPを大きく上回るダメージ。
+                    DealLegendarySkillDamage(enemy, enemy.MaxHealth * 100 + 99999, CombatNumberKind.FocusDamage);
+                }
+            }
+
+            // ★1/★2: 即死させず継続大ダメージのみ（反撃の余地を残す）。
+            if (!star3)
+            {
+                sinceTick += Time.deltaTime;
+                if (sinceTick >= tickInterval)
+                {
+                    sinceTick -= tickInterval;
+                    for (int i = 0; i < enemies.Count; i++)
+                    {
+                        BaseEntity enemy = enemies[i];
+                        if (enemy == null || enemy.dead || !enemy.IsOnBoard)
+                            continue;
+                        DealLegendarySkillDamage(enemy, perTick, CombatNumberKind.FocusDamage);
+                    }
+                }
+            }
+
+            yield return null;
+        }
+
+        // 盤面BloodMageを end で締め、BGMを元の音量へ戻します。
+        AttackEffectPlayer.EndBloodMage(boardMage);
+        AttackEffectPlayer.FadeBgm(1f, 0.8f);
+        arcanaFinaleCoroutine = null;
+    }
+
+    // フィナーレの吸引中心。生存中の敵の平均位置（いなければ自分の位置）を使います。
+    private Vector3 GetArcanaFinaleCenter()
+    {
+        List<BaseEntity> enemies = GetActiveEnemies();
+        Vector3 sum = Vector3.zero;
+        int count = 0;
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            BaseEntity enemy = enemies[i];
+            if (enemy == null || enemy.dead || !enemy.IsOnBoard)
+                continue;
+            sum += enemy.transform.position;
+            count++;
+        }
+
+        Vector3 center = count > 0 ? sum / count : transform.position;
+        center.z -= 0.02f;
+        return center;
     }
 
     // アサシン系スキルです。後衛側の敵付近へ瞬間移動し、大ダメージを与えます。
@@ -2216,6 +3118,132 @@ public class BaseEntity : MonoBehaviour
         }
     }
 
+    // Grymbeast専用スキル（DESIGN_cost4-units.md）。影の獣が後衛へ飛び込み、対象周囲を抉って吸命する。
+    private void ExecuteGrymbeastShadowMaul(BaseEntity target)
+    {
+        BaseEntity primary = GetFarthestEnemy() ?? GetValidSkillTarget(target);
+        if (primary == null)
+            return;
+
+        BlinkToTargetSide(primary);
+        FaceTarget(primary);
+
+        int damage = CalculateAreaSkillDamage();
+        int splash = Mathf.RoundToInt(damage * 0.6f);
+        float radius = Mathf.Max(1.9f, skillAreaRadius);
+        int totalDealt = 0;
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Shadow, primary.transform.position, 1.2f);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Abyss, primary.transform.position, 0.9f);
+        AttackEffectPlayer.PlayAreaIndicator(this, primary.transform.position, radius, 0.8f, 1f);
+
+        List<BaseEntity> enemies = GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            BaseEntity enemy = enemies[i];
+            if (Vector3.Distance(enemy.transform.position, primary.transform.position) > radius)
+                continue;
+            int dealt = enemy == primary ? damage : splash;
+            DealLegendarySkillDamage(enemy, dealt, CombatNumberKind.FocusDamage);
+            totalDealt += dealt;
+        }
+        HealSelf(Mathf.Max(1, Mathf.RoundToInt(totalDealt * 0.30f * GlobalHealingMultiplier)));
+    }
+
+    // Cinderwraith専用スキル。自分中心に業火を撒き、敵を燃やしつつ自身が高揚（攻撃速度上昇）する。
+    private void ExecuteCinderwraithPyreFrenzy()
+    {
+        int damage = CalculateAreaSkillDamage();
+        float duration = GetSkillDuration(3.2f, true);
+        float radius = Mathf.Max(2.2f, skillAreaRadius);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Inferno, transform.position, 1.5f);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Wraith, transform.position, 1f);
+        AttackEffectPlayer.PlayAreaIndicator(this, transform.position, radius, duration, 1.05f);
+
+        DamageEnemiesAround(transform.position, radius, damage, GetSkillDamageNumberKind());
+        List<BaseEntity> enemies = GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            BaseEntity enemy = enemies[i];
+            if (Vector3.Distance(enemy.transform.position, transform.position) <= radius)
+                enemy.ApplyInfernoBurnFromSynergy(this, Mathf.RoundToInt(damage * 0.18f), duration);
+        }
+        ApplyAttackSpeedBoostFromSynergy(1.25f + 0.05f * GetSkillEffectMultiplier(false), duration);
+    }
+
+    // Draugarlord専用スキル。遠距離から氷塊を撃ち込み、範囲を凍結減速させて自身に守りを張る。
+    private void ExecuteDraugarlordGlacialSalvo(BaseEntity target)
+    {
+        target = GetValidSkillTarget(target);
+        if (target == null)
+            return;
+
+        int damage = CalculateAreaSkillDamage();
+        float radius = Mathf.Max(2.3f, skillAreaRadius);
+        float duration = GetSkillDuration(2.6f, true);
+        FaceTarget(target);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Frost, target.transform.position, 1.3f);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Machine, target.transform.position, 0.9f);
+        AttackEffectPlayer.PlayAreaIndicator(this, target.transform.position, radius, 0.9f, 1f);
+
+        List<BaseEntity> enemies = GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            BaseEntity enemy = enemies[i];
+            if (Vector3.Distance(enemy.transform.position, target.transform.position) > radius)
+                continue;
+            DealLegendarySkillDamage(enemy, damage, CombatNumberKind.FocusDamage);
+            enemy.ApplyAttackSpeedSlow(GetSkillSlowMultiplier(), duration);
+            enemy.ApplyFrostStackFromSynergy(GetSkillDuration(0.75f, false));
+        }
+        ApplyShield(GetSkillShieldAmount(), GetSkillDuration(skillShieldDuration, true));
+    }
+
+    // Kingsguard専用スキル。王命の盾。最も傷ついた味方を癒し、周囲の味方へ盾と被ダメ軽減を配る。
+    private void ExecuteKingsguardAegisDecree()
+    {
+        int shieldAmount = GetSkillShieldAmount();
+        int healAmount = GetSkillAllyHealAmount();
+        float duration = GetSkillDuration(skillShieldDuration, true);
+        float radius = Mathf.Max(2.3f, skillAreaRadius);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Divine, transform.position, 1.3f);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Royal, transform.position, 1f);
+        AttackEffectPlayer.PlayAreaIndicator(this, transform.position, radius, 1f, 1f);
+
+        BaseEntity lowest = GetLowestHealthAlly() ?? this;
+        lowest.HealSelf(healAmount);
+
+        List<BaseEntity> allies = GetActiveAllies(true);
+        for (int i = 0; i < allies.Count; i++)
+        {
+            BaseEntity ally = allies[i];
+            if (Vector3.Distance(ally.transform.position, transform.position) > radius)
+                continue;
+            ally.ApplyShield(ally == this ? shieldAmount : Mathf.RoundToInt(shieldAmount * 0.6f), duration);
+            ally.ApplyTimedSynergyDamageReductionBonus(0.10f * GetSkillEffectMultiplier(false), duration);
+        }
+    }
+
+    // Dissonance専用スキル。不協和音の連弾。複数の敵へ秘力の雷弾を放ち、近接へ連鎖させる。
+    private void ExecuteDissonanceArcCacophony(BaseEntity target)
+    {
+        int bolts = StarLevel >= 3 ? 5 : StarLevel >= 2 ? 4 : 3;
+        int damage = CalculateAreaSkillDamage();
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Arcanist, transform.position, 1.1f);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Storm, transform.position + Vector3.up * 0.35f, 1f);
+
+        for (int i = 0; i < bolts; i++)
+        {
+            BaseEntity boltTarget = i == 0 ? GetValidSkillTarget(target) : GetRandomActiveEnemy();
+            if (boltTarget == null)
+                break;
+            AttackEffectPlayer.PlaySynergyEffect(SynergyType.Storm, boltTarget.transform.position, 0.95f);
+            DealLegendarySkillDamage(boltTarget, damage, CombatNumberKind.FocusDamage);
+            BaseEntity chainTarget = GetNearestEnemyNear(boltTarget.transform.position, boltTarget, 1.5f);
+            if (chainTarget != null)
+                DealLegendarySkillDamage(chainTarget, Mathf.RoundToInt(damage * 0.45f), CombatNumberKind.FocusDamage);
+        }
+    }
+
     // Solfist専用スキルです。太陽拳で主対象を殴り、周囲へ連爆を起こします。
     private void ExecuteSolfistSolarCombo(BaseEntity target)
     {
@@ -2681,6 +3709,769 @@ public class BaseEntity : MonoBehaviour
             canAttack = true;
     }
 
+    // ===== DESIGN_skill_overhaul.md: 17体の固有スキル =====
+    // 数値の出典は既存ヘルパ（CalculateAreaSkillDamage / GetSkillShieldAmount 等）。
+    // テキスト（UnitStatusPanelUI）と必ず同じ式を共有させています。
+
+    // Andromeda — 星屑の斉射 / Stardust Barrage（遠 / Ranger・Storm）
+    private void ExecuteAndromedaStardustBarrage(BaseEntity target)
+    {
+        BaseEntity center = GetValidSkillTarget(target);
+        if (center == null)
+            return;
+
+        int damage = CalculateAreaSkillDamage();
+        float radius = StarLevel >= 3 ? 2.6f : StarLevel >= 2 ? 2.3f : 2.0f;
+        float slowDur = GetSkillDuration(1.8f, true);
+
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Storm, center.transform.position, 1.1f);
+        AttackEffectPlayer.PlayAreaIndicator(this, center.transform.position, radius, 0.85f, 0.95f);
+
+        List<BaseEntity> enemies = GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            BaseEntity enemy = enemies[i];
+            if (Vector3.Distance(enemy.transform.position, center.transform.position) > radius)
+                continue;
+            DealLegendarySkillDamage(enemy, damage, GetSkillDamageNumberKind());
+            enemy.ApplyAttackSpeedSlow(0.8f, slowDur);
+        }
+    }
+
+    // Antiswarm — 群れ招来 / Swarm Call（遠 / Beast・Summoner）
+    private void ExecuteAntiswarmSwarmCall()
+    {
+        if (GameManager.Instance == null)
+            return;
+        int summonCount = StarLevel >= 3 ? 2 : StarLevel >= 2 ? 2 : 1;
+        float lifetime = StarLevel >= 3 ? 12f : 8f;
+        int summonStar = StarLevel >= 3 ? 2 : 1;
+
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Summoner, transform.position, 1.1f);
+        AttackEffectPlayer.PlayUiSfx("synergy_summoner");
+
+        for (int i = 0; i < summonCount; i++)
+        {
+            BaseEntity summon = GameManager.Instance.SpawnTemporarySummonByUnitName("Zyx", myTeam, currentNode, summonStar, lifetime);
+            if (summon == null)
+                continue;
+            AttackEffectPlayer.PlaySynergyEffect(SynergyType.Beast, summon.transform.position, 0.7f);
+        }
+    }
+
+    // Borealjuggernaut — 凍て付く守勢 / Frostguard Bastion（近 / Guardian・Frost）
+    private void ExecuteBorealjuggernautFrostguardBastion()
+    {
+        int shieldAmount = GetSkillShieldAmount();
+        float shieldDur = GetSkillDuration(skillShieldDuration, true);
+        float slowDur = GetSkillDuration(2.4f, true);
+        float radius = 1.6f;
+
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Guardian, transform.position, 1.2f);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Frost, transform.position, 1.0f);
+        AttackEffectPlayer.PlayAreaIndicator(this, transform.position, radius, 0.85f, 0.85f);
+        ApplyShield(shieldAmount, shieldDur);
+
+        List<BaseEntity> enemies = GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            BaseEntity enemy = enemies[i];
+            if (Vector3.Distance(enemy.transform.position, transform.position) > radius)
+                continue;
+            enemy.ApplyAttackSpeedSlow(0.7f, slowDur);
+        }
+    }
+
+    // Chaosknight — 混沌の刻印 / Chaos Brand（近 / Shadow・Abyss）
+    private void ExecuteChaosknightChaosBrand(BaseEntity target)
+    {
+        target = GetValidSkillTarget(target);
+        if (target == null)
+            return;
+
+        int damage = Mathf.Max(1, Mathf.RoundToInt(CalculateSingleTargetSkillDamage() * 1.4f));
+        float vulnerableDuration = GetSkillDuration(4f, true);
+        float vulnerablePercent = StarLevel >= 3 ? 0.26f : StarLevel >= 2 ? 0.22f : 0.18f;
+
+        FaceTarget(target);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Abyss, target.transform.position, 1.0f);
+        AttackEffectPlayer.PlaySkill(this, target, UnitSkillType.PowerStrike);
+        DealLegendarySkillDamage(target, damage, GetSkillDamageNumberKind());
+        target.ApplyVulnerable(vulnerablePercent, vulnerableDuration);
+    }
+
+    // skill-fill: caliber — 終幕の薙ぎ / Endfall Sweep（近・暴走守護）。自分周囲AoE＋鈍化＋自己シールド。
+    // boss-skill-progression: 育成Lvでダメージがスケール（共有計算）＋中強化で薙ぎ拡大＋複雑(Lv7+)で守護の強化マス生成。
+    private void ExecuteCaliberEndfallSweep()
+    {
+        float radius = SkillTierEnhanced() ? 2.45f : 1.95f; // 中強化(Lv4+)で薙ぎが広がる。
+        int damage = Mathf.Max(1, Mathf.RoundToInt(CalculateAreaSkillDamage() * 1.35f));
+        float slowDur = GetSkillDuration(3.2f, true);
+        int shield = Mathf.Max(1, Mathf.RoundToInt(GetSkillShieldAmount() * 0.6f));
+        float shieldDur = GetSkillDuration(4f, true);
+        float slowFactor = StarLevel >= 3 ? 0.55f : StarLevel >= 2 ? 0.62f : 0.7f;
+
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Divine, transform.position, 1.25f);
+        AttackEffectPlayer.PlayAreaIndicator(this, transform.position, radius, 0.9f, 0.8f);
+        ApplyShield(shield, shieldDur);
+
+        List<BaseEntity> enemies = GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            BaseEntity e = enemies[i];
+            if (e == null || Vector3.Distance(e.transform.position, transform.position) > radius) continue;
+            DealLegendarySkillDamage(e, damage, GetSkillDamageNumberKind());
+            e.ApplyAttackSpeedSlow(slowFactor, slowDur);
+        }
+        // 複雑効果(育成Lv7+)は ApplyBossComplexTier に集約。
+    }
+
+    // skill-fill: neutral_rook — 停滞の城門 / Stasis Gate（近・石門）。自己特大シールド＋周囲を強スロウ。
+    private void ExecuteRookStasisGate()
+    {
+        float radius = 2.3f;
+        int shield = Mathf.Max(1, Mathf.RoundToInt(GetSkillShieldAmount() * 1.15f));
+        float shieldDur = GetSkillDuration(5f, true);
+        float slowDur = GetSkillDuration(3.6f, true);
+        float slowFactor = StarLevel >= 3 ? 0.45f : StarLevel >= 2 ? 0.52f : 0.6f;
+
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Guardian, transform.position, 1.3f);
+        AttackEffectPlayer.PlayAreaIndicator(this, transform.position, radius, 0.85f, 0.85f);
+        ApplyShield(shield, shieldDur);
+
+        List<BaseEntity> enemies = GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            BaseEntity e = enemies[i];
+            if (e == null || Vector3.Distance(e.transform.position, transform.position) > radius) continue;
+            e.ApplyAttackSpeedSlow(slowFactor, slowDur);
+        }
+    }
+
+    // skill-fill: neutral_sister — 鎮魂の哀歌 / Requiem Dirge（鎮魂）。敵全体AoE＋防御減(Vulnerable)。射程非依存の全体技。
+    private void ExecuteSisterRequiemDirge()
+    {
+        int damage = Mathf.Max(1, Mathf.RoundToInt(CalculateAreaSkillDamage() * 0.95f));
+        float vulnDur = GetSkillDuration(3.6f, true);
+        float vulnPct = StarLevel >= 3 ? 0.24f : StarLevel >= 2 ? 0.20f : 0.16f;
+
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Abyss, transform.position, 1.2f);
+        List<BaseEntity> enemies = GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            BaseEntity e = enemies[i];
+            if (e == null) continue;
+            AttackEffectPlayer.PlaySynergyEffect(SynergyType.Abyss, e.transform.position, 0.8f);
+            DealLegendarySkillDamage(e, damage, GetSkillDamageNumberKind());
+            e.ApplyVulnerable(vulnPct, vulnDur);
+        }
+    }
+
+    // skill-fill: neutral_beastmaster — 群獣の咆哮 / Beast Roar。味方全体に攻速バフ＋自身に与ダメバフ。
+    private void ExecuteBeastmasterBeastRoar()
+    {
+        float dur = GetSkillDuration(4f, true);
+        float haste = StarLevel >= 3 ? 1.35f : StarLevel >= 2 ? 1.28f : 1.22f;
+        float selfDmg = StarLevel >= 3 ? 0.30f : StarLevel >= 2 ? 0.25f : 0.20f;
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Beast, transform.position, 1.25f);
+        List<BaseEntity> allies = GetActiveAllies(true);
+        for (int i = 0; i < allies.Count; i++)
+            if (allies[i] != null) allies[i].ApplyAttackSpeedBoostFromSynergy(haste, dur);
+        ApplyTimedSynergyDamageDealtBonus(selfDmg, dur);
+    }
+
+    // skill-fill: neutral_gnasher — 顎砕き / Gnash。対象単体大ダメージ＋防御減(Vulnerable)。
+    private void ExecuteGnasherGnash(BaseEntity target)
+    {
+        target = GetValidSkillTarget(target);
+        if (target == null) return;
+        int damage = Mathf.Max(1, Mathf.RoundToInt(CalculateSingleTargetSkillDamage() * 1.5f));
+        float vulnDur = GetSkillDuration(3.5f, true);
+        float vulnPct = StarLevel >= 3 ? 0.26f : StarLevel >= 2 ? 0.22f : 0.18f;
+        FaceTarget(target);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Beast, target.transform.position, 1.0f);
+        AttackEffectPlayer.PlaySkill(this, target, UnitSkillType.PowerStrike);
+        DealLegendarySkillDamage(target, damage, GetSkillDamageNumberKind());
+        target.ApplyVulnerable(vulnPct, vulnDur);
+    }
+
+    // skill-fill: neutral_rawr — 威圧の咆哮 / Intimidate。敵全体を短スロウ＋与ダメ減(Weaken)。
+    private void ExecuteRawrIntimidate()
+    {
+        float slowDur = GetSkillDuration(2.8f, true);
+        float weakenDur = GetSkillDuration(3.2f, true);
+        float slowFactor = StarLevel >= 3 ? 0.6f : StarLevel >= 2 ? 0.66f : 0.72f;
+        float weakenPct = StarLevel >= 3 ? 0.28f : StarLevel >= 2 ? 0.23f : 0.18f;
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Beast, transform.position, 1.2f);
+        List<BaseEntity> enemies = GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            BaseEntity e = enemies[i];
+            if (e == null) continue;
+            e.ApplyAttackSpeedSlow(slowFactor, slowDur);
+            e.ApplyWeaken(weakenPct, weakenDur);
+        }
+    }
+
+    // skill-fill: neutral_rok — 岩石投擲 / Boulder Toss。対象地点AoEダメージ＋短スタン。
+    private void ExecuteRokBoulderToss(BaseEntity target)
+    {
+        target = GetValidSkillTarget(target);
+        if (target == null) return;
+        float radius = 1.6f;
+        int damage = Mathf.Max(1, Mathf.RoundToInt(CalculateAreaSkillDamage() * 1.2f));
+        float stunDur = StarLevel >= 3 ? 1.0f : StarLevel >= 2 ? 0.8f : 0.6f;
+        FaceTarget(target);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Guardian, target.transform.position, 1.1f);
+        AttackEffectPlayer.PlayAreaIndicator(this, target.transform.position, radius, 0.85f, 0.8f);
+        List<BaseEntity> enemies = GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            BaseEntity e = enemies[i];
+            if (e == null || Vector3.Distance(e.transform.position, target.transform.position) > radius) continue;
+            DealLegendarySkillDamage(e, damage, GetSkillDamageNumberKind());
+            e.ApplyStun(stunDur);
+        }
+    }
+
+    // skill-fill: neutral_zukong — 如意千変 / Staff Flurry。自分周囲AoE多段＋自己小シールド。
+    private void ExecuteZukongStaffFlurry()
+    {
+        float radius = 1.8f;
+        int hits = StarLevel >= 3 ? 3 : 2;
+        int perHit = Mathf.Max(1, Mathf.RoundToInt(CalculateAreaSkillDamage() * 0.55f));
+        int shield = Mathf.Max(1, Mathf.RoundToInt(GetSkillShieldAmount() * 0.4f));
+        float shieldDur = GetSkillDuration(3.5f, true);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Warrior, transform.position, 1.2f);
+        AttackEffectPlayer.PlayAreaIndicator(this, transform.position, radius, 0.9f, 0.8f);
+        ApplyShield(shield, shieldDur);
+        List<BaseEntity> enemies = GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            BaseEntity e = enemies[i];
+            if (e == null || Vector3.Distance(e.transform.position, transform.position) > radius) continue;
+            DealLegendarySkillDamage(e, perHit * hits, GetSkillDamageNumberKind());
+        }
+    }
+
+    // skill-fill: lanternfox — 灯火の導 / Lantern Guide。味方最低HPへ回復＋小シールド。
+    private void ExecuteLanternfoxLanternGuide()
+    {
+        BaseEntity ally = GetLowestHealthAlly() ?? this;
+        int heal = GetSkillAllyHealAmount();
+        int shield = Mathf.Max(1, Mathf.RoundToInt(GetSkillShieldAmount() * 0.5f));
+        float shieldDur = GetSkillDuration(4f, true);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Divine, ally.transform.position, 1.1f);
+        ally.HealSelf(heal);
+        ally.ApplyShield(shield, shieldDur);
+    }
+
+    // skill-fill: onyxjaguar — 影駆け / Onyx Pounce。最遠へ瞬間移動斬り＋自身に与ダメバフ。
+    private void ExecuteOnyxjaguarOnyxPounce(BaseEntity target)
+    {
+        ExecuteAssassinLeapStrike(GetFarthestEnemy() ?? target, 0.7f, false);
+        float dur = GetSkillDuration(3f, true);
+        float dmgUp = StarLevel >= 3 ? 0.32f : StarLevel >= 2 ? 0.26f : 0.20f;
+        ApplyTimedSynergyDamageDealtBonus(dmgUp, dur);
+    }
+
+    // skill-fill: keshraifanblade — 扇刃乱舞 / Fan Blade Dance。対象周囲AoE多段ダメージ。
+    private void ExecuteKeshraiFanBladeDance(BaseEntity target)
+    {
+        target = GetValidSkillTarget(target);
+        if (target == null) return;
+        float radius = 1.7f;
+        int hits = StarLevel >= 3 ? 4 : 3;
+        int per = Mathf.Max(1, Mathf.RoundToInt(CalculateAreaSkillDamage() * 0.4f));
+        FaceTarget(target);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Warrior, target.transform.position, 1.1f);
+        AttackEffectPlayer.PlayAreaIndicator(this, target.transform.position, radius, 0.85f, 0.8f);
+        List<BaseEntity> enemies = GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            BaseEntity e = enemies[i];
+            if (e == null || Vector3.Distance(e.transform.position, target.transform.position) > radius) continue;
+            DealLegendarySkillDamage(e, per * hits, GetSkillDamageNumberKind());
+        }
+    }
+
+    // skill-fill: firewyrm — 業火のブレス / Fire Breath。対象周囲の広範囲AoE特大ダメージ。
+    private void ExecuteFirewyrmFireBreath(BaseEntity target)
+    {
+        target = GetValidSkillTarget(target);
+        if (target == null) return;
+        float radius = 2.1f;
+        int damage = Mathf.Max(1, Mathf.RoundToInt(CalculateAreaSkillDamage() * 1.45f));
+        FaceTarget(target);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Beast, target.transform.position, 1.3f);
+        AttackEffectPlayer.PlayAreaIndicator(this, target.transform.position, radius, 0.95f, 0.7f);
+        List<BaseEntity> enemies = GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            BaseEntity e = enemies[i];
+            if (e == null || Vector3.Distance(e.transform.position, target.transform.position) > radius) continue;
+            DealLegendarySkillDamage(e, damage, GetSkillDamageNumberKind());
+        }
+    }
+
+    // skill-fill: Magmarvaath — 溶岩噴出 / Magma Eruption。対象地点の広範囲AoE特大ダメージ。
+    private void ExecuteMagmarvaathMagmaEruption(BaseEntity target)
+    {
+        target = GetValidSkillTarget(target); if (target == null) return;
+        float radius = 2.2f;
+        int dmg = Mathf.Max(1, Mathf.RoundToInt(CalculateAreaSkillDamage() * 1.5f));
+        FaceTarget(target);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Beast, target.transform.position, 1.35f);
+        AttackEffectPlayer.PlayAreaIndicator(this, target.transform.position, radius, 0.95f, 0.7f);
+        List<BaseEntity> en = GetActiveEnemies();
+        for (int i = 0; i < en.Count; i++) { var e = en[i]; if (e == null || Vector3.Distance(e.transform.position, target.transform.position) > radius) continue; DealLegendarySkillDamage(e, dmg, GetSkillDamageNumberKind()); }
+    }
+
+    // skill-fill: Magmarstarhorn — 星角突撃 / Starhorn Charge。対象へ単体大ダメージ＋短スタン。
+    private void ExecuteMagmarstarhornCharge(BaseEntity target)
+    {
+        target = GetValidSkillTarget(target); if (target == null) return;
+        int dmg = Mathf.Max(1, Mathf.RoundToInt(CalculateSingleTargetSkillDamage() * 1.6f));
+        float stun = StarLevel >= 3 ? 1.0f : StarLevel >= 2 ? 0.8f : 0.6f;
+        FaceTarget(target);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Guardian, target.transform.position, 1.1f);
+        AttackEffectPlayer.PlaySkill(this, target, UnitSkillType.PowerStrike);
+        DealLegendarySkillDamage(target, dmg, GetSkillDamageNumberKind());
+        target.ApplyStun(stun);
+    }
+
+    // skill-fill: Magmarragnora — 灼熱再生 / Searing Regen。自己大回復＋与ダメバフ。
+    private void ExecuteMagmarragnoraSearingRegen()
+    {
+        int heal = Mathf.Max(1, Mathf.RoundToInt(GetSkillAllyHealAmount() * 1.3f));
+        float dur = GetSkillDuration(4f, true);
+        float dmgUp = StarLevel >= 3 ? 0.32f : StarLevel >= 2 ? 0.26f : 0.20f;
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Beast, transform.position, 1.2f);
+        HealSelf(heal);
+        ApplyTimedSynergyDamageDealtBonus(dmgUp, dur);
+    }
+
+    // skill-fill: Abyssallilithe — 吸命の抱擁 / Lifebloom Drain。対象単体大ダメージ＋自分回復。
+    private void ExecuteAbyssallilitheLifebloomDrain(BaseEntity target)
+    {
+        target = GetValidSkillTarget(target); if (target == null) return;
+        int dmg = Mathf.Max(1, Mathf.RoundToInt(CalculateSingleTargetSkillDamage() * 1.55f));
+        float lifesteal = StarLevel >= 3 ? 0.6f : StarLevel >= 2 ? 0.5f : 0.4f;
+        FaceTarget(target);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Wraith, target.transform.position, 1.1f);
+        AttackEffectPlayer.PlaySkill(this, target, UnitSkillType.PowerStrike);
+        DealLegendarySkillDamage(target, dmg, GetSkillDamageNumberKind());
+        HealSelf(Mathf.Max(1, Mathf.RoundToInt(dmg * lifesteal * GlobalHealingMultiplier)));
+    }
+
+    // skill-fill: Abyssalcassyva — 影の群葬 / Shadow Swarm。敵全体AoE＋与ダメ減(Weaken)。
+    private void ExecuteAbyssalcassyvaShadowSwarm()
+    {
+        int dmg = Mathf.Max(1, Mathf.RoundToInt(CalculateAreaSkillDamage() * 0.9f));
+        float dur = GetSkillDuration(3.4f, true);
+        float weaken = StarLevel >= 3 ? 0.28f : StarLevel >= 2 ? 0.23f : 0.18f;
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Abyss, transform.position, 1.2f);
+        List<BaseEntity> en = GetActiveEnemies();
+        for (int i = 0; i < en.Count; i++) { var e = en[i]; if (e == null) continue; DealLegendarySkillDamage(e, dmg, GetSkillDamageNumberKind()); e.ApplyWeaken(weaken, dur); }
+    }
+
+    // skill-fill: Abyssalmaehv — 深淵の連弧 / Abyss Arc。敵全体スロウ＋自己シールド。
+    private void ExecuteAbyssalmaehvAbyssArc()
+    {
+        float dur = GetSkillDuration(3.5f, true);
+        float slow = StarLevel >= 3 ? 0.55f : StarLevel >= 2 ? 0.62f : 0.7f;
+        int shield = Mathf.Max(1, Mathf.RoundToInt(GetSkillShieldAmount() * 0.8f));
+        float sdur = GetSkillDuration(4.5f, true);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Abyss, transform.position, 1.2f);
+        ApplyShield(shield, sdur);
+        List<BaseEntity> en = GetActiveEnemies();
+        for (int i = 0; i < en.Count; i++) { var e = en[i]; if (e == null) continue; e.ApplyAttackSpeedSlow(slow, dur); }
+    }
+
+    // skill-fill: Vetruvianzirix — 砂塵の刃嵐 / Sandblade Storm。自分周囲AoE多段＋スロウ。
+    private void ExecuteVetruvianzirixSandbladeStorm()
+    {
+        float radius = 1.9f; int hits = StarLevel >= 3 ? 3 : 2;
+        int per = Mathf.Max(1, Mathf.RoundToInt(CalculateAreaSkillDamage() * 0.5f));
+        float dur = GetSkillDuration(3f, true); float slow = StarLevel >= 3 ? 0.62f : 0.7f;
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Warrior, transform.position, 1.2f);
+        AttackEffectPlayer.PlayAreaIndicator(this, transform.position, radius, 0.9f, 0.8f);
+        List<BaseEntity> en = GetActiveEnemies();
+        for (int i = 0; i < en.Count; i++) { var e = en[i]; if (e == null || Vector3.Distance(e.transform.position, transform.position) > radius) continue; DealLegendarySkillDamage(e, per * hits, GetSkillDamageNumberKind()); e.ApplyAttackSpeedSlow(slow, dur); }
+    }
+
+    // skill-fill: Vetruviansajj — 太陽の聖印 / Solar Sigil。味方全体与ダメバフ＋自分単体大ダメージ。
+    private void ExecuteVetruviansajjSolarSigil(BaseEntity target)
+    {
+        float dur = GetSkillDuration(4f, true); float dmgUp = StarLevel >= 3 ? 0.26f : StarLevel >= 2 ? 0.22f : 0.18f;
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Divine, transform.position, 1.2f);
+        List<BaseEntity> al = GetActiveAllies(true);
+        for (int i = 0; i < al.Count; i++) if (al[i] != null) al[i].ApplyTimedSynergyDamageDealtBonus(dmgUp, dur);
+        target = GetValidSkillTarget(target);
+        if (target != null) { int dmg = Mathf.Max(1, Mathf.RoundToInt(CalculateSingleTargetSkillDamage() * 1.3f)); FaceTarget(target); AttackEffectPlayer.PlaySkill(this, target, UnitSkillType.PowerStrike); DealLegendarySkillDamage(target, dmg, GetSkillDamageNumberKind()); }
+    }
+
+    // skill-fill: Vetruvianscion — 風蝕の貫き / Erosion Pierce。最遠へ単体大ダメージ＋防御減(Vulnerable)。
+    private void ExecuteVetruvianscionErosionPierce(BaseEntity target)
+    {
+        BaseEntity t = GetFarthestEnemy() ?? GetValidSkillTarget(target); if (t == null) return;
+        int dmg = Mathf.Max(1, Mathf.RoundToInt(CalculateSingleTargetSkillDamage() * 1.5f));
+        float dur = GetSkillDuration(3.5f, true); float vuln = StarLevel >= 3 ? 0.26f : StarLevel >= 2 ? 0.22f : 0.18f;
+        FaceTarget(t);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Guardian, t.transform.position, 1.0f);
+        AttackEffectPlayer.PlaySkill(this, t, UnitSkillType.PowerStrike);
+        DealLegendarySkillDamage(t, dmg, GetSkillDamageNumberKind()); t.ApplyVulnerable(vuln, dur);
+    }
+
+    // skill-fill: mechaz0rwing — 滑空斉射 / Strike Glide。敵全体小ダメージ＋自分攻速大バフ。
+    private void ExecuteMechaWingStrikeGlide()
+    {
+        int dmg = Mathf.Max(1, Mathf.RoundToInt(CalculateAreaSkillDamage() * 0.6f));
+        float dur = GetSkillDuration(3.5f, true); float haste = StarLevel >= 3 ? 1.5f : StarLevel >= 2 ? 1.42f : 1.35f;
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Guardian, transform.position, 1.2f);
+        ApplyAttackSpeedBoostFromSynergy(haste, dur);
+        List<BaseEntity> en = GetActiveEnemies();
+        for (int i = 0; i < en.Count; i++) { var e = en[i]; if (e == null) continue; DealLegendarySkillDamage(e, dmg, GetSkillDamageNumberKind()); }
+    }
+
+    // skill-fill: mechaz0rsword — 斬鉄連撃 / Steel Flurry。対象多段＋防御減。
+    private void ExecuteMechaSwordSteelFlurry(BaseEntity target)
+    {
+        target = GetValidSkillTarget(target); if (target == null) return;
+        int hits = StarLevel >= 3 ? 4 : 3; int per = Mathf.Max(1, Mathf.RoundToInt(CalculateSingleTargetSkillDamage() * 0.5f));
+        float dur = GetSkillDuration(3.5f, true); float vuln = StarLevel >= 3 ? 0.24f : 0.18f;
+        FaceTarget(target);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Warrior, target.transform.position, 1.0f);
+        AttackEffectPlayer.PlaySkill(this, target, UnitSkillType.PowerStrike);
+        DealLegendarySkillDamage(target, per * hits, GetSkillDamageNumberKind()); target.ApplyVulnerable(vuln, dur);
+    }
+
+    // skill-fill: mechaz0rsuper — オーバードライブ / Overdrive。自分与ダメ＆攻速大バフ＋周囲AoE。
+    private void ExecuteMechaSuperOverdrive()
+    {
+        float radius = 1.9f; int dmg = Mathf.Max(1, Mathf.RoundToInt(CalculateAreaSkillDamage() * 1.1f));
+        float dur = GetSkillDuration(4f, true); float dmgUp = StarLevel >= 3 ? 0.4f : 0.3f; float haste = StarLevel >= 3 ? 1.4f : 1.3f;
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Beast, transform.position, 1.3f);
+        AttackEffectPlayer.PlayAreaIndicator(this, transform.position, radius, 0.9f, 0.8f);
+        ApplyTimedSynergyDamageDealtBonus(dmgUp, dur); ApplyAttackSpeedBoostFromSynergy(haste, dur);
+        List<BaseEntity> en = GetActiveEnemies();
+        for (int i = 0; i < en.Count; i++) { var e = en[i]; if (e == null || Vector3.Distance(e.transform.position, transform.position) > radius) continue; DealLegendarySkillDamage(e, dmg, GetSkillDamageNumberKind()); }
+    }
+
+    // skill-fill: mechaz0rhelm — 守護フィールド / Aegis Field。味方全体小シールド＋自分被ダメ減。
+    private void ExecuteMechaHelmAegisField()
+    {
+        int shield = Mathf.Max(1, Mathf.RoundToInt(GetSkillShieldAmount() * 0.45f));
+        float sdur = GetSkillDuration(4f, true); float dr = StarLevel >= 3 ? 0.22f : StarLevel >= 2 ? 0.18f : 0.14f;
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Divine, transform.position, 1.2f);
+        List<BaseEntity> al = GetActiveAllies(true);
+        for (int i = 0; i < al.Count; i++) if (al[i] != null) al[i].ApplyShield(shield, sdur);
+        ApplyTimedSynergyDamageReductionBonus(dr, sdur);
+    }
+
+    // skill-fill: mechaz0rchassis — 重装砲列 / Bulwark Cannons。自己シールド＋対象AoEダメージ。
+    private void ExecuteMechaChassisBulwarkCannons(BaseEntity target)
+    {
+        int shield = Mathf.Max(1, Mathf.RoundToInt(GetSkillShieldAmount() * 0.7f)); float sdur = GetSkillDuration(4.5f, true);
+        ApplyShield(shield, sdur);
+        target = GetValidSkillTarget(target);
+        if (target == null) return;
+        float radius = 1.7f; int dmg = Mathf.Max(1, Mathf.RoundToInt(CalculateAreaSkillDamage() * 1.0f));
+        FaceTarget(target);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Guardian, target.transform.position, 1.1f);
+        AttackEffectPlayer.PlayAreaIndicator(this, target.transform.position, radius, 0.85f, 0.8f);
+        List<BaseEntity> en = GetActiveEnemies();
+        for (int i = 0; i < en.Count; i++) { var e = en[i]; if (e == null || Vector3.Distance(e.transform.position, target.transform.position) > radius) continue; DealLegendarySkillDamage(e, dmg, GetSkillDamageNumberKind()); }
+    }
+
+    // skill-fill: mechaz0rcannon — 全弾斉射 / Full Salvo。最遠基点に広範囲AoE特大ダメージ。
+    private void ExecuteMechaCannonFullSalvo(BaseEntity target)
+    {
+        BaseEntity t = GetFarthestEnemy() ?? GetValidSkillTarget(target); if (t == null) return;
+        float radius = 2.3f; int dmg = Mathf.Max(1, Mathf.RoundToInt(CalculateAreaSkillDamage() * 1.4f));
+        FaceTarget(t);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Warrior, t.transform.position, 1.35f);
+        AttackEffectPlayer.PlayAreaIndicator(this, t.transform.position, radius, 0.95f, 0.7f);
+        List<BaseEntity> en = GetActiveEnemies();
+        for (int i = 0; i < en.Count; i++) { var e = en[i]; if (e == null || Vector3.Distance(e.transform.position, t.transform.position) > radius) continue; DealLegendarySkillDamage(e, dmg, GetSkillDamageNumberKind()); }
+    }
+
+    // skill-fill: neutral_hydrax — 奔流の顎 / Torrent Maw。最遠へ単体特大ダメージ＋スロウ。
+    private void ExecuteHydraxTorrentMaw(BaseEntity target)
+    {
+        BaseEntity t = GetFarthestEnemy() ?? GetValidSkillTarget(target); if (t == null) return;
+        int dmg = Mathf.Max(1, Mathf.RoundToInt(CalculateSingleTargetSkillDamage() * 1.7f));
+        float dur = GetSkillDuration(3.2f, true); float slow = StarLevel >= 3 ? 0.55f : 0.65f;
+        FaceTarget(t);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Frost, t.transform.position, 1.2f);
+        AttackEffectPlayer.PlaySkill(this, t, UnitSkillType.PowerStrike);
+        DealLegendarySkillDamage(t, dmg, GetSkillDamageNumberKind()); t.ApplyAttackSpeedSlow(slow, dur);
+    }
+
+    // Christmas — 祝祭の鼓舞 / Festive Rally（近 / Warrior・Divine）
+    private void ExecuteChristmasFestiveRally()
+    {
+        BaseEntity mainAlly = GetLowestHealthAlly() ?? this;
+        int heal = GetSkillAllyHealAmount();
+        float buffDur = GetSkillDuration(4f, true);
+        float buffPercent = StarLevel >= 3 ? 0.22f : StarLevel >= 2 ? 0.18f : 0.15f;
+
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Divine, mainAlly.transform.position, 1.1f);
+        mainAlly.HealSelf(heal);
+
+        List<BaseEntity> allies = GetActiveAllies(true);
+        for (int i = 0; i < allies.Count; i++)
+        {
+            BaseEntity ally = allies[i];
+            if (!ally.HasSynergy(SynergyType.Warrior))
+                continue;
+            ally.ApplyTimedSynergyDamageDealtBonus(buffPercent, buffDur);
+        }
+    }
+
+    // vampire — 吸魂弾 / Soulpiercer（遠 / Arcanist・Wraith・Abyss）
+    private void ExecuteVampireSoulpiercer(BaseEntity target)
+    {
+        target = GetValidSkillTarget(target);
+        if (target == null)
+            return;
+
+        int damage = Mathf.Max(1, Mathf.RoundToInt(CalculateSingleTargetSkillDamage() * 1.5f));
+        float lifestealRatio = StarLevel >= 3 ? 0.60f : StarLevel >= 2 ? 0.50f : 0.40f;
+
+        FaceTarget(target);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Wraith, target.transform.position, 1.0f);
+        AttackEffectPlayer.PlaySkill(this, target, UnitSkillType.PowerStrike);
+        DealLegendarySkillDamage(target, damage, GetSkillDamageNumberKind());
+        HealSelf(Mathf.Max(1, Mathf.RoundToInt(damage * lifestealRatio * GlobalHealingMultiplier)));
+    }
+
+    // valiant — 聖盾強襲 / Aegis Smite（近 / Guardian・Divine）
+    private void ExecuteValiantAegisSmite(BaseEntity target)
+    {
+        target = GetValidSkillTarget(target);
+        if (target == null)
+            return;
+
+        float stunDur = GetSkillDuration(skillStunDuration, false);
+        int shieldAmount = Mathf.Max(1, Mathf.RoundToInt(MaxHealth * 0.10f * GetSkillEffectMultiplier(true)));
+        float shieldDur = GetSkillDuration(skillShieldDuration, true);
+
+        FaceTarget(target);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Divine, transform.position, 1.05f);
+        AttackEffectPlayer.PlaySkill(this, target, UnitSkillType.Stun);
+        target.ApplyStun(stunDur);
+        ApplyShield(shieldAmount, shieldDur);
+    }
+
+    // Candypanda — 甘味の供物 / Sugar Feast（近 / Beast・Divine）
+    private void ExecuteCandypandaSugarFeast()
+    {
+        int heal = Mathf.Max(1, Mathf.RoundToInt(GetSkillAllyHealAmount() * 0.8f));
+        float buffDur = GetSkillDuration(4f, true);
+        float buffPercent = 0.12f;
+        float radius = 2.2f;
+
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Beast, transform.position, 1.0f);
+        AttackEffectPlayer.PlayAreaIndicator(this, transform.position, radius, 0.85f, 0.85f);
+
+        List<BaseEntity> allies = GetActiveAllies(true);
+        for (int i = 0; i < allies.Count; i++)
+        {
+            BaseEntity ally = allies[i];
+            if (Vector3.Distance(ally.transform.position, transform.position) > radius)
+                continue;
+            ally.HealSelf(heal);
+            ally.ApplyTimedSynergyDamageDealtBonus(buffPercent, buffDur);
+        }
+    }
+
+    // City — 補給ドローン / Supply Drone（近 / Machine・Alchemy）。簡易版: 設置せず時限コルーチンで継続支援。
+    private IEnumerator ExecuteCitySupplyDroneCoroutine()
+    {
+        float duration = StarLevel >= 3 ? 5.5f : StarLevel >= 2 ? 4.5f : 3.5f;
+        float tickInterval = 0.7f;
+        int healPerTick = Mathf.Max(1, Mathf.RoundToInt(GetSkillAllyHealAmount() * 0.35f));
+        int shieldPerTick = Mathf.Max(1, Mathf.RoundToInt(GetSkillShieldAmount() * 0.25f));
+
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Machine, transform.position, 1.1f);
+
+        float elapsed = 0f;
+        while (elapsed < duration && !dead && IsInActiveRound())
+        {
+            BaseEntity ally = GetLowestHealthAlly() ?? this;
+            if (ally != null && !ally.dead)
+            {
+                ally.HealSelf(healPerTick);
+                ally.ApplyShield(shieldPerTick, 1.8f);
+                AttackEffectPlayer.PlaySynergyEffect(SynergyType.Alchemy, ally.transform.position, 0.45f);
+            }
+            elapsed += tickInterval;
+            yield return new WaitForSeconds(tickInterval);
+        }
+        citySupplyDroneCoroutine = null;
+    }
+
+    // Crystal — 氷晶障壁 / Crystal Ward（遠 / Arcanist・Frost）
+    private void ExecuteCrystalCrystalWard(BaseEntity target)
+    {
+        target = GetValidSkillTarget(target);
+        if (target == null)
+            return;
+
+        int damage = Mathf.Max(1, Mathf.RoundToInt(CalculateAreaSkillDamage() * 0.8f));
+        float radius = Mathf.Max(1.6f, skillAreaRadius);
+        float slowDur = GetSkillDuration(2.4f, true);
+        int allyShield = Mathf.Max(1, Mathf.RoundToInt(GetSkillShieldAmount() * 0.5f));
+        float shieldDur = GetSkillDuration(skillShieldDuration, true);
+
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Frost, target.transform.position, 1.1f);
+        AttackEffectPlayer.PlayAreaIndicator(this, target.transform.position, radius, 0.8f, 0.9f);
+
+        List<BaseEntity> enemies = GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            BaseEntity enemy = enemies[i];
+            if (Vector3.Distance(enemy.transform.position, target.transform.position) > radius)
+                continue;
+            DealLegendarySkillDamage(enemy, damage, GetSkillDamageNumberKind());
+            enemy.ApplyAttackSpeedSlow(GetSkillSlowMultiplier(), slowDur);
+        }
+
+        BaseEntity weakestAlly = GetLowestHealthAlly() ?? this;
+        weakestAlly.ApplyShield(allyShield, shieldDur);
+    }
+
+    // Cindera — 業火の照準 / Ember Sight（遠 / Arcanist・Inferno・Storm）
+    private void ExecuteCinderaEmberSight(BaseEntity target)
+    {
+        target = GetValidSkillTarget(target);
+        if (target == null)
+            return;
+
+        int damage = Mathf.Max(1, Mathf.RoundToInt(CalculateSingleTargetSkillDamage() * 1.3f));
+        float burnDuration = GetSkillDuration(3f, true);
+        // tick interval = 0.5s, attack の 8% / 10% / 12%。Inferno burn の duration は tick = 1秒間隔なので、
+        // 0.5s tick 相当の総量を duration ぶんに均す。
+        float ratio = StarLevel >= 3 ? 0.12f : StarLevel >= 2 ? 0.10f : 0.08f;
+        int burnTickDamage = Mathf.Max(1, Mathf.RoundToInt(GetCurrentDamage() * ratio));
+
+        FaceTarget(target);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Inferno, target.transform.position, 1.1f);
+        AttackEffectPlayer.PlaySkill(this, target, UnitSkillType.AreaDamage);
+        DealLegendarySkillDamage(target, damage, GetSkillDamageNumberKind());
+        target.ApplyInfernoBurnFromSynergy(this, burnTickDamage, burnDuration);
+    }
+
+    // Decepticle — 変形突撃 / Assault Mode（近 / Machine・Alchemy）
+    private void ExecuteDecepticleAssaultMode()
+    {
+        float duration = GetSkillDuration(4f, true);
+        float speedMult = 1f + (StarLevel >= 3 ? 0.55f : StarLevel >= 2 ? 0.45f : 0.35f);
+
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Machine, transform.position, 1.1f);
+        ApplyAttackSpeedBoostFromSynergy(speedMult, duration);
+        // Machine の被弾反射効果は既存の reflect 機構が無いため、AttackSpeed バフ＋ダメージ反射代替として
+        // 短いタイムドダメージリダクションで耐久を上げる（テキストの「反射」は将来 R3-balance で別途反射機構を追加）。
+        ApplyTimedSynergyDamageReductionBonus(0.10f * GetSkillEffectMultiplier(false), duration);
+    }
+
+    // Umbra — 影喰らい / Umbral Devour（近 / Beast・Wraith・Abyss）
+    private void ExecuteUmbraUmbralDevour()
+    {
+        BaseEntity target = GetNearestEnemy();
+        if (target == null)
+            return;
+
+        int damage = Mathf.Max(1, Mathf.RoundToInt(CalculateSingleTargetSkillDamage() * 1.2f));
+        float shieldDur = GetSkillDuration(skillShieldDuration, true);
+
+        FaceTarget(target);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Abyss, transform.position, 1.05f);
+        AttackEffectPlayer.PlaySkill(this, target, UnitSkillType.PowerStrike);
+        DealLegendarySkillDamage(target, damage, GetSkillDamageNumberKind());
+        ApplyShield(Mathf.Max(1, Mathf.RoundToInt(damage * 0.6f)), shieldDur);
+    }
+
+    // Spelleater — 呪詛吸収 / Spell Eater（遠 / Arcanist・Abyss）
+    private void ExecuteSpelleaterSpellEater(BaseEntity target)
+    {
+        target = GetValidSkillTarget(target);
+        if (target == null)
+            return;
+
+        float slowDur = GetSkillDuration(3f, true);
+        float weakenDur = GetSkillDuration(3f, true);
+        float weakenPercent = StarLevel >= 3 ? 0.30f : StarLevel >= 2 ? 0.25f : 0.20f;
+
+        FaceTarget(target);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Abyss, target.transform.position, 1.0f);
+        AttackEffectPlayer.PlaySkill(this, target, UnitSkillType.Slow);
+        target.ApplyAttackSpeedSlow(0.6f, slowDur);
+        target.ApplyWeaken(weakenPercent, weakenDur);
+        GainManaFromSynergy(15);
+    }
+
+    // Serpenti — 毒牙連撃 / Venom Frenzy（近 / Beast・Shadow・Frenzy）
+    private void ExecuteSerpentiVenomFrenzy()
+    {
+        float duration = GetSkillDuration(4f, true);
+        float speedMult = 1f + (StarLevel >= 3 ? 0.60f : StarLevel >= 2 ? 0.50f : 0.40f);
+
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Frenzy, transform.position, 1.1f);
+        ApplyAttackSpeedBoostFromSynergy(speedMult, duration);
+
+        // 効果時間中の通常攻撃に毒（Inferno burn を流用）を載せる。
+        int tickDamage = Mathf.Max(1, Mathf.RoundToInt(GetCurrentDamage() * 0.05f));
+        ActivateSerpentiVenomFrenzy(tickDamage, 3f, duration);
+    }
+
+    // Decepticlechassis — 装甲再構築 / Armor Reassembly（近 / Machine・Guardian・Alchemy）
+    private void ExecuteDecepticlechassisArmorReassembly()
+    {
+        int selfShield = Mathf.Max(1, Mathf.RoundToInt(GetSkillShieldAmount() * 1.2f));
+        int allyShield = Mathf.Max(1, Mathf.RoundToInt(GetSkillShieldAmount() * 0.4f));
+        float shieldDur = GetSkillDuration(skillShieldDuration, true);
+        float radius = 2.2f;
+
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Guardian, transform.position, 1.2f);
+        AttackEffectPlayer.PlayAreaIndicator(this, transform.position, radius, 0.9f, 0.95f);
+        ApplyShield(selfShield, shieldDur);
+
+        List<BaseEntity> allies = GetActiveAllies(false);
+        for (int i = 0; i < allies.Count; i++)
+        {
+            BaseEntity ally = allies[i];
+            if (Vector3.Distance(ally.transform.position, transform.position) > radius)
+                continue;
+            ally.ApplyShield(allyShield, shieldDur);
+        }
+    }
+
+    // Wolfpunch — 獣王の一撃 / Alpha Strike（近 / Beast・Guardian）
+    private void ExecuteWolfpunchAlphaStrike(BaseEntity target)
+    {
+        target = GetValidSkillTarget(target);
+        if (target == null)
+            return;
+
+        int damage = Mathf.Max(1, Mathf.RoundToInt(CalculateSingleTargetSkillDamage() * 1.8f));
+        float stunDur = 0.6f;
+        float buffDur = GetSkillDuration(5f, true);
+        float buffPercent = StarLevel >= 3 ? 0.30f : StarLevel >= 2 ? 0.25f : 0.20f;
+        bool willKill = target.baseHealth - damage <= 0;
+
+        FaceTarget(target);
+        AttackEffectPlayer.PlaySynergyEffect(SynergyType.Beast, target.transform.position, 1.1f);
+        AttackEffectPlayer.PlaySkill(this, target, UnitSkillType.PowerStrike);
+        DealLegendarySkillDamage(target, damage, GetSkillDamageNumberKind());
+        if (!target.dead)
+            target.ApplyStun(stunDur);
+
+        if (willKill || (target != null && target.dead))
+            ApplyTimedSynergyDamageDealtBonus(buffPercent, buffDur);
+    }
+
     // 伝説級スキル用の強化倍率です。★3は意図的に勝負を壊すほど大きくします。
     private float GetLegendarySkillMagnitude()
     {
@@ -3028,6 +4819,41 @@ public class BaseEntity : MonoBehaviour
         return animator != null && animator.isActiveAndEnabled && animator.runtimeAnimatorController != null;
     }
 
+    // R3: 敵の登場演出。最終位置(現在地)から startOffset だけ離れた地点でフェードインしつつ、
+    // walk アニメで歩いて所定の位置へ入場する。ラウンド開始前（CanAct=false）に呼ぶ前提。
+    public void PlayEntranceAnimation(Vector3 startOffset, float duration)
+    {
+        if (!isActiveAndEnabled) return;
+        StartCoroutine(EntranceRoutine(startOffset, Mathf.Max(0.1f, duration)));
+    }
+
+    private System.Collections.IEnumerator EntranceRoutine(Vector3 startOffset, float duration)
+    {
+        EnsureComponentReferences();
+        SpriteRenderer sr = spriteRender != null ? spriteRender : GetComponentInChildren<SpriteRenderer>();
+        Vector3 target = transform.position;
+        Vector3 from = target + startOffset;
+        transform.position = from;
+
+        Color baseColor = sr != null ? sr.color : Color.white;
+        if (sr != null) { Color c = baseColor; c.a = 0f; sr.color = c; }
+        SetAnimatorBool("walking", true);
+
+        float t = 0f;
+        while (t < duration)
+        {
+            t += Time.deltaTime;
+            float k = Mathf.Clamp01(t / duration);
+            transform.position = Vector3.Lerp(from, target, k);
+            if (sr != null) { Color c = baseColor; c.a = Mathf.Clamp01(k * 1.4f); sr.color = c; }
+            yield return null;
+        }
+
+        transform.position = target;
+        if (sr != null) sr.color = baseColor;
+        SetAnimatorBool("walking", false);
+    }
+
     // Animatorに指定Boolパラメータがあれば値を設定します。
     private void SetAnimatorBool(string parameter, bool value)
     {
@@ -3139,6 +4965,13 @@ public class BaseEntity : MonoBehaviour
     {
         if (animator == null)
             return;
+
+        // R3-chest-room: 宝箱はAnimatorを使わず宝箱スプライトを表示し続ける（戦闘開始でジャガーノートに戻らないように）。
+        if (IsChest)
+        {
+            animator.enabled = false;
+            return;
+        }
 
         animator.enabled = true;
         animator.cullingMode = AnimatorCullingMode.AlwaysAnimate;
@@ -3274,6 +5107,78 @@ public class BaseEntity : MonoBehaviour
         SetAnimatorPlaybackSpeed(1f);
     }
 
+    // R1-collection: 図鑑詳細でスキル/攻撃の専用アニメを持つか。
+    public bool HasAbilityAnimation => HasAnimationClip("Ability");
+
+    private Coroutine previewActionRoutine;
+
+    // R1-collection: 図鑑プレビュー用。盤外の実体に攻撃（ability=false）/スキル（ability=true）の
+    // アクションを1回だけ再生させ、クリップ長後に待機へ戻す。戦闘ロジックには影響しない。
+    public void PlayPreviewAction(bool ability)
+    {
+        if (!CanUseAnimator())
+            return;
+        if (ability && !HasAnimationClip("Ability"))
+            ability = false;
+
+        EndActionAnimation();
+        BeginActionAnimation(ability, 1f);
+
+        if (previewActionRoutine != null)
+            StopCoroutine(previewActionRoutine);
+        if (gameObject.activeInHierarchy)
+            previewActionRoutine = StartCoroutine(PreviewActionReturn(ability));
+    }
+
+    private System.Collections.IEnumerator PreviewActionReturn(bool ability)
+    {
+        float len = GetAnimationClipLength(ability ? "Ability" : "Attack");
+        if (len <= 0.05f)
+            len = 0.8f;
+        yield return new WaitForSecondsRealtime(len);
+        EndActionAnimation();
+        previewActionRoutine = null;
+    }
+
+    // R1-collection: 図鑑プレビューで利用できるモーション判定。
+    public bool HasDeathAnimation => HasAnimatorParameter("dead", AnimatorControllerParameterType.Trigger);
+    public bool HasWalkAnimation => HasAnimatorParameter("walking", AnimatorControllerParameterType.Bool);
+
+    // R1-collection: 図鑑プレビューで指定モーションを再生する（idle/walk/attack/ability/death）。
+    // 毎回 Rebind で待機へ戻してから該当モーションを流すので、死亡後でも次のクリックで復帰できる。
+    public void PreviewSetMotion(string motion)
+    {
+        if (!CanUseAnimator())
+            return;
+
+        if (previewActionRoutine != null) { StopCoroutine(previewActionRoutine); previewActionRoutine = null; }
+        animator.Rebind();
+        animator.Update(0f);
+        SetAnimatorBool("walking", false);
+        SetAnimatorBool("attacking", false);
+        SetAnimatorBool("abilitying", false);
+
+        switch (motion)
+        {
+            case "walk":
+                SetAnimatorBool("walking", true);
+                break;
+            case "attack":
+                BeginActionAnimation(false, 1f);
+                if (gameObject.activeInHierarchy) previewActionRoutine = StartCoroutine(PreviewActionReturn(false));
+                break;
+            case "ability":
+                BeginActionAnimation(true, 1f);
+                if (gameObject.activeInHierarchy) previewActionRoutine = StartCoroutine(PreviewActionReturn(true));
+                break;
+            case "death":
+                SetAnimatorTrigger("dead");
+                break;
+            default:
+                break; // idle（Rebind 済み）
+        }
+    }
+
     // Animatorの再生速度を変更します。攻撃速度変化に合わせてアニメも速く/遅くします。
     private void SetAnimatorPlaybackSpeed(float speed)
     {
@@ -3302,17 +5207,124 @@ public class BaseEntity : MonoBehaviour
     }
 
     // 単体攻撃スキルのダメージです。秘力型は攻撃力を混ぜず、専用基礎値と秘力だけを参照します。
+    // === boss-skill-progression: 解放ボスの育成Lvでスキルが強化される ===
+    // 味方(Team1)として出した解放ボスのみ育成Lvを反映。敵章ボス・非ボスは常に 1（基礎）。
+    private int SkillAffinityLevel()
+    {
+        var sm = AutoChessBossRush.Save.SaveManager.Instance;
+        if (myTeam != Team.Team1 || sm == null) return 1;
+        return Mathf.Clamp(sm.GetBossAffinityLevel(UnitId), 1, 11);
+    }
+    // 連続スケール（ダメージ等に乗算）。Lv1=1.0 … Lv11≈1.5。
+    private float SkillAffinityPower() => 1f + 0.05f * (SkillAffinityLevel() - 1);
+    // 段階解禁のしきい値（固有スキルの追加効果はこれで分岐）。
+    private bool SkillTierEnhanced() => SkillAffinityLevel() >= 2;   // 早期強化
+    private bool SkillTierComplex() => SkillAffinityLevel() >= 4;    // 追加効果（拘束/吸命 等）が解禁
+    private bool SkillTierMax() => SkillAffinityLevel() >= 8;        // 最大（効果が大きく拡張）
+
+    // boss-skill-progression: ユニットを別の盤面セルへ強制移動（敵移動スキル用）。占有/盤外は安全に無視。
+    public void ForceRelocateTo(Node node)
+    {
+        if (node == null || currentNode == null || node == currentNode || node.IsOccupied) return;
+        currentNode.SetOccupied(false);
+        previousNode = currentNode;
+        currentNode = node;
+        node.SetOccupied(true);
+        transform.position = node.worldPosition;
+    }
+
+    // 敵全体を自分中心に引き寄せ(pull)／押し出し(!pull)する。各敵は方向先の最寄り空きセルへ1回移動。
+    public void DisplaceEnemiesAround(bool pull, int cells)
+    {
+        GridManager grid = GridManager.Instance;
+        if (grid == null || currentNode == null) return;
+        int cc = grid.GetBoardColumn(currentNode), cr = grid.GetBoardRow(currentNode);
+        List<BaseEntity> enemies = GetActiveEnemies();
+        for (int i = 0; i < enemies.Count; i++)
+        {
+            BaseEntity e = enemies[i];
+            if (e == null || e.IsDead || e.IsCore || e.currentNode == null) continue;
+            int ec = grid.GetBoardColumn(e.currentNode), er = grid.GetBoardRow(e.currentNode);
+            int sc = System.Math.Sign(pull ? (cc - ec) : (ec - cc));
+            int sr = System.Math.Sign(pull ? (cr - er) : (er - cr));
+            if (sc == 0 && sr == 0) { if (!pull) sc = 1; else continue; } // 同一列・押し出しは横へ。
+            Node dest = null;
+            for (int step = Mathf.Max(1, cells); step >= 1 && dest == null; step--)
+            {
+                Node n = grid.GetNodeAtBoardCoordinate(ec + sc * step, er + sr * step);
+                if (n != null && !n.IsOccupied) dest = n;
+            }
+            if (dest != null) e.ForceRelocateTo(dest);
+        }
+    }
+
+    // boss-skill-progression: 解放ボスの育成Lv7+で固有スキルに「踏む必要のない複雑効果」を上乗せする（全章ボス分を集約）。
+    //   敵移動(引き寄せ/ノックバック)・味方直接強化・全体デバフ・AoE吸命など。最大Lv(11)で強化。
+    private void ApplyBossSignature(BaseEntity target)
+    {
+        // シグネチャ効果は味方として出した解放ボス限定（敵章ボスは基礎スキルのまま）。
+        if (myTeam != Team.Team1) return;
+        // 育成Lv1から常時発動（最初から“アルト”感）。育成Lv(複雑Lv4+/最大Lv8+)で拡張。
+        bool max = SkillTierMax();
+        int push = max ? 2 : 1;
+        GameManager gm = GameManager.Instance;
+        switch (NormalizeUnitId(UnitId))
+        {
+            case "caliber": // 暴走守護：薙ぎ圏の敵をノックバック＋周囲の味方を守護で固める。
+                DisplaceEnemiesAround(false, push);
+                gm?.EmpowerAlliesAround(this, BuffTileType.Defense, 2, GetSkillDuration(8f, true));
+                break;
+            case "neutral_rook": // 停滞城門：敵を門へ引き寄せ、最大Lvで根固め(スタン)。
+                DisplaceEnemiesAround(true, push);
+                if (max) { var en = GetActiveEnemies(); for (int i = 0; i < en.Count; i++) if (en[i] != null) en[i].ApplyStun(0.7f); }
+                break;
+            case "neutral_sister": // 鎮魂：全敵を弱体化し、最も弱った味方を治癒。
+            {
+                float wd = GetSkillDuration(3.6f, true); float wp = max ? 0.28f : 0.20f;
+                var en = GetActiveEnemies(); for (int i = 0; i < en.Count; i++) if (en[i] != null) en[i].ApplyWeaken(wp, wd);
+                var a = GetLowestHealthAlly(); if (a != null) a.HealSelf(GetSkillAllyHealAmount());
+                break;
+            }
+            case "neutral_hydrax": DisplaceEnemiesAround(false, push); break;            // 奔流：敵をノックバック。
+            case "magmarvaath": DisplaceEnemiesAround(true, push); break;                  // 溶岩：噴出点へ引き寄せ。
+            case "magmarstarhorn": DisplaceEnemiesAround(false, max ? 3 : 2); break;       // 突撃：大ノックバック。
+            case "magmarragnora": gm?.EmpowerAlliesAround(this, BuffTileType.Defense, 3, GetSkillDuration(7f, true)); break; // 再生：味方を堅守化。
+            case "abyssallilithe": // 吸命：全敵から吸命(AoEドレイン)。
+            {
+                int d = Mathf.Max(1, Mathf.RoundToInt(CalculateAreaSkillDamage() * (max ? 0.6f : 0.45f)));
+                int tot = 0; var en = GetActiveEnemies();
+                for (int i = 0; i < en.Count; i++) { var e = en[i]; if (e == null) continue; DealLegendarySkillDamage(e, d, GetSkillDamageNumberKind()); tot += d; }
+                HealSelf(Mathf.Max(1, Mathf.RoundToInt(tot * 0.25f * GlobalHealingMultiplier)));
+                break;
+            }
+            case "abyssalcassyva": // 影群葬：全敵を短スタン。
+            { float sd = max ? 0.9f : 0.6f; var en = GetActiveEnemies(); for (int i = 0; i < en.Count; i++) if (en[i] != null) en[i].ApplyStun(sd); break; }
+            case "abyssalmaehv": DisplaceEnemiesAround(true, push); break;                 // 深淵：敵を引き寄せ密集。
+            case "vetruvianzirix": DisplaceEnemiesAround(false, push); break;              // 砂嵐：周囲をノックバック。
+            case "vetruviansajj": gm?.EmpowerAlliesAround(this, BuffTileType.Attack, 3, GetSkillDuration(7f, true)); break; // 太陽：味方を攻撃強化。
+            case "vetruvianscion": if (target != null) target.ApplyStun(max ? 0.9f : 0.6f); break; // 貫き：対象を拘束。
+            case "neutral_mechaz0rwing": gm?.EmpowerAlliesAround(this, BuffTileType.Attack, 3, GetSkillDuration(6f, true)); break;
+            case "neutral_mechaz0rsword": if (target != null) target.ApplyStun(max ? 0.9f : 0.6f); break;
+            case "neutral_mechaz0rsuper": gm?.EmpowerAlliesAround(this, BuffTileType.Attack, 3, GetSkillDuration(6f, true)); break;
+            case "neutral_mechaz0rhelm": DisplaceEnemiesAround(false, push); break;        // 守護：敵を押し出し後衛を守る。
+            case "neutral_mechaz0rchassis": DisplaceEnemiesAround(false, push); break;
+            case "neutral_mechaz0rcannon": // 砲撃：着弾圏の敵を短スタン。
+            { float sd = max ? 0.8f : 0.5f; var en = GetActiveEnemies(); for (int i = 0; i < en.Count; i++) if (en[i] != null) en[i].ApplyStun(sd); break; }
+            case "arcana": gm?.EmpowerAlliesAround(this, BuffTileType.Arcane, 3, GetSkillDuration(7f, true)); break; // 終焉：味方を秘力強化。
+        }
+    }
+
     private int CalculateSingleTargetSkillDamage()
     {
         float baseValue = skillUsesFocusOnly ? skillBasePower : GetCurrentDamage();
-        return Mathf.Max(1, Mathf.RoundToInt(baseValue * skillDamageMultiplier * GetSkillEffectMultiplier(true)));
+        return Mathf.Max(1, Mathf.RoundToInt(baseValue * skillDamageMultiplier * GetSkillEffectMultiplier(true) * SkillAffinityPower()));
     }
 
     // 範囲攻撃スキルのダメージです。秘力型は攻撃力ではなく専用基礎値から計算します。
     private int CalculateAreaSkillDamage()
     {
         float baseValue = skillUsesFocusOnly ? skillBasePower : GetCurrentDamage();
-        return Mathf.Max(1, Mathf.RoundToInt(baseValue * skillAreaDamageMultiplier * GetSkillEffectMultiplier(true)));
+        return Mathf.Max(1, Mathf.RoundToInt(baseValue * skillAreaDamageMultiplier * GetSkillEffectMultiplier(true) * SkillAffinityPower()));
     }
 
     // 秘力型スキルは青、攻撃力型スキルは橙のダメージ表示にします。
@@ -3519,6 +5531,17 @@ public class BaseEntity : MonoBehaviour
         TrackSynergyCoroutine(RemoveSynergyDamageDealtAfterDelay(amount, Mathf.Max(0.1f, duration)));
     }
 
+    // シナジーから一定時間だけ秘力（スキル威力）を加算します（R3: 秘力系オーラ/強化マス用）。
+    // synergyPowerBonus は GetItemFocusMultiplier 経由でスキルダメージ/回復/シールド/効果時間を伸ばす。
+    public void ApplyTimedSynergyPowerBonus(float amount, float duration)
+    {
+        if (Mathf.Abs(amount) <= 0.001f)
+            return;
+
+        synergyPowerBonus += amount;
+        TrackSynergyCoroutine(RemoveSynergyPowerBonusAfterDelay(amount, Mathf.Max(0.1f, duration)));
+    }
+
     // シナジーから一定時間だけマナ獲得倍率を変えます。
     public void ApplyTimedSynergyManaGainMultiplier(float multiplier, float duration)
     {
@@ -3660,6 +5683,12 @@ public class BaseEntity : MonoBehaviour
     {
         yield return new WaitForSeconds(duration);
         synergyDamageDealtBonus -= amount;
+    }
+
+    private IEnumerator RemoveSynergyPowerBonusAfterDelay(float amount, float duration)
+    {
+        yield return new WaitForSeconds(duration);
+        synergyPowerBonus -= amount;
     }
 
     private IEnumerator RestoreSynergyManaGainMultiplierAfterDelay(float previousMultiplier, float duration)
@@ -4115,13 +6144,21 @@ public class BaseEntity : MonoBehaviour
 
         destination = null;
         moving = false;
+        previousNode = null; // 射程内に落ち着いた等、移動を止めた時は往復防止メモリをリセット。
+        moveGoal = null;      // 目標足場もリセット（次の交戦で選び直す）。
         SetAnimatorBool("walking", false);
     }
 
     // 指定ターゲットが現在の射程内にいるかを距離で判定します。
     private bool IsTargetInRange(BaseEntity target)
     {
-        return target != null && Vector3.Distance(transform.position, target.transform.position) <= range + 0.05f;
+        if (target == null) return false;
+        // 盤面はマス間隔1.0で、移動グラフは縦横斜め1マスを隣接として繋ぐ（max(|dx|,|dy|)<=1）。
+        // 射程もこのグリッド距離（チェビシェフ）で判定する。ユークリッドだと斜め隣接(≈1.41)が射程外になり、
+        // メレーが敵の斜めに居着いたまま攻撃できず直交マスを探して「ウロウロ」してしまうのを防ぐ。
+        Vector3 d = transform.position - target.transform.position;
+        float cheby = Mathf.Max(Mathf.Abs(d.x), Mathf.Abs(d.y));
+        return cheby <= range + 0.05f;
     }
 
     // Animator Controller内から、名前にclipNameを含むAnimationClipの長さを探します。
@@ -4234,6 +6271,88 @@ public class BaseEntity : MonoBehaviour
         ApplyCurrentStats(refillHealth);
     }
 
+    // balance/STORY: 敵としての中ボス個体だけに乗せる強化（サイズ/射程/ステータス倍率）。
+    // 仲間化後のアライは CreateBenchEntity で別個体として生成されるため、この強化は乗らない。
+    public void ApplyEnemyBossBuff(float sizeMul, float rangeMul, float statMul)
+    {
+        CaptureBaseStats(); // originalScale/originalRange を確定させてから乗せる。
+        enemyBossRangeMul = Mathf.Max(0.1f, rangeMul);
+        enemyBossStatMul = Mathf.Max(0.1f, statMul);
+        if (sizeMul > 0f && !Mathf.Approximately(sizeMul, 1f))
+        {
+            originalScale *= sizeMul;     // 以降の originalScale 復帰でも拡大を保つ。
+            transform.localScale = originalScale;
+        }
+        RefreshDerivedStats(true);
+    }
+
+    // ⑥ アイテムドラッグ中のホバー対象を「枠発光」で示す。本体スプライトの背後に、同じスプライトを
+    // 少し拡大した金色で重ねて縁が光って見えるようにする（毎フレーム呼ばれる前提でスプライトを追従）。
+    private SpriteRenderer equipGlowRenderer;
+    public void SetEquipDragHighlight(bool on)
+    {
+        if (spriteRender == null)
+            return;
+
+        if (!on)
+        {
+            if (equipGlowRenderer != null)
+                equipGlowRenderer.enabled = false;
+            return;
+        }
+
+        if (equipGlowRenderer == null)
+        {
+            GameObject g = new GameObject("EquipDragGlow", typeof(SpriteRenderer));
+            g.transform.SetParent(spriteRender.transform, false);
+            g.transform.localPosition = Vector3.zero;
+            g.transform.localRotation = Quaternion.identity;
+            g.transform.localScale = Vector3.one * 1.10f;
+            equipGlowRenderer = g.GetComponent<SpriteRenderer>();
+        }
+        // 本体の現在フレームに追従させ、背後に金色で光らせる。
+        equipGlowRenderer.sprite = spriteRender.sprite;
+        equipGlowRenderer.flipX = spriteRender.flipX;
+        equipGlowRenderer.sortingLayerID = spriteRender.sortingLayerID;
+        equipGlowRenderer.sortingOrder = spriteRender.sortingOrder - 1;
+        float pulse = 0.7f + 0.3f * (Mathf.Sin(Time.unscaledTime * 6f) * 0.5f + 0.5f);
+        equipGlowRenderer.color = new Color(1f, 0.92f, 0.35f, pulse);
+        equipGlowRenderer.enabled = true;
+    }
+
+    // ⑥ 後ろのユニットをホバー中、手前で重なるユニットの不透明度を下げて見やすくする。
+    public void SetOcclusionDim(bool on)
+    {
+        if (spriteRender == null)
+            return;
+        Color c = spriteRender.color;
+        c.a = on ? 0.35f : 1f;
+        spriteRender.color = c;
+    }
+
+    // ⑧ ボス登場演出用：攻撃モーションを1回だけ再生する。
+    // Animatorは "attacking"/"abilitying" 等のboolで駆動されるため animator.Play では待機へ戻されてしまう。
+    // 図鑑プレビューと同じ正規ルート(PlayPreviewAction=BeginActionAnimationでboolとトリガーを立て、クリップ長後に待機へ戻す)を使う。
+    public void PlayAttackMotionOnce()
+    {
+        PlayPreviewAction(false);
+    }
+
+    // ⑧ 登場演出用：攻撃モーション（Attack）の再生時間。PlayPreviewActionと同じ算出で、
+    // 「攻撃が終わって待機へ戻る」までの待ち時間に使う。
+    public float GetAttackMotionDuration()
+    {
+        float len = GetAnimationClipLength("Attack");
+        return len > 0.05f ? len : 0.8f;
+    }
+
+    // ⑧ 登場演出用：見た目（スプライト）の表示/非表示を切り替える（取り巻きを後から歩いて登場させるため）。
+    public void SetVisualHidden(bool hidden)
+    {
+        if (spriteRender != null)
+            spriteRender.enabled = !hidden;
+    }
+
     // スターと装備アイテムを合わせた現在ステータスを作り直します。
     private void ApplyCurrentStats(bool refillHealth)
     {
@@ -4273,9 +6392,11 @@ public class BaseEntity : MonoBehaviour
                 teamHealthMul += 0.10f;
         }
 
-        baseDamage = Mathf.Max(1, Mathf.RoundToInt(((originalBaseDamage * starDamageHealthMultiplier + itemDamageFlat) * itemDamageMultiplier) * teamDamageMul));
-        maxHealth = Mathf.Max(1, Mathf.RoundToInt(((originalBaseHealth * starDamageHealthMultiplier + itemHealthFlat) * itemHealthMultiplier) * teamHealthMul));
-        range = Mathf.Max(1, originalRange);
+        float heroMul = heroScaleMultiplier > 0f ? heroScaleMultiplier : 1f; // R3-hero-scale: ヒーロー育成倍率（非ヒーローは1.0）。
+        float fp = Mathf.Clamp(formPenalty, 0.05f, 1f); // 形態ペナルティ（弱体形態）。
+        baseDamage = Mathf.Max(1, Mathf.RoundToInt(((originalBaseDamage * starDamageHealthMultiplier + itemDamageFlat) * itemDamageMultiplier) * teamDamageMul * heroMul * fp * enemyBossStatMul));
+        maxHealth = Mathf.Max(1, Mathf.RoundToInt(((originalBaseHealth * starDamageHealthMultiplier + itemHealthFlat) * itemHealthMultiplier) * teamHealthMul * heroMul * fp * enemyBossStatMul));
+        range = Mathf.Max(1, Mathf.RoundToInt(originalRange * enemyBossRangeMul));
         // silver_range_archer: Ranger シナジーを持つユニットは射程 +1
         if (myTeam == Team.Team1 && GameManager.Instance != null
             && GameManager.Instance.HasAugment("silver_range_archer")
@@ -4496,68 +6617,60 @@ public class BaseEntity : MonoBehaviour
     }
 
     // 自己回復スキルを持つユニット名か判定します。
+    // DESIGN_skill_overhaul.md で vampire / Borealjuggernaut / Candypanda は固有スキル化されたため除外。
     private bool IsSelfHealSkillUnit(string entityId)
     {
         return
-            string.Equals(entityId, "vampire", StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(entityId, "Borealjuggernaut", StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(entityId, "Candypanda", StringComparison.OrdinalIgnoreCase) ||
             string.Equals(entityId, "Skindogehai", StringComparison.OrdinalIgnoreCase);
     }
 
     // 味方回復スキルを持つユニット名か判定します。
+    // DESIGN_skill_overhaul.md: Christmas / City を固有化したため、現在は該当無し。
     private bool IsAllyHealSkillUnit(string entityId)
     {
-        return
-            string.Equals(entityId, "Christmas", StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(entityId, "City", StringComparison.OrdinalIgnoreCase);
+        return false;
     }
 
     // シールド付与スキルを持つユニット名か判定します。
+    // DESIGN_skill_overhaul.md: Crystal / Decepticle / Umbra / Decepticlechassis を固有化したため、現在は該当無し。
     private bool IsShieldSkillUnit(string entityId)
     {
-        return
-            string.Equals(entityId, "Crystal", StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(entityId, "Decepticle", StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(entityId, "Umbra", StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(entityId, "Decepticlechassis", StringComparison.OrdinalIgnoreCase);
+        return false;
     }
 
     // 攻撃速度アップスキルを持つユニット名か判定します。
+    // DESIGN_skill_overhaul.md: Antiswarm / Serpenti を固有化したため、現在は該当無し。
     private bool IsAttackSpeedBoostSkillUnit(string entityId)
     {
-        return
-            string.Equals(entityId, "Antiswarm", StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(entityId, "Serpenti", StringComparison.OrdinalIgnoreCase);
+        return false;
     }
 
     // スタンスキルを持つユニット名か判定します。
+    // DESIGN_skill_overhaul.md: Chaosknight / valiant を固有化したため、現在は該当無し。
     private bool IsStunSkillUnit(string entityId)
     {
-        return
-            string.Equals(entityId, "Chaosknight", StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(entityId, "valiant", StringComparison.OrdinalIgnoreCase);
+        return false;
     }
 
     // スロウスキルを持つユニット名か判定します。
+    // DESIGN_skill_overhaul.md: Spelleater を固有化したため、現在は該当無し。
     private bool IsSlowSkillUnit(string entityId)
     {
-        return
-            string.Equals(entityId, "Spelleater", StringComparison.OrdinalIgnoreCase);
+        return false;
     }
 
     // ダメージアップスキルを持つユニット名か判定します。
+    // DESIGN_skill_overhaul.md: Cindera を固有化したため、現在は該当無し。
     private bool IsDamageBoostSkillUnit(string entityId)
     {
-        return
-            string.Equals(entityId, "Cindera", StringComparison.OrdinalIgnoreCase);
+        return false;
     }
 
     // 範囲ダメージスキルを持つユニット名か判定します。
+    // DESIGN_skill_overhaul.md で Andromeda は固有化されたため除外。
     private bool IsAreaDamageSkillUnit(string entityId)
     {
         return
-            string.Equals(entityId, "Andromeda", StringComparison.OrdinalIgnoreCase) ||
             string.Equals(entityId, "Decepticleprime", StringComparison.OrdinalIgnoreCase);
     }
 
@@ -4566,6 +6679,20 @@ public class BaseEntity : MonoBehaviour
     {
         if (ApplyNamedUnitBalance())
             return;
+
+        // Zyx（コスト0の中立雑魚）専用。コスト≤1基準だと耐久(800)・火力が高すぎるため、HP600＋火力を下げる。
+        // 他のステータスはコスト≤1の同分岐に揃える（挙動を変えない）。
+        if (NormalizeUnitId(UnitId) == "zyx")
+        {
+            bool zyxRanged = originalRange >= 4;
+            originalBaseHealth = 600;
+            originalBaseDamage = BalanceDamage(zyxRanged ? 90 : 55);
+            originalAttackSpeed = BalanceAttackSpeed(zyxRanged ? 1.15f : 1f);
+            originalMovementSpeed = Mathf.Max(originalMovementSpeed, 1f);
+            originalMaxMana = zyxRanged ? 105 : 95;
+            originalBaseDamageReduction = zyxRanged ? 0.02f : 0.08f;
+            return;
+        }
 
         // コスト1は基準ユニットです。遠距離はHPを低く、火力をやや高くします。
         if (BaseCost <= 1)
@@ -5146,6 +7273,10 @@ public class BaseEntity : MonoBehaviour
     // ユニット名から基本射程を返します。ここに入っているユニットは射程4です。
     private static int GetConfiguredBaseRange(string unitId)
     {
+        // アルカナ（最終ボス）は超遠距離キャリー。盤面最大の射程5。
+        if (string.Equals(unitId, "Arcana", StringComparison.OrdinalIgnoreCase))
+            return 5;
+
         if (string.Equals(unitId, "Andromeda", StringComparison.OrdinalIgnoreCase) ||
             string.Equals(unitId, "Antiswarm", StringComparison.OrdinalIgnoreCase) ||
             string.Equals(unitId, "vampire", StringComparison.OrdinalIgnoreCase) ||

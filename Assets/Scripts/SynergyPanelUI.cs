@@ -78,7 +78,7 @@ public class SynergyPanelUI : MonoBehaviour
         if (canvas == null)
             canvas = gameObject.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 49000;
+        canvas.sortingOrder = 14000; // 16bit short上限(32767)内。
 
         CanvasScaler scaler = GetComponent<CanvasScaler>();
         if (scaler == null)
@@ -467,8 +467,9 @@ public class SynergyPanelUI : MonoBehaviour
     }
 }
 
-// シナジー行のクリックを受け、効果説明パネルを開くための小さな中継役です。
-public class SynergyPanelRowClickTarget : MonoBehaviour, IPointerClickHandler
+// シナジー行に「ホバー」すると効果説明パネルを開く中継役（②：クリックではなくホバー表示に変更）。
+// ツールチップは固定位置＆raycast無効なので、ホバー中にパネルが出てもちらつかない。
+public class SynergyPanelRowClickTarget : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     private SynergyType synergyType;
 
@@ -477,12 +478,17 @@ public class SynergyPanelRowClickTarget : MonoBehaviour, IPointerClickHandler
         synergyType = type;
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnPointerEnter(PointerEventData eventData)
     {
         if (synergyType == SynergyType.None)
             return;
 
         ItemTooltipUI.Hide();
         SynergyTooltipUI.Show(synergyType, eventData.position);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        SynergyTooltipUI.Hide();
     }
 }

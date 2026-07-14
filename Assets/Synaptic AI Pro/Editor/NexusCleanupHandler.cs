@@ -70,8 +70,19 @@ namespace SynapticPro
 
         private static void OnBeforeAssemblyReload()
         {
-            SynLog.Info("[Synaptic] Before assembly reload - Saving MCP server state");
-            // Handle state saving before assembly reload if needed
+            // [Bridge fix 2026-06] ドメインリロード/再起動前に WebSocket/CTS を確実に閉じる。
+            // 従来はログのみで、バックグラウンドの受信 Task が古い WebSocket を掴んだままゾンビ化し、
+            // リロード後（やUnity再起動後）も接続が腐って -32001 のまま復帰しない原因だった。
+            // 再接続は既存の poll（NexusEditorMCPService.Update）/SetupWindow に任せる（ここで繋ぐと二重接続になる）。
+            SynLog.Info("[Synaptic] Before assembly reload - disconnecting MCP WebSocket (avoid zombie listener)");
+            try
+            {
+                NexusEditorMCPService.DisconnectFromMCPServer();
+            }
+            catch (System.Exception ex)
+            {
+                SynLog.Warn($"[Synaptic] Failed to disconnect before assembly reload: {ex.Message}");
+            }
         }
 
         /// <summary>

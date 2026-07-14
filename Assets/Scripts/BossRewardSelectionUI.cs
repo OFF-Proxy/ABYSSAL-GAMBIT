@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+using DG.Tweening;
 
 // ボスウェーブをクリアした時に、仲間にするボスを1体選ぶためのUIです。
 // シーンに手置きしなくても、GameManagerから呼ばれた時にCanvasへ自動生成されます。
 public class BossRewardSelectionUI : MonoBehaviour
 {
-    private const int BossRewardSortingOrder = 60020;
+    private const int BossRewardSortingOrder = 25020; // 16bit short上限(32767)内。
 
     // どこからでも現在のボス報酬UIへアクセスするための参照です。
     public static BossRewardSelectionUI Instance { get; private set; }
@@ -56,16 +58,16 @@ public class BossRewardSelectionUI : MonoBehaviour
             return existingUi;
         }
 
-        Canvas canvas = FindObjectOfType<Canvas>();
-        if (canvas == null)
-        {
-            GameObject canvasObject = new GameObject("Canvas", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster));
-            canvas = canvasObject.GetComponent<Canvas>();
-            canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        }
-
-        GameObject uiObject = new GameObject("BossRewardSelectionUI", typeof(RectTransform), typeof(Image), typeof(BossRewardSelectionUI));
-        uiObject.transform.SetParent(canvas.transform, false);
+        // 独立したルートの ScreenSpaceOverlay Canvas として生成する。
+        // 以前は FindObjectOfType<Canvas>() の子にしていたため、プレイヤーがオーグメントをホバー中
+        // （AugmentTooltipUI の Canvas が生成・active）にこのUIを出すと、たまたまそのトグルする
+        // ツールチップ Canvas を親にしてしまい、ツールチップの表示/非表示に選択肢の表示が連動して
+        // 点滅・選択不能（進行ハマり）になっていた。ルート化で外部 Canvas への依存を断つ。
+        GameObject uiObject = new GameObject("BossRewardSelectionUI", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(Image), typeof(BossRewardSelectionUI));
+        Canvas rootCanvas = uiObject.GetComponent<Canvas>();
+        rootCanvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        rootCanvas.sortingOrder = BossRewardSortingOrder;
+        uiObject.GetComponent<CanvasScaler>().uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
 
         RectTransform rectTransform = uiObject.GetComponent<RectTransform>();
         rectTransform.anchorMin = Vector2.zero;
@@ -101,6 +103,33 @@ public class BossRewardSelectionUI : MonoBehaviour
         }
 
         gameObject.SetActive(true);
+        PlayAppear();
+    }
+
+    // パネル＋カードの出現ポップ（アイテム3択UIと統一）。ポーズ非依存。
+    private void PlayAppear()
+    {
+        if (panelRect != null)
+        {
+            panelRect.localScale = Vector3.one * 0.94f;
+            panelRect.DOKill();
+            panelRect.DOScale(1f, 0.26f).SetEase(Ease.OutBack).SetUpdate(true);
+        }
+        for (int i = 0; i < optionObjects.Count; i++)
+        {
+            RectTransform r = optionObjects[i] != null ? optionObjects[i].transform as RectTransform : null;
+            if (r == null) continue;
+            r.localScale = Vector3.one * 0.7f;
+            r.DOKill();
+            r.DOScale(1f, 0.3f).SetEase(Ease.OutBack).SetUpdate(true).SetDelay(0.06f + i * 0.06f);
+        }
+    }
+
+    // カードのホバー拡大。
+    private class BossCardHover : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+    {
+        public void OnPointerEnter(PointerEventData e) { var r = transform as RectTransform; if (r != null) { r.DOKill(); r.DOScale(1.05f, 0.12f).SetUpdate(true); } }
+        public void OnPointerExit(PointerEventData e) { var r = transform as RectTransform; if (r != null) { r.DOKill(); r.DOScale(1f, 0.12f).SetUpdate(true); } }
     }
 
     // UI全体を閉じます。
@@ -112,16 +141,35 @@ public class BossRewardSelectionUI : MonoBehaviour
     }
 
     // 既存の候補カードを消します。
+    // Destroy はフレーム末まで遅延するため、複数選択での再表示時に「破棄待ちの旧カード＋新カード」が
+    // 同フレームに並んで枠をはみ出し（例: 3+2=5枚）、さらに破棄待ちカードがクリックを奪って進行不能に
+    // なり得た。そこで破棄前に即座に非アクティブ化＋レイアウトから親子解除して、表示も当たり判定も即除外する。
     private void ClearOptions()
     {
         for (int i = 0; i < optionObjects.Count; i++)
         {
             if (optionObjects[i] != null)
+            {
+                optionObjects[i].SetActive(false);
+                optionObjects[i].transform.SetParent(null, false);
                 Destroy(optionObjects[i]);
+            }
         }
 
         optionObjects.Clear();
     }
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+    // オートプレイ(debug)用：開いていれば先頭候補を自動選択する。開いていなければfalse。
+    public bool DebugAutoResolve()
+    {
+        if (!gameObject.activeSelf || optionObjects.Count == 0) return false;
+        UnityEngine.UI.Button b = optionObjects[0] != null ? optionObjects[0].GetComponent<UnityEngine.UI.Button>() : null;
+        if (b == null) return false;
+        b.onClick.Invoke();
+        return true;
+    }
+#endif
 
     // 1体分の選択カードを作ります。
     private void CreateOption(EntitiesDatabaseSO.EntityData entityData)
@@ -129,18 +177,30 @@ public class BossRewardSelectionUI : MonoBehaviour
         GameObject optionObject = new GameObject($"{entityData.name}RewardOption", typeof(RectTransform), typeof(Image), typeof(Button), typeof(LayoutElement));
         optionObject.transform.SetParent(optionParent, false);
         optionObjects.Add(optionObject);
+        optionObject.AddComponent<BossCardHover>(); // ホバー拡大（アイテム3択UIと統一）
 
         RectTransform optionRect = optionObject.GetComponent<RectTransform>();
-        optionRect.sizeDelta = new Vector2(230f, 300f);
+        optionRect.sizeDelta = new Vector2(240f, 314f);
 
         LayoutElement layoutElement = optionObject.GetComponent<LayoutElement>();
-        layoutElement.preferredWidth = 230f;
-        layoutElement.preferredHeight = 300f;
+        layoutElement.preferredWidth = 240f;
+        layoutElement.preferredHeight = 314f;
 
+        // カード見た目（reference の craftable_unit を UI/Cards/unit_card として使用）。無ければ従来のティア枠にフォールバック。
         Image frameImage = optionObject.GetComponent<Image>();
-        frameImage.sprite = entityData.frame;
-        frameImage.color = new Color(1f, 0.86f, 0.35f, 1f);
-        frameImage.preserveAspect = false;
+        Sprite cardSprite = Resources.Load<Sprite>("UI/Cards/unit_card");
+        if (cardSprite != null)
+        {
+            frameImage.sprite = cardSprite;
+            frameImage.color = Color.white;
+            frameImage.preserveAspect = true;
+        }
+        else
+        {
+            UnitCardVisual.ApplyProceduralFrame(frameImage, entityData.cost); // R5: AI枠撤去→プログラム枠。
+            frameImage.color = new Color(1f, 0.86f, 0.35f, 1f);
+            frameImage.preserveAspect = false;
+        }
 
         Button button = optionObject.GetComponent<Button>();
         button.onClick.AddListener(() => SelectOption(entityData));
@@ -151,13 +211,17 @@ public class BossRewardSelectionUI : MonoBehaviour
     }
 
     // 候補カードを選択し、GameManagerへ報酬決定を返します。
+    // 重要: 先に Hide() してからコールバックを呼ぶ。複数選択(4-5のボス×2)では
+    // コールバック内で次の候補を再表示(Show=SetActive true)するため、呼んだ後に Hide() すると
+    // その再表示を即閉じてしまい、bossRewardSelectionPending だけ残って進行不能になっていた。
     private void SelectOption(EntitiesDatabaseSO.EntityData entityData)
     {
         if (onSelected == null)
             return;
 
-        onSelected.Invoke(entityData);
-        Hide();
+        System.Action<EntitiesDatabaseSO.EntityData> callback = onSelected;
+        Hide();                       // 先に閉じる（onSelected も null 化される）
+        callback.Invoke(entityData);  // 必要ならコールバックが再表示する
     }
 
     // 報酬候補の性能を右側のユニット詳細パネルで確認するための小さなボタンを作ります。
@@ -209,16 +273,17 @@ public class BossRewardSelectionUI : MonoBehaviour
         iconObject.transform.SetParent(parent, false);
 
         RectTransform iconRect = iconObject.GetComponent<RectTransform>();
-        iconRect.anchorMin = new Vector2(0.08f, 0.25f);
-        iconRect.anchorMax = new Vector2(0.92f, 0.9f);
+        // カードの肖像窓（craftable_unit の中央上部）に合わせて配置。
+        iconRect.anchorMin = new Vector2(0.18f, 0.46f);
+        iconRect.anchorMax = new Vector2(0.82f, 0.86f);
         iconRect.offsetMin = Vector2.zero;
         iconRect.offsetMax = Vector2.zero;
 
         Image iconImage = iconObject.GetComponent<Image>();
-        iconImage.sprite = entityData.icon;
         iconImage.color = Color.white;
-        iconImage.preserveAspect = true;
         iconImage.raycastTarget = false;
+        // R5: AIキャラ絵をやめ、ユニットのドット絵（盤外実体ミラー・盤面と非連動）を表示。
+        iconObject.AddComponent<UnitCardPreview>().Bind(entityData);
     }
 
     // 候補カードの名前と説明文を作ります。
@@ -228,15 +293,15 @@ public class BossRewardSelectionUI : MonoBehaviour
         nameObject.transform.SetParent(parent, false);
 
         RectTransform nameRect = nameObject.GetComponent<RectTransform>();
-        nameRect.anchorMin = new Vector2(0.06f, 0.04f);
-        nameRect.anchorMax = new Vector2(0.94f, 0.24f);
+        nameRect.anchorMin = new Vector2(0.08f, 0.25f);
+        nameRect.anchorMax = new Vector2(0.92f, 0.43f);
         nameRect.offsetMin = Vector2.zero;
         nameRect.offsetMax = Vector2.zero;
 
         TextMeshProUGUI nameText = nameObject.GetComponent<TextMeshProUGUI>();
         nameText.text = LocalizationManager.IsJapanese
-            ? $"{LocalizationManager.UnitName(entityData.name)}\nショップに解放"
-            : $"{entityData.name}\nUNLOCK SHOP";
+            ? $"{LocalizationManager.UnitName(entityData.name)}\n仲間にする"
+            : $"{LocalizationManager.UnitName(entityData.name)}\nRECRUIT";
         nameText.alignment = TextAlignmentOptions.Center;
         LocalizationManager.ApplyFont(nameText);
         nameText.enableAutoSizing = true;
@@ -264,11 +329,23 @@ public class BossRewardSelectionUI : MonoBehaviour
         panelRect.anchorMax = new Vector2(0.5f, 0.5f);
         panelRect.pivot = new Vector2(0.5f, 0.5f);
         panelRect.anchoredPosition = Vector2.zero;
-        panelRect.sizeDelta = new Vector2(820f, 430f);
+        // 3カード(240×3＋spacing28×2＝776)＋左右余白84＝860 を収めるため横900に（旧820ははみ出し気味）。
+        panelRect.sizeDelta = new Vector2(900f, 430f);
 
         Image panelImage = panelObject.GetComponent<Image>();
-        panelImage.color = new Color(0.01f, 0.04f, 0.08f, 0.94f);
+        // アイテム3択UIと統一：card_panel を9-sliceで背景に。
+        Sprite panelSprite = Resources.Load<Sprite>("UI/Augment/card_panel");
+        if (panelSprite != null) { panelImage.sprite = panelSprite; panelImage.type = Image.Type.Sliced; panelImage.color = new Color(0.10f, 0.16f, 0.26f, 0.98f); }
+        else panelImage.color = new Color(0.04f, 0.07f, 0.12f, 0.97f);
         panelImage.raycastTarget = true;
+
+        // タイトル帯（上部）。
+        GameObject titleBar = new GameObject("TitleBar", typeof(RectTransform), typeof(Image));
+        titleBar.transform.SetParent(panelObject.transform, false);
+        RectTransform tbarRect = titleBar.GetComponent<RectTransform>();
+        tbarRect.anchorMin = new Vector2(0f, 1f); tbarRect.anchorMax = new Vector2(1f, 1f); tbarRect.pivot = new Vector2(0.5f, 1f);
+        tbarRect.sizeDelta = new Vector2(0f, 74f); tbarRect.anchoredPosition = new Vector2(0f, -10f);
+        titleBar.GetComponent<Image>().color = new Color(0.06f, 0.12f, 0.2f, 0.9f);
 
         GameObject titleObject = new GameObject("Title", typeof(RectTransform), typeof(TextMeshProUGUI));
         titleObject.transform.SetParent(panelObject.transform, false);

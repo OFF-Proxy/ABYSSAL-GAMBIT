@@ -25,6 +25,7 @@ namespace SynapticPro
         private static CancellationTokenSource cancellationTokenSource;
         private static bool isConnected = false;
         private static Queue<MCPMessage> messageQueue = new Queue<MCPMessage>();
+        private static readonly object messageQueueLock = new object(); // [Bridge fix] バックグラウンド受信スレッドとメインスレッドの同時アクセス保護。
         private static string serverUrl = null; // Set dynamically
         private static bool isInitialized = false;
         private static bool shouldReconnect = true;
@@ -127,6 +128,7 @@ namespace SynapticPro
         {
             public string type;
             public string id;
+            public string operationId; // [Bridge fix] http-server.js が pendingRequests 解決に使うキー（id と同値を送る）→ -32001対策。
             public string provider;
             public string content;
             public Dictionary<string, object> parameters;
@@ -207,7 +209,8 @@ namespace SynapticPro
             {
                 // Fixed port 8090 for all MCP servers (index.js and hub-server.js)
                 const int mcpPort = 8090;
-                serverUrl = $"ws://localhost:{mcpPort}";
+                // ESC-0168: Win11 26200+ resolves localhost to ::1 only; pin to 127.0.0.1 to keep IPv4 path working
+                serverUrl = $"ws://127.0.0.1:{mcpPort}";
 
                 SynLog.Info($"[Nexus Editor MCP] Using MCP server at {serverUrl}");
 
@@ -231,7 +234,7 @@ namespace SynapticPro
                 // Verify MCP server existence with simple TCP connection test
                 using (var client = new System.Net.Sockets.TcpClient())
                 {
-                    var result = client.BeginConnect("localhost", port, null, null);
+                    var result = client.BeginConnect("127.0.0.1", port, null, null);
                     var success = result.AsyncWaitHandle.WaitOne(TimeSpan.FromMilliseconds(500));
 
                     if (success && client.Connected)
@@ -264,10 +267,15 @@ namespace SynapticPro
             // the v1.2.21 MCP-timeout regression.
             if (_threadSafeBaselineOffset < 0) CalibrateThreadSafeTime();
 
-            // Process messages on main thread
-            while (messageQueue.Count > 0)
+            // Process messages on main thread（[Bridge fix] dequeue はロック内、ProcessMessage はロック外）。
+            while (true)
             {
-                var message = messageQueue.Dequeue();
+                MCPMessage message;
+                lock (messageQueueLock)
+                {
+                    if (messageQueue.Count == 0) break;
+                    message = messageQueue.Dequeue();
+                }
                 ProcessMessage(message);
             }
 
@@ -291,7 +299,7 @@ namespace SynapticPro
                             using (var client = new System.Net.WebClient())
                             {
                                 client.Headers.Add("User-Agent", "Unity-AutoConnect");
-                                var response = client.DownloadString($"http://localhost:{portCapture}/health");
+                                var response = client.DownloadString($"http://127.0.0.1:{portCapture}/health");
                                 if (response.Contains("ok") || response.Contains("Synaptic"))
                                 {
                                     SynLog.Info($"[Nexus MCP] HTTP Server detected on port {portCapture}, auto-connecting...");
@@ -684,8 +692,11 @@ namespace SynapticPro
                             var message = JsonConvert.DeserializeObject<MCPMessage>(messageText);
                             if (message != null)
                             {
-                                // Add to queue for processing on main thread
-                                messageQueue.Enqueue(message);
+                                // Add to queue for processing on main thread（[Bridge fix] ロック保護）。
+                                lock (messageQueueLock)
+                                {
+                                    messageQueue.Enqueue(message);
+                                }
                             }
                         }
                         catch (Exception e)
@@ -739,6 +750,7 @@ namespace SynapticPro
             {
                 case "unity_operation":
                 case "tool_call":
+                case "operation": // ESC-0149: http-server.js sends "operation" — earlier switch dropped it as "Unknown message type"
                     ExecuteUnityOperation(message);
                     break;
                     
@@ -750,7 +762,11 @@ namespace SynapticPro
                     SynLog.Warn($"[Nexus Editor MCP] {message.content}");
                     OnMessageReceived?.Invoke($"❗ {message.content}");
                     break;
-                    
+
+                case "system_command":
+                    HandleSystemCommand(message);
+                    break;
+
                 default:
                     SynLog.Info($"[Nexus Editor MCP] Unknown message type: {message.type}");
                     break;
@@ -928,6 +944,7 @@ namespace SynapticPro
             {
                 type = "operation_result",
                 id = messageId,
+                operationId = messageId, // [Bridge fix] http-server.js は operationId で pendingRequests を解決するため必須（-32001対策）。
                 content = result, // Return original result (JSON string) as is
                 data = new { success = success }
             };
@@ -986,6 +1003,15 @@ namespace SynapticPro
         {
             serverUrl = url;
             SynLog.Info($"[Nexus Editor MCP] Server URL changed to: {url}");
+        }
+
+        // [Bridge fix] messageQueue.Count をロック下でスナップショット取得（診断表示用）。
+        private static int QueuedMessageCount()
+        {
+            lock (messageQueueLock)
+            {
+                return messageQueue.Count;
+            }
         }
 
         public static async void ReconnectToMCPServer()
@@ -1714,7 +1740,9 @@ namespace SynapticPro
         /// Persisted — MCP will auto-connect on future editor sessions.
         /// HTTP server client is independent of this toggle.
         /// </summary>
-        [MenuItem("Tools/Synaptic Pro/MCP Server: Start", false, 10)]
+        // v1.2.24: トップメニューを Diagnostics タブに集約。public は維持して
+        // Setup Window のボタンから呼び出す。MenuItem 復活が必要なら属性 uncomment.
+        // [MenuItem("Tools/Synaptic Pro/MCP Server: Start", false, 10)]
         public static void StartMCP()
         {
             enableMCP = true;
@@ -1733,7 +1761,7 @@ namespace SynapticPro
             }
         }
 
-        [MenuItem("Tools/Synaptic Pro/MCP Server: Start", true)]
+        // [MenuItem("Tools/Synaptic Pro/MCP Server: Start", true)]
         public static bool StartMCPValidate()
         {
             enableMCP = EditorPrefs.GetBool(mcpEnabledKey, true);
@@ -1744,7 +1772,7 @@ namespace SynapticPro
         /// Stop MCP: disconnect and skip all future auto-connect/reconnect attempts.
         /// Persisted across editor sessions. HTTP server client is unaffected.
         /// </summary>
-        [MenuItem("Tools/Synaptic Pro/MCP Server: Stop", false, 10)]
+        // [MenuItem("Tools/Synaptic Pro/MCP Server: Stop", false, 10)]
         public static void StopMCP()
         {
             enableMCP = false;
@@ -1754,7 +1782,7 @@ namespace SynapticPro
             DisconnectFromMCPServer();
         }
 
-        [MenuItem("Tools/Synaptic Pro/MCP Server: Stop", true)]
+        // [MenuItem("Tools/Synaptic Pro/MCP Server: Stop", true)]
         public static bool StopMCPValidate()
         {
             enableMCP = EditorPrefs.GetBool(mcpEnabledKey, true);
@@ -1764,7 +1792,7 @@ namespace SynapticPro
         /// <summary>
         /// MCP Service status for debugging
         /// </summary>
-        [MenuItem("Tools/Synaptic Pro/AI Connection Status", false, 11)]
+        // [MenuItem("Tools/Synaptic Pro/AI Connection Status", false, 11)]
         public static void ShowMCPStatus()
         {
             string connectionStatus = IsConnected ? "✅ Connected" : "❌ Disconnected";
@@ -1777,7 +1805,7 @@ namespace SynapticPro
 Details:
 • Initialized: {(isInitialized ? "✅" : "❌")}
 • Server URL: {serverUrl ?? "Not configured"}
-• Message Queue: {messageQueue.Count} items
+• Message Queue: {QueuedMessageCount()} items
 • WebSocket State: {webSocketState}
 • Reconnect Attempts: {reconnectAttempts}/{maxReconnectAttempts}
 • Auto Reconnect: {(shouldReconnect ? "Enabled" : "Disabled")}
@@ -1802,7 +1830,9 @@ If you have issues, try 'AI Reconnect'.";
         /// <summary>
         /// Manual reconnect for debugging
         /// </summary>
-        [MenuItem("Tools/Synaptic Pro/AI Reconnect", false, 12)]
+        // v1.2.24: Dialog 版は QuickReconnect (No Dialog) と機能重複なのでメニュー外し。
+        // public 維持で Setup Window Diagnostics タブから呼び出し可。
+        // [MenuItem("Tools/Synaptic Pro/AI Reconnect", false, 12)]
         public static void ManualReconnect()
         {
             SynLog.Info("[Nexus Editor MCP] Manual reconnect requested");
@@ -1833,19 +1863,42 @@ If you have issues, try 'AI Reconnect'.";
         }
         
         /// <summary>
-        /// Simple reconnect button (for toolbar)
+        /// Dialog-less reconnect — usable from menu, HTTP /reconnect, and unity_reconnect MCP tool.
         /// </summary>
-        // [MenuItem("Tools/🔗 AI Reconnect", false, 0)]
+        [MenuItem("Tools/Synaptic Pro/AI Reconnect (No Dialog)", false, 11)]
         public static void QuickReconnect()
         {
             SynLog.Info("[Nexus Editor MCP] Quick reconnect requested");
             ReconnectToMCPServer();
         }
+
+        /// <summary>
+        /// Dispatch for system_command messages from the bridge (HTTP /reconnect, unity_reconnect tool, etc.)
+        /// </summary>
+        private static void HandleSystemCommand(MCPMessage message)
+        {
+            string cmd = message.command ?? message.content ?? "";
+            SynLog.Info($"[Nexus Editor MCP] System command: {cmd}");
+
+            switch (cmd)
+            {
+                case "reconnect":
+                case "quick_reconnect":
+                    EditorApplication.delayCall += () => QuickReconnect();
+                    _ = SendOperationResult(message.id, true, "Reconnect scheduled");
+                    break;
+
+                default:
+                    _ = SendOperationResult(message.id, false, $"Unknown system command: {cmd}");
+                    break;
+            }
+        }
         
         /// <summary>
         /// Enable auto-reconnect (shown when currently OFF)
         /// </summary>
-        [MenuItem("Tools/Synaptic Pro/Auto Reconnect: Enable", false, 13)]
+        // v1.2.24: Diagnostics タブのトグルに統合。メニューからは除外。
+        // [MenuItem("Tools/Synaptic Pro/Auto Reconnect: Enable", false, 13)]
         public static void EnableAutoReconnect()
         {
             enableAutoReconnect = true;
@@ -1853,7 +1906,7 @@ If you have issues, try 'AI Reconnect'.";
             SynLog.Info("[Nexus Editor MCP] Auto-reconnect: enabled");
         }
 
-        [MenuItem("Tools/Synaptic Pro/Auto Reconnect: Enable", true)]
+        // [MenuItem("Tools/Synaptic Pro/Auto Reconnect: Enable", true)]
         public static bool EnableAutoReconnectValidate()
         {
             // Load from EditorPrefs to ensure correct state
@@ -1865,7 +1918,7 @@ If you have issues, try 'AI Reconnect'.";
         /// <summary>
         /// Disable auto-reconnect (shown when currently ON)
         /// </summary>
-        [MenuItem("Tools/Synaptic Pro/Auto Reconnect: Disable", false, 13)]
+        // [MenuItem("Tools/Synaptic Pro/Auto Reconnect: Disable", false, 13)]
         public static void DisableAutoReconnect()
         {
             enableAutoReconnect = false;
@@ -1873,7 +1926,7 @@ If you have issues, try 'AI Reconnect'.";
             SynLog.Info("[Nexus Editor MCP] Auto-reconnect: disabled");
         }
 
-        [MenuItem("Tools/Synaptic Pro/Auto Reconnect: Disable", true)]
+        // [MenuItem("Tools/Synaptic Pro/Auto Reconnect: Disable", true)]
         public static bool DisableAutoReconnectValidate()
         {
             // Load from EditorPrefs to ensure correct state
@@ -1889,28 +1942,18 @@ If you have issues, try 'AI Reconnect'.";
         {
             try
             {
-                string configPath;
-
-                // Detect platform-specific Claude Desktop config path
-                if (UnityEngine.Application.platform == UnityEngine.RuntimePlatform.OSXEditor)
+                // 2026-06-27: AssetStore review で「MS Store 版 Claude Desktop の sandbox path
+                // (%LOCALAPPDATA%\Packages\Claude_*\LocalCache\Roaming\Claude\) を見逃して
+                // %APPDATA%\Claude にだけ書き込むので config が反映されない、手動修正が必要」
+                // と指摘あり。NexusSetupWindow 側に既にあった検出ロジックを public static 化して
+                // ここから呼ぶ形に統一。両 call site で MS Store 検出が常に通る。
+                var configDir = NexusMCPSetupWindow.DetectClaudeConfigPath();
+                if (string.IsNullOrEmpty(configDir))
                 {
-                    configPath = System.IO.Path.Combine(
-                        System.Environment.GetFolderPath(System.Environment.SpecialFolder.UserProfile),
-                        "Library", "Application Support", "Claude", "claude_desktop_config.json"
-                    );
-                }
-                else if (UnityEngine.Application.platform == UnityEngine.RuntimePlatform.WindowsEditor)
-                {
-                    configPath = System.IO.Path.Combine(
-                        System.Environment.GetFolderPath(System.Environment.SpecialFolder.ApplicationData),
-                        "Claude", "claude_desktop_config.json"
-                    );
-                }
-                else
-                {
-                    SynLog.Warn("[Nexus Editor MCP] Unsupported platform for Claude Desktop config update");
+                    SynLog.Warn("[Nexus Editor MCP] Claude Desktop config path not detected (unsupported platform or no install found)");
                     return;
                 }
+                string configPath = System.IO.Path.Combine(configDir, "claude_desktop_config.json");
                 
                 if (!System.IO.File.Exists(configPath))
                 {
@@ -1921,16 +1964,22 @@ If you have issues, try 'AI Reconnect'.";
                 string configContent = System.IO.File.ReadAllText(configPath);
                 
                 // Update WebSocket port (supports multiple patterns)
+                // ESC-0168: pin to 127.0.0.1 — Win11 Insider 26200+ resolves localhost to ::1 only and breaks Claude Desktop's IPv4 connect
                 bool updated = false;
-                string newPattern = $"ws://localhost:{newPort}";
-                
-                // Check all known port patterns
+                string newPattern = $"ws://127.0.0.1:{newPort}";
+
+                // Check all known port patterns (both localhost and 127.0.0.1 variants)
                 string[] oldPatterns = {
                     "ws://localhost:8090",
-                    "ws://localhost:8081", 
+                    "ws://localhost:8081",
                     "ws://localhost:8082",
                     "ws://localhost:8083",
-                    "ws://localhost:8084"
+                    "ws://localhost:8084",
+                    "ws://127.0.0.1:8090",
+                    "ws://127.0.0.1:8081",
+                    "ws://127.0.0.1:8082",
+                    "ws://127.0.0.1:8083",
+                    "ws://127.0.0.1:8084"
                 };
                 
                 foreach (string oldPattern in oldPatterns)

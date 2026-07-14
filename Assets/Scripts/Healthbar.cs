@@ -30,6 +30,9 @@ public class HealthBar : MonoBehaviour
     // バー全体のワールド上の大きさと、ユニット上部からの距離です。
     public Vector3 worldScale = new Vector3(0.2f, 0.4f, 1f);
     public float verticalPadding = 0.04f;
+    // 体力バーをユニットのアンカー(セル位置)から固定の高さに置くオフセット。スプライト上端に追従させると
+    // ユニット毎のスプライト高さ/スケール差でバー高さがバラつき、縦に並んだ時に重なるため固定にする。
+    public float barFixedRise = 0.7f;
 
     // フレーム画像が無い場合に使う予備スケールや、ゲージの高さ設定です。
     public Vector3 frameScale = new Vector3(1.32f, 2.35f, 1f);
@@ -281,15 +284,17 @@ public class HealthBar : MonoBehaviour
         if(target == null)
             return;
 
-        // 対象ユニットの上部にバーを追従させます。
+        // 体力バーは全ユニットでアンカー(セル位置)から一定の高さに固定する。
+        // スプライト上端(bounds.max.y)に追従させると、ユニット毎のスプライト高さ/スケール差で
+        // バーの高さがバラつき、縦に並んだ時に重なって非常に見づらいため。
         Vector3 position = target.position + offset;
         if (targetRenderer != null && targetRenderer.sprite != null)
-        {
-            Bounds bounds = targetRenderer.bounds;
-            position.x = bounds.center.x + offset.x;
-            position.y = bounds.max.y + verticalPadding + offset.y;
-            position.z = target.position.z + offset.z;
-        }
+            position.x = targetRenderer.bounds.center.x + offset.x; // 横は見た目の中心に合わせる（縦重なりには無関係）。
+        float scaleY = Mathf.Max(0.1f, target.lossyScale.y);
+        // 通常サイズ（〜約1.25倍）はすべて同じ固定高さ。大型ボス/★3だけスケール連動で頭上に上げる。
+        float rise = barFixedRise * Mathf.Max(1f, scaleY - 0.25f);
+        position.y = target.position.y + rise + verticalPadding + offset.y;
+        position.z = target.position.z + offset.z;
 
         transform.position = position;
         UpdateSortingOrder();
@@ -641,7 +646,14 @@ public class HealthBar : MonoBehaviour
     private void UpdateSortingOrder()
     {
         if (target != null)
+        {
             sortingBaseOrder = BaseEntity.CalculateSortingOrder(target.position, 70);
+            // 横並びでバー同士が重なった時、1本のバーの内部パーツ(フィル+2〜区切り+5〜フレーム+8〜アイコン+10)は
+            // 最大+10程度の描画帯を占める。CalculateSortingOrder の横重み(列あたり+3)はこれより狭いため、
+            // 隣の列のバーと帯が混ざり、フレームが隣バーのフィルにめり込んで見える。
+            // 列ごとにバー1本分より十分広い間隔を与え、各バーを独立した帯に分離する（右の列が前面）。
+            sortingBaseOrder += Mathf.RoundToInt(target.position.x * 20f);
+        }
 
         ConfigureRendererSorting(fillMaskRenderer, 0);
         ConfigureRendererSorting(shieldMaskRenderer, 0);
@@ -1079,5 +1091,20 @@ public class EquippedItemIconClickTarget : MonoBehaviour
             return;
 
         ItemTooltipUI.Show(itemData, Input.mousePosition);
+    }
+
+    // ② 装備アイテムもホバーするだけで説明を表示する（クリック不要）。
+    private void OnMouseEnter()
+    {
+        if (itemData == null)
+            return;
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return;
+        ItemTooltipUI.Show(itemData, Input.mousePosition);
+    }
+
+    private void OnMouseExit()
+    {
+        ItemTooltipUI.Hide();
     }
 }

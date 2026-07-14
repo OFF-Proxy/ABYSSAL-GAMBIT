@@ -47,10 +47,15 @@ public class UnitStatusPanelUI : MonoBehaviour
     private Vector2 lastPanelSize;
 
     private const float PanelWidth = 286f;
-    private const float MaxPanelHeight = 650f;
-    private const float PanelVisualScale = 1.2f;
+    private const float MaxPanelHeight = 660f;
+    private const float ContentHeight = 660f; // 全コンテンツ（アイテム枠まで）が収まる固定高。
+    private const float PanelVisualScale = 1.1f;
     private const float PanelMargin = 10f;
-    private const float BottomUiReserve = 124f;
+    private const float BottomUiReserve = 150f; // 右下の FIGHT ボタン＋ショップを避ける下側余白。
+    private const float TopReserve = 60f;        // 右上のオプションボタンを避ける上側余白（陣形ガイドは左上へ移動済み）。
+
+    // 図鑑/HUD調整用：詳細パネルが現在開いているか。
+    public static bool IsOpen => instance != null && instance.gameObject.activeSelf;
     private const float BarFullWidth = 252f;
     private const float BarHeight = 18f;
     private static readonly Vector2 PortraitViewportSize = new Vector2(244f, 110f);
@@ -157,7 +162,10 @@ public class UnitStatusPanelUI : MonoBehaviour
     {
         canvas = gameObject.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 50020;
+        // 注意: Unity の Canvas.sortingOrder は 16bit short（[-32768,32767]）。
+        // 50020 などを入れると桁あふれして負値に化け、ロビーの背景キャンバスの後ろに回り込み非表示になる。
+        // 詳細パネルは図鑑（ロビーUI=25050）やゲーム中HUDより前面に出す必要があるため、short上限近傍の最前面値にする。
+        canvas.sortingOrder = 32000;
 
         CanvasScaler scaler = gameObject.AddComponent<CanvasScaler>();
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
@@ -173,7 +181,10 @@ public class UnitStatusPanelUI : MonoBehaviour
         panelRect.localScale = Vector3.one * PanelVisualScale;
 
         Image panelBackground = panelObject.GetComponent<Image>();
-        panelBackground.color = new Color(0.012f, 0.018f, 0.028f, 0.94f);
+        // Duelyst流の暗半透明角丸で他ドックと色調統一（濃紺）。
+        panelBackground.sprite = Resources.GetBuiltinResource<Sprite>("UI/Skin/UISprite.psd");
+        panelBackground.type = Image.Type.Sliced;
+        panelBackground.color = new Color(0.02f, 0.015f, 0.16f, 0.9f);
         panelBackground.raycastTarget = false;
         panelCanvasGroup = panelObject.AddComponent<CanvasGroup>();
 
@@ -228,40 +239,37 @@ public class UnitStatusPanelUI : MonoBehaviour
             return;
 
         panelTween?.Kill(false);
-        Vector3 targetScale = Vector3.one * PanelVisualScale;
-        panelCanvasGroup.alpha = 0f;
-        panelRect.localScale = targetScale * 0.94f;
+        // スケールは RefreshLayout が毎フレーム決めるので、ここでは触らない（競合防止）。
+        // 表示の担保として alpha を 1 にし、軽いフェードインのみ行う。
+        panelCanvasGroup.alpha = 1f;
 
         panelTween = DOTween.Sequence()
             .SetTarget(this)
             .SetUpdate(true)
-            .Append(panelCanvasGroup.DOFade(1f, 0.14f).SetEase(Ease.OutQuad))
-            .Join(panelRect.DOScale(targetScale, 0.20f).SetEase(Ease.OutBack));
+            .Append(panelCanvasGroup.DOFade(1f, 0.12f))
+            .OnKill(() => { if (panelCanvasGroup != null) panelCanvasGroup.alpha = 1f; });
     }
 
-    // 画面サイズに合わせて、パネルを右端中央に固定し直します。
+    // パネルは全コンテンツ（アイテム枠まで）が必ず収まる固定高で組み、
+    // 上のオプション/陣形バー・下のFIGHT/ショップを避けた利用可能高に合わせて全体を縮小表示する。
     private void RefreshLayout()
     {
         if (panelRect == null)
             return;
 
-        // 画面下のショップ/FIGHTボタンに被らないよう、下側に固定の余白を残します。
-        float usableHeight = Screen.height - PanelMargin * 2f - BottomUiReserve;
-        float targetHeight = Mathf.Clamp(usableHeight, 520f, MaxPanelHeight);
-        Vector2 panelSize = new Vector2(PanelWidth, targetHeight);
-        if (panelSize == lastPanelSize)
-            return;
+        float availableVisual = Screen.height - PanelMargin * 2f - TopReserve - BottomUiReserve;
+        float scale = Mathf.Clamp(availableVisual / ContentHeight, 0.6f, 1.0f);
 
-        lastPanelSize = panelSize;
-        panelRect.localScale = Vector3.one * PanelVisualScale;
-        panelRect.sizeDelta = panelSize;
-        panelRect.anchoredPosition = new Vector2(-PanelMargin, -PanelMargin);
+        panelRect.localScale = Vector3.one * scale;
+        panelRect.sizeDelta = new Vector2(PanelWidth, ContentHeight);
+        // 右上のオプション＋陣形ガイドのバーを隠さないよう、上端を TopReserve 分だけ下げる。
+        panelRect.anchoredPosition = new Vector2(-PanelMargin, -(PanelMargin + TopReserve));
 
         if (teamStripeImage != null)
-            teamStripeImage.rectTransform.sizeDelta = new Vector2(5f, targetHeight);
+            teamStripeImage.rectTransform.sizeDelta = new Vector2(5f, ContentHeight);
 
         if (innerLineImage != null)
-            innerLineImage.rectTransform.sizeDelta = new Vector2(PanelWidth - 14f, targetHeight - 14f);
+            innerLineImage.rectTransform.sizeDelta = new Vector2(PanelWidth - 14f, ContentHeight - 14f);
     }
 
     // 選択中ユニットから、現在値をすべて読み取ってUIへ反映します。
@@ -571,6 +579,22 @@ public class UnitStatusPanelUI : MonoBehaviour
     }
 
     // ユニット専用スキルがある場合は、その名前を優先して返します。
+    // R1-collection: 図鑑など外部からスキル名/説明文を取得するための公開ラッパー。
+    // 既存の生成ロジック（GetSkillName / BuildSkillText）をそのまま再利用する。
+    public static string GetSkillTitleFor(BaseEntity entity)
+    {
+        if (entity == null) return string.Empty;
+        EnsureInstance();
+        return instance.GetSkillName(entity);
+    }
+
+    public static string GetSkillBodyFor(BaseEntity entity)
+    {
+        if (entity == null) return string.Empty;
+        EnsureInstance();
+        return instance.BuildSkillText(entity);
+    }
+
     private string GetSkillName(BaseEntity entity)
     {
         string id = GetNormalizedUnitId(entity);
@@ -634,6 +658,91 @@ public class UnitStatusPanelUI : MonoBehaviour
                 return japanese ? "終末の咆哮" : "Doomsday Roar";
             case "skyfalltyrant":
                 return japanese ? "竜熱暴走" : "Dragonheat Rampage";
+            // DESIGN_skill_overhaul.md: 17体の固有スキル名（既存28体と被りなし）
+            case "andromeda":
+                return japanese ? "星屑の斉射" : "Stardust Barrage";
+            case "antiswarm":
+                return japanese ? "群れ招来" : "Swarm Call";
+            case "borealjuggernaut":
+                return japanese ? "凍て付く守勢" : "Frostguard Bastion";
+            case "chaosknight":
+                return japanese ? "混沌の刻印" : "Chaos Brand";
+            case "christmas":
+                return japanese ? "祝祭の鼓舞" : "Festive Rally";
+            case "vampire":
+                return japanese ? "吸魂弾" : "Soulpiercer";
+            case "valiant":
+                return japanese ? "聖盾強襲" : "Aegis Smite";
+            case "candypanda":
+                return japanese ? "甘味の供物" : "Sugar Feast";
+            case "city":
+                return japanese ? "補給ドローン" : "Supply Drone";
+            case "crystal":
+                return japanese ? "氷晶障壁" : "Crystal Ward";
+            case "cindera":
+                return japanese ? "業火の照準" : "Ember Sight";
+            case "decepticle":
+                return japanese ? "変形突撃" : "Assault Mode";
+            case "umbra":
+                return japanese ? "影喰らい" : "Umbral Devour";
+            case "spelleater":
+                return japanese ? "呪詛吸収" : "Spell Eater";
+            case "serpenti":
+                return japanese ? "毒牙連撃" : "Venom Frenzy";
+            case "decepticlechassis":
+                return japanese ? "装甲再構築" : "Armor Reassembly";
+            case "wolfpunch":
+                return japanese ? "獣王の一撃" : "Alpha Strike";
+            case "arcana":
+                return japanese ? "終焉の書" : "Tome of Finality";
+            // skill-fill: 章ボス＋勧誘可能ユニットの固有スキル名（DESIGN_skill-fill.md）
+            case "caliber":
+                return japanese ? "終幕の薙ぎ" : "Endfall Sweep";
+            case "neutral_rook":
+                return japanese ? "停滞の城門" : "Stasis Gate";
+            case "neutral_sister":
+                return japanese ? "鎮魂の哀歌" : "Requiem Dirge";
+            case "neutral_beastmaster":
+                return japanese ? "群獣の咆哮" : "Beast Roar";
+            case "neutral_gnasher":
+                return japanese ? "顎砕き" : "Gnash";
+            case "neutral_rawr":
+                return japanese ? "威圧の咆哮" : "Intimidate";
+            case "neutral_rok":
+                return japanese ? "岩石投擲" : "Boulder Toss";
+            case "neutral_zukong":
+                return japanese ? "如意千変" : "Staff Flurry";
+            case "lanternfox":
+                return japanese ? "灯火の導" : "Lantern Guide";
+            case "onyxjaguar":
+                return japanese ? "影駆け" : "Onyx Pounce";
+            case "keshraifanblade":
+                return japanese ? "扇刃乱舞" : "Fan Blade Dance";
+            case "firewyrm":
+                return japanese ? "業火のブレス" : "Fire Breath";
+            case "magmarvaath": return japanese ? "溶岩噴出" : "Magma Eruption";
+            case "magmarstarhorn": return japanese ? "星角突撃" : "Starhorn Charge";
+            case "magmarragnora": return japanese ? "灼熱再生" : "Searing Regen";
+            case "abyssallilithe": return japanese ? "吸命の抱擁" : "Lifebloom Drain";
+            case "abyssalcassyva": return japanese ? "影の群葬" : "Shadow Swarm";
+            case "abyssalmaehv": return japanese ? "深淵の連弧" : "Abyss Arc";
+            case "vetruvianzirix": return japanese ? "砂塵の刃嵐" : "Sandblade Storm";
+            case "vetruviansajj": return japanese ? "太陽の聖印" : "Solar Sigil";
+            case "vetruvianscion": return japanese ? "風蝕の貫き" : "Erosion Pierce";
+            case "neutral_mechaz0rwing": return japanese ? "滑空斉射" : "Strike Glide";
+            case "neutral_mechaz0rsword": return japanese ? "斬鉄連撃" : "Steel Flurry";
+            case "neutral_mechaz0rsuper": return japanese ? "オーバードライブ" : "Overdrive";
+            case "neutral_mechaz0rhelm": return japanese ? "守護フィールド" : "Aegis Field";
+            case "neutral_mechaz0rchassis": return japanese ? "重装砲列" : "Bulwark Cannons";
+            case "neutral_mechaz0rcannon": return japanese ? "全弾斉射" : "Full Salvo";
+            case "neutral_hydrax": return japanese ? "奔流の顎" : "Torrent Maw";
+            // ヒーロー専用3体（DESIGN_R3-hero-units）
+            case "heroaldin":
+                return japanese ? "聖壁" : "Sacred Wall";
+            case "herokagachi":
+                return japanese ? "残影斬" : "Afterimage Slash";
+            case "herovesna":
+                return japanese ? "蒼炎槍" : "Azure Flame Lance";
             default:
                 return GetSkillName(entity != null ? entity.skillType : UnitSkillType.PowerStrike);
         }
@@ -657,7 +766,58 @@ public class UnitStatusPanelUI : MonoBehaviour
         if (string.IsNullOrEmpty(baseText))
             baseText = BuildGenericSkillText(entity, LocalizationManager.IsJapanese);
 
-        return AppendExtraSkillText(entity, baseText);
+        string text = AppendExtraSkillText(entity, baseText);
+        text += BuildBossSignatureProgressText(entity, LocalizationManager.IsJapanese); // boss-skill-progression: 育成段階の表示。
+        return text;
+    }
+
+    // boss-skill-progression: 解放ボスの育成段階（シグネチャ/最大強化）を表示。未開放は薄く[未開放]、解放済みは濃く。
+    private string BuildBossSignatureProgressText(BaseEntity entity, bool ja)
+    {
+        if (entity == null) return string.Empty;
+        string id = GetNormalizedUnitId(entity);
+        string sig, mx;
+        switch (id)
+        {
+            case "caliber": sig = ja ? "敵をノックバック＋味方に守護シールド" : "Knock enemies back and shield allies"; mx = ja ? "ノックバック距離が大幅増" : "Greatly increased knockback"; break;
+            case "neutral_rook": sig = ja ? "敵を自分へ一斉に引き寄せ＋スロウ" : "Pull all enemies in and slow them"; mx = ja ? "引き寄せた敵を根固め（スタン）" : "Roots (stuns) the pulled enemies"; break;
+            case "neutral_sister": sig = ja ? "全敵を弱体化＋最も弱った味方を治癒" : "Weaken all enemies and heal the lowest ally"; mx = ja ? "治癒量が大幅増" : "Greatly increased healing"; break;
+            case "neutral_hydrax": sig = ja ? "敵をノックバック＋全体スロウ" : "Knockback and slow all enemies"; mx = ja ? "ノックバック距離増" : "Increased knockback"; break;
+            case "magmarvaath": sig = ja ? "敵を噴出点へ引き寄せ" : "Pull enemies into the eruption"; mx = ja ? "引き寄せ距離増" : "Increased pull range"; break;
+            case "magmarstarhorn": sig = ja ? "対象を大ノックバック＋スタン" : "Big knockback and stun on the target"; mx = ja ? "ノックバック距離・スタン増" : "Stronger knockback and stun"; break;
+            case "magmarragnora": sig = ja ? "周囲の味方を堅守化（被ダメ減＋シールド）" : "Fortify nearby allies (DR + shield)"; mx = ja ? "効果範囲が拡大" : "Larger effect radius"; break;
+            case "abyssallilithe": sig = ja ? "全敵からAoE吸命で自己回復" : "Drain all enemies, healing self"; mx = ja ? "吸命量が大幅増" : "Greatly increased drain"; break;
+            case "abyssalcassyva": sig = ja ? "全敵を気絶（スタン）" : "Stun all enemies"; mx = ja ? "気絶時間が増加" : "Longer stun"; break;
+            case "abyssalmaehv": sig = ja ? "全敵を引き寄せ＋スロウ" : "Pull and slow all enemies"; mx = ja ? "引き寄せ距離増" : "Increased pull range"; break;
+            case "vetruvianzirix": sig = ja ? "周囲の敵をノックバック" : "Knock nearby enemies back"; mx = ja ? "ノックバック距離増" : "Increased knockback"; break;
+            case "vetruviansajj": sig = ja ? "全味方に太陽の加護（攻撃強化）" : "Empower all allies (attack)"; mx = ja ? "効果範囲が拡大" : "Larger effect radius"; break;
+            case "vetruvianscion": sig = ja ? "対象を拘束（スタン）" : "Bind the target (stun)"; mx = ja ? "スタン時間増" : "Longer stun"; break;
+            case "neutral_mechaz0rwing": sig = ja ? "全味方を攻撃強化" : "Empower all allies (attack)"; mx = ja ? "効果範囲が拡大" : "Larger effect radius"; break;
+            case "neutral_mechaz0rsword": sig = ja ? "対象をスタン" : "Stun the target"; mx = ja ? "スタン時間増" : "Longer stun"; break;
+            case "neutral_mechaz0rsuper": sig = ja ? "全味方を攻撃強化" : "Empower all allies (attack)"; mx = ja ? "効果範囲が拡大" : "Larger effect radius"; break;
+            case "neutral_mechaz0rhelm": sig = ja ? "敵を押し出して後衛を守る" : "Push enemies to protect the backline"; mx = ja ? "押し出し距離増" : "Increased pushback"; break;
+            case "neutral_mechaz0rchassis": sig = ja ? "敵を押し出し" : "Push enemies back"; mx = ja ? "押し出し距離増" : "Increased pushback"; break;
+            case "neutral_mechaz0rcannon": sig = ja ? "着弾圏の敵を気絶" : "Stun enemies in the blast"; mx = ja ? "気絶時間増" : "Longer stun"; break;
+            case "arcana": sig = ja ? "全味方を秘力強化" : "Empower all allies (arcane)"; mx = ja ? "効果範囲が拡大" : "Larger effect radius"; break;
+            default: return string.Empty; // 解放ボス以外は表示しない。
+        }
+        int lvl = AutoChessBossRush.Save.SaveManager.Instance != null
+            ? AutoChessBossRush.Save.SaveManager.Instance.GetBossAffinityLevel(entity.UnitId) : 0;
+        string bright = "#cfe8ff", dim = "#7a818c";
+        string Line(string body, bool unlocked, string lockLabel)
+            => unlocked
+                ? $"\n<color={bright}>◆ {body}</color>"
+                : $"\n<color={dim}>◆ [{(ja ? "未開放" : "Locked")} {lockLabel}] {body}</color>";
+        string head = ja
+            ? $"\n\n<b>育成スキル</b>（章再クリアでLv↑｜現在 Lv{Mathf.Max(0, lvl)}）"
+            : $"\n\n<b>Affinity skill</b> (re-clear chapters to level up | Lv{Mathf.Max(0, lvl)})";
+        string scale = ja
+            ? $"\n<color={dim}>※ Lvが上がるほどスキル威力も上昇</color>"
+            : $"\n<color={dim}>* Skill power also rises each level</color>";
+        return head
+            + Line(sig, lvl >= 1, "Lv1")          // シグネチャ：所持(Lv1)で解放。
+            + Line(mx, lvl >= 8, "Lv8")           // 最大強化：Lv8で解放。
+            + scale;
     }
 
     // skillType と現在ステータスから、汎用スキル文（実数値入り）を生成します。
@@ -754,9 +914,270 @@ public class UnitStatusPanelUI : MonoBehaviour
             case "legion": return BuildLegionSkillText(entity, japanese);
             case "plaguegeneral": return BuildPlaguegeneralSkillText(entity, japanese);
             case "skyfalltyrant": return BuildSkyfalltyrantSkillText(entity, japanese);
+            case "grymbeast": return BuildGrymbeastSkillText(entity, japanese);
+            case "cinderwraith": return BuildCinderwraithSkillText(entity, japanese);
+            case "draugarlord": return BuildDraugarlordSkillText(entity, japanese);
+            case "kingsguard": return BuildKingsguardSkillText(entity, japanese);
+            case "dissonance": return BuildDissonanceSkillText(entity, japanese);
+            // DESIGN_skill_overhaul.md: 17体の固有スキル説明
+            case "andromeda": return BuildAndromedaSkillText(entity, japanese);
+            case "antiswarm": return BuildAntiswarmSkillText(entity, japanese);
+            case "borealjuggernaut": return BuildBorealjuggernautSkillText(entity, japanese);
+            case "chaosknight": return BuildChaosknightSkillText(entity, japanese);
+            case "christmas": return BuildChristmasSkillText(entity, japanese);
+            case "vampire": return BuildVampireSkillText(entity, japanese);
+            case "valiant": return BuildValiantSkillText(entity, japanese);
+            case "candypanda": return BuildCandypandaSkillText(entity, japanese);
+            case "city": return BuildCitySkillText(entity, japanese);
+            case "crystal": return BuildCrystalSkillText(entity, japanese);
+            case "cindera": return BuildCinderaSkillText(entity, japanese);
+            case "decepticle": return BuildDecepticleSkillText(entity, japanese);
+            case "umbra": return BuildUmbraSkillText(entity, japanese);
+            case "spelleater": return BuildSpelleaterSkillText(entity, japanese);
+            case "serpenti": return BuildSerpentiSkillText(entity, japanese);
+            case "decepticlechassis": return BuildDecepticlechassisSkillText(entity, japanese);
+            case "wolfpunch": return BuildWolfpunchSkillText(entity, japanese);
+            case "arcana": return BuildArcanaSkillText(entity, japanese);
+            // skill-fill: 章ボスの固有スキル説明（DESIGN_skill-fill.md）
+            case "caliber": return BuildCaliberSkillText(entity, japanese);
+            case "neutral_rook": return BuildRookSkillText(entity, japanese);
+            case "neutral_sister": return BuildSisterSkillText(entity, japanese);
+            case "neutral_beastmaster": return BuildBeastmasterSkillText(entity, japanese);
+            case "neutral_gnasher": return BuildGnasherSkillText(entity, japanese);
+            case "neutral_rawr": return BuildRawrSkillText(entity, japanese);
+            case "neutral_rok": return BuildRokSkillText(entity, japanese);
+            case "neutral_zukong": return BuildZukongSkillText(entity, japanese);
+            case "lanternfox": return BuildLanternfoxSkillText(entity, japanese);
+            case "onyxjaguar": return BuildOnyxjaguarSkillText(entity, japanese);
+            case "keshraifanblade": return BuildKeshraiSkillText(entity, japanese);
+            case "firewyrm": return BuildFirewyrmSkillText(entity, japanese);
+            case "magmarvaath": return BuildMagmarvaathSkillText(entity, japanese);
+            case "magmarstarhorn": return BuildMagmarstarhornSkillText(entity, japanese);
+            case "magmarragnora": return BuildMagmarragnoraSkillText(entity, japanese);
+            case "abyssallilithe": return BuildAbyssallilitheSkillText(entity, japanese);
+            case "abyssalcassyva": return BuildAbyssalcassyvaSkillText(entity, japanese);
+            case "abyssalmaehv": return BuildAbyssalmaehvSkillText(entity, japanese);
+            case "vetruvianzirix": return BuildVetruvianzirixSkillText(entity, japanese);
+            case "vetruviansajj": return BuildVetruviansajjSkillText(entity, japanese);
+            case "vetruvianscion": return BuildVetruvianscionSkillText(entity, japanese);
+            case "neutral_mechaz0rwing": return BuildMechaWingSkillText(entity, japanese);
+            case "neutral_mechaz0rsword": return BuildMechaSwordSkillText(entity, japanese);
+            case "neutral_mechaz0rsuper": return BuildMechaSuperSkillText(entity, japanese);
+            case "neutral_mechaz0rhelm": return BuildMechaHelmSkillText(entity, japanese);
+            case "neutral_mechaz0rchassis": return BuildMechaChassisSkillText(entity, japanese);
+            case "neutral_mechaz0rcannon": return BuildMechaCannonSkillText(entity, japanese);
+            case "neutral_hydrax": return BuildHydraxSkillText(entity, japanese);
+            // ヒーロー専用3体（DESIGN_R3-hero-units）
+            case "heroaldin": return BuildAldinSkillText(entity, japanese);
+            case "herokagachi": return BuildKagachiSkillText(entity, japanese);
+            case "herovesna": return BuildVesnaSkillText(entity, japanese);
             default: return string.Empty;
         }
     }
+
+    // 出典: BaseEntity.ExecuteAldinSacredWall
+    private string BuildAldinSkillText(BaseEntity entity, bool japanese)
+    {
+        int shield = GetShieldAmount(entity);
+        int shield2 = Mathf.Max(1, Mathf.RoundToInt(shield * 0.6f));
+        int heal = Mathf.Max(0, Mathf.RoundToInt(GetAllyHealAmount(entity) * 0.6f));
+        int heal2 = Mathf.Max(0, Mathf.RoundToInt(heal * 0.5f));
+        string dr = FormatPercent(0.08f * GetSkillEffectMultiplier(entity, false));
+        float duration = GetSkillDuration(entity, 4.0f, true);
+        float radius = Mathf.Max(1.7f, entity.skillAreaRadius);
+        return japanese
+            ? $"自分中心・半径{radius:0.#}マスの味方へシールド（自身{shield}／味方{shield2}）と回復（自身{heal}／味方{heal2}）を配り、{duration:0.#}秒間 被ダメージ軽減+{dr}。"
+            : $"Shields and heals allies within {radius:0.#} cells (shield self {shield}/allies {shield2}, heal self {heal}/allies {heal2}) and grants +{dr} damage reduction for {duration:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteKagachiAfterimageSlash
+    private string BuildKagachiSkillText(BaseEntity entity, bool japanese)
+    {
+        int hit = Mathf.Max(1, Mathf.RoundToInt(GetPowerStrikeDamage(entity) * 0.62f));
+        int hits = entity.StarLevel >= 3 ? 3 : 2;
+        int total = hit * hits;
+        string haste = FormatPercent(0.30f * GetSkillEffectMultiplier(entity, false));
+        float hasteDuration = GetSkillDuration(entity, 3f, true);
+        return japanese
+            ? $"最も遠い敵へ瞬時に踏み込み、{hit}×{hits}連斬（計{total}）の攻撃ダメージ。発動後しばらく狙われにくく、{hasteDuration:0.#}秒間 自身の攻撃速度+{haste}。"
+            : $"Blinks to the farthest enemy and slashes {hits}x for {hit} each ({total} total) attack damage. Becomes briefly untargetable and gains +{haste} attack speed for {hasteDuration:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteVesnaAzureLance
+    private string BuildVesnaSkillText(BaseEntity entity, bool japanese)
+    {
+        int area = GetAreaDamage(entity);
+        int splash = Mathf.Max(1, Mathf.RoundToInt(area * 0.6f));
+        int burn = Mathf.Max(1, Mathf.RoundToInt(area * 0.20f));
+        float burnDuration = GetSkillDuration(entity, 3f, true);
+        float radius = Mathf.Max(1.7f, entity.skillAreaRadius);
+        return japanese
+            ? $"遠距離から青い炎の槍を放ち、対象に{area}・周囲半径{radius:0.#}マスの敵に{splash}の秘力ダメージ。命中した敵に燃焼{burn}（{burnDuration:0.#}秒）。"
+            : $"Hurls an azure flame lance, dealing {area} to the target and {splash} focus damage within {radius:0.#} cells, plus {burn} burn over {burnDuration:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteCaliberEndfallSweep
+    private string BuildCaliberSkillText(BaseEntity entity, bool japanese)
+    {
+        int dmg = Mathf.Max(1, Mathf.RoundToInt(GetAreaDamage(entity) * 1.35f));
+        int shield = Mathf.Max(1, Mathf.RoundToInt(GetShieldAmount(entity) * 0.6f));
+        float slow = entity.StarLevel >= 3 ? 0.45f : entity.StarLevel >= 2 ? 0.38f : 0.30f;
+        float dur = GetSkillDuration(entity, 3.2f, true);
+        return japanese
+            ? $"自分中心・半径2マスの敵へ{dmg}の攻撃ダメージ。命中した敵を{dur:0.#}秒間 攻撃速度-{FormatPercent(slow)}。発動時に自身へシールド{shield}。"
+            : $"Deals {dmg} to enemies within 2 cells and slows their attack speed by {FormatPercent(slow)} for {dur:0.#}s. Gains a {shield} shield on cast.";
+    }
+
+    // 出典: BaseEntity.ExecuteRookStasisGate
+    private string BuildRookSkillText(BaseEntity entity, bool japanese)
+    {
+        int shield = Mathf.Max(1, Mathf.RoundToInt(GetShieldAmount(entity) * 1.15f));
+        float slow = entity.StarLevel >= 3 ? 0.55f : entity.StarLevel >= 2 ? 0.48f : 0.40f;
+        float dur = GetSkillDuration(entity, 3.6f, true);
+        return japanese
+            ? $"自身へ特大シールド{shield}を展開し、半径2.3マスの敵を{dur:0.#}秒間 攻撃速度-{FormatPercent(slow)}に停滞させる。"
+            : $"Raises a {shield} shield and slows enemies within 2.3 cells by {FormatPercent(slow)} for {dur:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteSisterRequiemDirge
+    private string BuildSisterSkillText(BaseEntity entity, bool japanese)
+    {
+        int dmg = Mathf.Max(1, Mathf.RoundToInt(GetAreaDamage(entity) * 0.95f));
+        float vuln = entity.StarLevel >= 3 ? 0.24f : entity.StarLevel >= 2 ? 0.20f : 0.16f;
+        float dur = GetSkillDuration(entity, 3.6f, true);
+        return japanese
+            ? $"敵全体へ{dmg}の鎮魂ダメージを放ち、{dur:0.#}秒間 被ダメージ+{FormatPercent(vuln)}（防御減）にする。"
+            : $"Strikes all enemies for {dmg} and makes them take +{FormatPercent(vuln)} damage for {dur:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteBeastmasterBeastRoar
+    private string BuildBeastmasterSkillText(BaseEntity entity, bool japanese)
+    {
+        float haste = entity.StarLevel >= 3 ? 0.35f : entity.StarLevel >= 2 ? 0.28f : 0.22f;
+        float selfDmg = entity.StarLevel >= 3 ? 0.30f : entity.StarLevel >= 2 ? 0.25f : 0.20f;
+        float dur = GetSkillDuration(entity, 4f, true);
+        return japanese
+            ? $"味方全体の攻撃速度+{FormatPercent(haste)}、自身の与ダメージ+{FormatPercent(selfDmg)}を{dur:0.#}秒。"
+            : $"Allies gain +{FormatPercent(haste)} attack speed and self +{FormatPercent(selfDmg)} damage for {dur:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteGnasherGnash
+    private string BuildGnasherSkillText(BaseEntity entity, bool japanese)
+    {
+        int dmg = Mathf.Max(1, Mathf.RoundToInt(GetPowerStrikeDamage(entity) * 1.5f));
+        float vuln = entity.StarLevel >= 3 ? 0.26f : entity.StarLevel >= 2 ? 0.22f : 0.18f;
+        float dur = GetSkillDuration(entity, 3.5f, true);
+        return japanese
+            ? $"対象に{dmg}の攻撃ダメージ＋{dur:0.#}秒間 被ダメージ+{FormatPercent(vuln)}。"
+            : $"Deals {dmg} to the target and +{FormatPercent(vuln)} damage taken for {dur:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteRawrIntimidate
+    private string BuildRawrSkillText(BaseEntity entity, bool japanese)
+    {
+        float slow = entity.StarLevel >= 3 ? 0.4f : entity.StarLevel >= 2 ? 0.34f : 0.28f;
+        float weaken = entity.StarLevel >= 3 ? 0.28f : entity.StarLevel >= 2 ? 0.23f : 0.18f;
+        float dur = GetSkillDuration(entity, 3.2f, true);
+        return japanese
+            ? $"敵全体を{dur:0.#}秒間 攻撃速度-{FormatPercent(slow)}・与ダメージ-{FormatPercent(weaken)}に弱体化。"
+            : $"Weakens all enemies for {dur:0.#}s: -{FormatPercent(slow)} attack speed, -{FormatPercent(weaken)} damage dealt.";
+    }
+
+    // 出典: BaseEntity.ExecuteRokBoulderToss
+    private string BuildRokSkillText(BaseEntity entity, bool japanese)
+    {
+        int dmg = Mathf.Max(1, Mathf.RoundToInt(GetAreaDamage(entity) * 1.2f));
+        float stun = entity.StarLevel >= 3 ? 1.0f : entity.StarLevel >= 2 ? 0.8f : 0.6f;
+        return japanese
+            ? $"対象地点・半径1.6マスへ{dmg}の攻撃ダメージ＋{stun:0.#}秒スタン。"
+            : $"Deals {dmg} in a 1.6-cell radius at the target and stuns for {stun:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteZukongStaffFlurry
+    private string BuildZukongSkillText(BaseEntity entity, bool japanese)
+    {
+        int hits = entity.StarLevel >= 3 ? 3 : 2;
+        int per = Mathf.Max(1, Mathf.RoundToInt(GetAreaDamage(entity) * 0.55f));
+        int shield = Mathf.Max(1, Mathf.RoundToInt(GetShieldAmount(entity) * 0.4f));
+        return japanese
+            ? $"自分周囲・半径1.8マスの敵へ{per}×{hits}（計{per * hits}）の攻撃ダメージ＋自身にシールド{shield}。"
+            : $"Hits enemies within 1.8 cells for {per}x{hits} ({per * hits}) and gains a {shield} shield.";
+    }
+
+    // 出典: BaseEntity.ExecuteLanternfoxLanternGuide
+    private string BuildLanternfoxSkillText(BaseEntity entity, bool japanese)
+    {
+        int heal = GetAllyHealAmount(entity);
+        int shield = Mathf.Max(1, Mathf.RoundToInt(GetShieldAmount(entity) * 0.5f));
+        float dur = GetSkillDuration(entity, 4f, true);
+        return japanese
+            ? $"最もHPの低い味方を{heal}回復し、{dur:0.#}秒間 シールド{shield}を付与する。"
+            : $"Heals the lowest-HP ally for {heal} and grants a {shield} shield for {dur:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteOnyxjaguarOnyxPounce
+    private string BuildOnyxjaguarSkillText(BaseEntity entity, bool japanese)
+    {
+        int dmg = Mathf.Max(1, Mathf.RoundToInt(GetPowerStrikeDamage(entity) * 0.7f));
+        float dmgUp = entity.StarLevel >= 3 ? 0.32f : entity.StarLevel >= 2 ? 0.26f : 0.20f;
+        float dur = GetSkillDuration(entity, 3f, true);
+        return japanese
+            ? $"最も遠い敵へ瞬時に踏み込み{dmg}の攻撃ダメージ。発動後{dur:0.#}秒間 自身の与ダメージ+{FormatPercent(dmgUp)}。"
+            : $"Blinks to the farthest enemy for {dmg} damage and gains +{FormatPercent(dmgUp)} damage for {dur:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteKeshraiFanBladeDance
+    private string BuildKeshraiSkillText(BaseEntity entity, bool japanese)
+    {
+        int hits = entity.StarLevel >= 3 ? 4 : 3;
+        int per = Mathf.Max(1, Mathf.RoundToInt(GetAreaDamage(entity) * 0.4f));
+        return japanese
+            ? $"対象周囲・半径1.7マスの敵へ{per}×{hits}（計{per * hits}）の攻撃ダメージ。"
+            : $"Hits enemies within 1.7 cells of the target for {per}x{hits} ({per * hits}).";
+    }
+
+    // 出典: BaseEntity.ExecuteFirewyrmFireBreath
+    private string BuildFirewyrmSkillText(BaseEntity entity, bool japanese)
+    {
+        int dmg = Mathf.Max(1, Mathf.RoundToInt(GetAreaDamage(entity) * 1.45f));
+        return japanese
+            ? $"対象周囲・半径2.1マスの広範囲へ{dmg}の業火ダメージ。"
+            : $"Breathes fire for {dmg} in a 2.1-cell radius around the target.";
+    }
+
+    // skill-fill: 後半章ボスのスキル説明（DESIGN_skill-fill.md）
+    private string BuildMagmarvaathSkillText(BaseEntity e, bool ja)
+    { int d = Mathf.Max(1, Mathf.RoundToInt(GetAreaDamage(e) * 1.5f)); return ja ? $"対象地点・半径2.2マスへ{d}の溶岩ダメージ。" : $"Deals {d} magma damage in a 2.2-cell radius at the target."; }
+    private string BuildMagmarstarhornSkillText(BaseEntity e, bool ja)
+    { int d = Mathf.Max(1, Mathf.RoundToInt(GetPowerStrikeDamage(e) * 1.6f)); float s = e.StarLevel >= 3 ? 1.0f : e.StarLevel >= 2 ? 0.8f : 0.6f; return ja ? $"対象へ突進し{d}の攻撃ダメージ＋{s:0.#}秒スタン。" : $"Charges the target for {d} and stuns {s:0.#}s."; }
+    private string BuildMagmarragnoraSkillText(BaseEntity e, bool ja)
+    { int h = Mathf.Max(1, Mathf.RoundToInt(GetAllyHealAmount(e) * 1.3f)); float up = e.StarLevel >= 3 ? 0.32f : e.StarLevel >= 2 ? 0.26f : 0.20f; float dur = GetSkillDuration(e, 4f, true); return ja ? $"自身を{h}回復し、{dur:0.#}秒間 与ダメージ+{FormatPercent(up)}。" : $"Heals self {h} and +{FormatPercent(up)} damage for {dur:0.#}s."; }
+    private string BuildAbyssallilitheSkillText(BaseEntity e, bool ja)
+    { int d = Mathf.Max(1, Mathf.RoundToInt(GetPowerStrikeDamage(e) * 1.55f)); float ls = e.StarLevel >= 3 ? 0.6f : e.StarLevel >= 2 ? 0.5f : 0.4f; return ja ? $"対象に{d}ダメージ、与えた{FormatPercent(ls)}を自身回復。" : $"Deals {d} and heals self for {FormatPercent(ls)} of it."; }
+    private string BuildAbyssalcassyvaSkillText(BaseEntity e, bool ja)
+    { int d = Mathf.Max(1, Mathf.RoundToInt(GetAreaDamage(e) * 0.9f)); float w = e.StarLevel >= 3 ? 0.28f : e.StarLevel >= 2 ? 0.23f : 0.18f; float dur = GetSkillDuration(e, 3.4f, true); return ja ? $"敵全体へ{d}ダメージ＋{dur:0.#}秒間 与ダメージ-{FormatPercent(w)}。" : $"Deals {d} to all enemies and -{FormatPercent(w)} damage dealt for {dur:0.#}s."; }
+    private string BuildAbyssalmaehvSkillText(BaseEntity e, bool ja)
+    { float sl = e.StarLevel >= 3 ? 0.45f : e.StarLevel >= 2 ? 0.38f : 0.30f; int sh = Mathf.Max(1, Mathf.RoundToInt(GetShieldAmount(e) * 0.8f)); float dur = GetSkillDuration(e, 3.5f, true); return ja ? $"敵全体を{dur:0.#}秒間 攻撃速度-{FormatPercent(sl)}、自身にシールド{sh}。" : $"Slows all enemies -{FormatPercent(sl)} for {dur:0.#}s and gains a {sh} shield."; }
+    private string BuildVetruvianzirixSkillText(BaseEntity e, bool ja)
+    { int hits = e.StarLevel >= 3 ? 3 : 2; int per = Mathf.Max(1, Mathf.RoundToInt(GetAreaDamage(e) * 0.5f)); float sl = e.StarLevel >= 3 ? 0.38f : 0.30f; return ja ? $"自分周囲・半径1.9マスへ{per}×{hits}（計{per * hits}）＋攻撃速度-{FormatPercent(sl)}。" : $"Hits within 1.9 cells for {per}x{hits} ({per * hits}) and slows -{FormatPercent(sl)}."; }
+    private string BuildVetruviansajjSkillText(BaseEntity e, bool ja)
+    { float up = e.StarLevel >= 3 ? 0.26f : e.StarLevel >= 2 ? 0.22f : 0.18f; int d = Mathf.Max(1, Mathf.RoundToInt(GetPowerStrikeDamage(e) * 1.3f)); float dur = GetSkillDuration(e, 4f, true); return ja ? $"味方全体の与ダメージ+{FormatPercent(up)}（{dur:0.#}秒）＋対象に{d}ダメージ。" : $"Allies +{FormatPercent(up)} damage for {dur:0.#}s and strikes the target for {d}."; }
+    private string BuildVetruvianscionSkillText(BaseEntity e, bool ja)
+    { int d = Mathf.Max(1, Mathf.RoundToInt(GetPowerStrikeDamage(e) * 1.5f)); float v = e.StarLevel >= 3 ? 0.26f : e.StarLevel >= 2 ? 0.22f : 0.18f; float dur = GetSkillDuration(e, 3.5f, true); return ja ? $"最も遠い敵へ{d}ダメージ＋{dur:0.#}秒間 被ダメージ+{FormatPercent(v)}。" : $"Pierces the farthest enemy for {d} and +{FormatPercent(v)} damage taken for {dur:0.#}s."; }
+    private string BuildMechaWingSkillText(BaseEntity e, bool ja)
+    { int d = Mathf.Max(1, Mathf.RoundToInt(GetAreaDamage(e) * 0.6f)); float h = e.StarLevel >= 3 ? 0.5f : e.StarLevel >= 2 ? 0.42f : 0.35f; float dur = GetSkillDuration(e, 3.5f, true); return ja ? $"敵全体へ{d}ダメージ＋自身の攻撃速度+{FormatPercent(h)}（{dur:0.#}秒）。" : $"Deals {d} to all enemies and self +{FormatPercent(h)} attack speed for {dur:0.#}s."; }
+    private string BuildMechaSwordSkillText(BaseEntity e, bool ja)
+    { int hits = e.StarLevel >= 3 ? 4 : 3; int per = Mathf.Max(1, Mathf.RoundToInt(GetPowerStrikeDamage(e) * 0.5f)); float v = e.StarLevel >= 3 ? 0.24f : 0.18f; float dur = GetSkillDuration(e, 3.5f, true); return ja ? $"対象に{per}×{hits}（計{per * hits}）＋{dur:0.#}秒間 被ダメージ+{FormatPercent(v)}。" : $"Hits the target {per}x{hits} ({per * hits}) and +{FormatPercent(v)} damage taken for {dur:0.#}s."; }
+    private string BuildMechaSuperSkillText(BaseEntity e, bool ja)
+    { int d = Mathf.Max(1, Mathf.RoundToInt(GetAreaDamage(e) * 1.1f)); float up = e.StarLevel >= 3 ? 0.4f : 0.3f; float h = e.StarLevel >= 3 ? 0.4f : 0.3f; float dur = GetSkillDuration(e, 4f, true); return ja ? $"自身の与ダメージ+{FormatPercent(up)}・攻撃速度+{FormatPercent(h)}（{dur:0.#}秒）＋周囲へ{d}ダメージ。" : $"Self +{FormatPercent(up)} damage & +{FormatPercent(h)} attack speed for {dur:0.#}s, plus {d} AoE."; }
+    private string BuildMechaHelmSkillText(BaseEntity e, bool ja)
+    { int sh = Mathf.Max(1, Mathf.RoundToInt(GetShieldAmount(e) * 0.45f)); float dr = e.StarLevel >= 3 ? 0.22f : e.StarLevel >= 2 ? 0.18f : 0.14f; float dur = GetSkillDuration(e, 4f, true); return ja ? $"味方全体にシールド{sh}＋自身の被ダメージ-{FormatPercent(dr)}（{dur:0.#}秒）。" : $"Shields all allies for {sh} and self -{FormatPercent(dr)} damage taken for {dur:0.#}s."; }
+    private string BuildMechaChassisSkillText(BaseEntity e, bool ja)
+    { int sh = Mathf.Max(1, Mathf.RoundToInt(GetShieldAmount(e) * 0.7f)); int d = Mathf.Max(1, Mathf.RoundToInt(GetAreaDamage(e) * 1.0f)); return ja ? $"自身にシールド{sh}＋対象周囲・半径1.7マスへ{d}ダメージ。" : $"Gains a {sh} shield and deals {d} in a 1.7-cell radius at the target."; }
+    private string BuildMechaCannonSkillText(BaseEntity e, bool ja)
+    { int d = Mathf.Max(1, Mathf.RoundToInt(GetAreaDamage(e) * 1.4f)); return ja ? $"最も遠い敵を基点に半径2.3マスへ{d}の砲撃ダメージ。" : $"Bombards a 2.3-cell radius at the farthest enemy for {d}."; }
+    private string BuildHydraxSkillText(BaseEntity e, bool ja)
+    { int d = Mathf.Max(1, Mathf.RoundToInt(GetPowerStrikeDamage(e) * 1.7f)); float sl = e.StarLevel >= 3 ? 0.45f : 0.35f; float dur = GetSkillDuration(e, 3.2f, true); return ja ? $"最も遠い敵へ{d}の特大ダメージ＋{dur:0.#}秒間 攻撃速度-{FormatPercent(sl)}。" : $"Deals {d} to the farthest enemy and -{FormatPercent(sl)} attack speed for {dur:0.#}s."; }
 
     // 固有スキルの説明で使う、★3で大きく上がることを示す補足文です。
     private string StarNote(bool japanese) => japanese
@@ -920,6 +1341,68 @@ public class UnitStatusPanelUI : MonoBehaviour
             : $"Grants allies within {radius:0.#} cells a {shield} shield and +{dr} damage reduction ({duration:0.#}s), then pulses {pulse} holy damage to nearby enemies.";
     }
 
+    // 出典: BaseEntity.ExecuteGrymbeastShadowMaul（DESIGN_cost4-units.md）
+    private string BuildGrymbeastSkillText(BaseEntity entity, bool japanese)
+    {
+        int dmg = GetAreaDamage(entity);
+        int splash = Mathf.Max(1, Mathf.RoundToInt(dmg * 0.6f));
+        float radius = Mathf.Max(1.9f, entity.skillAreaRadius);
+        return japanese
+            ? $"最も遠い敵へ飛び込み、対象周囲・半径{radius:0.#}マスを抉る。対象に{dmg}・周囲に{splash}の秘力ダメージ。与ダメージの30%を自身に吸命回復。"
+            : $"Leaps to the farthest enemy and mauls within {radius:0.#} cells for {dmg} to the target and {splash} focus damage to others, healing self for 30% of damage dealt.";
+    }
+
+    // 出典: BaseEntity.ExecuteCinderwraithPyreFrenzy
+    private string BuildCinderwraithSkillText(BaseEntity entity, bool japanese)
+    {
+        int dmg = GetAreaDamage(entity);
+        int burn = Mathf.Max(1, Mathf.RoundToInt(dmg * 0.18f));
+        float duration = GetSkillDuration(entity, 3.2f, true);
+        float radius = Mathf.Max(2.2f, entity.skillAreaRadius);
+        string spd = FormatPercent(0.25f + 0.05f * GetSkillEffectMultiplier(entity, false));
+        return japanese
+            ? $"自分中心・半径{radius:0.#}マスへ業火。{dmg}の炎ダメージと毎秒{burn}の延焼（{duration:0.#}秒）。自身の攻撃速度+{spd}（{duration:0.#}秒）。"
+            : $"Engulfs a {radius:0.#}-cell area for {dmg} fire damage plus {burn}/s burn ({duration:0.#}s), and gains +{spd} attack speed ({duration:0.#}s).";
+    }
+
+    // 出典: BaseEntity.ExecuteDraugarlordGlacialSalvo
+    private string BuildDraugarlordSkillText(BaseEntity entity, bool japanese)
+    {
+        int dmg = GetAreaDamage(entity);
+        int shield = GetShieldAmount(entity);
+        string slow = FormatPercent(GetSlowAmount(entity));
+        float slowDur = GetSkillDuration(entity, 2.6f, true);
+        float shieldDur = GetSkillDuration(entity, entity.skillShieldDuration, true);
+        float radius = Mathf.Max(2.3f, entity.skillAreaRadius);
+        return japanese
+            ? $"対象周囲・半径{radius:0.#}マスへ氷塊。{dmg}の秘力ダメージと攻撃速度-{slow}＋凍結（{slowDur:0.#}秒）。自身に{shield}のシールド（{shieldDur:0.#}秒）。"
+            : $"Hurls ice over {radius:0.#} cells for {dmg} focus damage with -{slow} attack speed and frost ({slowDur:0.#}s), and shields self for {shield} ({shieldDur:0.#}s).";
+    }
+
+    // 出典: BaseEntity.ExecuteKingsguardAegisDecree
+    private string BuildKingsguardSkillText(BaseEntity entity, bool japanese)
+    {
+        int shield = GetShieldAmount(entity);
+        int heal = GetAllyHealAmount(entity);
+        float duration = GetSkillDuration(entity, entity.skillShieldDuration, true);
+        string dr = FormatPercent(0.10f * GetSkillEffectMultiplier(entity, false));
+        float radius = Mathf.Max(2.3f, entity.skillAreaRadius);
+        return japanese
+            ? $"最も傷ついた味方を{heal}回復。周囲・半径{radius:0.#}マスの味方へ{shield}のシールドと被ダメージ軽減+{dr}（{duration:0.#}秒）。"
+            : $"Heals the most wounded ally for {heal}, then grants allies within {radius:0.#} cells a {shield} shield and +{dr} damage reduction ({duration:0.#}s).";
+    }
+
+    // 出典: BaseEntity.ExecuteDissonanceArcCacophony
+    private string BuildDissonanceSkillText(BaseEntity entity, bool japanese)
+    {
+        int bolts = entity.StarLevel >= 3 ? 5 : entity.StarLevel >= 2 ? 4 : 3;
+        int dmg = GetAreaDamage(entity);
+        int chain = Mathf.Max(1, Mathf.RoundToInt(dmg * 0.45f));
+        return japanese
+            ? $"{bolts}発の秘力雷弾を敵へ放つ。各{dmg}の秘力ダメージを与え、近くの敵へ{chain}が連鎖する。"
+            : $"Looses {bolts} arcane bolts at enemies for {dmg} focus damage each, chaining {chain} to a nearby enemy.";
+    }
+
     // 出典: BaseEntity.ExecuteIlenaCrystalLattice
     private string BuildIlenaSkillText(BaseEntity entity, bool japanese)
     {
@@ -1034,6 +1517,20 @@ public class UnitStatusPanelUI : MonoBehaviour
     }
 
     // 出典: BaseEntity.ExecuteLegionDeadMarch
+    // 出典: BaseEntity.ExecuteArcanaTomeOfFinality
+    private string BuildArcanaSkillText(BaseEntity entity, bool japanese)
+    {
+        float mag = GetLegendaryMagnitude(entity);
+        int area = Mathf.Max(1, Mathf.RoundToInt((entity.SkillBasePower * 1.15f + entity.baseDamage * 0.5f) * mag * (entity.StarLevel >= 3 ? 1.15f : 1f)));
+        bool star3 = entity.StarLevel >= 3;
+        int dot = Mathf.Max(1, Mathf.RoundToInt(area * 0.12f));            // 持続BloodMageの毎秒ダメージ
+        int finalePerTick = Mathf.Max(1, Mathf.RoundToInt(area * (star3 ? 0.6f : 0.32f)));
+        int finaleTotal = finalePerTick * 10;                              // 3.5秒 / 0.35s ≒ 10ティック
+        return japanese
+            ? $"【1〜3詠唱目】攻撃対象の位置に「BloodMage」を召喚（最大3体・戦闘終了まで残存）。半径約2マスの敵をゆっくり引き寄せつつ、毎秒約{dot}の継続ダメージ。\n【4詠唱目】全BloodMageを解き放ち、画面を明転させて盤面全体を覆う大BloodMageで全敵を吸い込み、3.5秒かけて継続大ダメージ（合計約{finaleTotal}）。★3は吸い込んだ瞬間に敵を消滅させる。\n{StarNote(true)}"
+            : $"[Casts 1-3] Summons a \"BloodMage\" at the target's position (up to 3, persists until the battle ends), slowly pulling enemies within ~2 cells and dealing ~{dot}/sec.\n[Cast 4] Unleashes every BloodMage: the screen flares white as a board-wide BloodMage drags in all enemies, dealing heavy damage over 3.5s (~{finaleTotal} total). At ★3, enemies are annihilated the instant they are pulled in.\n{StarNote(false)}";
+    }
+
     private string BuildLegionSkillText(BaseEntity entity, bool japanese)
     {
         string summons = entity.StarLevel >= 3 ? "8" : entity.StarLevel >= 2 ? "5" : (japanese ? "2〜4" : "2-4");
@@ -1211,6 +1708,208 @@ public class UnitStatusPanelUI : MonoBehaviour
                 descriptionText.color = new Color(0.45f, 0.55f, 0.62f, 1f);
             }
         }
+    }
+
+    // --- DESIGN_skill_overhaul.md: 17体の固有スキル説明（実数値は BaseEntity の各 Execute メソッドと同じ式で算出）。 ---
+
+    // 出典: BaseEntity.ExecuteAndromedaStardustBarrage
+    private string BuildAndromedaSkillText(BaseEntity entity, bool japanese)
+    {
+        int damage = GetAreaDamage(entity);
+        float radius = entity.StarLevel >= 3 ? 2.6f : entity.StarLevel >= 2 ? 2.3f : 2.0f;
+        float slowDur = GetSkillDuration(entity, 1.8f, true);
+        return japanese
+            ? $"対象を中心に半径{radius:0.#}マスへ星屑を降らせ、各敵に{damage}の範囲ダメージ。範囲内の敵は{slowDur:0.#}秒間 攻撃速度-20%（Storm）。"
+            : $"Rains stardust on a {radius:0.#}-cell radius around the target for {damage} damage; struck enemies suffer -20% attack speed for {slowDur:0.#}s (Storm).";
+    }
+
+    // 出典: BaseEntity.ExecuteAntiswarmSwarmCall
+    private string BuildAntiswarmSkillText(BaseEntity entity, bool japanese)
+    {
+        int count = entity.StarLevel >= 3 ? 2 : entity.StarLevel >= 2 ? 2 : 1;
+        int starLv = entity.StarLevel >= 3 ? 2 : 1;
+        float life = entity.StarLevel >= 3 ? 12f : 8f;
+        return japanese
+            ? $"前線に小型Beast召喚を{count}体（★{starLv}）召喚し、{life:0.#}秒間 加勢させる（Beast / Summoner）。"
+            : $"Summons {count} small Beast minions (Star {starLv}) to the front for {life:0.#}s (Beast / Summoner).";
+    }
+
+    // 出典: BaseEntity.ExecuteBorealjuggernautFrostguardBastion
+    private string BuildBorealjuggernautSkillText(BaseEntity entity, bool japanese)
+    {
+        int shield = GetShieldAmount(entity);
+        float shieldDur = GetSkillDuration(entity, entity.skillShieldDuration, true);
+        float slowDur = GetSkillDuration(entity, 2.4f, true);
+        return japanese
+            ? $"自身に{shield}のシールド（{shieldDur:0.#}秒）。隣接する敵を{slowDur:0.#}秒間 攻撃速度-30%（Frost）。"
+            : $"Grants self a {shield} shield ({shieldDur:0.#}s); adjacent enemies suffer -30% attack speed for {slowDur:0.#}s (Frost).";
+    }
+
+    // 出典: BaseEntity.ExecuteChaosknightChaosBrand
+    private string BuildChaosknightSkillText(BaseEntity entity, bool japanese)
+    {
+        int damage = Mathf.Max(1, Mathf.RoundToInt(GetPowerStrikeDamage(entity) * 1.4f));
+        float dur = GetSkillDuration(entity, 4f, true);
+        float vulnPct = entity.StarLevel >= 3 ? 0.26f : entity.StarLevel >= 2 ? 0.22f : 0.18f;
+        string vuln = FormatPercent(vulnPct);
+        return japanese
+            ? $"対象に{damage}ダメージ＋Abyss刻印: {dur:0.#}秒間 被ダメージ+{vuln}。"
+            : $"Strikes for {damage} and brands the target with Abyss: +{vuln} damage taken for {dur:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteChristmasFestiveRally
+    private string BuildChristmasSkillText(BaseEntity entity, bool japanese)
+    {
+        int heal = GetAllyHealAmount(entity);
+        float dur = GetSkillDuration(entity, 4f, true);
+        float buffPct = entity.StarLevel >= 3 ? 0.22f : entity.StarLevel >= 2 ? 0.18f : 0.15f;
+        string buff = FormatPercent(buffPct);
+        return japanese
+            ? $"最も傷ついた味方を{heal}回復。全戦士(Warrior)味方の与ダメージ+{buff}（{dur:0.#}秒）。"
+            : $"Heals the most damaged ally for {heal}; all Warrior allies gain +{buff} damage for {dur:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteVampireSoulpiercer
+    private string BuildVampireSkillText(BaseEntity entity, bool japanese)
+    {
+        int damage = Mathf.Max(1, Mathf.RoundToInt(GetPowerStrikeDamage(entity) * 1.5f));
+        float ratio = entity.StarLevel >= 3 ? 0.60f : entity.StarLevel >= 2 ? 0.50f : 0.40f;
+        int heal = Mathf.Max(1, Mathf.RoundToInt(damage * ratio * 0.78f));
+        string ratioPct = FormatPercent(ratio);
+        return japanese
+            ? $"遠距離の魂弾で対象に{damage}ダメージ。与ダメの{ratioPct}（≈{heal}）を自己回復（Wraith / Abyss）。"
+            : $"Soulpiercer hits the target for {damage}; heals self for {ratioPct} of the damage (≈{heal}). (Wraith / Abyss)";
+    }
+
+    // 出典: BaseEntity.ExecuteValiantAegisSmite
+    private string BuildValiantSkillText(BaseEntity entity, bool japanese)
+    {
+        float stunDur = GetSkillDuration(entity, entity.skillStunDuration, false);
+        int shield = Mathf.Max(1, Mathf.RoundToInt(entity.MaxHealth * 0.10f * GetSkillEffectMultiplier(entity, true)));
+        float shieldDur = GetSkillDuration(entity, entity.skillShieldDuration, true);
+        return japanese
+            ? $"対象を{stunDur:0.#}秒スタン＋自身に{shield}のDivineシールド（{shieldDur:0.#}秒）。"
+            : $"Stuns the target for {stunDur:0.#}s and grants self a {shield} Divine shield for {shieldDur:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteCandypandaSugarFeast
+    private string BuildCandypandaSkillText(BaseEntity entity, bool japanese)
+    {
+        int heal = Mathf.Max(1, Mathf.RoundToInt(GetAllyHealAmount(entity) * 0.8f));
+        float dur = GetSkillDuration(entity, 4f, true);
+        string buff = FormatPercent(0.12f);
+        return japanese
+            ? $"半径2.2マスの味方を{heal}回復＋与ダメージ+{buff}（{dur:0.#}秒, Beast）。"
+            : $"Heals allies within 2.2 cells for {heal} and grants +{buff} damage for {dur:0.#}s (Beast).";
+    }
+
+    // 出典: BaseEntity.ExecuteCitySupplyDroneCoroutine
+    private string BuildCitySkillText(BaseEntity entity, bool japanese)
+    {
+        float duration = entity.StarLevel >= 3 ? 5.5f : entity.StarLevel >= 2 ? 4.5f : 3.5f;
+        int healPerTick = Mathf.Max(1, Mathf.RoundToInt(GetAllyHealAmount(entity) * 0.35f));
+        int shieldPerTick = Mathf.Max(1, Mathf.RoundToInt(GetShieldAmount(entity) * 0.25f));
+        int ticks = Mathf.Max(1, Mathf.RoundToInt(duration / 0.7f));
+        return japanese
+            ? $"Machine補給ドローンを{duration:0.#}秒展開。0.7秒ごと（計{ticks}回）に最も傷ついた味方を{healPerTick}回復・{shieldPerTick}シールド付与。"
+            : $"Deploys a Machine drone for {duration:0.#}s. Every 0.7s ({ticks} ticks) the most damaged ally heals {healPerTick} and gains {shieldPerTick} shield.";
+    }
+
+    // 出典: BaseEntity.ExecuteCrystalCrystalWard
+    private string BuildCrystalSkillText(BaseEntity entity, bool japanese)
+    {
+        int damage = Mathf.Max(1, Mathf.RoundToInt(GetAreaDamage(entity) * 0.8f));
+        float radius = Mathf.Max(1.6f, entity.skillAreaRadius);
+        float slowDur = GetSkillDuration(entity, 2.4f, true);
+        int allyShield = Mathf.Max(1, Mathf.RoundToInt(GetShieldAmount(entity) * 0.5f));
+        float shieldDur = GetSkillDuration(entity, entity.skillShieldDuration, true);
+        string slow = FormatPercent(GetSlowAmount(entity));
+        return japanese
+            ? $"対象を中心に半径{radius:0.#}マスへ氷晶AOE: {damage}ダメージ＋攻撃速度-{slow}（{slowDur:0.#}秒）。最も傷ついた味方に{allyShield}シールド（{shieldDur:0.#}秒）。"
+            : $"Crystal AOE within {radius:0.#} cells deals {damage} and slows attack speed by {slow} for {slowDur:0.#}s. The most damaged ally gains a {allyShield} shield for {shieldDur:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteCinderaEmberSight
+    private string BuildCinderaSkillText(BaseEntity entity, bool japanese)
+    {
+        int damage = Mathf.Max(1, Mathf.RoundToInt(GetPowerStrikeDamage(entity) * 1.3f));
+        float ratio = entity.StarLevel >= 3 ? 0.12f : entity.StarLevel >= 2 ? 0.10f : 0.08f;
+        int burnTick = Mathf.Max(1, Mathf.RoundToInt(entity.baseDamage * ratio));
+        float burnDur = GetSkillDuration(entity, 3f, true);
+        string ratioPct = FormatPercent(ratio);
+        return japanese
+            ? $"対象へ火炎弾{damage}ダメージ＋炎上(Inferno DoT): 攻撃の{ratioPct}（≈{burnTick}/tick）を{burnDur:0.#}秒。"
+            : $"Fires a flame bolt for {damage} and ignites the target for {ratioPct} of attack ({burnTick}/tick) over {burnDur:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteDecepticleAssaultMode
+    private string BuildDecepticleSkillText(BaseEntity entity, bool japanese)
+    {
+        float dur = GetSkillDuration(entity, 4f, true);
+        float speedBoost = entity.StarLevel >= 3 ? 0.55f : entity.StarLevel >= 2 ? 0.45f : 0.35f;
+        string speed = FormatPercent(speedBoost);
+        string dr = FormatPercent(0.10f * GetSkillEffectMultiplier(entity, false));
+        return japanese
+            ? $"攻撃形態へ変形: {dur:0.#}秒間 攻撃速度+{speed}・被ダメージ-{dr}（Machine）。"
+            : $"Transforms for {dur:0.#}s: +{speed} attack speed and -{dr} damage taken (Machine).";
+    }
+
+    // 出典: BaseEntity.ExecuteUmbraUmbralDevour
+    private string BuildUmbraSkillText(BaseEntity entity, bool japanese)
+    {
+        int damage = Mathf.Max(1, Mathf.RoundToInt(GetPowerStrikeDamage(entity) * 1.2f));
+        int shield = Mathf.Max(1, Mathf.RoundToInt(damage * 0.6f));
+        float shieldDur = GetSkillDuration(entity, entity.skillShieldDuration, true);
+        return japanese
+            ? $"最寄りの敵を{damage}吸収し、与ダメの60%（≈{shield}）を自己シールドへ変換（{shieldDur:0.#}秒, Abyss）。"
+            : $"Devours the nearest enemy for {damage}; converts 60% (≈{shield}) into a self shield for {shieldDur:0.#}s (Abyss).";
+    }
+
+    // 出典: BaseEntity.ExecuteSpelleaterSpellEater
+    private string BuildSpelleaterSkillText(BaseEntity entity, bool japanese)
+    {
+        float slowDur = GetSkillDuration(entity, 3f, true);
+        float weakenDur = GetSkillDuration(entity, 3f, true);
+        float weakenPct = entity.StarLevel >= 3 ? 0.30f : entity.StarLevel >= 2 ? 0.25f : 0.20f;
+        string weaken = FormatPercent(weakenPct);
+        return japanese
+            ? $"対象を{slowDur:0.#}秒間 攻撃速度-40%＋与ダメージ-{weaken}（{weakenDur:0.#}秒, アンチキャリー）。自身のマナ+15。"
+            : $"Slows the target by 40% attack speed for {slowDur:0.#}s and weakens its damage by {weaken} for {weakenDur:0.#}s; +15 mana to self.";
+    }
+
+    // 出典: BaseEntity.ExecuteSerpentiVenomFrenzy
+    private string BuildSerpentiSkillText(BaseEntity entity, bool japanese)
+    {
+        float dur = GetSkillDuration(entity, 4f, true);
+        float speedBoost = entity.StarLevel >= 3 ? 0.60f : entity.StarLevel >= 2 ? 0.50f : 0.40f;
+        int venomTick = Mathf.Max(1, Mathf.RoundToInt(entity.baseDamage * 0.05f));
+        string speed = FormatPercent(speedBoost);
+        return japanese
+            ? $"{dur:0.#}秒間 攻撃速度+{speed}＋通常攻撃に毒(3秒, ≈{venomTick}/tick)を付与（Frenzy）。"
+            : $"Gains +{speed} attack speed for {dur:0.#}s; basic attacks inflict venom (3s, ≈{venomTick}/tick, Frenzy).";
+    }
+
+    // 出典: BaseEntity.ExecuteDecepticlechassisArmorReassembly
+    private string BuildDecepticlechassisSkillText(BaseEntity entity, bool japanese)
+    {
+        int selfShield = Mathf.Max(1, Mathf.RoundToInt(GetShieldAmount(entity) * 1.2f));
+        int allyShield = Mathf.Max(1, Mathf.RoundToInt(GetShieldAmount(entity) * 0.4f));
+        float shieldDur = GetSkillDuration(entity, entity.skillShieldDuration, true);
+        return japanese
+            ? $"自身に{selfShield}のGuardianシールド、半径2.2マスの味方にも{allyShield}シールド（{shieldDur:0.#}秒）。"
+            : $"Grants self a {selfShield} Guardian shield and distributes {allyShield} shields to allies within 2.2 cells for {shieldDur:0.#}s.";
+    }
+
+    // 出典: BaseEntity.ExecuteWolfpunchAlphaStrike
+    private string BuildWolfpunchSkillText(BaseEntity entity, bool japanese)
+    {
+        int damage = Mathf.Max(1, Mathf.RoundToInt(GetPowerStrikeDamage(entity) * 1.8f));
+        float buffDur = GetSkillDuration(entity, 5f, true);
+        float buffPct = entity.StarLevel >= 3 ? 0.30f : entity.StarLevel >= 2 ? 0.25f : 0.20f;
+        string buff = FormatPercent(buffPct);
+        return japanese
+            ? $"対象へ{damage}の重打＋短スタン(0.6秒)。撃破時は自身の与ダメージ+{buff}（{buffDur:0.#}秒, Beast）。"
+            : $"Hammers the target for {damage} and stuns 0.6s. If it kills, gains +{buff} damage for {buffDur:0.#}s (Beast).";
     }
 
     // アイテムの効果量を、短い英語表記へ変換します。

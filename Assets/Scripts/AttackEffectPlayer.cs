@@ -4,6 +4,7 @@ using System;
 using System.Linq;
 using System.Text.RegularExpressions;
 using UnityEngine;
+using UnityEngine.UI;
 
 // 攻撃・スキル・死亡・UI操作の見た目と音を再生する共通プレイヤーです。
 // シーンに置かれていなくても、必要になったら自動でGameObjectを作って動きます。
@@ -13,37 +14,45 @@ public class AttackEffectPlayer : MonoBehaviour
     private const float FrameRate = 18f;
 
     // Resources配下に置かれている各エフェクト画像のパスです。
-    private const string ProjectileResourcePath = "AttackEffects/fx_f1_casterprojectile";
-    private const string ImpactResourcePath = "AttackEffects/fx_explosionblueelectrical";
-    private const string MeleeResourcePath = "AttackEffects/fx_crossslash";
-    private const string HealResourcePath = "AttackEffects/fx_heal";
-    private const string ShieldResourcePath = "AttackEffects/fx_distortion_hex_shield";
-    private const string BuffResourcePath = "AttackEffects/fx_buff";
-    private const string StunResourcePath = "AttackEffects/fx_f6_bbs_stun";
-    private const string SlowResourcePath = "AttackEffects/fx_frozen";
-    private const string PowerResourcePath = "AttackEffects/fx_slashfrenzy";
-    private const string AreaResourcePath = "AttackEffects/fx_whiteexplosion";
-    private const string DamageBoostResourcePath = "AttackEffects/fx_ringswirl";
-    private const string InfernoResourcePath = "AttackEffects/fx_fireimpact";
-    private const string InfernoRainResourcePath = "AttackEffects/fx_f2_phoenixfire";
-    private const string StormResourcePath = "AttackEffects/fx_chainlightning";
-    private const string LightningSkillResourcePath = "AttackEffects/Pixel Art Skill Animations - Lightning/VFX3/Sprite-sheet/Sprite-sheet";
-    private const string AbyssResourcePath = "AttackEffects/fx_f4_shadownova";
-    private const string AbyssCurseResourcePath = "AttackEffects/fx_f4_voidpulse";
-    private const string DivineResourcePath = "AttackEffects/fx_summonlegendary";
-    private const string SummonerResourcePath = "AttackEffects/fx_f4_nethersummoning";
-    private const string BigFireResourcePath = "AttackEffects/fx_f3_blaststarfire";
-    private const string FreeVortexResourcePath = "AttackEffects/Free2/03";
-    private const string FreeProjectileBurstResourcePath = "AttackEffects/Free2/13";
-    private const string FreeLotusResourcePath = "AttackEffects/Free3/655";
-    private const string FreeStarburstResourcePath = "AttackEffects/Free3/652";
-    private const string FreeSlashResourcePath = "AttackEffects/Free3/675";
-    private const string FreeFirePillarResourcePath = "AttackEffects/Free4/464";
-    private const string FreeFireWaveResourcePath = "AttackEffects/Free4/477";
-    private const string FreeFlameResourcePath = "AttackEffects/Free4/476";
-    private const string FreeSmokeResourcePath = "AttackEffects/Free4/484";
-    private const string CircleImpactResourcePath = "AttackEffects/fx_circle_00";
-    private const string CircleGroundResourcePath = "AttackEffects/fx_circle_01";
+    private const string ProjectileResourcePath = "fx/fx_f1_casterprojectile";
+    private const string ImpactResourcePath = "fx/fx_explosionblueelectrical";
+    private const string MeleeResourcePath = "fx/fx_crossslash";
+    private const string HealResourcePath = "fx/fx_heal";
+    private const string ShieldResourcePath = "fx/fx_distortion_hex_shield";
+    private const string BuffResourcePath = "fx/fx_buff";
+    private const string StunResourcePath = "fx/fx_f6_bbs_stun";
+    private const string SlowResourcePath = "fx/fx_frozen";
+    private const string PowerResourcePath = "fx/fx_slashfrenzy";
+    private const string AreaResourcePath = "fx/fx_whiteexplosion";
+    private const string DamageBoostResourcePath = "fx/fx_ringswirl";
+    private const string InfernoResourcePath = "fx/fx_fireimpact";
+    private const string InfernoRainResourcePath = "fx/fx_f2_phoenixfire";
+    private const string StormResourcePath = "fx/fx_chainlightning";
+    private const string LightningSkillResourcePath = "fx/Pixel Art Skill Animations - Lightning/VFX3/Sprite-sheet/Sprite-sheet";
+    private const string AbyssResourcePath = "fx/fx_f4_shadownova";
+    private const string AbyssCurseResourcePath = "fx/fx_f4_voidpulse";
+    private const string DivineResourcePath = "fx/fx_summonlegendary";
+    private const string SummonerResourcePath = "fx/fx_f4_nethersummoning";
+    private const string BigFireResourcePath = "fx/fx_f3_blaststarfire";
+    private const string FreeVortexResourcePath = "fx/Free2/03";
+    private const string FreeProjectileBurstResourcePath = "fx/Free2/13";
+    private const string FreeLotusResourcePath = "fx/Free3/655";
+    private const string FreeStarburstResourcePath = "fx/Free3/652";
+    private const string FreeSlashResourcePath = "fx/Free3/675";
+    private const string FreeFirePillarResourcePath = "fx/Free4/464";
+    private const string FreeFireWaveResourcePath = "fx/Free4/477";
+    private const string FreeFlameResourcePath = "fx/Free4/476";
+    private const string FreeSmokeResourcePath = "fx/Free4/484";
+    private const string CircleImpactResourcePath = "fx/fx_circle_00";
+    private const string CircleGroundResourcePath = "fx/fx_circle_01";
+    // アルカナ固有の「血の魔法陣」用。これまで未使用だった赤系素材を流用します。
+    private const string RedLightningResourcePath = "fx/fx_redlightning";
+    private const string RedImpactResourcePath = "fx/fx_impactred";
+    // アルカナのフィナーレ用 BloodMage VFX。start→loop→end の3枚（横1行のストリップ・1コマ128px）。
+    private const string BloodMageStartPath = "fx/BloodMage_skill1_start";
+    private const string BloodMageLoopPath = "fx/BloodMage_skill1_loop";
+    private const string BloodMageEndPath = "fx/BloodMage_skill1_end";
+    private const int BloodMageCellSize = 128;
     private const int FreeEffectCellSize = 64;
     private const float BoardEffectYSquash = 0.58f;
     private const float BoardEffectTiltAngle = -6f;
@@ -86,6 +95,8 @@ public class AttackEffectPlayer : MonoBehaviour
     private static Sprite[] divineSprites;
     private static Sprite[] summonerSprites;
     private static Sprite[] bigFireSprites;
+    private static Sprite[] redLightningSprites;
+    private static Sprite[] redImpactSprites;
     private static Sprite projectileOrbSprite;
     private static Sprite areaIndicatorSprite;
 
@@ -97,6 +108,9 @@ public class AttackEffectPlayer : MonoBehaviour
     private const float BaseBgmVolume = 0.26f;
     public static float SfxVolumeMultiplier = 1f;
     public static float BgmVolumeMultiplier = 1f;
+    // 大技演出中などに BGM を一時的に絞るための倍率（1=通常, 0=無音）。SE再生のたびに音量が再設定されても維持されます。
+    private float bgmDuckMultiplier = 1f;
+    private Coroutine bgmFadeCoroutine;
     private Coroutine cameraShakeCoroutine;
     private Camera cameraShakeTarget;
     private Vector3 cameraShakeOriginalPosition;
@@ -105,6 +119,35 @@ public class AttackEffectPlayer : MonoBehaviour
     // シーン読み込み後、自動でこのクラスを用意しBGMを鳴らします。
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
     private static void BootstrapAudio()
+    {
+        EnsureInstance();
+        instance.PlayBgmIfNeeded();
+    }
+
+    // 指定したBGM（Resourcesパス、複数候補可）へ切り替えてループ再生する。ロビー等で使用。
+    public static void PlayBgm(params string[] resourcePaths)
+    {
+        if (resourcePaths == null || resourcePaths.Length == 0)
+            return;
+        EnsureInstance();
+        instance.EnsureAudioSources();
+        AudioClip clip = LoadFirstAudioClip(resourcePaths);
+        if (clip == null)
+            return;
+        if (instance.bgmSource.clip != clip)
+        {
+            instance.bgmSource.Stop();
+            instance.bgmSource.clip = clip;
+            instance.bgmSource.Play();
+        }
+        else if (!instance.bgmSource.isPlaying)
+        {
+            instance.bgmSource.Play();
+        }
+    }
+
+    // 既定のバトルBGMへ戻す（BgmCandidates の先頭）。ロビーから戦闘へ戻る時に使用。
+    public static void PlayBattleBgm()
     {
         EnsureInstance();
         instance.PlayBgmIfNeeded();
@@ -124,7 +167,7 @@ public class AttackEffectPlayer : MonoBehaviour
         Vector3 destination = target.transform.position + new Vector3(0f, 0.18f, 0f);
         Color teamColor = GetTeamEffectColor(attacker);
 
-        instance.PlaySfx("normal_attack", 0.42f);
+        PlayUnitAttackSwing(attacker);
         if (rangedAttack)
             instance.StartCoroutine(instance.PlayRangedAttack(source, target.transform, destination, teamColor, onImpact));
         else
@@ -202,6 +245,295 @@ public class AttackEffectPlayer : MonoBehaviour
         Color color = GetSynergyEffectColor(type);
         instance.PlaySfx(GetSynergySfxName(type), GetSynergySfxVolume(type));
         instance.PlaySynergyVisualBurst(type, position, scale, color);
+    }
+
+    // 任意のfxスプライトシート（Multipleスライス済み）を、指定ワールド位置で1回アニメ再生する汎用メソッド。
+    // 攻撃以外（ボス登場演出など）の表現に使う。color はスプライトへの乗算色（毒沼=緑 などの色変え用）。
+    public static void PlaySheetEffectAt(string resourcePath, Vector3 position, float scale, Color color)
+    {
+        if (string.IsNullOrEmpty(resourcePath))
+            return;
+        EnsureInstance();
+        Sprite[] sprites = LoadSprites(resourcePath);
+        if (sprites == null || sprites.Length == 0)
+        {
+            Debug.LogWarning($"[fx] スプライトが見つかりません（Multipleスライス未済の可能性）: {resourcePath}");
+            return;
+        }
+        int sortingOrder = GetEffectSortingOrder(position, 90);
+        instance.StartCoroutine(instance.PlayAnimatedSprite(resourcePath, sprites, position + new Vector3(0f, 0f, -0.05f), scale, color, 0f, sortingOrder));
+    }
+
+    // アルカナ専用「血の魔法陣」です。これまで未使用だった赤系素材(fx_circle_01の赤リング行/
+    // fx_circle_00の赤い封印行/fx_impactredの赤い爆発/fx_redlightning)を重ね、他キャラの使い回しではない
+    // アルカナだけの固有演出にします。詠唱者の足元や着弾点に展開します。
+    public static void PlayArcanaBloodCircle(Vector3 position, float scale, bool ultimate)
+    {
+        EnsureInstance();
+        EnsureSpritesLoaded();
+
+        instance.PlaySfx(ultimate ? "skill_area" : "skill_power", ultimate ? 0.62f : 0.46f);
+        instance.StartCoroutine(instance.PlayArcanaBloodCircleCoroutine(position, Mathf.Max(0.6f, scale), ultimate));
+    }
+
+    // 着弾した敵に出す血しぶき(赤い液体)です。魔法陣は重くなるので、波の2発目以降はこの軽い演出だけにします。
+    public static void PlayArcanaBloodSplatter(Vector3 position, float scale)
+    {
+        EnsureInstance();
+        EnsureSpritesLoaded();
+        if (redImpactSprites == null || redImpactSprites.Length == 0)
+            return;
+
+        Color blood = new Color(0.82f, 0.06f, 0.09f, 1f);
+        int sortingOrder = GetEffectSortingOrder(position, 80);
+        instance.StartCoroutine(instance.PlayAnimatedSprite(
+            RedImpactResourcePath,
+            redImpactSprites,
+            position + new Vector3(0f, 0.06f, -0.02f),
+            Mathf.Max(0.45f, scale),
+            blood,
+            0f,
+            sortingOrder));
+    }
+
+    // 血の魔法陣の各レイヤーをまとめて再生します。地面の赤いリング→赤い幾何封印→中央の血しぶき、
+    // 必殺時はさらに赤い稲妻を放射状に重ねて深淵の魔力を強調します。
+    private IEnumerator PlayArcanaBloodCircleCoroutine(Vector3 position, float scale, bool ultimate)
+    {
+        Color bloodRed = new Color(0.86f, 0.07f, 0.1f, 1f);
+        Color darkBlood = new Color(0.55f, 0.03f, 0.06f, 1f);
+        int baseOrder = GetEffectSortingOrder(position, 82);
+
+        // 1) 地面に貼る血の魔法陣（fx_circle_01 の赤リング行=5）。
+        Sprite[] ringSprites = LoadGridRowSprites(CircleGroundResourcePath, 5);
+        if (ringSprites.Length > 0)
+            StartCoroutine(PlayAnimatedSprite(
+                CircleGroundResourcePath,
+                ringSprites,
+                position + new Vector3(0f, -0.03f, -0.04f),
+                GetBoardAlignedScale(scale * 1.7f),
+                bloodRed,
+                BoardEffectTiltAngle,
+                baseOrder - 3));
+
+        // 2) 赤い幾何学の封印（fx_circle_00 の赤行=1）を内側に重ね、魔法陣らしさを強めます。
+        Sprite[] sealSprites = LoadGridRowSprites(CircleImpactResourcePath, 1);
+        if (sealSprites.Length > 0)
+            StartCoroutine(PlayAnimatedSprite(
+                CircleImpactResourcePath,
+                sealSprites,
+                position + new Vector3(0f, -0.02f, -0.05f),
+                GetBoardAlignedScale(scale * 1.2f),
+                darkBlood,
+                BoardEffectTiltAngle,
+                baseOrder - 2));
+
+        // 3) 中央の血しぶき（赤い爆発）。
+        if (redImpactSprites != null && redImpactSprites.Length > 0)
+            StartCoroutine(PlayAnimatedSprite(
+                RedImpactResourcePath,
+                redImpactSprites,
+                position + new Vector3(0f, 0.12f, -0.06f),
+                scale * (ultimate ? 1.25f : 0.95f),
+                bloodRed,
+                0f,
+                baseOrder));
+
+        // 4) 必殺時は赤い稲妻を放射状に重ねて、深淵の魔力の解放を強調します。
+        if (ultimate && redLightningSprites != null && redLightningSprites.Length > 0)
+        {
+            for (int i = 0; i < 4; i++)
+            {
+                float angle = 45f + i * 90f;
+                StartCoroutine(PlayAnimatedSprite(
+                    RedLightningResourcePath,
+                    redLightningSprites,
+                    position + new Vector3(0f, 0.1f, -0.05f),
+                    new Vector3(scale * 1.3f, scale * 0.6f, 1f),
+                    bloodRed,
+                    angle,
+                    baseOrder + 1));
+            }
+
+            ShakeCamera(0.22f, 0.06f);
+        }
+
+        yield break;
+    }
+
+    // BloodMage VFX を生成し、start→loop を再生し続けるオブジェクトを返します。終了時は EndBloodMage で end を再生して消します。
+    public static GameObject SpawnBloodMage(Vector3 position, float scale, Color color, int sortingOffset)
+    {
+        EnsureInstance();
+        Sprite[] start = LoadGridRowSprites(BloodMageStartPath, 0, BloodMageCellSize);
+        Sprite[] loop = LoadGridRowSprites(BloodMageLoopPath, 0, BloodMageCellSize);
+        Sprite[] end = LoadGridRowSprites(BloodMageEndPath, 0, BloodMageCellSize);
+        if ((start == null || start.Length == 0) && (loop == null || loop.Length == 0))
+            return null;
+
+        GameObject bloodMage = new GameObject("BloodMage");
+        instance.RegisterBattleVisual(bloodMage);
+        bloodMage.transform.position = position;
+        bloodMage.transform.localScale = Vector3.one * Mathf.Max(0.2f, scale);
+
+        BloodMageVisual visual = bloodMage.AddComponent<BloodMageVisual>();
+        visual.Initialize(start, loop, end, color, GetEffectSortingOrder(position, sortingOffset), 16f);
+        return bloodMage;
+    }
+
+    // BloodMage を end アニメで締めてから破棄します。
+    public static void EndBloodMage(GameObject bloodMage)
+    {
+        if (bloodMage == null)
+            return;
+
+        BloodMageVisual visual = bloodMage.GetComponent<BloodMageVisual>();
+        if (visual != null)
+            visual.PlayEnd();
+        else
+            Destroy(bloodMage);
+    }
+
+    // ユニットのスプライト形状に合わせて発光オーバーレイを重ねます（アルカナの必殺演出用）。
+    public static void PlayArcanaSpriteGlow(BaseEntity caster, float duration, float intensity)
+    {
+        if (caster == null || caster.spriteRender == null)
+            return;
+
+        EnsureInstance();
+        instance.StartCoroutine(instance.ArcanaSpriteGlowCoroutine(caster, Mathf.Max(0.1f, duration), Mathf.Clamp01(intensity)));
+    }
+
+    private IEnumerator ArcanaSpriteGlowCoroutine(BaseEntity caster, float duration, float intensity)
+    {
+        GameObject glow = new GameObject("ArcanaSpriteGlow");
+        RegisterBattleVisual(glow);
+        // 本体にぶら下げて反転・スケール・位置を自動追従させます。
+        glow.transform.SetParent(caster.transform, false);
+        glow.transform.localPosition = new Vector3(0f, 0f, -0.02f);
+
+        SpriteRenderer source = caster.spriteRender;
+        SpriteRenderer glowRenderer = glow.AddComponent<SpriteRenderer>();
+        glowRenderer.sortingLayerID = source.sortingLayerID;
+        glowRenderer.sortingOrder = source.sortingOrder + 1;
+
+        float elapsed = 0f;
+        while (elapsed < duration && caster != null && !caster.IsDead)
+        {
+            glowRenderer.sprite = source.sprite;
+            float pulse = 0.55f + 0.45f * Mathf.Sin(elapsed * 12f);
+            glow.transform.localScale = Vector3.one * (1f + 0.07f * pulse);
+            float envelope = Mathf.Sin(Mathf.Clamp01(elapsed / duration) * Mathf.PI); // 出てから消える
+            glowRenderer.color = new Color(1f, 0.32f, 0.26f, Mathf.Clamp01(intensity * (0.5f + 0.5f * pulse) * envelope));
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        UnregisterBattleVisual(glow);
+        Destroy(glow);
+    }
+
+    // アルカナのSpecialMove終盤、スプライトのセル端で途切れる放射光を外側へ延長します。
+    // 放射状バーストを本体中心から拡大＋回転させ、光がスプライトの外まで伸びているように見せます。
+    public static void PlayArcanaActivateLightRays(BaseEntity caster, float duration)
+    {
+        if (caster == null)
+            return;
+
+        EnsureInstance();
+        EnsureSpritesLoaded();
+        instance.StartCoroutine(instance.ArcanaActivateLightRaysCoroutine(caster, Mathf.Max(0.2f, duration)));
+    }
+
+    private IEnumerator ArcanaActivateLightRaysCoroutine(BaseEntity caster, float duration)
+    {
+        Sprite[] rays = LoadGridRowSprites(FreeStarburstResourcePath, 0);
+        if (rays == null || rays.Length == 0)
+            yield break;
+
+        GameObject go = new GameObject("ArcanaActivateLightRays");
+        RegisterBattleVisual(go);
+        SpriteRenderer renderer = go.AddComponent<SpriteRenderer>();
+        if (caster.spriteRender != null)
+        {
+            renderer.sortingLayerID = caster.spriteRender.sortingLayerID;
+            renderer.sortingOrder = caster.spriteRender.sortingOrder + 2;
+        }
+
+        Color light = new Color(1f, 0.92f, 0.78f, 1f); // 温かみのある白い光
+        float elapsed = 0f;
+        while (elapsed < duration && caster != null)
+        {
+            float p = Mathf.Clamp01(elapsed / duration);
+            go.transform.position = caster.transform.position + new Vector3(0f, 0.15f, -0.05f);
+            // 外へ伸びるように拡大しつつ、ゆっくり回転。
+            float scale = Mathf.Lerp(2.0f, 4.0f, p);
+            go.transform.localScale = Vector3.one * scale;
+            go.transform.Rotate(0f, 0f, 45f * Time.deltaTime);
+            renderer.sprite = rays[Mathf.Min(rays.Length - 1, Mathf.FloorToInt(p * rays.Length))];
+            Color c = light;
+            c.a = Mathf.Sin(p * Mathf.PI); // 出てからふわっと消える
+            renderer.color = c;
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        UnregisterBattleVisual(go);
+        Destroy(go);
+    }
+
+    // 画面全体を指定色で明転（フェードイン→保持→フェードアウト）させます。明転＝白を想定。
+    public static void FlashScreen(Color color, float fadeIn, float hold, float fadeOut)
+    {
+        EnsureInstance();
+        instance.StartCoroutine(instance.FlashScreenCoroutine(color, Mathf.Max(0f, fadeIn), Mathf.Max(0f, hold), Mathf.Max(0.01f, fadeOut)));
+    }
+
+    private IEnumerator FlashScreenCoroutine(Color color, float fadeIn, float hold, float fadeOut)
+    {
+        GameObject canvasObject = new GameObject("ScreenFlashCanvas");
+        RegisterBattleVisual(canvasObject);
+        Canvas canvas = canvasObject.AddComponent<Canvas>();
+        canvas.renderMode = RenderMode.ScreenSpaceOverlay;
+        canvas.sortingOrder = 32760;
+
+        GameObject imageObject = new GameObject("ScreenFlashImage");
+        imageObject.transform.SetParent(canvasObject.transform, false);
+        Image image = imageObject.AddComponent<Image>();
+        image.raycastTarget = false;
+        RectTransform rect = image.rectTransform;
+        rect.anchorMin = Vector2.zero;
+        rect.anchorMax = Vector2.one;
+        rect.offsetMin = Vector2.zero;
+        rect.offsetMax = Vector2.zero;
+
+        float peak = color.a;
+        Color current = color;
+        float elapsed = 0f;
+        while (elapsed < fadeIn)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            current.a = Mathf.Lerp(0f, peak, Mathf.Clamp01(elapsed / Mathf.Max(0.0001f, fadeIn)));
+            image.color = current;
+            yield return null;
+        }
+
+        current.a = peak;
+        image.color = current;
+        if (hold > 0f)
+            yield return new WaitForSeconds(hold);
+
+        elapsed = 0f;
+        while (elapsed < fadeOut)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            current.a = Mathf.Lerp(peak, 0f, Mathf.Clamp01(elapsed / fadeOut));
+            image.color = current;
+            yield return null;
+        }
+
+        UnregisterBattleVisual(canvasObject);
+        Destroy(canvasObject);
     }
 
     // Invader専用の落雷です。横長の雷シートを縦向きに回転し、対象へ上から落ちるように見せます。
@@ -758,7 +1090,7 @@ public class AttackEffectPlayer : MonoBehaviour
             return;
 
         EnsureInstance();
-        instance.PlaySfx("death", 0.58f);
+        PlayUnitDeathSfx(entity);
     }
 
     // ショップやドラッグなど、UI操作SEを鳴らすための入口です。
@@ -769,6 +1101,16 @@ public class AttackEffectPlayer : MonoBehaviour
 
         EnsureInstance();
         instance.PlaySfx(cueName, GetUiSfxVolume(cueName));
+    }
+
+    // 音量を明示指定して再生する版（個別の音量バランス調整用）。
+    public static void PlayUiSfx(string cueName, float volume)
+    {
+        if (string.IsNullOrEmpty(cueName))
+            return;
+
+        EnsureInstance();
+        instance.PlaySfx(cueName, Mathf.Clamp01(volume));
     }
 
     // 戦闘終了時に、残っている弾・範囲表示・一時エフェクトを即座に消します。
@@ -882,6 +1224,11 @@ public class AttackEffectPlayer : MonoBehaviour
         divineSprites ??= LoadSprites(DivineResourcePath);
         summonerSprites ??= LoadSprites(SummonerResourcePath);
         bigFireSprites ??= LoadSprites(BigFireResourcePath);
+        redLightningSprites ??= LoadSprites(RedLightningResourcePath);
+        // fx_impactred は big/medium/small が混在するため、大きく見栄えする big 系だけを使います。
+        redImpactSprites ??= LoadSprites(RedImpactResourcePath)
+            .Where(sprite => sprite.name.StartsWith("fx_impactredbig"))
+            .ToArray();
     }
 
     // 指定Resourcesパスの全Spriteを読み、名前末尾の番号順に並べます。
@@ -1938,12 +2285,19 @@ public class AttackEffectPlayer : MonoBehaviour
         float frameTime = 1f / FrameRate;
         for (int i = 0; i < sprites.Length; i++)
         {
+            // ラウンド終了/シーン遷移で effectObject が破棄されると renderer は MissingReference になる。
+            // 高速オートプレイ等でユニットが演出中に消えるケースを安全に打ち切る。
+            if (renderer == null || effectObject == null)
+                yield break;
             renderer.sprite = sprites[i];
             yield return new WaitForSeconds(frameTime);
         }
 
-        UnregisterBattleVisual(effectObject);
-        Destroy(effectObject);
+        if (effectObject != null)
+        {
+            UnregisterBattleVisual(effectObject);
+            Destroy(effectObject);
+        }
     }
 
     // 持続時間のある大技用です。出現アニメを一度だけ流し、見栄えの良い中盤コマだけで滞在感を作ります。
@@ -2038,12 +2392,19 @@ public class AttackEffectPlayer : MonoBehaviour
             bgmSource.playOnAwake = false;
             bgmSource.loop = true;
             bgmSource.spatialBlend = 0f;
-            bgmSource.volume = BaseBgmVolume * BgmVolumeMultiplier;
+            ApplyBgmVolume();
         }
         else
         {
-            bgmSource.volume = BaseBgmVolume * BgmVolumeMultiplier;
+            ApplyBgmVolume();
         }
+    }
+
+    // BGM の実音量を、ユーザー音量倍率とダック倍率の両方を掛けて反映します。
+    private void ApplyBgmVolume()
+    {
+        if (bgmSource != null)
+            bgmSource.volume = BaseBgmVolume * BgmVolumeMultiplier * Mathf.Clamp01(bgmDuckMultiplier);
     }
 
     // OptionsPanelUI から音量倍率を更新します。
@@ -2055,8 +2416,236 @@ public class AttackEffectPlayer : MonoBehaviour
     public static void SetBgmVolume(float value)
     {
         BgmVolumeMultiplier = Mathf.Clamp01(value);
-        if (instance != null && instance.bgmSource != null)
-            instance.bgmSource.volume = BaseBgmVolume * BgmVolumeMultiplier;
+        if (instance != null)
+            instance.ApplyBgmVolume();
+    }
+
+    // BGM を targetDuck（0=無音, 1=通常）へ duration 秒かけてフェードします。大技の明転中などに使います。
+    public static void FadeBgm(float targetDuck, float duration)
+    {
+        EnsureInstance();
+        instance.EnsureAudioSources();
+        if (instance.bgmFadeCoroutine != null)
+            instance.StopCoroutine(instance.bgmFadeCoroutine);
+        instance.bgmFadeCoroutine = instance.StartCoroutine(instance.FadeBgmCoroutine(Mathf.Clamp01(targetDuck), Mathf.Max(0.01f, duration)));
+    }
+
+    private IEnumerator FadeBgmCoroutine(float targetDuck, float duration)
+    {
+        float startDuck = bgmDuckMultiplier;
+        float elapsed = 0f;
+        while (elapsed < duration)
+        {
+            elapsed += Time.unscaledDeltaTime;
+            bgmDuckMultiplier = Mathf.Lerp(startDuck, targetDuck, Mathf.Clamp01(elapsed / duration));
+            ApplyBgmVolume();
+            yield return null;
+        }
+
+        bgmDuckMultiplier = targetDuck;
+        ApplyBgmVolume();
+        bgmFadeCoroutine = null;
+    }
+
+    // 指定キューの SE を任意音量で鳴らす公開入口です（スキル側から大技音などを鳴らす用）。
+    public static void PlayCue(string cueName, float volume)
+    {
+        if (string.IsNullOrEmpty(cueName))
+            return;
+
+        EnsureInstance();
+        instance.PlaySfx(cueName, volume);
+    }
+
+    // ===== ユニットごとの戦闘 SE（アーキタイプ別＋主要ユニット固有） =====
+    // SFX 名がユニット名と一致しないため、SkillTheme（属性）と主要ユニット固有のマッピングで個性を出します。
+
+    // 通常攻撃の振り（swing）。攻撃モーション開始時に鳴らします。
+    public static void PlayUnitAttackSwing(BaseEntity caster)
+    {
+        PlayUnitCombatSfx(caster, "swing", 0.4f, "normal_attack");
+    }
+
+    // 通常攻撃の着弾（impact）。命中時に鳴らします。属性色の小さな衝撃も重ねます。
+    public static void PlayUnitAttackImpact(BaseEntity caster, Vector3 position)
+    {
+        PlayUnitCombatSfx(caster, "impact", 0.46f, "skill_power");
+        instance.PlayUnitImpactSpark(caster, position);
+    }
+
+    // 死亡時の SE。属性ごとに違う断末魔を鳴らします。
+    public static void PlayUnitDeathSfx(BaseEntity caster)
+    {
+        PlayUnitCombatSfx(caster, "death", 0.56f, "death");
+    }
+
+    private static void PlayUnitCombatSfx(BaseEntity caster, string action, float volume, string fallbackCue)
+    {
+        EnsureInstance();
+        AudioClip clip = LoadFirstAudioClip(GetUnitCombatSfxCandidates(caster, action));
+        if (clip != null)
+            instance.sfxSource.PlayOneShot(clip, volume * SfxVolumeMultiplier);
+        else
+            instance.PlaySfx(fallbackCue, volume); // 念のための保険（生成音まで含む）
+    }
+
+    // 着弾時の属性色スパーク（VFX）。通常攻撃にも属性ごとの彩りを足します。
+    private void PlayUnitImpactSpark(BaseEntity caster, Vector3 position)
+    {
+        Color themeColor = GetThemeColor(caster != null ? caster.SkillTheme : SkillVisualTheme.Neutral);
+        int row = GetEffectRowForColor(themeColor);
+        Sprite[] sparkSprites = LoadGridRowSprites(CircleImpactResourcePath, row);
+        if (sparkSprites.Length == 0)
+            return;
+
+        Vector3 sparkPosition = position + new Vector3(0f, 0.05f, -0.03f);
+        StartCoroutine(PlayAnimatedSprite(
+            CircleImpactResourcePath,
+            sparkSprites,
+            sparkPosition,
+            GetBoardAlignedScale(0.55f),
+            themeColor,
+            BoardEffectTiltAngle,
+            GetEffectSortingOrder(sparkPosition, 60)));
+    }
+
+    // "sfx/" を前置して Resources パス配列に変換します。
+    private static string[] Sfx(params string[] names)
+    {
+        string[] paths = new string[names.Length];
+        for (int i = 0; i < names.Length; i++)
+            paths[i] = "sfx/" + names[i];
+        return paths;
+    }
+
+    // ユニットの戦闘 SE 候補（最初に見つかったものを使用）。主要ユニットは固有、それ以外は属性アーキタイプで割り当てます。
+    private static string[] GetUnitCombatSfxCandidates(BaseEntity caster, string action)
+    {
+        string id = caster != null && !string.IsNullOrEmpty(caster.UnitId) ? caster.UnitId.ToLowerInvariant() : "";
+
+        // --- 主要ユニット（コスト5/ボス級）の固有 SE ---
+        switch (id)
+        {
+            case "arcana":
+                // 通常攻撃は「魔弾」を飛ばすイメージ。重い近接音ではなく軽く鋭い魔法詠唱/着弾音にします。
+                switch (action)
+                {
+                    case "swing": return Sfx("sfx_dreamgazer_attack", "sfx_astralcrusader_attack", "sfx_f2_mage4winds_attack_swing");
+                    case "impact": return Sfx("sfx_spell_truestrike", "sfx_astralcrusader_attack_impact", "sfx_dreamgazer_attack_impact");
+                    case "death": return Sfx("sfx_f4_blacksolus_death", "sfx_f2general_death");
+                    default: return Sfx("sfx_dreamgazer_hit", "sfx_f4_general_hit", "sfx_f1general_hit_1");
+                }
+            case "skyfalltyrant":
+                switch (action)
+                {
+                    case "swing": return Sfx("sfx_f5_general_attack_swing", "sfx_f1general_attack_swing");
+                    case "impact": return Sfx("sfx_spell_phoenixfire", "sfx_spell_firefall", "sfx_f5_general_attack_impact", "sfx_f1general_attack_impact");
+                    case "death": return Sfx("sfx_f5_kujata_death", "sfx_f5_kolossus_death", "sfx_f2general_death");
+                    default: return Sfx("sfx_f5_general_hit", "sfx_f1general_hit_1");
+                }
+            case "invader":
+                switch (action)
+                {
+                    case "swing": return Sfx("sfx_f2general_attack_swing", "sfx_f1general_attack_swing");
+                    case "impact": return Sfx("sfx_spell_ghostlightning", "sfx_neutral_stormatha_attack_impact", "sfx_f2general_attack_impact_1", "sfx_f1general_attack_impact");
+                    case "death": return Sfx("sfx_f2general_death", "sfx_f2melee_death");
+                    default: return Sfx("sfx_f2general_hit_1", "sfx_f1general_hit_1");
+                }
+            case "gol":
+                switch (action)
+                {
+                    case "swing": return Sfx("sfx_f4_general_attack_swing", "sfx_f1general_attack_swing");
+                    case "impact": return Sfx("sfx_spell_voidpulse", "sfx_spell_shadownova", "sfx_f4_general_attack_impact", "sfx_f1general_attack_impact");
+                    case "death": return Sfx("sfx_f4_daemondeep_death", "sfx_f2general_death");
+                    default: return Sfx("sfx_f4_general_hit", "sfx_f1general_hit_1");
+                }
+            case "plaguegeneral":
+                switch (action)
+                {
+                    case "swing": return Sfx("sfx_f4_general_attack_swing", "sfx_f1general_attack_swing");
+                    case "impact": return Sfx("sfx_spell_graspofagony", "sfx_f4_general_attack_impact", "sfx_f1general_attack_impact");
+                    case "death": return Sfx("sfx_f4_engulfingshadow_death", "sfx_f2general_death");
+                    default: return Sfx("sfx_f4_general_hit", "sfx_f1general_hit_1");
+                }
+        }
+
+        // --- アーキタイプ（SkillTheme）別 ---
+        SkillVisualTheme theme = caster != null ? caster.SkillTheme : SkillVisualTheme.Neutral;
+        switch (theme)
+        {
+            case SkillVisualTheme.Fire:
+                switch (action)
+                {
+                    case "swing": return Sfx("sfx_f5_general_attack_swing", "sfx_f1general_attack_swing");
+                    case "impact": return Sfx("sfx_spell_immolation_a", "sfx_f5_general_attack_impact", "sfx_f1general_attack_impact");
+                    case "death": return Sfx("sfx_f5_kolossus_death", "sfx_f2general_death");
+                    default: return Sfx("sfx_f5_general_hit", "sfx_f1general_hit_1");
+                }
+            case SkillVisualTheme.Ice:
+                switch (action)
+                {
+                    case "swing": return Sfx("sfx_f6_icebeetle_attack_swing", "sfx_f1general_attack_swing", "sfx_f2melee_attack_swing_1");
+                    case "impact": return Sfx("sfx_spell_icepillar", "sfx_f6_frostwyvern_attack_impact", "sfx_f1general_attack_impact");
+                    case "death": return Sfx("sfx_f6_frostwyvern_death", "sfx_f6_icebeetle_death", "sfx_f2general_death");
+                    default: return Sfx("sfx_f6_icedryad_hit", "sfx_f3_general_hit", "sfx_f1general_hit_1");
+                }
+            case SkillVisualTheme.Nature:
+                switch (action)
+                {
+                    case "swing": return Sfx("sfx_f3_general_attack_swing", "sfx_f1general_attack_swing");
+                    case "impact": return Sfx("sfx_f3_general_attack_impact", "sfx_f1general_attack_impact");
+                    case "death": return Sfx("sfx_f6_ancientgrove_death", "sfx_f3_aymarahealer_death", "sfx_f2general_death");
+                    default: return Sfx("sfx_f3_general_hit", "sfx_f1general_hit_1");
+                }
+            case SkillVisualTheme.Holy:
+                switch (action)
+                {
+                    case "swing": return Sfx("sfx_f1_general_attack_swing", "sfx_f1general_attack_swing");
+                    case "impact": return Sfx("sfx_spell_divineblood", "sfx_f1_general_attack_impact", "sfx_f1general_attack_impact");
+                    case "death": return Sfx("sfx_f1general_death", "sfx_f1tank_death");
+                    default: return Sfx("sfx_f1_general_hit", "sfx_f1general_hit_1");
+                }
+            case SkillVisualTheme.Shadow:
+                switch (action)
+                {
+                    case "swing": return Sfx("sfx_f4_general_attack_swing", "sfx_f1general_attack_swing");
+                    case "impact": return Sfx("sfx_spell_shadownova", "sfx_f4_general_attack_impact", "sfx_f1general_attack_impact");
+                    case "death": return Sfx("sfx_f4_blacksolus_death", "sfx_f2general_death");
+                    default: return Sfx("sfx_f4_general_hit", "sfx_f1general_hit_1");
+                }
+            case SkillVisualTheme.Lightning:
+                switch (action)
+                {
+                    case "swing": return Sfx("sfx_f2general_attack_swing", "sfx_f1general_attack_swing");
+                    case "impact": return Sfx("sfx_spell_ghostlightning", "sfx_f2general_attack_impact_1", "sfx_f1general_attack_impact");
+                    case "death": return Sfx("sfx_f2general_death", "sfx_f2melee_death");
+                    default: return Sfx("sfx_f2general_hit_1", "sfx_f1general_hit_1");
+                }
+            case SkillVisualTheme.Tech:
+                switch (action)
+                {
+                    case "swing": return Sfx("sfx_neutral_swordmechaz0r_attack_swing", "sfx_f2general_attack_swing", "sfx_f1general_attack_swing");
+                    case "impact": return Sfx("sfx_neutral_swordmechaz0r_attack_impact", "sfx_f2general_attack_impact_1", "sfx_f1general_attack_impact");
+                    case "death": return Sfx("sfx_neutral_cannonmechaz0r_death", "sfx_f2general_death");
+                    default: return Sfx("sfx_f2general_hit_1", "sfx_f1general_hit_1");
+                }
+            case SkillVisualTheme.Void:
+                switch (action)
+                {
+                    case "swing": return Sfx("sfx_f4_general_attack_swing", "sfx_f1general_attack_swing");
+                    case "impact": return Sfx("sfx_spell_voidpulse", "sfx_spell_shadownova", "sfx_f4_general_attack_impact", "sfx_f1general_attack_impact");
+                    case "death": return Sfx("sfx_f4_daemondeep_death", "sfx_f2general_death");
+                    default: return Sfx("sfx_f4_general_hit", "sfx_f1general_hit_1");
+                }
+            default: // Neutral
+                switch (action)
+                {
+                    case "swing": return Sfx("sfx_f1general_attack_swing", "sfx_f2melee_attack_swing_1");
+                    case "impact": return Sfx("sfx_f1general_attack_impact", "sfx_f2melee_attack_impact_1");
+                    case "death": return Sfx("sfx_f1general_death", "sfx_f2melee_death");
+                    default: return Sfx("sfx_f1general_hit_1", "sfx_f3_general_hit");
+                }
+        }
     }
 
     // BGM候補から見つかったものを再生します。見つからなければ簡易生成BGMを使います。

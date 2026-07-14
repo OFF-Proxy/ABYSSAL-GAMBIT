@@ -17,8 +17,11 @@ public class AugmentSelectionUI : MonoBehaviour
     private GameObject dimObject;
     private TextMeshProUGUI titleText;
 
-    private readonly Image[] cardBackgrounds = new Image[CardCount];
+    private readonly Image[] cardBackgrounds = new Image[CardCount]; // 表面のアーティファクト画像
     private readonly Image[] cardBorders = new Image[CardCount];
+    private readonly RectTransform[] cardRoots = new RectTransform[CardCount]; // 回転する要素
+    private readonly Image[] cardBacks = new Image[CardCount];               // 裏面画像
+    private readonly GameObject[] cardFronts = new GameObject[CardCount];     // 表面コンテナ（180°回転済み）
     private readonly TextMeshProUGUI[] tierLabels = new TextMeshProUGUI[CardCount];
     private readonly TextMeshProUGUI[] nameLabels = new TextMeshProUGUI[CardCount];
     private readonly TextMeshProUGUI[] descLabels = new TextMeshProUGUI[CardCount];
@@ -53,7 +56,7 @@ public class AugmentSelectionUI : MonoBehaviour
         GameObject go = new GameObject("AugmentSelectionUI", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(AugmentSelectionUI));
         Canvas canvas = go.GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 61000;
+        canvas.sortingOrder = 26000; // 16bit short上限(32767)内。
         CanvasScaler scaler = go.GetComponent<CanvasScaler>();
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
 
@@ -104,6 +107,7 @@ public class AugmentSelectionUI : MonoBehaviour
             rerollUsed[i] = false;
         RefreshCards();
         SetOpen(true);
+        PlayFlipAll();
     }
 
     private void DrawInitialCards()
@@ -131,6 +135,20 @@ public class AugmentSelectionUI : MonoBehaviour
         }
         return pool;
     }
+
+#if UNITY_EDITOR || DEVELOPMENT_BUILD
+    // オートプレイ(debug)用：選択UIが開いているか。
+    public bool DebugIsOpen => isOpen;
+
+    // オートプレイ(debug)用：開いていれば先頭の有効カードを自動選択する。開いていなければfalse。
+    public bool DebugAutoResolve()
+    {
+        if (!isOpen) return false;
+        for (int i = 0; i < CardCount; i++)
+            if (currentCards[i] != null) { OnSelectClicked(i); return true; }
+        return false;
+    }
+#endif
 
     private void OnRerollClicked(int index)
     {
@@ -160,6 +178,7 @@ public class AugmentSelectionUI : MonoBehaviour
         // pool が空の場合は現在のカードを維持。
         AttackEffectPlayer.PlayUiSfx("shop_reroll");
         RefreshCards();
+        PlayFlipCard(index, 0f); // リロールしたカードを再フリップ
     }
 
     private void OnSelectClicked(int index)
@@ -192,7 +211,7 @@ public class AugmentSelectionUI : MonoBehaviour
             if (panelGroup != null) panelGroup.alpha = open ? 1f : 0f;
             panelRect.localScale = Vector3.one;
         }
-        if (!open) Time.timeScale = previousTimeScale;
+        if (!open) Time.timeScale = OptionsPanelUI.DesiredGameSpeed; // チャプター全体で倍速を維持
     }
 
     private void SetOpen(bool open)
@@ -221,7 +240,7 @@ public class AugmentSelectionUI : MonoBehaviour
         }
         else
         {
-            Time.timeScale = previousTimeScale;
+            Time.timeScale = OptionsPanelUI.DesiredGameSpeed; // チャプター全体で倍速を維持
             panelGroup.DOFade(0f, 0.16f).SetUpdate(true);
             panelRect.DOScale(0.94f, 0.16f).SetUpdate(true).OnComplete(() =>
             {
@@ -269,21 +288,51 @@ public class AugmentSelectionUI : MonoBehaviour
 
     private void BuildCard(RectTransform parent, float xOffset, int index)
     {
-        // 背景
-        GameObject cardObj = new GameObject($"Card_{index}", typeof(RectTransform), typeof(Image));
+        // ルート（フリップで回転する要素）
+        GameObject cardObj = new GameObject($"Card_{index}", typeof(RectTransform));
         cardObj.transform.SetParent(parent, false);
         RectTransform cardRect = cardObj.GetComponent<RectTransform>();
         cardRect.anchorMin = cardRect.anchorMax = new Vector2(0.5f, 0.5f);
         cardRect.pivot = new Vector2(0.5f, 0.5f);
         cardRect.anchoredPosition = new Vector2(xOffset, 0f);
-        cardRect.sizeDelta = new Vector2(280f, 400f);
-        Image cardBg = cardObj.GetComponent<Image>();
-        cardBg.color = new Color(0.08f, 0.10f, 0.13f, 1f);
-        cardBackgrounds[index] = cardBg;
+        cardRect.sizeDelta = new Vector2(280f, 372f); // カード比 ~0.76
+        cardRoots[index] = cardRect;
+
+        // 裏面（ティア別 card_back）。ルートが 0° のとき正面。
+        GameObject backObj = new GameObject("Back", typeof(RectTransform), typeof(Image));
+        backObj.transform.SetParent(cardRect, false);
+        FillRect(backObj.GetComponent<RectTransform>());
+        Image backImg = backObj.GetComponent<Image>();
+        backImg.color = Color.white; backImg.preserveAspect = false;
+        cardBacks[index] = backImg;
+
+        // 表面コンテナ（180°回転＝ルートが 180° でこちらを向く。内容は鏡像にならない）。
+        GameObject frontObj = new GameObject("Front", typeof(RectTransform));
+        frontObj.transform.SetParent(cardRect, false);
+        RectTransform frontRect = frontObj.GetComponent<RectTransform>();
+        FillRect(frontRect);
+        frontRect.localEulerAngles = new Vector3(0f, 180f, 0f);
+        cardFronts[index] = frontObj;
+
+        // 表面のアーティファクト画像（ティア別 f*_artifact）。
+        GameObject artObj = new GameObject("Art", typeof(RectTransform), typeof(Image));
+        artObj.transform.SetParent(frontRect, false);
+        FillRect(artObj.GetComponent<RectTransform>());
+        Image artImg = artObj.GetComponent<Image>();
+        artImg.color = Color.white; artImg.preserveAspect = false;
+        cardBackgrounds[index] = artImg;
+
+        // テキスト可読性スクリム
+        GameObject scrim = new GameObject("Scrim", typeof(RectTransform), typeof(Image));
+        scrim.transform.SetParent(frontRect, false);
+        RectTransform scrimRect = scrim.GetComponent<RectTransform>();
+        scrimRect.anchorMin = new Vector2(0.08f, 0.16f); scrimRect.anchorMax = new Vector2(0.92f, 0.78f);
+        scrimRect.offsetMin = Vector2.zero; scrimRect.offsetMax = Vector2.zero;
+        Image scrimImg = scrim.GetComponent<Image>(); scrimImg.color = new Color(0f, 0f, 0f, 0.5f); scrimImg.raycastTarget = false;
 
         // 上部の縁（ティアカラー）
         GameObject borderObj = new GameObject("TierBorder", typeof(RectTransform), typeof(Image));
-        borderObj.transform.SetParent(cardRect, false);
+        borderObj.transform.SetParent(frontRect, false);
         RectTransform borderRect = borderObj.GetComponent<RectTransform>();
         borderRect.anchorMin = new Vector2(0f, 1f);
         borderRect.anchorMax = new Vector2(1f, 1f);
@@ -294,35 +343,75 @@ public class AugmentSelectionUI : MonoBehaviour
         borderImg.color = new Color(0.6f, 0.6f, 0.6f, 1f);
         cardBorders[index] = borderImg;
 
-        // ティアラベル
-        tierLabels[index] = CreateText($"Tier_{index}", cardRect, new Vector2(0.5f, 1f), new Vector2(0f, -22f), new Vector2(240f, 22f), 14f, FontStyles.Bold, new Color(0.85f, 0.85f, 0.9f));
+        tierLabels[index] = CreateText($"Tier_{index}", frontRect, new Vector2(0.5f, 1f), new Vector2(0f, -20f), new Vector2(240f, 22f), 14f, FontStyles.Bold, new Color(0.85f, 0.85f, 0.9f));
         tierLabels[index].alignment = TextAlignmentOptions.Center;
 
-        // 名前
-        nameLabels[index] = CreateText($"Name_{index}", cardRect, new Vector2(0.5f, 1f), new Vector2(0f, -62f), new Vector2(252f, 60f), 20f, FontStyles.Bold, Color.white);
+        nameLabels[index] = CreateText($"Name_{index}", frontRect, new Vector2(0.5f, 1f), new Vector2(0f, -56f), new Vector2(244f, 52f), 20f, FontStyles.Bold, Color.white);
         nameLabels[index].alignment = TextAlignmentOptions.Center;
         nameLabels[index].enableWordWrapping = true;
         nameLabels[index].enableAutoSizing = true;
-        nameLabels[index].fontSizeMin = 14f;
+        nameLabels[index].fontSizeMin = 13f;
         nameLabels[index].fontSizeMax = 20f;
 
-        // 説明
-        descLabels[index] = CreateText($"Desc_{index}", cardRect, new Vector2(0.5f, 0.5f), new Vector2(0f, -10f), new Vector2(252f, 200f), 13f, FontStyles.Normal, new Color(0.88f, 0.94f, 1f));
-        descLabels[index].alignment = TextAlignmentOptions.TopLeft;
+        descLabels[index] = CreateText($"Desc_{index}", frontRect, new Vector2(0.5f, 0.5f), new Vector2(0f, -4f), new Vector2(232f, 168f), 13f, FontStyles.Normal, new Color(0.9f, 0.95f, 1f));
+        descLabels[index].alignment = TextAlignmentOptions.Top;
         descLabels[index].enableWordWrapping = true;
         descLabels[index].lineSpacing = 4f;
 
-        // リロールボタン（左下）
-        rerollButtons[index] = CreateButton($"Reroll_{index}", cardRect, new Vector2(0.5f, 0f), new Vector2(-66f, 38f), new Vector2(110f, 38f), out rerollButtonTexts[index]);
+        rerollButtons[index] = CreateButton($"Reroll_{index}", frontRect, new Vector2(0.5f, 0f), new Vector2(-66f, 30f), new Vector2(110f, 38f), out rerollButtonTexts[index]);
         rerollButtons[index].GetComponent<Image>().color = new Color(0.30f, 0.32f, 0.38f, 1f);
         int capturedIdx1 = index;
         rerollButtons[index].onClick.AddListener(() => OnRerollClicked(capturedIdx1));
 
-        // 選択ボタン（右下）
-        selectButtons[index] = CreateButton($"Select_{index}", cardRect, new Vector2(0.5f, 0f), new Vector2(66f, 38f), new Vector2(110f, 38f), out selectButtonTexts[index]);
+        selectButtons[index] = CreateButton($"Select_{index}", frontRect, new Vector2(0.5f, 0f), new Vector2(66f, 30f), new Vector2(110f, 38f), out selectButtonTexts[index]);
         selectButtons[index].GetComponent<Image>().color = new Color(0.22f, 0.6f, 0.85f, 1f);
         int capturedIdx2 = index;
         selectButtons[index].onClick.AddListener(() => OnSelectClicked(capturedIdx2));
+    }
+
+    private static void FillRect(RectTransform r)
+    {
+        r.anchorMin = Vector2.zero; r.anchorMax = Vector2.one;
+        r.offsetMin = Vector2.zero; r.offsetMax = Vector2.zero;
+    }
+
+    // ===== フリップ演出 =====
+    private void PlayFlipAll()
+    {
+        for (int i = 0; i < CardCount; i++)
+            PlayFlipCard(i, i * 0.12f);
+    }
+
+    private void PlayFlipCard(int i, float delay)
+    {
+        RectTransform root = cardRoots[i];
+        if (root == null) return;
+        root.DOKill();
+        root.localEulerAngles = Vector3.zero;
+        if (cardBacks[i] != null) cardBacks[i].gameObject.SetActive(true);
+        if (cardFronts[i] != null) cardFronts[i].SetActive(false);
+
+        Sequence s = DOTween.Sequence().SetUpdate(true);
+        if (delay > 0f) s.AppendInterval(delay);
+        s.Append(root.DOLocalRotate(new Vector3(0f, 90f, 0f), 0.16f).SetEase(Ease.InQuad));
+        s.AppendCallback(() =>
+        {
+            if (cardBacks[i] != null) cardBacks[i].gameObject.SetActive(false);
+            if (cardFronts[i] != null) cardFronts[i].SetActive(true);
+        });
+        s.Append(root.DOLocalRotate(new Vector3(0f, 180f, 0f), 0.20f).SetEase(Ease.OutBack));
+    }
+
+    private Sprite TierBackSprite(AugmentTier t)
+    {
+        string n = t == AugmentTier.Gold ? "gold_back" : (t == AugmentTier.Prism ? "prism_back" : "silver_back");
+        return Resources.Load<Sprite>("UI/Cards/" + n);
+    }
+
+    private Sprite TierFrontSprite(AugmentTier t)
+    {
+        string n = t == AugmentTier.Gold ? "gold_front" : (t == AugmentTier.Prism ? "prism_front" : "silver_front");
+        return Resources.Load<Sprite>("UI/Cards/" + n);
     }
 
     private void RefreshCards()
@@ -333,13 +422,16 @@ public class AugmentSelectionUI : MonoBehaviour
         titleText.text = ja ? $"{tierName}オーグメントを選択" : $"Choose a {tierName} Augment";
 
         Color tierColor = GetTierColor(currentTier);
-        Color tierBgTint = GetTierBgTint(currentTier);
+        Sprite backSprite = TierBackSprite(currentTier);
+        Sprite frontSprite = TierFrontSprite(currentTier);
 
         for (int i = 0; i < CardCount; i++)
         {
             AugmentDefinition aug = currentCards[i];
             cardBorders[i].color = tierColor;
-            cardBackgrounds[i].color = tierBgTint;
+            if (cardBacks[i] != null) cardBacks[i].sprite = backSprite;
+            cardBackgrounds[i].sprite = frontSprite;
+            cardBackgrounds[i].color = Color.white;
             LocalizationManager.ApplyFont(tierLabels[i]);
             LocalizationManager.ApplyFont(nameLabels[i]);
             LocalizationManager.ApplyFont(descLabels[i]);

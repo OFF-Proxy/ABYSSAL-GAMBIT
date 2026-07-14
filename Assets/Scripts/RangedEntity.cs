@@ -17,11 +17,20 @@ public class RangedEntity : BaseEntity
     // 毎フレーム、敵が射程内かどうかを見て攻撃または移動を行います。
     public void Update()
     {
+        // R2-coremode: コアは移動も攻撃もしない（被弾専用の拠点）。
+        if (IsCore)
+            return;
+
         // 死亡中、ベンチ待機中、スタン中などは行動しません。
         if (!CanAct)
             return;
 
         if (TryHandleDebugTrainingDummy())
+            return;
+
+        // 攻撃モーション中は移動も再ターゲットもしません。モーションを最後まで再生し終えてから次の行動へ移ります。
+        // （攻撃コルーチンは開始時のターゲットを保持しているため、途中で敵が射程外へ離れてもこの攻撃は当たります。）
+        if (IsAttackMotionPlaying)
             return;
 
         // ターゲットが無効になった時や射程外になった時に狙い直します。

@@ -58,6 +58,10 @@ public class OptionsPanelUI : MonoBehaviour
     // アクション
     private Button helpButton;
     private TextMeshProUGUI helpButtonText;
+    private Button heroChangeButton;
+    private TextMeshProUGUI heroChangeText;
+    private Button lobbyButton;
+    private TextMeshProUGUI lobbyText;
     private Button restartButton;
     private TextMeshProUGUI restartText;
     private Button closeButton;
@@ -74,6 +78,17 @@ public class OptionsPanelUI : MonoBehaviour
 
     // 状態
     private float currentSpeed = 1f;
+
+    // 他UI（リザルト/オーグメント等）がポーズ解除後に復帰すべき「プレイヤー設定のゲーム速度」。
+    // インスタンスがあればその値、無ければ PlayerPrefs から読む（チャプター全体で倍速を維持するため）。
+    public static float DesiredGameSpeed
+    {
+        get
+        {
+            if (Instance != null) return Instance.currentSpeed;
+            return Mathf.Clamp(PlayerPrefs.GetFloat(PrefKeyGameSpeed, 1f), 0.25f, 4f);
+        }
+    }
     private float lastUnmutedMasterVolume = 1f;
     private bool muted;
     private bool isOpen;
@@ -97,7 +112,7 @@ public class OptionsPanelUI : MonoBehaviour
         GameObject go = new GameObject("OptionsPanelUI", typeof(RectTransform), typeof(Canvas), typeof(CanvasScaler), typeof(GraphicRaycaster), typeof(OptionsPanelUI));
         Canvas canvas = go.GetComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 60000;
+        canvas.sortingOrder = 25000; // 16bit short上限(32767)内。
         CanvasScaler scaler = go.GetComponent<CanvasScaler>();
         scaler.uiScaleMode = CanvasScaler.ScaleMode.ConstantPixelSize;
 
@@ -122,7 +137,8 @@ public class OptionsPanelUI : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        // オプション開閉キーは設定（キーコンフィグ）で変更可能。既定は Escape。
+        if (Input.GetKeyDown(SettingsStore.GetBind("toggleOptions", KeyCode.Escape)))
         {
             if (isHelpOpen)
                 HideHelp();
@@ -332,15 +348,24 @@ public class OptionsPanelUI : MonoBehaviour
         speed2Button.onClick.AddListener(() => SetSpeed(2f));
 
         // === アクションボタン ===
-        helpButton = CreateButton("Help", panelRect, new Vector2(0.5f, 0f), new Vector2(0f, 196f), new Vector2(320f, 38f), out helpButtonText);
+        // ヒーロー変更（編成フェーズのみ有効）。速度セクションと Help の間に配置。
+        heroChangeButton = CreateButton("HeroChange", panelRect, new Vector2(0.5f, 0f), new Vector2(0f, 272f), new Vector2(320f, 40f), out heroChangeText);
+        heroChangeButton.GetComponent<Image>().color = new Color(0.20f, 0.42f, 0.40f, 1f);
+        heroChangeButton.onClick.AddListener(OnChangeHeroClicked);
+
+        helpButton = CreateButton("Help", panelRect, new Vector2(0.5f, 0f), new Vector2(0f, 222f), new Vector2(320f, 38f), out helpButtonText);
         helpButton.GetComponent<Image>().color = new Color(0.20f, 0.35f, 0.45f, 1f);
         helpButton.onClick.AddListener(ShowHelp);
 
-        restartButton = CreateButton("Restart", panelRect, new Vector2(0.5f, 0f), new Vector2(0f, 138f), new Vector2(320f, 42f), out restartText);
+        lobbyButton = CreateButton("Lobby", panelRect, new Vector2(0.5f, 0f), new Vector2(0f, 172f), new Vector2(320f, 42f), out lobbyText);
+        lobbyButton.GetComponent<Image>().color = new Color(0.28f, 0.22f, 0.42f, 1f);
+        lobbyButton.onClick.AddListener(OnReturnToLobbyClicked);
+
+        restartButton = CreateButton("Restart", panelRect, new Vector2(0.5f, 0f), new Vector2(0f, 122f), new Vector2(320f, 42f), out restartText);
         restartButton.GetComponent<Image>().color = new Color(0.45f, 0.16f, 0.18f, 1f);
         restartButton.onClick.AddListener(OnRestartClicked);
 
-        closeButton = CreateButton("Close", panelRect, new Vector2(0.5f, 0f), new Vector2(0f, 80f), new Vector2(320f, 42f), out closeText);
+        closeButton = CreateButton("Close", panelRect, new Vector2(0.5f, 0f), new Vector2(0f, 72f), new Vector2(320f, 42f), out closeText);
         closeButton.GetComponent<Image>().color = new Color(0.18f, 0.42f, 0.52f, 1f);
         closeButton.onClick.AddListener(Hide);
 
@@ -471,6 +496,22 @@ public class OptionsPanelUI : MonoBehaviour
         SceneManager.LoadScene(active.buildIndex >= 0 ? active.buildIndex : 0);
     }
 
+    // 「ヒーロー変更」。オプションを閉じてヒーロー変更オーバーレイを開く（編成フェーズのみ実変更可）。
+    private void OnChangeHeroClicked()
+    {
+        Hide();
+        HeroChangeUI.EnsureExists().Show();
+    }
+
+    // 「ロビーへ戻る」。GameManager に依頼して章選択をリセットし、次回起動でロビーを出して再読込します。
+    private void OnReturnToLobbyClicked()
+    {
+        if (GameManager.Instance != null)
+            GameManager.Instance.RequestReturnToLobby();
+        else
+            OnRestartClicked(); // 念のためのフォールバック（GameManager 不在時は通常再読込）。
+    }
+
     private void LoadSettings()
     {
         float master = Mathf.Clamp01(PlayerPrefs.GetFloat(PrefKeyMasterVolume, 1f));
@@ -511,6 +552,8 @@ public class OptionsPanelUI : MonoBehaviour
         if (langJpText != null) { LocalizationManager.ApplyFont(langJpText); langJpText.text = "日本語"; }
         if (langEnText != null) { LocalizationManager.ApplyFont(langEnText); langEnText.text = "English"; }
         if (helpButtonText != null) { LocalizationManager.ApplyFont(helpButtonText); helpButtonText.text = ja ? "ヘルプ / 操作方法" : "Help / Controls"; }
+        if (heroChangeText != null) { LocalizationManager.ApplyFont(heroChangeText); heroChangeText.text = ja ? "ヒーロー変更" : "Change Hero"; }
+        if (lobbyText != null) { LocalizationManager.ApplyFont(lobbyText); lobbyText.text = ja ? "ロビーへ戻る" : "Return to Lobby"; }
         if (restartText != null) { LocalizationManager.ApplyFont(restartText); restartText.text = ja ? "新しい挑戦を始める" : "Restart Run"; }
         if (closeText != null) { LocalizationManager.ApplyFont(closeText); closeText.text = ja ? "閉じる" : "Close"; }
         if (hintText != null) { LocalizationManager.ApplyFont(hintText); hintText.text = ja ? "ESCキーでも開閉できます" : "Press ESC to toggle"; }

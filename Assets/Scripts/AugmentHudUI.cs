@@ -102,7 +102,7 @@ public class AugmentHudUI : MonoBehaviour
         if (canvas == null)
             canvas = gameObject.AddComponent<Canvas>();
         canvas.renderMode = RenderMode.ScreenSpaceOverlay;
-        canvas.sortingOrder = 49000;
+        canvas.sortingOrder = 14000; // 16bit short上限(32767)内。
 
         CanvasScaler scaler = GetComponent<CanvasScaler>();
         if (scaler == null)

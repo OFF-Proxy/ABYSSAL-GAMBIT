@@ -53,14 +53,16 @@ public static class UnitAnimationBuilder
         new PlistAtlasAnimationSpec("Umbra", "boss_umbra", "T2", 2, 1, "Assets/Prefabs/Unit/T1/Borealjuggernaut.prefab", 30, 185, 0.95f, 1.05f, 1.2f),
         new PlistAtlasAnimationSpec("Spelleater", "boss_spelleater", "T2", 2, 4, "Assets/Prefabs/Unit/T1/Andromeda.prefab", 34, 115, 0.9f, 1f, 1.06f),
         new PlistAtlasAnimationSpec("Serpenti", "boss_serpenti", "T2", 2, 1, "Assets/Prefabs/Unit/T1/Chaosknight.prefab", 36, 150, 1.1f, 1.15f, 1.02f),
-        new PlistAtlasAnimationSpec("Skindogehai", "f2_general_skindogehai", "T3", 3, 1, "Assets/Prefabs/Unit/T2/Serpenti.prefab", 220, 1800, 1f, 1f, 1.14f),
+        // 将来のヒーロー形態変化用に温存（カガチ系）。T3→Hero へ移動済み（AssetDatabase.MoveAsset）。
+        new PlistAtlasAnimationSpec("Skindogehai", "f2_general_skindogehai", "Hero", 3, 1, "Assets/Prefabs/Unit/T2/Serpenti.prefab", 220, 1800, 1f, 1f, 1.14f),
         new PlistAtlasAnimationSpec("Decepticleprime", "boss_decepticleprime", "T3", 3, 4, "Assets/Prefabs/Unit/T2/Crystal.prefab", 270, 1450, 1.12f, 0.95f, 1.18f),
         new PlistAtlasAnimationSpec("Decepticlechassis", "boss_decepticlechassis", "T3", 3, 1, "Assets/Prefabs/Unit/T2/Decepticle.prefab", 230, 1900, 0.95f, 0.95f, 1.3f),
         new PlistAtlasAnimationSpec("Wolfpunch", "boss_wolfpunch", "T3", 3, 1, "Assets/Prefabs/Unit/T2/City.prefab", 245, 2100, 0.92f, 0.95f, 1.24f),
         new PlistAtlasAnimationSpec("Shadowlord", "boss_shadowlord", "T3", 3, 1, "Assets/Prefabs/Unit/T2/Serpenti.prefab", 275, 1650, 1.02f, 1.15f, 1.18f),
-        new PlistAtlasAnimationSpec("Tier2general", "f6_tier2general", "T3", 3, 4, "Assets/Prefabs/Unit/T2/Crystal.prefab", 290, 1400, 1f, 1f, 1.12f),
+        // 将来のヒーロー形態変化用に温存（ヴェスナ系）。T3→Hero へ移動済み。
+        new PlistAtlasAnimationSpec("Tier2general", "f6_tier2general", "Hero", 3, 4, "Assets/Prefabs/Unit/T2/Crystal.prefab", 290, 1400, 1f, 1f, 1.12f),
         new PlistAtlasAnimationSpec("Snowchasermk", "f6_snowchasermk2", "T4", 4, 4, "Assets/Prefabs/Unit/T3/Decepticleprime.prefab", 360, 2200, 1.02f, 1.05f, 1.3f),
-        new PlistAtlasAnimationSpec("Solfist", "boss_solfist", "T4", 4, 1, "Assets/Prefabs/Unit/T3/Skindogehai.prefab", 320, 2850, 0.9f, 0.9f, 1.18f),
+        new PlistAtlasAnimationSpec("Solfist", "boss_solfist", "T4", 4, 1, "Assets/Prefabs/Unit/Hero/Skindogehai.prefab", 320, 2850, 0.9f, 0.9f, 1.18f),
         new PlistAtlasAnimationSpec("Maehvmk", "f4_maehvmk2", "T4", 4, 4, "Assets/Prefabs/Unit/T3/Decepticleprime.prefab", 390, 2100, 1f, 1f, 1.15f),
         new PlistAtlasAnimationSpec("Archdeacon", "f1_archdeacon", "T1", 1, 4, "Assets/Prefabs/Unit/T1/Andromeda.prefab", 55, 620, 0.65f, 0.95f, 1.02f),
         new PlistAtlasAnimationSpec("Backlinearcher", "f1_backlinearcher", "T1", 1, 4, "Assets/Prefabs/Unit/T1/Andromeda.prefab", 85, 580, 0.8f, 1f, 1.02f),
@@ -82,7 +84,86 @@ public static class UnitAnimationBuilder
         new PlistAtlasAnimationSpec("Kron", "boss_kron", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Solfist.prefab", 560, 4500, 0.6f, 0.85f, 1.3f),
         new PlistAtlasAnimationSpec("Gol", "boss_gol", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Solfist.prefab", 500, 5000, 0.55f, 0.8f, 1.32f),
         new PlistAtlasAnimationSpec("Invader", "boss_invader", "T5", 5, 4, "Assets/Prefabs/Unit/T4/Maehvmk.prefab", 620, 3600, 0.62f, 1f, 1.22f),
-        new PlistAtlasAnimationSpec("Legion", "boss_legion", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Wujin.prefab", 580, 4000, 0.68f, 1.05f, 1.24f)
+        new PlistAtlasAnimationSpec("Legion", "boss_legion", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Wujin.prefab", 580, 4000, 0.68f, 1.05f, 1.24f),
+        // --- cost4 追加5体（DESIGN_cost4-units.md）。general系を避けた固有スプライト。stat/scaleは暫定（R3-balance調整）。 ---
+        new PlistAtlasAnimationSpec("Grymbeast", "boss_grym", "T4", 4, 1, "Assets/Prefabs/Unit/T4/Solfist.prefab", 390, 2300, 0.95f, 1.1f, 1.1f),
+        new PlistAtlasAnimationSpec("Cinderwraith", "boss_unhallowed", "T4", 4, 1, "Assets/Prefabs/Unit/T4/Solfist.prefab", 380, 2400, 0.9f, 1.0f, 1.1f),
+        new PlistAtlasAnimationSpec("Draugarlord", "f6_draugarlord", "T4", 4, 4, "Assets/Prefabs/Unit/T4/Maehvmk.prefab", 360, 2300, 0.95f, 0.95f, 0.9f),
+        new PlistAtlasAnimationSpec("Kingsguard", "f1_kingsguard", "T4", 4, 1, "Assets/Prefabs/Unit/T4/Solfist.prefab", 330, 2750, 0.88f, 0.95f, 0.85f),
+        new PlistAtlasAnimationSpec("Dissonance", "boss_dissonance", "T4", 4, 4, "Assets/Prefabs/Unit/T4/Maehvmk.prefab", 410, 2050, 1.0f, 1.0f, 1.05f),
+        // --- 章1ボス：Caliber-O（Lyonar f1・章選択画面の表紙キャラ）。cost4・近接の聖騎士将。 ---
+        new PlistAtlasAnimationSpec("Caliber", "f1_caliber-o", "T4", 4, 1, "Assets/Prefabs/Unit/T4/Solfist.prefab", 360, 2700, 0.92f, 1.0f, 1.2f),
+        // --- Songhai 追加4体（陣営シナジーを7体に拡充）。f2(Songhai)アトラスの忍/獣/炎系。stat/scaleは暫定（R3-balance）。 ---
+        new PlistAtlasAnimationSpec("Lanternfox", "f2_lanternfox", "T1", 1, 4, "Assets/Prefabs/Unit/T1/Andromeda.prefab", 80, 600, 0.85f, 1.05f, 1.0f),
+        new PlistAtlasAnimationSpec("Onyxjaguar", "f2_onyxjaguar", "T2", 2, 1, "Assets/Prefabs/Unit/T2/Serpenti.prefab", 150, 1250, 0.82f, 1.15f, 1.05f),
+        new PlistAtlasAnimationSpec("Keshraifanblade", "f2_keshraifanblade", "T3", 3, 1, "Assets/Prefabs/Unit/T3/Shadowlord.prefab", 260, 1700, 0.78f, 1.1f, 1.05f),
+        new PlistAtlasAnimationSpec("Firewyrm", "f2_firewyrm", "T3", 3, 4, "Assets/Prefabs/Unit/T3/Decepticleprime.prefab", 300, 1450, 0.8f, 1.05f, 1.08f),
+        // --- ヒーロー専用3体（DESIGN_R3-hero-units.md）。ショップ/敵/召喚/報酬/開始抽選に出ない専用枠。
+        //     IsHeroUnitData で全抽選から除外。cost=2 は表示用。stat/scale は暫定（R3-balance で調整）。 ---
+        new PlistAtlasAnimationSpec("HeroAldin", "f1_general", "Hero", 2, 1, "Assets/Prefabs/Unit/T1/Christmas.prefab", 70, 950, 0.85f, 1.0f, 0.85f),
+        new PlistAtlasAnimationSpec("HeroKagachi", "f2_general", "Hero", 2, 1, "Assets/Prefabs/Unit/T1/Chaosknight.prefab", 80, 850, 1.0f, 1.1f, 0.85f),
+        new PlistAtlasAnimationSpec("HeroVesna", "f6_general", "Hero", 2, 4, "Assets/Prefabs/Unit/T1/Andromeda.prefab", 70, 700, 0.85f, 1.0f, 0.85f),
+        // --- 追加ヒーロー6体（各陣営の alt/3rd 将）。立ち絵=general_f*alt/third。進行度で解放（HeroUnlockChapters）。 ---
+        new PlistAtlasAnimationSpec("HeroZiran", "f1_altgeneral", "Hero", 2, 1, "Assets/Prefabs/Unit/T1/Christmas.prefab", 75, 950, 0.9f, 1.0f, 0.85f),
+        new PlistAtlasAnimationSpec("HeroBrome", "f1_3rdgeneral", "Hero", 2, 1, "Assets/Prefabs/Unit/T1/Christmas.prefab", 80, 980, 0.9f, 1.0f, 0.85f),
+        new PlistAtlasAnimationSpec("HeroReva", "f2_altgeneral", "Hero", 2, 1, "Assets/Prefabs/Unit/T1/Chaosknight.prefab", 85, 800, 1.05f, 1.1f, 0.85f),
+        new PlistAtlasAnimationSpec("HeroShidai", "f2_3rdgeneral", "Hero", 2, 1, "Assets/Prefabs/Unit/T1/Chaosknight.prefab", 82, 820, 1.05f, 1.1f, 0.85f),
+        new PlistAtlasAnimationSpec("HeroKara", "f6_altgeneral", "Hero", 2, 1, "Assets/Prefabs/Unit/T1/Christmas.prefab", 78, 900, 0.92f, 1.0f, 0.85f),
+        new PlistAtlasAnimationSpec("HeroIlena", "f6_3rdgeneral", "Hero", 2, 4, "Assets/Prefabs/Unit/T1/Andromeda.prefab", 72, 760, 0.88f, 1.0f, 0.85f),
+        // --- DESIGN_R3-boss-factions.md: ボス陣営 Magmar(f5) の将3体（章4=base/章5=alt/章6=third）。仮名・stat暫定（R3-balance）。 ---
+        new PlistAtlasAnimationSpec("Magmarvaath", "f5_general", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Wujin.prefab", 560, 4600, 0.74f, 1.0f, 1.22f),
+        new PlistAtlasAnimationSpec("Magmarstarhorn", "f5_altgeneral", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Wujin.prefab", 600, 4400, 0.72f, 1.0f, 1.2f),
+        new PlistAtlasAnimationSpec("Magmarragnora", "f5_3rdgeneral", "T5", 5, 4, "Assets/Prefabs/Unit/T4/Maehvmk.prefab", 620, 4200, 0.7f, 1.0f, 1.18f),
+        // --- ボス陣営 Abyssian(f4) の将3体（章7=base/章8=alt/章9=third）。仮名・stat暫定。 ---
+        new PlistAtlasAnimationSpec("Abyssallilithe", "f4_general", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Maehvmk.prefab", 600, 4500, 0.76f, 1.0f, 1.0f),
+        new PlistAtlasAnimationSpec("Abyssalcassyva", "f4_altgeneral", "T5", 5, 4, "Assets/Prefabs/Unit/T4/Maehvmk.prefab", 660, 4200, 0.74f, 1.0f, 1.0f),
+        new PlistAtlasAnimationSpec("Abyssalmaehv", "f4_3rdgeneral", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Maehvmk.prefab", 640, 4300, 0.72f, 1.0f, 1.0f),
+        // --- ボス陣営 Vetruvian(f3) の将3体（章10=base/章11=alt/章12=third）。仮名・stat暫定。 ---
+        new PlistAtlasAnimationSpec("Vetruvianzirix", "f3_general", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Solfist.prefab", 640, 4400, 0.74f, 1.0f, 0.95f),
+        new PlistAtlasAnimationSpec("Vetruviansajj", "f3_altgeneral", "T5", 5, 4, "Assets/Prefabs/Unit/T4/Solfist.prefab", 700, 4100, 0.72f, 1.0f, 0.95f),
+        new PlistAtlasAnimationSpec("Vetruvianscion", "f3_3rdgeneral", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Solfist.prefab", 680, 4200, 0.7f, 1.0f, 0.95f),
+        // --- CLAUDE_HANDOFF_CHAPTER20_BOSSES.md: 20章化に伴う中立ボス。reference/duelyst の neutral_* アトラスから生成。 ---
+        // 章2=rook / 章3=sister（序盤・cost4）/ 章13-18=Mechaz0r連章 / 章19=hydrax（終盤・cost5）。stat暫定（章スケールで補正）。
+        new PlistAtlasAnimationSpec("neutral_rook", "neutral_rook", "T4", 4, 1, "Assets/Prefabs/Unit/T4/Solfist.prefab", 300, 3000, 0.9f, 1.0f, 1.18f),
+        new PlistAtlasAnimationSpec("neutral_sister", "neutral_sister", "T4", 4, 4, "Assets/Prefabs/Unit/T4/Maehvmk.prefab", 280, 2300, 0.95f, 1.0f, 1.12f),
+        new PlistAtlasAnimationSpec("neutral_mechaz0rwing", "neutral_mechaz0rwing", "T5", 5, 4, "Assets/Prefabs/Unit/T4/Maehvmk.prefab", 560, 4200, 0.85f, 1.0f, 1.15f),
+        new PlistAtlasAnimationSpec("neutral_mechaz0rsword", "neutral_mechaz0rsword", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Wujin.prefab", 600, 4400, 0.8f, 1.0f, 1.18f),
+        new PlistAtlasAnimationSpec("neutral_mechaz0rsuper", "neutral_mechaz0rsuper", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Wujin.prefab", 720, 5400, 0.78f, 1.0f, 1.28f),
+        new PlistAtlasAnimationSpec("neutral_mechaz0rhelm", "neutral_mechaz0rhelm", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Solfist.prefab", 600, 4500, 0.82f, 1.0f, 1.14f),
+        new PlistAtlasAnimationSpec("neutral_mechaz0rchassis", "neutral_mechaz0rchassis", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Wujin.prefab", 580, 5000, 0.8f, 1.0f, 1.2f),
+        new PlistAtlasAnimationSpec("neutral_mechaz0rcannon", "neutral_mechaz0rcannon", "T5", 5, 4, "Assets/Prefabs/Unit/T4/Maehvmk.prefab", 640, 4300, 0.82f, 1.0f, 1.16f),
+        new PlistAtlasAnimationSpec("neutral_hydrax", "neutral_hydrax", "T5", 5, 1, "Assets/Prefabs/Unit/T4/Wujin.prefab", 680, 5200, 0.78f, 1.0f, 1.22f),
+        // --- 雑魚（弱い中立）。cost1・低ステ。ReservedGeneralで敵専用（ショップ非出現）。 ---
+        new PlistAtlasAnimationSpec("neutral_z0r", "neutral_z0r", "T1", 1, 1, "Assets/Prefabs/Unit/T1/Andromeda.prefab", 45, 320, 0.95f, 1.0f, 0.8f),
+        new PlistAtlasAnimationSpec("neutral_nip", "neutral_nip", "T1", 1, 1, "Assets/Prefabs/Unit/T1/Andromeda.prefab", 50, 300, 0.95f, 1.0f, 0.78f),
+        new PlistAtlasAnimationSpec("neutral_goldenmantella", "neutral_goldenmantella", "T1", 1, 1, "Assets/Prefabs/Unit/T1/Andromeda.prefab", 40, 360, 1.0f, 1.0f, 0.8f),
+        new PlistAtlasAnimationSpec("neutral_ion", "neutral_ion", "T1", 1, 4, "Assets/Prefabs/Unit/T1/Andromeda.prefab", 55, 280, 1.0f, 1.0f, 0.82f),
+        new PlistAtlasAnimationSpec("neutral_grincher", "neutral_grincher", "T1", 1, 1, "Assets/Prefabs/Unit/T1/Andromeda.prefab", 60, 340, 0.95f, 1.0f, 0.82f),
+        new PlistAtlasAnimationSpec("neutral_aer", "neutral_aer", "T1", 1, 4, "Assets/Prefabs/Unit/T1/Andromeda.prefab", 50, 300, 1.0f, 1.0f, 0.8f),
+        new PlistAtlasAnimationSpec("neutral_soboro", "neutral_soboro", "T1", 1, 1, "Assets/Prefabs/Unit/T1/Andromeda.prefab", 48, 330, 0.95f, 1.0f, 0.8f),
+        // --- 中ボス用 中立（ダイアログアイコン有）。cost3・中ステ。仲間化候補。 ---
+        new PlistAtlasAnimationSpec("neutral_beastmaster", "neutral_beastmaster", "T3", 3, 1, "Assets/Prefabs/Unit/T3/Shadowlord.prefab", 180, 1400, 0.9f, 1.0f, 1.0f),
+        new PlistAtlasAnimationSpec("neutral_gnasher", "neutral_gnasher", "T3", 3, 1, "Assets/Prefabs/Unit/T3/Shadowlord.prefab", 200, 1250, 0.88f, 1.0f, 0.95f),
+        new PlistAtlasAnimationSpec("neutral_rawr", "neutral_rawr", "T3", 3, 1, "Assets/Prefabs/Unit/T3/Shadowlord.prefab", 220, 1300, 0.9f, 1.0f, 0.95f),
+        new PlistAtlasAnimationSpec("neutral_rok", "neutral_rok", "T3", 3, 1, "Assets/Prefabs/Unit/T3/Shadowlord.prefab", 240, 1500, 0.86f, 1.0f, 1.05f),
+        new PlistAtlasAnimationSpec("neutral_silverbeak", "neutral_silverbeak", "T3", 3, 4, "Assets/Prefabs/Unit/T3/Shadowlord.prefab", 170, 1100, 0.95f, 1.0f, 0.95f),
+        new PlistAtlasAnimationSpec("neutral_zukong", "neutral_zukong", "T3", 3, 1, "Assets/Prefabs/Unit/T3/Shadowlord.prefab", 210, 1450, 0.88f, 1.0f, 1.0f),
+        // --- 同素体の別個体（色違いリカラー）。中ボスがルートで複数回出る時に別キャラとして使う。素体のstatをそのまま継承。 ---
+        new PlistAtlasAnimationSpec("neutral_beastmaster_crimson", "neutral_beastmaster_crimson", "T3", 3, 1, "Assets/Prefabs/Unit/T3/Shadowlord.prefab", 180, 1400, 0.9f, 1.0f, 1.0f),  // 傷鬣の獣戦士ロウガ
+        new PlistAtlasAnimationSpec("neutral_gnasher_ice", "neutral_gnasher_ice", "T3", 3, 1, "Assets/Prefabs/Unit/T3/Shadowlord.prefab", 200, 1250, 0.88f, 1.0f, 0.95f),       // 白符の屍爪メイリン
+        new PlistAtlasAnimationSpec("neutral_rok_steelblue", "neutral_rok_steelblue", "T3", 3, 1, "Assets/Prefabs/Unit/T3/Shadowlord.prefab", 240, 1500, 0.86f, 1.0f, 1.05f),       // 停足の番人オルム
+        new PlistAtlasAnimationSpec("neutral_rok_gold", "neutral_rok_gold", "T3", 3, 1, "Assets/Prefabs/Unit/T3/Shadowlord.prefab", 240, 1500, 0.86f, 1.0f, 1.05f),                  // 第二門の番牙ロク
+        new PlistAtlasAnimationSpec("neutral_rok_mossgreen", "neutral_rok_mossgreen", "T3", 3, 1, "Assets/Prefabs/Unit/T3/Shadowlord.prefab", 240, 1500, 0.86f, 1.0f, 1.05f),        // 門石のガロ
+        // --- 中ボス用 各陣営の非将（ch4-12用、ダイアログアイコン有）。cost4・中ステ。仲間化候補。 ---
+        new PlistAtlasAnimationSpec("Silitharelder", "f5_silitharelder", "T4", 4, 1, "Assets/Prefabs/Unit/T4/Wujin.prefab", 280, 2000, 0.86f, 1.0f, 1.05f),
+        new PlistAtlasAnimationSpec("Makantorwarbeast", "f5_mankatorwarbeast", "T4", 4, 1, "Assets/Prefabs/Unit/T4/Wujin.prefab", 320, 1900, 0.84f, 1.0f, 1.08f),
+        new PlistAtlasAnimationSpec("Veteransilithar", "f5_silitharveteran", "T4", 4, 1, "Assets/Prefabs/Unit/T4/Wujin.prefab", 300, 2100, 0.86f, 1.0f, 1.05f),
+        new PlistAtlasAnimationSpec("Gloomchaser", "f4_gloomchaser", "T4", 4, 4, "Assets/Prefabs/Unit/T4/Maehvmk.prefab", 260, 1700, 0.9f, 1.0f, 1.0f),
+        new PlistAtlasAnimationSpec("Abyssalcrawler", "f4_crawler", "T4", 4, 1, "Assets/Prefabs/Unit/T4/Maehvmk.prefab", 290, 1950, 0.86f, 1.0f, 1.0f),
+        new PlistAtlasAnimationSpec("Pax", "f3_pax", "T4", 4, 1, "Assets/Prefabs/Unit/T4/Solfist.prefab", 300, 2000, 0.86f, 1.0f, 1.0f),
+        new PlistAtlasAnimationSpec("Rae", "f3_rae", "T4", 4, 4, "Assets/Prefabs/Unit/T4/Solfist.prefab", 270, 1650, 0.9f, 1.0f, 0.95f),
+        new PlistAtlasAnimationSpec("Starfirescarab", "f3_starfirescarab", "T4", 4, 4, "Assets/Prefabs/Unit/T4/Solfist.prefab", 280, 1600, 0.9f, 1.0f, 0.95f),
+        new PlistAtlasAnimationSpec("Pyromancer", "f3_pyromancer", "T4", 4, 4, "Assets/Prefabs/Unit/T4/Solfist.prefab", 290, 1550, 0.9f, 1.0f, 0.95f)
     };
 
     [MenuItem("Tools/AutoChess/Build Listed Unit Animations")]
@@ -105,6 +186,24 @@ public static class UnitAnimationBuilder
         AssetDatabase.SaveAssets();
         AssetDatabase.Refresh();
         Debug.Log($"Built animation controllers for {builtCount}/{UnitSpecs.Length + PlistAtlasSpecs.Length} listed units.");
+    }
+
+    // 指定した名前のユニットだけビルドして DB をマージ更新する（新規追加ユニットの差分ビルド用）。
+    public static void BuildUnitsByNames(string[] names)
+    {
+        int built = 0;
+        foreach (PlistAtlasAnimationSpec spec in PlistAtlasSpecs)
+        {
+            if (!names.Contains(spec.UnitName, StringComparer.OrdinalIgnoreCase))
+                continue;
+            if (BuildPlistAtlasAnimationsInternal(spec))
+                built++;
+        }
+
+        SyncEntityDatabase();
+        AssetDatabase.SaveAssets();
+        AssetDatabase.Refresh();
+        Debug.Log($"Built {built} requested unit(s) and synced entity database.");
     }
 
     [MenuItem("Tools/AutoChess/Sync Entity Database")]
@@ -1220,9 +1319,18 @@ public static class UnitAnimationBuilder
             entries.Add(syncedEntry);
         }
 
+        // spec で管理していない既存エントリ（手動登録の Arcana / 中立 Zyx など）は温存する。
+        // これをしないと spec 由来のみで全置換され、未登録ユニットが DB から消える。
+        HashSet<string> specNames = new HashSet<string>(PlistAtlasSpecs.Select(s => s.UnitName), StringComparer.OrdinalIgnoreCase);
+        foreach (KeyValuePair<string, EntitiesDatabaseSO.EntityData> kv in existingEntries)
+        {
+            if (!specNames.Contains(kv.Key))
+                entries.Add(kv.Value);
+        }
+
         database.allEntities = entries;
         EditorUtility.SetDirty(database);
-        Debug.Log($"Entity database synced with {entries.Count} units.");
+        Debug.Log($"Entity database synced with {entries.Count} units (incl. {entries.Count - PlistAtlasSpecs.Length} preserved non-spec).");
     }
 
     private static Sprite LoadIconForSpec(PlistAtlasAnimationSpec spec)
@@ -1262,6 +1370,11 @@ public static class UnitAnimationBuilder
 
         if (string.Equals(unitName, "Borealjuggernaut", StringComparison.OrdinalIgnoreCase))
             yield return "Borealjuggernau";
+
+        // ヒーローはアイコンが接頭辞なし（Icon/Hero/Aldin.png 等）で用意されているため、
+        // "Hero" を外した名前も候補にする（HeroAldin→Aldin）。
+        if (!string.IsNullOrEmpty(unitName) && unitName.StartsWith("Hero", StringComparison.OrdinalIgnoreCase) && unitName.Length > 4)
+            yield return unitName.Substring(4);
     }
 
     private static Sprite LoadFrameForSpec(PlistAtlasAnimationSpec spec)
@@ -1431,7 +1544,10 @@ public static class UnitAnimationBuilder
             AttackSpeed = attackSpeed;
             MovementSpeed = movementSpeed;
             BaseScale = Mathf.Max(0.1f, baseScale);
-            SpriteFolder = $"Assets/Images/Units/Sprite/{tierFolder}/{unitName}";
+            // 中立(neutral_*)ユニットのスプライトは Assets/Images/Units/Neutral 配下にまとめる（ユーザー要望）。
+            SpriteFolder = unitName.StartsWith("neutral_")
+                ? $"Assets/Images/Units/Neutral/{unitName}"
+                : $"Assets/Images/Units/Sprite/{tierFolder}/{unitName}";
             PrefabPath = $"Assets/Prefabs/Unit/{tierFolder}/{unitName}.prefab";
             AtlasPath = $"{SpriteFolder}/{sourcePrefix}.png";
             PlistPath = $"{SpriteFolder}/{sourcePrefix}.plist";
@@ -1516,7 +1632,7 @@ public static class UnitAnimationBuilderAutoRunner
     {
         "Assets/Prefabs/Unit/T3/Wolfpunch.prefab",
         "Assets/Prefabs/Unit/T3/Shadowlord.prefab",
-        "Assets/Prefabs/Unit/T3/Tier2general.prefab",
+        "Assets/Prefabs/Unit/Hero/Tier2general.prefab",
         "Assets/Prefabs/Unit/T4/Snowchasermk.prefab",
         "Assets/Prefabs/Unit/T4/Solfist.prefab",
         "Assets/Prefabs/Unit/T4/Maehvmk.prefab"

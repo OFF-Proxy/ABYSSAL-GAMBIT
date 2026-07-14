@@ -30,6 +30,24 @@ public class DraggableItem : MonoBehaviour
         EnsureReferences();
     }
 
+    // ② アイテム効果はホバーするだけで表示する（クリック不要）。ドラッグ中は出さない。
+    private void OnMouseEnter()
+    {
+        if (isDragging || pointerDown)
+            return;
+        if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            return;
+        if (itemInstance != null && itemInstance.Data != null)
+            ItemTooltipUI.Show(itemInstance.Data, Input.mousePosition);
+    }
+
+    private void OnMouseExit()
+    {
+        if (isDragging)
+            return;
+        ItemTooltipUI.Hide();
+    }
+
     // マウスを押した瞬間の位置を覚えます。
     // 少し動くまではクリック扱いにして、効果説明を開けるようにしています。
     private void OnMouseDown()
@@ -71,6 +89,9 @@ public class DraggableItem : MonoBehaviour
         newPosition.z = 0f;
         transform.position = newPosition;
 
+        // ⑥ ドラッグ中、ホバー中のユニットを枠発光＋手前の重なりユニットを薄くする。
+        UpdateEquipHoverHighlight(FindEntityUnderPointer());
+
         if (GameManager.Instance == null)
             return;
 
@@ -111,7 +132,58 @@ public class DraggableItem : MonoBehaviour
             spriteRenderer.sortingOrder = oldSortingOrder;
 
         ClearHoveredTile();
+        ClearEquipHoverHighlight();
         isDragging = false;
+    }
+
+    // ⑥ ドラッグ中のホバー対象ユニットの発光と、手前で重なるユニットの減光を更新する。
+    private BaseEntity hoverHighlightUnit;
+    private readonly System.Collections.Generic.List<BaseEntity> dimmedUnits = new System.Collections.Generic.List<BaseEntity>();
+
+    private void UpdateEquipHoverHighlight(BaseEntity target)
+    {
+        if (target != hoverHighlightUnit)
+        {
+            ClearEquipHoverHighlight();
+            hoverHighlightUnit = target;
+        }
+        if (hoverHighlightUnit == null)
+            return;
+
+        hoverHighlightUnit.SetEquipDragHighlight(true);
+
+        // 手前(描画順が上)で重なるユニットを薄くする。毎フレーム作り直す。
+        for (int i = 0; i < dimmedUnits.Count; i++)
+            if (dimmedUnits[i] != null) dimmedUnits[i].SetOcclusionDim(false);
+        dimmedUnits.Clear();
+
+        if (hoverHighlightUnit.spriteRender == null)
+            return;
+        Bounds hb = hoverHighlightUnit.spriteRender.bounds;
+        int ho = hoverHighlightUnit.spriteRender.sortingOrder;
+        BaseEntity[] all = FindObjectsOfType<BaseEntity>();
+        for (int i = 0; i < all.Length; i++)
+        {
+            BaseEntity e = all[i];
+            if (e == null || e == hoverHighlightUnit || e.Team != Team.Team1 || e.spriteRender == null)
+                continue;
+            if (e.spriteRender.sortingOrder <= ho)
+                continue; // 手前（高い描画順）のみ対象
+            if (!e.spriteRender.bounds.Intersects(hb))
+                continue; // 重なっているものだけ
+            e.SetOcclusionDim(true);
+            dimmedUnits.Add(e);
+        }
+    }
+
+    private void ClearEquipHoverHighlight()
+    {
+        if (hoverHighlightUnit != null)
+            hoverHighlightUnit.SetEquipDragHighlight(false);
+        hoverHighlightUnit = null;
+        for (int i = 0; i < dimmedUnits.Count; i++)
+            if (dimmedUnits[i] != null) dimmedUnits[i].SetOcclusionDim(false);
+        dimmedUnits.Clear();
     }
 
     // クリックではなくドラッグだと確定したタイミングで、前面表示とSEを開始します。

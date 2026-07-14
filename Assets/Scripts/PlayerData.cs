@@ -190,11 +190,16 @@ public class PlayerData : Manager<PlayerData>
         return new RoundIncome(baseRoundIncome, interest);
     }
 
+    // 章スケールの開始ボーナス（GameManager がラン開始時に章に応じて設定）。
+    // 後半チャプターは少し強い状態で始められるようにする（序盤の確定負け対策 / C案）。
+    public static int PendingStartExtraLevels = 0;
+    public static int PendingStartExtraMoney = 0;
+
     // 新しい挑戦の開始時に、所持金・レベル・経験値をリセットします。
     public void ResetEconomyForNewRun()
     {
-        Money = startingMoney;
-        Level = 1;
+        Money = startingMoney + Mathf.Max(0, PendingStartExtraMoney);
+        Level = Mathf.Clamp(1 + Mathf.Max(0, PendingStartExtraLevels), 1, MaxLevel);
         Exp = 0;
         OnUpdate?.Invoke();
     }

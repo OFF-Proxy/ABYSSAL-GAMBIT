@@ -9,13 +9,12 @@ using UnityEngine.UI;
 // アイテム説明と同じく、必要になったタイミングで自動生成されます。
 public class SynergyTooltipUI : MonoBehaviour
 {
-    private const int CanvasSortingOrder = 50005;
-    private const int UnitIconColumns = 7;
-    private const int MaxUnitIcons = 21;
-    private const float UnitIconSize = 34f;
-    private const float UnitIconSpacing = 8f;
-    private static readonly Vector2 PanelSize = new Vector2(360f, 560f);
-    private static readonly Vector2 PointerOffset = new Vector2(18f, 18f);
+    private const int CanvasSortingOrder = 15005; // 16bit short上限(32767)内。
+    private const int UnitIconColumns = 6;
+    private const int MaxUnitIcons = 24;
+    private const float UnitIconSize = 44f;   // ③ ユニット判別性向上のためアイコンを拡大。
+    private const float UnitIconSpacing = 6f;
+    private static readonly Vector2 PanelSize = new Vector2(360f, 650f);
 
     private static SynergyTooltipUI instance;
     private static Sprite frameSprite;
@@ -40,12 +39,16 @@ public class SynergyTooltipUI : MonoBehaviour
     {
         if (type == SynergyType.None)
             return;
+        // HUD設定でツールチップOFFなら表示しない。
+        if (!SettingsStore.GetHud("tooltip"))
+            return;
 
-        ItemTooltipUI.Hide();
         EnsureInstance();
+        ItemTooltipUI.Hide();
+        CoinIncomePanelUI.Hide();
         instance.currentType = type;
         instance.ApplySynergy(type);
-        instance.MoveNearPointer(screenPosition);
+        instance.MoveToFixedPosition();
         instance.gameObject.SetActive(true);
         instance.PlayPanelAppear();
     }
@@ -75,6 +78,14 @@ public class SynergyTooltipUI : MonoBehaviour
     private void Update()
     {
         if (Input.GetMouseButtonDown(1) || Input.GetKeyDown(KeyCode.Escape))
+        {
+            Hide();
+            return;
+        }
+
+        // パネル外を左クリックしたら閉じる（パネル上のクリックは無視）。
+        if (Input.GetMouseButtonDown(0) &&
+            (panelRect == null || !RectTransformUtility.RectangleContainsScreenPoint(panelRect, Input.mousePosition, null)))
             Hide();
     }
 
@@ -125,7 +136,7 @@ public class SynergyTooltipUI : MonoBehaviour
         unitGridRect.anchorMax = new Vector2(0f, 1f);
         unitGridRect.pivot = new Vector2(0f, 1f);
         unitGridRect.anchoredPosition = new Vector2(24f, -428f);
-        unitGridRect.sizeDelta = new Vector2(312f, 104f);
+        unitGridRect.sizeDelta = new Vector2(312f, 210f);
     }
 
     // シナジー詳細を開いた時だけ、DOTweenで少し拡大しながら表示します。
@@ -329,11 +340,15 @@ public class SynergyTooltipUI : MonoBehaviour
 
         try
         {
+            // ③ カード絵（横長）の「顔」は中央ではなく上寄りにあることが多いので、
+            //    高さの約82%の正方形を、横は中央・縦は上端寄せ(上に少し余白)で切り出し、顔が主役になるようにする。
             Rect rect = source.textureRect;
-            float size = Mathf.Min(rect.width, rect.height);
+            float size = Mathf.Min(rect.width, rect.height * 0.82f);
+            float topMargin = rect.height * 0.04f;              // 頭頂が切れない程度の上余白。
+            float yTop = rect.y + rect.height - size - topMargin; // textureRectは左下原点。上端寄せ。
             Rect squareRect = new Rect(
                 rect.x + (rect.width - size) * 0.5f,
-                rect.y + (rect.height - size) * 0.5f,
+                Mathf.Max(rect.y, yTop),
                 size,
                 size);
 
@@ -392,8 +407,53 @@ public class SynergyTooltipUI : MonoBehaviour
         return string.Join("\n\n", lines);
     }
 
+    // 陣営シナジーの段階説明（1/3/5/7/10）。10は決定打。
+    private string GetFactionTierText(SynergyType type, int required, bool ja)
+    {
+        if (required == 10)
+            return ja ? "全能力を爆発的に強化（与ダメ+200%/被ダメ-50%/攻速+100%/スキル+100%/特大シールド）＝ほぼ確定クリア"
+                      : "Massive all-stats boost (DMG +200%, DR -50%, ATKSPD +100%, Skill +100%, huge shield) — near-guaranteed clear";
+        switch (type)
+        {
+            case SynergyType.Lyonar:
+                if (required == 1) return ja ? "味方の被ダメ-8%" : "Allies DR -8%";
+                if (required == 3) return ja ? "被ダメさらに-8%＋開幕シールド(最大HP8%)" : "DR -8% more + start shield";
+                if (required == 5) return ja ? "被ダメさらに-8%＋シールド増" : "DR -8% more + bigger shield";
+                return ja ? "被ダメさらに-10%＋シールド特大" : "DR -10% more + huge shield";
+            case SynergyType.Songhai:
+                if (required == 1) return ja ? "攻撃速度+10%" : "ATKSPD +10%";
+                if (required == 3) return ja ? "攻撃速度さらに+14%" : "ATKSPD +14% more";
+                if (required == 5) return ja ? "攻速+16%＋与ダメ+15%" : "ATKSPD +16% + DMG +15%";
+                return ja ? "攻速+25%＋与ダメ+25%" : "ATKSPD +25% + DMG +25%";
+            case SynergyType.Magmar:
+                if (required == 1) return ja ? "与ダメ+12%" : "DMG +12%";
+                if (required == 3) return ja ? "与ダメさらに+14%" : "DMG +14% more";
+                if (required == 5) return ja ? "与ダメ+18%＋攻速+12%" : "DMG +18% + ATKSPD +12%";
+                return ja ? "与ダメ+30%＋攻速+15%" : "DMG +30% + ATKSPD +15%";
+            case SynergyType.Vetruvian:
+                if (required == 1) return ja ? "スキル威力+15%" : "Skill +15%";
+                if (required == 3) return ja ? "スキル威力+15%＋開幕マナ+30" : "Skill +15% + mana +30";
+                if (required == 5) return ja ? "スキル威力+20%＋マナ+30" : "Skill +20% + mana +30";
+                return ja ? "スキル威力+35%＋マナ+50" : "Skill +35% + mana +50";
+            case SynergyType.Abyssian:
+                if (required == 1) return ja ? "与ダメ+12%" : "DMG +12%";
+                if (required == 3) return ja ? "与ダメ+10%＋被ダメ-6%" : "DMG +10% + DR -6%";
+                if (required == 5) return ja ? "与ダメ+14%＋被ダメ-8%" : "DMG +14% + DR -8%";
+                return ja ? "与ダメ+24%＋被ダメ-12%" : "DMG +24% + DR -12%";
+            case SynergyType.Vanar:
+                if (required == 1) return ja ? "被ダメ-10%" : "DR -10%";
+                if (required == 3) return ja ? "被ダメ-8%＋スキル威力+15%" : "DR -8% + skill +15%";
+                if (required == 5) return ja ? "被ダメ-10%＋スキル威力+20%" : "DR -10% + skill +20%";
+                return ja ? "被ダメ-12%＋スキル威力+30%" : "DR -12% + skill +30%";
+        }
+        return string.Empty;
+    }
+
     private List<int> GetTiers(SynergyType type)
     {
+        if (SynergyManager.IsFactionSynergy(type))
+            return new List<int> { 1, 3, 5, 7, 10 };
+
         if (type == SynergyType.Apex)
             return new List<int> { 1, 2, 3 };
 
@@ -409,6 +469,8 @@ public class SynergyTooltipUI : MonoBehaviour
     private string GetTierText(SynergyType type, int required)
     {
         bool ja = LocalizationManager.IsJapanese;
+        if (SynergyManager.IsFactionSynergy(type))
+            return GetFactionTierText(type, required, ja);
         switch (type)
         {
             case SynergyType.Warrior:
@@ -493,12 +555,13 @@ public class SynergyTooltipUI : MonoBehaviour
             ApplySynergy(currentType);
     }
 
-    private void MoveNearPointer(Vector2 screenPosition)
+    // シナジーパネル（左上, 右端≈162）の右隣・上寄せに固定表示します。
+    // panelRect は pivot=(0,0) なので anchoredPosition は左下角（スクリーンピクセル）。
+    private void MoveToFixedPosition()
     {
-        Vector2 targetPosition = screenPosition + PointerOffset;
-        targetPosition.x = Mathf.Clamp(targetPosition.x, 8f, Mathf.Max(8f, Screen.width - PanelSize.x - 8f));
-        targetPosition.y = Mathf.Clamp(targetPosition.y, 8f, Mathf.Max(8f, Screen.height - PanelSize.y - 8f));
-        panelRect.anchoredPosition = targetPosition;
+        float x = TooltipLayout.FixedPanelX;
+        float y = Mathf.Max(8f, Screen.height - TooltipLayout.FixedPanelTopMargin - PanelSize.y);
+        panelRect.anchoredPosition = new Vector2(x, y);
     }
 
     private static void LoadSprites()

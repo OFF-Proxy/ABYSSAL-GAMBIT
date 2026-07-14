@@ -20,5 +20,14 @@ public enum SynergyType
     Frenzy,
     Royal,
     Summoner,
-    Alchemy
+    Alchemy,
+    // アルカナ専用シナジー「終焉」。1体で常時発動し、盤面のBloodMage数に応じてアルカナ自身を強化します。
+    Finality,
+    // 陣営シナジー（DESIGN_R3-factions）。将来ユニットに割り当てる土台。閾値は標準(2/4/6)。
+    Lyonar,
+    Songhai,
+    Magmar,
+    Vetruvian,
+    Abyssian,
+    Vanar
 }
